@@ -59,54 +59,54 @@ typedef enum {
 				accum[accumIdx] = '\0';
 				
 				if (type == SVGPathSegmentTypeMoveTo) {
-					static int x;
+					static CGFloat x;
 					
 					if (currComponent == 0) {
-						x = atoi(accum);
+						x = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 1) {
-						CGPathMoveToPoint(path, NULL, x, atoi(accum));
+						CGPathMoveToPoint(path, NULL, x, atof(accum));
 						type = -1;
 					}
 				}
 				else if (type == SVGPathSegmentTypeLineTo) {
-					static int x;
+					static CGFloat x;
 					
 					if (currComponent == 0) {
-						x = atoi(accum);
+						x = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 1) {
-						CGPathAddLineToPoint(path, NULL, x, atoi(accum));
+						CGPathAddLineToPoint(path, NULL, x, atof(accum));
 						type = -1;
 					}
 				}
 				else if (type == SVGPathSegmentTypeCurve) {
-					static int x1, y1, x2, y2, x;
+					static CGFloat x1, y1, x2, y2, x;
 					
 					if (currComponent == 0) {
-						x1 = atoi(accum);
+						x1 = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 1) {
-						y1 = atoi(accum);
+						y1 = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 2) {
-						x2 = atoi(accum);
+						x2 = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 3) {
-						y2 = atoi(accum);
+						y2 = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 4) {
-						x = atoi(accum);
+						x = atof(accum);
 						currComponent++;
 					}
 					else if (currComponent == 5) {
-						CGPathAddCurveToPoint(path, NULL, x1, y1, x2, y2, x, atoi(accum));
+						CGPathAddCurveToPoint(path, NULL, x1, y1, x2, y2, x, atof(accum));
 						type = -1;
 					}
 				}
@@ -130,7 +130,7 @@ typedef enum {
 		else if (c == 'Z' || c == 'z') {
 			CGPathCloseSubpath(path);
 		}
-		else if ((c >= '0' && c <= '9') || c == '-') { // is digit?
+		else if ((c >= '0' && c <= '9') || c == '-' || c == '.') { // is digit?
 			accum[accumIdx++] = c;
 		}
 	}
