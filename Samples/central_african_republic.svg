@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="/home/tobias/Desktop/Flags"
+   sodipodi:docname="/home/tobias/Desktop/Flags/Central_African_Republic.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#0000ff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect554"
+     width="744.094482"
+     height="124.015747"
+     x="0.000000"
+     y="0.000023" />
+  <rect
+     style="font-size:12;fill:#ffff00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect551"
+     width="744.094482"
+     height="124.015747"
+     x="0.000000"
+     y="372.046998" />
+  <rect
+     style="font-size:12;fill:#009a00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect552"
+     width="744.094482"
+     height="124.015747"
+     x="0.000000"
+     y="248.031502" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect553"
+     width="744.094482"
+     height="124.015747"
+     x="0.000000"
+     y="124.015724" />
+  <rect
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect555"
+     width="124.015747"
+     height="496.063011"
+     x="0.000000"
+     y="0.000080"
+     transform="translate(310.0394,-1.525879e-5)" />
+  <polygon
+     sodipodi:type="star"
+     style="font-size:12;fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon558"
+     sodipodi:sides="5"
+     sodipodi:cx="123.873512"
+     sodipodi:cy="65.7655563"
+     sodipodi:r1="55.2036018"
+     sodipodi:r2="22.1687737"
+     sodipodi:arg1="0.93910545"
+     sodipodi:arg2="1.56659734"
+     points="156.472,110.317 123.967,87.9341 91.5764,110.535 102.819,72.7046 71.3145,48.8839 110.768,47.8855 123.687,10.5623 136.829,47.7761 176.317,48.5297 144.986,72.5275 156.472,110.317 " />
+</svg>

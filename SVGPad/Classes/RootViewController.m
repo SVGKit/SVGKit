@@ -16,9 +16,18 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	self = [super initWithCoder:aDecoder];
 	if (self) {
-		_sampleNames = [[NSArray alloc] initWithObjects:@"Monkey", @"Note", nil];
+		//_sampleNames = [[NSArray alloc] initWithObjects:@"Monkey", @"Note", nil];
+        NSArray* listOfSVGImages = [self getImages];
+        _sampleNames = [[NSArray alloc] initWithArray:listOfSVGImages];
 	}
 	return self;
+}
+
+-(NSArray*) getImages
+{
+    
+    NSArray *pngPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"svg" inDirectory:nil];
+    return pngPaths;
 }
 
 - (void)dealloc {
@@ -53,13 +62,22 @@
 									   reuseIdentifier:CellIdentifier] autorelease];
 	}
 	
-	cell.textLabel.text = [_sampleNames objectAtIndex:indexPath.row];
-	
+    NSString* filePath =  [_sampleNames objectAtIndex:indexPath.row];
+    NSURL* fileUrl = [NSURL fileURLWithPath:filePath];
+    NSArray* pathComponents = [fileUrl pathComponents];
+    NSString* fileName = (NSString*)[pathComponents lastObject];
+    cell.textLabel.text = fileName; 	
 	return cell;
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	_detailViewController.detailItem = [_sampleNames objectAtIndex:indexPath.row];
+    NSString* filePath =  [_sampleNames objectAtIndex:indexPath.row];
+    NSURL* fileUrl = [NSURL fileURLWithPath:filePath];
+    NSArray* pathComponents = [fileUrl pathComponents];
+    NSString* fileName = (NSString*)[pathComponents lastObject];
+ 
+
+	_detailViewController.detailItem = fileName;
 }
 
 @end

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="280mm"
+   height="140mm"
+   id="svg378"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/Regional/usa_bahamas.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/Regional"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base">
+    <sodipodi:guide
+       orientation="vertical"
+       position="314.120880"
+       id="guide565" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="526.735352"
+       id="guide566" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="64.7313309"
+       id="guide567" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="143.424316"
+       id="guide569" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="177.702667"
+       id="guide584" />
+  </sodipodi:namedview>
+  <defs
+     id="defs380" />
+  <rect
+     width="980.619728"
+     height="478.538276"
+     x="-990.007908"
+     y="-490.246416"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.789272pt;"
+     id="rect149"
+     transform="scale(-1.000000,-1.000000)" />
+  <rect
+     width="980.619728"
+     height="201.315253"
+     x="-990.007908"
+     y="-354.637802"
+     style="font-size:12;fill:#ffe900;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect601"
+     transform="scale(-1.000000,-1.000000)" />
+  <rect
+     width="980.619728"
+     height="159.512769"
+     x="-990.007908"
+     y="-490.246416"
+     style="font-size:12;fill:#08ced6;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect148"
+     transform="scale(-1.000000,-1.000000)" />
+  <rect
+     width="980.619728"
+     height="159.512769"
+     x="-990.007908"
+     y="-171.350045"
+     style="font-size:12;fill:#08ced6;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect585"
+     transform="scale(-1.000000,-1.000000)" />
+  <path
+     style="font-size:12;fill-rule:evenodd;stroke:none;stroke-width:1.4876pt;fill:#000000;fill-opacity:1;"
+     d="M -0.502711 -2.7578 C 1.85744 -2.7578 424.828 365.722 424.828 365.722 L -1.68279 742.849 L -0.502711 -2.7578 z "
+     id="path570"
+     sodipodi:nodetypes="cccc"
+     transform="matrix(0.922511,0.000000,0.000000,0.643115,9.388907,11.70821)" />
+</svg>

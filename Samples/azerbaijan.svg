@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+    <dc:title>New Zealand, Australia, United Kingdom, United States, 
+Bosnia and Herzegovina, Azerbaijan, Armenia, Bahamas, Belgium, Benin, 
+Bulgaria, Estonia, Finland, Gabon, Gambia, Germany, Greece, Greenland, 
+Guinea, Honduras, Israel, Jamaica, Jordan, and Romania Flags</dc:title>
+    <dc:rights><Agent>
+       <dc:title>Daniel McRae</dc:title>
+    </Agent></dc:rights>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+    <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   x="0"
+   y="0"
+   width="1000"
+   height="500"
+   id="svg618">
+  <defs
+     id="defs620" />
+  <g
+     transform="scale(8.333333,8.333333)"
+     style="font-size:12;"
+     id="g580">
+    <g
+       id="g646">
+      <rect
+         width="120.000000"
+         height="20"
+         x="0"
+         y="20"
+         style="fill:#cc3333;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect622" />
+      <rect
+         width="120.000000"
+         height="20"
+         x="0"
+         y="0"
+         style="fill:#0099cc;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect621" />
+      <rect
+         width="120.000000"
+         height="20"
+         x="0"
+         y="40.0000000"
+         style="fill:#009933;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect623" />
+    </g>
+    <g
+       id="g575">
+      <g
+         id="g638">
+        <path
+           d="M 66 30 C 66.004 34.968 61.9752 39 57.0072 39 C 52.0392 39.0079 48.004 34.9823 48 30.0143 C 47.9881 25.0463 52.0105 21.0079 56.9785 21 C 61.9465 20.9842 65.9881 25.0033 66 29.9713 C 66 29.9814 66 29.9899 66 30 z "
+           style="fill:#ffffff;stroke-width:1pt;"
+           id="path637" />
+        <path
+           d="M 66.5 30 C 66.5033 34.0848 63.1907 37.4 59.1059 37.4 C 55.0211 37.4065 51.7033 34.0966 51.7 30.0118 C 51.6902 25.927 54.9975 22.6065 59.0823 22.6 C 63.1671 22.587 66.4902 25.8916 66.5 29.9764 C 66.5 29.9847 66.5 29.9917 66.5 30 z "
+           style="fill:#cc3333;stroke-width:1pt;"
+           id="path636" />
+      </g>
+      <polygon
+         points="67,25 67.9567,27.6903 70.5355,26.4645 69.3097,29.0433 72,30 69.3097,30.9567 70.5355,33.5355 67.9567,32.3097 67,35 66.0433,32.3097 63.4645,33.5355 64.6903,30.9567 62,30 64.6903,29.0433 63.4645,26.4645 66.0433,27.6903 67,25 "
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon574" />
+    </g>
+  </g>
+</svg>

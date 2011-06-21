@@ -1,0 +1,5 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg height="140mm" width="280mm" viewBox="0 0 1 3" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h1v1h-1z" fill="red"/><path d="M0 1h1v1h-1z" fill="blue"/><path d="M0 2h1v1h-1z" fill="orange"/>
+</svg>

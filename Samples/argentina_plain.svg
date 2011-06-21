@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   width="554.28pt"
+   height="371.89pt"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/argentina.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g561"
+     transform="translate(-31.58711,-220.2279)">
+    <rect
+       style="font-size:12;fill:#00c4ff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect552"
+       width="677.877089"
+       height="151.049730"
+       x="37.969228"
+       y="229.797326" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect554"
+       width="677.877024"
+       height="151.049697"
+       x="37.969134"
+       y="380.231914" />
+    <rect
+       style="font-size:12;fill:#00c4ff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect555"
+       width="677.876958"
+       height="151.049697"
+       x="37.969053"
+       y="530.665882" />
+  </g>
+</svg>

@@ -13,5 +13,6 @@
 }
 
 @property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+-(NSArray*) getImages;
 
 @end

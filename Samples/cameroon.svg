@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="187mm"
+   height="140mm"
+   sodipodi:docbase="/home/sigge"
+   sodipodi:docname="/home/sigge/cameroon.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#fff000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect557"
+     width="219.841095"
+     height="492.935669"
+     x="441.047699"
+     y="3.127221" />
+  <rect
+     style="font-size:12;fill:#009811;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect558"
+     width="218.475647"
+     height="492.935669"
+     x="1.365461"
+     y="3.127195" />
+  <rect
+     style="font-size:12;fill:#c20000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect559"
+     width="222.572037"
+     height="492.935672"
+     x="219.841064"
+     y="3.127183" />
+  <path
+     style="fill:#ffef00;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 239.972 164.263 L 232.839 143.461 L 252.007 130.088 L 228.679 130.088 L 221.546 109.137 L 215.603 129.94 L 192.125 130.682 L 211.443 143.461 M 240.12 164.858 L 222.29 151.634 L 222.438 151.485 L 204.607 164.561 L 210.996 143.164 "
+     id="path556"
+     transform="matrix(1.957714,0.000000,0.000000,2.004727,-106.5234,-18.90928)"
+     sodipodi:nodetypes="cccccccccccc" />
+</svg>
