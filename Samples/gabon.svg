@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+    <dc:title>New Zealand, Australia, United Kingdom, United States, 
+Bosnia and Herzegovina, Azerbaijan, Armenia, Bahamas, Belgium, Benin, 
+Bulgaria, Estonia, Finland, Gabon, Gambia, Germany, Greece, Greenland, 
+Guinea, Honduras, Israel, Jamaica, Jordan, and Romania Flags</dc:title>
+    <dc:rights><Agent>
+       <dc:title>Daniel McRae</dc:title>
+    </Agent></dc:rights>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+    <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="299.999mm"
+   height="210mm"
+   id="svg378"
+   sodipodi:version="0.32-hydra1"
+   sodipodi:docname="/home/yemu/clipart/flags/gabon.svg"
+   sodipodi:docbase="/home/yemu/clipart/flags"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <rect
+     width="1062.989990"
+     height="744.094421"
+     x="-1062.989227"
+     y="-744.094467"
+     style="font-size:12;fill:#ffe700;fill-rule:evenodd;stroke:none;stroke-width:1.0247pt;fill-opacity:1;"
+     id="rect149"
+     transform="scale(-1.000000,-1.000000)" />
+  <rect
+     width="1062.989990"
+     height="248.031494"
+     x="-1062.989258"
+     y="-547.362320"
+     style="font-size:12;fill:#36a100;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
+     id="rect148"
+     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,0.000000,-299.3308)" />
+  <rect
+     width="1062.989990"
+     height="248.031494"
+     x="-1062.989258"
+     y="-1006.603210"
+     style="font-size:12;fill:#006dbc;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
+     id="rect585"
+     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,0.000000,-262.5088)" />
+</svg>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg3473"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/yemu/clipart/newnewnew"
+   sodipodi:docname="/home/yemu/clipart/newnewnew/nauru.svg">
+  <defs
+     id="defs3475" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     snaptogrid="false" />
+  <rect
+     style="font-size:12;fill:#002170;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect3478"
+     width="992.125977"
+     height="496.062988"
+     x="0"
+     y="-0.00001526"
+     sodipodi:fill-cmyk="(1 0.698276 0 0.560345)" />
+  <rect
+     style="font-size:12;fill:#ffb20d;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect3477"
+     width="992.125977"
+     height="42.419828"
+     x="0.000000"
+     y="226.821552"
+     sodipodi:fill-cmyk="(0 0.301724 0.948276 0)" />
+  <polygon
+     sodipodi:type="star"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="polygon3483"
+     sodipodi:sides="12"
+     sodipodi:cx="425.196838"
+     sodipodi:cy="344.100006"
+     sodipodi:r1="98.7090530"
+     sodipodi:r2="49.3545265"
+     sodipodi:arg1="1.12546420"
+     sodipodi:arg2="1.38726354"
+     points="467.717,433.182 434.204,392.626 417.479,442.507 408.735,390.628 369.31,425.464 387.676,376.163 336.115,386.62 376.671,353.107 326.79,336.382 378.669,327.638 343.833,288.213 393.133,306.579 382.677,255.018 416.189,295.574 432.915,245.693 441.659,297.572 481.084,262.736 462.718,312.037 514.279,301.58 473.722,335.093 523.604,351.818 471.725,360.562 506.561,399.987 457.26,381.621 467.717,433.182 "
+     transform="matrix(0.854205,-8.035164e-2,8.035165e-2,0.854205,-141.9173,91.91180)" />
+</svg>

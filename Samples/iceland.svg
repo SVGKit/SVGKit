@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="675"
+   height="486"
+   id="islenskifaninn"
+   sodipodi:version="0.29win"
+   sodipodi:docname="F:\iceland.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <rect
+     width="675"
+     height="486"
+     x="0"
+     y="0"
+     style="fill:#003897;fill-rule:evenodd;stroke-width:0pt;fill-opacity:1;"
+     id="blarfeldur" />
+  <path
+     d="M 0 189 L 189 189 L 189 0 L 297 0 L 297 189 L 675 189 L 675 297 L 297 297 L 297 486 L 189 486 L 189 297 L 0 297 L 0 189 z "
+     style="fill:#ffffff;fill-rule:evenodd;stroke-width:0pt;"
+     id="hviturkross"
+     fill-cmyk="(0 0 0 0)" />
+  <path
+     d="M 0 216 L 216 216 L 216 0 L 270 0 L 270 216 L 675 216 L 675 270 L 270 270 L 270 486 L 216 486 L 216 270 L 0 270 L 0 216 z "
+     style="fill:#d72828;fill-rule:evenodd;stroke-width:0pt;fill-opacity:1;"
+     id="raudurkross" />
+</svg>

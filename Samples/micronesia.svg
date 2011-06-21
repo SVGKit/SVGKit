@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg986"
+   sodipodi:version="0.33pre"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/yemu/clipart/newnewnew"
+   sodipodi:docname="/home/yemu/clipart/newnewnew/micronesia.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs988" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     snaptogrid="true">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="792.546631"
+       id="guide998" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="786.210144"
+       id="guide999" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="789.215881"
+       id="guide1000" />
+  </sodipodi:namedview>
+  <rect
+     style="font-size:12;fill:#6797d6;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect1390"
+     width="992.125977"
+     height="496.062988"
+     x="0"
+     y="-0.00001526" />
+  <polygon
+     points="591.041,433.161 533.774,391.476 476.501,433.151 498.449,365.806 441.115,324.214 511.946,324.278 533.785,256.897 555.613,324.281 626.445,324.23 569.104,365.812 591.041,433.161 "
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="polygon1351"
+     transform="matrix(0.548832,0.000000,0.000000,0.516507,202.9095,-83.04544)" />
+  <polygon
+     points="591.041,433.161 533.774,391.476 476.501,433.151 498.449,365.806 441.115,324.214 511.946,324.278 533.785,256.897 555.613,324.281 626.445,324.23 569.104,365.812 591.041,433.161 "
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="polygon1387"
+     transform="matrix(0.548832,0.000000,0.000000,-0.516507,202.9095,580.1127)" />
+  <polygon
+     points="591.041,433.161 533.774,391.476 476.501,433.151 498.449,365.806 441.115,324.214 511.946,324.278 533.785,256.897 555.613,324.281 626.445,324.23 569.104,365.812 591.041,433.161 "
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="polygon1388"
+     transform="matrix(0.524851,-0.160463,0.151012,0.493938,5.498581,159.0778)" />
+  <polygon
+     points="591.041,433.161 533.774,391.476 476.501,433.151 498.449,365.806 441.115,324.214 511.946,324.278 533.785,256.897 555.613,324.281 626.445,324.23 569.104,365.812 591.041,433.161 "
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="polygon1389"
+     transform="matrix(-0.524851,-0.160463,-0.151012,0.493938,986.1252,159.0778)" />
+</svg>

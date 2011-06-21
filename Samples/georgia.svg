@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg572"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="187mm"
+   height="140mm"
+   sodipodi:docbase="/home/sigge"
+   sodipodi:docname="/home/sigge/georgia.svg">
+  <defs
+     id="defs574" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#960000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect575"
+     width="658.987122"
+     height="494.240387"
+     x="0.631264"
+     y="1.139701" />
+  <rect
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect577"
+     width="292.509613"
+     height="84.054512"
+     x="1.313973"
+     y="1.088295" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect578"
+     width="292.509613"
+     height="84.054512"
+     x="0.631261"
+     y="85.194252" />
+</svg>

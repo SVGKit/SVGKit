@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Guam's Flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Andrew Duhan</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+
+-->
+
+
+<svg
+   id="svg780"
+   sodipodi:version="0.32"
+   width="500pt"
+   height="250pt"
+   sodipodi:docbase="/home/andrew/sodipodi-flags/work/"
+   sodipodi:docname="/home/andrew/sodipodi-flags/work/guam.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs782" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect784"
+     width="624.999939"
+     height="312.500000"
+     x="0.000000"
+     y="-0.000013" />
+  <rect
+     style="font-size:12;fill:#3b5aa3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect785"
+     width="600.000000"
+     height="287.500000"
+     x="12.500000"
+     y="12.500010" />
+  <path
+     style="fill:#cbe0e5;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 310.347 245.378 C 311.602 246.037 313.587 246.002 314.704 245.43 C 386.055 209.075 386.093 109.376 314.808 73.5281 C 313.484 72.8598 311.559 72.896 310.243 73.58 C 240.718 110.014 240.527 208.585 310.347 245.378 z "
+     id="path794"
+     sodipodi:nodetypes="cssss"
+     transform="matrix(0.884193,0.000000,0.000000,0.923133,35.74547,12.15313)" />
+  <path
+     style="fill:#add2d9;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 310.347 245.378 C 311.456 246.244 313.693 246.161 314.704 245.43 C 367.282 207.726 367.591 184.223 365.26 184.224 L 261.199 184.276 C 259.608 184.277 262.116 208.135 310.347 245.378 z "
+     id="path798"
+     sodipodi:nodetypes="cssss"
+     transform="matrix(0.884193,0.000000,0.000000,0.923133,35.74547,13.81302)" />
+  <path
+     style="fill:#fdf9a1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 273.981 201.125 C 277.97 200.087 282.789 199.813 286.715 201.91 C 290.203 203.733 292.224 203.715 295.982 203.765 C 299.915 203.818 303.007 206.708 307.26 206.821 C 315.09 207.026 318.39 210.909 312.302 210.917 C 309.424 210.921 303.255 208.999 300.278 209.412 C 294.057 210.054 290.11 211.431 284.256 217.942 L 291.022 222.578 C 296.874 220.193 297.855 217.51 301.095 217.403 C 304.756 217.285 306 215.017 310.233 215.012 C 315.043 215.886 321.558 214.415 325.374 213.56 C 332.143 211.986 328.923 207.256 324.82 205.541 C 321.503 204.129 315.293 205.489 311.437 204.088 C 308.518 202.955 310.92 201.133 312.487 200.744 C 314.071 200.452 315.77 200.97 317.74 201.287 C 321.257 201.591 325.674 201.253 328.762 200.769 C 335.146 199.78 334.877 197.908 337.96 197.858 C 340.208 197.75 341.919 197.078 343.45 195.978 C 345.25 194.773 347.122 192.303 349.303 192.396 L 355.143 192.644 L 346.917 211.143 L 323.679 234.796 L 311.644 239.361 L 285.19 222.14 L 271.85 201.679 L 273.981 201.125 z "
+     id="path799"
+     sodipodi:nodetypes="csssssccsssssssssssccccccs" />
+  <path
+     style="fill:#179a3b;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 304.382 181.887 L 357.499 181.68 L 358.433 177.738 C 358.433 177.738 356.538 177.501 355.009 177.426 C 353.102 177.328 349.833 179.097 347.643 179.086 C 346.094 179.077 344.319 176.755 342.768 176.803 C 340.061 176.782 339.82 178.823 337.269 178.879 C 335.21 178.82 334.333 177.503 331.667 177.634 C 328.871 177.766 329.079 179.055 325.547 178.982 C 320.882 178.884 319.008 175.493 315.276 175.455 C 309.046 175.393 308.843 180.435 304.382 181.887 z "
+     id="path803"
+     sodipodi:nodetypes="cccsssssssc"
+     transform="matrix(1.000000,0.000000,0.000000,1.193868,0.000000,-34.01508)" />
+  <path
+     style="fill:#fdf9a1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 304.382 184.066 L 359.055 183.755 L 359.055 182.095 L 303.138 182.406 L 304.382 184.066 z "
+     id="path802"
+     transform="matrix(1.000000,0.000000,0.000000,0.894727,0.000000,19.58473)" />
+  <path
+     style="fill:#a79270;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 326.852 200.702 C 327.694 203.931 328.582 205.029 331.978 205.852 C 335.332 206.677 340.449 203.407 337.269 200.25 C 334.241 197.313 331.059 196.567 328.347 193.922 C 322.638 188.282 314.037 174.463 314.029 164.717 C 314.022 156.348 313.215 139.171 313.209 122.901 C 313.213 121.847 310.03 125.857 310.035 126.928 C 310.181 141.281 310.159 152.129 310.742 166.602 C 311.646 177.182 316.695 184.306 321.128 190.736 C 323.114 193.817 325.985 197.14 326.852 200.702 z "
+     id="path804"
+     sodipodi:nodetypes="csssssssss" />
+  <text
+     style="fill:#bd0728;stroke:#ffffff;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:0.767594;stroke-linejoin:miter;stroke-linecap:butt;stroke-dasharray:none;"
+     x="217.906720"
+     y="126.255211"
+     id="text807"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan808"
+       style="fill:#bd0728;fill-opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-width:0.767594;stroke-dasharray:none;">
+G</tspan>
+  </text>
+  <text
+     style="fill:#bd0728;stroke:#ffffff;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:0.767594;stroke-linejoin:miter;stroke-linecap:butt;stroke-dasharray:none;"
+     x="228.659373"
+     y="126.311186"
+     id="text810"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan811"
+       style="fill:#bd0728;fill-opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-width:0.767594;stroke-dasharray:none;">
+U</tspan>
+  </text>
+  <text
+     style="fill:#bd0728;stroke:#ffffff;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:0.767594;stroke-linejoin:miter;stroke-linecap:butt;stroke-dasharray:none;"
+     x="241.771891"
+     y="126.303449"
+     id="text816"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan817"
+       style="fill:#bd0728;fill-opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-width:0.767594;stroke-dasharray:none;">
+A</tspan>
+  </text>
+  <text
+     style="fill:#bd0728;stroke:#ffffff;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:0.767594;stroke-linejoin:miter;stroke-linecap:butt;stroke-dasharray:none;"
+     x="252.771920"
+     y="126.280761"
+     id="text819"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan820"
+       style="fill:#bd0728;fill-opacity:1;stroke:#ffffff;stroke-opacity:1;stroke-width:0.767594;stroke-dasharray:none;">
+M</tspan>
+  </text>
+  <path
+     style="fill:#239e46;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 285.761 123.428 C 285.054 124.792 287.416 123.03 287.951 122.84 C 291.012 121.751 292.211 117.884 297.484 120.212 C 301.635 122.005 307.207 120.963 304.294 122.779 C 300.695 124.933 293.527 127.32 293.386 138.004 C 293.985 139.049 294.028 138.884 294.529 137.764 C 295.618 135.274 300.813 128.511 303.384 129.074 C 304.419 129.342 307.458 126.018 307.529 126.967 C 307.804 129.635 303.402 135.032 303.449 142.257 C 303.46 143.93 305.518 144.472 306.51 143.295 C 307.496 142.257 308.051 141.184 309.778 139.82 C 312.831 137.315 311.988 126.691 312.365 127.19 C 314.526 129.988 314.858 137.879 318.077 141.116 C 320.752 143.806 322.915 142.518 322.331 138.782 C 321.169 131.293 317.629 133.434 315.944 125.688 C 315.602 124.179 315.518 122.816 317.515 123.447 C 319.957 124.155 321.39 125.289 323.212 128.044 C 325.033 130.671 328.448 133.189 330.422 134.735 C 333.865 137.381 335.074 135.071 333.431 131.675 C 331.612 127.865 327.512 124.706 323.783 123.324 C 320.958 122.348 319.951 122.255 317.462 121.777 C 316.77 121.63 316.055 120.213 317.285 119.43 C 319.921 117.819 323.075 115.999 326.273 115.907 C 329.352 115.829 331.791 118.297 333.95 118.915 C 338.256 120.044 338.234 117.311 336.336 115.284 C 334.777 113.572 331.479 110.702 328.4 111.083 C 322.188 111.845 322.58 111.671 318.769 114.199 C 317.371 115.023 315.819 115.932 316.398 114.933 C 317.792 112.425 316.493 112.856 318.647 110.304 C 320.322 108.434 321.552 107.088 323.212 106.621 C 324.789 106.241 326.872 104.566 327.517 103.716 C 329.064 101.576 327.73 100.354 325.339 101.071 C 323.264 101.642 322.148 103.023 320.722 103.405 C 317.376 104.459 314.676 112.114 314.264 113.199 C 313.731 114.494 313.141 113.852 313.25 112.755 C 313.733 107.35 314.19 98.3006 312.281 94.5748 C 309.408 89.0816 309.674 91.6432 308.571 94.2498 C 306.91 98.3909 307.487 102.251 308.533 106.31 C 308.99 108.336 310.687 110.641 310.991 112.231 C 311.21 113.48 310.266 111.842 309.717 111.093 C 307.913 108.332 306.594 106.465 303.656 104.962 C 301.649 103.691 296.242 103.52 294.36 104.099 C 293.545 104.35 295.264 105.513 295.992 106.091 C 297.962 107.657 301.695 108.145 304.207 109.689 C 306.364 111.015 308.006 111.868 308.721 113.701 C 309.019 115.062 309.461 117.082 308.564 117.033 C 306.211 116.898 302.554 114.862 295.046 115.699 C 291.212 116.206 287.883 119.486 285.761 123.428 z "
+     id="path805"
+     sodipodi:nodetypes="csssssssssssssssssssssssssssssssssssssssssssssss" />
+  <rect
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect806"
+     width="2.178589"
+     height="3.631027"
+     x="302.125126"
+     y="192.105515" />
+  <path
+     style="fill:#fdf9ff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 291.311 167.918 C 299.95 179.88 313.797 186.854 314.074 192.287 C 305.325 192.252 295.842 192.291 287.093 192.257 C 293.292 184.804 297.07 179.772 291.311 167.918 z "
+     id="path800"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="fill:#a68861;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 283.453 192.56 C 295.19 195.177 309.202 196.619 318.152 192.194 C 318.225 194.81 315.242 198.576 312.796 198.576 L 290.275 198.576 C 292.891 198.201 294.383 197.403 298.639 197.182 L 286.682 197.329 C 285.361 197.378 283.013 193.831 283.453 192.56 z "
+     id="path801"
+     sodipodi:nodetypes="ccscccc" />
+  <path
+     style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     d="M 310.071 244.653 C 311.264 245.307 313.15 245.272 314.212 244.705 C 382.021 208.612 382.057 109.634 314.311 74.0458 C 313.052 73.3823 311.223 73.4183 309.972 74.0973 C 243.898 110.268 243.717 208.126 310.071 244.653 z M 310.408 236.505 C 311.45 237.082 313.096 237.052 314.023 236.55 C 370.784 203.145 371.479 114.894 314.109 83.2591 C 313.011 82.4526 311.414 82.7052 310.322 83.3046 C 255.96 115.453 252.928 200.064 310.408 236.505 z "
+     id="path797"
+     sodipodi:nodetypes="cccccccccc" />
+  <text
+     style="fill:#bd0728;stroke:none;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     x="217.906720"
+     y="126.255211"
+     id="text823"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan824"
+       style="fill:#bd0728;fill-opacity:1;stroke:none;stroke-opacity:1;">
+G</tspan>
+  </text>
+  <text
+     style="fill:#bd0728;stroke:none;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     x="228.659373"
+     y="126.311186"
+     id="text826"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan827"
+       style="fill:#bd0728;fill-opacity:1;stroke:none;stroke-opacity:1;">
+U</tspan>
+  </text>
+  <text
+     style="fill:#bd0728;stroke:none;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     x="241.771891"
+     y="126.303449"
+     id="text829"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan830"
+       style="fill:#bd0728;fill-opacity:1;stroke:none;stroke-opacity:1;">
+A</tspan>
+  </text>
+  <text
+     style="fill:#bd0728;stroke:none;font-family:helvetica;font-style:normal;font-weight:normal;font-size:12px;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     x="252.771920"
+     y="126.280761"
+     id="text832"
+     transform="scale(1.302772,1.302773)">
+    <tspan
+       id="tspan833"
+       style="fill:#bd0728;fill-opacity:1;stroke:none;stroke-opacity:1;">
+M</tspan>
+  </text>
+</svg>

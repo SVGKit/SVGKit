@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="280mm"
+   height="140mm"
+   id="svg378"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/hungary.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <g
+     id="g554"
+     transform="matrix(0.933050,0.000000,0.000000,0.667379,-4.903588e-5,2.288818e-5)">
+    <rect
+       width="1062.989990"
+       height="744.094421"
+       x="-1062.989227"
+       y="-744.094467"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1.0247pt;fill-opacity:1;"
+       id="rect149"
+       transform="scale(-1.000000,-1.000000)" />
+    <rect
+       width="1062.989990"
+       height="248.031494"
+       x="-1062.989258"
+       y="-744.094498"
+       style="font-size:12;fill:#388d00;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
+       id="rect148"
+       transform="scale(-1.000000,-1.000000)" />
+    <rect
+       width="1062.989990"
+       height="248.031494"
+       x="-1062.989258"
+       y="-248.232300"
+       style="font-size:12;fill:#d43516;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
+       id="rect585"
+       transform="scale(-1.000000,-1.000000)" />
+  </g>
+</svg>

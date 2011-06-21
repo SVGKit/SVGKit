@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="140mm"
+   height="140mm"
+   id="svg378"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:version="0.33pre"
+   sodipodi:docname="/hg/u/pfrauenf/suisse-square.svg"
+   sodipodi:docbase="/hg/u/pfrauenf">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380">
+    <linearGradient
+       id="linearGradient560">
+      <stop
+         style="stop-color:#000;stop-opacity:1;"
+         offset="0"
+         id="stop561" />
+      <stop
+         style="stop-color:#fff;stop-opacity:1;"
+         offset="1"
+         id="stop562" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient560"
+       id="linearGradient563" />
+  </defs>
+  <rect
+     width="496.062988"
+     height="496.062958"
+     x="0.000000"
+     y="0.000009"
+     style="font-size:12;fill:#fa000b;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <rect
+     style="font-size:12;fill:#808080;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect554"
+     width="0.79385376"
+     height="0"
+     x="338.981903"
+     y="183.120010" />
+  <rect
+     style="font-size:12;fill:#808080;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect555"
+     width="3.96936035"
+     height="39.6934509"
+     x="1071.72253"
+     y="272.033264" />
+  <g
+     id="g566"
+     transform="matrix(0.700000,0.000000,0.000000,0.700000,-124.0158,6.332397e-4)">
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect557"
+       width="442.913422"
+       height="132.874054"
+       x="310.039407"
+       y="287.893097" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect565"
+       width="132.874008"
+       height="442.913391"
+       x="465.059021"
+       y="132.873611" />
+  </g>
+</svg>

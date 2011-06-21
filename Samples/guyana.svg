@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   width="233mm"
+   height="140mm"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/guyana.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="false"
+     snaptogrid="false"
+     gridspacingx="11mm"
+     gridoriginy="-4mm"
+     gridspacingy="11mm"
+     gridoriginx="-1mm" />
+  <g
+     id="g563"
+     transform="matrix(0.982748,0.000000,0.000000,1.059601,-5.762370e-2,-6.158447e-2)">
+    <rect
+       style="font-size:12;fill:#399408;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect672"
+       width="840.365356"
+       height="466.668936"
+       x="-0.122824"
+       y="3.893368" />
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:none;stroke-width:1.22603pt;fill:#ffffff;fill-opacity:1;"
+       d="M -1.79978e-16 -4.44089e-14 C -0.671943 0.0904985 498.479 233.445 498.479 233.445 L 3.73581 487.275 L -1.79978e-16 -4.44089e-14 z "
+       id="path555"
+       sodipodi:nodetypes="cccc"
+       transform="matrix(1.650801,2.290420e-2,-1.312717e-2,0.962942,-3.110603,1.032967)" />
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:none;stroke-width:1.22603pt;fill:#ffde08;fill-opacity:1;"
+       d="M 5.76796e-17 2.18159e-14 C 3.13303 2.18159e-14 506.092 241.604 503.226 243.978 L 1.43274 491.315 L 5.76796e-17 2.18159e-14 z "
+       id="path671"
+       sodipodi:nodetypes="cccc"
+       transform="matrix(1.461639,0.000000,0.000000,0.882157,-2.961578,20.77856)" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 1.7855 -2.19075 C 3.8698 -2.19075 330.013 244.345 330.013 244.345 L 1.7855 485.109 L 1.7855 -2.19075 z "
+       id="path556"
+       sodipodi:nodetypes="cccc"
+       transform="matrix(1.172861,0.000000,0.000000,0.955906,-2.961569,3.893456)" />
+    <path
+       style="fill:#de2110;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 1.32706e-16 -7.82632 C 2.0843 -26.0877 328.024 246.117 328.024 246.117 L -3.11493e-06 501.28 L 1.32706e-16 -7.82632 z "
+       id="path670"
+       sodipodi:nodetypes="cccc"
+       transform="matrix(1.052434,0.000000,0.000000,0.802735,-2.961569,40.47785)" />
+  </g>
+</svg>

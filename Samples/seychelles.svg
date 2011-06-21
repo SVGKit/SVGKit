@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Seychelles flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Russell Cloran</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="992.125977"
+   height="496.062988"
+   id="svg548">
+  <defs
+     id="defs550" />
+  <rect
+     width="992.125977"
+     height="496.062897"
+     x="0.00000000"
+     y="-0.00013200"
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect551" />
+  <path
+     d="M 0 531.496 L 1062.99 354.331 L 1062.99 531.496 L 0 531.496 z "
+     transform="matrix(0.933333,0.000000,0.000000,0.933334,0.000000,-1.525879e-5)"
+     style="font-size:12;fill:#009900;fill-rule:evenodd;stroke-width:1pt;"
+     id="path552" />
+  <path
+     d="M 0 531.496 L 1062.99 177.165 L 1062.99 354.331 L 0 531.496 z "
+     transform="matrix(0.933333,0.000000,0.000000,0.933334,0.000000,-1.525879e-5)"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="path553" />
+  <path
+     d="M 0 531.496 L 0 1.92624e-14 L 354.331 1.92624e-14 L 0 531.496 z "
+     transform="matrix(0.933333,0.000000,0.000000,0.933334,0.000000,-1.525879e-5)"
+     style="font-size:12;fill:#000099;fill-rule:evenodd;stroke-width:1pt;"
+     id="path554" />
+  <path
+     d="M 0 531.496 L 354.331 1.92624e-14 L 708.661 1.92624e-14 L 0 531.496 z "
+     transform="matrix(0.933333,0.000000,0.000000,0.933334,0.000000,-1.525879e-5)"
+     style="font-size:12;fill:#ffff00;fill-rule:evenodd;stroke-width:1pt;"
+     id="path555" />
+</svg>

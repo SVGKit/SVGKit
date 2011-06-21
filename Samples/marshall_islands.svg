@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of the Marshall Islands' Flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Andrew Duhan</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+
+-->
+
+
+<svg
+   id="svg650"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="500pt"
+   height="250pt"
+   sodipodi:docbase="/home/andrew/sodipodi-flags/work"
+   sodipodi:docname="/home/andrew/sodipodi-flags/work/marshall_islands.svg">
+  <defs
+     id="defs652" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#3b5aa3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect659"
+     width="625.000000"
+     height="312.500000"
+     x="0.000000"
+     y="-0.000008" />
+  <path
+     style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 128.816 12.3874 L 124.845 77.0296 L 107.86 35.8061 L 114.376 79.6859 L 88.0704 44.2263 L 105.313 84.6859 L 70.766 57.8865 L 97.6569 91.561 L 58.6053 74.255 L 92.8131 100.155 L 50.2671 94.5297 L 90.4694 110.467 L 27.3645 116.239 L 90.6256 120.467 L 50.54 136.948 L 92.6569 131.249 L 58.5752 156.415 L 98.1257 139.061 L 71.1496 173.014 L 105.469 147.03 L 88.4666 186.579 L 115.938 152.186 L 108.502 195.058 L 125.782 154.999 L 129.688 218.281 L 135.782 155.155 L 150.681 195.458 L 145.001 152.03 L 172.337 186.453 L 154.376 146.249 L 188.681 173.917 L 161.407 139.374 L 202.179 156.35 L 166.095 129.999 L 210.039 137.407 L 167.97 121.249 L 233.403 117.186 L 167.97 111.092 L 211.039 96.7362 L 166.407 102.342 L 203.283 76.5608 L 161.72 93.2797 L 190.424 58.4815 L 155.47 85.7797 L 172.29 44.0149 L 145.157 79.5296 L 150.985 35.238 L 134.845 77.0296 L 128.816 12.3874 z "
+     id="path656"
+     sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccc" />
+  <path
+     style="fill:#e2ae57;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M -0.0199905 304.069 L 625.02 -0.0199318 L 624.989 56.5656 L -0.0199905 312.48 L -0.0199905 304.069 z "
+     id="path655"
+     sodipodi:nodetypes="ccccc"
+     transform="translate(1.999050e-2,1.998901e-2)" />
+  <path
+     style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 21.8562 312.466 L 625.098 116.66 L 624.963 54.4987 L -0.0199905 312.48 L 21.8562 312.466 z "
+     id="path654"
+     sodipodi:nodetypes="ccccc"
+     transform="translate(1.999050e-2,1.998901e-2)" />
+</svg>

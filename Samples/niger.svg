@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="163.6mm"
+   height="140mm"
+   id="svg378"
+   sodipodi:version="0.33pre"
+   sodipodi:docname="/home/yemu/clipart/newnewnew/niger.svg"
+   sodipodi:docbase="/home/yemu/clipart/newnewnew"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <g
+     id="g2490"
+     transform="matrix(0.779048,0.000000,0.000000,1.000000,6.504310e-4,-248.0314)">
+    <rect
+       width="744.094377"
+       height="496.062958"
+       x="-744.093523"
+       y="-744.094406"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1.0247pt;fill-opacity:1;"
+       id="rect149"
+       transform="scale(-1.000000,-1.000000)" />
+    <rect
+       width="744.094377"
+       height="165.354340"
+       x="-744.093645"
+       y="-413.385727"
+       style="font-size:12;fill:#ff7000;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
+       id="rect148"
+       transform="scale(-1.000000,-1.000000)" />
+    <rect
+       width="744.094377"
+       height="165.354340"
+       x="-744.093645"
+       y="-744.094406"
+       style="font-size:12;fill:#36a100;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
+       id="rect585"
+       transform="scale(-1.000000,-1.000000)" />
+  </g>
+  <path
+     sodipodi:type="arc"
+     style="fill-rule:evenodd;stroke:none;fill:#ff7000;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     id="path578"
+     d="M 580.677307 372.841766 A 69.808197 69.808197 0 1 0 441.060913,372.841766 A 69.8082 69.8082 0 1 0 580.677 372.842 L 510.869110 372.841766 z"
+     sodipodi:cx="510.869110"
+     sodipodi:cy="372.841766"
+     sodipodi:rx="69.808197"
+     sodipodi:ry="69.808197"
+     transform="matrix(0.685230,0.000000,0.000000,0.685230,-60.22031,-7.450882)" />
+</svg>

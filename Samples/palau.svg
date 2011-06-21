@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg704"
+   sodipodi:version="0.32"
+   width="242pt"
+   height="140pt"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/palau.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs706" />
+  <sodipodi:namedview
+     id="base"
+     snaptogrid="false"
+     showgrid="true"
+     gridspacingx="10mm"
+     gridspacingy="10mm" />
+  <rect
+     style="font-size:12;fill:#4aadd6;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect721"
+     width="744.094482"
+     height="496.062988"
+     x="0"
+     y="-0.00001526"
+     transform="matrix(0.404762,0.000000,0.000000,0.344350,0.000000,4.180889)" />
+  <path
+     sodipodi:type="arc"
+     style="font-size:12;fill:#ffde00;fill-rule:evenodd;stroke-width:1pt;"
+     id="path719"
+     d="M 372.722473 248.931793 A 125.591278 125.591278 0 1 0 121.539917,248.931793 A 125.591 125.591 0 1 0 372.722 248.932 L 247.131195 248.931793 z"
+     sodipodi:cx="247.131195"
+     sodipodi:cy="248.931793"
+     sodipodi:rx="125.591278"
+     sodipodi:ry="125.591278"
+     transform="matrix(0.422448,0.000000,0.000000,0.404534,28.40659,-13.91720)" />
+</svg>

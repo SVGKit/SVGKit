@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   width="700pt"
+   height="398.85pt"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/dannebrog-split.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     snaptogrid="true"
+     gridspacingy="1cm"
+     gridspacingx="1cm"
+     showgrid="true"
+     gridtolerance="1cm"
+     showborder="false" />
+  <rect
+     style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     id="rect9"
+     x="0.000000"
+     y="804.330688"
+     width="480.234009"
+     height="248.031494" />
+  <g
+     id="g598"
+     transform="matrix(1.983868,0.000000,0.000000,1.983868,4.759624,-1588.643)">
+    <path
+       style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+       d="M 0.00063446 -931.892 L 0.00063446 1052.36 L 3791.34 1052.36 L 2196.85 201.969 L 2196.85 -81.496 L 3791.34 -931.892 L 0.00063446 -931.892 z "
+       id="path568"
+       sodipodi:nodetypes="ccccccc"
+       transform="matrix(0.125047,0.000000,0.000000,0.125000,2.712357e-5,920.8172)" />
+    <g
+       id="g595">
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect552"
+         width="275.314972"
+         height="35.433071"
+         x="0.000031"
+         y="910.629791" />
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect553"
+         width="35.433076"
+         height="249.448807"
+         x="106.339206"
+         y="802.913300" />
+    </g>
+  </g>
+</svg>

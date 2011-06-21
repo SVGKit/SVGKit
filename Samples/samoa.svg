@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/tobias/Desktop"
+   sodipodi:docname="/home/tobias/Desktop/samoa.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g563"
+     transform="matrix(0.972222,0.000000,0.000000,0.972222,0.000000,1.754761e-4)">
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#808080;fill-rule:evenodd;stroke-width:1pt;"
+       id="polygon559"
+       sodipodi:sides="5"
+       points="118.75,234.611 77.6064,222.518 44.3196,249.556 43.1065,206.689 7.10609,183.387 47.5,168.986 58.5373,127.547 84.7152,161.514 127.537,159.206 103.322,194.599 118.75,234.611 "
+       transform="translate(73.75000,-3.125000)"
+       sodipodi:cx="11"
+       sodipodi:cy="111"
+       sodipodi:r2="10"
+       sodipodi:r1="5"
+       sodipodi:arg1="1"
+       sodipodi:arg2="1.5" />
+    <rect
+       style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect551"
+       width="1020.472412"
+       height="510.236211"
+       x="0.000000"
+       y="-0.000032" />
+    <rect
+       style="font-size:12;fill:#00006b;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect552"
+       width="510.236206"
+       height="255.118103"
+       x="0.000000"
+       y="0.000012" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+       id="polygon553"
+       sodipodi:sides="5"
+       sodipodi:cx="211.783310"
+       sodipodi:cy="170.839874"
+       sodipodi:r1="59.0520287"
+       sodipodi:r2="24.7206287"
+       sodipodi:arg1="0.93701673"
+       sodipodi:arg2="1.58987200"
+       points="246.754,218.424 211.312,195.556 177.335,218.803 188.131,178.029 155.523,152.899 197.637,150.567 211.461,111.789 226.693,151.121 267.845,152.285 235.144,178.926 246.754,218.424 "
+       transform="matrix(0.623495,0.000000,0.000000,0.652378,122.8983,101.1523)" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+       id="polygon555"
+       sodipodi:sides="5"
+       sodipodi:cx="233.504669"
+       sodipodi:cy="22.4105453"
+       sodipodi:r1="25.0501804"
+       sodipodi:r2="11.2143879"
+       sodipodi:arg1="0.94483870"
+       sodipodi:arg2="1.58764017"
+       points="248.181,42.7113 233.316,33.6233 218.733,42.6417 222.782,25.6959 209.699,14.6134 227.067,13.2282 233.564,-2.63957 240.248,13.4502 257.347,14.7259 244.11,26.0551 248.181,42.7113 "
+       transform="matrix(1.189824,0.000000,0.000000,1.250096,-22.32398,13.32729)" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+       id="polygon556"
+       sodipodi:sides="5"
+       sodipodi:cx="233.504669"
+       sodipodi:cy="22.4105453"
+       sodipodi:r1="24.9713364"
+       sodipodi:r2="10.6394501"
+       sodipodi:arg1="0.94255501"
+       sodipodi:arg2="1.55593598"
+       points="248.181,42.6139 233.663,33.0488 218.825,42.6116 223.436,25.8483 209.756,14.6921 227.124,13.8969 233.507,-2.56079 239.63,13.7111 257.254,14.6958 243.671,25.5476 248.181,42.6139 "
+       transform="matrix(1.184994,0.000000,0.000000,1.234116,-99.26385,77.79297)" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+       id="polygon557"
+       sodipodi:sides="5"
+       sodipodi:cx="233.504669"
+       sodipodi:cy="22.4105453"
+       sodipodi:r1="24.9389572"
+       sodipodi:r2="10.9156227"
+       sodipodi:arg1="0.93859327"
+       sodipodi:arg2="1.58222330"
+       points="248.242,42.5295 233.38,33.3255 218.924,42.6434 223.085,25.6648 209.757,14.7962 227.19,13.5069 233.408,-2.52822 240.021,13.6535 257.193,14.6119 243.847,25.9021 248.242,42.5295 "
+       transform="matrix(1.110932,0.000000,0.000000,1.156983,75.69011,66.95164)" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+       id="polygon558"
+       sodipodi:sides="5"
+       sodipodi:cx="233.504669"
+       sodipodi:cy="22.4105453"
+       sodipodi:r1="25.2443409"
+       sodipodi:r2="11.4912119"
+       sodipodi:arg1="0.93948424"
+       sodipodi:arg2="1.56751919"
+       points="248.404,42.7891 233.542,33.9017 218.728,42.878 222.588,25.9973 209.473,14.6815 226.72,13.1361 233.429,-2.83368 240.229,13.0919 257.49,14.5378 244.445,25.9257 248.404,42.7891 "
+       transform="matrix(0.740621,0.000000,0.000000,0.771323,121.3263,129.6737)" />
+  </g>
+</svg>

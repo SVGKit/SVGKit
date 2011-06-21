@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+    <dc:title>New Zealand, Australia, United Kingdom, United States, 
+Bosnia and Herzegovina, Azerbaijan, Armenia, Bahamas, Belgium, Benin, 
+Bulgaria, Estonia, Finland, Gabon, Gambia, Germany, Greece, Greenland, 
+Guinea, Honduras, Israel, Jamaica, Jordan, and Romania Flags</dc:title>
+    <dc:rights><Agent>
+       <dc:title>Daniel McRae</dc:title>
+    </Agent></dc:rights>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+    <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   id="svg585"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="999"
+   height="666"
+   sodipodi:docname="gambia_flag.svg">
+  <defs
+     id="defs587" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g594"
+     transform="scale(37)">
+    <rect
+       style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect588"
+       width="27"
+       height="6"
+       x="0"
+       y="0" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect589"
+       width="27"
+       height="1"
+       x="0"
+       y="6" />
+    <rect
+       style="font-size:12;fill:#000099;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect590"
+       width="27"
+       height="4"
+       x="0"
+       y="7" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect591"
+       width="27"
+       height="1"
+       x="0"
+       y="11" />
+    <rect
+       style="font-size:12;fill:#009900;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect592"
+       width="27"
+       height="6"
+       x="0"
+       y="12" />
+  </g>
+</svg>

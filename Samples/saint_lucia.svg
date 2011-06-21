@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg604"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/yemu/clipart/newnewnew"
+   sodipodi:docname="/home/yemu/clipart/newnewnew/saintlucia.svg">
+  <defs
+     id="defs606" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     snaptogrid="false"
+     snaptoguides="true">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="35.3117332"
+       id="guide610" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="263.711029"
+       id="guide611" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="528.924683"
+       id="guide612" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="395.942230"
+       id="guide613" />
+  </sodipodi:namedview>
+  <rect
+     style="font-size:12;fill:#65cfff;fill-rule:evenodd;stroke-width:1pt;stroke:none;stroke-opacity:1;fill-opacity:1;"
+     id="rect607"
+     width="992.125977"
+     height="496.062988"
+     x="0"
+     y="-0.00001526" />
+  <path
+     style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 494.928 43.3966 L 663.034 451.923 L 329.639 452.862 L 494.928 43.3966 z "
+     id="path615"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.862437pt;fill-opacity:1;"
+     d="M 495.118 99.7463 L 640.495 451.116 L 352.178 451.923 L 495.118 99.7463 z "
+     id="path617"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="font-size:12;fill:#ffce00;fill-rule:evenodd;stroke:none;stroke-width:0.707106pt;stroke-opacity:1;fill-opacity:1;"
+     d="M 494.928 248.13 L 663.034 452.393 L 329.639 452.862 L 494.928 248.13 z "
+     id="path616"
+     sodipodi:nodetypes="cccc" />
+</svg>

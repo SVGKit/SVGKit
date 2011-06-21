@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="/home/tobias/Desktop/Flags"
+   sodipodi:docname="/home/tobias/Desktop/Flags/Congo.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#ffff00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect555"
+     width="744.094543"
+     height="496.063007"
+     x="0.000000"
+     y="-0.000059" />
+  <path
+     style="font-size:12;fill:#00ca00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     d="M 0 -7.62939e-05 L 0 496.063 L 496.063 -7.62939e-05 L 0 -7.62939e-05 z "
+     id="path554"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+     d="M 248.032 496.063 L 744.094 496.063 L 744.094 3.8147e-05 L 248.032 496.063 z "
+     id="path553"
+     sodipodi:nodetypes="cccc" />
+</svg>

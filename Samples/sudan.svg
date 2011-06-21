@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/tobias/Desktop"
+   sodipodi:docname="/home/tobias/Desktop/sudan.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect551"
+     width="992.125978"
+     height="165.366150"
+     x="0.000000"
+     y="330.696823" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect552"
+     width="992.125977"
+     height="165.366150"
+     x="0.000000"
+     y="165.330566" />
+  <rect
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect553"
+     width="1020.472412"
+     height="165.366150"
+     x="0.000000"
+     y="-0.000015" />
+  <path
+     style="font-size:12;fill:#009a00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     d="M 0 7.62939e-05 L 0 496.063 L 330.697 248.032 L 0 7.62939e-05 z "
+     id="path556"
+     sodipodi:nodetypes="cccc" />
+</svg>

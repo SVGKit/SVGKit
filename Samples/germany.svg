@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of German flags</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Philipp Sadleder</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   x="0"
+   y="0"
+   width="1062.98853"
+   height="637.795288"
+   id="svg378">
+  <defs
+     id="defs380" />
+  <rect
+     width="1062.99207"
+     height="212.598434"
+     x="0"
+     y="425.196838"
+     style="font-size:12;fill:#ffe600;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <rect
+     width="1062.99207"
+     height="212.598419"
+     x="0"
+     y="0.00003800"
+     style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect256" />
+  <rect
+     width="1062.99207"
+     height="212.598419"
+     x="0"
+     y="212.598450"
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect255" />
+</svg>

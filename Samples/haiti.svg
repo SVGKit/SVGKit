@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/haiti.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550">
+    <linearGradient
+       id="linearGradient565">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0.000000"
+         id="stop566" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1.000000"
+         id="stop567" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient565"
+       id="linearGradient568"
+       x1="0.00000000"
+       y1="-0.00000004"
+       x2="1.00000000"
+       y2="-0.00000004"
+       gradientUnits="objectBoundingBox"
+       spreadMethod="pad" />
+    <radialGradient
+       xlink:href="#linearGradient565"
+       id="radialGradient569"
+       cx="0.50000000"
+       cy="0.49999997"
+       fx="0.50000000"
+       fy="0.49999997"
+       r="0.50000000"
+       gradientUnits="objectBoundingBox"
+       spreadMethod="pad" />
+  </defs>
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#132c77;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect555"
+     x="0.000000"
+     y="-0.000015"
+     width="750.334172"
+     height="251.767757" />
+  <rect
+     style="font-size:12;fill:#c00011;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect564"
+     x="0.000000"
+     y="251.767742"
+     width="750.334172"
+     height="250.111391" />
+</svg>
