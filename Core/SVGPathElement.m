@@ -39,101 +39,151 @@ typedef enum {
 }
 
 - (void)parseData:(NSString *)data {
+	NSLog(@"parseData");
+	
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	const char *cstr = [data UTF8String];
-	size_t len = strlen(cstr);
+	//size_t len = strlen(cstr);
 	
 	SVGPathSegmentType type = -1;
+	bool relative = false;
 	
 	char accum[MAX_ACCUM];
 	bzero(accum, MAX_ACCUM);
 	
 	int accumIdx = 0, currComponent = 0;
 	
-	for (size_t n = 0; n <= len; n++) {
-		char c = cstr[n];
+	char *ptr = cstr;
+	
+	while( *ptr != '\0' )
+	//for (size_t n = 0; n <= len; n++) 
+	{
+		char c = *ptr; //cstr[n];
 		
-		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0') {
+		bool newCommand = ( accumIdx != 0 && ( strchr("cClLmMzZ", c ) != NULL ));
+		bool newNegativeNumber = ( c == '-' && accumIdx != 0 );
+		
+		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0' || newNegativeNumber || newCommand) {
 			if (type != -1) {
 				accum[accumIdx] = '\0';
 				
+				CGPoint currentPoint;
+				CGAffineTransform translate;
+				
+				if(!CGPathIsEmpty(path))
+				{
+					currentPoint = CGPathGetCurrentPoint(path);
+					translate = CGAffineTransformMakeTranslation( currentPoint.x, currentPoint.y );
+				}
+				
 				if (type == SVGPathSegmentTypeMoveTo) {
-					static int x;
+					static float x, y;
 					
 					if (currComponent == 0) {
-						x = atoi(accum);
+						sscanf( accum, "%g", &x );
 						currComponent++;
 					}
 					else if (currComponent == 1) {
-						CGPathMoveToPoint(path, NULL, x, atoi(accum));
+						sscanf( accum, "%g", &y );
+						NSLog( @"CGPathMoveToPoint ( %g, %g )", x, y );
+						
+						CGPathMoveToPoint(path, ( relative ) ? & translate : NULL, x, y);
 						type = -1;
 					}
 				}
 				else if (type == SVGPathSegmentTypeLineTo) {
-					static int x;
+					static float x, y;
 					
 					if (currComponent == 0) {
-						x = atoi(accum);
+						sscanf( accum, "%g", &x );
 						currComponent++;
 					}
 					else if (currComponent == 1) {
-						CGPathAddLineToPoint(path, NULL, x, atoi(accum));
+						sscanf( accum, "%g", &y );
+						
+						NSLog( @"CGPathAddLineToPoint ( %g, %g )", x, y );
+						
+						CGPathAddLineToPoint(path, ( relative ) ? & translate : NULL, x, y);
 						type = -1;
 					}
 				}
 				else if (type == SVGPathSegmentTypeCurve) {
-					static int x1, y1, x2, y2, x;
+					static float x1, y1, x2, y2, x, y;
 					
 					if (currComponent == 0) {
-						x1 = atoi(accum);
+						sscanf( accum, "%g", &x1 );
 						currComponent++;
 					}
 					else if (currComponent == 1) {
-						y1 = atoi(accum);
+						sscanf( accum, "%g", &y1 );
 						currComponent++;
 					}
 					else if (currComponent == 2) {
-						x2 = atoi(accum);
+						sscanf( accum, "%g", &x2 );
 						currComponent++;
 					}
 					else if (currComponent == 3) {
-						y2 = atoi(accum);
+						sscanf( accum, "%g", &y2 );
 						currComponent++;
 					}
 					else if (currComponent == 4) {
-						x = atoi(accum);
+						sscanf( accum, "%g", &x );
 						currComponent++;
 					}
 					else if (currComponent == 5) {
-						CGPathAddCurveToPoint(path, NULL, x1, y1, x2, y2, x, atoi(accum));
+						sscanf( accum, "%g", &y );
+						
+						NSLog( @"CGPathAddCurveToPoint ( %g, %g, %g, %g, %g, %g )", x1, y1, x2, y2, x, y );
+						
+						CGPathAddCurveToPoint(path, ( relative ) ? & translate : NULL, x1, y1, x2, y2, x, y);
 						type = -1;
 					}
 				}
 				
 				bzero(accum, MAX_ACCUM);
 				accumIdx = 0;
+				
+				if( newNegativeNumber )
+				{
+					accum[accumIdx++] = c;
+				}
+				else if( newCommand )
+				{
+					--ptr;
+				}
 			}
 		}
 		else if (c == 'M' || c == 'm') {
 			currComponent = 0;
 			type = SVGPathSegmentTypeMoveTo;
+			relative = islower(c);
 		}
 		else if (c == 'L' || c == 'l') {
 			currComponent = 0;
 			type = SVGPathSegmentTypeLineTo;
+			relative = islower(c);
 		}
 		else if (c == 'C' || c == 'c') {
 			currComponent = 0;
 			type = SVGPathSegmentTypeCurve;
+			relative = islower(c);
 		}
-		else if (c == 'Z' || c == 'z') {
+		else if (c == 'Z' || c == 'z') 
+		{
+			NSLog(@"CGPathCloseSubpath");
+			//NSLog( @"CGPathAddLineToPoint ( %g, %g )", x, y );
+			
 			CGPathCloseSubpath(path);
 		}
-		else if ((c >= '0' && c <= '9') || c == '-') { // is digit?
+		else if ((c >= '0' && c <= '9') || c == '-' || c == '.') { // is digit?
 			accum[accumIdx++] = c;
 		}
+		
+		++ptr;
 	}
+	
+	//CGPathCloseSubpath(path);
 	
 	[self loadPath:path];
 	

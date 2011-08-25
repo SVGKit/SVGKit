@@ -16,6 +16,8 @@
 		2804203C108E9BAB000629CD /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2804203B108E9BAB000629CD /* DetailView.xib */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
+		A6AC211913F0214A00315F54 /* Rayflower.svg in Resources */ = {isa = PBXBuildFile; fileRef = A6AC211813F0214A00315F54 /* Rayflower.svg */; };
+		A6AC218213F02D6700315F54 /* Concentrichron.svg in Resources */ = {isa = PBXBuildFile; fileRef = A6AC218113F02D6700315F54 /* Concentrichron.svg */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 		C97207651347794300DE3BE3 /* CGPathAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C972073F1347794300DE3BE3 /* CGPathAdditions.m */; };
 		C97207661347794300DE3BE3 /* SVGCircleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C97207411347794300DE3BE3 /* SVGCircleElement.m */; };
@@ -58,6 +60,8 @@
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		A6AC211813F0214A00315F54 /* Rayflower.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rayflower.svg; sourceTree = "<group>"; };
+		A6AC218113F02D6700315F54 /* Concentrichron.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Concentrichron.svg; sourceTree = "<group>"; };
 		C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C972073E1347794300DE3BE3 /* CGPathAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPathAdditions.h; sourceTree = "<group>"; };
 		C972073F1347794300DE3BE3 /* CGPathAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPathAdditions.m; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 		C97207771347795300DE3BE3 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				A6AC218113F02D6700315F54 /* Concentrichron.svg */,
+				A6AC211813F0214A00315F54 /* Rayflower.svg */,
 				C97207781347795300DE3BE3 /* Lion.svg */,
 				C97207791347795300DE3BE3 /* Monkey.svg */,
 				C972077A1347795300DE3BE3 /* Note.svg */,
@@ -312,6 +318,8 @@
 				C972077B1347795300DE3BE3 /* Lion.svg in Resources */,
 				C972077C1347795300DE3BE3 /* Monkey.svg in Resources */,
 				C972077D1347795300DE3BE3 /* Note.svg in Resources */,
+				A6AC211913F0214A00315F54 /* Rayflower.svg in Resources */,
+				A6AC218213F02D6700315F54 /* Concentrichron.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

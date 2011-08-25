@@ -374,18 +374,25 @@ CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close)
 		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			static float x;
+			static float x, y;
 			
-			if (currComponent == 0) {
-				x = atoi(accum);
+			if (currComponent == 0 && accumIdx != 0 ) {
+				sscanf( accum, "%g", &x );
+				//x = atoi(accum);
 				currComponent++;
 			}
 			else if (currComponent == 1) {
+				
+				sscanf( accum, "%g", &y );
+				//y = atoi(accum);
+				
+				//NSLog( @"SVGPathFromPointsInString: point = ( %g, %g )", x, y );
+				
 				if (CGPathIsEmpty(path)) {
-					CGPathMoveToPoint(path, NULL, x, atoi(accum));
+					CGPathMoveToPoint(path, NULL, x, y);
 				}
 				else {
-					CGPathAddLineToPoint(path, NULL, x, atoi(accum));
+					CGPathAddLineToPoint(path, NULL, x, y);
 				}
 				
 				currComponent = 0;
@@ -394,7 +401,9 @@ CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close)
 			bzero(accum, MAX_ACCUM);
 			accumIdx = 0;
 		}
-		else if (c >= '0' && c <= '9') { // is digit?
+		else if( isdigit(c) || c == '.' ) // is digit?
+		//else if (c >= '0' && c <= '9') 
+		{ 
 			accum[accumIdx++] = c;
 		}
 	}
