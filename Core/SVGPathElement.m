@@ -41,6 +41,7 @@ typedef enum {
 - (void)parseData:(NSString *)data {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
+    /*
 	const char *cstr = [data UTF8String];
 	size_t len = strlen(cstr);
 	
@@ -134,6 +135,69 @@ typedef enum {
 			accum[accumIdx++] = c;
 		}
 	}
+     */
+    
+    NSScanner* pathScanner = [NSScanner scannerWithString:data];
+	SVGPathSegmentType type = -1;
+    static NSString* comma = @",";
+    
+    while (![pathScanner isAtEnd]) {
+        NSString* command = nil;
+        [pathScanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"MmLlCcZz"]
+                                intoString:&command];
+        
+        if ([@"z" isEqualToString:command] || [@"Z" isEqualToString:command]) {
+            CGPathCloseSubpath(path);
+            break;
+        }
+        
+        if ([@"l" isEqualToString:command] || [@"L" isEqualToString:command]) {
+            type = SVGPathSegmentTypeLineTo;
+        } else if ([@"c" isEqualToString:command] || [@"C" isEqualToString:command]) {
+            type = SVGPathSegmentTypeCurve;
+        } else if ([@"m" isEqualToString:command] || [@"M" isEqualToString:command]) {
+            type = SVGPathSegmentTypeMoveTo;
+        } else {
+            NSLog(@"unknown command type: %@", command);
+            break;
+        }
+        
+        float x1;
+        float y1;
+        float x2;
+        float y2;
+        float x3;
+        float y3;
+        [pathScanner scanFloat:&x1];
+        [pathScanner scanString:comma intoString:NULL];
+        [pathScanner scanFloat:&y1];
+        
+        switch (type) {
+            case SVGPathSegmentTypeCurve:
+                [pathScanner scanFloat:&x2];
+                [pathScanner scanString:comma intoString:NULL];
+                [pathScanner scanFloat:&y2];
+                
+                [pathScanner scanFloat:&x3];
+                [pathScanner scanString:comma intoString:NULL];
+                [pathScanner scanFloat:&y3];
+
+                CGPathAddCurveToPoint(path, NULL, x1, y1, x2, y2, x3, y3);
+                break;
+            case SVGPathSegmentTypeLineTo:
+                
+                CGPathAddLineToPoint(path, NULL, x1, y1);
+                break;
+                
+            case SVGPathSegmentTypeMoveTo:
+                
+                CGPathMoveToPoint(path, NULL, x1, y1);
+                break;
+                
+            default:
+                break;
+        }
+    }
 	
 	[self loadPath:path];
 	

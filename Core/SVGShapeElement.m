@@ -120,7 +120,7 @@
 	shape.borderWidth = 1.0f;
 #endif
 	
-	CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox(_path));
+    CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox(_path));
 	
 	CGPathRef path = CGPathCreateByOffsettingPath(_path, rect.origin.x, rect.origin.y);
 	
