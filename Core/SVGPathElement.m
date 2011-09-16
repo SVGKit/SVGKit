@@ -148,7 +148,7 @@ typedef enum {
         
         if ([@"z" isEqualToString:command] || [@"Z" isEqualToString:command]) {
             CGPathCloseSubpath(path);
-            break;
+            continue;
         }
         
         if ([@"l" isEqualToString:command] || [@"L" isEqualToString:command]) {
