@@ -44,6 +44,9 @@
 	
 	NSString *newName = [name stringByDeletingPathExtension];
 	NSString *extension = [name pathExtension];
+    if ([@"" isEqualToString:extension]) {
+        extension = @"svg";
+    }
 	
 	NSString *path = [bundle pathForResource:newName ofType:extension];
 	
