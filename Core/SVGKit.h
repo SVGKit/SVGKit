@@ -25,6 +25,7 @@
 	#import "SVGTitleElement.h"
 	#import "SVGUtils.h"
 	#import "SVGView.h"
+    #import "SVGPathView.h"
 #else
 	#import <SVGKit/SVGCircleElement.h>
 	#import <SVGKit/SVGDefsElement.h>
