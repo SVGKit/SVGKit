@@ -7,6 +7,10 @@
 
 #import "SVGElement.h"
 
+#if NS_BLOCKS_AVAILABLE
+typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
+#endif
+
 @class SVGDefsElement;
 
 @interface SVGDocument : SVGElement < SVGLayeredElement > { }
@@ -26,5 +30,9 @@
 
 - (id)initWithContentsOfFile:(NSString *)aPath;
 - (id)initWithFrame:(CGRect)frame;
+
+#if NS_BLOCKS_AVAILABLE
+- (void) applyAggregator:(SVGElementAggregationBlock)aggregator;
+#endif
 
 @end
