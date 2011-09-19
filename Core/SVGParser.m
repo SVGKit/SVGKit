@@ -23,14 +23,6 @@
 #import "SVGRectElement.h"
 #import "SVGTitleElement.h"
 
-@interface SVGElement ()
-
-- (void)addChild:(SVGElement *)element;
-- (void)parseContent:(NSString *)content;
-
-@end
-
-
 @implementation SVGParser
 
 static xmlSAXHandler SAXHandler;
