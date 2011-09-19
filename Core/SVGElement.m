@@ -28,14 +28,20 @@
 	return NO;
 }
 
+- (id)init {
+    self = [super init];
+    if (self) {
+		[self loadDefaults];
+        _children = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 - (id)initWithDocument:(SVGDocument *)aDocument name:(NSString *)name {
-	self = [super init];
+	self = [self init];
 	if (self) {
 		_document = aDocument;
-		_children = [[NSMutableArray alloc] init];
 		_localName = [name retain];
-		
-		[self loadDefaults];
 	}
 	return self;
 }

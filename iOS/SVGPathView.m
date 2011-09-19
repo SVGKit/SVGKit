@@ -9,11 +9,54 @@
 #import "SVGPathView.h"
 
 #import "SVGDocument.h"
+#import "SVGElement+Private.h"
 #import "SVGPathElement.h"
+#import "SVGShapeElement+Private.h"
+#import "CGPathAdditions.h"
 
 @implementation SVGPathView
 
 @synthesize delegate;
+
+- (id)initWithPathElement:(SVGPathElement*)pathElement translateTowardOrigin:(BOOL)shouldTranslate
+{
+    CGPathRef originalPath = [pathElement path];
+    CGRect pathRect = CGPathGetBoundingBox(originalPath);
+    CGRect viewRect = (!(shouldTranslate)) 
+        ? pathRect
+        : CGRectMake(0, 0, CGRectGetWidth(pathRect), CGRectGetHeight(pathRect));
+    
+    self = [super initWithFrame:viewRect];
+    if (self) {
+        SVGPathElement* newPathElement = [[SVGPathElement alloc] init];
+        
+        if (!shouldTranslate) {
+            [newPathElement loadPath:originalPath];
+        } else {
+            CGPathRef translatedPath = CGPathCreateByOffsettingPath(originalPath, pathRect.origin.x, pathRect.origin.y);
+            [newPathElement loadPath:translatedPath];
+            CFRelease(translatedPath);
+        }
+        
+        [newPathElement setIdentifier:pathElement.identifier];
+        [newPathElement setOpacity:pathElement.opacity];
+        [newPathElement setStrokeColor:pathElement.strokeColor];
+        [newPathElement setStrokeWidth:pathElement.strokeWidth];
+        [newPathElement setFillType:pathElement.fillType];
+        [newPathElement setFillColor:pathElement.fillColor];
+
+        
+        
+        SVGDocument* doc = [[SVGDocument alloc] initWithFrame:viewRect];
+        [doc addChild:newPathElement];
+        
+        [self setDocument:doc];
+        
+        [newPathElement release];
+        [doc release];
+    }
+    return self;
+}
 
 - (void) handleElementTouched:(SVGPathElement*)pathElem atPoint:(CGPoint)touchPoint
 {
