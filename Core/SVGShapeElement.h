@@ -17,13 +17,13 @@ typedef enum {
 
 @interface SVGShapeElement : SVGElement < SVGLayeredElement > { }
 
-@property (nonatomic, readonly) CGFloat opacity;
+@property (nonatomic, readwrite) CGFloat opacity;
 
-@property (nonatomic, readonly) SVGFillType fillType;
-@property (nonatomic, readonly) SVGColor fillColor;
+@property (nonatomic, readwrite) SVGFillType fillType;
+@property (nonatomic, readwrite) SVGColor fillColor;
 
-@property (nonatomic, readonly) CGFloat strokeWidth;
-@property (nonatomic, readonly) SVGColor strokeColor;
+@property (nonatomic, readwrite) CGFloat strokeWidth;
+@property (nonatomic, readwrite) SVGColor strokeColor;
 
 @property (nonatomic, readonly) CGPathRef path;
 
