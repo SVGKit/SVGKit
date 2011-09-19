@@ -12,6 +12,7 @@
 #import "SVGElement+Private.h"
 #import "SVGParser.h"
 #import "SVGTitleElement.h"
+#import "SVGPathElement.h"
 
 @interface SVGDocument ()
 
@@ -72,6 +73,16 @@
 			return nil;
 		}
 	}
+	return self;
+}
+
+- (id) initWithFrame:(CGRect)frame
+{
+    self = [super initWithDocument:self name:@"svg"];
+	if (self) {
+        _width = CGRectGetWidth(frame);
+        _height = CGRectGetHeight(frame);
+    }
 	return self;
 }
 

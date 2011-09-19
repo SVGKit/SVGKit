@@ -25,5 +25,6 @@
 + (id)documentWithContentsOfFile:(NSString *)aPath;
 
 - (id)initWithContentsOfFile:(NSString *)aPath;
+- (id)initWithFrame:(CGRect)frame;
 
 @end
