@@ -13,10 +13,12 @@
 #import "SVGPathElement.h"
 #import "SVGShapeElement+Private.h"
 #import "CGPathAdditions.h"
+#import "SVGDocument+CA.h"
 
 @implementation SVGPathView
 
 @synthesize delegate;
+@synthesize pathElement=_pathElement;
 
 - (id)initWithPathElement:(SVGPathElement*)pathElement translateTowardOrigin:(BOOL)shouldTranslate
 {
@@ -43,15 +45,15 @@
         [newPathElement setFillType:pathElement.fillType];
         [newPathElement setFillColor:pathElement.fillColor];
 
-        
+        _pathElement = newPathElement;
         
         SVGDocument* doc = [[SVGDocument alloc] initWithFrame:viewRect];
         [doc addChild:newPathElement];
         
         [self setDocument:doc];
         
-        [newPathElement release];
-        [doc release];
+        [newPathElement release]; // retained by doc
+        [doc release]; // retained by super
     }
     return self;
 }
@@ -79,6 +81,11 @@
             }
         }
     }
+}
+
+- (CAShapeLayer*) pathElementLayer
+{
+    return (CAShapeLayer*) [[self document] layerWithIdentifier:self.pathElement.identifier];
 }
                               
 @end

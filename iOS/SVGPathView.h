@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/CAShapeLayer.h>
 
 #import "SVGView.h"
 
@@ -25,7 +26,10 @@
  */
 - (id)initWithPathElement:(SVGPathElement*)pathElement translateTowardOrigin:(BOOL)shouldTranslate;
 
+- (CAShapeLayer*) pathElementLayer;
+
 @property (readwrite,nonatomic,assign) id<SVGPathViewDelegate> delegate;
+@property (readonly) SVGPathElement* pathElement;
 
 @end
 

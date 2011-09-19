@@ -9,15 +9,6 @@
 
 #import <objc/runtime.h>
 
-@interface SVGDocument ()
-
-- (CALayer *)layerWithIdentifier:(NSString *)identifier layer:(CALayer *)layer;
-
-- (CALayer *)layerWithElement:(SVGElement < SVGLayeredElement > *)element;
-
-@end
-
-
 @implementation SVGDocument (CA)
 
 static const char *kLayerTreeKey = "svgkit.layertree";
