@@ -21,10 +21,8 @@
 - (id)initWithPathElement:(SVGPathElement*)pathElement translateTowardOrigin:(BOOL)shouldTranslate
 {
     CGPathRef originalPath = [pathElement path];
-    CGRect pathRect = CGPathGetBoundingBox(originalPath);
-    CGRect viewRect = (!(shouldTranslate)) 
-        ? pathRect
-        : CGRectMake(0, 0, CGRectGetWidth(pathRect), CGRectGetHeight(pathRect));
+    CGRect pathRect = CGRectIntegral(CGPathGetBoundingBox(originalPath));
+    CGRect viewRect = CGRectMake(0, 0, CGRectGetWidth(pathRect), CGRectGetHeight(pathRect));
     
     self = [super initWithFrame:viewRect];
     if (self) {
