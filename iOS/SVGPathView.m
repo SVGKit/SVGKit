@@ -1,9 +1,6 @@
 //
 //  SVGPathView.m
-//  ElectionMeterDemo
-//
-//  Created by Steven Fusco on 9/16/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  SVGKit
 //
 
 #import "SVGPathView.h"
