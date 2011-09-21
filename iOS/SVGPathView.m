@@ -55,12 +55,10 @@
     return self;
 }
 
-- (void) handleElementTouched:(SVGPathElement*)pathElem atPoint:(CGPoint)touchPoint
+- (void) handleElement:(SVGPathElement*)pathElem touched:(UITouch*)touch
 {
-    if ([self.delegate respondsToSelector:@selector(pathView:pathTouched:atPoint:)]) {
-        [self.delegate pathView:self
-                    pathTouched:pathElem
-                        atPoint:touchPoint];
+    if ([self.delegate respondsToSelector:@selector(pathView:path:touch:)]) {
+        [self.delegate pathView:self path:pathElem touch:touch];
     }
 }
 
@@ -69,15 +67,15 @@
     UITouch* t = [touches anyObject];
     CGPoint touchPoint = [t locationInView:self];
     
-    for (SVGElement* e in self.document.children) {
+    [self.document applyAggregator:^(SVGElement<SVGLayeredElement> *e) {
         if ([e isKindOfClass:[SVGPathElement class]]) {
             SVGPathElement* pathElem = (SVGPathElement*)e;
             CGPathRef path = pathElem.path;
             if (CGPathContainsPoint(path, NULL, touchPoint, NO)) {
-                [self handleElementTouched:pathElem atPoint:touchPoint];
+                [self handleElement:pathElem touched:t];
             }
         }
-    }
+    }];
 }
 
 - (CAShapeLayer*) pathElementLayer

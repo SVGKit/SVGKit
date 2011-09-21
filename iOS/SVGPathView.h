@@ -49,6 +49,6 @@ typedef void (^layerTreeEnumerator)(CALayer* child);
 
 @optional
 
-- (void) pathView:(SVGPathView*)v pathTouched:(SVGPathElement*)path atPoint:(CGPoint)p;
+- (void) pathView:(SVGPathView*)v path:(SVGPathElement*)path touch:(UITouch*)touch;
 
 @end
