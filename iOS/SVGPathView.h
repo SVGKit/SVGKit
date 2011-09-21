@@ -8,6 +8,13 @@
 
 #import "SVGView.h"
 
+
+#if NS_BLOCKS_AVAILABLE
+
+typedef void (^layerTreeEnumerator)(CALayer* child);
+
+#endif
+
 @class SVGPathElement;
 
 @protocol SVGPathViewDelegate;
@@ -27,6 +34,13 @@
 
 @property (readwrite,nonatomic,assign) id<SVGPathViewDelegate> delegate;
 @property (readonly) SVGPathElement* pathElement;
+
+#if NS_BLOCKS_AVAILABLE
+
+- (void) enumerateChildLayersUsingBlock:(layerTreeEnumerator)callback;
+
+#endif
+
 
 @end
 

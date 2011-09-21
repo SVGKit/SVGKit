@@ -84,5 +84,26 @@
 {
     return (CAShapeLayer*) [[self document] layerWithIdentifier:self.pathElement.identifier];
 }
-                              
+
+
+#if NS_BLOCKS_AVAILABLE
+
+- (void) enumerateChildLayersUsingBlock:(layerTreeEnumerator)callback givenParent:(CALayer*)parentLayer
+{
+    callback(parentLayer);
+    
+    for (CALayer* sublayer in [parentLayer sublayers]) {
+        [self enumerateChildLayersUsingBlock:callback
+                                 givenParent:sublayer];
+    }
+}
+
+- (void)enumerateChildLayersUsingBlock:(layerTreeEnumerator)callback
+{
+    [self enumerateChildLayersUsingBlock:callback
+                             givenParent:self.layer];
+}
+
+#endif
+
 @end
