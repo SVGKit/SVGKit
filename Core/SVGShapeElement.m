@@ -11,6 +11,7 @@
 #import "SVGDefsElement.h"
 #import "SVGDocument.h"
 #import "SVGElement+Private.h"
+#import "SVGPattern.h"
 
 @implementation SVGShapeElement
 
@@ -20,6 +21,7 @@
 
 @synthesize fillType = _fillType;
 @synthesize fillColor = _fillColor;
+@synthesize fillPattern = _fillPattern;
 
 @synthesize strokeWidth = _strokeWidth;
 @synthesize strokeColor = _strokeColor;
@@ -33,6 +35,7 @@
 
 - (void)dealloc {
 	CGPathRelease(_path);
+    
 	[super dealloc];
 }
 
@@ -140,6 +143,10 @@
 	else if (_fillType == SVGFillTypeSolid) {
 		shape.fillColor = CGColorCreateWithSVGColor(_fillColor);
 	}
+    
+    if (nil != _fillPattern) {
+        shape.fillColor = [_fillPattern CGColor];
+    }
 	
 	if ([shape respondsToSelector:@selector(setShouldRasterize:)]) {
 		[shape performSelector:@selector(setShouldRasterize:)
