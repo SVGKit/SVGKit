@@ -35,9 +35,11 @@
 		[_document release];
 		_document = [aDocument retain];
 		
-		for (CALayer *sublayer in [self.layer sublayers]) {
+        NSArray* sublayerArray = [[self.layer sublayers] copy];
+		for (CALayer *sublayer in sublayerArray) {
 			[sublayer removeFromSuperlayer];
 		}
+        [sublayerArray release];
 		
 		[self.layer addSublayer:[_document layerTree]];
 	}
