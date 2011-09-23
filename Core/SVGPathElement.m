@@ -11,6 +11,7 @@
 #import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
 
+#warning TODO: support quadratic-bezier-curveto
 #warning TODO: support smooth-quadratic-bezier-curveto
 #warning TODO: support elliptical-arc
 
@@ -95,8 +96,6 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 
 - (void)parseData:(NSString *)data
 {
-    NSLog(@"%@", self.identifier);
-    
 	CGMutablePathRef path = CGPathCreateMutable();
     NSScanner* dataScanner = [NSScanner scannerWithString:data];
     CGPoint lastCoordinate = CGPointZero;
@@ -120,8 +119,6 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
                 
                 if (foundParameters) {
                     NSString* commandWithParameters = [command stringByAppendingString:cmdArgs];
-                    NSLog(@"%@", commandWithParameters);
-                    
                     NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
                     
                     if ([@"m" isEqualToString:command]) {
