@@ -163,11 +163,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "0"
          filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
-         timestampString = "338415709.2832"
+         timestampString = "338437826.753901"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "66"
-         endingLineNumber = "66"
+         startingLineNumber = "93"
+         endingLineNumber = "93"
          landmarkName = "-parseData:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "0"
          filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
-         timestampString = "338415709.2832"
+         timestampString = "338438009.577014"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "72"
-         endingLineNumber = "72"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
          landmarkName = "-parseData:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -191,11 +191,95 @@
          continueAfterRunningActions = "No"
          isPathRelative = "0"
          filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
-         timestampString = "338415709.2832"
+         timestampString = "338438009.577014"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
+         startingLineNumber = "194"
+         endingLineNumber = "194"
+         landmarkName = "-parseData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
+         timestampString = "338438009.577014"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "190"
+         endingLineNumber = "190"
+         landmarkName = "-parseData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/DetailViewController.m"
+         timestampString = "338437013.960289"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "124"
+         endingLineNumber = "124"
+         landmarkName = "-pinch:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
+         timestampString = "338438010.583653"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "582"
+         endingLineNumber = "582"
+         landmarkName = "-readSmoothCurvetoArgument:path:relativeTo:withPrevCurve:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
+         timestampString = "338438735.009361"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "153"
+         endingLineNumber = "153"
+         landmarkName = "-parseData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
+         timestampString = "338438739.509257"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
+         landmarkName = "-parseData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/Users/stevenfusco/Documents/Projects/BrightContext/ios/ElectionMeterDemo/ElectionMeterDemo/SVGKit/Core/SVGPathElement.m"
+         timestampString = "338438753.80324"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "148"
+         endingLineNumber = "148"
          landmarkName = "-parseData:"
          landmarkType = "5">
       </FileBreakpoint>
