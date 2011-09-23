@@ -41,6 +41,7 @@
         [newPathElement setStrokeWidth:pathElement.strokeWidth];
         [newPathElement setFillType:pathElement.fillType];
         [newPathElement setFillColor:pathElement.fillColor];
+        [newPathElement setFillPattern:pathElement.fillPattern];
 
         _pathElement = newPathElement;
         
