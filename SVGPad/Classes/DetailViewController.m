@@ -14,8 +14,8 @@
 @property (nonatomic, retain) UIPopoverController *popoverController;
 
 - (void)loadResource:(NSString *)name;
-
 - (void)shakeHead;
+- (void)pinch:(UIGestureRecognizer*)gesture;
 
 @end
 
@@ -23,6 +23,14 @@
 @implementation DetailViewController
 
 @synthesize toolbar, popoverController, contentView, detailItem;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIPinchGestureRecognizer* zoom = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)] autorelease];
+    [self.view addGestureRecognizer:zoom];
+}
 
 - (void)dealloc {
 	self.popoverController = nil;
@@ -109,6 +117,13 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
+}
+
+- (void)pinch:(UIGestureRecognizer *)gesture
+{
+    UIPinchGestureRecognizer* zoom = (UIPinchGestureRecognizer*)gesture;
+    CGAffineTransform t = CGAffineTransformScale(self.contentView.transform, zoom.scale, zoom.scale);
+    self.contentView.transform = t;
 }
 
 @end
