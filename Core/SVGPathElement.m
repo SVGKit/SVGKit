@@ -11,14 +11,39 @@
 #import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
 
-typedef enum {
-	SVGPathSegmentTypeMoveTo = 0,
-	SVGPathSegmentTypeLineTo,
-	SVGPathSegmentTypeVerticalLineTo,
-    SVGPathSegmentTypeHorizontalLineTo,
-	SVGPathSegmentTypeCurve
-} SVGPathSegmentType;
+#warning TODO: support smooth-quadratic-bezier-curveto
+#warning TODO: support elliptical-arc
 
+typedef struct SVGCurve
+{
+    CGPoint c1;
+    CGPoint c2;
+    CGPoint p;
+} SVGCurve;
+
+SVGCurve SVGCurveMake(CGFloat cx1, CGFloat cy1, CGFloat cx2, CGFloat cy2, CGFloat px, CGFloat py);
+inline SVGCurve SVGCurveMake(CGFloat cx1, CGFloat cy1, CGFloat cx2, CGFloat cy2, CGFloat px, CGFloat py)
+{
+    SVGCurve curve;
+    curve.c1 = CGPointMake(cx1, cy1);
+    curve.c2 = CGPointMake(cx2, cy2);
+    curve.p = CGPointMake(px, py);
+    return curve;
+}
+
+BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2);
+inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
+{
+    return (
+            CGPointEqualToPoint(curve1.c1, curve2.c1)
+            &&
+            CGPointEqualToPoint(curve1.c2, curve2.c2)
+            &&
+            CGPointEqualToPoint(curve1.p, curve2.p)
+            );
+}
+
+#define SVGCurveZero SVGCurveMake(0.,0.,0.,0.,0.,0.)
 
 @interface SVGPathElement ()
 
@@ -36,14 +61,21 @@ typedef enum {
 - (CGPoint) readMovetoDrawto:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
 - (CGPoint) readMoveto:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
 - (CGPoint) readMovetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+
 - (CGPoint) readLinetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
 - (CGPoint) readLinetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
-- (CGPoint) readCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
-- (CGPoint) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
-- (CGPoint) readCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
 - (CGPoint) readVerticalLinetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
 - (CGPoint) readVerticalLinetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
-- (CGPoint) readDrawtoCommand:(SVGPathSegmentType)segmentType scanner:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+- (CGPoint) readHorizontalLinetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+- (CGPoint) readHorizontalLinetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+
+- (SVGCurve) readCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+- (SVGCurve) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+- (SVGCurve) readCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
+- (SVGCurve) readSmoothCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve;
+- (SVGCurve) readSmoothCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve;
+- (SVGCurve) readSmoothCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve;
+
 - (CGPoint) readCloseCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin;
 
 @end
@@ -63,18 +95,20 @@ typedef enum {
 
 - (void)parseData:(NSString *)data
 {
+    NSLog(@"%@", self.identifier);
+    
 	CGMutablePathRef path = CGPathCreateMutable();
     NSScanner* dataScanner = [NSScanner scannerWithString:data];
     CGPoint lastCoordinate = CGPointZero;
+    SVGCurve lastCurve = SVGCurveZero;
     BOOL foundCmd;
     
     do {
-        NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhZz"];
+        NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZz"];
         NSString* command = nil;
         foundCmd = [dataScanner scanCharactersFromSet:knownCommands intoString:&command];
         
         if (foundCmd) {
-            
             if ([@"z" isEqualToString:command] || [@"Z" isEqualToString:command]) {
                 lastCoordinate = [self readCloseCommand:[NSScanner scannerWithString:command]
                                                    path:path
@@ -86,56 +120,72 @@ typedef enum {
                 
                 if (foundParameters) {
                     NSString* commandWithParameters = [command stringByAppendingString:cmdArgs];
+                    NSLog(@"%@", commandWithParameters);
+                    
                     NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
                     
                     if ([@"m" isEqualToString:command]) {
                         lastCoordinate = [self readMovetoDrawtoCommandGroups:commandScanner
                                                                         path:path
                                                                   relativeTo:lastCoordinate];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"M" isEqualToString:command]) {
                         lastCoordinate = [self readMovetoDrawtoCommandGroups:commandScanner
                                                                         path:path
                                                                   relativeTo:CGPointZero];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"l" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeLineTo
-                                                         scanner:commandScanner
+                        lastCoordinate = [self readLinetoCommand:commandScanner
                                                             path:path
                                                       relativeTo:lastCoordinate];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"L" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeLineTo
-                                                         scanner:commandScanner
+                        lastCoordinate = [self readLinetoCommand:commandScanner
                                                             path:path
                                                       relativeTo:CGPointZero];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"v" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeVerticalLineTo
-                                                         scanner:commandScanner
-                                                            path:path
-                                                      relativeTo:lastCoordinate];
+                        lastCoordinate = [self readVerticalLinetoCommand:commandScanner
+                                                                    path:path
+                                                              relativeTo:lastCoordinate];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"V" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeVerticalLineTo
-                                                         scanner:commandScanner
-                                                            path:path
+                        lastCoordinate = [self readVerticalLinetoCommand:commandScanner
+                                                                    path:path
                                                       relativeTo:CGPointZero];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"h" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeHorizontalLineTo
-                                                         scanner:commandScanner
-                                                            path:path
-                                                      relativeTo:lastCoordinate];
+                        lastCoordinate = [self readHorizontalLinetoCommand:commandScanner
+                                                                      path:path
+                                                                relativeTo:lastCoordinate];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"H" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeHorizontalLineTo
-                                                         scanner:commandScanner
-                                                            path:path
-                                                      relativeTo:CGPointZero];
+                        lastCoordinate = [self readHorizontalLinetoCommand:commandScanner
+                                                                      path:path
+                                                                relativeTo:CGPointZero];
+                        lastCurve = SVGCurveZero;
                     } else if ([@"c" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeCurve
-                                                         scanner:commandScanner
-                                                            path:path
-                                                      relativeTo:lastCoordinate];
+                        lastCurve = [self readCurvetoCommand:commandScanner
+                                                        path:path
+                                                  relativeTo:lastCoordinate];
+                        lastCoordinate = lastCurve.p;
                     } else if ([@"C" isEqualToString:command]) {
-                        lastCoordinate = [self readDrawtoCommand:SVGPathSegmentTypeCurve
-                                                         scanner:commandScanner
-                                                            path:path
-                                                      relativeTo:CGPointZero];
+                        lastCurve = [self readCurvetoCommand:commandScanner
+                                                        path:path
+                                                  relativeTo:CGPointZero];
+                        lastCoordinate = lastCurve.p;
+                    } else if ([@"s" isEqualToString:command]) {
+                        lastCurve = [self readSmoothCurvetoCommand:commandScanner
+                                                              path:path
+                                                        relativeTo:lastCoordinate
+                                                     withPrevCurve:lastCurve];
+                        lastCoordinate = lastCurve.p;
+                    } else if ([@"S" isEqualToString:command]) {
+                        lastCurve = [self readSmoothCurvetoCommand:commandScanner
+                                                              path:path
+                                                        relativeTo:CGPointZero
+                                                     withPrevCurve:lastCurve];
+                        lastCoordinate = lastCurve.p;
                     } else {
                         NSLog(@"unsupported command %@", command);
                     }
@@ -339,14 +389,7 @@ digit:
     
     [self readWhitespace:scanner];
     
-    CGPoint lastCoordinate = origin;
-    BOOL relativeCoordinates = [@"m" isEqualToString:cmd];
-    if (relativeCoordinates) {
-        lastCoordinate = [self readMovetoArgumentSequence:scanner path:path relativeTo:lastCoordinate];
-    } else {
-        lastCoordinate = [self readMovetoArgumentSequence:scanner path:path relativeTo:CGPointZero];
-    }
-    
+    CGPoint lastCoordinate = [self readMovetoArgumentSequence:scanner path:path relativeTo:origin];;
     return lastCoordinate;
 }
 
@@ -407,14 +450,7 @@ digit:
     
     [self readWhitespace:scanner];
     
-    CGPoint lastCoordinate = origin;
-    BOOL relativeCoordinates = [@"l" isEqualToString:cmd];
-    if (relativeCoordinates) {
-        lastCoordinate = [self readLinetoArgumentSequence:scanner path:path relativeTo:lastCoordinate];
-    } else {
-        lastCoordinate = [self readLinetoArgumentSequence:scanner path:path relativeTo:CGPointZero];
-    }
-    
+    CGPoint lastCoordinate = [self readLinetoArgumentSequence:scanner path:path relativeTo:origin];
     return lastCoordinate;
 }
 
@@ -441,7 +477,7 @@ digit:
  curveto:
  ( "C" | "c" ) wsp* curveto-argument-sequence
  */
-- (CGPoint) readCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
+- (SVGCurve) readCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
     NSString* cmd = nil;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Cc"];
@@ -451,15 +487,8 @@ digit:
     
     [self readWhitespace:scanner];
     
-    CGPoint lastCoordinate = origin;
-    BOOL relativeCoordinates = [@"c" isEqualToString:cmd];
-    if (relativeCoordinates) {
-        lastCoordinate = [self readCurvetoArgumentSequence:scanner path:path relativeTo:lastCoordinate];
-    } else {
-        lastCoordinate = [self readCurvetoArgumentSequence:scanner path:path relativeTo:CGPointZero];
-    }
-    
-    return lastCoordinate;
+    SVGCurve lastCurve = [self readCurvetoArgumentSequence:scanner path:path relativeTo:origin];
+    return lastCurve;
 }
 
 /**
@@ -467,22 +496,21 @@ digit:
     curveto-argument
     | curveto-argument comma-wsp? curveto-argument-sequence
  */
-- (CGPoint) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
+- (SVGCurve) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
-    CGPoint coord = [self readCurvetoArgument:scanner path:path relativeTo:origin];
+    SVGCurve curve = [self readCurvetoArgument:scanner path:path relativeTo:origin];
     
     if (![scanner isAtEnd]) {
-        coord = [self readCurvetoArgumentSequence:scanner path:path relativeTo:coord];
+        curve = [self readCurvetoArgumentSequence:scanner path:path relativeTo:origin];
     }
     
-    return coord;
+    return curve;
 }
 /**
  curveto-argument:
     coordinate-pair comma-wsp? coordinate-pair comma-wsp? coordinate-pair
  */
-
-- (CGPoint) readCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
+- (SVGCurve) readCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
     CGPoint p1 = [self readCoordinatePair:scanner];
     CGPoint coord1 = CGPointMake(p1.x+origin.x, p1.y+origin.y);
@@ -498,7 +526,70 @@ digit:
     
     CGPathAddCurveToPoint(path, NULL, coord1.x, coord1.y, coord2.x, coord2.y, coord3.x, coord3.y);
     
-    return coord3;
+    return SVGCurveMake(coord1.x, coord1.y, coord2.x, coord2.y, coord3.x, coord3.y);
+}
+
+/**
+ smooth-curveto:
+    ( "S" | "s" ) wsp* smooth-curveto-argument-sequence
+*/
+- (SVGCurve) readSmoothCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
+{
+    NSString* cmd = nil;
+    NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Ss"];
+    BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
+    
+    NSAssert(ok, @"failed to scan smooth curve to command");
+    
+    [self readWhitespace:scanner];
+    
+    SVGCurve lastCurve = [self readSmoothCurvetoArgumentSequence:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
+    return lastCurve;
+}
+
+/**
+ smooth-curveto-argument-sequence:
+     smooth-curveto-argument
+     | smooth-curveto-argument comma-wsp? smooth-curveto-argument-sequence
+*/
+- (SVGCurve) readSmoothCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
+{
+    SVGCurve curve = [self readSmoothCurvetoArgument:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
+    
+    if (![scanner isAtEnd]) {
+        curve = [self readSmoothCurvetoArgumentSequence:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
+    }
+    
+    return curve;
+}
+
+/**
+ smooth-curveto-argument:
+    coordinate-pair comma-wsp? coordinate-pair
+*/
+- (SVGCurve) readSmoothCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
+{
+    CGPoint p1 = [self readCoordinatePair:scanner];
+    CGPoint coord1 = CGPointMake(p1.x+origin.x, p1.y+origin.y);
+    [self readCommaAndWhitespace:scanner];
+    
+    CGPoint p2 = [self readCoordinatePair:scanner];
+    CGPoint coord2 = CGPointMake(p2.x+origin.x, p2.y+origin.y);
+    
+    SVGCurve thisCurve;
+    if (SVGCurveEqualToCurve(SVGCurveZero, prevCurve)) {
+        // assume control point is coincident with the current point
+        thisCurve = SVGCurveMake(coord1.x, coord1.y, coord2.x, coord2.y, coord1.x, coord1.y);
+    } else {
+        // calculate the mirror of the previous control point
+        CGPoint currentPoint = prevCurve.p;
+        CGPoint controlPoint = prevCurve.c2;
+        CGPoint mirrorCoord = CGPointMake(currentPoint.x+(currentPoint.x-controlPoint.x), currentPoint.y+(currentPoint.y-controlPoint.y));
+        thisCurve = SVGCurveMake(mirrorCoord.x, mirrorCoord.y, coord1.x, coord1.y, coord2.x, coord2.y);
+    }
+    
+    CGPathAddCurveToPoint(path, NULL, thisCurve.c1.x, thisCurve.c1.y, thisCurve.c2.x, thisCurve.c2.y, thisCurve.p.x, thisCurve.p.y);
+    return thisCurve;
 }
 
 /**
@@ -509,7 +600,9 @@ digit:
 - (CGPoint) readVerticalLinetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
     CGFloat yValue = [self readCoordinate:scanner];
-    CGPoint coord = CGPointMake(origin.x, origin.y+yValue);
+    CGPoint vertCoord = CGPointMake(origin.x, origin.y+yValue);
+    CGPoint currentPoint = CGPathGetCurrentPoint(path);
+    CGPoint coord = CGPointMake(currentPoint.x, currentPoint.y+(vertCoord.y-currentPoint.y));
     CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
     return coord;
 }
@@ -528,14 +621,7 @@ digit:
     
     [self readWhitespace:scanner];
     
-    CGPoint lastCoordinate = origin;
-    BOOL relativeCoordinates = [@"v" isEqualToString:cmd];
-    if (relativeCoordinates) {
-        lastCoordinate = [self readVerticalLinetoArgumentSequence:scanner path:path relativeTo:lastCoordinate];
-    } else {
-        lastCoordinate = [self readVerticalLinetoArgumentSequence:scanner path:path relativeTo:CGPointZero];
-    }
-    
+    CGPoint lastCoordinate = [self readVerticalLinetoArgumentSequence:scanner path:path relativeTo:origin];
     return lastCoordinate;
 }
 
@@ -547,7 +633,9 @@ digit:
 - (CGPoint) readHorizontalLinetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
     CGFloat xValue = [self readCoordinate:scanner];
-    CGPoint coord = CGPointMake(origin.x+xValue, origin.y);
+    CGPoint horizCoord = CGPointMake(origin.x+xValue, origin.y);
+    CGPoint currentPoint = CGPathGetCurrentPoint(path);
+    CGPoint coord = CGPointMake(currentPoint.x+(horizCoord.x-currentPoint.x), currentPoint.y);
     CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
     return coord;
 }
@@ -566,51 +654,8 @@ digit:
     
     [self readWhitespace:scanner];
     
-    CGPoint lastCoordinate = origin;
-    BOOL relativeCoordinates = [@"h" isEqualToString:cmd];
-    if (relativeCoordinates) {
-        lastCoordinate = [self readHorizontalLinetoArgumentSequence:scanner path:path relativeTo:lastCoordinate];
-    } else {
-        lastCoordinate = [self readHorizontalLinetoArgumentSequence:scanner path:path relativeTo:CGPointZero];
-    }
-    
+    CGPoint lastCoordinate = [self readHorizontalLinetoArgumentSequence:scanner path:path relativeTo:origin];
     return lastCoordinate;
-}
-
-/**
- drawto-command:
- closepath
- | lineto
- | horizontal-lineto
- | vertical-lineto
- | curveto
- | smooth-curveto
- | quadratic-bezier-curveto
- | smooth-quadratic-bezier-curveto
- | elliptical-arc
- */
-- (CGPoint) readDrawtoCommand:(SVGPathSegmentType)segmentType scanner:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
-{
-#warning TODO: support smooth-curveto
-#warning TODO: support smooth-quadratic-bezier-curveto
-#warning TODO: support elliptical-arc
-    
-    switch (segmentType) {
-        case SVGPathSegmentTypeLineTo:
-            return [self readLinetoCommand:scanner path:path relativeTo:origin];
-            
-        case SVGPathSegmentTypeCurve:
-            return [self readCurvetoCommand:scanner path:path relativeTo:origin];
-        
-        case SVGPathSegmentTypeVerticalLineTo:
-            return [self readVerticalLinetoCommand:scanner path:path relativeTo:origin];
-        
-        case SVGPathSegmentTypeHorizontalLineTo:
-            return [self readHorizontalLinetoCommand:scanner path:path relativeTo:origin];
-            
-        default:
-            return origin;
-    }
 }
 
 - (CGPoint) readCloseCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
