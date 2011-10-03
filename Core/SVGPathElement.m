@@ -383,6 +383,7 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan move to command");
+    if (!ok) return origin;
     
     [self readWhitespace:scanner];
     
@@ -444,7 +445,8 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan line to command");
-    
+    if (!ok) return origin;
+
     [self readWhitespace:scanner];
     
     CGPoint lastCoordinate = [self readLinetoArgumentSequence:scanner path:path relativeTo:origin];
@@ -481,7 +483,8 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan curve to command");
-    
+    if (!ok) return SVGCurveZero;
+
     [self readWhitespace:scanner];
     
     SVGCurve lastCurve = [self readCurvetoArgumentSequence:scanner path:path relativeTo:origin];
@@ -537,7 +540,8 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan smooth curve to command");
-    
+    if (!ok) return SVGCurveZero;
+
     [self readWhitespace:scanner];
     
     SVGCurve lastCurve = [self readSmoothCurvetoArgumentSequence:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
@@ -615,7 +619,8 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan vertical line to command");
-    
+    if (!ok) return origin;
+
     [self readWhitespace:scanner];
     
     CGPoint lastCoordinate = [self readVerticalLinetoArgumentSequence:scanner path:path relativeTo:origin];
@@ -648,7 +653,8 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan horizontal line to command");
-    
+    if (!ok) return origin;
+
     [self readWhitespace:scanner];
     
     CGPoint lastCoordinate = [self readHorizontalLinetoArgumentSequence:scanner path:path relativeTo:origin];
@@ -662,6 +668,7 @@ digit:
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
     NSAssert(ok, @"failed to scan close command");
+    if (!ok) return origin;
 
     CGPathCloseSubpath(path);
     
