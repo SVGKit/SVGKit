@@ -53,7 +53,8 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	
 	for (SVGElement *child in element.children) {
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
-			CALayer *sublayer = [self layerWithElement:child];
+            SVGElement < SVGLayeredElement > * layeredChild = (SVGElement < SVGLayeredElement > *)child;
+			CALayer *sublayer = [self layerWithElement:layeredChild];
 			
 			if (!sublayer)
 				continue;
