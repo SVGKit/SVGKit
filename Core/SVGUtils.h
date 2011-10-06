@@ -22,4 +22,4 @@ SVGColor SVGColorFromString (const char *string);
 CGFloat SVGPercentageFromString (const char *string);
 
 CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close);
-CGColorRef CGColorCreateWithSVGColor (SVGColor color);
+CGColorRef CGColorWithSVGColor (SVGColor color);

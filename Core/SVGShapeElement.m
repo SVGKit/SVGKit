@@ -135,14 +135,14 @@
 	
 	if (_strokeWidth) {
 		shape.lineWidth = _strokeWidth;
-		shape.strokeColor = CGColorCreateWithSVGColor(_strokeColor);
+		shape.strokeColor = CGColorWithSVGColor(_strokeColor);
 	}
 	
 	if (_fillType == SVGFillTypeNone) {
 		shape.fillColor = nil;
 	}
 	else if (_fillType == SVGFillTypeSolid) {
-		shape.fillColor = CGColorCreateWithSVGColor(_fillColor);
+		shape.fillColor = CGColorWithSVGColor(_fillColor);
 	}
     
     if (nil != _fillPattern) {

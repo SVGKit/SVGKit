@@ -406,7 +406,7 @@ CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close)
 	return path;
 }
 
-CGColorRef CGColorCreateWithSVGColor (SVGColor color) {
+CGColorRef CGColorWithSVGColor (SVGColor color) {
 	CGColorRef outColor = NULL;
 	
 #if TARGET_OS_IPHONE
