@@ -10,6 +10,12 @@
 #import "SVGElement+Private.h"
 #import "SVGShapeElement+Private.h"
 
+@interface SVGRectElement ()
+
+void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius);
+
+@end
+
 @implementation SVGRectElement
 
 @synthesize x = _x;
