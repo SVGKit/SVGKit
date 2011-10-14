@@ -7,6 +7,8 @@
 
 #import "CGPathAdditions.h"
 
+void applier (void *info, const CGPathElement *element);
+
 typedef struct {
 	CGMutablePathRef path;
 	CGFloat offX;

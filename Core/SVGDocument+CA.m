@@ -43,9 +43,8 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	return cachedLayerTree;
 }
 
-- (CALayer *)layerWithElement:(SVGElement < SVGLayeredElement > *)element {
+- (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element {
 	CALayer *layer = [element layer];
-	[layer setNeedsDisplay];
 	
 	if (![element.children count]) {
 		return layer;
@@ -53,12 +52,12 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	
 	for (SVGElement *child in element.children) {
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
-            SVGElement < SVGLayeredElement > * layeredChild = (SVGElement < SVGLayeredElement > *)child;
-			CALayer *sublayer = [self layerWithElement:layeredChild];
-			
-			if (!sublayer)
+			CALayer *sublayer = [self layerWithElement:(id<SVGLayeredElement>)child];
+
+			if (!sublayer) {
 				continue;
-			
+            }
+
 			[layer addSublayer:sublayer];
 		}
 	}
@@ -66,6 +65,8 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	if (element != self) {
 		[element layoutLayer:layer];
 	}
+
+    [layer setNeedsDisplay];
 	
 	return layer;
 }

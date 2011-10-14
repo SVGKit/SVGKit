@@ -34,13 +34,12 @@
 	if (_document != aDocument) {
 		[_document release];
 		_document = [aDocument retain];
-		
-        NSArray* sublayerArray = [[self.layer sublayers] copy];
-		for (CALayer *sublayer in sublayerArray) {
-			[sublayer removeFromSuperlayer];
-		}
-        [sublayerArray release];
-		
+
+        for (NSInteger i = [self.layer.sublayers count] - 1; i >= 0; i--) {
+            CALayer *sublayer = [self.layer.sublayers objectAtIndex:i];
+            [sublayer removeFromSuperlayer];
+        }
+
 		[self.layer addSublayer:[_document layerTree]];
 	}
 }

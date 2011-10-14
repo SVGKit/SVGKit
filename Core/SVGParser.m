@@ -16,6 +16,7 @@
 #import "SVGElement+Private.h"
 #import "SVGEllipseElement.h"
 #import "SVGGroupElement.h"
+#import "SVGImageElement.h"
 #import "SVGLineElement.h"
 #import "SVGPathElement.h"
 #import "SVGPolygonElement.h"
@@ -36,7 +37,7 @@ static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 static NSDictionary *NSDictionaryFromCSSAttributes (NSString *css);
 
-#define READ_CHUNK_SZ 1024
+#define READ_CHUNK_SZ 1024*10
 
 static NSDictionary *elementMap;
 
@@ -56,6 +57,7 @@ static NSDictionary *elementMap;
 						   [SVGDescriptionElement class], @"description",
 						   [SVGEllipseElement class], @"ellipse",
 						   [SVGGroupElement class], @"g",
+						   [SVGImageElement class], @"image",
 						   [SVGLineElement class], @"line",
 						   [SVGPathElement class], @"path",
 						   [SVGPolygonElement class], @"polygon",

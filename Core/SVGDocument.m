@@ -33,7 +33,7 @@
 
 @dynamic title, desc, defs;
 
-#warning TODO: parse 'viewBox'
+/* TODO: parse 'viewBox' */
 
 + (id)documentNamed:(NSString *)name {
 	NSParameterAssert(name != nil);
