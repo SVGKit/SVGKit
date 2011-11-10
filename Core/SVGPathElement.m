@@ -11,9 +11,9 @@
 #import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
 
-#warning TODO: support quadratic-bezier-curveto
-#warning TODO: support smooth-quadratic-bezier-curveto
-#warning TODO: support elliptical-arc
+// TODO: support quadratic-bezier-curveto
+// TODO: support smooth-quadratic-bezier-curveto
+// TODO: support elliptical-arc
 
 typedef struct SVGCurve
 {
