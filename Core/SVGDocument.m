@@ -31,6 +31,8 @@
 @synthesize height = _height;
 @synthesize version = _version;
 
+@synthesize graphicsGroups;
+
 @dynamic title, desc, defs;
 
 /* TODO: parse 'viewBox' */
@@ -52,7 +54,10 @@
 	NSString *path = [bundle pathForResource:newName ofType:extension];
 	
 	if (!path)
+	{
+		NSLog(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
+	}
 	
 	return [self documentWithContentsOfFile:path];
 }
@@ -69,6 +74,8 @@
 		_width = _height = 100;
 		
 		if (![self parseFileAtPath:aPath]) {
+			NSLog(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: path = %@", [self class], aPath);
+			
 			[self release];
 			return nil;
 		}
