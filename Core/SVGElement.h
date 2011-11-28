@@ -25,11 +25,16 @@
 
 @property (nonatomic, readwrite, retain) NSString *identifier; // 'id' is reserved
 
+@property (nonatomic, retain) NSMutableArray* metadataChildren;
+
 + (BOOL)shouldStoreContent; // to optimize parser, default is NO
 
 - (id)initWithDocument:(SVGDocument *)aDocument name:(NSString *)name;
 
 - (void)loadDefaults; // should be overriden to set element defaults
+
+/*! Parser uses this to add non-rendering-SVG XML tags to the element they were embedded in */
+- (void) addMetadataChild:(NSObject*) child;
 
 @end
 

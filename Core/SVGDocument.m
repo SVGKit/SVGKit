@@ -14,6 +14,8 @@
 #import "SVGTitleElement.h"
 #import "SVGPathElement.h"
 
+#import "SVGParserSVG.h"
+
 @interface SVGDocument ()
 
 @property (nonatomic, copy) NSString *version;
@@ -34,6 +36,17 @@
 @synthesize graphicsGroups;
 
 @dynamic title, desc, defs;
+
+static NSMutableArray* _parserExtensions;
++ (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension
+{
+	if( _parserExtensions == nil )
+	{
+		_parserExtensions = [[NSMutableArray array] retain];
+	}
+	
+	[_parserExtensions addObject:extension];
+}
 
 /* TODO: parse 'viewBox' */
 
@@ -102,6 +115,12 @@
 	NSError *error = nil;
 	
 	SVGParser *parser = [[SVGParser alloc] initWithPath:aPath document:self];
+	SVGParserSVG *subParserSVG = [[[SVGParserSVG alloc] init] autorelease];
+	[parser.parserExtensions addObject:subParserSVG];
+	for( NSObject<SVGParserExtension>* extension in _parserExtensions )
+	{
+		[parser.parserExtensions addObject:extension];
+	}
 	
 	if (![parser parse:&error]) {
 		NSLog(@"Parser error: %@", error);
