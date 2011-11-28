@@ -13,7 +13,16 @@
 
 @end
 
-
+/*! main class implementation for the base SVGElement: NOTE: in practice, most of the interesting
+ stuff happens in subclasses, e.g.:
+ 
+ SVGShapeElement
+ SVGGroupElement
+ SVGImageElement
+ SVGLineElement
+ SVGPathElement
+ ...etc
+ */
 @implementation SVGElement
 
 @synthesize document = _document;

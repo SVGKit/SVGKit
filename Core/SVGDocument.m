@@ -115,11 +115,12 @@
 	return YES;
 }
 
-- (CALayer *)layer {
-	CALayer *layer = [CALayer layer];
-	layer.frame = CGRectMake(0.0f, 0.0f, _width, _height);
+- (CALayer *)newLayer {
 	
-	return layer;
+	CALayer* _layer = [[CALayer layer] retain];
+		_layer.frame = CGRectMake(0.0f, 0.0f, _width, _height);
+	
+	return _layer;
 }
 
 - (void)layoutLayer:(CALayer *)layer { }

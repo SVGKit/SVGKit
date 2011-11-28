@@ -13,6 +13,8 @@
 #import "SVGElement+Private.h"
 #import "SVGPattern.h"
 
+#import "CAShapeLayerWithHitTest.h"
+
 @implementation SVGShapeElement
 
 #define IDENTIFIER_LEN 256
@@ -110,51 +112,52 @@
 	}
 }
 
-- (CALayer *)layer {
-	CAShapeLayer *shape = [CAShapeLayer layer];
-	shape.name = self.identifier;
-	shape.opacity = _opacity;
+- (CALayer *) newLayer {
+	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];//[[CAShapeLayer layer] retain];
+	_shapeLayer.name = self.identifier;
+		[_shapeLayer setValue:self.identifier forKey:kSVGElementIdentifier];
+	_shapeLayer.opacity = _opacity;
 	
 #if OUTLINE_SHAPES
 	
 #if TARGET_OS_IPHONE
-	shape.borderColor = [UIColor redColor].CGColor;
+	_shapeLayer.borderColor = [UIColor redColor].CGColor;
 #endif
 	
-	shape.borderWidth = 1.0f;
+	_shapeLayer.borderWidth = 1.0f;
 #endif
 	
     CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox(_path));
 	
 	CGPathRef path = CGPathCreateByOffsettingPath(_path, rect.origin.x, rect.origin.y);
 	
-	shape.path = path;
+	_shapeLayer.path = path;
 	CGPathRelease(path);
 	
-	shape.frame = rect;
+	_shapeLayer.frame = rect;
 	
 	if (_strokeWidth) {
-		shape.lineWidth = _strokeWidth;
-		shape.strokeColor = CGColorWithSVGColor(_strokeColor);
+		_shapeLayer.lineWidth = _strokeWidth;
+		_shapeLayer.strokeColor = CGColorWithSVGColor(_strokeColor);
 	}
 	
 	if (_fillType == SVGFillTypeNone) {
-		shape.fillColor = nil;
+		_shapeLayer.fillColor = nil;
 	}
 	else if (_fillType == SVGFillTypeSolid) {
-		shape.fillColor = CGColorWithSVGColor(_fillColor);
+		_shapeLayer.fillColor = CGColorWithSVGColor(_fillColor);
 	}
     
     if (nil != _fillPattern) {
-        shape.fillColor = [_fillPattern CGColor];
+        _shapeLayer.fillColor = [_fillPattern CGColor];
     }
 	
-	if ([shape respondsToSelector:@selector(setShouldRasterize:)]) {
-		[shape performSelector:@selector(setShouldRasterize:)
+	if ([_shapeLayer respondsToSelector:@selector(setShouldRasterize:)]) {
+		[_shapeLayer performSelector:@selector(setShouldRasterize:)
 					withObject:[NSNumber numberWithBool:YES]];
 	}
 	
-	return shape;
+	return _shapeLayer;
 }
 
 - (void)layoutLayer:(CALayer *)layer { }
