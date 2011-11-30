@@ -16,7 +16,6 @@
 		C9FC22971347928C00A91703 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22931347928C00A91703 /* MainMenu.xib */; };
 		C9FC22981347928C00A91703 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22951347928C00A91703 /* MainWindow.xib */; };
 		C9FC229D134792A800A91703 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC229A134792A800A91703 /* main.m */; };
-		C9FC229E134792A800A91703 /* SVGTester-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9FC229B134792A800A91703 /* SVGTester-Info.plist */; };
 		C9FC22A31347940D00A91703 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A01347940D00A91703 /* Lion.svg */; };
 		C9FC22A41347940D00A91703 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A11347940D00A91703 /* Monkey.svg */; };
 		C9FC22A51347940D00A91703 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A21347940D00A91703 /* Note.svg */; };
@@ -217,6 +216,7 @@
 		C9A1717213477A440048E122 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Matt Rajca";
 			};
 			buildConfigurationList = C9A1717513477A440048E122 /* Build configuration list for PBXProject "SVGTester" */;
@@ -259,7 +259,6 @@
 			files = (
 				C9FC22971347928C00A91703 /* MainMenu.xib in Resources */,
 				C9FC22981347928C00A91703 /* MainWindow.xib in Resources */,
-				C9FC229E134792A800A91703 /* SVGTester-Info.plist in Resources */,
 				C9FC22A31347940D00A91703 /* Lion.svg in Resources */,
 				C9FC22A41347940D00A91703 /* Monkey.svg in Resources */,
 				C9FC22A51347940D00A91703 /* Note.svg in Resources */,
@@ -318,7 +317,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -332,7 +331,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
