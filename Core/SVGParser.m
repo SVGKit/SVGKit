@@ -23,6 +23,7 @@
 #import "SVGPolylineElement.h"
 #import "SVGRectElement.h"
 #import "SVGTitleElement.h"
+#import "SVGTextElement.h"
 
 @implementation SVGParser
 
@@ -63,6 +64,7 @@ static NSDictionary *elementMap;
 						   [SVGPolygonElement class], @"polygon",
 						   [SVGPolylineElement class], @"polyline",
 						   [SVGRectElement class], @"rect",
+						   [SVGTextElement class], @"text",
 						   [SVGTitleElement class], @"title", nil] retain];
 		}
 	}
