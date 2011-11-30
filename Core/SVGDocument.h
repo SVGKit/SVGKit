@@ -7,6 +7,8 @@
 
 #import "SVGElement.h"
 
+#import "SVGGroupElement.h"
+
 #if NS_BLOCKS_AVAILABLE
 typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
 #endif
@@ -24,6 +26,9 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *desc; // 'description' is reserved by NSObject
 @property (nonatomic, readonly) SVGDefsElement *defs;
+
+/*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things" */
+@property (nonatomic, retain) NSDictionary *graphicsGroups;
 
 + (id)documentNamed:(NSString *)name; // 'name' in mainBundle
 + (id)documentWithContentsOfFile:(NSString *)aPath;

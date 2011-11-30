@@ -15,6 +15,7 @@
 	NSMutableString *_storedChars;
 	NSMutableArray *_elementStack;
 	__weak SVGDocument *_document;
+	NSMutableDictionary *_graphicsGroups;
 }
 
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document;
