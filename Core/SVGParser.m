@@ -23,6 +23,7 @@
 #import "SVGPolylineElement.h"
 #import "SVGRectElement.h"
 #import "SVGTitleElement.h"
+#import "SVGTextElement.h"
 
 @implementation SVGParser
 
@@ -49,6 +50,7 @@ static NSDictionary *elementMap;
 		_storedChars = [[NSMutableString alloc] init];
 		_elementStack = [[NSMutableArray alloc] init];
 		_failed = NO;
+		_graphicsGroups = [[NSMutableDictionary dictionary] retain];
 		
 		if (!elementMap) {
 			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
@@ -63,6 +65,7 @@ static NSDictionary *elementMap;
 						   [SVGPolygonElement class], @"polygon",
 						   [SVGPolylineElement class], @"polyline",
 						   [SVGRectElement class], @"rect",
+						   [SVGTextElement class], @"text",
 						   [SVGTitleElement class], @"title", nil] retain];
 		}
 	}
@@ -73,6 +76,7 @@ static NSDictionary *elementMap;
 	[_path release];
 	[_storedChars release];
 	[_elementStack release];
+	[_graphicsGroups release];
 	
 	[super dealloc];
 }
@@ -164,8 +168,12 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 }
 
 - (void)handleEndElement:(NSString *)name {
+	
 	if ([name isEqualToString:@"svg"]) {
 		[_elementStack removeObject:_document];
+		
+		/*! Add the dictionary of named "g" tags to the document, so applications can retrieve "named groups" from the SVG */
+		[_document setGraphicsGroups:_graphicsGroups];
 		return;
 	}
 	
@@ -181,6 +189,17 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	}
 	
 	[_elementStack removeLastObject];
+	
+	/*!
+	 SVG Spec attaches special meaning to the "g" tag - and applications
+	 need to be able to pull-out the "g"-tagged items later on
+	 */
+	if( [element.localName isEqualToString:@"g"] )
+	{
+		[_graphicsGroups setValue:element forKey:element.identifier];
+		
+		/*! ...we'll build up the dictionary, then add it to the document when the SVG tag is closed */
+	}
 	
 	SVGElement *parent = [_elementStack lastObject];
 	[parent addChild:element];

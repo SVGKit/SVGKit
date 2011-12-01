@@ -73,6 +73,7 @@
 	}
 }
 
+
 - (void)shakeHead {
 	CALayer *layer = [self.contentView.document layerWithIdentifier:@"head"];
 	
@@ -125,5 +126,56 @@
     CGAffineTransform t = CGAffineTransformScale(self.contentView.transform, zoom.scale, zoom.scale);
     self.contentView.transform = t;
 }
+
+
+#pragma mark Export
+
+
+- (IBAction)exportLayers:(id)sender {
+    if (_layerExporter) {
+        return;
+    }
+    _layerExporter = [[[CALayerExporter alloc] initWithView:contentView] autorelease];
+    _layerExporter.delegate = self;
+    
+    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
+    UIViewController* textViewController = [[[UIViewController alloc] init] autorelease];
+    [textViewController setView:textView];
+    UIPopoverController* exportPopover = [[UIPopoverController alloc] initWithContentViewController:textViewController];
+    [exportPopover setDelegate:self];
+    [exportPopover presentPopoverFromBarButtonItem:sender
+                    permittedArrowDirections:UIPopoverArrowDirectionAny
+                                    animated:YES];
+    
+    _exportText = textView;
+    _exportText.text = @"exporting...";
+    
+    _exportLog = [[NSMutableString alloc] init];
+    [_layerExporter startExport];
+}
+
+- (void) layerExporter:(CALayerExporter*)exporter didParseLayer:(CALayer*)layer withStatement:(NSString*)statement
+{
+    //NSLog(@"%@", statement);
+    [_exportLog appendString:statement];
+    [_exportLog appendString:@"\n"];
+}
+
+- (void)layerExporterDidFinish:(CALayerExporter *)exporter
+{
+    _exportText.text = _exportLog;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
+{
+    [_exportText release];
+    _exportText = nil;
+    
+    [_layerExporter release];
+    _layerExporter = nil;
+    
+    [pc release];
+}
+
 
 @end

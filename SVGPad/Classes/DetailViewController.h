@@ -6,10 +6,14 @@
 //
 
 #import "SVGKit.h"
+#import "CALayerExporter.h"
 
-@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate > {
+@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate> {
   @private
 	NSString *_name;
+    UITextView* _exportText;
+    NSMutableString* _exportLog;
+    CALayerExporter* _layerExporter;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
@@ -18,5 +22,6 @@
 @property (nonatomic, retain) id detailItem;
 
 - (IBAction)animate:(id)sender;
+- (IBAction)exportLayers:(id)sender;
 
 @end

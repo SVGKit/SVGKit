@@ -8,6 +8,30 @@
 
 #import "SVGImageElement.h"
 
+#if TARGET_OS_IPHONE
+
+#else
+#endif
+
+#if TARGET_OS_IPHONE
+#define SVGImage UIImage
+#else
+#define SVGImage CIImage
+#endif
+
+#define SVGImageRef SVGImage*
+
+CGImageRef SVGImageCGImage(SVGImageRef img)
+{
+#if TARGET_OS_IPHONE
+    return img.CGImage;
+#else
+    NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCIImage:img] autorelease];
+    return rep.CGImage;
+#endif
+}
+
+
 @implementation SVGImageElement
 
 @synthesize x = _x;
@@ -61,17 +85,17 @@
 
 	layer.name = self.identifier;
     layer.frame = CGRectMake(_x, _y, _width, _height);
-
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
-        UIImage *image = [UIImage imageWithData:imageData];
+        SVGImageRef image = [SVGImage imageWithData:imageData];
         
         //    _href = @"http://b.dryicons.com/images/icon_sets/coquette_part_4_icons_set/png/128x128/png_file.png";
         //    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
         //    UIImage *image = [UIImage imageWithData:imageData];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            layer.contents = (id)image.CGImage;
+            layer.contents = (id)SVGImageCGImage(image);
         });
     });
 
