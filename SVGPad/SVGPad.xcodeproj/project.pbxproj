@@ -18,12 +18,17 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		3B5C26B81448839E006FD609 /* SVGImageElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C26B71448839E006FD609 /* SVGImageElement.m */; };
 		3B716A451484939800984357 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B716A441484939800984357 /* CALayerExporter.m */; };
-		3BA7DBC7147D8F74004377D7 /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BA7DBC6147D8F74004377D7 /* CurvedDiamond.svg */; };
 		3BA7DBD6147D9154004377D7 /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7DBD5147D9154004377D7 /* SVGTextElement.m */; };
-		3BA7DBD9147D91C9004377D7 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BA7DBD8147D91C9004377D7 /* Text.svg */; };
 		3BA98E15142B9CC3003EA1FA /* SVGPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA98E14142B9CC3003EA1FA /* SVGPattern.m */; };
 		3BA98E19142B9CFB003EA1FA /* SVGPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA98E18142B9CFB003EA1FA /* SVGPathView.m */; };
-		3BF31C2C14229647002A4B06 /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF31C2B14229647002A4B06 /* Map.svg */; };
+		3BC23F071488686900FC74CE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC23F061488686900FC74CE /* libxml2.dylib */; };
+		3BC23F081488688600FC74CE /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BA7DBC6147D8F74004377D7 /* CurvedDiamond.svg */; };
+		3BC23F091488688800FC74CE /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = C97207781347795300DE3BE3 /* Lion.svg */; };
+		3BC23F0A1488688B00FC74CE /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF31C2B14229647002A4B06 /* Map.svg */; };
+		3BC23F0B1488688D00FC74CE /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = C97207791347795300DE3BE3 /* Monkey.svg */; };
+		3BC23F0C1488688F00FC74CE /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = C972077A1347795300DE3BE3 /* Note.svg */; };
+		3BC23F0D1488689100FC74CE /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BA7DBD8147D91C9004377D7 /* Text.svg */; };
+		3BC23F0F148869E200FC74CE /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BC23F0E148869E200FC74CE /* test-wave-1.svg */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 		C97207651347794300DE3BE3 /* CGPathAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C972073F1347794300DE3BE3 /* CGPathAdditions.m */; };
 		C97207661347794300DE3BE3 /* SVGCircleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C97207411347794300DE3BE3 /* SVGCircleElement.m */; };
@@ -43,11 +48,7 @@
 		C97207741347794300DE3BE3 /* SVGShapeElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C97207601347794300DE3BE3 /* SVGShapeElement.m */; };
 		C97207751347794300DE3BE3 /* SVGTitleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C97207621347794300DE3BE3 /* SVGTitleElement.m */; };
 		C97207761347794300DE3BE3 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C97207641347794300DE3BE3 /* SVGUtils.m */; };
-		C972077B1347795300DE3BE3 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = C97207781347795300DE3BE3 /* Lion.svg */; };
-		C972077C1347795300DE3BE3 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = C97207791347795300DE3BE3 /* Monkey.svg */; };
-		C972077D1347795300DE3BE3 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = C972077A1347795300DE3BE3 /* Note.svg */; };
 		C97207811347796E00DE3BE3 /* SVGView.m in Sources */ = {isa = PBXBuildFile; fileRef = C97207801347796E00DE3BE3 /* SVGView.m */; };
-		C9BB18AF1274A31400948CA8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BB18AE1274A31400948CA8 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,8 @@
 		3BA98E14142B9CC3003EA1FA /* SVGPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPattern.m; sourceTree = "<group>"; };
 		3BA98E17142B9CFB003EA1FA /* SVGPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPathView.h; sourceTree = "<group>"; };
 		3BA98E18142B9CFB003EA1FA /* SVGPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPathView.m; sourceTree = "<group>"; };
+		3BC23F061488686900FC74CE /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		3BC23F0E148869E200FC74CE /* test-wave-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-wave-1.svg"; sourceTree = "<group>"; };
 		3BF31C2B14229647002A4B06 /* Map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map.svg; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -124,7 +127,6 @@
 		C972077A1347795300DE3BE3 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
 		C972077F1347796E00DE3BE3 /* SVGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGView.h; sourceTree = "<group>"; };
 		C97207801347796E00DE3BE3 /* SVGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGView.m; sourceTree = "<group>"; };
-		C9BB18AE1274A31400948CA8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,11 +134,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC23F071488686900FC74CE /* libxml2.dylib in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				C9BB18AF1274A31400948CA8 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,10 +205,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BC23F061488686900FC74CE /* libxml2.dylib */,
 				C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				C9BB18AE1274A31400948CA8 /* libxml2.dylib */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -282,6 +284,7 @@
 				3BF31C2B14229647002A4B06 /* Map.svg */,
 				C97207791347795300DE3BE3 /* Monkey.svg */,
 				C972077A1347795300DE3BE3 /* Note.svg */,
+				3BC23F0E148869E200FC74CE /* test-wave-1.svg */,
 				3BA7DBD8147D91C9004377D7 /* Text.svg */,
 			);
 			name = Samples;
@@ -355,12 +358,13 @@
 			files = (
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				2804203C108E9BAB000629CD /* DetailView.xib in Resources */,
-				C972077B1347795300DE3BE3 /* Lion.svg in Resources */,
-				C972077C1347795300DE3BE3 /* Monkey.svg in Resources */,
-				C972077D1347795300DE3BE3 /* Note.svg in Resources */,
-				3BF31C2C14229647002A4B06 /* Map.svg in Resources */,
-				3BA7DBC7147D8F74004377D7 /* CurvedDiamond.svg in Resources */,
-				3BA7DBD9147D91C9004377D7 /* Text.svg in Resources */,
+				3BC23F091488688800FC74CE /* Lion.svg in Resources */,
+				3BC23F0C1488688F00FC74CE /* Note.svg in Resources */,
+				3BC23F0D1488689100FC74CE /* Text.svg in Resources */,
+				3BC23F0B1488688D00FC74CE /* Monkey.svg in Resources */,
+				3BC23F0A1488688B00FC74CE /* Map.svg in Resources */,
+				3BC23F081488688600FC74CE /* CurvedDiamond.svg in Resources */,
+				3BC23F0F148869E200FC74CE /* test-wave-1.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +448,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -458,6 +463,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;

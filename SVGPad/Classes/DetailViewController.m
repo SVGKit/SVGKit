@@ -15,21 +15,18 @@
 
 - (void)loadResource:(NSString *)name;
 - (void)shakeHead;
-- (void)pinch:(UIGestureRecognizer*)gesture;
 
 @end
 
 
 @implementation DetailViewController
+@synthesize scrollView;
 
 @synthesize toolbar, popoverController, contentView, detailItem;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    UIPinchGestureRecognizer* zoom = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)] autorelease];
-    [self.view addGestureRecognizer:zoom];
 }
 
 - (void)dealloc {
@@ -37,6 +34,7 @@
 	self.toolbar = nil;
 	self.detailItem = nil;
 	
+    [scrollView release];
 	[super dealloc];
 }
 
@@ -53,11 +51,12 @@
 	}
 }
 
-- (void)loadResource:(NSString *)name {
+- (void)loadResource:(NSString *)name
+{
+    [self.contentView removeFromSuperview];
+    
 	SVGDocument *document = [SVGDocument documentNamed:[name stringByAppendingPathExtension:@"svg"]];
-	
-	self.contentView.bounds = CGRectMake(0.0f, 0.0f, document.width, document.height);
-	self.contentView.document = document;
+	self.contentView = [[[SVGView alloc] initWithDocument:document] autorelease];
 	
 	if (_name) {
 		[_name release];
@@ -65,6 +64,10 @@
 	}
 	
 	_name = [name copy];
+    
+    [self.scrollView addSubview:self.contentView];
+    [self.scrollView setContentSize:CGSizeMake(document.width, document.height)];
+    [self.scrollView zoomToRect:CGRectMake(0, 0, document.width, document.height) animated:YES];
 }
 
 - (IBAction)animate:(id)sender {
@@ -120,13 +123,10 @@
 	return YES;
 }
 
-- (void)pinch:(UIGestureRecognizer *)gesture
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    UIPinchGestureRecognizer* zoom = (UIPinchGestureRecognizer*)gesture;
-    CGAffineTransform t = CGAffineTransformScale(self.contentView.transform, zoom.scale, zoom.scale);
-    self.contentView.transform = t;
+    return self.contentView;
 }
-
 
 #pragma mark Export
 
@@ -176,6 +176,13 @@
     
     [pc release];
 }
+
+
+- (void)viewDidUnload {
+    [self setScrollView:nil];
+    [super viewDidUnload];
+}
+
 
 
 @end
