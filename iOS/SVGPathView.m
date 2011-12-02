@@ -32,7 +32,7 @@
         } else {
             CGPathRef translatedPath = CGPathCreateByOffsettingPath(originalPath, pathRect.origin.x, pathRect.origin.y);
             [newPathElement loadPath:translatedPath];
-            CFRelease(translatedPath);
+            CGPathRelease(translatedPath);
         }
         
         [newPathElement setIdentifier:pathElement.identifier];
