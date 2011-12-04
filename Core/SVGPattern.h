@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 /** lightweight wrapper for UIColor so that we can draw with fill patterns */
 @interface SVGPattern : NSObject

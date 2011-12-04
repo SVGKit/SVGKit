@@ -6,6 +6,7 @@
 //
 
 #import <CoreFoundation/CoreFoundation.h>
+#import <UIKit/UIKit.h>
 
 #define RGB_N(v) (v) / 255.0f
 
