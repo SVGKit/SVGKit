@@ -7,29 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B86B3CD148C661C0082ACCF /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B86B3CA148C66030082ACCF /* SVGKit.framework */; };
+		3B86B3D7148C66AE0082ACCF /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D0148C66AE0082ACCF /* CurvedDiamond.svg */; };
+		3B86B3D8148C66AE0082ACCF /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D1148C66AE0082ACCF /* Lion.svg */; };
+		3B86B3D9148C66AE0082ACCF /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D2148C66AE0082ACCF /* Map.svg */; };
+		3B86B3DA148C66AE0082ACCF /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D3148C66AE0082ACCF /* Monkey.svg */; };
+		3B86B3DB148C66AE0082ACCF /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D4148C66AE0082ACCF /* Note.svg */; };
+		3B86B3DC148C66AE0082ACCF /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D5148C66AE0082ACCF /* test-wave-1.svg */; };
+		3B86B3DD148C66AE0082ACCF /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3D6148C66AE0082ACCF /* Text.svg */; };
+		3B86B3E1148C66B50082ACCF /* Monkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3DF148C66B50082ACCF /* Monkey.png */; };
+		3B86B3E2148C66B50082ACCF /* Note.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B86B3E0148C66B50082ACCF /* Note.png */; };
 		C9A1718013477A440048E122 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1717F13477A440048E122 /* Cocoa.framework */; };
-		C9A171BA13477B620048E122 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A171B913477B620048E122 /* SVGKit.framework */; };
-		C9A171BC13477B740048E122 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C9A171B913477B620048E122 /* SVGKit.framework */; };
 		C9FC228F1347924600A91703 /* ComparisonView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC228A1347924600A91703 /* ComparisonView.m */; };
 		C9FC22901347924600A91703 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC228C1347924600A91703 /* MainWindowController.m */; };
 		C9FC22911347924600A91703 /* SVGTesterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC228E1347924600A91703 /* SVGTesterAppDelegate.m */; };
 		C9FC22971347928C00A91703 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22931347928C00A91703 /* MainMenu.xib */; };
 		C9FC22981347928C00A91703 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22951347928C00A91703 /* MainWindow.xib */; };
 		C9FC229D134792A800A91703 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC229A134792A800A91703 /* main.m */; };
-		C9FC22A31347940D00A91703 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A01347940D00A91703 /* Lion.svg */; };
-		C9FC22A41347940D00A91703 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A11347940D00A91703 /* Monkey.svg */; };
-		C9FC22A51347940D00A91703 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A21347940D00A91703 /* Note.svg */; };
-		C9FC22A91347941200A91703 /* Monkey.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A71347941200A91703 /* Monkey.png */; };
-		C9FC22AA1347941200A91703 /* Note.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FC22A81347941200A91703 /* Note.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C9A171B713477B380048E122 /* PBXContainerItemProxy */ = {
+		3B86B3C9148C66030082ACCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9A171B013477B380048E122 /* SVGKit.xcodeproj */;
+			containerPortal = 3B86B3C1148C66030082ACCF /* SVGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = SVGKit;
+		};
+		3B86B3CB148C66030082ACCF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B86B3C1148C66030082ACCF /* SVGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66213432148AF2CF006881E1;
+			remoteInfo = SVGKitLibrary;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,7 +50,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C9A171BC13477B740048E122 /* SVGKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,13 +57,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B86B3C1148C66030082ACCF /* SVGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SVGKit.xcodeproj; path = ../SVGKit/SVGKit.xcodeproj; sourceTree = "<group>"; };
+		3B86B3D0148C66AE0082ACCF /* CurvedDiamond.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CurvedDiamond.svg; sourceTree = "<group>"; };
+		3B86B3D1148C66AE0082ACCF /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Lion.svg; sourceTree = "<group>"; };
+		3B86B3D2148C66AE0082ACCF /* Map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map.svg; sourceTree = "<group>"; };
+		3B86B3D3148C66AE0082ACCF /* Monkey.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Monkey.svg; sourceTree = "<group>"; };
+		3B86B3D4148C66AE0082ACCF /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
+		3B86B3D5148C66AE0082ACCF /* test-wave-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-wave-1.svg"; sourceTree = "<group>"; };
+		3B86B3D6148C66AE0082ACCF /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
+		3B86B3DF148C66B50082ACCF /* Monkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Monkey.png; sourceTree = "<group>"; };
+		3B86B3E0148C66B50082ACCF /* Note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Note.png; sourceTree = "<group>"; };
 		C9A1717B13477A440048E122 /* SVGTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A1717F13477A440048E122 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C9A1718213477A440048E122 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C9A1718313477A440048E122 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C9A1718413477A440048E122 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C9A171B013477B380048E122 /* SVGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SVGKit.xcodeproj; path = ../SVGKit.xcodeproj; sourceTree = "<group>"; };
-		C9A171B913477B620048E122 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FC22891347924600A91703 /* ComparisonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComparisonView.h; sourceTree = "<group>"; };
 		C9FC228A1347924600A91703 /* ComparisonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComparisonView.m; sourceTree = "<group>"; };
 		C9FC228B1347924600A91703 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -66,11 +83,6 @@
 		C9FC229A134792A800A91703 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C9FC229B134792A800A91703 /* SVGTester-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGTester-Info.plist"; sourceTree = "<group>"; };
 		C9FC229C134792A800A91703 /* SVGTester-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGTester-Prefix.pch"; sourceTree = "<group>"; };
-		C9FC22A01347940D00A91703 /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Lion.svg; sourceTree = "<group>"; };
-		C9FC22A11347940D00A91703 /* Monkey.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Monkey.svg; sourceTree = "<group>"; };
-		C9FC22A21347940D00A91703 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
-		C9FC22A71347941200A91703 /* Monkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Monkey.png; sourceTree = "<group>"; };
-		C9FC22A81347941200A91703 /* Note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Note.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,18 +90,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B86B3CD148C661C0082ACCF /* SVGKit.framework in Frameworks */,
 				C9A1718013477A440048E122 /* Cocoa.framework in Frameworks */,
-				C9A171BA13477B620048E122 /* SVGKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B86B3C2148C66030082ACCF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B86B3CA148C66030082ACCF /* SVGKit.framework */,
+				3B86B3CC148C66030082ACCF /* libSVGKitLibrary.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B86B3CF148C66AE0082ACCF /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				3B86B3D0148C66AE0082ACCF /* CurvedDiamond.svg */,
+				3B86B3D1148C66AE0082ACCF /* Lion.svg */,
+				3B86B3D2148C66AE0082ACCF /* Map.svg */,
+				3B86B3D3148C66AE0082ACCF /* Monkey.svg */,
+				3B86B3D4148C66AE0082ACCF /* Note.svg */,
+				3B86B3D5148C66AE0082ACCF /* test-wave-1.svg */,
+				3B86B3D6148C66AE0082ACCF /* Text.svg */,
+			);
+			name = Samples;
+			path = ../../Samples;
+			sourceTree = "<group>";
+		};
+		3B86B3DE148C66B50082ACCF /* RenderedSamples */ = {
+			isa = PBXGroup;
+			children = (
+				3B86B3DF148C66B50082ACCF /* Monkey.png */,
+				3B86B3E0148C66B50082ACCF /* Note.png */,
+			);
+			name = RenderedSamples;
+			path = ../../RenderedSamples;
+			sourceTree = "<group>";
+		};
 		C9A1717013477A440048E122 = {
 			isa = PBXGroup;
 			children = (
-				C9A171B013477B380048E122 /* SVGKit.xcodeproj */,
+				3B86B3C1148C66030082ACCF /* SVGKit.xcodeproj */,
 				C9FC22881347924600A91703 /* Classes */,
 				C9FC22921347926E00A91703 /* Resources */,
 				C9FC22991347929600A91703 /* Support Files */,
@@ -110,7 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				C9A1717F13477A440048E122 /* Cocoa.framework */,
-				C9A171B913477B620048E122 /* SVGKit.framework */,
 				C9A1718113477A440048E122 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -124,14 +169,6 @@
 				C9A1718413477A440048E122 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		C9A171B113477B380048E122 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C9A171B813477B380048E122 /* SVGKit.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C9FC22881347924600A91703 /* Classes */ = {
@@ -150,8 +187,8 @@
 		C9FC22921347926E00A91703 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9FC229F1347940D00A91703 /* Samples */,
-				C9FC22A61347941200A91703 /* RenderedSamples */,
+				3B86B3DE148C66B50082ACCF /* RenderedSamples */,
+				3B86B3CF148C66AE0082ACCF /* Samples */,
 				C9FC22931347928C00A91703 /* MainMenu.xib */,
 				C9FC22951347928C00A91703 /* MainWindow.xib */,
 			);
@@ -166,27 +203,6 @@
 				C9FC229C134792A800A91703 /* SVGTester-Prefix.pch */,
 			);
 			name = "Support Files";
-			sourceTree = "<group>";
-		};
-		C9FC229F1347940D00A91703 /* Samples */ = {
-			isa = PBXGroup;
-			children = (
-				C9FC22A01347940D00A91703 /* Lion.svg */,
-				C9FC22A11347940D00A91703 /* Monkey.svg */,
-				C9FC22A21347940D00A91703 /* Note.svg */,
-			);
-			name = Samples;
-			path = ../Samples;
-			sourceTree = "<group>";
-		};
-		C9FC22A61347941200A91703 /* RenderedSamples */ = {
-			isa = PBXGroup;
-			children = (
-				C9FC22A71347941200A91703 /* Monkey.png */,
-				C9FC22A81347941200A91703 /* Note.png */,
-			);
-			name = RenderedSamples;
-			path = ../RenderedSamples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,8 +247,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C9A171B113477B380048E122 /* Products */;
-					ProjectRef = C9A171B013477B380048E122 /* SVGKit.xcodeproj */;
+					ProductGroup = 3B86B3C2148C66030082ACCF /* Products */;
+					ProjectRef = 3B86B3C1148C66030082ACCF /* SVGKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -243,11 +259,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C9A171B813477B380048E122 /* SVGKit.framework */ = {
+		3B86B3CA148C66030082ACCF /* SVGKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SVGKit.framework;
-			remoteRef = C9A171B713477B380048E122 /* PBXContainerItemProxy */;
+			remoteRef = 3B86B3C9148C66030082ACCF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B86B3CC148C66030082ACCF /* libSVGKitLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSVGKitLibrary.a;
+			remoteRef = 3B86B3CB148C66030082ACCF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -259,11 +282,15 @@
 			files = (
 				C9FC22971347928C00A91703 /* MainMenu.xib in Resources */,
 				C9FC22981347928C00A91703 /* MainWindow.xib in Resources */,
-				C9FC22A31347940D00A91703 /* Lion.svg in Resources */,
-				C9FC22A41347940D00A91703 /* Monkey.svg in Resources */,
-				C9FC22A51347940D00A91703 /* Note.svg in Resources */,
-				C9FC22A91347941200A91703 /* Monkey.png in Resources */,
-				C9FC22AA1347941200A91703 /* Note.png in Resources */,
+				3B86B3D7148C66AE0082ACCF /* CurvedDiamond.svg in Resources */,
+				3B86B3D8148C66AE0082ACCF /* Lion.svg in Resources */,
+				3B86B3D9148C66AE0082ACCF /* Map.svg in Resources */,
+				3B86B3DA148C66AE0082ACCF /* Monkey.svg in Resources */,
+				3B86B3DB148C66AE0082ACCF /* Note.svg in Resources */,
+				3B86B3DC148C66AE0082ACCF /* test-wave-1.svg in Resources */,
+				3B86B3DD148C66AE0082ACCF /* Text.svg in Resources */,
+				3B86B3E1148C66B50082ACCF /* Monkey.png in Resources */,
+				3B86B3E2148C66B50082ACCF /* Note.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +372,10 @@
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SVGTester-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../../Core,
+					../../Mac,
+				);
 				INFOPLIST_FILE = "SVGTester-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -361,6 +392,10 @@
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SVGTester-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../../Core,
+					../../Mac,
+				);
 				INFOPLIST_FILE = "SVGTester-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

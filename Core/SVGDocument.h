@@ -9,13 +9,16 @@
 
 #import "SVGGroupElement.h"
 
+#import "SVGParser.h"
+
 #if NS_BLOCKS_AVAILABLE
 typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
 #endif
 
 @class SVGDefsElement;
 
-@interface SVGDocument : SVGElement < SVGLayeredElement > { }
+@interface SVGDocument : SVGElement < SVGLayeredElement > {
+}
 
 // only absolute widths and heights are supported (no percentages)
 @property (nonatomic, readonly) CGFloat width;
@@ -30,6 +33,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 /*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things" */
 @property (nonatomic, retain) NSDictionary *graphicsGroups;
 
++ (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 + (id)documentNamed:(NSString *)name; // 'name' in mainBundle
 + (id)documentWithContentsOfFile:(NSString *)aPath;
 

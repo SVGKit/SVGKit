@@ -5,8 +5,8 @@
 
 #import "SVGPathView.h"
 
-#import "SVGDocument.h"
 #import "SVGElement+Private.h"
+#import "SVGDocument.h"
 #import "SVGPathElement.h"
 #import "SVGShapeElement+Private.h"
 #import "CGPathAdditions.h"

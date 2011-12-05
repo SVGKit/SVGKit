@@ -10,6 +10,8 @@
 
 #if TARGET_OS_IPHONE
 
+#import <UIKit/UIKit.h>
+
 #else
 #endif
 
@@ -80,10 +82,11 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	}
 }
 
-- (CALayer *)layer {
-	__block CALayer *layer = [CALayer layer];
+- (CALayer *)newLayer {
+	__block CALayer *layer = [[CALayer layer] retain];
 
 	layer.name = self.identifier;
+	[layer setValue:self.identifier forKey:kSVGElementIdentifier];
     layer.frame = CGRectMake(_x, _y, _width, _height);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
