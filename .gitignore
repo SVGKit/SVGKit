@@ -24,3 +24,4 @@ build/*
 xcuserdata
 profile
 *.moved-aside
+build
