@@ -143,6 +143,10 @@ static NSDictionary *elementMap;
 	SVGElement *element = [[elementClass alloc] initWithDocument:_document name:name];
 	[element parseAttributes:attributes];
 	
+    if( [element.localName isEqualToString:@"g"] && nil == element.identifier ) {
+        element.identifier = [[NSProcessInfo processInfo] globallyUniqueString];
+    }
+    
 	[_elementStack addObject:element];
 	[element release];
 	
