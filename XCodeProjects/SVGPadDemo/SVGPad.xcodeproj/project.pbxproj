@@ -44,7 +44,6 @@
 		3BF50413148C62D900CC7D17 /* SVGDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF503F6148C62D900CC7D17 /* SVGDocumentView.m */; };
 		3BF50414148C62D900CC7D17 /* SVGPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF503F8148C62D900CC7D17 /* SVGPathView.m */; };
 		3BF50415148C62D900CC7D17 /* SVGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF503FA148C62D900CC7D17 /* SVGView.m */; };
-		3BF50419148C63A300CC7D17 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF50418148C63A300CC7D17 /* CALayerExporter.m */; };
 		3BF50422148C63F500CC7D17 /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF5041B148C63F500CC7D17 /* CurvedDiamond.svg */; };
 		3BF50423148C63F500CC7D17 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF5041C148C63F500CC7D17 /* Lion.svg */; };
 		3BF50424148C63F500CC7D17 /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF5041D148C63F500CC7D17 /* Map.svg */; };
@@ -52,6 +51,7 @@
 		3BF50426148C63F500CC7D17 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF5041F148C63F500CC7D17 /* Note.svg */; };
 		3BF50427148C63F500CC7D17 /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50420148C63F500CC7D17 /* test-wave-1.svg */; };
 		3BF50428148C63F500CC7D17 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50421148C63F500CC7D17 /* Text.svg */; };
+		66F60D05149E422700516475 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F60D04149E422700516475 /* CALayerExporter.m */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -128,8 +128,6 @@
 		3BF503F8148C62D900CC7D17 /* SVGPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPathView.m; sourceTree = "<group>"; };
 		3BF503F9148C62D900CC7D17 /* SVGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGView.h; sourceTree = "<group>"; };
 		3BF503FA148C62D900CC7D17 /* SVGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGView.m; sourceTree = "<group>"; };
-		3BF50417148C63A300CC7D17 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
-		3BF50418148C63A300CC7D17 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
 		3BF5041B148C63F500CC7D17 /* CurvedDiamond.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CurvedDiamond.svg; sourceTree = "<group>"; };
 		3BF5041C148C63F500CC7D17 /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Lion.svg; sourceTree = "<group>"; };
 		3BF5041D148C63F500CC7D17 /* Map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map.svg; sourceTree = "<group>"; };
@@ -137,6 +135,8 @@
 		3BF5041F148C63F500CC7D17 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
 		3BF50420148C63F500CC7D17 /* test-wave-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-wave-1.svg"; sourceTree = "<group>"; };
 		3BF50421148C63F500CC7D17 /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
+		66F60D03149E422700516475 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
+		66F60D04149E422700516475 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -182,7 +182,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				3BF50416148C63A300CC7D17 /* calayer-exporter */,
+				66F60D02149E422700516475 /* calayer-exporter */,
 				080E96DDFE201D6D7F000001 /* Controllers */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -307,16 +307,6 @@
 			path = ../../iOS;
 			sourceTree = "<group>";
 		};
-		3BF50416148C63A300CC7D17 /* calayer-exporter */ = {
-			isa = PBXGroup;
-			children = (
-				3BF50417148C63A300CC7D17 /* CALayerExporter.h */,
-				3BF50418148C63A300CC7D17 /* CALayerExporter.m */,
-			);
-			name = "calayer-exporter";
-			path = "../../calayer-exporter";
-			sourceTree = "<group>";
-		};
 		3BF5041A148C63F500CC7D17 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +320,16 @@
 			);
 			name = Samples;
 			path = ../../Samples;
+			sourceTree = "<group>";
+		};
+		66F60D02149E422700516475 /* calayer-exporter */ = {
+			isa = PBXGroup;
+			children = (
+				66F60D03149E422700516475 /* CALayerExporter.h */,
+				66F60D04149E422700516475 /* CALayerExporter.m */,
+			);
+			name = "calayer-exporter";
+			path = "Classes/calayer-exporter";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,7 +435,7 @@
 				3BF50413148C62D900CC7D17 /* SVGDocumentView.m in Sources */,
 				3BF50414148C62D900CC7D17 /* SVGPathView.m in Sources */,
 				3BF50415148C62D900CC7D17 /* SVGView.m in Sources */,
-				3BF50419148C63A300CC7D17 /* CALayerExporter.m in Sources */,
+				66F60D05149E422700516475 /* CALayerExporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
