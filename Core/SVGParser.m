@@ -134,6 +134,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	[_elementStack addObject:emptyItem];
 }
 
+
 static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix,
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
@@ -144,9 +145,43 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	NSMutableDictionary *attrs = NSDictionaryFromLibxmlAttributes(attributes, nb_attributes);
 	
 	//NSString *url = NSStringFromLibxmlString(URI);
-	NSString *prefix2 = NSStringFromLibxmlString(prefix);
+	NSString *prefix2 = nil;
+	if( prefix != NULL )
+		prefix2 = NSStringFromLibxmlString(prefix);
 	
-	[self handleStartElement:name xmlns:prefix2 attributes:attrs];
+	NSString *objcURIString = NSStringFromLibxmlString(URI);
+	
+#if DEBUG_VERBOSE_LOG_EVERY_TAG
+	NSLog(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], (prefix2==nil)?@"":[NSString stringWithFormat:@"%@:",prefix2], name, (URI==NULL)?@"n/a":objcURIString, nb_attributes );
+#endif
+	
+#if DEBUG_VERBOSE_LOG_EVERY_TAG
+	if( prefix2 == nil )
+	{
+		/* The XML library allows this, although it's very unhelpful when writing application code */
+		
+		/* Let's find out what namespaces DO exist... */
+		
+		/*
+		 
+		 TODO / DEVELOPER WARNING: the library says nb_namespaces is the number of elements in the array,
+		 but it keeps returning nil pointer (not always, but often). WTF? Not sure what we're doing wrong
+		 here, but commenting it out for now...
+		 
+		if( nb_namespaces > 0 )
+		{
+			for( int i=0; i<nb_namespaces; i++ )
+			{
+				NSLog(@"[%@] DEBUG: found namespace [%i] : %@", [self class], i, namespaces[i] );
+			}
+		}
+		else
+			NSLog(@"[%@] DEBUG: there are ZERO namespaces!", [self class] );
+		 */
+	}
+#endif
+	
+	[self handleStartElement:name xmlns:objcURIString attributes:attrs];
 }
 
 - (void)handleEndElement:(NSString *)name {

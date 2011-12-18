@@ -53,13 +53,13 @@ static NSDictionary *elementMap;
 -(NSArray*) supportedNamespaces
 {
 	return [NSArray arrayWithObjects:
-			 @"svg",
+			 @"http://www.w3.org/2000/svg",
 			nil];
 }
 
 -(NSArray*) supportedTags
 {
-	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allValues]];
+	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allKeys]];
 	[result addObject:@"svg"];
 	[result addObject:@"defs"];
 	 [result addObject:@"g"];
@@ -140,7 +140,22 @@ static NSDictionary *elementMap;
 			 */
 			if( [childElement.localName isEqualToString:@"g"] )
 			{
-				[_graphicsGroups setValue:childElement forKey:childElement.identifier];
+				if( childElement.identifier == nil )
+				{
+					NSMutableArray* anonymousGroups = [_graphicsGroups valueForKey:@"ANONYMOUS_GROUPS"];
+					if( anonymousGroups == nil )
+					{
+						anonymousGroups = [NSMutableArray array];
+						[_graphicsGroups setValue:anonymousGroups forKey:@"ANONYMOUS_GROUPS"];
+					}
+					[anonymousGroups addObject:childElement];
+					
+#if PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS
+					NSLog(@"[%@] PARSER_WARN: Found anonymous g tag (tag has no XML 'id=' attribute). Loading OK, but check your SVG file (id tags are highly recommended!)...", [self class] );
+#endif
+				}
+				else
+					[_graphicsGroups setValue:childElement forKey:childElement.identifier];
 			}
 		}
 	}
