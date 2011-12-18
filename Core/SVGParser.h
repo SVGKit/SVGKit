@@ -9,7 +9,7 @@
 #define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1
 
 /*! Verbose parser logging - ONLY needed if you have an SVG file that's failing to load / crashing */
-#define DEBUG_VERBOSE_LOG_EVERY_TAG 1
+#define DEBUG_VERBOSE_LOG_EVERY_TAG 0
 
 @class SVGDocument;
 

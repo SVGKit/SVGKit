@@ -16,7 +16,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	self = [super initWithCoder:aDecoder];
 	if (self) {
-		_sampleNames = [[NSArray alloc] initWithObjects:@"Monkey", @"Note", @"Lion", @"Map", @"CurvedDiamond", @"Text", nil];
+		_sampleNames = [[NSArray alloc] initWithObjects:@"Monkey", @"Blank_Map-Africa", @"Note", @"Lion", @"Map", @"CurvedDiamond", @"Text", nil];
 	}
 	return self;
 }

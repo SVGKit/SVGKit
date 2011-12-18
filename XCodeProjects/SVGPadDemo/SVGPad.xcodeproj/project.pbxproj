@@ -51,6 +51,8 @@
 		3BF50426148C63F500CC7D17 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF5041F148C63F500CC7D17 /* Note.svg */; };
 		3BF50427148C63F500CC7D17 /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50420148C63F500CC7D17 /* test-wave-1.svg */; };
 		3BF50428148C63F500CC7D17 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50421148C63F500CC7D17 /* Text.svg */; };
+		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
+		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
 		66F60D05149E422700516475 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F60D04149E422700516475 /* CALayerExporter.m */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -135,6 +137,8 @@
 		3BF5041F148C63F500CC7D17 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
 		3BF50420148C63F500CC7D17 /* test-wave-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-wave-1.svg"; sourceTree = "<group>"; };
 		3BF50421148C63F500CC7D17 /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
+		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
+		6680A6D4149E4F3900F2113F /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses.txt"; sourceTree = "<group>"; };
 		66F60D03149E422700516475 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
 		66F60D04149E422700516475 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 		3BF5041A148C63F500CC7D17 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */,
 				3BF5041B148C63F500CC7D17 /* CurvedDiamond.svg */,
 				3BF5041C148C63F500CC7D17 /* Lion.svg */,
 				3BF5041D148C63F500CC7D17 /* Map.svg */,
@@ -317,6 +322,7 @@
 				3BF5041F148C63F500CC7D17 /* Note.svg */,
 				3BF50420148C63F500CC7D17 /* test-wave-1.svg */,
 				3BF50421148C63F500CC7D17 /* Text.svg */,
+				6680A6D4149E4F3900F2113F /* Sample Licenses.txt */,
 			);
 			name = Samples;
 			path = ../../Samples;
@@ -394,6 +400,8 @@
 				3BF50426148C63F500CC7D17 /* Note.svg in Resources */,
 				3BF50427148C63F500CC7D17 /* test-wave-1.svg in Resources */,
 				3BF50428148C63F500CC7D17 /* Text.svg in Resources */,
+				6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */,
+				6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
