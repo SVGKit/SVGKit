@@ -51,6 +51,7 @@
 		3BF50426148C63F500CC7D17 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF5041F148C63F500CC7D17 /* Note.svg */; };
 		3BF50427148C63F500CC7D17 /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50420148C63F500CC7D17 /* test-wave-1.svg */; };
 		3BF50428148C63F500CC7D17 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50421148C63F500CC7D17 /* Text.svg */; };
+		663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */; };
 		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
 		66F60D05149E422700516475 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F60D04149E422700516475 /* CALayerExporter.m */; };
@@ -137,6 +138,8 @@
 		3BF5041F148C63F500CC7D17 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
 		3BF50420148C63F500CC7D17 /* test-wave-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-wave-1.svg"; sourceTree = "<group>"; };
 		3BF50421148C63F500CC7D17 /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
+		663C41C4149E638000F546A3 /* SVGPointsAndPathsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPointsAndPathsParser.h; sourceTree = "<group>"; };
+		663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPointsAndPathsParser.m; sourceTree = "<group>"; };
 		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
 		6680A6D4149E4F3900F2113F /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses.txt"; sourceTree = "<group>"; };
 		66F60D03149E422700516475 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
@@ -271,6 +274,8 @@
 				3BF503DC148C62D900CC7D17 /* SVGParserSVG.m */,
 				3BF503DD148C62D900CC7D17 /* SVGPathElement.h */,
 				3BF503DE148C62D900CC7D17 /* SVGPathElement.m */,
+				663C41C4149E638000F546A3 /* SVGPointsAndPathsParser.h */,
+				663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */,
 				3BF503DF148C62D900CC7D17 /* SVGPattern.h */,
 				3BF503E0148C62D900CC7D17 /* SVGPattern.m */,
 				3BF503E1148C62D900CC7D17 /* SVGPolygonElement.h */,
@@ -444,6 +449,7 @@
 				3BF50414148C62D900CC7D17 /* SVGPathView.m in Sources */,
 				3BF50415148C62D900CC7D17 /* SVGView.m in Sources */,
 				66F60D05149E422700516475 /* CALayerExporter.m in Sources */,
+				663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
