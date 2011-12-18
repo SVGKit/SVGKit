@@ -443,7 +443,7 @@ digit:
 
 - (CGFloat) readCoordinate:(NSScanner*)scanner
 {
-    CGFloat f;
+    float f;
     BOOL ok;
     ok = [scanner scanFloat:&f];
     NSAssert(ok, @"invalid coord");

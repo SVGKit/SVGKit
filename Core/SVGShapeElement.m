@@ -12,7 +12,6 @@
 #import "SVGDocument.h"
 #import "SVGElement+Private.h"
 #import "SVGPattern.h"
-
 #import "CAShapeLayerWithHitTest.h"
 
 @implementation SVGShapeElement

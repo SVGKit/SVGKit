@@ -41,7 +41,9 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 - (id)initWithFrame:(CGRect)frame;
 
 #if NS_BLOCKS_AVAILABLE
+
 - (void) applyAggregator:(SVGElementAggregationBlock)aggregator;
+
 #endif
 
 @end

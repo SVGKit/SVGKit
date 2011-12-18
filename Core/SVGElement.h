@@ -17,7 +17,11 @@
 /*! This is used when generating CALayer objects, to store the id of the SVGElement that created the CALayer */
 #define kSVGElementIdentifier @"SVGElementIdentifier"
 
-@property (nonatomic, readonly) __weak SVGDocument *document;
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+@property (nonatomic, readonly)  SVGDocument *document;
+#else
+@property (nonatomic, readonly)  __weak  SVGDocument *document;
+#endif
 
 @property (nonatomic, readonly) NSArray *children;
 @property (nonatomic, readonly, copy) NSString *stringValue;

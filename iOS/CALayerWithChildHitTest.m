@@ -1,6 +1,6 @@
 //
 //  CALayerWithChildHitTest.m
-//  WarlightClone
+//  SVGKit
 //
 //  Created by adam on 27/11/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
@@ -13,7 +13,7 @@
 
 - (BOOL) containsPoint:(CGPoint)p
 {
-	CALayer* modelLayer = self.modelLayer;
+	//CALayer* modelLayer = self.modelLayer;
 	
 	if (CGRectContainsPoint(self.bounds, p))
 	{

@@ -24,7 +24,11 @@
 	BOOL _storingChars;
 	NSMutableString *_storedChars;
 	NSMutableArray *_elementStack;
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+	SVGDocument *_document;
+#else
 	__weak SVGDocument *_document;
+#endif
 }
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
