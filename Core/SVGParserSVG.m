@@ -40,11 +40,13 @@ static NSDictionary *elementMap;
 		}
 		
 		_graphicsGroups = [[NSMutableDictionary dictionary] retain];
+		_anonymousGraphicsGroups = [[NSMutableArray array] retain];
 	}
 	return self;
 }
 
 - (void)dealloc {
+	[_anonymousGraphicsGroups release];
 	[_graphicsGroups release];
 	
 	[super dealloc];
@@ -129,6 +131,7 @@ static NSDictionary *elementMap;
 		if ( parent == nil ) // i.e. the root SVG tag
 		{
 			[((SVGDocument*)parentElement) setGraphicsGroups:_graphicsGroups];
+			[((SVGDocument*)parentElement) setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
 		}
 		else
 		{
@@ -142,13 +145,7 @@ static NSDictionary *elementMap;
 			{
 				if( childElement.identifier == nil )
 				{
-					NSMutableArray* anonymousGroups = [_graphicsGroups valueForKey:@"ANONYMOUS_GROUPS"];
-					if( anonymousGroups == nil )
-					{
-						anonymousGroups = [NSMutableArray array];
-						[_graphicsGroups setValue:anonymousGroups forKey:@"ANONYMOUS_GROUPS"];
-					}
-					[anonymousGroups addObject:childElement];
+					[_anonymousGraphicsGroups addObject:childElement];
 					
 #if PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS
 					NSLog(@"[%@] PARSER_WARN: Found anonymous g tag (tag has no XML 'id=' attribute). Loading OK, but check your SVG file (id tags are highly recommended!)...", [self class] );
