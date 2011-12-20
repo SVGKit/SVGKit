@@ -52,9 +52,9 @@
 		3BF50427148C63F500CC7D17 /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50420148C63F500CC7D17 /* test-wave-1.svg */; };
 		3BF50428148C63F500CC7D17 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3BF50421148C63F500CC7D17 /* Text.svg */; };
 		663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */; };
+		66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66436E5214A0BCEF001CC769 /* CALayerExporter.m */; };
 		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
-		66F60D05149E422700516475 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F60D04149E422700516475 /* CALayerExporter.m */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,10 +140,10 @@
 		3BF50421148C63F500CC7D17 /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
 		663C41C4149E638000F546A3 /* SVGPointsAndPathsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPointsAndPathsParser.h; sourceTree = "<group>"; };
 		663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPointsAndPathsParser.m; sourceTree = "<group>"; };
+		66436E5114A0BCEF001CC769 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
+		66436E5214A0BCEF001CC769 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
 		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
 		6680A6D4149E4F3900F2113F /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses.txt"; sourceTree = "<group>"; };
-		66F60D03149E422700516475 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
-		66F60D04149E422700516475 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -189,7 +189,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				66F60D02149E422700516475 /* calayer-exporter */,
+				66436E5014A0BCEF001CC769 /* calayer-exporter */,
 				080E96DDFE201D6D7F000001 /* Controllers */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -333,14 +333,14 @@
 			path = ../../Samples;
 			sourceTree = "<group>";
 		};
-		66F60D02149E422700516475 /* calayer-exporter */ = {
+		66436E5014A0BCEF001CC769 /* calayer-exporter */ = {
 			isa = PBXGroup;
 			children = (
-				66F60D03149E422700516475 /* CALayerExporter.h */,
-				66F60D04149E422700516475 /* CALayerExporter.m */,
+				66436E5114A0BCEF001CC769 /* CALayerExporter.h */,
+				66436E5214A0BCEF001CC769 /* CALayerExporter.m */,
 			);
 			name = "calayer-exporter";
-			path = "Classes/calayer-exporter";
+			path = "../../calayer-exporter";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,8 +448,8 @@
 				3BF50413148C62D900CC7D17 /* SVGDocumentView.m in Sources */,
 				3BF50414148C62D900CC7D17 /* SVGPathView.m in Sources */,
 				3BF50415148C62D900CC7D17 /* SVGView.m in Sources */,
-				66F60D05149E422700516475 /* CALayerExporter.m in Sources */,
 				663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */,
+				66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
