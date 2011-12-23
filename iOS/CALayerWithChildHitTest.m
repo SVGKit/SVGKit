@@ -9,13 +9,15 @@
 #import "CALayerWithChildHitTest.h"
 
 
+#import <UIKit/UIKit.h>
+
 @implementation CALayerWithChildHitTest
 
 - (BOOL) containsPoint:(CGPoint)p
 {
-	//CALayer* modelLayer = self.modelLayer;
+	BOOL boundsContains = CGRectContainsPoint(self.bounds, p);
 	
-	if (CGRectContainsPoint(self.bounds, p))
+	if( boundsContains )
 	{
 		BOOL atLeastOneChildContainsPoint = FALSE;
 		
@@ -30,7 +32,9 @@
 		
 		return atLeastOneChildContainsPoint;
 	}
+	
 	return NO;
 }
 
 @end
+
