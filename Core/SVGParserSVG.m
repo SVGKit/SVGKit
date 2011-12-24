@@ -38,9 +38,6 @@ static NSDictionary *elementMap;
 						   [SVGRectElement class], @"rect",
 						   [SVGTitleElement class], @"title", nil] retain];
 		}
-		
-		_graphicsGroups = [[NSMutableDictionary dictionary] retain];
-		_anonymousGraphicsGroups = [[NSMutableArray array] retain];
 	}
 	return self;
 }
@@ -120,7 +117,7 @@ static NSDictionary *elementMap;
 		return false;
 }
 
--(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent
+-(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument
 {
 	SVGElement *parentElement = (SVGElement*) parent;
 	
@@ -130,8 +127,14 @@ static NSDictionary *elementMap;
 		
 		if ( parent == nil ) // i.e. the root SVG tag
 		{
-			[((SVGDocument*)parentElement) setGraphicsGroups:_graphicsGroups];
-			[((SVGDocument*)parentElement) setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
+			NSLog(@"[%@] PARSER_INFO: asked to add object to nil parent; i.e. we've hit the root of the tree; setting global variables on the SVG Document now", [self class]);
+			[svgDocument setGraphicsGroups:_graphicsGroups];
+			[svgDocument setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
+			
+			[_graphicsGroups release];
+			[_anonymousGraphicsGroups release];
+			_graphicsGroups = nil;
+			_anonymousGraphicsGroups = nil;
 		}
 		else
 		{
@@ -145,6 +148,9 @@ static NSDictionary *elementMap;
 			{
 				if( childElement.identifier == nil )
 				{
+					if( _anonymousGraphicsGroups == nil )
+						_anonymousGraphicsGroups = [[NSMutableArray array] retain];
+					
 					[_anonymousGraphicsGroups addObject:childElement];
 					
 #if PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS
@@ -152,7 +158,12 @@ static NSDictionary *elementMap;
 #endif
 				}
 				else
+				{
+					if( _graphicsGroups == nil )
+						_graphicsGroups = [[NSMutableDictionary dictionary] retain];
+					
 					[_graphicsGroups setValue:childElement forKey:childElement.identifier];
+				}
 			}
 		}
 	}

@@ -28,7 +28,7 @@
 -(NSArray*) supportedTags;
 
 - (NSObject*)handleStartElement:(NSString *)name document:(SVGDocument*) document xmlns:(NSString*) namespaceURI attributes:(NSMutableDictionary *)attributes;
--(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent;
+-(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument;
 -(void) parseContent:(NSMutableString*) content forItem:(NSObject*) item;
 -(BOOL) createdItemShouldStoreContent:(NSObject*) item;
 
