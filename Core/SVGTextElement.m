@@ -8,6 +8,8 @@
 
 #import "SVGTextElement.h"
 
+#import <UIKit/UIKit.h>
+
 @implementation SVGTextElement
 
 + (BOOL)shouldStoreContent {

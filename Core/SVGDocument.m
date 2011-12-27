@@ -33,7 +33,7 @@
 @synthesize height = _height;
 @synthesize version = _version;
 
-@synthesize graphicsGroups;
+@synthesize graphicsGroups, anonymousGraphicsGroups;
 
 @dynamic title, desc, defs;
 

@@ -30,8 +30,18 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 @property (nonatomic, readonly) NSString *desc; // 'description' is reserved by NSObject
 @property (nonatomic, readonly) SVGDefsElement *defs;
 
-/*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things" */
+/*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things",
+ * this dictionary contains a mapping from "value of id attribute" to "SVGGroupElement"
+ *
+ * see also: anonymousGraphicsGroups (for groups that have no "id=" attribute)
+ */
 @property (nonatomic, retain) NSDictionary *graphicsGroups;
+/*! from the SVG spec, each "g" tag in the XML is a separate "group of graphics things",
+ * this array contains all the groups that had no "id=" attribute
+ *
+ * see also: graphicsGroups (for groups that have an "id=" attribute)
+ */
+@property (nonatomic, retain) NSArray *anonymousGraphicsGroups;
 
 + (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 + (id)documentNamed:(NSString *)name; // 'name' in mainBundle
