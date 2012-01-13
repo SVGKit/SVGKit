@@ -149,7 +149,9 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	if( prefix != NULL )
 		prefix2 = NSStringFromLibxmlString(prefix);
 	
-	NSString *objcURIString = NSStringFromLibxmlString(URI);
+	NSString *objcURIString = nil;
+	if( URI != NULL )
+		objcURIString = NSStringFromLibxmlString(URI);
 	
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
 	NSLog(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], (prefix2==nil)?@"":[NSString stringWithFormat:@"%@:",prefix2], name, (URI==NULL)?@"n/a":objcURIString, nb_attributes );
