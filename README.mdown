@@ -19,3 +19,10 @@ To render the document in a view, we need to access the document's Core Animatio
 Your SVG file should now be rendered on-screen. You can query for specific layers by using the `layerWithIdentifier:` method, also defined on `SVGDocument`. The identifier corresponds to the `id` attribute defined on elements. Once a reference to a subclass of `CALayer` is returned, its properties can be animated using implicit or explicit [Core Animation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CoreAnimation_guide/Articles/AnimatingLayers.html%23//apple_ref/doc/uid/TP40006085-SW1) animations.
 
 Feel free to report any issues or suggest improvements in the [issue tracker](https://github.com/mattrajca/SVGKit/issues). 
+
+Dependencies
+------------
+
+You'll need to link to libxml for the parsing.  Optionally, if you want to export the CALayers using the iOS test project you'll need the layer exporter submodule:
+
+> git://github.com/reklis/calayer-exporter.git
