@@ -15,3 +15,7 @@ Lion.svg
 test-wave-1.svg
      -- Public Domain, author: Adam Martin (http://t-machine.org)
      -- Created by: Inkscape
+	 
+Location_European_nation_states
+     -- Creative Commons
+	 -- http://en.wikipedia.org/wiki/File:Location_European_nation_states.svg
