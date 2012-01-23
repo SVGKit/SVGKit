@@ -8,9 +8,6 @@
 
 #import "CALayerWithChildHitTest.h"
 
-
-#import <UIKit/UIKit.h>
-
 @implementation CALayerWithChildHitTest
 
 - (BOOL) containsPoint:(CGPoint)p
