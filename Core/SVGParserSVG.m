@@ -24,19 +24,19 @@ static NSDictionary *elementMap;
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGCircleElement class], @"circle",
-						   [SVGDefsElement class], @"defs",
-						   [SVGDescriptionElement class], @"description",
-						   [SVGEllipseElement class], @"ellipse",
-						   [SVGGroupElement class], @"g",
-						   [SVGImageElement class], @"image",
-						   [SVGLineElement class], @"line",
-						   [SVGPathElement class], @"path",
-						   [SVGPolygonElement class], @"polygon",
-						   [SVGPolylineElement class], @"polyline",
-						   [SVGRectElement class], @"rect",
-						   [SVGTitleElement class], @"title", nil] retain];
+			elementMap = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [SVGCircleElement class], @"circle",
+                          [SVGDefsElement class], @"defs",
+                          [SVGDescriptionElement class], @"description",
+                          [SVGEllipseElement class], @"ellipse",
+                          [SVGGroupElement class], @"g",
+                          [SVGImageElement class], @"image",
+                          [SVGLineElement class], @"line",
+                          [SVGPathElement class], @"path",
+                          [SVGPolygonElement class], @"polygon",
+                          [SVGPolylineElement class], @"polyline",
+                          [SVGRectElement class], @"rect",
+                          [SVGTitleElement class], @"title", nil];
 		}
 	}
 	return self;
@@ -61,8 +61,8 @@ static NSDictionary *elementMap;
 	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allKeys]];
 	[result addObject:@"svg"];
 	[result addObject:@"defs"];
-	 [result addObject:@"g"];
-	 [result addObject:@"path"];
+    [result addObject:@"g"];
+    [result addObject:@"path"];
 	return result;
 }
 
@@ -149,7 +149,7 @@ static NSDictionary *elementMap;
 				if( childElement.identifier == nil )
 				{
 					if( _anonymousGraphicsGroups == nil )
-						_anonymousGraphicsGroups = [[NSMutableArray array] retain];
+						_anonymousGraphicsGroups = [NSMutableArray new];
 					
 					[_anonymousGraphicsGroups addObject:childElement];
 					
@@ -160,7 +160,7 @@ static NSDictionary *elementMap;
 				else
 				{
 					if( _graphicsGroups == nil )
-						_graphicsGroups = [[NSMutableDictionary dictionary] retain];
+						_graphicsGroups = [NSMutableDictionary new];
 					
 					[_graphicsGroups setValue:childElement forKey:childElement.identifier];
 				}

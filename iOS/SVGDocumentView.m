@@ -6,9 +6,10 @@
 @interface SVGDocumentView()
 - (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element;
 
-@property(nonatomic,retain, readwrite) SVGDocument* svg;
-@property(nonatomic,retain, readwrite) CALayer* rootLayer;
-@property(nonatomic,retain, readwrite) NSMutableDictionary* layersByElementId;
+@property(nonatomic, retain, readwrite) SVGDocument* svg;
+@property(nonatomic, retain, readwrite) CALayer* rootLayer;
+@property(nonatomic, retain, readwrite) NSMutableDictionary* layersByElementId;
+
 @end
 
 @implementation SVGDocumentView
@@ -38,6 +39,15 @@
 		NSLog(@"[%@] ROOT element id: %@ => layer: %@", [self class], svg.identifier, self.rootLayer);
     }
     return self;
+}
+
+- (void) dealloc
+{
+    self.svg = nil;
+    self.rootLayer = nil;
+    self.layersByElementId = nil;
+    
+    [super dealloc];
 }
 
 - (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element {
