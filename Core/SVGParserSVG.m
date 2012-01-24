@@ -24,7 +24,7 @@ static NSDictionary *elementMap;
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [NSDictionary dictionaryWithObjectsAndKeys:
+			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
                           [SVGCircleElement class], @"circle",
                           [SVGDefsElement class], @"defs",
                           [SVGDescriptionElement class], @"description",
@@ -36,7 +36,7 @@ static NSDictionary *elementMap;
                           [SVGPolygonElement class], @"polygon",
                           [SVGPolylineElement class], @"polyline",
                           [SVGRectElement class], @"rect",
-                          [SVGTitleElement class], @"title", nil];
+                          [SVGTitleElement class], @"title", nil] retain];
 		}
 	}
 	return self;
