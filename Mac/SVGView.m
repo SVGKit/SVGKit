@@ -37,11 +37,13 @@
 - (void)setDocument:(SVGDocument *)aDocument {
     [aDocument retain];
     [_document release];
-    _document = aDocument;
-    for (CALayer *sublayer in [self.layer sublayers]) {
-        [sublayer removeFromSuperlayer];
+    if (_document != nil) {
+        _document = aDocument;
+        for (CALayer *sublayer in [self.layer sublayers]) {
+            [sublayer removeFromSuperlayer];
+        }
+        [self.layer addSublayer:[_document layerTree]];
     }
-    [self.layer addSublayer:[_document layerTree]];
 }
 
 @end
