@@ -29,22 +29,21 @@
 }
 
 - (void)dealloc {
-	[_document release];
+	self.document = nil;
 	
 	[super dealloc];
 }
 
 - (void)setDocument:(SVGDocument *)aDocument {
-	if (_document != aDocument) {
-		[_document release];
-		_document = [aDocument retain];
-		
-		for (CALayer *sublayer in [self.layer sublayers]) {
-			[sublayer removeFromSuperlayer];
-		}
-		
-		[self.layer addSublayer:[_document layerTree]];
-	}
+    [aDocument retain];
+    [_document release];
+    if (_document != nil) {
+        _document = aDocument;
+        for (CALayer *sublayer in [self.layer sublayers]) {
+            [sublayer removeFromSuperlayer];
+        }
+        [self.layer addSublayer:[_document layerTree]];
+    }
 }
 
 @end

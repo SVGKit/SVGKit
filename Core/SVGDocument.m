@@ -42,7 +42,7 @@ static NSMutableArray* _parserExtensions;
 {
 	if( _parserExtensions == nil )
 	{
-		_parserExtensions = [[NSMutableArray array] retain];
+		_parserExtensions = [NSMutableArray new];
 	}
 	
 	[_parserExtensions addObject:extension];
@@ -108,6 +108,8 @@ static NSMutableArray* _parserExtensions;
 
 - (void)dealloc {
 	[_version release];
+    self.graphicsGroups = nil;
+    self.anonymousGraphicsGroups = nil;
 	[super dealloc];
 }
 
@@ -136,7 +138,7 @@ static NSMutableArray* _parserExtensions;
 
 - (CALayer *)newLayer {
 	
-	CALayer* _layer = [[CALayer layer] retain];
+	CALayer* _layer = [CALayer layer];
 		_layer.frame = CGRectMake(0.0f, 0.0f, _width, _height);
 	
 	return _layer;

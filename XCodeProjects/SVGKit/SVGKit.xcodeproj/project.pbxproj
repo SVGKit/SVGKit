@@ -191,10 +191,10 @@
 		662134C0148AF4F7006881E1 /* SVGCircleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGCircleElement.m; sourceTree = "<group>"; };
 		662134C1148AF4F7006881E1 /* SVGCircleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGCircleElement.h; sourceTree = "<group>"; };
 		662134C2148AF4F7006881E1 /* CGPathAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPathAdditions.m; sourceTree = "<group>"; };
-		66213546148AF80A006881E1 /* CALayerWithChildHitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerWithChildHitTest.h; sourceTree = "<group>"; };
-		66213547148AF80A006881E1 /* CALayerWithChildHitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerWithChildHitTest.m; sourceTree = "<group>"; };
-		66213548148AF80A006881E1 /* CAShapeLayerWithHitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAShapeLayerWithHitTest.h; sourceTree = "<group>"; };
-		66213549148AF80A006881E1 /* CAShapeLayerWithHitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAShapeLayerWithHitTest.m; sourceTree = "<group>"; };
+		66213546148AF80A006881E1 /* CALayerWithChildHitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CALayerWithChildHitTest.h; path = ../iOS/CALayerWithChildHitTest.h; sourceTree = "<group>"; };
+		66213547148AF80A006881E1 /* CALayerWithChildHitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CALayerWithChildHitTest.m; path = ../iOS/CALayerWithChildHitTest.m; sourceTree = "<group>"; };
+		66213548148AF80A006881E1 /* CAShapeLayerWithHitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CAShapeLayerWithHitTest.h; path = ../iOS/CAShapeLayerWithHitTest.h; sourceTree = "<group>"; };
+		66213549148AF80A006881E1 /* CAShapeLayerWithHitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CAShapeLayerWithHitTest.m; path = ../iOS/CAShapeLayerWithHitTest.m; sourceTree = "<group>"; };
 		6621354A148AF80A006881E1 /* SVGDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGDocumentView.h; sourceTree = "<group>"; };
 		6621354B148AF80A006881E1 /* SVGDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGDocumentView.m; sourceTree = "<group>"; };
 		6621354C148AF80A006881E1 /* SVGPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPathView.h; sourceTree = "<group>"; };
@@ -320,10 +320,6 @@
 		66213545148AF80A006881E1 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				66213546148AF80A006881E1 /* CALayerWithChildHitTest.h */,
-				66213547148AF80A006881E1 /* CALayerWithChildHitTest.m */,
-				66213548148AF80A006881E1 /* CAShapeLayerWithHitTest.h */,
-				66213549148AF80A006881E1 /* CAShapeLayerWithHitTest.m */,
 				6621354A148AF80A006881E1 /* SVGDocumentView.h */,
 				6621354B148AF80A006881E1 /* SVGDocumentView.m */,
 				6621354C148AF80A006881E1 /* SVGPathView.h */,
@@ -365,6 +361,10 @@
 		C952631B1271225F00434805 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				66213546148AF80A006881E1 /* CALayerWithChildHitTest.h */,
+				66213547148AF80A006881E1 /* CALayerWithChildHitTest.m */,
+				66213548148AF80A006881E1 /* CAShapeLayerWithHitTest.h */,
+				66213549148AF80A006881E1 /* CAShapeLayerWithHitTest.m */,
 				6604FCF314A0CDA800B4D2D9 /* SVGPointsAndPathsParser.m */,
 				6604FCF414A0CDA800B4D2D9 /* SVGPointsAndPathsParser.h */,
 				6604FCF514A0CDA800B4D2D9 /* SVGTextElement.m */,
