@@ -32,6 +32,7 @@
 @synthesize width = _width;
 @synthesize height = _height;
 @synthesize version = _version;
+@synthesize viewBoxFrame = _viewBoxFrame;
 
 @synthesize graphicsGroups, anonymousGraphicsGroups;
 
@@ -180,6 +181,13 @@ static NSMutableArray* _parserExtensions;
 	
 	if ((value = [attributes objectForKey:@"version"])) {
 		self.version = value;
+	}
+	
+	if( (value = [attributes objectForKey:@"viewBox"])) {
+		NSArray* boxElements = [(NSString*) value componentsSeparatedByString:@" "];
+		
+		_viewBoxFrame = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
 	}
 }
 

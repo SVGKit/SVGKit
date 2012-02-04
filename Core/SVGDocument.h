@@ -24,6 +24,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 @property (nonatomic, readonly) CGFloat width;
 @property (nonatomic, readonly) CGFloat height;
 @property (nonatomic, readonly, copy) NSString *version;
+@property (nonatomic, readonly) CGRect viewBoxFrame;
 
 // convenience accessors to parsed children
 @property (nonatomic, readonly) NSString *title;
