@@ -8,6 +8,8 @@
 
 #import "SVGTextElement.h"
 
+#import <UIKit/UIKit.h>
+
 @implementation SVGTextElement
 
 + (BOOL)shouldStoreContent {
@@ -66,7 +68,7 @@
 
 }
 
-- (CALayer *)layer {
+- (CALayer *) newLayer {
 #if TARGET_OS_IPHONE
     NSString* textToDraw = self.stringValue;
     

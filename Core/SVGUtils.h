@@ -7,6 +7,12 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 
+#if TARGET_OS_IPHONE
+
+#import <UIKit/UIKit.h>
+
+#endif
+
 #define RGB_N(v) (v) / 255.0f
 
 typedef struct {

@@ -13,7 +13,16 @@
 
 @end
 
-
+/*! main class implementation for the base SVGElement: NOTE: in practice, most of the interesting
+ stuff happens in subclasses, e.g.:
+ 
+ SVGShapeElement
+ SVGGroupElement
+ SVGImageElement
+ SVGLineElement
+ SVGPathElement
+ ...etc
+ */
 @implementation SVGElement
 
 @synthesize document = _document;
@@ -24,6 +33,8 @@
 
 @synthesize identifier = _identifier;
 
+@synthesize metadataChildren;
+
 + (BOOL)shouldStoreContent {
 	return NO;
 }
@@ -33,6 +44,7 @@
     if (self) {
 		[self loadDefaults];
         _children = [[NSMutableArray alloc] init];
+		self.metadataChildren = [NSMutableArray array];
     }
     return self;
 }
@@ -47,6 +59,7 @@
 }
 
 - (void)dealloc {
+	self.metadataChildren = nil;
 	[_children release];
 	[_stringValue release];
 	[_localName release];
@@ -61,6 +74,11 @@
 
 - (void)addChild:(SVGElement *)element {
 	[_children addObject:element];
+}
+
+-(void) addMetadataChild:(NSObject*) child
+{
+	[self.metadataChildren addObject:child];
 }
 
 - (void)parseAttributes:(NSDictionary *)attributes {
