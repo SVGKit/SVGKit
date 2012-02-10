@@ -15,8 +15,8 @@
 
 -(id) initWithDocument:(SVGDocument*) d;
 
-@property(nonatomic,retain, readonly) SVGDocument* svg;
-@property(nonatomic,retain, readonly) CALayer* rootLayer;
-@property(nonatomic,retain, readonly) NSMutableDictionary* layersByElementId;
+@property(nonatomic, retain, readonly) SVGDocument* svg;
+@property(nonatomic, retain, readonly) CALayer* rootLayer;
+@property(nonatomic, retain, readonly) NSMutableDictionary* layersByElementId;
 
 @end

@@ -20,6 +20,14 @@
 @implementation SVGParserStackItem
 @synthesize item;
 @synthesize parserForThisItem;
+
+- (void) dealloc 
+{
+    self.item = nil;
+    self.parserForThisItem = nil;
+    [super dealloc];
+}
+
 @end
 
 @implementation SVGParser
@@ -44,8 +52,8 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		self.parserExtensions = [NSMutableArray array];
 		_path = [aPath copy];
 		_document = document;
-		_storedChars = [[NSMutableString alloc] init];
-		_elementStack = [[NSMutableArray alloc] init];
+		_storedChars = [NSMutableString new];
+		_elementStack = [NSMutableArray new];
 		_failed = NO;
 		
 	}
@@ -56,7 +64,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	[_path release];
 	[_storedChars release];
 	[_elementStack release];
-	
+	self.parserExtensions = nil;
 	[super dealloc];
 }
 

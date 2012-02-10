@@ -43,7 +43,7 @@
     self = [super init];
     if (self) {
 		[self loadDefaults];
-        _children = [[NSMutableArray alloc] init];
+        _children = [NSMutableArray new];
 		self.metadataChildren = [NSMutableArray array];
     }
     return self;

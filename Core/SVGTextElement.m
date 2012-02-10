@@ -8,7 +8,9 @@
 
 #import "SVGTextElement.h"
 
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 @implementation SVGTextElement
 

@@ -37,7 +37,7 @@
 
 - (CALayer *)newLayer {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];// [[CALayer layer] retain];
+	CALayer* _layer = [CALayerWithChildHitTest layer];
 		
 		_layer.name = self.identifier;
 		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
