@@ -1,0 +1,3 @@
+[submodule "calayer-exporter"]
+	path = calayer-exporter
+	url = git://github.com/reklis/calayer-exporter.git

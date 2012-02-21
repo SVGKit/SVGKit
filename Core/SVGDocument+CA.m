@@ -44,7 +44,7 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 }
 
 - (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element {
-	CALayer *layer = [element layer];
+	CALayer *layer = [element newLayer];
 	
 	if (![element.children count]) {
 		return layer;

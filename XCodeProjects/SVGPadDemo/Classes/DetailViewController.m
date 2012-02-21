@@ -135,7 +135,7 @@
     if (_layerExporter) {
         return;
     }
-    _layerExporter = [[[CALayerExporter alloc] initWithView:contentView] autorelease];
+    _layerExporter = [[CALayerExporter alloc] initWithView:contentView];
     _layerExporter.delegate = self;
     
     UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];

@@ -9,23 +9,30 @@
 
 #import <libxml/parser.h>
 
-#import "SVGCircleElement.h"
-#import "SVGDefsElement.h"
-#import "SVGDescriptionElement.h"
 #import "SVGDocument.h"
-#import "SVGElement+Private.h"
-#import "SVGEllipseElement.h"
-#import "SVGGroupElement.h"
-#import "SVGImageElement.h"
-#import "SVGLineElement.h"
-#import "SVGPathElement.h"
-#import "SVGPolygonElement.h"
-#import "SVGPolylineElement.h"
-#import "SVGRectElement.h"
-#import "SVGTitleElement.h"
-#import "SVGTextElement.h"
+
+@interface SVGParserStackItem : NSObject
+@property(nonatomic,retain) NSObject<SVGParserExtension>* parserForThisItem;
+@property(nonatomic,retain) NSObject* item;
+
+@end
+
+@implementation SVGParserStackItem
+@synthesize item;
+@synthesize parserForThisItem;
+
+- (void) dealloc 
+{
+    self.item = nil;
+    self.parserForThisItem = nil;
+    [super dealloc];
+}
+
+@end
 
 @implementation SVGParser
+
+@synthesize parserExtensions;
 
 static xmlSAXHandler SAXHandler;
 
@@ -36,38 +43,19 @@ static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 
 static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
-static NSDictionary *NSDictionaryFromCSSAttributes (NSString *css);
 
 #define READ_CHUNK_SZ 1024*10
-
-static NSDictionary *elementMap;
 
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document {
 	self = [super init];
 	if (self) {
+		self.parserExtensions = [NSMutableArray array];
 		_path = [aPath copy];
 		_document = document;
-		_storedChars = [[NSMutableString alloc] init];
-		_elementStack = [[NSMutableArray alloc] init];
+		_storedChars = [NSMutableString new];
+		_elementStack = [NSMutableArray new];
 		_failed = NO;
-		_graphicsGroups = [[NSMutableDictionary dictionary] retain];
 		
-		if (!elementMap) {
-			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGCircleElement class], @"circle",
-						   [SVGDefsElement class], @"defs",
-						   [SVGDescriptionElement class], @"description",
-						   [SVGEllipseElement class], @"ellipse",
-						   [SVGGroupElement class], @"g",
-						   [SVGImageElement class], @"image",
-						   [SVGLineElement class], @"line",
-						   [SVGPathElement class], @"path",
-						   [SVGPolygonElement class], @"polygon",
-						   [SVGPolylineElement class], @"polyline",
-						   [SVGRectElement class], @"rect",
-						   [SVGTextElement class], @"text",
-						   [SVGTitleElement class], @"title", nil] retain];
-		}
 	}
 	return self;
 }
@@ -76,8 +64,7 @@ static NSDictionary *elementMap;
 	[_path release];
 	[_storedChars release];
 	[_elementStack release];
-	[_graphicsGroups release];
-	
+	self.parserExtensions = nil;
 	[super dealloc];
 }
 
@@ -117,47 +104,44 @@ static NSDictionary *elementMap;
 	return !_failed;
 }
 
-- (void)handleStartElement:(NSString *)name attributes:(NSMutableDictionary *)attributes {
-	// handle SVG separately
-	if ([name isEqualToString:@"svg"]) {
-		[_elementStack addObject:_document];
-		[_document parseAttributes:attributes];
-		
-		return;
-	}
+- (void)handleStartElement:(NSString *)name xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
 	
-	Class elementClass = [elementMap objectForKey:name];
+		for( NSObject<SVGParserExtension>* subParser in self.parserExtensions )
+		{
+			if( [[subParser supportedNamespaces] containsObject:prefix]
+			&& [[subParser supportedTags] containsObject:name] )
+			{
+				NSObject* subParserResult = nil;
+				
+			if( nil != (subParserResult = [subParser handleStartElement:name document:_document xmlns:prefix attributes:attributes]) )
+			{
+				NSLog(@"[%@] tag: <%@:%@> -- handled by subParser: %@", [self class], prefix, name, subParser );
+				
+				SVGParserStackItem* stackItem = [[[SVGParserStackItem alloc] init] autorelease];;
+				stackItem.parserForThisItem = subParser;
+				stackItem.item = subParserResult;
+				
+				[_elementStack addObject:stackItem];
+				
+				if ([subParser createdItemShouldStoreContent:stackItem.item]) {
+					[_storedChars setString:@""];
+					_storingChars = YES;
+				}
+				else {
+					_storingChars = NO;
+				}
+				return;
+			}
+				
+			}
+		}
 	
-	if (!elementClass) {
-		elementClass = [SVGElement class];
-		NSLog(@"Support for '%@' element has not been implemented", name);
-	}
+	NSLog(@"[%@] ERROR: could not find a parser for tag: <%@:%@>; adding empty placeholder", [self class], prefix, name );
 	
-	id style = nil;
-	
-	if ((style = [attributes objectForKey:@"style"])) {
-		[attributes removeObjectForKey:@"style"];
-		[attributes addEntriesFromDictionary:NSDictionaryFromCSSAttributes(style)];
-	}
-	
-	SVGElement *element = [[elementClass alloc] initWithDocument:_document name:name];
-	[element parseAttributes:attributes];
-	
-    if( [element.localName isEqualToString:@"g"] && nil == element.identifier ) {
-        element.identifier = [[NSProcessInfo processInfo] globallyUniqueString];
-    }
-    
-	[_elementStack addObject:element];
-	[element release];
-	
-	if ([elementClass shouldStoreContent]) {
-		[_storedChars setString:@""];
-		_storingChars = YES;
-	}
-	else {
-		_storingChars = NO;
-	}
+	SVGParserStackItem* emptyItem = [[[SVGParserStackItem alloc] init] autorelease];
+	[_elementStack addObject:emptyItem];
 }
+
 
 static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix,
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
@@ -168,53 +152,88 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	NSString *name = NSStringFromLibxmlString(localname);
 	NSMutableDictionary *attrs = NSDictionaryFromLibxmlAttributes(attributes, nb_attributes);
 	
-	[self handleStartElement:name attributes:attrs];
+	//NSString *url = NSStringFromLibxmlString(URI);
+	NSString *prefix2 = nil;
+	if( prefix != NULL )
+		prefix2 = NSStringFromLibxmlString(prefix);
+	
+	NSString *objcURIString = nil;
+	if( URI != NULL )
+		objcURIString = NSStringFromLibxmlString(URI);
+	
+#if DEBUG_VERBOSE_LOG_EVERY_TAG
+	NSLog(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], (prefix2==nil)?@"":[NSString stringWithFormat:@"%@:",prefix2], name, (URI==NULL)?@"n/a":objcURIString, nb_attributes );
+#endif
+	
+#if DEBUG_VERBOSE_LOG_EVERY_TAG
+	if( prefix2 == nil )
+	{
+		/* The XML library allows this, although it's very unhelpful when writing application code */
+		
+		/* Let's find out what namespaces DO exist... */
+		
+		/*
+		 
+		 TODO / DEVELOPER WARNING: the library says nb_namespaces is the number of elements in the array,
+		 but it keeps returning nil pointer (not always, but often). WTF? Not sure what we're doing wrong
+		 here, but commenting it out for now...
+		 
+		if( nb_namespaces > 0 )
+		{
+			for( int i=0; i<nb_namespaces; i++ )
+			{
+				NSLog(@"[%@] DEBUG: found namespace [%i] : %@", [self class], i, namespaces[i] );
+			}
+		}
+		else
+			NSLog(@"[%@] DEBUG: there are ZERO namespaces!", [self class] );
+		 */
+	}
+#endif
+	
+	[self handleStartElement:name xmlns:objcURIString attributes:attrs];
 }
 
 - (void)handleEndElement:(NSString *)name {
+	//DELETE DEBUG NSLog(@"ending element, name = %@", name);
 	
-	if ([name isEqualToString:@"svg"]) {
-		[_elementStack removeObject:_document];
-		
-		/*! Add the dictionary of named "g" tags to the document, so applications can retrieve "named groups" from the SVG */
-		[_document setGraphicsGroups:_graphicsGroups];
-		return;
-	}
-	
-	SVGElement *element = [[_elementStack lastObject] retain];
-	
-	if (![element.localName isEqualToString:name]) {
-		NSLog(@"XML tag mismatch (%@, %@)", element.localName, name);
-		
-		[element release];
-		_failed = YES;
-		
-		return;
-	}
+	SVGParserStackItem* stackItem = [_elementStack lastObject];
 	
 	[_elementStack removeLastObject];
 	
-	/*!
-	 SVG Spec attaches special meaning to the "g" tag - and applications
-	 need to be able to pull-out the "g"-tagged items later on
-	 */
-	if( [element.localName isEqualToString:@"g"] )
+	if( stackItem.parserForThisItem == nil )
 	{
-		[_graphicsGroups setValue:element forKey:element.identifier];
-		
-		/*! ...we'll build up the dictionary, then add it to the document when the SVG tag is closed */
+		/*! this was an unmatched tag - we have no parser for it, so we're pruning it from the tree */
+		NSLog(@"[%@] WARN: ended non-parsed tag (</%@>) - this will NOT be added to the output tree", [self class], name );
 	}
-	
-	SVGElement *parent = [_elementStack lastObject];
-	[parent addChild:element];
-	
-	[element release];
-	
-	if (_storingChars) {
-		[element parseContent:_storedChars];
+	else
+	{
+		SVGParserStackItem* parentStackItem = [_elementStack lastObject];
 		
-		[_storedChars setString:@""];
-		_storingChars = NO;
+		NSObject<SVGParserExtension>* parserHandlingTheParentItem = parentStackItem.parserForThisItem;
+
+		if( parentStackItem.item == nil )
+		{
+			/**
+			 Special case: we've hit the closing of the root tag.
+			 
+			 Because each parser-extension MIGHT need to do cleanup / post-processing on the end tag,
+			 we need to ensure that whichever class parsed the root tag gets one final callback to tell it that the end
+			 tag has been reached
+			 */
+			
+			parserHandlingTheParentItem = stackItem.parserForThisItem;
+		}
+		
+		NSLog(@"[%@] DEBUG-PARSER: ended tag (</%@>): telling parser (%@) to add that item to tree-parent = %@", [self class], name, parserHandlingTheParentItem, parentStackItem.item );
+		[parserHandlingTheParentItem addChildObject:stackItem.item toObject:parentStackItem.item inDocument:_document];
+		
+		if ( [stackItem.parserForThisItem createdItemShouldStoreContent:stackItem.item]) {
+			[stackItem.parserForThisItem parseContent:_storedChars forItem:stackItem.item];
+			
+			[_storedChars setString:@""];
+			_storingChars = NO;
+		}
 	}
 }
 
@@ -311,7 +330,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 #define MAX_ACCUM 256
 #define MAX_NAME 256
 
-static NSDictionary *NSDictionaryFromCSSAttributes (NSString *css) {
++(NSDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	
 	const char *cstr = [css UTF8String];

@@ -14,6 +14,8 @@
 #import "SVGTitleElement.h"
 #import "SVGPathElement.h"
 
+#import "SVGParserSVG.h"
+
 @interface SVGDocument ()
 
 @property (nonatomic, copy) NSString *version;
@@ -31,9 +33,20 @@
 @synthesize height = _height;
 @synthesize version = _version;
 
-@synthesize graphicsGroups;
+@synthesize graphicsGroups, anonymousGraphicsGroups;
 
 @dynamic title, desc, defs;
+
+static NSMutableArray* _parserExtensions;
++ (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension
+{
+	if( _parserExtensions == nil )
+	{
+		_parserExtensions = [NSMutableArray new];
+	}
+	
+	[_parserExtensions addObject:extension];
+}
 
 /* TODO: parse 'viewBox' */
 
@@ -95,6 +108,8 @@
 
 - (void)dealloc {
 	[_version release];
+    self.graphicsGroups = nil;
+    self.anonymousGraphicsGroups = nil;
 	[super dealloc];
 }
 
@@ -102,6 +117,12 @@
 	NSError *error = nil;
 	
 	SVGParser *parser = [[SVGParser alloc] initWithPath:aPath document:self];
+	SVGParserSVG *subParserSVG = [[[SVGParserSVG alloc] init] autorelease];
+	[parser.parserExtensions addObject:subParserSVG];
+	for( NSObject<SVGParserExtension>* extension in _parserExtensions )
+	{
+		[parser.parserExtensions addObject:extension];
+	}
 	
 	if (![parser parse:&error]) {
 		NSLog(@"Parser error: %@", error);
@@ -115,11 +136,12 @@
 	return YES;
 }
 
-- (CALayer *)layer {
-	CALayer *layer = [CALayer layer];
-	layer.frame = CGRectMake(0.0f, 0.0f, _width, _height);
+- (CALayer *)newLayer {
 	
-	return layer;
+	CALayer* _layer = [CALayer layer];
+		_layer.frame = CGRectMake(0.0f, 0.0f, _width, _height);
+	
+	return _layer;
 }
 
 - (void)layoutLayer:(CALayer *)layer { }
