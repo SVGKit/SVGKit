@@ -18,6 +18,11 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 @class SVGDefsElement;
 
 @interface SVGDocument : SVGElement < SVGLayeredElement > {
+@private 
+    NSMutableDictionary *_styleByClassName; //styles by class name
+    NSMutableDictionary *_fillLayersByUrlId; //styles by class name
+    NSMutableDictionary *_elementsByClassName; //[className] => (NSSet *)elementsUsingThatStyle
+    NSString *_trackClassPrefix; //only elements using classes with this prefix will be tracked
 }
 
 // only absolute widths and heights are supported (no percentages)
@@ -46,9 +51,24 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 + (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 + (id)documentNamed:(NSString *)name; // 'name' in mainBundle
 + (id)documentWithContentsOfFile:(NSString *)aPath;
++ (SVGDocument *)sharedDocumentNamed:(NSString *)name trackingPrefix:(NSString *)trackPrefix;
 
 - (id)initWithContentsOfFile:(NSString *)aPath;
+- (id)initWithContentsOfFile:(NSString *)aPath trackElementsByClassName:(NSString *)onlyWithPrefix;
 - (id)initWithFrame:(CGRect)frame;
+
+- (NSString *)currentFillForClassName:(NSString *)className;
+- (NSUInteger)changableColors;
+
+- (BOOL)changeFillForStyle:(NSString *)className toNewFill:(NSString *)fillString;
+- (BOOL)changeFillForStyle:(NSString *)className toNewCGColor:(CGColorRef)newColor;
+
+
+-(NSDictionary *)styleForElement:(SVGElement *)element withClassName:(NSString *) className;
+- (void)setStyle:(NSDictionary *)style forClassName:(NSString *)className;
+
+- (void)setFill:(SVGGradientElement *)fillShape forId:(NSString *)idName;
+- (CALayer *)useFillId:(NSString *)idName forLayer:(CAShapeLayer *)filledLayer;
 
 #if NS_BLOCKS_AVAILABLE
 

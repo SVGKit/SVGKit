@@ -29,6 +29,8 @@
 
 @synthesize path = _path;
 
+@synthesize fillId = _fillId;
+
 - (void)finalize {
 	CGPathRelease(_path);
 	[super finalize];
@@ -64,8 +66,9 @@
 			_fillType = SVGFillTypeNone;
 		}
 		else if (!strncmp(cvalue, "url", 3)) {
-			NSLog(@"Gradients are no longer supported");
-			_fillType = SVGFillTypeNone;
+			_fillType = SVGFillTypeURL;
+            NSRange idKeyRange = NSMakeRange(5, [value length] - 6);
+            _fillId = [value substringWithRange:idKeyRange];
 		}
 		else {
 			_fillColor = SVGColorFromString([value UTF8String]);
@@ -116,6 +119,13 @@
 	_shapeLayer.name = self.identifier;
 		[_shapeLayer setValue:self.identifier forKey:kSVGElementIdentifier];
 	_shapeLayer.opacity = _opacity;
+    
+    
+#ifndef STATIC_COLORS //if STATIC_COLORS is not set, we may want to track shapeLayers for style changes
+    if( _createdShapes != nil ) //this might need to happen after gradients are resolved to track the correct element, not sure yet
+        [_createdShapes addObject:_shapeLayer];
+    
+#endif
 	
 #if OUTLINE_SHAPES
 	
@@ -140,23 +150,31 @@
 		_shapeLayer.strokeColor = CGColorWithSVGColor(_strokeColor);
 	}
 	
+    CALayer *returnLayer = _shapeLayer;
 	if (_fillType == SVGFillTypeNone) {
 		_shapeLayer.fillColor = nil;
 	}
 	else if (_fillType == SVGFillTypeSolid) {
 		_shapeLayer.fillColor = CGColorWithSVGColor(_fillColor);
 	}
+    else if (_fillType == SVGFillTypeURL)
+    {
+        returnLayer = [[self document] useFillId:_fillId forLayer:_shapeLayer]; //CAGradientLayer does not extend from CAShapeLayer, although this doens't actually work :/
+    }
     
     if (nil != _fillPattern) {
         _shapeLayer.fillColor = [_fillPattern CGColor];
     }
 	
-	if ([_shapeLayer respondsToSelector:@selector(setShouldRasterize:)]) {
+#if RASTERIZE_SHAPES > 0
+    //we need better control over this, rasterization is bad news when scaling/rotation
+	if ([_shapeLayer respondsToSelector:@selector(setShouldRasterize:)]) { 
 		[_shapeLayer performSelector:@selector(setShouldRasterize:)
 					withObject:[NSNumber numberWithBool:YES]];
 	}
+#endif
 	
-	return _shapeLayer;
+	return returnLayer;
 }
 
 - (void)layoutLayer:(CALayer *)layer { }

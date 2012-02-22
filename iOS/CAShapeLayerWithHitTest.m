@@ -9,7 +9,8 @@
 
 - (BOOL) containsPoint:(CGPoint)p
 {
-	BOOL frameContains = CGRectContainsPoint(self.frame, p);
+	//stich: sorry anal about warnings 
+    //BOOL frameContains = CGRectContainsPoint(self.frame, p);
 	BOOL boundsContains = CGRectContainsPoint(self.bounds, p);
 	BOOL pathContains = CGPathContainsPoint(self.path, NULL, p, false);
 	

@@ -86,14 +86,22 @@ static NSDictionary *elementMap;
 			NSLog(@"Support for '%@' element has not been implemented", name);
 		}
 		
+		SVGElement *element = [[elementClass alloc] initWithDocument:svgDocument name:name];
+        
+        
+        if( (result = [attributes objectForKey:@"class"]) && [result isKindOfClass:[NSString class]] )
+        {
+            NSDictionary *thisClassStyle = [svgDocument styleForElement:element withClassName:(NSString *)result];
+            if( thisClassStyle != nil ) //we should 
+                [attributes addEntriesFromDictionary:thisClassStyle];
+        }
+        
 		id style = nil;
-		
-		if ((style = [attributes objectForKey:@"style"])) {
+		if ((style = [attributes objectForKey:@"style"])) { //style overrides class attributes, this is almost correct, it's actually supposed to merge them based on property type (somethings are blended, somethings override)
 			[attributes removeObjectForKey:@"style"];
 			[attributes addEntriesFromDictionary:[SVGParser NSDictionaryFromCSSAttributes:style]];
 		}
-		
-		SVGElement *element = [[elementClass alloc] initWithDocument:svgDocument name:name];
+        
 		[element parseAttributes:attributes];
 		
 		return element;

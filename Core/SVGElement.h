@@ -10,6 +10,10 @@
 @class SVGDocument;
 
 @interface SVGElement : NSObject {
+@protected
+    
+    NSMutableSet *_createdShapes;
+    
   @private
 	NSMutableArray *_children;
 }
@@ -40,6 +44,8 @@
 /*! Parser uses this to add non-rendering-SVG XML tags to the element they were embedded in */
 - (void) addMetadataChild:(NSObject*) child;
 
+- (void)setTrackShapeLayers:(BOOL)track; //this element will begin tracking all CAShapeLayer instances it creates, so that they may be modified later or released by this SVGElement
+- (void)updateFill:(CGColorRef)fillString;
 @end
 
 @protocol SVGLayeredElement < NSObject >

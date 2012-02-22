@@ -56,6 +56,12 @@
 		66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66436E5214A0BCEF001CC769 /* CALayerExporter.m */; };
 		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
+		C1A500B414F4348200D45858 /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1A500B314F4348200D45858 /* RainbowWing.svg */; };
+		C1A500C114F4364F00D45858 /* SVGGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500B814F4364F00D45858 /* SVGGradientElement.m */; };
+		C1A500C214F4364F00D45858 /* SVGGradientStop.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500BA14F4364F00D45858 /* SVGGradientStop.m */; };
+		C1A500C314F4364F00D45858 /* SVGParserGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500BE14F4364F00D45858 /* SVGParserGradient.m */; };
+		C1A500C414F4364F00D45858 /* SVGParserStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500C014F4364F00D45858 /* SVGParserStyles.m */; };
+		C1A500C714F436C400D45858 /* SVGStyleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500C614F436C400D45858 /* SVGStyleElement.m */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +153,17 @@
 		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
 		6680A6D4149E4F3900F2113F /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses.txt"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C1A500B314F4348200D45858 /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
+		C1A500B714F4364F00D45858 /* SVGGradientElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientElement.h; sourceTree = "<group>"; };
+		C1A500B814F4364F00D45858 /* SVGGradientElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientElement.m; sourceTree = "<group>"; };
+		C1A500B914F4364F00D45858 /* SVGGradientStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientStop.h; sourceTree = "<group>"; };
+		C1A500BA14F4364F00D45858 /* SVGGradientStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientStop.m; sourceTree = "<group>"; };
+		C1A500BD14F4364F00D45858 /* SVGParserGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParserGradient.h; sourceTree = "<group>"; };
+		C1A500BE14F4364F00D45858 /* SVGParserGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGParserGradient.m; sourceTree = "<group>"; };
+		C1A500BF14F4364F00D45858 /* SVGParserStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParserStyles.h; sourceTree = "<group>"; };
+		C1A500C014F4364F00D45858 /* SVGParserStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGParserStyles.m; sourceTree = "<group>"; };
+		C1A500C514F436C400D45858 /* SVGStyleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleElement.h; sourceTree = "<group>"; };
+		C1A500C614F436C400D45858 /* SVGStyleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyleElement.m; sourceTree = "<group>"; };
 		C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -246,6 +263,8 @@
 		3BF503C0148C62D900CC7D17 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C1A500B614F4364F00D45858 /* Elements */,
+				C1A500BB14F4364F00D45858 /* ParserExtentions */,
 				3BF503C1148C62D900CC7D17 /* CGPathAdditions.h */,
 				3BF503C2148C62D900CC7D17 /* CGPathAdditions.m */,
 				3BF503C3148C62D900CC7D17 /* SVGCircleElement.h */,
@@ -321,6 +340,7 @@
 		3BF5041A148C63F500CC7D17 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				C1A500B314F4348200D45858 /* RainbowWing.svg */,
 				663DEFEB14BFD6BC00C56E07 /* Location_European_nation_states.svg */,
 				6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */,
 				3BF5041B148C63F500CC7D17 /* CurvedDiamond.svg */,
@@ -344,6 +364,38 @@
 			);
 			name = "calayer-exporter";
 			path = "../../calayer-exporter";
+			sourceTree = "<group>";
+		};
+		C1A500B614F4364F00D45858 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				C1A500B714F4364F00D45858 /* SVGGradientElement.h */,
+				C1A500B814F4364F00D45858 /* SVGGradientElement.m */,
+				C1A500B914F4364F00D45858 /* SVGGradientStop.h */,
+				C1A500BA14F4364F00D45858 /* SVGGradientStop.m */,
+				C1A500C514F436C400D45858 /* SVGStyleElement.h */,
+				C1A500C614F436C400D45858 /* SVGStyleElement.m */,
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
+		C1A500BB14F4364F00D45858 /* ParserExtentions */ = {
+			isa = PBXGroup;
+			children = (
+				C1A500BC14F4364F00D45858 /* Elements */,
+				C1A500BD14F4364F00D45858 /* SVGParserGradient.h */,
+				C1A500BE14F4364F00D45858 /* SVGParserGradient.m */,
+				C1A500BF14F4364F00D45858 /* SVGParserStyles.h */,
+				C1A500C014F4364F00D45858 /* SVGParserStyles.m */,
+			);
+			path = ParserExtentions;
+			sourceTree = "<group>";
+		};
+		C1A500BC14F4364F00D45858 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +463,7 @@
 				6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */,
 				6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */,
 				663DEFEC14BFD6BC00C56E07 /* Location_European_nation_states.svg in Resources */,
+				C1A500B414F4348200D45858 /* RainbowWing.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +507,11 @@
 				3BF50415148C62D900CC7D17 /* SVGView.m in Sources */,
 				663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */,
 				66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */,
+				C1A500C114F4364F00D45858 /* SVGGradientElement.m in Sources */,
+				C1A500C214F4364F00D45858 /* SVGGradientStop.m in Sources */,
+				C1A500C314F4364F00D45858 /* SVGParserGradient.m in Sources */,
+				C1A500C414F4364F00D45858 /* SVGParserStyles.m in Sources */,
+				C1A500C714F436C400D45858 /* SVGStyleElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

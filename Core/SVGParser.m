@@ -261,9 +261,26 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 	_failed = YES;
 }
 
+- (void)addStylesToDocument:(NSDictionary *)theStyleKeyedById
+{
+    for( NSString *idName in [theStyleKeyedById keyEnumerator] )
+    {
+        [_document setStyle:[theStyleKeyedById objectForKey:idName] forClassName:idName]; 
+    }
+}
+
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	[ (SVGParser *) ctx handleError];
 	NSLog(@"Error encountered during parse: %s", msg);
+}
+
+
+static void handleCdataBlockSAX(void *ctx, const xmlChar *value, int len) 
+{
+    NSString *cssString = [NSStringFromLibxmlString(value) substringToIndex:len];
+    //    NSLog(@"Cdata block: %@", cssString);
+    
+    [(SVGParser *) ctx addStylesToDocument:[SVGParser NSDictionaryFromCDataCSSStyles:cssString]];
 }
 
 static xmlSAXHandler SAXHandler = {
@@ -292,7 +309,7 @@ static xmlSAXHandler SAXHandler = {
     errorEncounteredSAX,        /* error */
     NULL,                       /* fatalError //: unused error() get all the errors */
     NULL,                       /* getParameterEntity */
-    NULL,                       /* cdataBlock */
+    handleCdataBlockSAX,                       /* cdataBlock */
     NULL,                       /* externalSubset */
     XML_SAX2_MAGIC,
     NULL,
@@ -378,6 +395,42 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	}
 	
 	return [dict autorelease];
+}
+
++(NSDictionary *) NSDictionaryFromCDataCSSStyles: (NSString *)cdataBlock //probably should be almost entirely c, blocking gradient implementation, disconnect cdataSAX
+{
+    NSMutableDictionary *returnSet = [NSMutableDictionary new];
+    
+    NSArray *classNameAndStyleStrings = [cdataBlock componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"}"]];
+    
+    NSArray *stringSplitContainer;
+    NSString *className, *styleContent;
+    
+    NSDictionary *classStyle;
+    
+    for( NSString *idStyleString in classNameAndStyleStrings )
+    {
+        if( [idStyleString length] > 1 ) //not necessary unless using shitty svgs
+        {
+            idStyleString = [idStyleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            
+            //             NSLog(@"A substringie %@", idStyleString);
+            
+            stringSplitContainer = [idStyleString componentsSeparatedByString:@"{"];
+            if( [stringSplitContainer count] >= 2 ) //not necessary unless using shitty svgs
+            {
+                className = [[stringSplitContainer objectAtIndex:0] substringFromIndex:1];
+                styleContent = [stringSplitContainer objectAtIndex:1];
+                
+                classStyle = [SVGParser NSDictionaryFromCSSAttributes:styleContent];
+                //                 NSLog(@"Class Style:\n%@", classStyle);
+                [returnSet setObject:classStyle forKey:className];
+            }
+        }
+    }
+    
+    
+    return [returnSet autorelease];
 }
 
 @end

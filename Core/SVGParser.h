@@ -55,5 +55,6 @@
 - (BOOL)parse:(NSError **)outError;
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css;
++(NSDictionary *) NSDictionaryFromCDataCSSStyles: (NSString *)cdataBlock;
 
 @end

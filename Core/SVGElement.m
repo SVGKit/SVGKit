@@ -101,4 +101,33 @@
 			[self class], self, _identifier, _localName, _stringValue, [_children count]];
 }
 
+
+- (void)setTrackShapeLayers:(BOOL)track
+{
+    if( track != (_createdShapes == nil) ) // need to change, track and nil set or !track and set created
+    {
+        if( track ) //need to create set
+            _createdShapes = [NSMutableSet new];
+        else
+        {
+            [_createdShapes release];
+            _createdShapes = nil;
+        }
+    }
+}
+
+
+
+//proof of concept, would probably want to update the entire style if you were going to do this right
+- (void)updateFill:(CGColorRef)fill
+{
+    if( _createdShapes != nil )
+    {
+        for (CAShapeLayer *shape in _createdShapes) {
+            shape.fillColor = fill;//
+        }
+        
+    }
+}
+
 @end

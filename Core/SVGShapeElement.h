@@ -14,12 +14,14 @@
 typedef enum {
 	SVGFillTypeNone = 0,
 	SVGFillTypeSolid,
+    SVGFillTypeURL,
 } SVGFillType;
 
 @interface SVGShapeElement : SVGElement < SVGLayeredElement > { }
 
 @property (nonatomic, readwrite) CGFloat opacity;
 
+@property (nonatomic, retain)NSString *fillId;
 @property (nonatomic, readwrite) SVGFillType fillType;
 @property (nonatomic, readwrite) SVGColor fillColor;
 @property (nonatomic, readwrite, retain) SVGPattern* fillPattern;
