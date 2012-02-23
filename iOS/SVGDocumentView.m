@@ -26,6 +26,8 @@
 
 -(id) initWithDocument:(SVGDocument*) d
 {
+	NSAssert( d != nil, @"Attempted to init with a nil SVGDocument" );
+	
     self = [super init];
     if (self) {
         self.svg = d;
