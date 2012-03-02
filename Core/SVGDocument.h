@@ -45,6 +45,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 
 + (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 + (id)documentNamed:(NSString *)name; // 'name' in mainBundle
++ (id)documentFromURL:(NSURL *)url;
 + (id)documentWithContentsOfFile:(NSString *)aPath;
 
 - (id)initWithContentsOfFile:(NSString *)aPath;
