@@ -14,7 +14,7 @@
 #import "SVGPattern.h"
 #import "CAShapeLayerWithHitTest.h"
 
-#define ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE 1
+#define ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE 0
 
 @implementation SVGShapeElement
 
@@ -119,6 +119,10 @@
 		[_shapeLayer setValue:self.identifier forKey:kSVGElementIdentifier];
 	_shapeLayer.opacity = _opacity;
 	
+#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
+	CGAffineTransform svgEffectiveTransform = [self transformAbsolute];
+#endif
+	
 #if OUTLINE_SHAPES
 	
 #if TARGET_OS_IPHONE
@@ -165,14 +169,30 @@
 	
     CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox( pathToPlaceInLayer ));
 	
-	CGPathRef finalPath = CGPathCreateByOffsettingPath( pathToPlaceInLayer, rect.origin.x, rect.origin.y);
+	CGPathRef finalPath = CGPathCreateByOffsettingPath( pathToPlaceInLayer, rect.origin.x, rect.origin.y );
+
 	/** Can't use this - iOS 5 only! path = CGPathCreateCopyByTransformingPath(path, transformFromSVGUnitsToScreenUnits ); */
 	
 	_shapeLayer.path = finalPath;
 	CGPathRelease(finalPath);
 	CGPathRelease(pathToPlaceInLayer);
-	
+
+#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
+	/**
+	 ADAM: this is an INCOMPLETE implementation of SVG transform. The original code only deals with offsets (translate).
+	 We're actually correctly parsing + calculating SVG's arbitrary transforms - but it will require a lot more work at
+	 this point here to interpret those arbitrary transforms correctly.
+	 
+	 For now, we're just going to assume we're only doing translates.
+	 */
+	/**
+	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
+	 space!
+	 */
+	_shapeLayer.frame = CGRectApplyAffineTransform( rect, svgEffectiveTransform );
+#else
 	_shapeLayer.frame = rect;
+#endif
 	
 	if (_strokeWidth) {
 		_shapeLayer.lineWidth = _strokeWidth;
