@@ -56,6 +56,7 @@
     [self.contentView removeFromSuperview];
     
 	SVGDocument *document = [SVGDocument documentNamed:[name stringByAppendingPathExtension:@"svg"]];
+	NSLog(@"[%@] Freshly loaded document (name = %@) has width,height = (%.2f, %.2f)", [self class], name, document.width, document.height );
 	self.contentView = [[[SVGView alloc] initWithDocument:document] autorelease];
 	
 	if (_name) {
