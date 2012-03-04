@@ -1,6 +1,6 @@
 //
 //  CALayerWithChildHitTest.m
-//  WarlightClone
+//  SVGKit
 //
 //  Created by adam on 27/11/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
@@ -8,14 +8,13 @@
 
 #import "CALayerWithChildHitTest.h"
 
-
 @implementation CALayerWithChildHitTest
 
 - (BOOL) containsPoint:(CGPoint)p
 {
-	CALayer* modelLayer = self.modelLayer;
+	BOOL boundsContains = CGRectContainsPoint(self.bounds, p);
 	
-	if (CGRectContainsPoint(self.bounds, p))
+	if( boundsContains )
 	{
 		BOOL atLeastOneChildContainsPoint = FALSE;
 		
@@ -30,7 +29,9 @@
 		
 		return atLeastOneChildContainsPoint;
 	}
+	
 	return NO;
 }
 
 @end
+

@@ -25,26 +25,25 @@ static NSDictionary *elementMap;
 		
 		if (!elementMap) {
 			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGCircleElement class], @"circle",
-						   [SVGDefsElement class], @"defs",
-						   [SVGDescriptionElement class], @"description",
-						   [SVGEllipseElement class], @"ellipse",
-						   [SVGGroupElement class], @"g",
-						   [SVGImageElement class], @"image",
-						   [SVGLineElement class], @"line",
-						   [SVGPathElement class], @"path",
-						   [SVGPolygonElement class], @"polygon",
-						   [SVGPolylineElement class], @"polyline",
-						   [SVGRectElement class], @"rect",
-						   [SVGTitleElement class], @"title", nil] retain];
+                          [SVGCircleElement class], @"circle",
+                          [SVGDefsElement class], @"defs",
+                          [SVGDescriptionElement class], @"description",
+                          [SVGEllipseElement class], @"ellipse",
+                          [SVGGroupElement class], @"g",
+                          [SVGImageElement class], @"image",
+                          [SVGLineElement class], @"line",
+                          [SVGPathElement class], @"path",
+                          [SVGPolygonElement class], @"polygon",
+                          [SVGPolylineElement class], @"polyline",
+                          [SVGRectElement class], @"rect",
+                          [SVGTitleElement class], @"title", nil] retain];
 		}
-		
-		_graphicsGroups = [[NSMutableDictionary dictionary] retain];
 	}
 	return self;
 }
 
 - (void)dealloc {
+	[_anonymousGraphicsGroups release];
 	[_graphicsGroups release];
 	
 	[super dealloc];
@@ -53,17 +52,17 @@ static NSDictionary *elementMap;
 -(NSArray*) supportedNamespaces
 {
 	return [NSArray arrayWithObjects:
-			 @"svg",
+			 @"http://www.w3.org/2000/svg",
 			nil];
 }
 
 -(NSArray*) supportedTags
 {
-	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allValues]];
+	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allKeys]];
 	[result addObject:@"svg"];
 	[result addObject:@"defs"];
-	 [result addObject:@"g"];
-	 [result addObject:@"path"];
+    [result addObject:@"g"];
+    [result addObject:@"path"];
 	return result;
 }
 
@@ -118,7 +117,7 @@ static NSDictionary *elementMap;
 		return false;
 }
 
--(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent
+-(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument
 {
 	SVGElement *parentElement = (SVGElement*) parent;
 	
@@ -128,7 +127,14 @@ static NSDictionary *elementMap;
 		
 		if ( parent == nil ) // i.e. the root SVG tag
 		{
-			[((SVGDocument*)parentElement) setGraphicsGroups:_graphicsGroups];
+			NSLog(@"[%@] PARSER_INFO: asked to add object to nil parent; i.e. we've hit the root of the tree; setting global variables on the SVG Document now", [self class]);
+			[svgDocument setGraphicsGroups:_graphicsGroups];
+			[svgDocument setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
+			
+			[_graphicsGroups release];
+			[_anonymousGraphicsGroups release];
+			_graphicsGroups = nil;
+			_anonymousGraphicsGroups = nil;
 		}
 		else
 		{
@@ -140,7 +146,24 @@ static NSDictionary *elementMap;
 			 */
 			if( [childElement.localName isEqualToString:@"g"] )
 			{
-				[_graphicsGroups setValue:childElement forKey:childElement.identifier];
+				if( childElement.identifier == nil )
+				{
+					if( _anonymousGraphicsGroups == nil )
+						_anonymousGraphicsGroups = [NSMutableArray new];
+					
+					[_anonymousGraphicsGroups addObject:childElement];
+					
+#if PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS
+					NSLog(@"[%@] PARSER_WARN: Found anonymous g tag (tag has no XML 'id=' attribute). Loading OK, but check your SVG file (id tags are highly recommended!)...", [self class] );
+#endif
+				}
+				else
+				{
+					if( _graphicsGroups == nil )
+						_graphicsGroups = [NSMutableDictionary new];
+					
+					[_graphicsGroups setValue:childElement forKey:childElement.identifier];
+				}
 			}
 		}
 	}

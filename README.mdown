@@ -6,8 +6,12 @@ SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. Al
 Installation
 -----
 
+Dependencies:
+
+  git submodule init && git submodule update
+
 iOS (iPhone/iPad):
-  1. Open the project "XcodeProjects/SVGKit/SVKit"
+  1. Open the project "XcodeProjects/SVGKit/SVGKit"
   2. Select the target "SVGKit Library" from the dropdown build selector at top left
   3. Build
   4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator

@@ -6,17 +6,23 @@
 //
 
 #import "SVGKit.h"
+#import "CALayerExporter.h"
 
-@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate > {
+@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate> {
   @private
 	NSString *_name;
+    UITextView* _exportText;
+    NSMutableString* _exportLog;
+    CALayerExporter* _layerExporter;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet SVGView *contentView;
 
 @property (nonatomic, retain) id detailItem;
 
 - (IBAction)animate:(id)sender;
+- (IBAction)exportLayers:(id)sender;
 
 @end

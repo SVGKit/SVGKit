@@ -7,6 +7,8 @@
 
 @implementation SVGPattern
 
+#if TARGET_OS_IPHONE
+
 @synthesize color;
 
 + (SVGPattern *)patternWithUIColor:(UIColor *)color
@@ -21,6 +23,8 @@
     UIColor* patternImage = [UIColor colorWithPatternImage:image];
     return [self patternWithUIColor:patternImage];
 }
+
+#endif
 
 - (CGColorRef)CGColor
 {
