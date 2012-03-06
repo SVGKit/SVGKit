@@ -40,6 +40,9 @@
 /*! Parser uses this to add non-rendering-SVG XML tags to the element they were embedded in */
 - (void) addMetadataChild:(NSObject*) child;
 
+/*! Overridden by sub-classes.  Be sure to call [super parseAttributes:attributes]; */
+- (void)parseAttributes:(NSDictionary *)attributes;
+
 @end
 
 @protocol SVGLayeredElement < NSObject >
