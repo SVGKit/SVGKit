@@ -53,6 +53,8 @@
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
 
+@property(nonatomic, retain) NSMutableArray* parseWarnings;
+
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document;
 - (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document;
 

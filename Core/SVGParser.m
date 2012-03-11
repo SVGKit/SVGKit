@@ -34,6 +34,7 @@
 
 @synthesize sourceURL;
 @synthesize parserExtensions;
+@synthesize parseWarnings;
 
 static xmlSAXHandler SAXHandler;
 
@@ -50,6 +51,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document {
 	self = [super init];
 	if (self) {
+		self.parseWarnings = [NSMutableArray array];
 		self.parserExtensions = [NSMutableArray array];
 		_path = [aPath copy];
 		self.sourceURL = nil;
@@ -65,6 +67,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 - (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document {
 	self = [super init];
 	if( self) {
+		self.parseWarnings = [NSMutableArray array];
 		self.parserExtensions = [NSMutableArray array];
 		self.sourceURL = aURL;
 		_document = document;
@@ -86,6 +89,8 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 
 - (BOOL)parse:(NSError **)outError {
 	errorForCurrentParse = nil;
+	[self.parseWarnings removeAllObjects];
+	
 	/**
 	 Is this file being loaded from disk?
 	 Or from network?
@@ -334,6 +339,11 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 	errorForCurrentParse = error;
 }
 
+-(void) addParseWarning:(NSError*) error
+{
+	errorForCurrentParse = error;
+}
+
 - (void)handleError {
 	_failed = YES;
 }
@@ -355,7 +365,12 @@ static void	unparsedEntityDeclaration(void * ctx,
 static void structuredError		(void * userData, 
 									 xmlErrorPtr error)
 {
-	
+	/**
+	 XML_ERR_WARNING = 1 : A simple warning
+	 XML_ERR_ERROR = 2 : A recoverable error
+	 XML_ERR_FATAL = 3 : A fatal error
+	 */
+	xmlErrorLevel errorLevel = error->level;
 	
 	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																	[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
@@ -363,8 +378,21 @@ static void structuredError		(void * userData,
 																	nil]
 	 ];
 	
-	NSLog(@"Error: structured error = %@", objcError );
-	[(SVGParser*) userData setParseError:objcError];
+	switch( errorLevel )
+	{
+		case XML_ERR_WARNING:
+		{
+			NSLog(@"Warning: parser reports: %@", objcError );
+		}break;
+			
+		case XML_ERR_ERROR: /** FIXME: ADAM: "non-fatal" errors should be reported as warnings, but SVGDocument + this class need rewriting to return something better than "TRUE/FALSE" on parse finishing */
+		case XML_ERR_FATAL:
+		{
+			NSLog(@"Error: parser reports: %@", objcError );
+			[(SVGParser*) userData setParseError:objcError];
+		}
+	}
+	
 }
 
 static xmlSAXHandler SAXHandler = {
