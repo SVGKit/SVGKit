@@ -12,18 +12,26 @@
 #import "SVGGradientElement.h"
 #import "SVGElement+Private.h"
 
+#import "SVGDocument.h"
+
 @implementation SVGParserGradient
 
--(NSArray*) supportedNamespaces
-{
-	return [NSArray arrayWithObjects:
-            @"http://www.w3.org/2000/svg",
-			nil];
-}
+//-(NSSet*) supportedNamespaces
+//{
+//    if( self->_supportedNamespaces == nil )
+//        self->_supportedNamespaces = [[NSSet alloc] initWithObjects:
+//                        @"http://www.w3.org/2000/svg",
+//                        nil];
+//	return self->_supportedNamespaces;
+//}
 
--(NSArray *)supportedTags
+static NSSet *_svgGradientParserSupportedTags = nil;
+-(NSSet *)supportedTags
 {
-    return [NSArray arrayWithObjects:@"linearGradient", @"radialGradient", @"stop", nil];
+//    static NSSet *supportedTags = nil;
+    if( _svgGradientParserSupportedTags == nil )
+        _svgGradientParserSupportedTags = [[NSSet alloc] initWithObjects:@"linearGradient", @"radialGradient", @"stop", nil];
+    return _svgGradientParserSupportedTags;
 }
 
 - (NSObject *)handleStartElement:(NSString *)name document:(SVGDocument *)document xmlns:(NSString *)namespaceURI attributes:(NSMutableDictionary *)attributes
@@ -31,7 +39,7 @@
 //    SVGColor startColor = SVGColorFromString(<#const char *string#>)
 //    CGPoint startPos = CGPointMake([attributes objectFor, <#CGFloat y#>)
     
-    NSObject *returnObject;
+    NSObject *returnObject = nil;
     
     NSRange range = [name rangeOfString:@"Gradient"];
     if( ( range.location != NSNotFound) )
@@ -46,7 +54,7 @@
         SVGGradientStop *gradientStop = [SVGGradientStop new];
         
         [gradientStop parseAttributes:attributes];
-        returnObject =  gradientStop;       
+        returnObject = gradientStop;       
         
         [currentElement addStop:gradientStop];
     }
@@ -72,7 +80,7 @@
 //                                                        linearGrad.y2 = xml_grad.@y2;
 //                                            else if(linearGrad.y2 == null)
 //                                                        linearGrad.y2 = "0%";
-    return returnObject;
+    return [returnObject autorelease];
 }
 
 //-(void) addChildObject:(NSObject *)child toObject:(NSObject *)parent inDocument:(SVGDocument *)svgDocument
@@ -80,17 +88,29 @@
 //    
 //}
 
--(void) parseContent:(NSMutableString *)content forItem:(NSObject *)item
-{
-    SVGGradientElement *theGradient = (SVGGradientElement *)item;
-    NSLog(@"ParsingContent for SVGParserGradient with content %@", [theGradient description]);
-}
+//-(void) parseContent:(NSMutableString *)content forItem:(NSObject *)item
+//{
+//    SVGGradientElement *theGradient = (SVGGradientElement *)item;
+//    NSLog(@"ParsingContent for SVGParserGradient with content %@", [theGradient description]);
+//}
+
+//-(void)dealloc
+//{
+//    currentElement = nil;
+//    [super dealloc];
+//}
 
 //-(BOOL) createdItemShouldStoreContent:(NSObject *)item
 //{
 //    
 //    return false;
 //}
+
++(void)trim
+{
+    [_svgGradientParserSupportedTags release];
+    _svgGradientParserSupportedTags = nil;
+}
 
 
 @end

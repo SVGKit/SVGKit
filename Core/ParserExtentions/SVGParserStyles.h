@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SVGParser.h"
 
 @interface SVGParserStyles : NSObject <SVGParserExtension> {
-    
+    @private
+//    NSSet *_tags, *_namespaces;
 }
 
 @end

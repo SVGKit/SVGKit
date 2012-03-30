@@ -14,9 +14,15 @@
     BOOL radial;
     NSString *gradientUnits;
     CGPoint startPoint, endPoint;
+    
+    @protected
+    NSMutableArray *_stops;
+    
+    @private
+    NSArray *colors, *locations;
 }
 
-@property (readonly, retain)NSMutableArray *stops;
+@property (readonly, retain)NSArray *stops;
 
 -(void)addStop:(SVGGradientStop *)gradientStop;
 

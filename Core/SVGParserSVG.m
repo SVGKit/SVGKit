@@ -15,6 +15,8 @@
 #import "SVGTitleElement.h"
 #import "SVGElement+Private.h"
 
+#import "SVGPointsAndPathsParser.h"
+
 @implementation SVGParserSVG
 
 static NSDictionary *elementMap;
@@ -37,6 +39,7 @@ static NSDictionary *elementMap;
                           [SVGPolylineElement class], @"polyline",
                           [SVGRectElement class], @"rect",
                           [SVGTitleElement class], @"title", nil] retain];
+            
 		}
 	}
 	return self;
@@ -49,21 +52,29 @@ static NSDictionary *elementMap;
 	[super dealloc];
 }
 
--(NSArray*) supportedNamespaces
+static NSSet *_SVGParserSVGSupportedNameSpaces;
+-(NSSet*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			 @"http://www.w3.org/2000/svg",
-			nil];
+    if( _SVGParserSVGSupportedNameSpaces == nil )
+        _SVGParserSVGSupportedNameSpaces = [[NSSet alloc] initWithObjects:@"http://www.w3.org/2000/svg",
+        nil];
+	return _SVGParserSVGSupportedNameSpaces;
 }
 
--(NSArray*) supportedTags
+static NSSet *_SVGParserSVGSupportedTags;
+-(NSSet*) supportedTags
 {
-	NSMutableArray* result = [NSMutableArray arrayWithArray:[elementMap allKeys]];
-	[result addObject:@"svg"];
-	[result addObject:@"defs"];
-    [result addObject:@"g"];
-    [result addObject:@"path"];
-	return result;
+    if( _SVGParserSVGSupportedTags == nil )
+    {
+        NSMutableArray* result = [[NSMutableArray alloc] initWithArray:[elementMap allKeys]];
+        [result addObject:@"svg"];
+        [result addObject:@"defs"];
+        [result addObject:@"g"];
+        [result addObject:@"path"];
+        _SVGParserSVGSupportedTags = [[NSSet alloc] initWithArray:result];
+        [result release];
+    }
+	return _SVGParserSVGSupportedTags;
 }
 
 - (NSObject*) handleStartElement:(NSString *)name document:(SVGDocument*) svgDocument xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
@@ -83,17 +94,24 @@ static NSDictionary *elementMap;
 		
 		if (!elementClass) {
 			elementClass = [SVGElement class];
+#ifdef SVGPARSER_WARN_UNIMPLEMENTED_TAGS
 			NSLog(@"Support for '%@' element has not been implemented", name);
+#endif
 		}
 		
 		SVGElement *element = [[elementClass alloc] initWithDocument:svgDocument name:name];
         
         
-        if( (result = [attributes objectForKey:@"class"]) && [result isKindOfClass:[NSString class]] )
+        if( (result = [attributes objectForKey:@"class"]) )
         {
-            NSDictionary *thisClassStyle = [svgDocument styleForElement:element withClassName:(NSString *)result];
-            if( thisClassStyle != nil ) //we should 
-                [attributes addEntriesFromDictionary:thisClassStyle];
+            if( [result isKindOfClass:[NSString class]] )
+            {
+                NSDictionary *thisClassStyle = [svgDocument styleForElement:element withClassName:(NSString *)result];
+                if( thisClassStyle != nil ) //we should 
+                {
+                    [attributes addEntriesFromDictionary:thisClassStyle];
+                }
+            }
         }
         
 		id style = nil;
@@ -104,7 +122,7 @@ static NSDictionary *elementMap;
         
 		[element parseAttributes:attributes];
 		
-		return element;
+		return [element autorelease];
 	}
 	
 	return nil;
@@ -114,12 +132,13 @@ static NSDictionary *elementMap;
 {
 	if( [item isKindOfClass:[SVGElement class]] )
 	{
-		if ([[item class] shouldStoreContent]) {
-			return TRUE;
-		}
-		else {
-			return FALSE;
-		}
+        return [[item class] shouldStoreContent];
+//		if () {
+//			return TRUE;
+//		}
+//		else {
+//			return FALSE;
+//		}
 	}
 	else
 		return false;
@@ -132,10 +151,12 @@ static NSDictionary *elementMap;
 	if( [child isKindOfClass:[SVGElement class]] )
 	{
 		SVGElement *childElement = (SVGElement*) child;
-		
+        
 		if ( parent == nil ) // i.e. the root SVG tag
 		{
+#ifdef SVGPARSER_NOTIFY_COMPLETE
 			NSLog(@"[%@] PARSER_INFO: asked to add object to nil parent; i.e. we've hit the root of the tree; setting global variables on the SVG Document now", [self class]);
+#endif
 			[svgDocument setGraphicsGroups:_graphicsGroups];
 			[svgDocument setAnonymousGraphicsGroups:_anonymousGraphicsGroups];
 			
@@ -190,6 +211,20 @@ static NSDictionary *elementMap;
 	SVGElement* element = (SVGElement*) item;
 	
 	[element parseContent:content];
+}
+
++(void)trim
+{
+    //not enough payout for the danger here, the other two are automatically regenerated but elementMap is not
+//    [elementMap release];
+//    elementMap = nil;
+    [SVGPointsAndPathsParser trim];
+    
+    [_SVGParserSVGSupportedNameSpaces release];
+    _SVGParserSVGSupportedNameSpaces = nil;
+    
+    [_SVGParserSVGSupportedTags release];
+    _SVGParserSVGSupportedTags = nil;
 }
 
 @end

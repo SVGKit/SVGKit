@@ -17,11 +17,19 @@ typedef enum {
     SVGFillTypeURL,
 } SVGFillType;
 
-@interface SVGShapeElement : SVGElement < SVGLayeredElement > { }
+@interface SVGShapeElement : SVGElement < SVGLayeredElement > 
+{ 
+    NSString *_styleClass;
+    
+@private
+    CGRect _layerRect;
+    
+    CGColorRef _strokeCG, _fillCG; //limit # of instances?
+}
 
 @property (nonatomic, readwrite) CGFloat opacity;
 
-@property (nonatomic, retain)NSString *fillId;
+@property (nonatomic, readonly) NSString *fillId;
 @property (nonatomic, readwrite) SVGFillType fillType;
 @property (nonatomic, readwrite) SVGColor fillColor;
 @property (nonatomic, readwrite, retain) SVGPattern* fillPattern;

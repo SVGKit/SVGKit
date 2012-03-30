@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "SVGParserSVG.h"
 
+
+@class SVGGradientElement;
+
 @interface SVGParserGradient : SVGParserSVG {
     SVGGradientElement *currentElement;
 }

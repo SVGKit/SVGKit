@@ -6,6 +6,7 @@
 //
 
 #import "SVGElement.h"
+#import "SVGUtils.h"
 
 @interface SVGElement ()
 
@@ -24,6 +25,7 @@
  ...etc
  */
 @implementation SVGElement
+
 
 @synthesize document = _document;
 
@@ -44,7 +46,7 @@
     if (self) {
 		[self loadDefaults];
         _children = [NSMutableArray new];
-		self.metadataChildren = [NSMutableArray array];
+        self->metadataChildren = [NSMutableArray new];
     }
     return self;
 }
@@ -53,13 +55,14 @@
 	self = [self init];
 	if (self) {
 		_document = aDocument;
-		_localName = [name retain];
+		_localName = [name copy];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	self.metadataChildren = nil;
+    [self setMetadataChildren:nil];
+//	self.metadataChildren = nil;
 	[_children release];
 	[_stringValue release];
 	[_localName release];
@@ -102,32 +105,37 @@
 }
 
 
-- (void)setTrackShapeLayers:(BOOL)track
++(void)trim
 {
-    if( track != (_createdShapes == nil) ) // need to change, track and nil set or !track and set created
-    {
-        if( track ) //need to create set
-            _createdShapes = [NSMutableSet new];
-        else
-        {
-            [_createdShapes release];
-            _createdShapes = nil;
-        }
-    }
+    //remove statically allocated stuffs to free up memory
 }
+
+//- (void)setTrackShapeLayers:(BOOL)track
+//{
+//    if( track == (_createdShapes == nil) ) // need to change, track and nil set or !track and set created
+//    {
+//        if( track ) //need to create set
+//            _createdShapes = [NSMutableSet new];
+//        else
+//        {
+//            [_createdShapes release];
+//            _createdShapes = nil;
+//        }
+//    }
+//}
 
 
 
 //proof of concept, would probably want to update the entire style if you were going to do this right
-- (void)updateFill:(CGColorRef)fill
-{
-    if( _createdShapes != nil )
-    {
-        for (CAShapeLayer *shape in _createdShapes) {
-            shape.fillColor = fill;//
-        }
-        
-    }
-}
+//- (void)updateFill:(SVGColor)fill
+//{
+//    if( _createdShapes != nil )
+//    {
+//        for (CAShapeLayer *shape in _createdShapes) {
+//            shape.fillColor = CGColorWithSVGColor(fill);//
+//        }
+//        
+//    }
+//}
 
 @end

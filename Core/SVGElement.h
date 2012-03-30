@@ -6,14 +6,18 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "SVGUtils.h"
 
+#import "SVGStyleCatcher.h"
 @class SVGDocument;
+
+
 
 @interface SVGElement : NSObject {
 @protected
     
-    NSMutableSet *_createdShapes;
-    
+    @protected
+    SVGDocument *_document;
   @private
 	NSMutableArray *_children;
 }
@@ -44,8 +48,9 @@
 /*! Parser uses this to add non-rendering-SVG XML tags to the element they were embedded in */
 - (void) addMetadataChild:(NSObject*) child;
 
-- (void)setTrackShapeLayers:(BOOL)track; //this element will begin tracking all CAShapeLayer instances it creates, so that they may be modified later or released by this SVGElement
-- (void)updateFill:(CGColorRef)fillString;
+//Deprecated by SVGStyleCatcher
+//- (void)setTrackShapeLayers:(BOOL)track; 
+//- (void)updateFill:(SVGColor)fillString;
 @end
 
 @protocol SVGLayeredElement < NSObject >
@@ -56,7 +61,9 @@
  custom key - kSVGElementIdentifier - on the CALayer. Because it's a custom key, it's (almost) guaranteed not to be
  overwritten / altered by other application code
  */
-- (CALayer *)newLayer;
+- (CALayer *)autoreleasedLayer;
 - (void)layoutLayer:(CALayer *)layer;
+
++(void)trim;
 
 @end

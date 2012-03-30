@@ -153,6 +153,8 @@
 		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
 		6680A6D4149E4F3900F2113F /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses.txt"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C157ACB015256C2C00BC03E6 /* SVGStyleCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleCatcher.h; sourceTree = "<group>"; };
+		C183A06C15258FAC005875B9 /* SVGKitDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKitDebug.h; sourceTree = "<group>"; };
 		C1A500B314F4348200D45858 /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
 		C1A500B714F4364F00D45858 /* SVGGradientElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientElement.h; sourceTree = "<group>"; };
 		C1A500B814F4364F00D45858 /* SVGGradientElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientElement.m; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		3BF503C0148C62D900CC7D17 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C183A06C15258FAC005875B9 /* SVGKitDebug.h */,
 				C1A500B614F4364F00D45858 /* Elements */,
 				C1A500BB14F4364F00D45858 /* ParserExtentions */,
 				3BF503C1148C62D900CC7D17 /* CGPathAdditions.h */,
@@ -369,6 +372,7 @@
 		C1A500B614F4364F00D45858 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				C157ACB015256C2C00BC03E6 /* SVGStyleCatcher.h */,
 				C1A500B714F4364F00D45858 /* SVGGradientElement.h */,
 				C1A500B814F4364F00D45858 /* SVGGradientElement.m */,
 				C1A500B914F4364F00D45858 /* SVGGradientStop.h */,

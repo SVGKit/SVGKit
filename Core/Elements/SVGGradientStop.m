@@ -6,7 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "SVGUtils.h"
 #import "SVGGradientStop.h"
+#import "SVGParser.h"
+#import "SVGElement+Private.h"
 
 @implementation SVGGradientStop
 
@@ -35,7 +38,18 @@
         
         testObject = [styleDict objectForKey:@"stop-opacity"];
         _stopOpacity = (testObject != nil) ? [testObject floatValue] : 1.0f;
+        _stopColor.a = (_stopOpacity * 255);
     }
+    
+    [super parseAttributes:attributes];
 }
+
+//no memory allocated by this subclass
+//-(void)dealloc
+//{
+//    
+//    
+//    [super dealloc];
+//}
 
 @end

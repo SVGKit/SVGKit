@@ -7,6 +7,8 @@
 //
 
 #import "SVGElement.h"
+#import "SVGUtils.h"
+
 
 @interface SVGGradientStop : SVGElement
 

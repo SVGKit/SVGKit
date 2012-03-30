@@ -28,6 +28,8 @@ BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2);
 
 @interface SVGPointsAndPathsParser : NSObject
 
++ (void)trim;
+
 + (void) readWhitespace:(NSScanner*)scanner;
 + (void) readCommaAndWhitespace:(NSScanner*)scanner;
 

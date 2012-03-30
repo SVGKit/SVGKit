@@ -12,15 +12,15 @@
 	//stich: sorry anal about warnings 
     //BOOL frameContains = CGRectContainsPoint(self.frame, p);
 	BOOL boundsContains = CGRectContainsPoint(self.bounds, p);
-	BOOL pathContains = CGPathContainsPoint(self.path, NULL, p, false);
 	
-	if( boundsContains && pathContains )
+	if( boundsContains )
 	{
-			for( CALayer* subLayer in self.sublayers )
-			{
-				NSLog(@"...contains point, Apple will now check sublayer: %@", subLayer);
-			}
-		return TRUE;
+        BOOL pathContains = CGPathContainsPoint(self.path, NULL, p, false);
+//			for( CALayer* subLayer in self.sublayers )
+//			{
+//				NSLog(@"...contains point, Apple will now check sublayer: %@", subLayer);
+//			}
+		return pathContains;
 	}
 	return NO;
 }

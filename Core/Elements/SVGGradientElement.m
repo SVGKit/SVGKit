@@ -17,51 +17,82 @@
 -(void)addStop:(SVGGradientStop *)gradientStop
 {
     if( _stops == nil )
-        _stops = [NSMutableArray new];
+        _stops = [[NSMutableArray alloc] initWithCapacity:1];
     [_stops addObject:gradientStop];
 }
 
 -(void)parseAttributes:(NSDictionary *)attributes
 {
+    NSNumber *testObjectX = [attributes objectForKey:@"x1"];
+    NSNumber *testObjectY = [attributes objectForKey:@"y1"];
     
-    id testObjectX = [attributes objectForKey:@"x1"];
-    id testObjectY = [attributes objectForKey:@"y1"];
-    if( testObjectX != nil && testObjectY != nil )
-        startPoint = CGPointMake( [testObjectX floatValue], [testObjectY floatValue]);
-    
+    startPoint = CGPointMake( [testObjectX floatValue], [testObjectY floatValue]); //default value is 0.0f, so if the attribute is nil, we will end up with the correct values
+//    startPoint = CGPointZero;//, <#CGFloat y#>)
     
     testObjectX = [attributes objectForKey:@"x2"];
     testObjectY = [attributes objectForKey:@"y2"];
-    if( testObjectX != nil && testObjectY != nil )
-        endPoint = CGPointMake( [testObjectX floatValue], [testObjectY floatValue]);
+    if(testObjectX == nil )
+        testObjectX = [NSNumber numberWithFloat:1.0f];
     
-    gradientUnits = [attributes objectForKey:@"gradientUnits"];
+//    if(testObjectY == nil ) //y2 defaults to 0.0f by SVG spec
+//        testObjectY = [NSNumber numberWithFloat:1.0f];
     
+    endPoint = CGPointMake( [testObjectX floatValue], [testObjectY floatValue]);
+//    endPoint = CGPointMake(1.0f,1.0f);
+    
+    gradientUnits = [[attributes objectForKey:@"gradientUnits"] copy];
+    
+#ifdef SVG_DEBUG_GRADIENTS
+    NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+    
+    NSLog(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+#endif
     [super parseAttributes:attributes];
 }
 
 
--(CALayer *)newLayer
+-(CALayer *)autoreleasedLayer
 {
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    
+//    return gradientLayer;
     gradientLayer.startPoint = startPoint;
     gradientLayer.endPoint = endPoint;
     
-    NSMutableArray *colors = [NSMutableArray new];
-    NSMutableArray *locations = [NSMutableArray new];
-    for (SVGGradientStop *theStop in _stops) 
+    if( colors == nil ) //these can't be determined until parsing is complete, need to update SVGGradientParser and do this on end element
     {
-        [locations addObject:[NSNumber numberWithFloat:theStop.offset]];
-        [colors addObject:(id)CGColorCreateCopyWithAlpha(CGColorWithSVGColor([theStop stopColor]), [theStop stopOpacity])];
+//        CGColorRef theColor = NULL;//, alphaColor = NULL;
+        NSUInteger numStops = [_stops count];
+        NSMutableArray *colorBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
+        NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
+        for (SVGGradientStop *theStop in _stops) 
+        {
+            [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
+//            theColor = CGColorWithSVGColor([theStop stopColor]);
+            //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
+            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
+            //        CGColorRelease(alphaColor);
+        }
+        
+        colors = [[NSArray alloc] initWithArray:colorBuilder];
+        [colorBuilder release];
+        
+        locations = [[NSArray alloc] initWithArray:locationBuilder];
+        [locationBuilder release];
+        
+        [_stops release];
+        _stops = nil;
     }
     
+//    NSLog(@"Setting gradient shiz");
     [gradientLayer setColors:colors];
     [gradientLayer setLocations:locations];
 //    gradientLayer.colors = colors;
 //    gradientLayer.locations = locations;
     
-    [colors release];
-    [locations release];
+//    for( id colorRef in colors )
+//        CGColorRelease((CGColorRef)colorRef);
+    
     
 //    gradientLayer.type = kCAGradientLayerAxial;
     
@@ -74,6 +105,10 @@
     [_stops release];
     _stops = nil;
     
+    [colors release];
+    [locations release];
+    
+    [gradientUnits release];
     
     
     [super dealloc];

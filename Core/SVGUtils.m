@@ -10,6 +10,8 @@
 #define MAX_ACCUM 64
 #define NUM_COLORS 147
 
+static const SVGColor SVG_COLOR_BLANK = { .r = 0, .g = 0, .b = 0, .a = 0 };
+
 SVGColor ColorValueWithName (const char *name);
 
 static const char *gColorNames[NUM_COLORS] = {
@@ -261,6 +263,13 @@ SVGColor SVGColorMake (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 	return color;
 }
 
+SVGColor SVGColorWithUIColor(UIColor *uiColor)
+{
+    CGFloat r,g,b,a;
+    [uiColor getRed:&r green:&g blue:&b alpha:&a];
+    return SVGColorMake((uint8_t)(r*255), (uint8_t)(g*255), (uint8_t)(b*255), (uint8_t)(a*255));
+}
+
 typedef enum {
 	PhaseNone = 0,
 	PhaseRGB
@@ -349,6 +358,42 @@ SVGColor SVGColorFromString (const char *string) {
 	return color;
 }
 
+NSString *SVGStringFromSVGColor(SVGColor color)
+{
+    return [NSString stringWithFormat:@"#%02x%02x%02x", color.r, color.g, color.b];
+}
+
+NSString *SVGStringFromCGColor(CGColorRef color)
+{
+    
+    int numComponents = CGColorGetNumberOfComponents(color);
+    
+    if (numComponents == 4)
+    {
+//        NSMutableString *returnString = [NSMutableString stringWithString:@"#"];
+        
+        const CGFloat *components = CGColorGetComponents(color);
+        CGFloat red = components[0];
+        CGFloat green = components[1];
+        CGFloat blue = components[2];
+//        CGFloat alpha = components[3];
+        
+//        NSString *hexVal = [NSString stringWithFormat:@"%02x", (int)(red * 255)];
+//        [returnString appendString:hexVal];
+//        
+//        hexVal = [NSString stringWithFormat:@"%02x", (int)(green * 255)];
+//        [returnString appendString:hexVal];
+//        
+//        hexVal = [NSString stringWithFormat:@"%02x", (int)(blue * 255)];
+//        [returnString appendString:hexVal];
+        
+        return [NSString stringWithFormat:@"#%02x%02x%02x", (int)(red * 255), (int)(green * 255), (int)(blue * 255)];
+    }
+    
+    return @"black";
+//    return [NSString stringWithFormat:@"#%@%@%@
+}
+
 CGFloat SVGPercentageFromString (const char *string) {
 	size_t len = strlen(string);
 	
@@ -360,7 +405,7 @@ CGFloat SVGPercentageFromString (const char *string) {
 	return atoi(string) / 100.0f;
 }
 
-CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close) {
+CGMutablePathRef CreateSVGPathFromPointsInString (const char *string, boolean_t close) {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	size_t len = strlen(string);
@@ -414,12 +459,15 @@ CGMutablePathRef SVGPathFromPointsInString (const char *string, boolean_t close)
 CGColorRef CGColorWithSVGColor (SVGColor color) {
 	CGColorRef outColor = NULL;
 	
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 	outColor = [UIColor colorWithRed:RGB_N(color.r)
 							   green:RGB_N(color.g)
 								blue:RGB_N(color.b)
 							   alpha:RGB_N(color.a)].CGColor;
 #else
+    NSLog(@"CGColorWithSVGColor returns retained object on non-IOS platforms");
+    outcolor = 10; //throw warning
+    
 	outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
 #endif
 	

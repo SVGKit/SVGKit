@@ -10,7 +10,11 @@
 
 #import "SVGElement.h"
 
+@class SVGImage;
+
+
 @interface SVGImageElement : SVGElement <SVGLayeredElement>
+
 
 @property (nonatomic, readonly) CGFloat x;
 @property (nonatomic, readonly) CGFloat y;

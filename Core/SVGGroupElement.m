@@ -15,9 +15,23 @@
 @implementation SVGGroupElement
 
 @synthesize opacity = _opacity;
+@synthesize fill = _fill;
+
++ (void)trim
+{
+    
+}
+
+-(void)addChild:(SVGElement *)element
+{
+    if( _hasFill && [element isKindOfClass:[SVGShapeElement class]] )
+        [(SVGShapeElement *)element setFillColor:_fill];
+    
+    [super addChild:element];
+}
 
 - (void)dealloc {
-	
+//	CGColorRelease(_fill);
     [super dealloc];
 }
 
@@ -33,20 +47,27 @@
 	if ((value = [attributes objectForKey:@"opacity"])) {
 		_opacity = [value floatValue];
 	}
+    
+    value = [attributes objectForKey:@"fill"];
+    _hasFill = (value != nil);
+    if ( _hasFill )
+        _fill = SVGColorFromString([value UTF8String]);
 }
 
-- (CALayer *)newLayer {
+- (CALayer *)autoreleasedLayer {
 	
 	CALayer* _layer = [CALayerWithChildHitTest layer];
 		
 		_layer.name = self.identifier;
 		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
 		_layer.opacity = _opacity;
-		
+    
+#if RASTERIZE_SHAPES > 0
 		if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
 			[_layer performSelector:@selector(setShouldRasterize:)
 						withObject:[NSNumber numberWithBool:YES]];
 		}
+#endif
 	
 	return _layer;
 }

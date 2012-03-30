@@ -7,8 +7,11 @@
 
 #import "SVGElement.h"
 
-@interface SVGGroupElement : SVGElement < SVGLayeredElement > { }
+@interface SVGGroupElement : SVGElement < SVGLayeredElement > { 
+    BOOL _hasFill;
+}
 
 @property (nonatomic, readonly) CGFloat opacity;
+@property (nonatomic, readonly) SVGColor fill;
 
 @end
