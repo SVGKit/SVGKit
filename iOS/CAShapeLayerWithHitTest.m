@@ -9,8 +9,6 @@
 
 - (BOOL) containsPoint:(CGPoint)p
 {
-	//stich: sorry anal about warnings 
-    //BOOL frameContains = CGRectContainsPoint(self.frame, p);
 	BOOL boundsContains = CGRectContainsPoint(self.bounds, p);
 	
 	if( boundsContains )

@@ -37,6 +37,9 @@
 static BOOL inUse = NO;
 
 @synthesize parserExtensions = _parserExtensions;
+@synthesize sourceURL;
+
+@synthesize parseWarnings;
 
 static xmlSAXHandler SAXHandler;
 //static xmlParserCtxtPtr sharedCtx; //libxml2.2 is not thread safe anyways, will see if this stems the memory leaks <= too unstable, fixed memory leaks by clearing parser context after completion
@@ -89,13 +92,31 @@ static NSMutableSet *_parserExtensions = nil;
 	self = [super init];
 	if (self) {
 		_parserExtensions = [NSMutableArray new];
+		self.parseWarnings = [NSMutableArray array];
+        
 		_path = [aPath copy];
+		self.sourceURL = nil;
 		_document = document;
 		_storedChars = [NSMutableString new];
 		_elementStack = [NSMutableArray new];
 		_failed = NO;
 		
 	}
+	return self;
+}
+
+- (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document {
+	self = [super init];
+	if( self) {
+		self.parseWarnings = [NSMutableArray array];
+		self.parserExtensions = [NSMutableArray array];
+		self.sourceURL = aURL;
+		_document = document;
+		_storedChars = [NSMutableString new];
+		_elementStack = [NSMutableArray new];
+		_failed = NO;
+	}
+	
 	return self;
 }
 
@@ -128,18 +149,99 @@ static NSMutableSet *_parserExtensions = nil;
     return didFail || (error != nil);
 }
 
-- (BOOL)parse:(NSError **)outError {
-//    if( sharedCtx == nil ) {
-//        NSLog(@"[%@] - %s failed: No context found", [self class], (char *)_cmd);
-//        return NO;
-//    }
+- (BOOL)parseURL:(NSError **)outError
+{errorForCurrentParse = nil;
+	[self.parseWarnings removeAllObjects];
     
-	const char *cPath = [_path fileSystemRepresentation];
+	/**
+	 Is this file being loaded from disk?
+	 Or from network?
+	 */
+	NSURLResponse* response;
+	NSData* httpData = nil;
+	if( self.sourceURL != nil )
+	{
+		NSURLRequest* request = [NSURLRequest requestWithURL:self.sourceURL];
+		NSError* error = nil;
+        
+		httpData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+		if( error != nil )
+		{
+			NSLog( @"[%@] ERROR: failed to parse SVG from URL, because failed to download file at URL = %@, error = %@", [self class], self.sourceURL, error );
+			return false;
+		}
+	}
+    
+	FILE *file;
+	if( self.sourceURL == nil )
+	{
+        const char *cPath = [_path fileSystemRepresentation];
+        file = fopen(cPath, "r");
+        
+        if (!file)
+            return NO;
+	}
+    
+	xmlParserCtxtPtr ctx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
+    
+	if( self.sourceURL == nil )
+	{
+        if (!ctx) {
+            fclose(file);
+            return NO;
+        }
+	}
+    
+	if( self.sourceURL == nil )
+	{
+		size_t read = 0;
+		char buff[READ_CHUNK_SZ];
+        while ((read = fread(buff, 1, READ_CHUNK_SZ, file)) > 0) {
+            if (xmlParseChunk(ctx, buff, read, 0) != 0) {
+                _failed = YES;
+                NSLog(@"An error occured while parsing the current XML chunk");
+                
+                break;
+            }
+        }
+        
+        fclose(file);
+	}
+	else
+	{
+        if (xmlParseChunk(ctx, (const char*) [httpData bytes], [httpData length], 0) != 0) {
+            _failed = YES;
+            //				NSLog(@"An error occured while parsing the current XML chunk");
+            
+		}
+	}
+    
+	if (!_failed)
+		xmlParseChunk(ctx, NULL, 0, 1); // EOF
+    
+	xmlFreeParserCtxt(ctx);
+    
+	if( errorForCurrentParse != nil )
+	{
+		*outError = errorForCurrentParse;
+		_failed = TRUE;
+	}
+    
+	return !_failed;
+}
+
+
+//stich @ adam: this got merged really badly so I split it into two functions, parseURL is 100% what you had and this is 100% what i had pre-merge, sorry for taking the default behavior but it seemed more appropriate as it's already very late :X
+//stich: if we allow this to accept a block for provided string chunks in format(char *buffer, length) we could reuse this functionality for URLs, in-memory, and file parsing
+- (BOOL)parse:(NSError **)outError 
+{
+    const char *cPath = [_path fileSystemRepresentation];
 	FILE *file = fopen(cPath, "r");
-	
+    
 	if (!file)
 		return NO;
-	
+    
 	inUse = YES;
 	xmlParserCtxtPtr sharedCtx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
 	if (!sharedCtx) {
@@ -147,30 +249,42 @@ static NSMutableSet *_parserExtensions = nil;
         NSLog(@"[%@] - %s File not found!", [self class], cPath);
 		return NO;
 	}
-	
+    
 	size_t read = 0;
 	char buff[READ_CHUNK_SZ];
-	
+    
 	while ((read = fread(buff, 1, READ_CHUNK_SZ, file)) > 0) {
 		if (xmlParseChunk(sharedCtx, buff, read, 0) != 0) {
 			_failed = YES;
 			NSLog(@"An error occured while parsing the current XML chunk");
-			
+            
 			break;
 		}
 	}
-	
+    
 	fclose(file);
-	
+    
 	if (!_failed)
 		xmlParseChunk(sharedCtx, NULL, 0, 1); // EOF
-	
+    
     xmlClearParserCtxt(sharedCtx); //should make this eligible for reuse, can pool if we want multithreading (need libxml2.4 or later)
 	xmlFreeParserCtxt(sharedCtx);
     inUse = NO;
-	
+    
 	return !_failed;
 }
+
+/** ADAM: use this for a higher-performance, *non-blocking* parse
+ (when someone upgrades this class and the interface to support non-blocking parse)
+// Called when a chunk of data has been downloaded.
+- (void)connection:(NSURLConnection *)connection 
+	didReceiveData:(NSData *)data 
+{
+	// Process the downloaded chunk of data.
+	xmlParseChunk(_xmlParserContext, (const char *)[data bytes], [data length], 0);//....Getting Exception at this line.
+}
+ */
+
 
 - (void)handleStartElement:(NSString *)name xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
 	
@@ -345,9 +459,20 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 	[self handleFoundCharacters:chars length:len];
 }
 
+-(void) setParseError:(NSError*) error
+{
+	errorForCurrentParse = error;
+}
+
+-(void) addParseWarning:(NSError*) error
+{
+	errorForCurrentParse = error;
+}
+
 - (void)handleError {
 	_failed = YES;
 }
+
 
 - (void)addStylesToDocument:(NSDictionary *)theStyleKeyedById
 {
@@ -362,6 +487,51 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...)
 {
 	[ (SVGParser *) ctx handleError];
 	NSLog(@"Error encountered during parse: %s", msg);
+	[ (SVGParser *) ctx handleError];
+}
+
+static void	unparsedEntityDeclaration(void * ctx, 
+									 const xmlChar * name, 
+									 const xmlChar * publicId, 
+									 const xmlChar * systemId, 
+									 const xmlChar * notationName)
+{
+	NSLog(@"ERror: unparsed entity Decl");
+}
+
+static void structuredError		(void * userData, 
+									 xmlErrorPtr error)
+{
+	/**
+	 XML_ERR_WARNING = 1 : A simple warning
+	 XML_ERR_ERROR = 2 : A recoverable error
+	 XML_ERR_FATAL = 3 : A fatal error
+	 */
+	xmlErrorLevel errorLevel = error->level;
+	
+	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																	[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
+																	[NSNumber numberWithInt:error->line], @"lineNumber",
+																	nil]
+	 ];
+	
+	switch( errorLevel )
+	{
+		case XML_ERR_WARNING:
+		{
+			NSLog(@"Warning: parser reports: %@", objcError );
+		}break;
+			
+		case XML_ERR_ERROR: /** FIXME: ADAM: "non-fatal" errors should be reported as warnings, but SVGDocument + this class need rewriting to return something better than "TRUE/FALSE" on parse finishing */
+		case XML_ERR_FATAL:
+		{
+			NSLog(@"Error: parser reports: %@", objcError );
+			[(SVGParser*) userData setParseError:objcError];
+		}
+        default:
+            break;
+	}
+	
 }
 
 
@@ -386,7 +556,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* notationDecl */
     NULL,                       /* attributeDecl */
     NULL,                       /* elementDecl */
-    NULL,                       /* unparsedEntityDecl */
+    unparsedEntityDeclaration,  /* unparsedEntityDecl */
     NULL,                       /* setDocumentLocator */
     NULL,                       /* startDocument */
     NULL,                       /* endDocument */
@@ -407,7 +577,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,
     startElementSAX,            /* startElementNs */
     endElementSAX,              /* endElementNs */
-    NULL,                       /* serror */
+    structuredError,                       /* serror */
 };
 
 #pragma mark -

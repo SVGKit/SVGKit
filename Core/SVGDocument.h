@@ -38,6 +38,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 @property (nonatomic, readonly) CGFloat width;
 @property (nonatomic, readonly) CGFloat height;
 @property (nonatomic, readonly, copy) NSString *version;
+@property (nonatomic, readonly) CGRect viewBoxFrame;
 
 // convenience accessors to parsed children
 @property (nonatomic, readonly) NSString *title;
@@ -64,6 +65,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 +(void)bustCache;
 + (void) addSVGParserExtension:(NSObject<SVGParserExtension>*) extension;
 + (id)documentNamed:(NSString *)name; // 'name' in mainBundle
++ (id)documentFromURL:(NSURL *)url;
 + (id)documentWithContentsOfFile:(NSString *)aPath;
 + (SVGDocument *)sharedDocumentNamed:(NSString *)name;
 

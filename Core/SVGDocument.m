@@ -26,7 +26,13 @@
 
 @property (nonatomic, copy) NSString *version;
 
+/*! Only preserved for temporary backwards compatibility */
 - (BOOL)parseFileAtPath:(NSString *)aPath;
+/*! Only preserved for temporary backwards compatibility */
+-(BOOL)parseFileAtURL:(NSURL *)url;
+
+- (BOOL)parseFileAtPath:(NSString *)aPath error:(NSError**) error;
+- (BOOL)parseFileAtURL:(NSURL *)url error:(NSError**) error;
 
 - (SVGElement *)findFirstElementOfClass:(Class)class;
 
@@ -41,6 +47,7 @@
 @synthesize width = _width;
 @synthesize height = _height;
 @synthesize version = _version;
+@synthesize viewBoxFrame = _viewBoxFrame;
 
 @synthesize graphicsGroups, anonymousGraphicsGroups;
 
@@ -133,6 +140,12 @@ static NSCache *_sharedDocuments;
 	return returnDocument;
 }
 
++ (id)documentFromURL:(NSURL *)url {
+	NSParameterAssert(url != nil);
+	
+	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+}
+
 + (id)documentWithContentsOfFile:(NSString *)aPath {
 	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
 }
@@ -144,8 +157,26 @@ static NSCache *_sharedDocuments;
 	if (self) {
 		_width = _height = 100;
 		
-		if (![self parseFileAtPath:aPath]) {
-			NSLog(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: path = %@", [self class], aPath);
+		NSError* parseError = nil;
+		if (![self parseFileAtPath:aPath error:&parseError]) {
+			NSLog(@"[%@] MISSING OR CORRUPT FILE, OR FILE USES FEATURES THAT SVGKit DOES NOT YET SUPPORT, COULD NOT CREATE DOCUMENT: path = %@, error = %@", [self class], aPath, parseError);
+			
+			[self release];
+			return nil;
+		}
+	}
+	return self;
+}
+
+- (id)initWithContentsOfURL:(NSURL *)url {
+	NSParameterAssert(url != nil);
+	
+	self = [super initWithDocument:self name:@"svg"];
+	if (self) {
+		_width = _height = 100;
+		
+		if (![self parseFileAtURL:url]) {
+			NSLog(@"[%@] ERROR: COULD NOT FIND SVG AT URL = %@", [self class], url);
 			
 			[self release];
 			return nil;
@@ -259,45 +290,25 @@ static NSCache *_sharedDocuments;
 }
 
 
-- (BOOL)parseFileAtPath:(NSString *)aPath {
-	NSError *error = nil;
-	
-//	SVGParserSVG *subParserSVG = [[SVGParserSVG alloc] init];
-    
-//    NSArray *extensions
-    
-//	[parser.parserExtensions addObject:subParserSVG];
-//    [subParserSVG release];
-//
-//    NSObject<SVGParserExtension>*extension = [SVGParserGradient new];
-//    [parser.parserExtensions addObject:extension];
-//    [extension release]; //retained by parserExtensions
-//    
-//    extension = [SVGParserStyles new];
-//    [parser.parserExtensions addObject:extension];
-//    [extension release];
-//    
-//	for( NSObject<SVGParserExtension>* extension in _parserExtensions )
-//	{
-//		[parser.parserExtensions addObject:extension];
-//	}
-	SVGParser *parser = nil;
+- (BOOL)parseFileAtPath:(NSString *)aPath error:(NSError **)error
+{
+    SVGParser *parser = nil;
     BOOL result = NO;
-    @autoreleasepool { //hitting really high peak memory when parsing lots of SVGS in dispatch_queue, trying to avoid
+    @autoreleasepool { //stich: hitting really high peak memory when parsing lots of SVGS in dispatch_queue, trying to avoid
         parser = [[SVGParser alloc] initWithPath:aPath document:self];
         
         [parser setParserExtensions:[SVGDocument generalExtensions]];
         
-        result = [parser parse:&error];
+        result = [parser parse:error];
     }
     
 	if (!result) 
     {
 		NSLog(@"Parser error: %@", error);
 	}
-	
+    
 	[parser release];
-	
+    
 	return result;
 }
 
@@ -306,8 +317,33 @@ static NSCache *_sharedDocuments;
     return CGRectMake(0, 0, self.width, self.height);
 }
 
-- (CALayer *)autoreleasedLayer {
+
+- (BOOL)parseFileAtPath:(NSString *)aPath {
+	return [self parseFileAtPath:aPath error:nil];
+}
+
+
+-(BOOL)parseFileAtURL:(NSURL *)url error:(NSError**) error {
+	SVGParser *parser = [[SVGParser alloc] initWithURL:url document:self];
+    
+    [parser setParserExtensions:[SVGDocument generalExtensions]];
+    
+    BOOL result = [parser parse:error];
 	
+	if (!result) 
+		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
+	
+	[parser release];
+	
+	return result;
+}
+
+-(BOOL)parseFileAtURL:(NSURL *)url {
+	return [self parseFileAtURL:url error:nil];
+}
+
+- (CALayer *)autoreleasedLayer 
+{	
 	CALayer* _layer = [CALayer layer];
 		_layer.frame = CGRectMake(0.0f, 0.0f, _width, _height);
 	
@@ -352,6 +388,13 @@ static NSCache *_sharedDocuments;
 	
 	if ((value = [attributes objectForKey:@"version"])) {
 		self.version = value;
+	}
+	
+	if( (value = [attributes objectForKey:@"viewBox"])) {
+		NSArray* boxElements = [(NSString*) value componentsSeparatedByString:@" "];
+		
+		_viewBoxFrame = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
 	}
 }
 

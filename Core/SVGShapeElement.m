@@ -14,6 +14,8 @@
 #import "SVGPattern.h"
 #import "CAShapeLayerWithHitTest.h"
 
+#define ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE 0
+
 @implementation SVGShapeElement
 
 #define IDENTIFIER_LEN 256
@@ -159,6 +161,10 @@
     
     
 	
+#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
+	CGAffineTransform svgEffectiveTransform = [self transformAbsolute];
+#endif
+	
 #if OUTLINE_SHAPES
 	
 #if TARGET_OS_IPHONE
@@ -168,6 +174,8 @@
 	_shapeLayer.borderWidth = 1.0f;
 #endif
 	
+    
+    //stich: i found this to be unnecessar in practice but maybe I was wrong, this operation is happening in loadPath now (less total paths if document is reused)
 //    CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox(_path));
 	
 //    CGPoint origin = rect.origin;
@@ -189,6 +197,69 @@
 //	CGPathRelease(path);
 	
 	_shapeLayer.frame = _layerRect;
+    
+#if ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE
+	To fix this, and to test the code that follows, you need to:
+	
+	1. create a simple SVG file with a single square
+	2. Set the viewport to be straingely shaped (e.g. a fat short rectangle)
+	3. set the square to fill the exact bottom right of viewport
+	
+	...which will let you see easily if/when the viewbox is being correctly used to scale the contents
+	
+	/**
+	 We've parsed this shape using the size values specified RAW inside the SVG.
+	 
+	 Before we attempt to *render* it, we need to convert those values into
+	 screen-space.
+	 
+	 Most SVG docs have screenspace == unit space - but some docs have an explicit "viewBox"
+	 attribute on the SVG document. As per the SVG spec, this defines an alternative
+	 conversion from unit space to screenspace
+	 */
+#endif
+	CGAffineTransform transformFromSVGUnitsToScreenUnits;
+
+	#if ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE
+	if( CGRectIsNull( self.document.viewBoxFrame ) )
+#endif
+		transformFromSVGUnitsToScreenUnits = CGAffineTransformIdentity;
+	#if ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE
+	else
+		transformFromSVGUnitsToScreenUnits = CGAffineTransformMakeScale( self.document.width / self.document.viewBoxFrame.size.width,
+																		 self.document.height / self.document.viewBoxFrame.size.height );
+#endif
+	
+	CGMutablePathRef pathToPlaceInLayer = CGPathCreateMutable();
+	CGPathAddPath( pathToPlaceInLayer, &transformFromSVGUnitsToScreenUnits, _path);	
+	
+    CGRect rect = CGRectIntegral(CGPathGetPathBoundingBox( pathToPlaceInLayer ));
+	
+	CGPathRef finalPath = CGPathCreateByOffsettingPath( pathToPlaceInLayer, rect.origin.x, rect.origin.y );
+
+	/** Can't use this - iOS 5 only! path = CGPathCreateCopyByTransformingPath(path, transformFromSVGUnitsToScreenUnits ); */
+	
+	_shapeLayer.path = finalPath;
+	CGPathRelease(finalPath);
+	CGPathRelease(pathToPlaceInLayer);
+
+#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
+	/**
+	 ADAM: this is an INCOMPLETE implementation of SVG transform. The original code only deals with offsets (translate).
+	 We're actually correctly parsing + calculating SVG's arbitrary transforms - but it will require a lot more work at
+	 this point here to interpret those arbitrary transforms correctly.
+	 
+	 For now, we're just going to assume we're only doing translates.
+	 */
+	/**
+	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
+	 space!
+	 */
+	_shapeLayer.frame = CGRectApplyAffineTransform( rect, svgEffectiveTransform );
+#else
+	_shapeLayer.frame = rect;
+#endif
+    
 	
 	if (_strokeWidth) {
 		_shapeLayer.lineWidth = _strokeWidth;
@@ -217,7 +288,8 @@
     }
 	
     
-#ifndef STATIC_COLORS //if STATIC_COLORS is not set, we may want to track shapeLayers for style changes
+#ifndef STATIC_COLORS 
+    //if STATIC_COLORS is not set, we may want to track shapeLayers for style changes
     if( _styleClass != nil )
     {
         NSObject<SVGStyleCatcher> *docCatcher = [_document catcher];
