@@ -8,10 +8,13 @@
 #import "SVGElement.h"
 
 @interface SVGGroupElement : SVGElement < SVGLayeredElement > { 
-    BOOL _hasFill;
+//    NSDictionary *_attributes;
 }
 
+@property (nonatomic, readonly) NSDictionary *attributes;
 @property (nonatomic, readonly) CGFloat opacity;
-@property (nonatomic, readonly) SVGColor fill;
 
+
+-(NSDictionary *)fillBlanksInDictionary:(NSDictionary *)highPriority;
+-(NSDictionary *)dictionaryByMergingDictionary:(NSDictionary *)lowPriority overridenByDictionary:(NSDictionary *)highPriority;
 @end

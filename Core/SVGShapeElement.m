@@ -77,6 +77,9 @@
 - (void)parseAttributes:(NSDictionary *)attributes {
 	[super parseAttributes:attributes];
 	
+    if( [self.parent isKindOfClass:[SVGGroupElement class]] )
+        attributes = [(SVGGroupElement *)self.parent fillBlanksInDictionary:attributes];
+    
 	id value = nil;
     
     if( (value = [attributes objectForKey:@"class"] ) )

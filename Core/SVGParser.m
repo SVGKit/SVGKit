@@ -295,7 +295,7 @@ static NSMutableSet *_parserExtensions = nil;
 			{
 				NSObject* subParserResult = nil;
 				
-                if( nil != (subParserResult = [subParser handleStartElement:name document:_document xmlns:prefix attributes:attributes]) )
+                if( nil != (subParserResult = [subParser handleStartElement:name document:_document xmlns:prefix attributes:attributes parentObject:[(SVGParserStackItem *)[_elementStack lastObject] item]]) )
                 {
 #ifdef SVGPARSER_NOTIFY_SUBPARSER_HANDOFF
                     NSLog(@"[%@] tag: <%@:%@> -- handled by subParser: %@", [self class], prefix, name, subParser );

@@ -77,9 +77,10 @@ static NSSet *_SVGParserSVGSupportedTags;
 	return _SVGParserSVGSupportedTags;
 }
 
-- (NSObject*) handleStartElement:(NSString *)name document:(SVGDocument*) svgDocument xmlns:(NSString*) prefix attributes:(NSMutableDictionary *)attributes {
-	if( [[self supportedNamespaces] containsObject:prefix] )
-	{
+- (NSObject *)handleStartElement:(NSString *)name document:(SVGDocument *)svgDocument xmlns:(NSString *)namespaceURI attributes:(NSMutableDictionary *)attributes parentObject:(NSObject *)parent
+{
+//	if( [[self supportedNamespaces] containsObject:prefix] ) //this is checked by SVGParser
+//	{
 		NSObject* result = nil;
 		
 		// handle svg:svg tag separately
@@ -100,18 +101,20 @@ static NSSet *_SVGParserSVGSupportedTags;
 		}
 		
 		SVGElement *element = [[elementClass alloc] initWithDocument:svgDocument name:name];
-        
+    
+        if( [parent isKindOfClass:[SVGElement class]] )
+            [element setParent:(SVGElement *)parent];
         
         if( (result = [attributes objectForKey:@"class"]) )
         {
-            if( [result isKindOfClass:[NSString class]] )
-            {
+//            if( [result isKindOfClass:[NSString class]] ) //NSDictionary should do a fine job of making sure we don't get a bogus result if we pass a non NSString
+//            {
                 NSDictionary *thisClassStyle = [svgDocument styleForElement:element withClassName:(NSString *)result];
                 if( thisClassStyle != nil ) //we should 
                 {
                     [attributes addEntriesFromDictionary:thisClassStyle];
                 }
-            }
+//            }
         }
         
 		id style = nil;
@@ -123,9 +126,9 @@ static NSSet *_SVGParserSVGSupportedTags;
 		[element parseAttributes:attributes];
 		
 		return [element autorelease];
-	}
-	
-	return nil;
+//	}
+//	
+//	return nil;
 }
 
 -(BOOL) createdItemShouldStoreContent:(NSObject*) item

@@ -421,32 +421,7 @@ static NSCache *_sharedDocuments;
 
 -(NSDictionary *)styleForElement:(SVGElement *)element withClassName:(NSString *) className
 {
-    NSDictionary *returnStyle = [_styleByClassName objectForKey:className];
-    
-//    if( returnStyle != nil && _catcher != nil )
-//    {
-//        
-////        NSString * subString = [className substringToIndex:[_trackClassPrefix length]];
-////        
-////        if( (_trackClassPrefix == nil || [subString isEqualToString:_trackClassPrefix] ) && _catcher != nil )
-////        {
-////            NSUInteger stringLength = [className length];
-////            unichar indexChar = [className characterAtIndex:(stringLength - 1)];
-////            
-////            NSUInteger index = indexChar - '0';
-//            UIColor *override = [_catcher styleCatchOverrideFill:className];
-//            if( override != nil )
-//            {
-//                NSMutableDictionary *rebuildStyle = [NSMutableDictionary dictionaryWithDictionary:returnStyle];
-//                [rebuildStyle setObject:SVGStringFromCGColor([override CGColor]) forKey:@"fill"];
-//                returnStyle = rebuildStyle;
-//            }
-////            [_catcher styleCatchElement:element forClass:className];
-////        }
-////            [self addElement:element forStyle:className];
-//    }
-    
-    return returnStyle;
+    return [_styleByClassName objectForKey:className];
 }
 
 

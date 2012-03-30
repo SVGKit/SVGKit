@@ -10,6 +10,8 @@
 #import "SVGGradientStop.h"
 #import "SVGElement+Private.h"
 
+#import "SVGGroupElement.h"
+
 @implementation SVGGradientElement
 
 @synthesize stops = _stops;
@@ -23,11 +25,16 @@
 
 -(void)parseAttributes:(NSDictionary *)attributes
 {
+    [super parseAttributes:attributes];
+    
+    if( [self.parent isKindOfClass:[SVGGroupElement class]] )
+        attributes = [(SVGGroupElement *)self.parent fillBlanksInDictionary:attributes];
+        
+    
     NSNumber *testObjectX = [attributes objectForKey:@"x1"];
     NSNumber *testObjectY = [attributes objectForKey:@"y1"];
     
     startPoint = CGPointMake( [testObjectX floatValue], [testObjectY floatValue]); //default value is 0.0f, so if the attribute is nil, we will end up with the correct values
-//    startPoint = CGPointZero;//, <#CGFloat y#>)
     
     testObjectX = [attributes objectForKey:@"x2"];
     testObjectY = [attributes objectForKey:@"y2"];
@@ -47,7 +54,6 @@
     
     NSLog(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
-    [super parseAttributes:attributes];
 }
 
 
