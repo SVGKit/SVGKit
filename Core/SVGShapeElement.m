@@ -149,10 +149,12 @@
 	}
 	
 	if (aPath) {
-        _layerRect = CGRectIntegral(CGPathGetPathBoundingBox(aPath));
-        CGPoint origin = _layerRect.origin;
-        aPath = CGPathCreateByOffsettingPath(aPath, origin.x, origin.y);
-		_path = aPath;//CGPathCreateCopy(aPath);
+//        _layerRect = CGRectIntegral(CGPathGetPathBoundingBox(aPath));
+//        CGPoint origin = _layerRect.origin;
+//        aPath = CGPathCreateByOffsettingPath(aPath, origin.x, origin.y);
+//		_path = aPath;
+        
+        _path = CGPathCreateCopy(aPath);
 	}
 }
 
@@ -163,11 +165,11 @@
 	_shapeLayer.opacity = _opacity;
     
     
-	/*
+	
 #if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 	CGAffineTransform svgEffectiveTransform = [self transformAbsolute];
 #endif
-	*/
+	
 #if OUTLINE_SHAPES
 	
 #if TARGET_OS_IPHONE
@@ -201,13 +203,14 @@
 	
 	_shapeLayer.frame = _layerRect;
     
-#warning Sorry adam, I had to disable this to make sure my stuff was working post-merge
+//#warning Sorry adam, I had to disable this to make sure my stuff was working post-merge
 
     
 //    stich: This is seriously mangling the lion so I have disabled to make sure the rest of the merge went OK
     //For now a good solution may be to create a CALayer explicitly for applying the transform?
-    /*
+    
 #if ADAM_IS_FIXING_THE_TRANSFORM_AND_VIEW_BOX_CODE
+    /*
 	To fix this, and to test the code that follows, you need to:
 	
 	1. create a simple SVG file with a single square
@@ -215,7 +218,7 @@
 	3. set the square to fill the exact bottom right of viewport
 	
 	...which will let you see easily if/when the viewbox is being correctly used to scale the contents
-	
+	*/
 	/**
 	 We've parsed this shape using the size values specified RAW inside the SVG.
 	 
@@ -226,7 +229,7 @@
 	 attribute on the SVG document. As per the SVG spec, this defines an alternative
 	 conversion from unit space to screenspace
 	 */
-    /*
+    
 #endif
 	CGAffineTransform transformFromSVGUnitsToScreenUnits;
 
@@ -248,7 +251,7 @@
 	CGPathRef finalPath = CGPathCreateByOffsettingPath( pathToPlaceInLayer, rect.origin.x, rect.origin.y );
 
 	/** Can't use this - iOS 5 only! path = CGPathCreateCopyByTransformingPath(path, transformFromSVGUnitsToScreenUnits ); */
-	/*
+	
 	_shapeLayer.path = finalPath;
 	CGPathRelease(finalPath);
 	CGPathRelease(pathToPlaceInLayer);
@@ -264,12 +267,12 @@
 	/**
 	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
 	 space!
-
+     
+     */
 	_shapeLayer.frame = CGRectApplyAffineTransform( rect, svgEffectiveTransform );
 #else
 	_shapeLayer.frame = rect;
 #endif
-    */
 	
 	if (_strokeWidth) {
 		_shapeLayer.lineWidth = _strokeWidth;

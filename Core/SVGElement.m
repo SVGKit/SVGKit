@@ -33,8 +33,8 @@
 @synthesize stringValue = _stringValue;
 @synthesize localName = _localName;
 
-#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 @synthesize parent = _parent;
+#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 @synthesize transformRelative = _transformRelative;
 #endif
 
@@ -89,9 +89,10 @@
 
 - (void)addChild:(SVGElement *)element {
 	[_children addObject:element];
-#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
-	element.parent = self;
-#endif
+    //stich: this is being set by SVGParserSVG in handleStartElement now so that it can be used more reliably
+//#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
+//	element.parent = self;
+//#endif
 }
 
 -(void) addMetadataChild:(NSObject*) child
