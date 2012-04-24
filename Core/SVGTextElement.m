@@ -28,7 +28,10 @@
     [super dealloc];
 }
 
-- (void)parseAttributes:(NSDictionary *)attributes {
+- (void)parseAttributes:(NSDictionary *)attributes
+{
+    [super parseAttributes:attributes];
+    
 	id value = nil;
     
 	if ((value = [attributes objectForKey:@"x"])) {

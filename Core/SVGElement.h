@@ -49,6 +49,9 @@
 /*! Parser uses this to add non-rendering-SVG XML tags to the element they were embedded in */
 - (void) addMetadataChild:(NSObject*) child;
 
+/*! Overridden by sub-classes.  Be sure to call [super parseAttributes:attributes]; */
+- (void)parseAttributes:(NSDictionary *)attributes;
+
 #if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 /*! Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform */
 -(CGAffineTransform) transformAbsolute;

@@ -391,6 +391,8 @@ static void structuredError		(void * userData,
 			NSLog(@"Error: parser reports: %@", objcError );
 			[(SVGParser*) userData setParseError:objcError];
 		}
+        default:
+            break;
 	}
 	
 }
