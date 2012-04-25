@@ -14,21 +14,27 @@
 @property (nonatomic, retain) UIPopoverController *popoverController;
 
 - (void)loadResource:(NSString *)name;
-
 - (void)shakeHead;
 
 @end
 
 
 @implementation DetailViewController
+@synthesize scrollView;
 
 @synthesize toolbar, popoverController, contentView, detailItem;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
 
 - (void)dealloc {
 	self.popoverController = nil;
 	self.toolbar = nil;
 	self.detailItem = nil;
 	
+    [scrollView release];
 	[super dealloc];
 }
 
@@ -45,11 +51,13 @@
 	}
 }
 
-- (void)loadResource:(NSString *)name {
+- (void)loadResource:(NSString *)name
+{
+    [self.contentView removeFromSuperview];
+    
 	SVGDocument *document = [SVGDocument documentNamed:[name stringByAppendingPathExtension:@"svg"]];
-	
-	self.contentView.bounds = CGRectMake(0.0f, 0.0f, document.width, document.height);
-	self.contentView.document = document;
+	NSLog(@"[%@] Freshly loaded document (name = %@) has width,height = (%.2f, %.2f)", [self class], name, document.width, document.height );
+	self.contentView = [[[SVGView alloc] initWithDocument:document] autorelease];
 	
 	if (_name) {
 		[_name release];
@@ -57,6 +65,10 @@
 	}
 	
 	_name = [name copy];
+    
+    [self.scrollView addSubview:self.contentView];
+    [self.scrollView setContentSize:CGSizeMake(document.width, document.height)];
+    [self.scrollView zoomToRect:CGRectMake(0, 0, document.width, document.height) animated:YES];
 }
 
 - (IBAction)animate:(id)sender {
@@ -64,6 +76,7 @@
 		[self shakeHead];
 	}
 }
+
 
 - (void)shakeHead {
 	CALayer *layer = [self.contentView.document layerWithIdentifier:@"head"];
@@ -110,5 +123,67 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
 }
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.contentView;
+}
+
+#pragma mark Export
+
+
+- (IBAction)exportLayers:(id)sender {
+    if (_layerExporter) {
+        return;
+    }
+    _layerExporter = [[CALayerExporter alloc] initWithView:contentView];
+    _layerExporter.delegate = self;
+    
+    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
+    UIViewController* textViewController = [[[UIViewController alloc] init] autorelease];
+    [textViewController setView:textView];
+    UIPopoverController* exportPopover = [[UIPopoverController alloc] initWithContentViewController:textViewController];
+    [exportPopover setDelegate:self];
+    [exportPopover presentPopoverFromBarButtonItem:sender
+                    permittedArrowDirections:UIPopoverArrowDirectionAny
+                                    animated:YES];
+    
+    _exportText = textView;
+    _exportText.text = @"exporting...";
+    
+    _exportLog = [[NSMutableString alloc] init];
+    [_layerExporter startExport];
+}
+
+- (void) layerExporter:(CALayerExporter*)exporter didParseLayer:(CALayer*)layer withStatement:(NSString*)statement
+{
+    //NSLog(@"%@", statement);
+    [_exportLog appendString:statement];
+    [_exportLog appendString:@"\n"];
+}
+
+- (void)layerExporterDidFinish:(CALayerExporter *)exporter
+{
+    _exportText.text = _exportLog;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
+{
+    [_exportText release];
+    _exportText = nil;
+    
+    [_layerExporter release];
+    _layerExporter = nil;
+    
+    [pc release];
+}
+
+
+- (void)viewDidUnload {
+    [self setScrollView:nil];
+    [super viewDidUnload];
+}
+
+
 
 @end

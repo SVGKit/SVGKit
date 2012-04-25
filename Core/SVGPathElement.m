@@ -10,25 +10,19 @@
 #import "SVGElement+Private.h"
 #import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
+#import "SVGPointsAndPathsParser.h"
 
 @interface SVGPathElement ()
 
-- (void)parseData:(NSString *)data;
+- (void) parseData:(NSString *)data;
+- (void) parseAttributes:(NSDictionary *)attributes;
 
 @end
 
-
 @implementation SVGPathElement
 
-typedef enum {
-	SVGPathSegmentTypeMoveTo = 0,
-	SVGPathSegmentTypeLineTo,
-	SVGPathSegmentTypeCurve
-} SVGPathSegmentType;
-
-#define MAX_ACCUM 16
-
-- (void)parseAttributes:(NSDictionary *)attributes {
+- (void)parseAttributes:(NSDictionary *)attributes
+{
 	[super parseAttributes:attributes];
 	
 	id value = nil;
@@ -38,105 +32,112 @@ typedef enum {
 	}
 }
 
-- (void)parseData:(NSString *)data {
+- (void)parseData:(NSString *)data
+{
 	CGMutablePathRef path = CGPathCreateMutable();
+    NSScanner* dataScanner = [NSScanner scannerWithString:data];
+    CGPoint lastCoordinate = CGPointZero;
+    SVGCurve lastCurve = SVGCurveZero;
+    BOOL foundCmd;
+    
+    do {
+        NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZz"];
+        NSString* command = nil;
+        foundCmd = [dataScanner scanCharactersFromSet:knownCommands intoString:&command];
+        
+        if (foundCmd) {
+            if ([@"z" isEqualToString:command] || [@"Z" isEqualToString:command]) {
+                lastCoordinate = [SVGPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:command]
+                                                   path:path
+                                             relativeTo:lastCoordinate];
+            } else {
+                NSString* cmdArgs = nil;
+                BOOL foundParameters = [dataScanner scanUpToCharactersFromSet:knownCommands
+                                                                   intoString:&cmdArgs];
+                
+                if (foundParameters) {
+                    NSString* commandWithParameters = [command stringByAppendingString:cmdArgs];
+                    NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
+                    
+                    if ([@"m" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
+                                                                        path:path
+                                                                  relativeTo:lastCoordinate
+										  isRelative:TRUE];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"M" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
+                                                                        path:path
+                                                                  relativeTo:CGPointZero
+										  isRelative:FALSE];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"l" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readLinetoCommand:commandScanner
+                                                            path:path
+                                                      relativeTo:lastCoordinate
+										  isRelative:TRUE];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"L" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readLinetoCommand:commandScanner
+                                                            path:path
+                                                      relativeTo:CGPointZero
+										  isRelative:FALSE];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"v" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readVerticalLinetoCommand:commandScanner
+                                                                    path:path
+                                                              relativeTo:lastCoordinate];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"V" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readVerticalLinetoCommand:commandScanner
+                                                                    path:path
+                                                      relativeTo:CGPointZero];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"h" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readHorizontalLinetoCommand:commandScanner
+                                                                      path:path
+                                                                relativeTo:lastCoordinate];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"H" isEqualToString:command]) {
+                        lastCoordinate = [SVGPointsAndPathsParser readHorizontalLinetoCommand:commandScanner
+                                                                      path:path
+                                                                relativeTo:CGPointZero];
+                        lastCurve = SVGCurveZero;
+                    } else if ([@"c" isEqualToString:command]) {
+                        lastCurve = [SVGPointsAndPathsParser readCurvetoCommand:commandScanner
+                                                        path:path
+                                                  relativeTo:lastCoordinate
+												  isRelative:TRUE];
+                        lastCoordinate = lastCurve.p;
+                    } else if ([@"C" isEqualToString:command]) {
+                        lastCurve = [SVGPointsAndPathsParser readCurvetoCommand:commandScanner
+                                                        path:path
+                                                  relativeTo:CGPointZero
+									 isRelative:FALSE];
+                        lastCoordinate = lastCurve.p;
+                    } else if ([@"s" isEqualToString:command]) {
+                        lastCurve = [SVGPointsAndPathsParser readSmoothCurvetoCommand:commandScanner
+                                                              path:path
+                                                        relativeTo:lastCoordinate
+                                                     withPrevCurve:lastCurve];
+                        lastCoordinate = lastCurve.p;
+                    } else if ([@"S" isEqualToString:command]) {
+                        lastCurve = [SVGPointsAndPathsParser readSmoothCurvetoCommand:commandScanner
+                                                              path:path
+                                                        relativeTo:CGPointZero
+                                                     withPrevCurve:lastCurve];
+                        lastCoordinate = lastCurve.p;
+                    } else {
+                        NSLog(@"unsupported command %@", command);
+                    }
+                }
+            }
+        }
+        
+    } while (foundCmd);
 	
-	const char *cstr = [data UTF8String];
-	size_t len = strlen(cstr);
-	
-	SVGPathSegmentType type = -1;
-	
-	char accum[MAX_ACCUM];
-	bzero(accum, MAX_ACCUM);
-	
-	int accumIdx = 0, currComponent = 0;
-	
-	for (size_t n = 0; n <= len; n++) {
-		char c = cstr[n];
-		
-		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0') {
-			if (type != -1) {
-				accum[accumIdx] = '\0';
-				
-				if (type == SVGPathSegmentTypeMoveTo) {
-					static int x;
-					
-					if (currComponent == 0) {
-						x = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 1) {
-						CGPathMoveToPoint(path, NULL, x, atoi(accum));
-						type = -1;
-					}
-				}
-				else if (type == SVGPathSegmentTypeLineTo) {
-					static int x;
-					
-					if (currComponent == 0) {
-						x = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 1) {
-						CGPathAddLineToPoint(path, NULL, x, atoi(accum));
-						type = -1;
-					}
-				}
-				else if (type == SVGPathSegmentTypeCurve) {
-					static int x1, y1, x2, y2, x;
-					
-					if (currComponent == 0) {
-						x1 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 1) {
-						y1 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 2) {
-						x2 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 3) {
-						y2 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 4) {
-						x = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 5) {
-						CGPathAddCurveToPoint(path, NULL, x1, y1, x2, y2, x, atoi(accum));
-						type = -1;
-					}
-				}
-				
-				bzero(accum, MAX_ACCUM);
-				accumIdx = 0;
-			}
-		}
-		else if (c == 'M' || c == 'm') {
-			currComponent = 0;
-			type = SVGPathSegmentTypeMoveTo;
-		}
-		else if (c == 'L' || c == 'l') {
-			currComponent = 0;
-			type = SVGPathSegmentTypeLineTo;
-		}
-		else if (c == 'C' || c == 'c') {
-			currComponent = 0;
-			type = SVGPathSegmentTypeCurve;
-		}
-		else if (c == 'Z' || c == 'z') {
-			CGPathCloseSubpath(path);
-		}
-		else if ((c >= '0' && c <= '9') || c == '-') { // is digit?
-			accum[accumIdx++] = c;
-		}
-	}
-	
+    
 	[self loadPath:path];
-	
 	CGPathRelease(path);
 }
 

@@ -8,11 +8,18 @@
 #import "SVGGroupElement.h"
 
 #import "SVGDocument.h"
+
 #import "SVGElement+Private.h"
+#import "CALayerWithChildHitTest.h"
 
 @implementation SVGGroupElement
 
 @synthesize opacity = _opacity;
+
+- (void)dealloc {
+	
+    [super dealloc];
+}
 
 - (void)loadDefaults {
 	_opacity = 1.0f;
@@ -28,17 +35,20 @@
 	}
 }
 
-- (CALayer *)layer {
-	CALayer *layer = [CALayer layer];
-	layer.name = self.identifier;
-	layer.opacity = _opacity;
+- (CALayer *)newLayer {
 	
-	if ([layer respondsToSelector:@selector(setShouldRasterize:)]) {
-		[layer performSelector:@selector(setShouldRasterize:)
-					withObject:[NSNumber numberWithBool:YES]];
-	}
+	CALayer* _layer = [CALayerWithChildHitTest layer];
+		
+		_layer.name = self.identifier;
+		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
+		_layer.opacity = _opacity;
+		
+		if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
+			[_layer performSelector:@selector(setShouldRasterize:)
+						withObject:[NSNumber numberWithBool:YES]];
+		}
 	
-	return layer;
+	return _layer;
 }
 
 - (void)layoutLayer:(CALayer *)layer {

@@ -14,4 +14,8 @@
 
 - (CALayer *)layerTree;
 
+- (CALayer *)layerWithIdentifier:(NSString *)identifier layer:(CALayer *)layer;
+
+- (CALayer *)layerWithElement:(SVGElement < SVGLayeredElement > *)element;
+
 @end

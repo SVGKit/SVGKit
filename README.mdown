@@ -1,16 +1,70 @@
 SVGKit
 ======
 
-SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest Mac OS X and iOS SDK's. To use SVGKit in your iOS application, simply drag the `Core` and `iOS` folders into your Xcode project. See `SVGPad` for a working sample. To use SVGKit in your Mac OS X application, build the SVGKit Xcode project and link your application against the built framework. Since `CAShapeLayer` does not support gradient fills, support for gradients has been temporarily removed.
+SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest iOS SDK's.
 
-Usage
+Installation
+-----
+
+Dependencies:
+
+  git submodule init && git submodule update
+
+iOS (iPhone/iPad):
+  1. Open the project "XcodeProjects/SVGKit/SVGKit"
+  2. Select the target "SVGKit Library" from the dropdown build selector at top left
+  3. Build
+  4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator
+
+  5. Drag/drop the library file, and the headers folder (should be called "usr") into your iPhone/iPad project.
+  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
+  7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
+
+  8. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
+  9. (Optional but recommended): Add the framework "libxml2.dylib"
+
+OS X: ...this needs updating; some minor code changes are needed to "fix" this project. The OS X framework currently DOES NOT BUILD because iOS classes are being referenced in a couple of places.
+
+
+Usage - iPhone/iPad
+-----
+
+To use this, you must:
+  1. Load an SVG file, using SVGDocument (this parses the SVG)
+  2. Convert the document to CALayer's which Apple can render, using SVGDocumentView
+
+NB: if you want to render the same SVG in different places on screen, create an additional SVGDocumentView for each instance. That way, you don't have to re-parse the SVG source file each time.
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+	// Override point for customization after application launch.
+	[self.window makeKeyAndVisible];
+	
+	NSString* svgFilename = @"Monkey";
+	
+	NSLog( @"[%@] Loading SVG document, filename = %@", [self class], svgFilename );
+	
+	/** Optional: if you're using the parser extensions, add them here
+	[SVGDocument addSVGParserExtension:[[SVGParserConquest alloc] init]];
+	*/
+
+	SVGDocument* svgDocument = [SVGDocument documentNamed:svgFilename];
+
+	SVGDocumentView* docView = [SVGDocumentView documentViewWithDocument:svgDocument];
+		
+	[self.window.layer addSublayer:docView.rootLayer];	
+	
+    return YES;
+}
+
+Usage - OS X
 -----
 
 First, initialize an instance of `SVGDocument`, the model object which encompasses the entire SVG element tree. This can be accomplished using the `initWithContentsOfFile:` initializer. To load a SVG file which resides in your application bundle, use the `documentNamed:` class method and pass in a file name (without the extension). The `SVGDocument` class encapsulates certain document metadata, including width, height, version, title, and description.
 
 	SVGDocument *document = [SVGDocument documentNamed:@"Monkey"]; // located in the application bundle
 
-To render the document in a view, we need to access the document's Core Animation layer tree. On Mac OS X, make sure your instance of `NSView` is layer-backed. The layer tree can be accessed using the `layerTree` method on `SVGDocument`, for example:
+On Mac OS X, make sure your instance of `NSView` is layer-backed. The layer tree can be accessed using the `layerTree` method on `SVGDocument`, for example:
 
 	NSView *ourView = ... ;
 	[ourView setWantsLayer:YES];
@@ -18,4 +72,4 @@ To render the document in a view, we need to access the document's Core Animatio
 
 Your SVG file should now be rendered on-screen. You can query for specific layers by using the `layerWithIdentifier:` method, also defined on `SVGDocument`. The identifier corresponds to the `id` attribute defined on elements. Once a reference to a subclass of `CALayer` is returned, its properties can be animated using implicit or explicit [Core Animation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CoreAnimation_guide/Articles/AnimatingLayers.html%23//apple_ref/doc/uid/TP40006085-SW1) animations.
 
-Feel free to report any issues or suggest improvements in the [issue tracker](https://github.com/mattrajca/SVGKit/issues). 
+Feel free to report any issues or suggest improvements in the issue tracker

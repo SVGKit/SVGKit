@@ -9,15 +9,6 @@
 
 #import <objc/runtime.h>
 
-@interface SVGDocument ()
-
-- (CALayer *)layerWithIdentifier:(NSString *)identifier layer:(CALayer *)layer;
-
-- (CALayer *)layerWithElement:(SVGElement < SVGLayeredElement > *)element;
-
-@end
-
-
 @implementation SVGDocument (CA)
 
 static const char *kLayerTreeKey = "svgkit.layertree";
@@ -52,9 +43,8 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	return cachedLayerTree;
 }
 
-- (CALayer *)layerWithElement:(SVGElement < SVGLayeredElement > *)element {
-	CALayer *layer = [element layer];
-	[layer setNeedsDisplay];
+- (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element {
+	CALayer *layer = [element newLayer];
 	
 	if (![element.children count]) {
 		return layer;
@@ -62,11 +52,12 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	
 	for (SVGElement *child in element.children) {
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
-			CALayer *sublayer = [self layerWithElement:child];
-			
-			if (!sublayer)
+			CALayer *sublayer = [self layerWithElement:(id<SVGLayeredElement>)child];
+
+			if (!sublayer) {
 				continue;
-			
+            }
+
 			[layer addSublayer:sublayer];
 		}
 	}
@@ -74,6 +65,8 @@ static const char *kLayerTreeKey = "svgkit.layertree";
 	if (element != self) {
 		[element layoutLayer:layer];
 	}
+
+    [layer setNeedsDisplay];
 	
 	return layer;
 }
