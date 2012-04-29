@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="210mm"
+   height="140mm"
+   id="svg378"
+   sodipodi:version="0.33pre"
+   sodipodi:docname="/home/fran/downloads/spain-2-3-nocoat.svg"
+   sodipodi:docbase="/home/fran/downloads/"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <g
+     id="g553"
+     transform="matrix(0.744582,0.000000,0.000000,0.744357,-2.004964e-2,0.694336)">
+    <rect
+       width="1000.000000"
+       height="666.659973"
+       x="0.000000"
+       y="-0.000031"
+       style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect171" />
+    <rect
+       width="1000.157043"
+       height="333.336731"
+       x="3.428610"
+       y="30.287949"
+       style="font-size:12;fill:#ffff33;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect403"
+       transform="translate(-3.507118,136.3736)" />
+  </g>
+</svg>

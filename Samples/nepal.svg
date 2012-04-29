@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>Nepal SVG Flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Tobias Jakobs</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   width="115mm"
+   height="140mm"
+   sodipodi:docbase="/home/tobias/Desktop"
+   sodipodi:docname="/home/tobias/Desktop/nepal.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <path
+     style="font-size:12;fill:#ce0000;fill-rule:evenodd;stroke:#000063;stroke-width:12.4312;stroke-opacity:1;"
+     d="M 6.27122 489.827 L 369.372 489.824 L 131.709 248.807 L 378.318 249.096 L 6.29398 11.4805 L 6.27122 489.827 z "
+     id="path552"
+     sodipodi:nodetypes="cccccc" />
+  <polygon
+     sodipodi:type="star"
+     style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon555"
+     sodipodi:cx="236.863098"
+     sodipodi:cy="523.242920"
+     sodipodi:arg2="0.18057635"
+     points="296.979,523.243 275.949,530.379 292.403,546.248 270.243,544.793 279.371,565.751 259.456,555.927 259.868,578.782 245.228,562.085 236.863,583.359 229.727,562.329 213.858,578.782 215.313,556.623 194.355,565.751 204.179,545.835 181.324,546.248 198.021,531.608 176.748,523.243 197.777,516.107 181.324,500.238 203.483,501.693 194.355,480.735 214.271,490.559 213.858,467.703 228.498,484.401 236.863,463.127 243.999,484.157 259.868,467.703 258.413,489.863 279.371,480.735 269.547,500.65 292.403,500.238 275.705,514.878 296.979,523.243 "
+     transform="matrix(1.230083,0.000000,0.000000,1.199659,-192.0620,-266.1039)"
+     sodipodi:sides="16"
+     sodipodi:r1="60.1155853"
+     sodipodi:r2="39.7323990"
+     sodipodi:arg1="0" />
+  <path
+     style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+     d="M 142.178 184.595 L 131.317 192.635 L 136.67 197.058 C 149.67 187.01 158.92 177.827 166.15 162.587 C 167.845 182.929 149.199 228.591 100.266 229.095 C 47.8948 229.051 29.7226 180.603 31.7438 161.729 C 41.3648 179.184 47.2358 187.695 62.3375 196.783 L 66.9581 192.542 L 56.7289 184.019 L 69.8969 180.595 L 62.8123 168.671 L 76.6083 169.676 L 74.8747 155.791 L 86.9682 162.868 L 90.7522 149.942 L 99.4417 160.353 L 107.582 150.483 L 112.014 163.894 L 123.315 156.03 L 121.866 169.669 L 135.414 168.079 L 129.063 180.687 L 142.178 184.595 z "
+     id="path563"
+     sodipodi:nodetypes="ccccscccccccccccccccccc" />
+</svg>

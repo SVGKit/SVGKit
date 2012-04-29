@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="280mm"
+   height="140mm"
+   id="svg378"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/malaysia.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/">
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     gridoriginx="-2mm"
+     gridoriginy="-8mm" />
+  <defs
+     id="defs380" />
+  <g
+     id="g562"
+     transform="matrix(0.933221,0.000000,0.000000,0.700385,0.000000,-0.272385)">
+    <rect
+       width="1062.99"
+       height="708.661"
+       x="0"
+       y="0"
+       style="font-size:12;fill:#e80008;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect149" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="50.6186"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect299" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="151.856"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect300" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="253.093"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect301" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="354.331"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect302" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="455.568"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect303" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="556.806"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect304" />
+    <rect
+       width="1062.99"
+       height="50.6186"
+       x="0"
+       y="658.042"
+       transform="translate(0,-2.39696e-05)"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect305" />
+    <rect
+       width="528.084"
+       height="405.794"
+       x="0"
+       y="-0.908991"
+       style="font-size:12;fill:#000689;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect298" />
+  </g>
+  <path
+     d="M 256.536 331.013 C 184.713 370.979 94.9244 343.973 56.1157 271.585 C 17.3071 199.195 44.1016 108.7 115.925 69.5857 C 160.334 45.4008 209.11 44.9205 253.429 68.7092 C 228.422 62.6901 206.092 63.0137 181.827 70.2219 C 111.145 91.2197 70.5147 166.678 91.1343 238.657 C 111.754 310.635 185.854 352.01 256.536 331.013 z "
+     style="font-size:12;fill:#ffee00;fill-rule:evenodd;stroke-width:1pt;"
+     id="path297"
+     transform="matrix(0.738255,0.000000,0.000000,0.738255,60.80084,-3.708168)" />
+  <polygon
+     points="337.045,329.314 326.535,251.974 282.119,316.155 306.206,241.914 238.342,280.467 292.255,224.029 214.384,229.319 287.446,201.862 214.992,172.841 292.731,179.804 240.044,122.22 307.063,162.223 284.578,87.4819 327.604,152.602 339.775,75.5066 350.285,152.846 394.701,88.6661 370.614,162.907 438.478,124.354 384.565,180.792 462.436,175.502 389.374,202.958 461.828,231.98 384.089,225.017 436.777,282.6 369.757,242.597 392.242,317.339 349.216,252.218 337.045,329.314 "
+     transform="matrix(0.824972,0.000000,0.000000,0.824972,33.90615,-26.22598)"
+     style="font-size:12;fill:#ffee00;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon291" />
+</svg>

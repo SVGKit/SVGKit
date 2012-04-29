@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG Graphic of the Dutch flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Marc Maurer</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="1062.98999"
+   height="708.661011"
+   id="svg378">
+  <defs
+     id="defs380" />
+  <rect
+     width="1062.98999"
+     height="708.661011"
+     rx="0.00000000"
+     ry="0.00000000"
+     x="0.00000000"
+     y="0.00000000"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <rect
+     width="1062.98999"
+     height="236.220001"
+     rx="0.00000000"
+     ry="0.00000000"
+     x="0.00000000"
+     y="475.558563"
+     style="font-size:12;fill:#21468b;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect256" />
+  <rect
+     width="1062.98999"
+     height="236.220001"
+     x="0.00000000"
+     y="0.00000000"
+     style="font-size:12;fill:#ae1c28;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect255" />
+</svg>

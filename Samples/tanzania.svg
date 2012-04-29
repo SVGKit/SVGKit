@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Tanzanian flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Russell Cloran</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+-->
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="744.094482"
+   height="496.062988"
+   id="svg548">
+  <defs
+     id="defs550" />
+  <g
+     transform="matrix(4.133858,0.000000,0.000000,4.133858,0.000000,-1.525879e-5)"
+     style="font-size:12;"
+     id="g589">
+    <rect
+       width="180.000000"
+       height="120.000000"
+       x="0.00000000"
+       y="0.00000000"
+       style="fill:#0099ff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect583" />
+    <path
+       d="M 0 7.10543e-15 L 180 7.10543e-15 L 0 120 L 0 7.10543e-15 z "
+       style="fill:#009900;fill-rule:evenodd;stroke-width:1pt;"
+       id="path584" />
+    <path
+       d="M 0 120 L 40 120 L 180 25 L 180 7.10543e-15 L 140 7.10543e-15 L 0 95 L 0 120 z "
+       style="fill-rule:evenodd;stroke-width:1pt;"
+       id="path586" />
+    <path
+       d="M 0 91.4561 L 137.184 7.10543e-15 L 150.705 7.10543e-15 L 0 100.47 L 0 91.4561 z "
+       style="fill:#ffff00;fill-rule:evenodd;stroke-width:1pt;"
+       id="path587" />
+    <path
+       d="M -0.704896 95.47 L 150 -4.99993 L 150 4.01395 L 12.8159 95.47 L -0.704896 95.47 z "
+       transform="translate(30.00000,24.53000)"
+       style="fill:#ffff00;fill-rule:evenodd;stroke-width:1pt;"
+       id="path588" />
+  </g>
+</svg>

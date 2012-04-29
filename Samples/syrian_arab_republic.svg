@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="1062.98999"
+   height="708.661011"
+   id="svg378"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/skrut/syria.svg"
+   sodipodi:docbase="/home/skrut"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <rect
+     width="1062.989990"
+     height="708.661011"
+     rx="0.00000000"
+     ry="0.00000000"
+     x="25.384827"
+     y="-0.000062"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <rect
+     width="1062.98999"
+     height="236.220001"
+     rx="0.00000000"
+     ry="0.00000000"
+     x="0.00000000"
+     y="475.558563"
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect256" />
+  <rect
+     width="1062.98999"
+     height="236.220001"
+     x="0.00000000"
+     y="0.00000000"
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect255" />
+  <path
+     d="M 266.186 534.45 L 255.778 527.018 L 245.421 534.523 L 249.273 522.327 L 238.935 514.796 L 251.725 514.691 L 255.692 502.532 L 259.744 514.663 L 272.534 514.679 L 262.249 522.281 L 266.186 534.45 z "
+     transform="matrix(4.106327,0.000000,0.000000,4.163411,-765.3043,-1811.356)"
+     style="font-size:12;fill:#009900;fill-rule:evenodd;stroke-width:0.112872;fill-opacity:1;"
+     id="path205" />
+  <path
+     d="M 266.186 534.45 L 255.778 527.018 L 245.421 534.523 L 249.273 522.327 L 238.935 514.796 L 251.725 514.691 L 255.692 502.532 L 259.744 514.663 L 272.534 514.679 L 262.249 522.281 L 266.186 534.45 z "
+     transform="matrix(4.106327,0.000000,0.000000,4.163411,-254.4345,-1811.357)"
+     style="font-size:12;fill:#009900;fill-rule:evenodd;stroke-width:0.112872;fill-opacity:1;"
+     id="path583" />
+</svg>

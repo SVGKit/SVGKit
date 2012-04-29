@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+    <dc:title>New Zealand, Australia, United Kingdom, United States, 
+Bosnia and Herzegovina, Azerbaijan, Armenia, Bahamas, Belgium, Benin, 
+Bulgaria, Estonia, Finland, Gabon, Gambia, Germany, Greece, Greenland, 
+Guinea, Honduras, Israel, Jamaica, Jordan, and Romania Flags</dc:title>
+    <dc:rights><Agent>
+       <dc:title>Daniel McRae</dc:title>
+    </Agent></dc:rights>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+    <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   x="0"
+   y="0"
+   width="1000"
+   height="500"
+   id="svg609">
+  <defs
+     id="defs611" />
+  <g
+     transform="scale(0.500000,0.500000)"
+     style="font-size:12;"
+     id="g579">
+    <g
+       id="g617">
+      <rect
+         width="2000.00000"
+         height="1000"
+         x="0"
+         y="0"
+         style="fill:#000099;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect614" />
+      <path
+         d="M 530 0 L 1530 1000 L 1530 0 L 530 0 z "
+         style="fill:#ffcc00;fill-rule:evenodd;stroke-width:1pt;"
+         id="path615" />
+    </g>
+    <g
+       transform="translate(15.45776,2.761536)"
+       id="g629">
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon621" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(125.0000,125.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon622" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(250.0000,250.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon616" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(375.0000,375.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon623" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(500.0000,500.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon624" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(625.0000,625.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon625" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(750.0000,750.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon626" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(875.0000,875.0000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon627" />
+      <polygon
+         points="326,-109 347.329,-43.3566 416.35,-43.3566 360.511,-2.78677 381.84,62.8566 326,22.2868 270.16,62.8566 291.489,-2.78677 235.65,-43.3566 304.671,-43.3566 326,-109 "
+         transform="translate(1000.000,1000.000)"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon628" />
+    </g>
+  </g>
+</svg>

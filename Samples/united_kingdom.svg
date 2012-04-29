@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+    <dc:title>New Zealand, Australia, United Kingdom, United States, 
+Bosnia and Herzegovina, Azerbaijan, Armenia, Bahamas, Belgium, Benin, 
+Bulgaria, Estonia, Finland, Gabon, Gambia, Germany, Greece, Greenland, 
+Guinea, Honduras, Israel, Jamaica, Jordan, and Romania Flags</dc:title>
+    <dc:rights><Agent>
+       <dc:title>Daniel McRae</dc:title>
+    </Agent></dc:rights>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+    <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   id="svg1"
+   sodipodi:version="0.33pre"
+   width="1000"
+   height="500"
+   sodipodi:docname="uk_flag.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g578"
+     transform="scale(16.66667,16.66667)">
+    <rect
+       style="font-size:12;fill:#000066;stroke-width:1pt;"
+       id="rect124"
+       x="0"
+       width="60"
+       height="30"
+       y="0" />
+    <g
+       id="g584"
+       style="font-size:12;">
+      <path
+         style="font-size:12;fill:#ffffff;stroke-width:1pt;"
+         d="M 0 0 L 0 3.3541 L 53.2918 30 L 60 30 L 60 26.6459 L 6.7082 0 L 0 0 z M 60 0 L 60 3.35405 L 6.7082 30 L 0 30 L 0 26.6458 L 53.2918 0 L 60 0 z "
+         id="path146" />
+      <path
+         style="font-size:12;fill:#ffffff;stroke-width:1pt;"
+         d="M 25 0 L 25 30 L 35 30 L 35 0 L 25 0 z M 0 10 L 0 20 L 60 20 L 60 10 L 0 10 z "
+         id="path136" />
+      <path
+         style="font-size:12;fill:#cc0000;stroke-width:1pt;"
+         d="M 0 12 L 0 18 L 60 18 L 60 12 L 0 12 z M 27 0 L 27 30 L 33 30 L 33 0 L 27 0 z "
+         id="path141" />
+      <path
+         style="font-size:12;fill:#cc0000;stroke-width:1pt;"
+         d="M 0 30 L 20 20 L 24.4721 20 L 4.47214 30 L 0 30 z M 0 0 L 20 10 L 15.5279 10 L 0 2.23607 L 0 0 z M 35.5279 10 L 55.5279 0 L 60 0 L 40 10 L 35.5279 10 z M 60 30 L 40 20 L 44.4721 20 L 60 27.7639 L 60 30 z "
+         id="path150" />
+    </g>
+  </g>
+</svg>

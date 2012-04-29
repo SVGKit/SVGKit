@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="280mm"
+   height="140mm"
+   id="svg378"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/north-korea.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base"
+     showgrid="true" />
+  <defs
+     id="defs380" />
+  <rect
+     width="987.625243"
+     height="484.504700"
+     x="-991.811400"
+     y="-492.878582"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.797009pt;"
+     id="rect149"
+     transform="scale(-1.000000,-1.000000)" />
+  <rect
+     width="987.625243"
+     height="87.672271"
+     x="-991.811400"
+     y="405.206361"
+     style="font-size:12;fill:#3e5698;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect148"
+     transform="scale(-1.000000,1.000000)" />
+  <rect
+     width="987.625243"
+     height="268.549986"
+     x="-991.811400"
+     y="-384.901246"
+     style="font-size:12;fill:#c60000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect605"
+     transform="scale(-1.000000,-1.000000)" />
+  <rect
+     width="987.625243"
+     height="87.672271"
+     x="-991.811400"
+     y="8.373883"
+     style="font-size:12;fill:#3e5698;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect606"
+     transform="scale(-1.000000,1.000000)" />
+  <path
+     sodipodi:type="arc"
+     style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     id="path607"
+     d="M 495.862305 1147.964233 A 163.791611 163.791626 0 1 0 168.279068,1147.964233 A 163.792 163.792 0 1 0 495.862 1147.96 L 332.070679 1147.964233 z"
+     sodipodi:cx="332.070679"
+     sodipodi:cy="1147.964233"
+     sodipodi:rx="163.791611"
+     sodipodi:ry="163.791626"
+     transform="matrix(0.839632,0.000000,0.000000,0.665119,56.74857,-512.9069)" />
+  <polygon
+     points="591.041,433.161 533.774,391.476 476.501,433.151 498.449,365.806 441.115,324.214 511.946,324.278 533.785,256.897 555.613,324.281 626.445,324.23 569.104,365.812 591.041,433.161 "
+     style="font-size:12;fill:#c40000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;stroke:none;stroke-opacity:1;"
+     id="polygon136"
+     transform="matrix(1.163030,-4.786459e-3,-1.266332e-2,0.932450,-279.0365,-74.32138)" />
+</svg>

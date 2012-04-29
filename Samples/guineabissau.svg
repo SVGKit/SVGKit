@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0"
+   y="0"
+   width="400mm"
+   height="200mm"
+   id="svg378"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/guineabissau.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations">
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     gridspacingx="5mm"
+     gridspacingy="5mm"
+     gridoriginx="-1mm"
+     gridoriginy="-1mm" />
+  <defs
+     id="defs380" />
+  <rect
+     width="1040.778320"
+     height="359.619455"
+     x="377.599365"
+     y="6.346033"
+     style="font-size:12;fill:#fff41e;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <rect
+     width="844.045827"
+     height="350.451813"
+     x="574.331868"
+     y="361.382538"
+     style="font-size:12;fill:#1f7848;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect256" />
+  <rect
+     width="574.332016"
+     height="709.012573"
+     x="0.000000"
+     y="3.172895"
+     style="font-size:12;fill:#e80006;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect255" />
+  <path
+     d="M 266.186 534.45 L 255.778 527.018 L 245.421 534.523 L 249.273 522.327 L 238.935 514.796 L 251.725 514.691 L 255.692 502.532 L 259.744 514.663 L 272.534 514.679 L 262.249 522.281 L 266.186 534.45 z "
+     transform="matrix(7.432270,0.000000,0.000000,7.432270,-1617.482,-3518.149)"
+     style="font-size:12;fill-rule:evenodd;stroke-width:0.112872;"
+     id="path349" />
+</svg>

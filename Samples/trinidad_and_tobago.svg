@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg614"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="/home/sigge"
+   sodipodi:docname="/home/sigge/trinidad_tobago.svg">
+  <defs
+     id="defs616" />
+  <sodipodi:namedview
+     id="base" />
+  <path
+     style="font-size:12;fill:#e00000;fill-rule:evenodd;stroke-width:1pt;"
+     d="M 744.522 1.68979 L -0.810527 495.65 L 744.128 495.699 L 744.522 1.68979 z "
+     id="path630"
+     transform="matrix(9.184663e-17,-0.662660,1.500019,4.057488e-17,514.1060,1033.525)" />
+  <path
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     d="M 743.454 160.144 L 223.888 496.097 L 743.18 496.13 L 743.454 160.144 z "
+     id="path631"
+     transform="matrix(-2.753031e-16,-0.662091,1.498025,-1.215628e-16,515.3906,1031.828)" />
+  <path
+     style="font-size:12;fill:#e00000;fill-rule:evenodd;stroke-width:1pt;"
+     d="M 744.522 1.68979 L -0.810527 495.65 L 744.128 495.699 L 744.522 1.68979 z "
+     id="path701"
+     transform="matrix(-5.302224e-18,0.662660,-1.088238,1.357558e-16,540.9344,3.171410)" />
+  <path
+     style="font-size:12;fill:#e00000;fill-rule:evenodd;stroke-width:1pt;"
+     d="M 744.522 1.68979 L -0.810527 495.65 L 744.128 495.699 L 744.522 1.68979 z "
+     id="path702"
+     transform="matrix(-7.584754e-17,-0.662660,1.088238,-2.690221e-16,204.1156,494.9643)" />
+  <path
+     style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 13.1713 7.26089 L 152.202 7.26086 L 701.007 494.6 L 557.586 494.599 L 13.1713 7.26089 z "
+     id="path703"
+     sodipodi:nodetypes="ccccc"
+     transform="matrix(0.989104,-2.461260e-16,2.444948e-16,1.014135,20.63234,-5.527779)" />
+</svg>

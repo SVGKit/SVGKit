@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Western Sahara's Flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Andrew Duhan</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+
+-->
+
+
+<svg
+   id="svg607"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="500pt"
+   height="250pt"
+   sodipodi:docbase="/home/andrew/sodipodi-flags/work"
+   sodipodi:docname="/home/andrew/sodipodi-flags/work/western_sahara.svg">
+  <defs
+     id="defs609" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect611"
+     width="625.000000"
+     height="156.250006"
+     x="0.000000"
+     y="1.128056" />
+  <rect
+     style="font-size:12;fill:#107b00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect612"
+     width="625.000000"
+     height="156.250011"
+     x="0.000000"
+     y="156.250026" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect643"
+     width="625.000000"
+     height="107.499994"
+     x="0.000000"
+     y="103.337649" />
+  <path
+     style="fill:#ff00ff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 299.058 119.352 C 271.469 107.497 247.723 131.952 247.75 154.804 C 247.778 178.704 270.956 204.193 300.343 192.909 C 279.538 186.782 270.951 171.415 270.955 155.873 C 270.805 140.482 280.651 122.584 299.058 119.352 z "
+     id="path645"
+     sodipodi:nodetypes="cscsc" />
+  <polygon
+     sodipodi:type="star"
+     style="font-size:12;fill:#ff1800;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="polygon644"
+     sodipodi:sides="5"
+     sodipodi:cx="315.782318"
+     sodipodi:cy="154.999466"
+     sodipodi:r1="26.9064026"
+     sodipodi:r2="10.2470560"
+     sodipodi:arg1="0.92961890"
+     sodipodi:arg2="1.55277145"
+     points="331.876,176.562 315.967,165.245 300.248,176.969 306.095,158.341 290.088,147.015 309.611,146.819 315.436,128.095 321.655,146.602 341.263,146.357 325.583,157.99 331.876,176.562 "
+     transform="matrix(0.999923,1.238870e-2,-1.238870e-2,0.999923,1.835551,-1.086750)" />
+  <path
+     style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 301.719 192.656 C 270.886 203.359 247.67 180.156 247.266 156.367 C 246.863 132.578 270.209 108.047 301.876 119.218 C 283.959 121.875 270.802 137.578 270.645 155.332 C 270.525 168.756 278.464 187.891 301.719 192.656 z "
+     id="path648"
+     sodipodi:nodetypes="cscsc" />
+  <path
+     style="fill:#ff0000;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 73.3569 772.432 L 160.343 971.46 L -55.2426 994.811 L 72.692 773.567 L 73.3569 772.432 z "
+     id="path615"
+     sodipodi:nodetypes="ccccc"
+     transform="matrix(1.052981,-0.608955,0.608883,1.053106,-547.5541,-768.7816)" />
+</svg>

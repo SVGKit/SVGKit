@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg556"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/tobias/Desktop/Flags"
+   sodipodi:docname="/home/tobias/Desktop/Flags/Kuwait.svg">
+  <defs
+     id="defs558" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect563"
+     width="992.126038"
+     height="165.366135"
+     x="0.000000"
+     y="165.330688" />
+  <rect
+     style="font-size:12;fill:#f31830;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect559"
+     width="992.126038"
+     height="165.366135"
+     x="0.000000"
+     y="330.696793"
+     sodipodi:fill-cmyk="(0 0.9 0.8 0.05)" />
+  <rect
+     style="font-size:12;fill:#00d941;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect564"
+     width="992.126038"
+     height="165.366135"
+     x="0.000000"
+     y="-0.000015"
+     sodipodi:fill-cmyk="(1 0 0.7 0.15)" />
+  <path
+     style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
+     d="M 0 -0.000106811 L 0 496.063 L 247.503 330.676 L 248.032 165.222 L 0 -0.000106811 z "
+     id="path565"
+     sodipodi:nodetypes="ccccc" />
+</svg>

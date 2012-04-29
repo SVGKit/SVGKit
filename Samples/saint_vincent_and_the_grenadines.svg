@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg940"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="/home/yemu/clipart/new"
+   sodipodi:docname="/home/yemu/clipart/new/saintvincentandgrenadines.svg">
+  <defs
+     id="defs942" />
+  <sodipodi:namedview
+     id="base"
+     snaptoguides="false"
+     snaptogrid="false"
+     showgrid="false">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="-3.351472"
+       id="guide945" />
+  </sodipodi:namedview>
+  <rect
+     style="font-size:12;fill:#f4f100;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect953"
+     width="744.094482"
+     height="496.062958"
+     x="0.000000"
+     y="4.187008"
+     transform="translate(0.000000,-4.187027)" />
+  <rect
+     style="font-size:12;fill:#199a00;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect951"
+     width="184.251955"
+     height="496.063019"
+     x="562.209539"
+     y="4.189332"
+     transform="translate(0.000000,-4.189354)" />
+  <rect
+     style="font-size:12;fill:#0058aa;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect952"
+     width="184.251957"
+     height="496.062988"
+     x="0.000000"
+     y="4.189332"
+     transform="translate(0.000000,-4.189354)" />
+  <path
+     style="fill:#199a00;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 289.613 118.91 L 226.176 216.565 L 287.386 318.324 L 347.327 217.462 L 289.613 118.91 z "
+     id="path954"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     style="fill:#199a00;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 455.511 118.91 L 392.074 216.565 L 453.284 318.324 L 513.225 217.462 L 455.511 118.91 z "
+     id="path955"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     style="fill:#199a00;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 371.724 252.131 L 308.287 349.786 L 369.497 451.545 L 429.438 350.683 L 371.724 252.131 z "
+     id="path956"
+     sodipodi:nodetypes="ccccc" />
+</svg>

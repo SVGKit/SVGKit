@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   width="185mm"
+   height="140mm"
+   sodipodi:docbase="/home/jbm/Desktop/"
+   sodipodi:docname="/home/jbm/Desktop/denmark.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     snaptogrid="true"
+     gridspacingy="0.5cm"
+     gridspacingx="0.5cm"
+     showgrid="true" />
+  <g
+     id="g558">
+    <rect
+       style="font-size:12;fill:#fb1b22;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect551"
+       x="0"
+       height="140mm"
+       y="0"
+       width="185mm"
+       transform="translate(0.000000,-3.051758e-5)" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect552"
+       x="0"
+       y="60mm"
+       width="185mm"
+       height="20mm"
+       transform="translate(0.000000,-3.051758e-5)" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect553"
+       x="60mm"
+       y="0mm"
+       width="20mm"
+       height="140mm"
+       transform="translate(0.000000,-3.051758e-5)" />
+  </g>
+</svg>

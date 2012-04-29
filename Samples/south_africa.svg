@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <Work rdf:about="">
+    <dc:title>SVG graphic of South African Flag</dc:title>
+                                                                                                 
+    <dc:rights>
+      <Agent>
+        <dc:title>Farrel Lifson</dc:title>
+      </Agent>
+    </dc:rights>
+                                                                                                 
+    <license
+    rdf:resource="http://web.resource.org/cc/PublicDomain" />
+  </Work>
+                                                                                                 
+  <License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits
+    rdf:resource="http://web.resource.org/cc/Reproduction" />
+                                                                                                 
+    <permits
+    rdf:resource="http://web.resource.org/cc/Distribution" />
+                                                                                                 
+    <permits
+    rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+  </License>
+</rdf:RDF>
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="749.409424"
+   height="499.606293"
+   id="svg548">
+  <defs
+     id="defs550" />
+  <g
+     transform="matrix(1.998266,0.000000,0.000000,1.998801,-74.83725,-1553.702)"
+     style="font-size:12;"
+     id="g603">
+    <path
+       d="M 37.4511 976.386 L 37.4511 828.261 L 147.729 902.283 L 37.4511 976.386 z "
+       style="fill-rule:evenodd;stroke-width:1pt;"
+       id="path581" />
+    <path
+       d="M 112.695 1027.27 L 236.503 943.964 L 412.481 943.964 L 412.481 1027.27 L 112.695 1027.27 z "
+       style="fill:#0000cc;fill-rule:evenodd;stroke-width:1pt;"
+       id="path597" />
+    <path
+       d="M 112.695 777.323 L 412.481 777.323 L 412.481 860.643 L 236.503 860.643 C 236.503 860.643 114.345 776.499 112.695 777.323 z "
+       style="fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+       id="path598" />
+    <path
+       d="M 37.4511 808.573 C 37.4511 808.573 37.4511 828.261 37.4511 828.261 L 147.729 902.283 L 37.4511 976.386 L 37.4511 996.073 L 176.35 902.283 L 37.4511 808.573 z "
+       style="fill:#ffcc00;fill-rule:evenodd;stroke-width:1pt;"
+       id="path599" />
+    <path
+       d="M 37.4511 808.573 L 37.4511 777.323 L 83.7891 777.323 L 230.928 876.854 L 412.481 876.854 L 412.481 927.753 L 230.928 927.753 L 83.7891 1027.27 L 37.4511 1027.27 L 37.4511 996.073 L 176.35 902.283 L 37.4511 808.573 z "
+       style="fill:#009933;fill-rule:evenodd;stroke-width:1pt;"
+       id="path600" />
+    <path
+       d="M 83.7891 777.323 L 112.695 777.323 L 236.503 860.643 L 412.481 860.643 L 412.481 876.854 L 230.928 876.854 L 83.7891 777.323 z "
+       style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="path601" />
+    <path
+       d="M 83.7891 1027.27 L 112.695 1027.27 L 236.503 943.964 L 412.481 943.964 L 412.481 927.753 L 230.928 927.753 L 83.7891 1027.27 z "
+       style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="path602" />
+  </g>
+</svg>

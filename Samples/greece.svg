@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!-- /Creative Commons Public Domain -->
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+    <dc:title>New Zealand, Australia, United Kingdom, United States, 
+Bosnia and Herzegovina, Azerbaijan, Armenia, Bahamas, Belgium, Benin, 
+Bulgaria, Estonia, Finland, Gabon, Gambia, Germany, Greece, Greenland, 
+Guinea, Honduras, Israel, Jamaica, Jordan, and Romania Flags</dc:title>
+    <dc:rights><Agent>
+       <dc:title>Daniel McRae</dc:title>
+    </Agent></dc:rights>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+    <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+<svg
+   id="svg611"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="999"
+   height="666"
+   sodipodi:docname="greece_flag.svg">
+  <defs
+     id="defs613" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g644"
+     transform="scale(7.4)">
+    <g
+       id="g626">
+      <rect
+         style="font-size:12;fill:#0061f3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect614"
+         width="135"
+         height="10"
+         x="0"
+         y="0" />
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect615"
+         width="135"
+         height="10"
+         x="0"
+         y="10" />
+      <rect
+         style="font-size:12;fill:#0061f3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect616"
+         width="135"
+         height="10"
+         x="0"
+         y="20" />
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect617"
+         width="135"
+         height="10"
+         x="0"
+         y="30" />
+      <rect
+         style="font-size:12;fill:#0061f3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect618"
+         width="135.000000"
+         height="10.000000"
+         x="0"
+         y="40" />
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect619"
+         width="135"
+         height="10"
+         x="0"
+         y="50" />
+      <rect
+         style="font-size:12;fill:#0061f3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect620"
+         width="135.000000"
+         height="10.000000"
+         x="0"
+         y="60.000000" />
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect621"
+         width="135.000000"
+         height="10.000000"
+         x="0.000000"
+         y="70.000000" />
+      <rect
+         style="font-size:12;fill:#0061f3;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect622"
+         width="135.000000"
+         height="10.000000"
+         x="0.000000"
+         y="80.000000" />
+    </g>
+    <g
+       id="g639">
+      <rect
+         style="font-size:12;fill:#0061f3;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect623"
+         width="50"
+         height="50"
+         x="0"
+         y="0" />
+      <g
+         id="g636">
+        <rect
+           style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+           id="rect624"
+           width="10"
+           height="50"
+           x="20"
+           y="0" />
+        <rect
+           style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+           id="rect625"
+           width="50"
+           height="10"
+           x="0"
+           y="20" />
+      </g>
+    </g>
+  </g>
+</svg>

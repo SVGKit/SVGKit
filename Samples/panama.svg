@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg1646"
+   sodipodi:version="0.32"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/panama.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs1648" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect555"
+     width="744.094421"
+     height="493.101440"
+     x="2.22117758"
+     y="2.96156311" />
+  <rect
+     style="font-size:12;fill:#db0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect1649"
+     width="372.023376"
+     height="241.032209"
+     x="372.425201"
+     y="7.331423" />
+  <rect
+     style="font-size:12;fill:#0000ab;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect1650"
+     width="372.023374"
+     height="247.695770"
+     x="0.444327"
+     y="248.363510" />
+  <path
+     d="M 266.186 534.45 L 255.778 527.018 L 245.421 534.523 L 249.273 522.327 L 238.935 514.796 L 251.725 514.691 L 255.692 502.532 L 259.744 514.663 L 272.534 514.679 L 262.249 522.281 L 266.186 534.45 z "
+     transform="matrix(4.300646,0.000000,0.000000,3.785380,-913.3953,-1847.377)"
+     style="font-size:12;fill:#0000ab;fill-rule:evenodd;stroke-width:0.112872;fill-opacity:1;"
+     id="path205" />
+  <path
+     d="M 266.186 534.45 L 255.778 527.018 L 245.421 534.523 L 249.273 522.327 L 238.935 514.796 L 251.725 514.691 L 255.692 502.532 L 259.744 514.663 L 272.534 514.679 L 262.249 522.281 L 266.186 534.45 z "
+     transform="matrix(4.300646,0.000000,0.000000,3.785380,-533.3185,-1596.350)"
+     style="font-size:12;fill:#d80000;fill-rule:evenodd;stroke-width:0.112872;fill-opacity:1;"
+     id="path1660" />
+</svg>

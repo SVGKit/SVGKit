@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg378"
+   sodipodi:version="0.31pre"
+   width="300mm"
+   height="200mm"
+   sodipodi:docbase="/var/www/html/www.sodipodi.com/gallery/flags/"
+   sodipodi:docname="/var/www/html/www.sodipodi.com/gallery/flags/laos.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs380" />
+  <sodipodi:namedview
+     id="base"
+     snaptoguides="false">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="285.041046"
+       id="guide203" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="427.344666"
+       id="guide204" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="321.051"
+       id="guide395" />
+  </sodipodi:namedview>
+  <rect
+     style="font-size:12;fill:#e90012;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect171"
+     x="0"
+     y="0"
+     width="300mm"
+     height="200mm" />
+  <rect
+     style="font-size:12;fill:#003dd2;fill-rule:evenodd;stroke:none;stroke-width:0.817699pt;fill-opacity:1;"
+     id="rect403"
+     x="0.000000"
+     y="181.042941"
+     width="1062.991514"
+     height="356.511689"
+     transform="translate(0.000305176,-4.96813)" />
+  <path
+     sodipodi:type="arc"
+     style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+     id="path138"
+     d="M 678.366455 357.481323 A 141.780807 141.780807 0 1 0 394.804810,357.481323 A 141.781 141.781 0 1 0 678.366 357.481 L 536.585632 357.481323 z"
+     sodipodi:cx="536.585632"
+     sodipodi:cy="357.481323"
+     sodipodi:rx="141.780807"
+     sodipodi:ry="141.780807"
+     transform="matrix(1.07692,0,0,1.07692,-46.3654,-30.6493)" />
+</svg>

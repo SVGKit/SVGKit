@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg656"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/yemu/clipart/new"
+   sodipodi:docname="/home/yemu/clipart/new/tonga.svg">
+  <defs
+     id="defs658" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     snaptogrid="false"
+     snaptoguides="false">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="198.378723"
+       id="guide660" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="365.738281"
+       id="guide664" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="227.955231"
+       id="guide665" />
+  </sodipodi:namedview>
+  <rect
+     style="font-size:12;fill:#c10000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect661"
+     width="992.125977"
+     height="496.062988"
+     x="0"
+     y="-0.00001526" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect671"
+     width="311.155426"
+     height="249.364886"
+     x="0.000000"
+     y="-0.000060" />
+  <g
+     id="g668"
+     style="fill:#c10000;fill-opacity:1;">
+    <rect
+       style="font-size:12;fill:#c10000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect666"
+       width="49.5946960"
+       height="173.708282"
+       x="128.044464"
+       y="38.8901367" />
+    <rect
+       style="font-size:12;fill:#c10000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect667"
+       width="49.5946960"
+       height="173.708282"
+       x="128.044464"
+       y="38.8901367"
+       transform="matrix(6.123032e-17,1.000000,-1.000000,6.123032e-17,278.5861,-27.09753)" />
+  </g>
+</svg>

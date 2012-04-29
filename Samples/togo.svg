@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.31.1win"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="140mm"
+   sodipodi:docbase="C:\WINNT\Profiles\biele_c\Pulpit\kde\new"
+   sodipodi:docname="C:\WINNT\Profiles\biele_c\Pulpit\kde\new\togo.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     snaptogrid="true"
+     showgrid="true"
+     snaptoguides="false" />
+  <rect
+     style="font-size:12;fill:#ffe300;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect558"
+     width="744.094405"
+     height="496.303589"
+     x="0.000000"
+     y="-0.240652" />
+  <rect
+     style="font-size:12;fill:#118600;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect555"
+     width="744.094482"
+     height="99.659737"
+     x="0.000000"
+     y="201.521332" />
+  <rect
+     style="font-size:12;fill:#118600;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect570"
+     width="744.094482"
+     height="99.659737"
+     x="0.000000"
+     y="-0.000061" />
+  <rect
+     style="font-size:12;fill:#d80000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect554"
+     width="297.118042"
+     height="301.181213"
+     x="0.000000"
+     y="-0.000114" />
+  <path
+     style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 130.3 124.25 C 130.3 123.42 148.559 72.7941 148.559 72.7941 L 165.158 123.42 C 165.158 123.42 220.764 125.08 220.764 124.25 C 220.764 123.42 176.777 157.448 176.777 157.448 C 176.777 157.448 197.525 215.544 196.696 213.884 C 195.866 212.224 148.559 179.026 148.559 179.026 C 148.559 179.026 100.423 212.224 101.253 212.224 C 102.083 212.224 119.511 157.448 119.511 157.448 L 76.3544 125.08 L 130.3 124.25 z "
+     id="path567" />
+  <rect
+     style="font-size:12;fill:#118600;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect569"
+     width="744.094482"
+     height="99.659737"
+     x="0.000000"
+     y="396.403236" />
+</svg>

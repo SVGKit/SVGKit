@@ -46,8 +46,10 @@
 }
 
 - (void)loadResource:(NSString *)name {
-	SVGDocument *document = [SVGDocument documentNamed:[name stringByAppendingPathExtension:@"svg"]];
-	
+  //  NSString* fileName = [name stringByAppendingPathExtension:@"svg"];
+    
+   	SVGDocument *document = [SVGDocument documentNamed:name];
+
 	self.contentView.bounds = CGRectMake(0.0f, 0.0f, document.width, document.height);
 	self.contentView.document = document;
 	

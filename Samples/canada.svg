@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   style="fill:#28ff09; fill-opacity:14.1176%; stroke:none; "
+   width="280mm"
+   height="140mm"
+   id="canada"
+   sodipodi:docbase="/home/james/"
+   sodipodi:docname="/home/james/canada.svg"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="base"
+     gridoriginx="0.000000"
+     gridoriginy="0.000000"
+     gridspacingx="35mm"
+     gridspacingy="35mm"
+     gridtolerance="10px"
+     gridcolor="#000aff"
+     gridopacity="1.000000"
+     guidetolerance="5.000000"
+     guidecolor="#0000ff"
+     guideopacity="0.494118"
+     guidehicolor="#ff0000"
+     guidehiopacity="0.494118"
+     showgrid="false"
+     snaptogrid="true" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;"
+     id="mat"
+     width="496"
+     height="496"
+     x="248"
+     y="0" />
+  <rect
+     style="fill:#bf0a30;fill-opacity:1;"
+     id="left"
+     x="0"
+     y="0"
+     width="248"
+     height="496" />
+  <path
+     style="fill:#bf0a30;fill-opacity:1;"
+     d="M 186.17 139.701 L 174.906 143.551 L 227.319 189.55 C 231.284 201.372 225.943 204.857 222.54 211.057 L 279.44 203.835 L 277.958 261.097 L 289.743 260.758 L 287.173 203.972 L 344.129 210.724 C 340.604 203.28 337.467 199.327 340.728 187.424 L 393.106 143.844 L 383.94 140.526 C 376.446 134.743 387.178 112.673 388.797 98.7457 C 388.797 98.7457 358.213 109.263 356.209 103.76 L 348.421 88.7984 L 320.597 119.364 C 317.557 120.092 316.262 118.882 315.549 116.314 L 328.403 52.4428 L 308.049 63.8906 C 306.345 64.6192 304.641 63.9906 303.518 62.0047 L 283.944 22.7102 L 263.758 63.5087 C 262.236 64.9706 260.713 65.14 259.449 64.1459 L 240.068 53.2739 L 251.702 116.646 C 250.777 119.162 248.56 119.87 245.953 118.508 L 219.356 88.2908 C 215.877 93.8651 213.519 102.973 208.92 105.014 C 204.321 106.925 188.918 101.152 178.594 98.8982 C 182.121 111.626 193.148 132.771 186.17 139.701 z "
+     id="leaf"
+     transform="matrix(1.773858,0.000000,0.000000,1.773858,-8.019499,-6.440445)" />
+  <rect
+     style="fill:#bf0a30;fill-opacity:1;"
+     id="right"
+     x="744"
+     y="0"
+     width="248"
+     height="496" />
+</svg>
