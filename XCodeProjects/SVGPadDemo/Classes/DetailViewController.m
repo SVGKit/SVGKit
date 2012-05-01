@@ -20,6 +20,15 @@
 
 
 @implementation DetailViewController
+
+- (NSString *)docPath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    return [[documentsDirectory stringByAppendingString:@"/"] retain];
+}
+
 @synthesize scrollView;
 
 @synthesize toolbar, popoverController, contentView, detailItem;
@@ -34,6 +43,8 @@
 	self.toolbar = nil;
 	self.detailItem = nil;
 	
+    [_layerCamera release];
+    [_layerExporter release];
     [scrollView release];
 	[super dealloc];
 }
@@ -50,6 +61,8 @@
 		[self.popoverController dismissPopoverAnimated:YES];
 	}
 }
+
+
 
 - (void)loadResource:(NSString *)name
 {
@@ -69,6 +82,18 @@
     [self.scrollView addSubview:self.contentView];
     [self.scrollView setContentSize:CGSizeMake(document.width, document.height)];
     [self.scrollView zoomToRect:CGRectMake(0, 0, document.width, document.height) animated:YES];
+    
+    
+    if( _layerCamera == nil )
+        _layerCamera = [[CALayerCamera alloc] initWithPriority:DISPATCH_QUEUE_PRIORITY_BACKGROUND];
+    
+    [_layerCamera saveImageOf:[document layerTree] forSize:CGSizeMake(1024, 1024) toPath:[[self docPath] stringByAppendingPathComponent:@"testCameraOutput.png"] withPathCallback:^(NSString *savePath) {
+        if( savePath != nil )
+            NSLog(@"Image successfully saved to %@", savePath);
+        else {
+            NSLog(@"Image failed to save");
+        }
+    }];
 }
 
 - (IBAction)animate:(id)sender {

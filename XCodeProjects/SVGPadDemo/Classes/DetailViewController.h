@@ -7,6 +7,7 @@
 
 #import "SVGKit.h"
 #import "CALayerExporter.h"
+#import "CALayerCamera.h"
 
 @interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate> {
   @private
@@ -14,6 +15,7 @@
     UITextView* _exportText;
     NSMutableString* _exportLog;
     CALayerExporter* _layerExporter;
+    CALayerCamera*_layerCamera;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
