@@ -38,33 +38,51 @@
  */
 - (void)parseData:(NSString *)data
 {
+    //    NSLog(@"%u poly elements found", ++numPolyElements);
 	CGMutablePathRef path = CGPathCreateMutable();
-    NSScanner* dataScanner = [NSScanner scannerWithString:data];
+    
+    PathScanInfo scanInfo;
+    scanInfo.scanString = [data UTF8String];
+    int stringLength = scanInfo.stringLength = [data length];
+    scanInfo.currentIndex = 0;
+    
     CGPoint lastCoordinate = CGPointZero;
+    SkipWhitespace(&scanInfo);
+    ReadMovetoCommand(&scanInfo, path, &lastCoordinate, FALSE);
+    while ( scanInfo.currentIndex < stringLength )
+    {
+        ReadLinetoArgument(&scanInfo, path, &lastCoordinate, FALSE);
+    }
     
-	NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@""];
-	
-	NSString* cmdArgs = nil;
-	[dataScanner scanUpToCharactersFromSet:knownCommands
-													   intoString:&cmdArgs];
-	
-	NSString* commandWithParameters = [@"M" stringByAppendingString:cmdArgs];
-	NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
-	
-	
-	lastCoordinate = [SVGPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
-													path:path
-											  relativeTo:CGPointZero
-											  isRelative:FALSE];
-	
+    CGPathCloseSubpath(path);
     
-//	lastCoordinate = //unused 
-	[SVGPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
-									   path:path
-								 relativeTo:lastCoordinate];
-	
 	[self loadPath:path];
 	CGPathRelease(path);
+    /*
+     NSScanner* dataScanner = [NSScanner scannerWithString:data];
+     CGPoint lastCoordinate = CGPointZero;
+     
+     NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@""];
+     
+     NSString* cmdArgs = nil;
+     [dataScanner scanUpToCharactersFromSet:knownCommands
+     intoString:&cmdArgs];
+     
+     NSString* commandWithParameters = [@"M" stringByAppendingString:cmdArgs];
+     NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
+     
+     
+     lastCoordinate = [SVGPointsAndPathsParser readMovetoDrawtoCommandGroup:commandScanner
+     path:path
+     relativeTo:CGPointZero
+     isRelative:FALSE];
+     
+     
+     //	lastCoordinate = //unused 
+     [SVGPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
+     path:path
+     relativeTo:lastCoordinate];
+     */
 }
 
 /* reference
