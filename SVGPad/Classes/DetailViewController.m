@@ -60,7 +60,7 @@
 }
 
 - (IBAction)animate:(id)sender {
-	if ([_name isEqualToString:@"Monkey"]) {
+	if ([_name isEqualToString:@"Monkey"] || [_name isEqualToString:@"Rayflower"]) {
 		[self shakeHead];
 	}
 }
