@@ -1,21 +1,12 @@
 SVGKit
 ======
 
-SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest Mac OS X and iOS SDK's. To use SVGKit in your iOS application, simply drag the `Core` and `iOS` folders into your Xcode project. See `SVGPad` for a working sample. To use SVGKit in your Mac OS X application, build the SVGKit Xcode project and link your application against the built framework. Since `CAShapeLayer` does not support gradient fills, support for gradients has been temporarily removed.
+APRIL 2012: we're doing a cleanup and merge of forks at the moment. Temporarily, please use the following fork (which has the latest tested code):
 
-Usage
------
+    https://github.com/reklis/SVGKit
 
-First, initialize an instance of `SVGDocument`, the model object which encompasses the entire SVG element tree. This can be accomplished using the `initWithContentsOfFile:` initializer. To load a SVG file which resides in your application bundle, use the `documentNamed:` class method and pass in a file name (without the extension). The `SVGDocument` class encapsulates certain document metadata, including width, height, version, title, and description.
+For bugs in that fork, use that fork's Issue Tracker:
 
-	SVGDocument *document = [SVGDocument documentNamed:@"Monkey"]; // located in the application bundle
+    https://github.com/reklis/SVGKit/issues
 
-To render the document in a view, we need to access the document's Core Animation layer tree. On Mac OS X, make sure your instance of `NSView` is layer-backed. The layer tree can be accessed using the `layerTree` method on `SVGDocument`, for example:
-
-	NSView *ourView = ... ;
-	[ourView setWantsLayer:YES];
-	[ourView.layer addSublayer:[document layerTree]];
-
-Your SVG file should now be rendered on-screen. You can query for specific layers by using the `layerWithIdentifier:` method, also defined on `SVGDocument`. The identifier corresponds to the `id` attribute defined on elements. Once a reference to a subclass of `CALayer` is returned, its properties can be animated using implicit or explicit [Core Animation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CoreAnimation_guide/Articles/AnimatingLayers.html%23//apple_ref/doc/uid/TP40006085-SW1) animations.
-
-Feel free to report any issues or suggest improvements in the [issue tracker](https://github.com/mattrajca/SVGKit/issues). 
+We are working as fast as possible to get everything merged into this main fork, and this README will be replaced as soon as it's ready.
