@@ -394,7 +394,9 @@ static NSCache *_sharedDocuments;
 		NSArray* boxElements = [(NSString*) value componentsSeparatedByString:@" "];
 		
 		_viewBoxFrame = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+#if TARGET_OS_IPHONE
 		NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
+#endif
 	}
 }
 

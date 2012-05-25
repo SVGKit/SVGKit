@@ -263,12 +263,14 @@ SVGColor SVGColorMake (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 	return color;
 }
 
+#if TARGET_OS_IPHONE
 SVGColor SVGColorWithUIColor(UIColor *uiColor)
 {
     CGFloat r,g,b,a;
     [uiColor getRed:&r green:&g blue:&b alpha:&a];
     return SVGColorMake((uint8_t)(r*255), (uint8_t)(g*255), (uint8_t)(b*255), (uint8_t)(a*255));
 }
+#endif
 
 typedef enum {
 	PhaseNone = 0,
@@ -465,8 +467,8 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 								blue:RGB_N(color.b)
 							   alpha:RGB_N(color.a)].CGColor;
 #else
-    NSLog(@"CGColorWithSVGColor returns retained object on non-IOS platforms");
-    outcolor = 10; //throw warning
+    
+#warning CGColorWithSVGColor returns retained object on non-IOS platforms
     
 	outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
 #endif

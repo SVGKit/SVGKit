@@ -16,7 +16,9 @@
 //-(void)styleCatchElement:(SVGElement *)styledLayer forClass:(NSString *)colorIndex;
 //-(void)styleCatchNewStyle:(NSString *)className;
 -(void)styleCatchLayer:(CALayer *)styledLayer forClass:(NSString *)colorIndex;
+#if TARGET_OS_IPHONE
 -(UIColor *)styleCatchOverrideFill:(NSString *)fillClassName;
+#endif
 @end
 
 

@@ -41,6 +41,13 @@
 			remoteGlobalIDString = 66213432148AF2CF006881E1;
 			remoteInfo = SVGKitLibrary;
 		};
+		D78EB3E7156F157C004D745F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B86B3C1148C66030082ACCF /* SVGKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = SVGKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -220,6 +227,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D78EB3E8156F157C004D745F /* PBXTargetDependency */,
 			);
 			name = SVGTester;
 			productName = SVGTester;
@@ -310,6 +318,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D78EB3E8156F157C004D745F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVGKit;
+			targetProxy = D78EB3E7156F157C004D745F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C9FC22931347928C00A91703 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
@@ -373,8 +389,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SVGTester-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					../../Core,
-					../../Mac,
+					"../../Core/**",
+					"../../Mac/**",
 				);
 				INFOPLIST_FILE = "SVGTester-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -393,8 +409,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SVGTester-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					../../Core,
-					../../Mac,
+					"../../Core/**",
+					"../../Mac/**",
 				);
 				INFOPLIST_FILE = "SVGTester-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";

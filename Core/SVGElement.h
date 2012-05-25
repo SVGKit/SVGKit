@@ -9,16 +9,22 @@
 #import "SVGUtils.h"
 
 #import "SVGStyleCatcher.h"
+
 @class SVGDocument;
 
 #define EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES 0
 
 @interface SVGElement : NSObject {
-@protected
+  @protected
     
-    @protected
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
     SVGDocument *_document;
+#else
+    __weak SVGDocument *_document;
+#endif
+    
   @private
+    
 	NSMutableArray *_children;
 }
 

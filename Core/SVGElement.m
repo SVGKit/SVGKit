@@ -26,7 +26,6 @@
  */
 @implementation SVGElement
 
-
 @synthesize document = _document;
 
 @synthesize children = _children;
