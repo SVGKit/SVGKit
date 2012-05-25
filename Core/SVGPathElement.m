@@ -35,114 +35,117 @@
 - (void)parseData:(NSString *)data
 {
 	CGMutablePathRef path = CGPathCreateMutable();
-    NSScanner* dataScanner = [[NSScanner alloc] initWithString:data];//[NSScanner scannerWithString:data];
+    //    NSScanner* dataScanner = [[NSScanner alloc] initWithString:data];//[NSScanner scannerWithString:data];
     CGPoint lastCoordinate = CGPointZero;
     SVGCurve lastCurve = SVGCurveZero;
-    BOOL foundCmd;
+    //    BOOL foundCmd = YES;
     
-    @autoreleasepool {
-        do {
-            NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZz"];
-            NSString* command = nil;
-            foundCmd = [dataScanner scanCharactersFromSet:knownCommands intoString:&command];
-            
-                
-            if (foundCmd) {
-                if ([@"z" isEqualToString:command] || [@"Z" isEqualToString:command]) {
-                    lastCoordinate = [SVGPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:command]
-                                                       path:path
-                                                 relativeTo:lastCoordinate];
-                } else {
-                    NSString* cmdArgs = nil;
-                    BOOL foundParameters = [dataScanner scanUpToCharactersFromSet:knownCommands
-                                                                       intoString:&cmdArgs];
-                    
-                    if (foundParameters) {
-                        NSString* commandWithParameters = [command stringByAppendingString:cmdArgs];
-                        NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
-                        
-                        if ([@"m" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
-                                                                            path:path
-                                                                      relativeTo:lastCoordinate
-                                              isRelative:TRUE];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"M" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
-                                                                            path:path
-                                                                      relativeTo:CGPointZero
-                                              isRelative:FALSE];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"l" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readLinetoCommand:commandScanner
-                                                                path:path
-                                                          relativeTo:lastCoordinate
-                                              isRelative:TRUE];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"L" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readLinetoCommand:commandScanner
-                                                                path:path
-                                                          relativeTo:CGPointZero
-                                              isRelative:FALSE];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"v" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readVerticalLinetoCommand:commandScanner
-                                                                        path:path
-                                                                  relativeTo:lastCoordinate];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"V" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readVerticalLinetoCommand:commandScanner
-                                                                        path:path
-                                                          relativeTo:CGPointZero];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"h" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readHorizontalLinetoCommand:commandScanner
-                                                                          path:path
-                                                                    relativeTo:lastCoordinate];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"H" isEqualToString:command]) {
-                            lastCoordinate = [SVGPointsAndPathsParser readHorizontalLinetoCommand:commandScanner
-                                                                          path:path
-                                                                    relativeTo:CGPointZero];
-                            lastCurve = SVGCurveZero;
-                        } else if ([@"c" isEqualToString:command]) {
-                            lastCurve = [SVGPointsAndPathsParser readCurvetoCommand:commandScanner
-                                                            path:path
-                                                      relativeTo:lastCoordinate
-                                                      isRelative:TRUE];
-                            lastCoordinate = lastCurve.p;
-                        } else if ([@"C" isEqualToString:command]) {
-                            lastCurve = [SVGPointsAndPathsParser readCurvetoCommand:commandScanner
-                                                            path:path
-                                                      relativeTo:CGPointZero
-                                         isRelative:FALSE];
-                            lastCoordinate = lastCurve.p;
-                        } else if ([@"s" isEqualToString:command]) {
-                            lastCurve = [SVGPointsAndPathsParser readSmoothCurvetoCommand:commandScanner
-                                                                  path:path
-                                                            relativeTo:lastCoordinate
-                                                         withPrevCurve:lastCurve];
-                            lastCoordinate = lastCurve.p;
-                        } else if ([@"S" isEqualToString:command]) {
-                            lastCurve = [SVGPointsAndPathsParser readSmoothCurvetoCommand:commandScanner
-                                                                  path:path
-                                                            relativeTo:CGPointZero
-                                                         withPrevCurve:lastCurve];
-                            lastCoordinate = lastCurve.p;
-                        } else {
-                            NSLog(@"unsupported command %@", command);
-                        }
-                    }
-                }
-            }
-                
-        } while (foundCmd);
+    PathScanInfo scanInfo;
+    const char *rawString = [data UTF8String];
+    scanInfo.scanString = rawString;
+    int stringLength = scanInfo.stringLength = [data length];
+    scanInfo.currentIndex = 0;
+    
+    char casedCmd;
+    char cmdChar;
+//    char lastCmd = '\0';
+    
+    //not a single objective-c message in this entire process now, yay!
+    //    @autoreleasepool {
+    //        NSCharacterSet* knownCommands = cachedCharacterSetForString(@"MmLlCcVvHhAaSsQqTtZz");// [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZz"];
+    
+    bool isRelative = false;
+    SkipWhitespace(&scanInfo);
+    
+    //    if( scanInfo.currentIndex > 0 )
+    //        NSLog(@"Whitespace leading path data");
+    //        char validationChar;
+    //    char lowerOffset = ('A' - 'a');
+    do {
         
-    }
-    [dataScanner release];
+        //        SkipWhitespace(&scanInfo);
+        casedCmd = rawString[scanInfo.currentIndex];//ReadCharacter(&scanInfo);
+        
+        if( ('9' < casedCmd || casedCmd < '-')) //is non numeric, we have a new message
+        {
+            isRelative = casedCmd >= 'a';
+            cmdChar = (isRelative) ? casedCmd - ('a' - 'A') : casedCmd;
+//            if( isRelative )
+//                cmdChar = casedCmd - ('a' - 'A');
+//            else
+//                cmdChar = casedCmd;
+            
+            scanInfo.currentIndex++; //move past this character
+            SkipWhitespace(&scanInfo);
+        }
+        
+        switch ( cmdChar )
+        {
+            case 'M':
+                ReadMovetoCommand(&scanInfo, path, &lastCoordinate, isRelative);
+                cmdChar = 'L'; //is relative will not be reset, so we just need to pass along to line-to logic
+                break;
+                
+            case 'C':
+                ReadCurvetoArgument(&scanInfo, path, &lastCoordinate, &lastCurve, isRelative);
+                break;
+                
+            case 'S':
+                ReadSmoothCurvetoArgument(&scanInfo, path, &lastCoordinate, &lastCurve, isRelative);
+                break;
+                
+            case 'L':
+                ReadLinetoArgument(&scanInfo, path, &lastCoordinate, isRelative);
+                lastCurve = SVGCurveZero;
+                break;
+                
+            case 'V':
+                ReadVerticalLinetoArgument(&scanInfo, path, &lastCoordinate, isRelative);
+                lastCurve = SVGCurveZero;
+                break;
+                
+            case 'H':
+                ReadHorizontalLinetoArgument(&scanInfo, path, &lastCoordinate, isRelative);
+                lastCurve = SVGCurveZero;
+                break;
+                
+                
+                
+                
+                
+            case 'Z':
+                //                ReadCloseCommand(&scanInfo, path);
+                CGPathCloseSubpath(path); //we already read htis char so we don't want to move our pointer again :/
+            
+            case '\n':
+            case '\r':
+            case '\t':
+            case ' ':
+                SkipWhitespace(&scanInfo);
+                break;
+                
+            default:
+                //                    foundCmd = false;
+//                if( lastCmd == '\0' )
+                    NSLog(@"unsupported command %c", cmdChar);
+//                else {
+//                    scanInfo.currentIndex--;
+//                    casedCmd = lastCmd;
+//                    goto begin_switch;
+//                }
+                break;
+        }
+        
+//        lastCmd = casedCmd;
+    } while (scanInfo.currentIndex < stringLength);
+    
+    //    }
+    //    [dataScanner release];
     
 	[self loadPath:path];
 	CGPathRelease(path);
 }
+
+
 
 @end
