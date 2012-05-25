@@ -8,6 +8,7 @@
 #include "TargetConditionals.h"
 
 #if TARGET_OS_IPHONE
+#import "SVGKitDebug.h"
 	#import "SVGCircleElement.h"
 	#import "SVGDefsElement.h"
 	#import "SVGDescriptionElement.h"

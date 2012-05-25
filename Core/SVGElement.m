@@ -6,6 +6,7 @@
 //
 
 #import "SVGElement.h"
+#import "SVGUtils.h"
 
 @interface SVGElement ()
 
@@ -25,14 +26,15 @@
  */
 @implementation SVGElement
 
+
 @synthesize document = _document;
 
 @synthesize children = _children;
 @synthesize stringValue = _stringValue;
 @synthesize localName = _localName;
 
-#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 @synthesize parent = _parent;
+#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 @synthesize transformRelative = _transformRelative;
 #endif
 
@@ -48,11 +50,12 @@
     self = [super init];
     if (self) {
 		[self loadDefaults];
-        _children = [[NSMutableArray alloc] init];
+        _children = [NSMutableArray new];
+        self->metadataChildren = [NSMutableArray new];
+        
 #if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 		self.transformRelative = CGAffineTransformIdentity;
 #endif
-		self.metadataChildren = [NSMutableArray array];
     }
     return self;
 }
@@ -61,7 +64,7 @@
 	self = [self init];
 	if (self) {
 		_document = aDocument;
-		_localName = [name retain];
+		_localName = [name retain]; //stich: i believe a copy is identical in this case since name ends up being non-mutable (maybe not for URL loads?)
 #if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 		self.transformRelative = CGAffineTransformIdentity;
 #endif
@@ -70,7 +73,8 @@
 }
 
 - (void)dealloc {
-	self.metadataChildren = nil;
+    [self setMetadataChildren:nil];
+//	self.metadataChildren = nil;
 	[_children release];
 	[_stringValue release];
 	[_localName release];
@@ -85,9 +89,10 @@
 
 - (void)addChild:(SVGElement *)element {
 	[_children addObject:element];
-#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
-	element.parent = self;
-#endif
+    //stich: this is being set by SVGParserSVG in handleStartElement now so that it can be used more reliably
+//#if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
+//	element.parent = self;
+//#endif
 }
 
 -(void) addMetadataChild:(NSObject*) child
@@ -188,5 +193,39 @@
 	return [NSString stringWithFormat:@"<%@ %p | id=%@ | localName=%@ | stringValue=%@ | children=%d>", 
 			[self class], self, _identifier, _localName, _stringValue, [_children count]];
 }
+
+
++(void)trim
+{
+    //remove statically allocated stuffs to free up memory
+}
+
+//- (void)setTrackShapeLayers:(BOOL)track
+//{
+//    if( track == (_createdShapes == nil) ) // need to change, track and nil set or !track and set created
+//    {
+//        if( track ) //need to create set
+//            _createdShapes = [NSMutableSet new];
+//        else
+//        {
+//            [_createdShapes release];
+//            _createdShapes = nil;
+//        }
+//    }
+//}
+
+
+
+//proof of concept, would probably want to update the entire style if you were going to do this right
+//- (void)updateFill:(SVGColor)fill
+//{
+//    if( _createdShapes != nil )
+//    {
+//        for (CAShapeLayer *shape in _createdShapes) {
+//            shape.fillColor = CGColorWithSVGColor(fill);//
+//        }
+//        
+//    }
+//}
 
 @end

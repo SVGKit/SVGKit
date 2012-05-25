@@ -6,10 +6,10 @@
 //
 
 /*! RECOMMENDED: leave this set to 1 to get warnings about "legal, but poorly written" SVG */
-#define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1
+#define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 0
 
 /*! Verbose parser logging - ONLY needed if you have an SVG file that's failing to load / crashing */
-#define DEBUG_VERBOSE_LOG_EVERY_TAG 0
+#define DEBUG_VERBOSE_LOG_EVERY_TAG0
 
 @class SVGDocument;
 
@@ -19,18 +19,20 @@
  *
  * e.g. the main parser returns "[NSArray arrayWithObjects:@"http://www.w3.org/2000/svg", nil];"
  */
--(NSArray*) supportedNamespaces;
+-(NSSet*) supportedNamespaces;
 
 /*! Array of NSString's, one string for each XML tag (within a supported namespace!) that this parser-extension can parse
  *
  * e.g. the main parser returns "[NSArray arrayWithObjects:@"svg", @"title", @"defs", @"path", @"line", @"circle", ...etc... , nil];"
  */
--(NSArray*) supportedTags;
+-(NSSet*) supportedTags;
 
-- (NSObject*)handleStartElement:(NSString *)name document:(SVGDocument*) document xmlns:(NSString*) namespaceURI attributes:(NSMutableDictionary *)attributes;
+- (NSObject*)handleStartElement:(NSString *)name document:(SVGDocument*) document xmlns:(NSString*) namespaceURI attributes:(NSMutableDictionary *)attributes parentObject:(NSObject *)parent;
 -(void) addChildObject:(NSObject*)child toObject:(NSObject*)parent inDocument:(SVGDocument*) svgDocument;
 -(void) parseContent:(NSMutableString*) content forItem:(NSObject*) item;
 -(BOOL) createdItemShouldStoreContent:(NSObject*) item;
+
++(void)trim;
 
 @end
 
@@ -49,9 +51,9 @@
 	NSError* errorForCurrentParse;
 }
 
+@property(nonatomic,retain) NSArray* parserExtensions;
 @property(nonatomic,retain) NSURL* sourceURL;
 
-@property(nonatomic,retain) NSMutableArray* parserExtensions;
 
 @property(nonatomic, retain) NSMutableArray* parseWarnings;
 
@@ -59,7 +61,16 @@
 - (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document;
 
 - (BOOL)parse:(NSError **)outError;
+- (BOOL)parseURL:(NSError **)outError;
+
+- (BOOL)parseFileAtPath:(NSString *)filePath toDocument:(SVGDocument *)destinationDocument;
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css;
++(NSDictionary *) NSDictionaryFromCDataCSSStyles: (NSString *)cdataBlock;
+
++(SVGParser *)sharedParser;
++(void)addSharedParserExtensions:(NSSet *)extensions;
+
++(void)trim; //free statically allocated memory
 
 @end

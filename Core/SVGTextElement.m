@@ -18,6 +18,11 @@
     return YES;
 }
 
++ (void)trim
+{
+    //free statically allocated memory
+}
+
 @synthesize x = _x;
 @synthesize y = _y;
 @synthesize fontFamily = _fontFamily;
@@ -73,7 +78,7 @@
 
 }
 
-- (CALayer *) newLayer {
+- (CALayer *) autoreleasedLayer {
 #if TARGET_OS_IPHONE
     NSString* textToDraw = self.stringValue;
     

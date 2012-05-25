@@ -6,12 +6,18 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "SVGUtils.h"
 
+#import "SVGStyleCatcher.h"
 @class SVGDocument;
 
-#define EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES 1
+#define EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES 0
 
 @interface SVGElement : NSObject {
+@protected
+    
+    @protected
+    SVGDocument *_document;
   @private
 	NSMutableArray *_children;
 }
@@ -36,9 +42,9 @@
 #if EXPERIMENTAL_SUPPORT_FOR_SVG_TRANSFORM_ATTRIBUTES
 /*! Transform to be applied to this node and all sub-nodes; does NOT take account of any transforms applied by parent / ancestor nodes */
 @property (nonatomic) CGAffineTransform transformRelative;
+#endif
 /*! Required by SVG transform and SVG viewbox: you have to be able to query your parent nodes at all times to find out your actual values */
 @property (nonatomic, retain) SVGElement *parent;
-#endif
 
 + (BOOL)shouldStoreContent; // to optimize parser, default is NO
 
@@ -67,7 +73,9 @@
  custom key - kSVGElementIdentifier - on the CALayer. Because it's a custom key, it's (almost) guaranteed not to be
  overwritten / altered by other application code
  */
-- (CALayer *)newLayer;
+- (CALayer *)autoreleasedLayer;
 - (void)layoutLayer:(CALayer *)layer;
+
++(void)trim;
 
 @end

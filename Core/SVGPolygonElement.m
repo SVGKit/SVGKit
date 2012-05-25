@@ -58,7 +58,8 @@
 											  isRelative:FALSE];
 	
     
-	lastCoordinate = [SVGPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
+//	lastCoordinate = //unused 
+	[SVGPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
 									   path:path
 								 relativeTo:lastCoordinate];
 	

@@ -8,7 +8,8 @@
 #warning "This project uses features only available in iPhone SDK 3.2 and later."
 #endif
 
-#define OUTLINE_SHAPES 1
+//#define OUTLINE_SHAPES 1
+#define RASTERIZE_SHAPES 0
 
 #ifdef __OBJC__
 	#import <Foundation/Foundation.h>

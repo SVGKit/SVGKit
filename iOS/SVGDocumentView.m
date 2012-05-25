@@ -31,7 +31,7 @@
     self = [super init];
     if (self) {
         self.svg = d;
-		self.rootLayer = [svg newLayer];
+		self.rootLayer = [svg autoreleasedLayer];
 		
 		self.layersByElementId = [NSMutableDictionary dictionary];
 		
@@ -53,7 +53,7 @@
 }
 
 - (CALayer *)layerWithElement:(SVGElement <SVGLayeredElement> *)element {
-	CALayer *layer = [element newLayer];
+	CALayer *layer = [element autoreleasedLayer];
 	
 	if (![element.children count]) {
 		return layer;

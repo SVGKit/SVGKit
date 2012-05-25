@@ -7,7 +7,9 @@
 
 #import "SVGParser.h"
 
+//#import "libxml/parser.h"
 #import <libxml/parser.h>
+
 
 #import "SVGDocument.h"
 
@@ -32,11 +34,15 @@
 
 @implementation SVGParser
 
+static BOOL inUse = NO;
+
+@synthesize parserExtensions = _parserExtensions;
 @synthesize sourceURL;
-@synthesize parserExtensions;
+
 @synthesize parseWarnings;
 
 static xmlSAXHandler SAXHandler;
+//static xmlParserCtxtPtr sharedCtx; //libxml2.2 is not thread safe anyways, will see if this stems the memory leaks <= too unstable, fixed memory leaks by clearing parser context after completion
 
 static void startElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces, int nb_attributes, int nb_defaulted, const xmlChar **attributes);
 static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI);
@@ -44,15 +50,50 @@ static void	charactersFoundSAX(void * ctx, const xmlChar * ch, int len);
 static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 
 static NSString *NSStringFromLibxmlString (const xmlChar *string);
-static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
+static NSMutableDictionary *NSDictionaryCreateFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
 #define READ_CHUNK_SZ 1024*10
+
+//+(void)initialize
+//{
+//    sharedCtx = xmlCreatePushParserCtxt(&SAXHandler, [self sharedParser], NULL, 0, NULL);
+//}
+
+-(SVGParser *)init
+{
+    return [self initWithPath:nil document:nil];
+}
+
+static SVGParser * _sharedParser = nil;
+static NSMutableSet *_parserExtensions = nil;
++(SVGParser *)sharedParser
+{
+    if( _sharedParser == nil ) 
+    {
+        _sharedParser = [[SVGParser alloc] init];
+        if( _parserExtensions != nil )
+            [_sharedParser setParserExtensions:[_parserExtensions allObjects]];
+    }
+    return _sharedParser;
+}
+
++(void)addSharedParserExtensions:(NSSet *)extensions
+{
+    if( _parserExtensions == nil ) 
+        _parserExtensions = [[NSMutableSet alloc] initWithSet:extensions];
+    else if( ![extensions isSubsetOfSet:_parserExtensions] )
+        [_parserExtensions intersectSet:extensions];
+    
+    if( _sharedParser != nil )
+        [_sharedParser setParserExtensions:[_parserExtensions allObjects]];
+}
 
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document {
 	self = [super init];
 	if (self) {
+		_parserExtensions = [NSMutableArray new];
 		self.parseWarnings = [NSMutableArray array];
-		self.parserExtensions = [NSMutableArray array];
+        
 		_path = [aPath copy];
 		self.sourceURL = nil;
 		_document = document;
@@ -83,14 +124,35 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	[_path release];
 	[_storedChars release];
 	[_elementStack release];
-	self.parserExtensions = nil;
+    _document = nil;
+	[_parserExtensions release];
 	[super dealloc];
 }
 
-- (BOOL)parse:(NSError **)outError {
-	errorForCurrentParse = nil;
+- (BOOL)parseFileAtPath:(NSString *)filePath toDocument:(SVGDocument *)destinationDocument
+{
+    _path = [filePath copy];
+    _document = [destinationDocument retain];
+    
+    NSError *error = nil;
+    [self parse:&error];
+    
+    BOOL didFail = _failed;
+    
+    [_storedChars setString:@""];
+    [_elementStack removeAllObjects];
+    _failed = NO;
+    
+    [_path release], _path = nil;
+    [_document release], _document = nil;
+    
+    return didFail || (error != nil);
+}
+
+- (BOOL)parseURL:(NSError **)outError
+{errorForCurrentParse = nil;
 	[self.parseWarnings removeAllObjects];
-	
+    
 	/**
 	 Is this file being loaded from disk?
 	 Or from network?
@@ -101,72 +163,115 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	{
 		NSURLRequest* request = [NSURLRequest requestWithURL:self.sourceURL];
 		NSError* error = nil;
-		
+        
 		httpData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-		
+        
 		if( error != nil )
 		{
 			NSLog( @"[%@] ERROR: failed to parse SVG from URL, because failed to download file at URL = %@, error = %@", [self class], self.sourceURL, error );
 			return false;
 		}
 	}
-	
+    
 	FILE *file;
 	if( self.sourceURL == nil )
 	{
-	const char *cPath = [_path fileSystemRepresentation];
-	file = fopen(cPath, "r");
-	
-	if (!file)
-		return NO;
+        const char *cPath = [_path fileSystemRepresentation];
+        file = fopen(cPath, "r");
+        
+        if (!file)
+            return NO;
 	}
-	
+    
 	xmlParserCtxtPtr ctx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
-	
+    
 	if( self.sourceURL == nil )
 	{
-	if (!ctx) {
-		fclose(file);
-		return NO;
+        if (!ctx) {
+            fclose(file);
+            return NO;
+        }
 	}
-	}
-	
+    
 	if( self.sourceURL == nil )
 	{
 		size_t read = 0;
 		char buff[READ_CHUNK_SZ];
-	while ((read = fread(buff, 1, READ_CHUNK_SZ, file)) > 0) {
-		if (xmlParseChunk(ctx, buff, read, 0) != 0) {
-			_failed = YES;
-			NSLog(@"An error occured while parsing the current XML chunk");
-			
-			break;
-		}
-	}
-	
-	fclose(file);
+        while ((read = fread(buff, 1, READ_CHUNK_SZ, file)) > 0) {
+            if (xmlParseChunk(ctx, buff, read, 0) != 0) {
+                _failed = YES;
+                NSLog(@"An error occured while parsing the current XML chunk");
+                
+                break;
+            }
+        }
+        
+        fclose(file);
 	}
 	else
 	{
-			if (xmlParseChunk(ctx, (const char*) [httpData bytes], [httpData length], 0) != 0) {
-				_failed = YES;
-//				NSLog(@"An error occured while parsing the current XML chunk");
-				
+        if (xmlParseChunk(ctx, (const char*) [httpData bytes], [httpData length], 0) != 0) {
+            _failed = YES;
+            //				NSLog(@"An error occured while parsing the current XML chunk");
+            
 		}
 	}
-	
+    
 	if (!_failed)
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
-	
+    
 	xmlFreeParserCtxt(ctx);
-	
+    
 	if( errorForCurrentParse != nil )
 	{
 		*outError = errorForCurrentParse;
 		_failed = TRUE;
 	}
-	
-	return !_failed;	
+    
+	return !_failed;
+}
+
+
+//stich @ adam: this got merged really badly so I split it into two functions, parseURL is 100% what you had and this is 100% what i had pre-merge, sorry for taking the default behavior but it seemed more appropriate as it's already very late :X
+//stich: if we allow this to accept a block for provided string chunks in format(char *buffer, length) we could reuse this functionality for URLs, in-memory, and file parsing
+- (BOOL)parse:(NSError **)outError 
+{
+    const char *cPath = [_path fileSystemRepresentation];
+	FILE *file = fopen(cPath, "r");
+    
+	if (!file)
+		return NO;
+    
+	inUse = YES;
+	xmlParserCtxtPtr sharedCtx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
+	if (!sharedCtx) {
+		fclose(file);
+        NSLog(@"[%@] - %s File not found!", [self class], cPath);
+		return NO;
+	}
+    
+	size_t read = 0;
+	char buff[READ_CHUNK_SZ];
+    
+	while ((read = fread(buff, 1, READ_CHUNK_SZ, file)) > 0) {
+		if (xmlParseChunk(sharedCtx, buff, read, 0) != 0) {
+			_failed = YES;
+			NSLog(@"An error occured while parsing the current XML chunk");
+            
+			break;
+		}
+	}
+    
+	fclose(file);
+    
+	if (!_failed)
+		xmlParseChunk(sharedCtx, NULL, 0, 1); // EOF
+    
+    xmlClearParserCtxt(sharedCtx); //should make this eligible for reuse, can pool if we want multithreading (need libxml2.4 or later)
+	xmlFreeParserCtxt(sharedCtx);
+    inUse = NO;
+    
+	return !_failed;
 }
 
 /** ADAM: use this for a higher-performance, *non-blocking* parse
@@ -185,64 +290,71 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	
 		for( NSObject<SVGParserExtension>* subParser in self.parserExtensions )
 		{
-			if( [[subParser supportedNamespaces] containsObject:prefix]
-			&& [[subParser supportedTags] containsObject:name] )
+			if( [[subParser supportedTags] containsObject:name]
+			&& [[subParser supportedNamespaces] containsObject:prefix] )
 			{
 				NSObject* subParserResult = nil;
 				
-			if( nil != (subParserResult = [subParser handleStartElement:name document:_document xmlns:prefix attributes:attributes]) )
-			{
-				NSLog(@"[%@] tag: <%@:%@> -- handled by subParser: %@", [self class], prefix, name, subParser );
+                if( nil != (subParserResult = [subParser handleStartElement:name document:_document xmlns:prefix attributes:attributes parentObject:[(SVGParserStackItem *)[_elementStack lastObject] item]]) )
+                {
+#ifdef SVGPARSER_NOTIFY_SUBPARSER_HANDOFF
+                    NSLog(@"[%@] tag: <%@:%@> -- handled by subParser: %@", [self class], prefix, name, subParser );
+#endif
 				
-				SVGParserStackItem* stackItem = [[[SVGParserStackItem alloc] init] autorelease];;
-				stackItem.parserForThisItem = subParser;
-				stackItem.item = subParserResult;
-				
-				[_elementStack addObject:stackItem];
-				
-				if ([subParser createdItemShouldStoreContent:stackItem.item]) {
-					[_storedChars setString:@""];
-					_storingChars = YES;
-				}
-				else {
-					_storingChars = NO;
-				}
-				return;
-			}
+                    SVGParserStackItem* stackItem = [[SVGParserStackItem alloc] init];
+                    stackItem.parserForThisItem = subParser;
+                    stackItem.item = subParserResult;
+                    
+                    [_elementStack addObject:stackItem];
+                    [stackItem release];
+                    
+                    if ([subParser createdItemShouldStoreContent:stackItem.item]) {
+                        [_storedChars setString:@""];
+                        _storingChars = YES;
+                    }
+                    else {
+                        _storingChars = NO;
+                    }
+                    return;
+                }
 				
 			}
 		}
 	
+#ifdef SVG_PARSER_ERROR_UNPARSED_TAG
 	NSLog(@"[%@] ERROR: could not find a parser for tag: <%@:%@>; adding empty placeholder", [self class], prefix, name );
+#endif
 	
-	SVGParserStackItem* emptyItem = [[[SVGParserStackItem alloc] init] autorelease];
+	SVGParserStackItem* emptyItem = [[SVGParserStackItem alloc] init];
 	[_elementStack addObject:emptyItem];
+    [emptyItem release];
 }
 
 
 static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix,
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
-	
 	SVGParser *self = (SVGParser *) ctx;
 	
-	NSString *name = NSStringFromLibxmlString(localname);
-	NSMutableDictionary *attrs = NSDictionaryFromLibxmlAttributes(attributes, nb_attributes);
+	NSString *name = [[NSString alloc] initWithUTF8String:(const char *)localname];//NSStringFromLibxmlString(localname);
+	NSMutableDictionary *attrs = NSDictionaryCreateFromLibxmlAttributes(attributes, nb_attributes);
 	
 	//NSString *url = NSStringFromLibxmlString(URI);
+    
+    /* unused currently
 	NSString *prefix2 = nil;
 	if( prefix != NULL )
 		prefix2 = NSStringFromLibxmlString(prefix);
-	
+	*/
+     
+     
 	NSString *objcURIString = nil;
 	if( URI != NULL )
-		objcURIString = NSStringFromLibxmlString(URI);
+		objcURIString = [[NSString alloc] initWithUTF8String:(const char *)URI];// NSStringFromLibxmlString(URI);
 	
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
 	NSLog(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], (prefix2==nil)?@"":[NSString stringWithFormat:@"%@:",prefix2], name, (URI==NULL)?@"n/a":objcURIString, nb_attributes );
-#endif
-	
-#if DEBUG_VERBOSE_LOG_EVERY_TAG
+    
 	if( prefix2 == nil )
 	{
 		/* The XML library allows this, although it's very unhelpful when writing application code */
@@ -269,19 +381,25 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 #endif
 	
 	[self handleStartElement:name xmlns:objcURIString attributes:attrs];
+    [attrs release];
+    [name release];
+    if( objcURIString != nil )
+        [objcURIString release];
 }
 
 - (void)handleEndElement:(NSString *)name {
 	//DELETE DEBUG NSLog(@"ending element, name = %@", name);
 	
-	SVGParserStackItem* stackItem = [_elementStack lastObject];
+	SVGParserStackItem* stackItem = [[_elementStack lastObject] retain];
 	
 	[_elementStack removeLastObject];
 	
 	if( stackItem.parserForThisItem == nil )
 	{
 		/*! this was an unmatched tag - we have no parser for it, so we're pruning it from the tree */
+#ifdef SVGPARSER_WARN_NONPARSED_TAG
 		NSLog(@"[%@] WARN: ended non-parsed tag (</%@>) - this will NOT be added to the output tree", [self class], name );
+#endif
 	}
 	else
 	{
@@ -302,7 +420,9 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 			parserHandlingTheParentItem = stackItem.parserForThisItem;
 		}
 		
+#ifdef SVGPARSER_NOTIFY_END_TAG
 		NSLog(@"[%@] DEBUG-PARSER: ended tag (</%@>): telling parser (%@) to add that item to tree-parent = %@", [self class], name, parserHandlingTheParentItem, parentStackItem.item );
+#endif
 		[parserHandlingTheParentItem addChildObject:stackItem.item toObject:parentStackItem.item inDocument:_document];
 		
 		if ( [stackItem.parserForThisItem createdItemShouldStoreContent:stackItem.item]) {
@@ -312,14 +432,18 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 			_storingChars = NO;
 		}
 	}
+    
+    [stackItem release];
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
+    
 	SVGParser *self = (SVGParser *) ctx;
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
 - (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
+    
 	if (_storingChars) {
 		char value[len + 1];
 		strncpy(value, (const char *) chars, len);
@@ -330,6 +454,7 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
+    
 	SVGParser *self = (SVGParser *) ctx;
 	[self handleFoundCharacters:chars length:len];
 }
@@ -348,7 +473,19 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 	_failed = YES;
 }
 
-static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
+
+- (void)addStylesToDocument:(NSDictionary *)theStyleKeyedById
+{
+    
+    for( NSString *idName in [theStyleKeyedById keyEnumerator] )
+    {
+        [_document setStyle:[theStyleKeyedById objectForKey:idName] forClassName:idName]; 
+    }
+}
+
+static void errorEncounteredSAX (void *ctx, const char *msg, ...) 
+{
+	[ (SVGParser *) ctx handleError];
 	NSLog(@"Error encountered during parse: %s", msg);
 	[ (SVGParser *) ctx handleError];
 }
@@ -397,6 +534,17 @@ static void structuredError		(void * userData,
 	
 }
 
+
+static void handleCdataBlockSAX(void *ctx, const xmlChar *value, int len) 
+{
+    
+    NSString *cssString = [[NSString alloc] initWithUTF8String:(const char *)value];//[NSStringFromLibxmlString(value) substringToIndex:len];
+    //    NSLog(@"Cdata block: %@", cssString);
+    
+    [(SVGParser *) ctx addStylesToDocument:[SVGParser NSDictionaryFromCDataCSSStyles:[cssString substringToIndex:len]]];
+    [cssString release];
+}
+
 static xmlSAXHandler SAXHandler = {
     NULL,                       /* internalSubset */
     NULL,                       /* isStandalone   */
@@ -423,7 +571,7 @@ static xmlSAXHandler SAXHandler = {
     errorEncounteredSAX,        /* error */
     NULL,                       /* fatalError //: unused error() get all the errors */
     NULL,                       /* getParameterEntity */
-    NULL,                       /* cdataBlock */
+    handleCdataBlockSAX,                       /* cdataBlock */
     NULL,                       /* externalSubset */
     XML_SAX2_MAGIC,
     NULL,
@@ -439,10 +587,12 @@ static NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	return [NSString stringWithUTF8String:(const char *) string];
 }
 
-static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct) {
+static NSMutableDictionary *NSDictionaryCreateFromLibxmlAttributes (const xmlChar **attrs, int attr_ct) {
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-	
-	for (int i = 0; i < attr_ct * 5; i += 5) {
+//	NSString *keyString = nil; //less peak memory than multiple auto-released strings, since key is copied
+    
+    NSUInteger limit = attr_ct * 5;
+	for (int i = 0; i < limit/*attr_ct * 5*/; i += 5) {
 		const char *begin = (const char *) attrs[i + 3];
 		const char *end = (const char *) attrs[i + 4];
 		int vlen = strlen(begin) - strlen(end);
@@ -451,11 +601,14 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		strncpy(val, begin, vlen);
 		val[vlen] = '\0';
 		
+//        keyString = [[NSString alloc] initWithUTF8String:(const char*)attrs[i]];
 		[dict setObject:[NSString stringWithUTF8String:val]
-				 forKey:NSStringFromLibxmlString(attrs[i])];
+				 forKey:[NSString stringWithUTF8String:(const char*)attrs[i]]];
+        
+//        [keyString release];
 	}
 	
-	return [dict autorelease];
+	return dict;
 }
 
 #define MAX_ACCUM 256
@@ -492,15 +645,20 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 			continue;
 		}
 		else if (c == ';' || c == '\0') {
-			accum[accumIdx] = '\0';
-			
-			[dict setObject:[NSString stringWithUTF8String:accum]
-					 forKey:[NSString stringWithUTF8String:name]];
-			
-			bzero(name, MAX_NAME);
-			
-			bzero(accum, MAX_ACCUM);
-			accumIdx = 0;
+            if( accumIdx > 0 ) //if there is a ';' and '\0' to end the style, avoid adding an empty key-value pair
+            {
+                accum[accumIdx] = '\0';
+                
+                NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
+                [dict setObject:[NSString stringWithUTF8String:accum]
+                         forKey:keyString];
+                [keyString release];
+                
+                bzero(name, MAX_NAME);
+                
+                bzero(accum, MAX_ACCUM);
+                accumIdx = 0;
+            }
 			
 			continue;
 		}
@@ -509,6 +667,58 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	}
 	
 	return [dict autorelease];
+}
+
++(NSDictionary *) NSDictionaryFromCDataCSSStyles: (NSString *)cdataBlock //probably should be almost entirely c, blocking gradient implementation, disconnect cdataSAX
+{
+    NSMutableDictionary *returnSet = [NSMutableDictionary new];
+    
+    
+    NSArray *stringSplitContainer;
+    NSString *className, *styleContent;
+    
+//    NSDictionary *classStyle;
+    
+    @autoreleasepool { //creating lots of autoreleased strings, not helpful for older devices
+        
+        NSArray *classNameAndStyleStrings = [cdataBlock componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"}"]];
+        
+        NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        for( NSString *idStyleString in classNameAndStyleStrings )
+        {
+            if( [idStyleString length] > 1 ) //not necessary unless using shitty svgs
+            {
+                idStyleString = [idStyleString stringByTrimmingCharactersInSet:whitespaceSet];
+                
+                //             NSLog(@"A substringie %@", idStyleString);
+                
+                stringSplitContainer = [idStyleString componentsSeparatedByString:@"{"];
+                if( [stringSplitContainer count] >= 2 ) //not necessary unless using shitty svgs
+                {
+                    className = [[stringSplitContainer objectAtIndex:0] substringFromIndex:1];
+                    styleContent = [stringSplitContainer objectAtIndex:1];
+                    
+                    //                classStyle = [SVGParser NSDictionaryFromCSSAttributes:styleContent];
+                    //                 NSLog(@"Class Style:\n%@", classStyle);
+                    [returnSet setObject:[SVGParser NSDictionaryFromCSSAttributes:styleContent] forKey:className];
+                }
+            }
+            
+        }
+    }
+    
+    
+    return [returnSet autorelease];
+}
+
++(void)trim
+{
+    //for clearing statically allocated memory, not currently implemented (obviously)
+    [_sharedParser release];
+    _sharedParser = nil;
+    
+    if( !inUse )
+        xmlCleanupParser();
 }
 
 @end

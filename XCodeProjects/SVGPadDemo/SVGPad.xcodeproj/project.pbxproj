@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080DAE751550800F00A46102 /* CALayerCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 080DAE721550800F00A46102 /* CALayerCamera.m */; };
+		080DAE761550800F00A46102 /* CALayerFilm.m in Sources */ = {isa = PBXBuildFile; fileRef = 080DAE741550800F00A46102 /* CALayerFilm.m */; };
 		1D3623260D0F684500981E51 /* SVGPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* SVGPadAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -59,10 +61,20 @@
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
 		66BBD74315028F0A00102FEF /* map-test-australia_states_blank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */; };
 		66BBD7461502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66BBD7451502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg */; };
+		C1A500B414F4348200D45858 /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1A500B314F4348200D45858 /* RainbowWing.svg */; };
+		C1A500C114F4364F00D45858 /* SVGGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500B814F4364F00D45858 /* SVGGradientElement.m */; };
+		C1A500C214F4364F00D45858 /* SVGGradientStop.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500BA14F4364F00D45858 /* SVGGradientStop.m */; };
+		C1A500C314F4364F00D45858 /* SVGParserGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500BE14F4364F00D45858 /* SVGParserGradient.m */; };
+		C1A500C414F4364F00D45858 /* SVGParserStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500C014F4364F00D45858 /* SVGParserStyles.m */; };
+		C1A500C714F436C400D45858 /* SVGStyleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A500C614F436C400D45858 /* SVGStyleElement.m */; };
 		C94B6C5D1274BBFC00B456EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		080DAE711550800F00A46102 /* CALayerCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CALayerCamera.h; path = "../../calayer-camera/CALayerCamera.h"; sourceTree = "<group>"; };
+		080DAE721550800F00A46102 /* CALayerCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CALayerCamera.m; path = "../../calayer-camera/CALayerCamera.m"; sourceTree = "<group>"; };
+		080DAE731550800F00A46102 /* CALayerFilm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CALayerFilm.h; path = "../../calayer-camera/CALayerFilm.h"; sourceTree = "<group>"; };
+		080DAE741550800F00A46102 /* CALayerFilm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CALayerFilm.m; path = "../../calayer-camera/CALayerFilm.m"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* SVGPadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPadAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* SVGPadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPadAppDelegate.m; sourceTree = "<group>"; };
@@ -153,6 +165,19 @@
 		66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "map-test-australia_states_blank.svg"; sourceTree = "<group>"; };
 		66BBD7451502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "map-test-Location_European_nation_states-adam1.svg"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGPad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGPad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C157ACB015256C2C00BC03E6 /* SVGStyleCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleCatcher.h; sourceTree = "<group>"; };
+		C183A06C15258FAC005875B9 /* SVGKitDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKitDebug.h; sourceTree = "<group>"; };
+		C1A500B314F4348200D45858 /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
+		C1A500B714F4364F00D45858 /* SVGGradientElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientElement.h; sourceTree = "<group>"; };
+		C1A500B814F4364F00D45858 /* SVGGradientElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientElement.m; sourceTree = "<group>"; };
+		C1A500B914F4364F00D45858 /* SVGGradientStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientStop.h; sourceTree = "<group>"; };
+		C1A500BA14F4364F00D45858 /* SVGGradientStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientStop.m; sourceTree = "<group>"; };
+		C1A500BD14F4364F00D45858 /* SVGParserGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParserGradient.h; sourceTree = "<group>"; };
+		C1A500BE14F4364F00D45858 /* SVGParserGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGParserGradient.m; sourceTree = "<group>"; };
+		C1A500BF14F4364F00D45858 /* SVGParserStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGParserStyles.h; sourceTree = "<group>"; };
+		C1A500C014F4364F00D45858 /* SVGParserStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGParserStyles.m; sourceTree = "<group>"; };
+		C1A500C514F436C400D45858 /* SVGStyleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleElement.h; sourceTree = "<group>"; };
+		C1A500C614F436C400D45858 /* SVGStyleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyleElement.m; sourceTree = "<group>"; };
 		C94B6C5C1274BBFC00B456EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -186,6 +211,17 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		08C26C2B15506E3D00476E61 /* calayer-camera */ = {
+			isa = PBXGroup;
+			children = (
+				080DAE711550800F00A46102 /* CALayerCamera.h */,
+				080DAE721550800F00A46102 /* CALayerCamera.m */,
+				080DAE731550800F00A46102 /* CALayerFilm.h */,
+				080DAE741550800F00A46102 /* CALayerFilm.m */,
+			);
+			name = "calayer-camera";
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +233,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				08C26C2B15506E3D00476E61 /* calayer-camera */,
 				66436E5014A0BCEF001CC769 /* calayer-exporter */,
 				080E96DDFE201D6D7F000001 /* Controllers */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -252,6 +289,9 @@
 		3BF503C0148C62D900CC7D17 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C183A06C15258FAC005875B9 /* SVGKitDebug.h */,
+				C1A500B614F4364F00D45858 /* Elements */,
+				C1A500BB14F4364F00D45858 /* ParserExtentions */,
 				3BF503C1148C62D900CC7D17 /* CGPathAdditions.h */,
 				3BF503C2148C62D900CC7D17 /* CGPathAdditions.m */,
 				3BF503C3148C62D900CC7D17 /* SVGCircleElement.h */,
@@ -327,6 +367,7 @@
 		3BF5041A148C63F500CC7D17 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				C1A500B314F4348200D45858 /* RainbowWing.svg */,
 				66BBD7451502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg */,
 				66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */,
 				663DEFEE14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg */,
@@ -353,6 +394,39 @@
 			);
 			name = "calayer-exporter";
 			path = "../../calayer-exporter";
+			sourceTree = "<group>";
+		};
+		C1A500B614F4364F00D45858 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				C157ACB015256C2C00BC03E6 /* SVGStyleCatcher.h */,
+				C1A500B714F4364F00D45858 /* SVGGradientElement.h */,
+				C1A500B814F4364F00D45858 /* SVGGradientElement.m */,
+				C1A500B914F4364F00D45858 /* SVGGradientStop.h */,
+				C1A500BA14F4364F00D45858 /* SVGGradientStop.m */,
+				C1A500C514F436C400D45858 /* SVGStyleElement.h */,
+				C1A500C614F436C400D45858 /* SVGStyleElement.m */,
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
+		C1A500BB14F4364F00D45858 /* ParserExtentions */ = {
+			isa = PBXGroup;
+			children = (
+				C1A500BC14F4364F00D45858 /* Elements */,
+				C1A500BD14F4364F00D45858 /* SVGParserGradient.h */,
+				C1A500BE14F4364F00D45858 /* SVGParserGradient.m */,
+				C1A500BF14F4364F00D45858 /* SVGParserStyles.h */,
+				C1A500C014F4364F00D45858 /* SVGParserStyles.m */,
+			);
+			path = ParserExtentions;
+			sourceTree = "<group>";
+		};
+		C1A500BC14F4364F00D45858 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +494,7 @@
 				6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */,
 				6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */,
 				663DEFEC14BFD6BC00C56E07 /* Location_European_nation_states.svg in Resources */,
+				C1A500B414F4348200D45858 /* RainbowWing.svg in Resources */,
 				663DEFEF14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg in Resources */,
 				66BBD74315028F0A00102FEF /* map-test-australia_states_blank.svg in Resources */,
 				66BBD7461502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg in Resources */,
@@ -466,6 +541,13 @@
 				3BF50415148C62D900CC7D17 /* SVGView.m in Sources */,
 				663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */,
 				66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */,
+				C1A500C114F4364F00D45858 /* SVGGradientElement.m in Sources */,
+				C1A500C214F4364F00D45858 /* SVGGradientStop.m in Sources */,
+				C1A500C314F4364F00D45858 /* SVGParserGradient.m in Sources */,
+				C1A500C414F4364F00D45858 /* SVGParserStyles.m in Sources */,
+				C1A500C714F436C400D45858 /* SVGStyleElement.m in Sources */,
+				080DAE751550800F00A46102 /* CALayerCamera.m in Sources */,
+				080DAE761550800F00A46102 /* CALayerFilm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

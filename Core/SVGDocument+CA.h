@@ -12,10 +12,12 @@
 
 - (CALayer *)layerWithIdentifier:(NSString *)identifier;
 
+- (BOOL)hasLayer;
 - (CALayer *)layerTree;
 
 - (CALayer *)layerWithIdentifier:(NSString *)identifier layer:(CALayer *)layer;
 
+- (CATiledLayer *)tiledLayer;
 - (CALayer *)layerWithElement:(SVGElement < SVGLayeredElement > *)element;
 
 @end

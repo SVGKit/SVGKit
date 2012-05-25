@@ -22,6 +22,9 @@
 #endif
 
 #define SVGImageRef SVGImage*
+CGImageRef SVGImageCGImage(SVGImageRef img); //supress warning
+
+
 
 CGImageRef SVGImageCGImage(SVGImageRef img)
 {
@@ -42,6 +45,11 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 @synthesize height = _height;
 
 @synthesize href = _href;
+
++(void)trim
+{
+    //
+}
 
 - (void)dealloc {
     [_href release], _href = nil;
@@ -82,7 +90,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	}
 }
 
-- (CALayer *)newLayer {
+- (CALayer *)autoreleasedLayer {
 	__block CALayer *layer = [CALayer layer];
 
 	layer.name = self.identifier;
