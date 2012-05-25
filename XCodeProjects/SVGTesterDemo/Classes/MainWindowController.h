@@ -17,5 +17,6 @@
 @property (nonatomic, retain) IBOutlet ComparisonView *view;
 
 - (IBAction)next:(id)sender;
+- (IBAction)toggleOverlay:(id)sender;
 
 @end

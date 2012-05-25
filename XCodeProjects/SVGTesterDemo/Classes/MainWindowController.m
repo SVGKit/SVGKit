@@ -58,7 +58,7 @@
 	NSBitmapImageRep *original = [[NSBitmapImageRep alloc] initWithData:data];
 	
 	[_view compareImage:rendering withOriginal:original];
-	
+    
 	if (_currentIndex == [_names count] - 1) {
 		[sender setEnabled:NO];
 	}
@@ -71,4 +71,13 @@
 	[self next:nil];
 }
 
+- (IBAction)toggleOverlay:(id)sender {
+    NSButton* checkbox = (NSButton*) sender;
+    
+    if (checkbox.state) {
+        [_view showOverlay];
+    } else {
+        [_view hideOverlay];
+    }
+}
 @end
