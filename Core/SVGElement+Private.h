@@ -10,5 +10,7 @@
 @interface SVGElement (Private)
 
 - (void)parseAttributes:(NSDictionary *)attributes;
+- (void)addChild:(SVGElement *)element;
+- (void)parseContent:(NSString *)content;
 
 @end

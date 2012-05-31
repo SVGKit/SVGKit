@@ -9,21 +9,33 @@
 #import "SVGUtils.h"
 
 @class SVGGradientElement;
+@class SVGPattern;
 
 typedef enum {
 	SVGFillTypeNone = 0,
 	SVGFillTypeSolid,
+    SVGFillTypeURL,
 } SVGFillType;
 
-@interface SVGShapeElement : SVGElement < SVGLayeredElement > { }
+@interface SVGShapeElement : SVGElement < SVGLayeredElement > 
+{ 
+    NSString *_styleClass;
+    
+@private
+    CGRect _layerRect;
+    
+    CGColorRef _strokeCG, _fillCG; //limit # of instances?
+}
 
-@property (nonatomic, readonly) CGFloat opacity;
+@property (nonatomic, readwrite) CGFloat opacity;
 
-@property (nonatomic, readonly) SVGFillType fillType;
-@property (nonatomic, readonly) SVGColor fillColor;
+@property (nonatomic, readonly) NSString *fillId;
+@property (nonatomic, readwrite) SVGFillType fillType;
+@property (nonatomic, readwrite) SVGColor fillColor;
+@property (nonatomic, readwrite, retain) SVGPattern* fillPattern;
 
-@property (nonatomic, readonly) CGFloat strokeWidth;
-@property (nonatomic, readonly) SVGColor strokeColor;
+@property (nonatomic, readwrite) CGFloat strokeWidth;
+@property (nonatomic, readwrite) SVGColor strokeColor;
 
 @property (nonatomic, readonly) CGPathRef path;
 

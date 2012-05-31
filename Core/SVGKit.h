@@ -8,6 +8,7 @@
 #include "TargetConditionals.h"
 
 #if TARGET_OS_IPHONE
+#import "SVGKitDebug.h"
 	#import "SVGCircleElement.h"
 	#import "SVGDefsElement.h"
 	#import "SVGDescriptionElement.h"
@@ -16,6 +17,7 @@
 	#import "SVGElement.h"
 	#import "SVGEllipseElement.h"
 	#import "SVGGroupElement.h"
+    #import "SVGImageElement.h"
 	#import "SVGLineElement.h"
 	#import "SVGPathElement.h"
 	#import "SVGPolygonElement.h"
@@ -25,6 +27,8 @@
 	#import "SVGTitleElement.h"
 	#import "SVGUtils.h"
 	#import "SVGView.h"
+    #import "SVGPathView.h"
+    #import "SVGPattern.h"
 #else
 	#import <SVGKit/SVGCircleElement.h>
 	#import <SVGKit/SVGDefsElement.h>
@@ -34,6 +38,7 @@
 	#import <SVGKit/SVGElement.h>
 	#import <SVGKit/SVGEllipseElement.h>
 	#import <SVGKit/SVGGroupElement.h>
+    #import <SVGKit/SVGImageElement.h>
 	#import <SVGKit/SVGLineElement.h>
 	#import <SVGKit/SVGPathElement.h>
 	#import <SVGKit/SVGPolygonElement.h>

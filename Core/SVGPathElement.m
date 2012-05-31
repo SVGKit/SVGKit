@@ -10,25 +10,19 @@
 #import "SVGElement+Private.h"
 #import "SVGShapeElement+Private.h"
 #import "SVGUtils.h"
+#import "SVGPointsAndPathsParser.h"
 
 @interface SVGPathElement ()
 
-- (void)parseData:(NSString *)data;
+- (void) parseData:(NSString *)data;
+- (void) parseAttributes:(NSDictionary *)attributes;
 
 @end
 
-
 @implementation SVGPathElement
 
-typedef enum {
-	SVGPathSegmentTypeMoveTo = 0,
-	SVGPathSegmentTypeLineTo,
-	SVGPathSegmentTypeCurve
-} SVGPathSegmentType;
-
-#define MAX_ACCUM 16
-
-- (void)parseAttributes:(NSDictionary *)attributes {
+- (void)parseAttributes:(NSDictionary *)attributes
+{
 	[super parseAttributes:attributes];
 	
 	id value = nil;
@@ -38,106 +32,120 @@ typedef enum {
 	}
 }
 
-- (void)parseData:(NSString *)data {
+- (void)parseData:(NSString *)data
+{
 	CGMutablePathRef path = CGPathCreateMutable();
-	
-	const char *cstr = [data UTF8String];
-	size_t len = strlen(cstr);
-	
-	SVGPathSegmentType type = -1;
-	
-	char accum[MAX_ACCUM];
-	bzero(accum, MAX_ACCUM);
-	
-	int accumIdx = 0, currComponent = 0;
-	
-	for (size_t n = 0; n <= len; n++) {
-		char c = cstr[n];
-		
-		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0') {
-			if (type != -1) {
-				accum[accumIdx] = '\0';
-				
-				if (type == SVGPathSegmentTypeMoveTo) {
-					static int x;
-					
-					if (currComponent == 0) {
-						x = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 1) {
-						CGPathMoveToPoint(path, NULL, x, atoi(accum));
-						type = -1;
-					}
-				}
-				else if (type == SVGPathSegmentTypeLineTo) {
-					static int x;
-					
-					if (currComponent == 0) {
-						x = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 1) {
-						CGPathAddLineToPoint(path, NULL, x, atoi(accum));
-						type = -1;
-					}
-				}
-				else if (type == SVGPathSegmentTypeCurve) {
-					static int x1, y1, x2, y2, x;
-					
-					if (currComponent == 0) {
-						x1 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 1) {
-						y1 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 2) {
-						x2 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 3) {
-						y2 = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 4) {
-						x = atoi(accum);
-						currComponent++;
-					}
-					else if (currComponent == 5) {
-						CGPathAddCurveToPoint(path, NULL, x1, y1, x2, y2, x, atoi(accum));
-						type = -1;
-					}
-				}
-				
-				bzero(accum, MAX_ACCUM);
-				accumIdx = 0;
-			}
-		}
-		else if (c == 'M' || c == 'm') {
-			currComponent = 0;
-			type = SVGPathSegmentTypeMoveTo;
-		}
-		else if (c == 'L' || c == 'l') {
-			currComponent = 0;
-			type = SVGPathSegmentTypeLineTo;
-		}
-		else if (c == 'C' || c == 'c') {
-			currComponent = 0;
-			type = SVGPathSegmentTypeCurve;
-		}
-		else if (c == 'Z' || c == 'z') {
-			CGPathCloseSubpath(path);
-		}
-		else if ((c >= '0' && c <= '9') || c == '-') { // is digit?
-			accum[accumIdx++] = c;
-		}
-	}
-	
+    //    NSScanner* dataScanner = [[NSScanner alloc] initWithString:data];//[NSScanner scannerWithString:data];
+    CGPoint lastCoordinate = CGPointZero;
+    SVGCurve lastCurve = SVGCurveZero;
+    //    BOOL foundCmd = YES;
+    
+    PathScanInfo scanInfo;
+    const char *rawString = [data UTF8String];
+    scanInfo.scanString = rawString;
+    int stringLength = scanInfo.stringLength = [data length];
+    scanInfo.currentIndex = 0;
+    
+    char casedCmd;
+    char cmdChar;
+//    char lastCmd = '\0';
+    
+    //not a single objective-c message in this entire process now, yay!
+    //    @autoreleasepool {
+    //        NSCharacterSet* knownCommands = cachedCharacterSetForString(@"MmLlCcVvHhAaSsQqTtZz");// [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZz"];
+    
+    bool isRelative = false;
+    SkipWhitespace(&scanInfo);
+    
+    //    if( scanInfo.currentIndex > 0 )
+    //        NSLog(@"Whitespace leading path data");
+    //        char validationChar;
+    //    char lowerOffset = ('A' - 'a');
+    do {
+        
+        //        SkipWhitespace(&scanInfo);
+        casedCmd = rawString[scanInfo.currentIndex];//ReadCharacter(&scanInfo);
+        
+        if( ('9' < casedCmd || casedCmd < '-')) //is non numeric, we have a new message
+        {
+            isRelative = casedCmd >= 'a';
+            cmdChar = (isRelative) ? casedCmd - ('a' - 'A') : casedCmd;
+//            if( isRelative )
+//                cmdChar = casedCmd - ('a' - 'A');
+//            else
+//                cmdChar = casedCmd;
+            
+            scanInfo.currentIndex++; //move past this character
+            SkipWhitespace(&scanInfo);
+        }
+        
+        switch ( cmdChar )
+        {
+            case 'M':
+                ReadMovetoCommand(&scanInfo, path, &lastCoordinate, isRelative);
+                cmdChar = 'L'; //is relative will not be reset, so we just need to pass along to line-to logic
+                break;
+                
+            case 'C':
+                ReadCurvetoArgument(&scanInfo, path, &lastCoordinate, &lastCurve, isRelative);
+                break;
+                
+            case 'S':
+                ReadSmoothCurvetoArgument(&scanInfo, path, &lastCoordinate, &lastCurve, isRelative);
+                break;
+                
+            case 'L':
+                ReadLinetoArgument(&scanInfo, path, &lastCoordinate, isRelative);
+                lastCurve = SVGCurveZero;
+                break;
+                
+            case 'V':
+                ReadVerticalLinetoArgument(&scanInfo, path, &lastCoordinate, isRelative);
+                lastCurve = SVGCurveZero;
+                break;
+                
+            case 'H':
+                ReadHorizontalLinetoArgument(&scanInfo, path, &lastCoordinate, isRelative);
+                lastCurve = SVGCurveZero;
+                break;
+                
+                
+                
+                
+                
+            case 'Z':
+                //                ReadCloseCommand(&scanInfo, path);
+                CGPathCloseSubpath(path); //we already read htis char so we don't want to move our pointer again :/
+            
+            case '\n':
+            case '\r':
+            case '\t':
+            case ' ':
+                SkipWhitespace(&scanInfo);
+                break;
+                
+            default:
+                //                    foundCmd = false;
+//                if( lastCmd == '\0' )
+                    NSLog(@"unsupported command %c", cmdChar);
+//                else {
+//                    scanInfo.currentIndex--;
+//                    casedCmd = lastCmd;
+//                    goto begin_switch;
+//                }
+                break;
+        }
+        
+//        lastCmd = casedCmd;
+    } while (scanInfo.currentIndex < stringLength);
+    
+    //    }
+    //    [dataScanner release];
+    
 	[self loadPath:path];
-	
 	CGPathRelease(path);
 }
+
+
 
 @end

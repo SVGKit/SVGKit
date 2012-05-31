@@ -1,12 +1,22 @@
 SVGKit
 ======
 
-APRIL 2012: we're doing a cleanup and merge of forks at the moment. Temporarily, please use the following fork (which has the latest tested code):
+SVGKit is a cross-platform Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest OS X and iOS SDK's.
 
-    https://github.com/reklis/SVGKit
+Installation
+------------
 
-For bugs in that fork, use that fork's Issue Tracker:
+Dependencies:
 
-    https://github.com/reklis/SVGKit/issues
+  git submodule init && git submodule update
 
-We are working as fast as possible to get everything merged into this main fork, and this README will be replaced as soon as it's ready.
+XCodeProjects:
+
+1. SVGKit - the core library, builds the frameworks, also runs a shell script to build a fat lib
+2. SVGPadDemo - demo using the core libs on iOS
+3. SVGTesterDemo - demo + test app that uses core libs on OSX
+
+Bugs
+----
+
+Please report any issues or suggest improvements in the issue tracker and attach **as much info as you can** including the source SVG used that failed to parse, core dumps, instruments logs, patch code, etc.  Anything helps.
