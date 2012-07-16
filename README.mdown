@@ -1,75 +1,97 @@
-SVGKit
-======
+# SVGKit
 
-SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest iOS SDK's.
+SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. 
+All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. 
+SVGKit works on OS X and iOS.
 
-Installation
------
+## Fetching
 
-Dependencies:
+    git clone <svgkit url>
+    
+    # if you want to export CALayers using the iPad project....
+    cd SVGKit/
+    git submodule init
+    git submodule update
 
-  git submodule init && git submodule update
+Without the git submodules, the iOS test project will fail to compile.
+You don't need the calayer exporter to use SVGKit, it's just something nice for debugging in the simulator.
+If you don't care about that, you don't need them.
 
-iOS (iPhone/iPad):
-  1. Open the project "XcodeProjects/SVGKit/SVGKit"
-  2. Select the target "SVGKit Library" from the dropdown build selector at top left
-  3. Build
-  4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator
+## iOS
 
-  5. Drag/drop the library file, and the headers folder (should be called "usr") into your iPhone/iPad project.
-  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
-  7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
+iOS support is robust.  The development team uses iOS as the primary target.
 
-  8. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
-  9. (Optional but recommended): Add the framework "libxml2.dylib"
+## Desktop
 
-OS X: ...this needs updating; some minor code changes are needed to "fix" this project. The OS X framework currently DOES NOT BUILD because iOS classes are being referenced in a couple of places.
+Desktop support is...  not quite as robust.
+You may find many places things fail or break entirely.
+We try to keep up with it, and we appreciate any help we can get.
 
+## Cross Platform Library Build
 
-Usage - iPhone/iPad
------
+To build a single library that can be linked from the simulator and from a device, you'll need to do these steps:
 
-To use this, you must:
-  1. Load an SVG file, using SVGDocument (this parses the SVG)
-  2. Convert the document to CALayer's which Apple can render, using SVGDocumentView
+1. Open the project "XcodeProjects/SVGKit/SVGKit"
+2. Select the target "SVGKit Library > iOS Device" scheme selector dropdown in the top left
+3. In the main content area, select the "Build Phases" tab, expand the "Run Script" step, and make sure "Run script only when installing" is not checked.
+4. Build
+5. Select Window > Organizer > Projects > SVGKit, then follow the link arrow to the "Derived Data" folder.
+6. Using finder, navigate to Build > Products > Debug-universal
+7. Drag/drop the library file, and the headers folder (should be called "usr") into your iPhone/iPad project.
+8. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
+9. Edit your build settings and add "Other Linker Flags" = "-ObjC"
+10. Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
+11. Add the framework "libxml2.dylib"
 
-NB: if you want to render the same SVG in different places on screen, create an additional SVGDocumentView for each instance. That way, you don't have to re-parse the SVG source file each time.
+## Using on iOS
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-	// Override point for customization after application launch.
-	[self.window makeKeyAndVisible];
-	
-	NSString* svgFilename = @"Monkey";
-	
-	NSLog( @"[%@] Loading SVG document, filename = %@", [self class], svgFilename );
-	
-	/** Optional: if you're using the parser extensions, add them here
-	[SVGDocument addSVGParserExtension:[[SVGParserConquest alloc] init]];
-	*/
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    {
+        // Override point for customization after application launch.
+        [self.window makeKeyAndVisible];
 
-	SVGDocument* svgDocument = [SVGDocument documentNamed:svgFilename];
+        NSString* svgFilename = @"Monkey";
 
-	SVGDocumentView* docView = [SVGDocumentView documentViewWithDocument:svgDocument];
-		
-	[self.window.layer addSublayer:docView.rootLayer];	
-	
-    return YES;
-}
+        NSLog( @"[%@] Loading SVG document, filename = %@", [self class], svgFilename );
 
-Usage - OS X
------
+        /** Optional: if you're using the parser extensions, add them here
+        [SVGDocument addSVGParserExtension:[[SVGParserConquest alloc] init]];
+        */
 
-First, initialize an instance of `SVGDocument`, the model object which encompasses the entire SVG element tree. This can be accomplished using the `initWithContentsOfFile:` initializer. To load a SVG file which resides in your application bundle, use the `documentNamed:` class method and pass in a file name (without the extension). The `SVGDocument` class encapsulates certain document metadata, including width, height, version, title, and description.
+        SVGDocument* svgDocument = [SVGDocument documentNamed:svgFilename];
 
-	SVGDocument *document = [SVGDocument documentNamed:@"Monkey"]; // located in the application bundle
+        SVGDocumentView* docView = [SVGDocumentView documentViewWithDocument:svgDocument];
 
-On Mac OS X, make sure your instance of `NSView` is layer-backed. The layer tree can be accessed using the `layerTree` method on `SVGDocument`, for example:
+        [self.window.layer addSublayer:docView.rootLayer];  
 
-	NSView *ourView = ... ;
-	[ourView setWantsLayer:YES];
-	[ourView.layer addSublayer:[document layerTree]];
+        return YES;
+    }
 
-Your SVG file should now be rendered on-screen. You can query for specific layers by using the `layerWithIdentifier:` method, also defined on `SVGDocument`. The identifier corresponds to the `id` attribute defined on elements. Once a reference to a subclass of `CALayer` is returned, its properties can be animated using implicit or explicit [Core Animation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CoreAnimation_guide/Articles/AnimatingLayers.html%23//apple_ref/doc/uid/TP40006085-SW1) animations.
+## Using on OS X
 
-Feel free to report any issues or suggest improvements in the issue tracker
+    SVGDocument *document = [SVGDocument documentNamed:@"image"]; // located in the application bundle
+    // or...
+    SVGDocument *document = [[SVGDocument alloc] initWithContentsOfFile:@"filepath"]; // possibly not in application bundle
+
+    // then
+    NSView *v = ... ;  // make sure your instance of `NSView` is layer-backed.
+    [v setWantsLayer:YES];
+    [v.layer addSublayer:[document layerTree]];
+
+Your SVG file should now be rendered on-screen.
+You can query for specific layers by using the `layerWithIdentifier:` method, also defined on `SVGDocument`.
+The identifier corresponds to the `id` attribute defined on elements.
+Once a reference to a subclass of `CALayer` is returned, its properties can be animated using  implicit or explicit [Core Animation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CoreAnimation_guide/Articles/AnimatingLayers.html%23//apple_ref/doc/uid/TP40006085-SW1) animations.
+
+## ARC Support
+
+Call us old fashioned, to stay compatible with a wider variety of environments we don't use ARC in SVGKit.  
+There is a fork of the code that is ARC based but because of the other many  big changes happening, it is severely out of date and is more there for "historical purposes".
+Linking from an ARC project should  not pose an issue, but do let us know if you run into one.
+If you did not do the cross-compile using our build script mentioned above and did a drag-drop install like some folks like to do, then remember to pass `-fno-objc-arc` on each of the `.m` files using the build settings.
+You can [read more about ARC build flags here](http://clang.llvm.org/docs/AutomaticReferenceCounting.html).
+
+## I did all that, it doesn't work, you guys suck.
+
+Please report any issues or suggest improvements in the issue tracker and include as much detail as you can including build output, logs, error messages, stack traces, example code, whatever.
+This is a volunteer effort, we have wives, kids, businesses, and apps of our own, please be patient with us.
