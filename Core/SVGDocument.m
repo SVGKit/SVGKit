@@ -237,7 +237,7 @@ static NSCache *_sharedDocuments;
 //        }
         
 		if (![self parseFileAtPath:aPath]) {
-			NSLog(@"[%@] - %@ MISSING FILE, COULD NOT CREATE DOCUMENT: path = %@", _cmd, [self class], aPath);
+			NSLog(@"[%@] - %@ MISSING FILE, COULD NOT CREATE DOCUMENT: path = %@", NSStringFromSelector(_cmd), [self class], aPath);
 			
 			[self release];
 			return nil;
@@ -304,7 +304,7 @@ static NSCache *_sharedDocuments;
     
 	if (!result) 
     {
-		NSLog(@"Parser error: %@", error);
+		NSLog(@"Parser error: %@", *error);
 	}
     
 	[parser release];
