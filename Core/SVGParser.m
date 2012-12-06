@@ -38,6 +38,7 @@ static BOOL inUse = NO;
 
 @synthesize parserExtensions = _parserExtensions;
 @synthesize sourceURL;
+@synthesize sourceData;
 
 @synthesize parseWarnings;
 
@@ -120,6 +121,22 @@ static NSMutableSet *_parserExtensions = nil;
 	return self;
 }
 
+- (id)initWithData:(NSData *)aData document:(SVGDocument *)document
+{
+	if( self = [super init]) {
+		self.parseWarnings = [NSMutableArray array];
+		self.parserExtensions = [NSMutableArray array];
+		self.sourceData = aData;
+		_document = document;
+		_storedChars = [NSMutableString new];
+		_elementStack = [NSMutableArray new];
+		_failed = NO;
+	}
+	
+	return self;
+
+}
+
 - (void)dealloc {
 	[_path release];
 	[_storedChars release];
@@ -150,7 +167,8 @@ static NSMutableSet *_parserExtensions = nil;
 }
 
 - (BOOL)parseURL:(NSError **)outError
-{errorForCurrentParse = nil;
+{
+	errorForCurrentParse = nil;
 	[self.parseWarnings removeAllObjects];
     
 	/**
@@ -231,6 +249,48 @@ static NSMutableSet *_parserExtensions = nil;
 	return !_failed;
 }
 
+- (BOOL)parseData:(NSError **)outError
+{
+	inUse = YES;
+	xmlParserCtxtPtr sharedCtx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
+	if (!sharedCtx) {
+		return NO;
+	}
+    
+	NSUInteger bytesToRead = 0;
+	char buff[READ_CHUNK_SZ];
+    const char * data = [sourceData bytes];
+	NSUInteger dataLen = [sourceData length];
+	NSUInteger totalReads = dataLen / READ_CHUNK_SZ;
+	if (dataLen % READ_CHUNK_SZ) {
+		totalReads++;
+	}
+	NSUInteger i = 0;
+	for (i = 0; i < totalReads; i++) {
+		bytesToRead = READ_CHUNK_SZ;
+		if (dataLen < i * READ_CHUNK_SZ) {
+			bytesToRead = dataLen - (i - 1) * READ_CHUNK_SZ;
+		}
+		memset(buff, 0, READ_CHUNK_SZ);
+		memcpy(buff, data + (i * READ_CHUNK_SZ), bytesToRead);
+		if (xmlParseChunk(sharedCtx, buff, bytesToRead, 0) != 0) {
+			_failed = YES;
+			NSLog(@"An error occured while parsing the current XML chunk");
+
+			break;
+		}
+		
+	}
+	
+	if (!_failed)
+		xmlParseChunk(sharedCtx, NULL, 0, 1); // EOF
+    
+    xmlClearParserCtxt(sharedCtx); //should make this eligible for reuse, can pool if we want multithreading (need libxml2.4 or later)
+	xmlFreeParserCtxt(sharedCtx);
+    inUse = NO;
+    
+	return !_failed;
+}
 
 //stich @ adam: this got merged really badly so I split it into two functions, parseURL is 100% what you had and this is 100% what i had pre-merge, sorry for taking the default behavior but it seemed more appropriate as it's already very late :X
 //stich: if we allow this to accept a block for provided string chunks in format(char *buffer, length) we could reuse this functionality for URLs, in-memory, and file parsing

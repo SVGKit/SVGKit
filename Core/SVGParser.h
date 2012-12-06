@@ -53,15 +53,17 @@
 
 @property(nonatomic,retain) NSArray* parserExtensions;
 @property(nonatomic,retain) NSURL* sourceURL;
-
+@property(nonatomic,retain) NSData* sourceData;
 
 @property(nonatomic, retain) NSMutableArray* parseWarnings;
 
 - (id)initWithPath:(NSString *)aPath document:(SVGDocument *)document;
 - (id) initWithURL:(NSURL*)aURL document:(SVGDocument *)document;
+- (id)initWithData:(NSData *)aData document:(SVGDocument *)document;
 
 - (BOOL)parse:(NSError **)outError;
 - (BOOL)parseURL:(NSError **)outError;
+- (BOOL)parseData:(NSError **)outError;
 
 - (BOOL)parseFileAtPath:(NSString *)filePath toDocument:(SVGDocument *)destinationDocument;
 

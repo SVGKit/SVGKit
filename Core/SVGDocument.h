@@ -70,6 +70,7 @@ typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * la
 + (SVGDocument *)sharedDocumentNamed:(NSString *)name;
 
 - (id)initWithContentsOfFile:(NSString *)aPath;
+- (id)initWithData:(NSData *)aData;
 - (id)initWithDocumentNamed:(NSString *)documentName;
 - (id)initWithDocumentNamed:(NSString *)documentName andParser:(SVGParser *)parser;
 - (id)initWithFrame:(CGRect)frame;

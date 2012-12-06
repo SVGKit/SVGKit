@@ -31,8 +31,11 @@
 /*! Only preserved for temporary backwards compatibility */
 -(BOOL)parseFileAtURL:(NSURL *)url;
 
+- (BOOL)parseData:(NSData *)adata;
+
 - (BOOL)parseFileAtPath:(NSString *)aPath error:(NSError**) error;
 - (BOOL)parseFileAtURL:(NSURL *)url error:(NSError**) error;
+- (BOOL)parseData:(NSData *)adata error:(NSError **)error;
 
 - (SVGElement *)findFirstElementOfClass:(Class)class;
 
@@ -184,6 +187,20 @@ static NSCache *_sharedDocuments;
 	}
 	return self;
 }
+
+- (id)initWithData:(NSData *)aData
+{
+	if (self = [super initWithDocument:self name:@"svg"]) {
+		_width = _height = 100;
+		if (![self parseData:aData]) {
+			NSLog(@"[%@] ERROR: COULD NOT PARSE DATA AS SVG", [self class]);
+			
+			[self release];
+			return nil;
+		}
+	}
+	return self;
+}
              
              
 - (id)initWithDocumentNamed:(NSString *)documentName andParser:(SVGParser *)parser
@@ -322,13 +339,34 @@ static NSCache *_sharedDocuments;
 	return [self parseFileAtPath:aPath error:nil];
 }
 
+- (BOOL)parseData:(NSData *)adata
+{
+	return [self parseData:adata error:NULL];
+}
+
+- (BOOL)parseData:(NSData *)adata error:(NSError **)error
+{
+	SVGParser *parser = [[SVGParser alloc] initWithData:adata document:self];
+	
+	[parser setParserExtensions:[SVGDocument generalExtensions]];
+	
+	BOOL result = [parser parseData:error];
+	
+	if (!result)
+		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
+	
+	[parser release];
+	
+	return result;
+}
+
 
 -(BOOL)parseFileAtURL:(NSURL *)url error:(NSError**) error {
 	SVGParser *parser = [[SVGParser alloc] initWithURL:url document:self];
     
     [parser setParserExtensions:[SVGDocument generalExtensions]];
     
-    BOOL result = [parser parse:error];
+    BOOL result = [parser parseURL:error];
 	
 	if (!result) 
 		NSLog(@"[%@] SVGKit Parse error: %@", [self class], *error);
