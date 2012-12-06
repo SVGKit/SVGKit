@@ -262,29 +262,12 @@ static NSMutableSet *_parserExtensions = nil;
 		return NO;
 	}
     
-	NSUInteger bytesToRead = 0;
-	char buff[READ_CHUNK_SZ];
     const char * data = [sourceData bytes];
 	NSUInteger dataLen = [sourceData length];
-	NSUInteger totalReads = dataLen / READ_CHUNK_SZ;
-	if (dataLen % READ_CHUNK_SZ) {
-		totalReads++;
-	}
-	NSUInteger i = 0;
-	for (i = 0; i < totalReads; i++) {
-		bytesToRead = READ_CHUNK_SZ;
-		if (dataLen < i * READ_CHUNK_SZ) {
-			bytesToRead = dataLen - (i - 1) * READ_CHUNK_SZ;
-		}
-		memset(buff, 0, READ_CHUNK_SZ);
-		memcpy(buff, data + (i * READ_CHUNK_SZ), bytesToRead);
-		if (xmlParseChunk(sharedCtx, buff, bytesToRead, 0) != 0) {
-			_failed = YES;
-			NSLog(@"An error occured while parsing the current XML chunk");
 
-			break;
-		}
-		
+	if (xmlParseChunk(sharedCtx, data, dataLen, 0) != 0) {
+		_failed = YES;
+		NSLog(@"An error occured while parsing the current XML chunk");
 	}
 	
 	if (!_failed)
