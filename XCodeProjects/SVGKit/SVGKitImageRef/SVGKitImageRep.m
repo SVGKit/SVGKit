@@ -60,6 +60,10 @@
 {
 	if (self = [super init]) {
 		_document = [[SVGDocument alloc] initWithData:theData];
+		if (_document == nil) {
+			[self release];
+			return nil;
+		}
 		[self setColorSpaceName:NSCalibratedRGBColorSpace];
 		[self setAlpha:YES];
 		[self setBitsPerSample:0];
@@ -93,9 +97,15 @@
 {
 	CGContextRef CGCtx = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 
-	[self drawLayer:[_document layerTree] inContext:CGCtx];
+	//[self drawLayer:[_document layerTree] inContext:CGCtx];
+	//[_document drawInContext:CGCtx];
+	CALayer *layerTree = [_document layerTree];
 	
-	return NO;
+	[layerTree setNeedsDisplay];
+	[layerTree drawInContext:CGCtx];
+	
+	
+	return YES;
 }
 
 @end
