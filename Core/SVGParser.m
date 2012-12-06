@@ -97,7 +97,7 @@ static NSMutableSet *_parserExtensions = nil;
         
 		_path = [aPath copy];
 		self.sourceURL = nil;
-		_document = document;
+		_document = [document retain];
 		_storedChars = [NSMutableString new];
 		_elementStack = [NSMutableArray new];
 		_failed = NO;
@@ -112,7 +112,8 @@ static NSMutableSet *_parserExtensions = nil;
 		self.parseWarnings = [NSMutableArray array];
 		self.parserExtensions = [NSMutableArray array];
 		self.sourceURL = aURL;
-		_document = document;
+		//_path = [[aURL path] retain];
+		_document = [document retain];
 		_storedChars = [NSMutableString new];
 		_elementStack = [NSMutableArray new];
 		_failed = NO;
@@ -127,7 +128,7 @@ static NSMutableSet *_parserExtensions = nil;
 		self.parseWarnings = [NSMutableArray array];
 		self.parserExtensions = [NSMutableArray array];
 		self.sourceData = aData;
-		_document = document;
+		_document = [document retain];
 		_storedChars = [NSMutableString new];
 		_elementStack = [NSMutableArray new];
 		_failed = NO;
@@ -141,8 +142,12 @@ static NSMutableSet *_parserExtensions = nil;
 	[_path release];
 	[_storedChars release];
 	[_elementStack release];
-    _document = nil;
+    [_document release];
 	[_parserExtensions release];
+	
+	self.sourceURL = nil;
+	self.sourceData = nil;
+	
 	[super dealloc];
 }
 
