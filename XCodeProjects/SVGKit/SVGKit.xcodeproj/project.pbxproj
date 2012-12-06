@@ -15,6 +15,11 @@
 		3BF503A6148C612F00CC7D17 /* CAShapeLayerWithHitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66213549148AF80A006881E1 /* CAShapeLayerWithHitTest.m */; };
 		3BF503A7148C614600CC7D17 /* CALayerWithChildHitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66213547148AF80A006881E1 /* CALayerWithChildHitTest.m */; };
 		3BF503A8148C614D00CC7D17 /* CALayerWithChildHitTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 66213546148AF80A006881E1 /* CALayerWithChildHitTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		553D35FD16700D8B00F44DF2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D35FC16700D8B00F44DF2 /* Cocoa.framework */; };
+		553D360716700D8B00F44DF2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553D360516700D8B00F44DF2 /* InfoPlist.strings */; };
+		553D360E16700DBF00F44DF2 /* SVGKitImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 553D360D16700DBF00F44DF2 /* SVGKitImageRep.m */; };
+		553D361116700DDF00F44DF2 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* SVGKit.framework */; };
+		553D361316700E0400F44DF2 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* SVGKit.framework */; };
 		6604FCF714A0CDA800B4D2D9 /* SVGPointsAndPathsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604FCF314A0CDA800B4D2D9 /* SVGPointsAndPathsParser.m */; };
 		6604FCF814A0CDA800B4D2D9 /* SVGPointsAndPathsParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 6604FCF414A0CDA800B4D2D9 /* SVGPointsAndPathsParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6604FCF914A0CDA800B4D2D9 /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604FCF514A0CDA800B4D2D9 /* SVGTextElement.m */; };
@@ -153,6 +158,30 @@
 		D78EB3DB156F12A1004D745F /* SVGStyleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = D78EB3BF156F1190004D745F /* SVGStyleElement.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		553D360F16700DD500F44DF2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = SVGKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		553D361216700DE300F44DF2 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				553D361316700E0400F44DF2 /* SVGKit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -162,6 +191,16 @@
 		3BF5039F148C5FC600CC7D17 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3BF503A1148C5FCE00CC7D17 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3BF503A3148C5FD400CC7D17 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		553D35FA16700D8B00F44DF2 /* SVGKitImageRef.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SVGKitImageRef.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		553D35FC16700D8B00F44DF2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		553D35FF16700D8B00F44DF2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		553D360016700D8B00F44DF2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		553D360116700D8B00F44DF2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		553D360416700D8B00F44DF2 /* SVGKitImageRef-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SVGKitImageRef-Info.plist"; sourceTree = "<group>"; };
+		553D360616700D8B00F44DF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		553D360816700D8B00F44DF2 /* SVGKitImageRef-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKitImageRef-Prefix.pch"; sourceTree = "<group>"; };
+		553D360C16700DBF00F44DF2 /* SVGKitImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKitImageRep.h; sourceTree = "<group>"; };
+		553D360D16700DBF00F44DF2 /* SVGKitImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKitImageRep.m; sourceTree = "<group>"; };
 		6604FCF314A0CDA800B4D2D9 /* SVGPointsAndPathsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPointsAndPathsParser.m; sourceTree = "<group>"; };
 		6604FCF414A0CDA800B4D2D9 /* SVGPointsAndPathsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPointsAndPathsParser.h; sourceTree = "<group>"; };
 		6604FCF514A0CDA800B4D2D9 /* SVGTextElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextElement.m; sourceTree = "<group>"; };
@@ -245,6 +284,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		553D35F716700D8B00F44DF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553D361116700DDF00F44DF2 /* SVGKit.framework in Frameworks */,
+				553D35FD16700D8B00F44DF2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6621342F148AF2CF006881E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,6 +323,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* SVGKit.framework */,
 				66213432148AF2CF006881E1 /* libSVGKitLibrary.a */,
+				553D35FA16700D8B00F44DF2 /* SVGKitImageRef.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -284,6 +333,8 @@
 			children = (
 				C952623F12711D8600434805 /* Framework */,
 				66213434148AF2CF006881E1 /* SVGKitLibrary */,
+				553D360216700D8B00F44DF2 /* SVGKitImageRef */,
+				553D35FB16700D8B00F44DF2 /* Frameworks */,
 			);
 			name = SVGKit;
 			sourceTree = "<group>";
@@ -331,6 +382,45 @@
 				32DBCF5E0370ADEE00C91783 /* SVGKit_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		553D35FB16700D8B00F44DF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				553D35FC16700D8B00F44DF2 /* Cocoa.framework */,
+				553D35FE16700D8B00F44DF2 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		553D35FE16700D8B00F44DF2 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				553D35FF16700D8B00F44DF2 /* AppKit.framework */,
+				553D360016700D8B00F44DF2 /* CoreData.framework */,
+				553D360116700D8B00F44DF2 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		553D360216700D8B00F44DF2 /* SVGKitImageRef */ = {
+			isa = PBXGroup;
+			children = (
+				553D360316700D8B00F44DF2 /* Supporting Files */,
+			);
+			path = SVGKitImageRef;
+			sourceTree = "<group>";
+		};
+		553D360316700D8B00F44DF2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				553D360416700D8B00F44DF2 /* SVGKitImageRef-Info.plist */,
+				553D360516700D8B00F44DF2 /* InfoPlist.strings */,
+				553D360816700D8B00F44DF2 /* SVGKitImageRef-Prefix.pch */,
+				553D360C16700DBF00F44DF2 /* SVGKitImageRep.h */,
+				553D360D16700DBF00F44DF2 /* SVGKitImageRep.m */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		66213434148AF2CF006881E1 /* SVGKitLibrary */ = {
@@ -581,6 +671,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		553D35F916700D8B00F44DF2 /* SVGKitImageRef */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 553D360916700D8B00F44DF2 /* Build configuration list for PBXNativeTarget "SVGKitImageRef" */;
+			buildPhases = (
+				553D35F616700D8B00F44DF2 /* Sources */,
+				553D35F716700D8B00F44DF2 /* Frameworks */,
+				553D35F816700D8B00F44DF2 /* Resources */,
+				553D361216700DE300F44DF2 /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				553D361016700DD500F44DF2 /* PBXTargetDependency */,
+			);
+			name = SVGKitImageRef;
+			productName = SVGKitImageRef;
+			productReference = 553D35FA16700D8B00F44DF2 /* SVGKitImageRef.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		66213431148AF2CF006881E1 /* SVGKitLibrary */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66213437148AF2CF006881E1 /* Build configuration list for PBXNativeTarget "SVGKitLibrary" */;
@@ -635,6 +744,7 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* SVGKit */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -643,11 +753,20 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* SVGKit */,
 				66213431148AF2CF006881E1 /* SVGKitLibrary */,
+				553D35F916700D8B00F44DF2 /* SVGKitImageRef */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		553D35F816700D8B00F44DF2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553D360716700D8B00F44DF2 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF520486A6940098B216 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -675,6 +794,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		553D35F616700D8B00F44DF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553D360E16700DBF00F44DF2 /* SVGKitImageRep.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6621342E148AF2CF006881E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -755,6 +882,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		553D361016700DD500F44DF2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* SVGKit */;
+			targetProxy = 553D360F16700DD500F44DF2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		553D360516700D8B00F44DF2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				553D360616700D8B00F44DF2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -825,6 +971,61 @@
 			};
 			name = Release;
 		};
+		553D360A16700D8B00F44DF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SVGKitImageRef/SVGKitImageRef-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "SVGKitImageRef/SVGKitImageRef-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		553D360B16700D8B00F44DF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SVGKitImageRef/SVGKitImageRef-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INFOPLIST_FILE = "SVGKitImageRef/SVGKitImageRef-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		66213438148AF2CF006881E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -883,6 +1084,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		553D360916700D8B00F44DF2 /* Build configuration list for PBXNativeTarget "SVGKitImageRef" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				553D360A16700D8B00F44DF2 /* Debug */,
+				553D360B16700D8B00F44DF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		66213437148AF2CF006881E1 /* Build configuration list for PBXNativeTarget "SVGKitLibrary" */ = {
 			isa = XCConfigurationList;
