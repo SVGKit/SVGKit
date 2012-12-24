@@ -1,0 +1,47 @@
+This file exists to document where each sample file came from, in case anyone needs to check legals in future.
+
+Also, it's helpful to know which SVG-editing software created / exported each file - helps us to check compatibility with particular editors.
+
+URL'S INCLUDED IN SVGKit:
+-----------
+  - NB: we are NOT embedding these, so we do NOT have to license them, but FYI here are the original sources:
+
+http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg
+     -- Public Domain, author: http://commons.wikimedia.org/wiki/User:Lokal_Profil
+	 -- http://commons.wikimedia.org/w/index.php?title=File:BlankMap-Africa.svg&page=1
+
+
+FILES INCLUDED IN SVGKit:
+-----------
+
+australia_states_blank.svg
+     -- Creative Commons
+     -- http://commons.wikimedia.org/wiki/File:Australia_states_blank.svg
+	 
+Blank_Map-Africa.svg
+     -- Public Domain, c.f. - http://en.wikipedia.org/wiki/File:Blank_Map-Africa.svg
+	 
+CurvedDiamond.svg
+     -- Public Domain, author: Adam Martin (http://t-machine.org)
+     -- Created by: Inkscape
+
+imageWithASinglePointPath.svg
+     -- Public Domain, author: Eric Shapiro (https://github.com/EricShapiro)
+	 
+Lion.svg
+     -- ??? Unknown, probably Public Domain. Same file as this one on Mozilla.org: http://www-archive.mozilla.org/projects/svg/lion.svg
+	 
+test-wave-1.svg
+     -- Public Domain, author: Adam Martin (http://t-machine.org)
+     -- Created by: Inkscape
+	 
+Location_European_nation_states
+     -- Creative Commons
+	 -- http://en.wikipedia.org/wiki/File:Location_European_nation_states.svg
+	 
+	 uk-only.svg, Europe_states_reduced.svg
+	 -- Adam Martin's modified versions of Location_European_nation_states, same license
+	 
+Reinel_compass_rose.svg
+     -- Creative Commons
+     -- http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg

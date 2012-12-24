@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="440" height="590" viewBox="-220 -370 440 590">
+<defs>
+<g id="r5"><g id="r4"><g id="r3"><g id="r2">
+<path d="M0 h94 m9 h49 m12 h51" stroke-width="1.5" fill="none" id="r1"/>
+<use xlink:href="#r1" transform="scale(-1)"/>
+</g>
+<use xlink:href="#r2" transform="rotate(90)"/>
+</g>
+<use xlink:href="#r3" transform="rotate(45)"/>
+</g>
+<use xlink:href="#r4" transform="rotate(22.5)"/>
+</g>
+</defs>
+<circle r="75" fill="none" stroke="#00923f" stroke-width="8"/>
+<g stroke="#1f1a17" stroke-width="1" fill="none">
+<circle r="71"/>
+<circle r="79"/>
+</g>
+<use xlink:href="#r4" stroke="#72706f"/>
+<circle r="211" fill="none" stroke="#00923f" stroke-width="8"/>
+<circle r="207" stroke="#1f1a17" stroke-width="1" fill="none"/>
+<use xlink:href="#r4" transform="rotate(22.5)" stroke="#00923f"/>
+<use xlink:href="#r5" transform="rotate(11.25)" stroke="#da251d"/>
+<circle r="8" cx="0" cy="0" fill="#1f1a17" stroke="#28166f" stroke-width=".4"/>
+<g stroke="#1f1a17" stroke-width="1" fill="none">
+<circle r="94"/>
+<circle r="152"/>
+<circle r="164"/>
+<circle r="215"/>
+</g>
+<g id="s3"><g id="s2"><g id="s1">
+<path d="M 39.416,95.16 C 33.65,103.95 30.76,110.5 28.93,117.18 C 15.24,113.43 13.54,127.15 23.04,131 C 13.71,145.8 7.84,173.93 0,212 L 0,103 A 103,103 0 0,0 39.416,95.16 z" fill="#1f1a17" stroke="#1f1a17" stroke-width="1" id="s0" stroke-miterlimit="9"/>
+<use xlink:href="#s0" fill="#007cc3" transform="scale(-1,1)"/>
+<path d="M -31.995,160.849 A 164,164 0 0,0 31.995,160.849 C 18.9,170.1 8.4,175.3 0,206 C -8.4,175.3 -18.9,170.1 -31.995,160.849 z" fill="#da251d" stroke="#1b1b1b" stroke-width="1" transform="rotate(22.5)"/>
+</g>
+<use xlink:href="#s1" transform="rotate(45)"/>
+</g>
+<use xlink:href="#s2" transform="rotate(90)"/>
+</g>
+<use xlink:href="#s3" transform="scale(-1)"/>
+<g id="flr" fill="#da251d" stroke="#1f1a17" stroke-width="1">
+<path d="M 0,-215.7 L 0,-345.3 C 2,-339.3 4.6,-332 6.6,-327.7 C 8.7,-323.1 11.2,-319.7 14.1,-314.9 C 11.3,-311 8.9,-307.5 6,-302.6 C 3.3,-296.9 1.4,-289.8 0.2,-279.8 L 0,-265.5 L 4.1,-265.8 C 9.9,-266.3 8.5,-279.9 10.3,-285.7 C 11.8,-291 13.9,-295.7 18.4,-297.9 C 22.5,-300 27.9,-299.6 32.2,-297.9 C 36.1,-296.5 39,-292.8 41.3,-289.3 C 43,-286.5 43.9,-283.1 44,-279.8 C 44.1,-276.6 43.6,-272.9 41.2,-270 C 38.3,-266.4 35,-265 30.4,-264.8 C 28.5,-269.5 31,-273.7 28.7,-276.3 C 26.5,-278.8 21.1,-280 18,-278.7 C 15.1,-277.3 14.2,-273.1 13.3,-270 C 12.1,-265.9 13.6,-260.9 10.9,-257.5 C 9.2,-255.4 6.9,-255.1 4.3,-255 L 0,-255 L 0,-250.8 C 0,-247.5 5.9,-249.3 8.5,-247.1 C 10.7,-245.3 10.4,-239.1 12.9,-237.7 C 16.9,-235.5 22.7,-239.1 26.7,-236.9 C 29.6,-235.3 30.9,-232 32.7,-229.2 C 34.6,-226.4 35.7,-223.6 36.9,-220.4 C 38.4,-216.1 43.2,-203.1 37.3,-210.6 C 35.1,-213.4 31.2,-214.4 28.3,-216.5 C 24.9,-218.8 21.9,-221.5 18.4,-223.6 C 15.6,-225.3 12.2,-226.1 9.4,-227.9 L 0,-233.7 L 0,-228.6 C 0,-220.4 16,-220.4 20.8,-213.7 C 22.7,-211.1 14.2,-214.7 11,-214.9 z" stroke="#1f1a17" stroke-width=".7" fill="#28166f"/>
+<circle r="8" cx="37.2" cy="-248.2"/>
+<circle r="8" cx="27.9" cy="-312.7"/>
+</g>
+<circle r="8" cy="-360" fill="#da251d" stroke="#1f1a17" stroke-width="1"/>
+<use xlink:href="#flr" transform="scale(-1,1)"/>
+</svg>

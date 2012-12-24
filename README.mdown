@@ -1,103 +1,109 @@
-# SVGKit
+SVGKit
+======
 
-SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. 
-All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. 
-SVGKit works on OS X and iOS.
+SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers. All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. SVGKit is compatible with the latest iOS SDK's.
 
-## Xcode Projects Included
+This specific branch contains a MASSIVE re-factor of the original SVGKit, aiming to make it easier to use in your apps. Please read the "usage" instructions carefully - they have changed from previous SVGKit versions!
 
-- SVGKit - the core library, builds the frameworks, also runs a shell script to build a fat lib
-- SVGPadDemo - demo using the core libs on iOS
-- SVGTesterDemo - demo + test app that uses core libs on OSX
 
-## Fetching
+Usage - Basic (iPhone/iPad)
+-----
 
-    git clone <svgkit url>
-    
-    # if you want to export CALayers using the iPad project....
-    cd SVGKit/
-    git submodule init
-    git submodule update
+Instantiate any SVGKImageView sub-class using the filename of an SVG file, and add it to your view with [UIView addSubview:]
 
-Without the git submodules, the iOS test project will fail to compile.
-You don't need the calayer exporter to use SVGKit, it's just something nice for debugging in the simulator.
-If you don't care about that, you don't need them.
+    [self.view addSubview: [[SVGKFastImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"mySVGfile.svg"]]];
 
-## iOS
+Usage - Intermediate (iPhone/iPad)
+-----
 
-iOS support is robust.  The development team uses iOS as the primary target.
+OPTION 1: Load an SVG file, and convert the document to CALayer's which Apple can render
+  1. SVGKImage *im = [SVGKImage imageNamed:@"my_svg_file"]; //this loads the file, parses the SVG, and outputs an SVGImage object
+  2. [self.view.layer addSublayer:im.CALayerTree]; // SVGKImage can export itself as Apple's CALayer's
 
-## Desktop
+...and if you want to display the same SVG somewhere else simultaneously, you don't have to re-parse it, you can just call:
+  3. [self.view.layer addSublayer:[im newCALayerTree]; // Creates a clone of the CALayers, you can edit without affecting originals
 
-Desktop support is...  not quite as robust.
-You may find many places things fail or break entirely.
-We try to keep up with it, and we appreciate any help we can get.
 
-## Cross Platform Library Build
+OPTION 2: Load an SVG file, and read the SVG data directly by looking at the tree of SVGElement subclasses
+  1. SVGKImage *im = [SVGKImage imageNamed:@"my_svg_file"]; //this loads the file, parses the SVG, and outputs an SVGImage object
+  2. SVGSVGElement* rootOfTree = im.DOMTree; // NB: this is a partial implementation of the official "SVG DOM" standard. See the header file for this class and its superclass to see what you can do with it
 
-To build a single library that can be linked from the simulator and from a device, you'll need to do these steps:
 
-1. Open the project "XcodeProjects/SVGKit/SVGKit"
-2. Select the target "SVGKit Library > iOS Device" scheme selector dropdown in the top left
-3. In the main content area, select the "Build Phases" tab, expand the "Run Script" step, and make sure "Run script only when installing" is not checked.
-4. Build
-5. Select Window > Organizer > Projects > SVGKit, then follow the link arrow to the "Derived Data" folder.
-6. Using finder, navigate to Build > Products > Debug-universal
-7. Drag/drop the library file, and the headers folder (should be called "usr") into your iPhone/iPad project.
-8. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
-9. Edit your build settings and add "Other Linker Flags" = "-ObjC"
-10. Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
-11. Add the framework "libxml2.dylib"
+Advanced Features (this branch/fork only!) (iPhone/iPad)
+=====
 
-## Using on iOS
+FEATURE 1: use an SVG just like it's a normal PNG file: use SVGKFastImageView like it's UIImageView:
+-----
 
-    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-    {
-        // Override point for customization after application launch.
-        [self.window makeKeyAndVisible];
+  - SVGKImage = equivalent of UIImage (same methods and properties - some not implemented, but all core items implemented)
+  - SVGKFastImageView = equivalent of UIImageView (same methods, with extra properties to support the features of SVG that plain bitmaps lack - e.g. resolution independent rendering)
 
-        NSString* svgFilename = @"Monkey";
+...NB: by default, if you change the "frame" property of an SVGKFastImageView, it automatically re-renders the SVG at the new resolution.
+...NB: bugs in Apple's UIScrollView mean you MUST disable the above feature before allowing user's pinch-zoom: a property on SVGKFastImageView lets you turn this on/off
 
-        NSLog( @"[%@] Loading SVG document, filename = %@", [self class], svgFilename );
+ 
+FEATURE 2: load SVG from web, or from disk
+-----
+  - [SVGKParser parse: (SVGKSource*)]; // anything that's an "SVGKSource" can be parsed
 
-        /** Optional: if you're using the parser extensions, add them here
-        [SVGDocument addSVGParserExtension:[[SVGParserConquest alloc] init]];
-        */
+  - [SVGKSource sourceWithFile:@"monkey.svg"]; // create a source from disk...
+  - [SVGKSource sourceWithURL:@"http://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg"]; // create a source from disk...
 
-        SVGDocument* svgDocument = [SVGDocument documentNamed:svgFilename];
 
-        SVGDocumentView* docView = [SVGDocumentView documentViewWithDocument:svgDocument];
+FEATURE 3: search an SVG file for particular tags / nodes / elements:
+-----
+  - Find all <svg:g> and <g> tags: NodeList* gElements = [svgImage.DOMDocument getElementsByTagName:@"g"];
+  - Find ALL tags (from root of SVG down): NodeList* allElements = [svgImage.DOMDocument getElementsByTagName:@"*"];
 
-        [self.window.layer addSublayer:docView.rootLayer];  
+FEATURE 4: resize your SVG file to any size:
+-----
+  - COMPLICATED: c.f. this thread: https://github.com/adamgit/SVGKit/issues/7
 
-        return YES;
-    }
+FEATURE 5: automatic scaling of your SVG to fit in memory
+-----
+  - AUTOMATIC: SVG files are scaled to fit the co-ordinate system as required/intended by spec
+  - ...many files that ran out of memory in previous versions of SVGKit now render OK
 
-## Using on OS X
+FEATURE 6: Access to the DOM Document Object Model
+-----
+  - PARTIALLY IMPLEMENTED: SVGKImage.DOMDocument is a true DOMDocument, but many of the methods aren't fully implemented
 
-    SVGDocument *document = [SVGDocument documentNamed:@"image"]; // located in the application bundle
-    // or...
-    SVGDocument *document = [[SVGDocument alloc] initWithContentsOfFile:@"filepath"]; // possibly not in application bundle
+FEATURE 7: Retrieve any part of your SVG document positioned correctly in space
+-----
+  - [((SVGKImage*) image).newCopyPositionedAbsoluteLayerWithIdentifier:@"id of the SVG tag / node /element"];
+  - NB: this MUST return a copy, because it's moving your layer out of the tree and into a fresh CALayer of its own
 
-    // then
-    NSView *v = ... ;  // make sure your instance of `NSView` is layer-backed.
-    [v setWantsLayer:YES];
-    [v.layer addSublayer:[document layerTree]];
+FEATURE 8: detailed information on whether and WHY parsing failed:
+-----
+  - (SVGKParser*).currentParseRun.warnings; // array of NSError objects, each one a "WARNING" from the parser
+  - (SVGKParser*).currentParseRun.errorsFatal; // array of NSError objects, each one a "FATAL ERROR" from the parser - if your SVG didn't render at all, this is why!
+  - (SVGKParser*).currentParseRun.errorsRecoverable; // array of NSError objects, each one a "RECOVERABLE ERROR" from the parser - if your SVG didn't render correctly, this is why! (although you probably still got to see something)
 
-Your SVG file should now be rendered on-screen.
-You can query for specific layers by using the `layerWithIdentifier:` method, also defined on `SVGDocument`.
-The identifier corresponds to the `id` attribute defined on elements.
-Once a reference to a subclass of `CALayer` is returned, its properties can be animated using  implicit or explicit [Core Animation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CoreAnimation_guide/Articles/AnimatingLayers.html%23//apple_ref/doc/uid/TP40006085-SW1) animations.
+  - (SVGKImage*).parseErrorsAndWarnings; // this is a convenience pointer to (SVGKParser*).currentParseRun used above
 
-## ARC Support
+Usage - OS X
+-----
 
-Call us old fashioned, to stay compatible with a wider variety of environments we don't use ARC in SVGKit.  
-There is a fork of the code that is ARC based but because of the other many  big changes happening, it is severely out of date and is more there for "historical purposes".
-Linking from an ARC project should  not pose an issue, but do let us know if you run into one.
-If you did not do the cross-compile using our build script mentioned above and did a drag-drop install like some folks like to do, then remember to pass `-fno-objc-arc` on each of the `.m` files using the build settings.
-You can [read more about ARC build flags here](http://clang.llvm.org/docs/AutomaticReferenceCounting.html).
+UNSUPPORTED: the code exists, but none of the maintainers have used it recently, so we're not even sure if the OS X build still works!
 
-## I did all that, it doesn't work, you guys suck.
+Feel free to report any issues or suggest improvements in the issue tracker
 
-Please report any issues or suggest improvements in the issue tracker and include as much detail as you can including build output, logs, error messages, stack traces, example code, whatever.
-This is a volunteer effort, we have wives, kids, businesses, and apps of our own, please be patient with us.
+
+Installation
+-----
+
+iOS (iPhone/iPad):
+  1. Open the project "XcodeProjects/SVGKit/SVGKit"
+  2. Select the target "SVGKit Library" from the dropdown build selector at top left
+  3. Build
+  4a. (open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder". THEN GO UP ONE DIRECTORY! You MUST NOT USE the Product that Xcode shows you - it IS WRONG, it is a BUG IN APPLE'S XCODE)
+  4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator
+
+  5. Drag/drop the library file, and the headers folder (should be called "usr") into your iPhone/iPad project.
+  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
+  7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
+
+  8. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
+  9. (Optional but recommended): Add the framework "libxml2.dylib"
+
+OS X: ...this needs updating; some minor code changes are needed to "fix" this project. The OS X framework currently DOES NOT BUILD because iOS classes are being referenced in a couple of places.
