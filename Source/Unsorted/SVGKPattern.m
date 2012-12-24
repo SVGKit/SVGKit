@@ -1,19 +1,19 @@
 #import "SVGKPattern.h"
 
-@implementation SKPattern
+@implementation SVGKPattern
 
 #if TARGET_OS_IPHONE
 
 @synthesize color;
 
-+ (SKPattern *)patternWithUIColor:(UIColor *)color
++ (SVGKPattern *)patternWithUIColor:(UIColor *)color
 {
-    SKPattern* p = [[[SKPattern alloc] init] autorelease];
+    SVGKPattern* p = [[[SVGKPattern alloc] init] autorelease];
     p.color = color;
     return p;
 }
 
-+ (SKPattern*)patternWithImage:(UIImage*)image
++ (SVGKPattern*)patternWithImage:(UIImage*)image
 {
     UIColor* patternImage = [UIColor colorWithPatternImage:image];
     return [self patternWithUIColor:patternImage];

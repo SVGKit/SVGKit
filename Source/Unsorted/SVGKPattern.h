@@ -7,14 +7,14 @@
 #endif
 
 /** lightweight wrapper for UIColor so that we can draw with fill patterns */
-@interface SKPattern : NSObject
+@interface SVGKPattern : NSObject
 {
 }
 
 #if TARGET_OS_IPHONE
 
-+ (SKPattern*) patternWithUIColor:(UIColor*)color;
-+ (SKPattern*) patternWithImage:(UIImage*)image;
++ (SVGKPattern*) patternWithUIColor:(UIColor*)color;
++ (SVGKPattern*) patternWithImage:(UIImage*)image;
 
 @property (readwrite,nonatomic,retain) UIColor* color;
 
