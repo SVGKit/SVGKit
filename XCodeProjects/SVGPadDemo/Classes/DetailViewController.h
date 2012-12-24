@@ -6,15 +6,15 @@
 //
 
 #import "SVGKit.h"
-#import "CALayerExporter.h"
+//#import "CALayerExporter.h"
 #import "CALayerCamera.h"
 
-@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate> {
+@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , /*CALayerExporterDelegate,*/ UIScrollViewDelegate> {
   @private
 	NSString *_name;
     UITextView* _exportText;
     NSMutableString* _exportLog;
-    CALayerExporter* _layerExporter;
+  //  CALayerExporter* _layerExporter;
     CALayerCamera*_layerCamera;
 }
 

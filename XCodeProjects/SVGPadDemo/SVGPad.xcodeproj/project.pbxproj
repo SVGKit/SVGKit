@@ -56,7 +56,6 @@
 		663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */; };
 		663DEFEC14BFD6BC00C56E07 /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663DEFEB14BFD6BC00C56E07 /* Location_European_nation_states.svg */; };
 		663DEFEF14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663DEFEE14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg */; };
-		66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66436E5214A0BCEF001CC769 /* CALayerExporter.m */; };
 		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
 		66BBD74315028F0A00102FEF /* map-test-australia_states_blank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */; };
@@ -540,7 +539,6 @@
 				3BF50414148C62D900CC7D17 /* SVGPathView.m in Sources */,
 				3BF50415148C62D900CC7D17 /* SVGView.m in Sources */,
 				663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */,
-				66436E5314A0BCEF001CC769 /* CALayerExporter.m in Sources */,
 				C1A500C114F4364F00D45858 /* SVGGradientElement.m in Sources */,
 				C1A500C214F4364F00D45858 /* SVGGradientStop.m in Sources */,
 				C1A500C314F4364F00D45858 /* SVGParserGradient.m in Sources */,

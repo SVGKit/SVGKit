@@ -44,7 +44,7 @@
 	self.detailItem = nil;
 	
     [_layerCamera release];
-    [_layerExporter release];
+/*    [_layerExporter release];*/
     [scrollView release];
 	[super dealloc];
 }
@@ -158,7 +158,7 @@
 
 
 - (IBAction)exportLayers:(id)sender {
-    if (_layerExporter) {
+/*    if (_layerExporter) {
         return;
     }
     _layerExporter = [[CALayerExporter alloc] initWithView:contentView];
@@ -177,9 +177,9 @@
     _exportText.text = @"exporting...";
     
     _exportLog = [[NSMutableString alloc] init];
-    [_layerExporter startExport];
+    [_layerExporter startExport];*/
 }
-
+/*
 - (void) layerExporter:(CALayerExporter*)exporter didParseLayer:(CALayer*)layer withStatement:(NSString*)statement
 {
     //NSLog(@"%@", statement);
@@ -191,15 +191,15 @@
 {
     _exportText.text = _exportLog;
 }
-
+*/
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
 {
     [_exportText release];
     _exportText = nil;
-    
+    /*
     [_layerExporter release];
     _layerExporter = nil;
-    
+    */
     [pc release];
 }
 
