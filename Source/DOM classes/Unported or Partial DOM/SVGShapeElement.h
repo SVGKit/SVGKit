@@ -18,7 +18,8 @@
 @class SVGKPattern;
 
 typedef enum {
-	SVGFillTypeNone = 0,
+	SVGFillTypeUnspecified,
+	SVGFillTypeNone,
 	SVGFillTypeSolid,
 	SVGFillTypeURL
 } SVGFillType;

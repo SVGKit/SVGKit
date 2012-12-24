@@ -70,9 +70,13 @@
 			NSRange idKeyRange = NSMakeRange(5, fill.length - 6);
 			_fillId = [[fill substringWithRange:idKeyRange] retain];
 		}
-		else {
+		else if( fill.length > 0 ){
 			_fillColor = SVGColorFromString(fill.cString);
 			_fillType = SVGFillTypeSolid;
+		}
+		else
+		{
+			_fillType = SVGFillTypeUnspecified;
 		}
 	}
 	
@@ -168,6 +172,20 @@
 	{
 		_shapeLayer.strokeColor = nil; // This is how you tell Apple that the stroke is disabled; a strokewidth of 0 will NOT achieve this
 		_shapeLayer.lineWidth = 0.0f; // MUST set this explicitly, or Apple assumes 1.0
+	}
+	
+	if( _fillType == SVGFillTypeUnspecified )
+	{
+		/** check if the CSS file contains a fill-type */
+		
+		Match the CSS class against the known classes found inside the document (somehow remaining compatible with DOM parsing!)
+		
+		Then read the "fill" attribute out of this class; if there's no such attribute, do nothing.
+			
+			If there is an attribute, use its value to override the value stored in this node; do NOT OVERWRITE the value in this node, simply ignore it and use
+				a temporary variable (we want to preserve the node data so we can update with runtime changes to the DOM if necessary)
+				
+		Do all this ... and then the butterfly (Rainbowwing.svg) will "probably" work
 	}
 	
 	switch( _fillType )
