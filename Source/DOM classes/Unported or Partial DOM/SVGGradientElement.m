@@ -103,6 +103,10 @@
     return gradientLayer;
 }
 
+-(void)layoutLayer:(CALayer *)layer
+{
+	
+}
 
 -(void)dealloc
 {
