@@ -2,7 +2,7 @@
 
 #import "SVGSVGElement_Mutable.h"
 #import "CALayerWithChildHitTest.h"
-
+#import "DOMHelperUtilities.h"
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
@@ -76,7 +76,11 @@
 }
 -(SVGTransform*) createSVGTransform { NSAssert( FALSE, @"Not implemented yet" ); return nil; }
 -(SVGTransform*) createSVGTransformFromMatrix:(SVGMatrix*) matrix { NSAssert( FALSE, @"Not implemented yet" ); return nil; }
--(Element*) getElementById:(NSString*) elementId { NSAssert( FALSE, @"Not implemented yet" ); return nil; }
+
+-(Element*) getElementById:(NSString*) elementId
+{
+	return [DOMHelperUtilities privateGetElementById:elementId childrenOfElement:self];
+}
 
 
 #pragma mark - Objective C methods needed given our current non-compliant SVG Parser

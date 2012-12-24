@@ -11,7 +11,7 @@
  */
 #import <Foundation/Foundation.h>
 
-@class Node, NodeList; // avoiding #import here, to avoid C header loop problems.
+@class Node, NodeList, Element; // avoiding #import here, to avoid C header loop problems.
 
 @interface DOMHelperUtilities : NSObject
 
@@ -19,5 +19,9 @@
  yet very similar
  */
 +(void) privateGetElementsByName:(NSString*) name inNamespace:(NSString*) namespaceURI childrenOfElement:(Node*) parent addToList:(NodeList*) accumulator;
+
+/*! This is used in multiple base classes in DOM 1 and DOM 2 where they do NOT have shared superclasses, so we have to implement it here in a separate
+ clas as a standalone method */
++(Element*) privateGetElementById:(NSString*) idValue childrenOfElement:(Node*) parent;
 
 @end

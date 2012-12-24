@@ -23,6 +23,7 @@
 @synthesize fillType = _fillType;
 @synthesize fillColor = _fillColor;
 @synthesize fillPattern = _fillPattern;
+@synthesize fillId = _fillId;
 
 @synthesize strokeWidth = _strokeWidth;
 @synthesize strokeColor = _strokeColor;
@@ -52,21 +53,25 @@
 {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
+	if( [[self getAttribute:@"class"] length] > 0 )
+		_styleClass = [self getAttribute:@"class"];
+	
 	if( [[self getAttribute:@"opacity"] length] > 0 )
-	_opacity = [[self getAttribute:@"opacity"] floatValue];
+		_opacity = [[self getAttribute:@"opacity"] floatValue];
 	
 	if ([[self getAttribute:@"fill"] length] > 0 ) {
-		const char *cvalue = [[self getAttribute:@"fill"] UTF8String];
+		NSString* fill = [self getAttribute:@"fill"];
 		
-		if (!strncmp(cvalue, "none", 4)) {
+		if ( [fill hasPrefix:@"none"]) {
 			_fillType = SVGFillTypeNone;
 		}
-		else if (!strncmp(cvalue, "url", 3)) {
-			NSLog(@"Gradients are no longer supported");
-			_fillType = SVGFillTypeNone;
+		else if ( [fill hasPrefix:@"url"] ) {
+			_fillType = SVGFillTypeURL;
+			NSRange idKeyRange = NSMakeRange(5, fill.length - 6);
+			_fillId = [[fill substringWithRange:idKeyRange] retain];
 		}
 		else {
-			_fillColor = SVGColorFromString(cvalue);
+			_fillColor = SVGColorFromString(fill.cString);
 			_fillType = SVGFillTypeSolid;
 		}
 	}
@@ -95,6 +100,12 @@
 	if ([[self getAttribute:@"fill-opacity"] length] > 0 ) {
 		_fillColor.a = (uint8_t) ([[self getAttribute:@"fill-opacity"] floatValue] * 0xFF);
 	}
+}
+
+-(void)setFillColor:(SVGColor)fillColor
+{
+	_fillColor = fillColor;
+	_fillType = SVGFillTypeSolid;
 }
 
 - (void)setPathByCopyingPathFromLocalSpace:(CGPathRef)aPath {
@@ -159,11 +170,44 @@
 		_shapeLayer.lineWidth = 0.0f; // MUST set this explicitly, or Apple assumes 1.0
 	}
 	
-	if (_fillType == SVGFillTypeNone) {
+	switch( _fillType )
+	{
+		case SVGFillTypeNone:
+		{
 		_shapeLayer.fillColor = nil;
-	}
-	else if (_fillType == SVGFillTypeSolid) {
+		} break;
+			
+		case SVGFillTypeSolid:
+		{
 		_shapeLayer.fillColor = CGColorWithSVGColor(_fillColor);
+		} break;
+			
+		case SVGFillTypeURL:
+		{
+			/** Replace the return layer with a special layer using the URL fill */
+			/** fetch the fill layer by URL using the DOM */
+			NSAssert( self.rootOfCurrentDocumentFragment != nil, @"This SVG shape has a URL fill type; it needs to search for that URL (%@) inside its nearest-ancestor <SVG> node, but the rootOfCurrentDocumentFragment reference was nil (suggests the parser failed, or the SVG file is corrupt)", _fillId );
+			
+			SVGGradientElement* svgGradient = (SVGGradientElement*) [self.rootOfCurrentDocumentFragment getElementById:_fillId];
+			NSAssert( svgGradient != nil, @"This SVG shape has a URL fill (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", _fillId );
+			
+			if( _shapeLayer != nil && svgGradient != nil ) //this nil check here is distrubing but blocking
+			{
+				CAGradientLayer *gradientLayer = (CAGradientLayer *)[svgGradient newLayer];
+				
+				//            CGRect filledLayerFrame = filledLayer.frame;
+				CGRect docBounds = CGRectMake( [self.rootOfCurrentDocumentFragment.x pixelsValue], [self.rootOfCurrentDocumentFragment.y pixelsValue],
+											  [self.rootOfCurrentDocumentFragment.width pixelsValue], [self.rootOfCurrentDocumentFragment.height pixelsValue] );
+				gradientLayer.frame = docBounds;
+				
+				//            docBounds.size.height *= 100.0f;
+				gradientLayer.startPoint = relativePosition(gradientLayer.startPoint, docBounds);
+				gradientLayer.endPoint = relativePosition(gradientLayer.endPoint, docBounds);
+				
+				[gradientLayer setMask:_shapeLayer];
+				return gradientLayer;
+			}
+		} break;
 	}
     
     if (nil != _fillPattern) {
@@ -176,6 +220,17 @@
 	}
 	
 	return _shapeLayer;
+}
+
+CGPoint relativePosition(CGPoint point, CGRect withRect);
+CGPoint relativePosition(CGPoint point, CGRect withRect)
+{
+	    point.x -= withRect.origin.x;
+	    point.y -= withRect.origin.y;
+	
+	    point.x /= withRect.size.width;
+	    point.y /= withRect.size.height;
+	    return point;
 }
 
 - (void)layoutLayer:(CALayer *)layer { }

@@ -326,10 +326,8 @@ SVGColor SVGColorFromString (const char *string) {
 	else if (!strncmp(string, "#", 1)) {
 		const char *hexString = string + 1;
 		
-		if (strlen(hexString) != 6) {
-			color = SVGColorMake(0, 0, 0, 255);
-		}
-		else {
+		if (strlen(hexString) == 6)
+		{
 			char r[3], g[3], b[3];
 			r[2] = g[2] = b[2] = '\0';
 			
@@ -341,6 +339,29 @@ SVGColor SVGColorFromString (const char *string) {
 			color.g = strtol(g, NULL, 16);
 			color.b = strtol(b, NULL, 16);
 		}
+		else if( strlen(hexString) == 3 )
+		{
+			char r[3], g[3], b[3];
+			r[2] = g[2] = b[2] = '\0';
+			
+			strncpy(r, hexString, 1);
+			strncpy(g, hexString + 1, 1);
+			strncpy(b, hexString + 2, 1);
+			
+			color.r = strtol(r, NULL, 16);
+			color.g = strtol(g, NULL, 16);
+			color.b = strtol(b, NULL, 16);
+			
+			/** because 3-digit hex notation "F" means "FF" ... "1" means "11" ... etc */
+			color.r += color.r * 16;
+			color.g += color.g * 16;
+			color.b += color.b * 16;
+		}
+		else
+		{
+			color = SVGColorMake(0, 0, 0, 255);
+		}
+		
 	}
 	else {
 		color = ColorValueWithName(string);

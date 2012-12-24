@@ -54,4 +54,26 @@
 	}
 }
 
++(Element*) privateGetElementById:(NSString*) idValue childrenOfElement:(Node*) parent
+{
+	/** According to spec, this is only valid for ELEMENT nodes */
+	if( [parent isKindOfClass:[Element class]] )
+	{
+		Element* parentAsElement = (Element*) parent;
+		
+		if( [[parentAsElement getAttribute:@"id"] isEqualToString:idValue])
+			return parentAsElement;
+	}
+	
+	for( Node* childNode in parent.childNodes )
+	{
+		Element* childResult = [self privateGetElementById:idValue childrenOfElement:childNode];
+		
+		if( childResult != nil )
+			return childResult;
+	}
+	
+	return nil;
+}
+
 @end

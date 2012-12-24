@@ -10,6 +10,8 @@
 
 #import "SVGKParserSVG.h"
 
+@class SVGKParserGradient;
+#import "SVGKParserGradient.h"
 @class SVGKParserPatternsAndGradients;
 #import "SVGKParserPatternsAndGradients.h"
 @class SVGKParserDefsAndUse;
@@ -84,12 +86,14 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 -(void) addDefaultSVGParserExtensions
 {
 	SVGKParserSVG *subParserSVG = [[[SVGKParserSVG alloc] init] autorelease];
-	SVGKParserPatternsAndGradients *subParserGradients = [[[SVGKParserPatternsAndGradients alloc] init] autorelease];
+	SVGKParserGradient* subParserGradients = [[[SVGKParserGradient alloc] init] autorelease];
+	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[[SVGKParserPatternsAndGradients alloc] init] autorelease];
 	SVGKParserDefsAndUse *subParserDefsAndUse = [[[SVGKParserDefsAndUse alloc] init] autorelease];
 	SVGKParserDOM *subParserXMLDOM = [[[SVGKParserDOM alloc] init] autorelease];
 	
 	[self addParserExtension:subParserSVG];
 	[self addParserExtension:subParserGradients];
+	[self addParserExtension:subParserPatternsAndGradients]; // FIXME: this is a "not implemente yet" parser; now that we have gradients, it should be deleted / renamed!
 	[self addParserExtension:subParserDefsAndUse];
 	[self addParserExtension:subParserXMLDOM];
 }
@@ -642,6 +646,13 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 #define MAX_NAME 256
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute {
+	
+	if( styleAttribute == nil )
+	{
+		NSLog(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
+		return [NSDictionary dictionary];
+	}
+	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	
 	const char *cstr = [styleAttribute.value UTF8String];

@@ -7,14 +7,13 @@
  but allows additional nesting (e.g. for programmatic / organizational purposes).
  
  This is the "G" tag.
- 
- To make sure we don't lose this info when loading an SVG, we store a special element for it.
  */
 #import "SVGGroupElement.h"
 
 #import "CALayerWithChildHitTest.h"
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import "Node.h"
 
 @implementation SVGGroupElement
 
@@ -83,5 +82,29 @@
 		currentLayer.frame = frame;
 	}
 }
+
+/*
+ FIXME: this cannot work; this is incompatible with the way that SVG spec was designed; this code comes from old SVGKit
+ 
+ //we can't propagate opacity down unfortunately, so we need to build a set of all the properties except a few (opacity is applied differently to groups than simply inheriting it to it's children, <g opacity occurs AFTER blending all of its children
+ 
+ BOOL attributesFound = NO;
+ NSMutableDictionary *buildDictionary = [NSMutableDictionary new];
+ for( Node* node in self.attributes )
+ {
+ if( ![node.localName isEqualToString:@"opacity"] )
+ {
+ attributesFound = YES;
+ [buildDictionary setObject:[attributes objectForKey:key] forKey:node.localName];
+ }
+ }
+ if( attributesFound )
+ {
+ _attributes = [[NSDictionary alloc] initWithDictionary:buildDictionary];
+ //these properties are inherited by children of this group
+ }
+ [buildDictionary release];
+ 
+ */
 
 @end

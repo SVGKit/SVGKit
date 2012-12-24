@@ -11,6 +11,8 @@
 		6639634016145DDC00E58CCA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639633F16145DDC00E58CCA /* libxml2.dylib */; };
 		6639634216148CDF00E58CCA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634116148CDF00E58CCA /* QuartzCore.framework */; };
 		6639634716148DEC00E58CCA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634616148DEC00E58CCA /* CoreGraphics.framework */; };
+		6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6668E2061688D3CF00F774A6 /* SVGGElement.h */; };
+		6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6668E2071688D3CF00F774A6 /* SVGGElement.m */; };
 		66E8639F1688C2780059C9C4 /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863A01688C2780059C9C4 /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8630F1688C2770059C9C4 /* AppleSucksDOMImplementation.m */; };
 		66E863A11688C2780059C9C4 /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863101688C2770059C9C4 /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -148,6 +150,17 @@
 		66E864251688C2780059C9C4 /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639C1688C2780059C9C4 /* SVGKPattern.m */; };
 		66E864261688C2780059C9C4 /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8639D1688C2780059C9C4 /* SVGUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E864271688C2780059C9C4 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639E1688C2780059C9C4 /* SVGUtils.m */; };
+		66EEE8521688CA8A002E2658 /* SVGKParserGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE8501688CA8A002E2658 /* SVGKParserGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66EEE8531688CA8A002E2658 /* SVGKParserGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEE8511688CA8A002E2658 /* SVGKParserGradient.m */; };
+		66EEE8571688CA94002E2658 /* SVGKParserStyles.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE8551688CA94002E2658 /* SVGKParserStyles.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66EEE8581688CA94002E2658 /* SVGKParserStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEE8561688CA94002E2658 /* SVGKParserStyles.m */; };
+		66EEE8601688CB37002E2658 /* SVGGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE8591688CB37002E2658 /* SVGGradientElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66EEE8611688CB37002E2658 /* SVGGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEE85A1688CB37002E2658 /* SVGGradientElement.m */; };
+		66EEE8621688CB37002E2658 /* SVGGradientStop.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE85B1688CB37002E2658 /* SVGGradientStop.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66EEE8631688CB37002E2658 /* SVGGradientStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEE85C1688CB37002E2658 /* SVGGradientStop.m */; };
+		66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE85D1688CB37002E2658 /* SVGStyleCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE85E1688CB37002E2658 /* SVGStyleElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66EEE8661688CB37002E2658 /* SVGStyleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEE85F1688CB37002E2658 /* SVGStyleElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -169,6 +182,8 @@
 		6639634116148CDF00E58CCA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6639634616148DEC00E58CCA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6649E05F16172CE200AFE92A /* SVGKit-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKit-iOS-Prefix.pch"; sourceTree = "<group>"; };
+		6668E2061688D3CF00F774A6 /* SVGGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGElement.h; sourceTree = "<group>"; };
+		6668E2071688D3CF00F774A6 /* SVGGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGElement.m; sourceTree = "<group>"; };
 		66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleSucksDOMImplementation.h; sourceTree = "<group>"; };
 		66E8630F1688C2770059C9C4 /* AppleSucksDOMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleSucksDOMImplementation.m; sourceTree = "<group>"; };
 		66E863101688C2770059C9C4 /* Attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attr.h; sourceTree = "<group>"; };
@@ -306,6 +321,17 @@
 		66E8639C1688C2780059C9C4 /* SVGKPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKPattern.m; sourceTree = "<group>"; };
 		66E8639D1688C2780059C9C4 /* SVGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGUtils.h; sourceTree = "<group>"; };
 		66E8639E1688C2780059C9C4 /* SVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGUtils.m; sourceTree = "<group>"; };
+		66EEE8501688CA8A002E2658 /* SVGKParserGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParserGradient.h; sourceTree = "<group>"; };
+		66EEE8511688CA8A002E2658 /* SVGKParserGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKParserGradient.m; sourceTree = "<group>"; };
+		66EEE8551688CA94002E2658 /* SVGKParserStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParserStyles.h; sourceTree = "<group>"; };
+		66EEE8561688CA94002E2658 /* SVGKParserStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKParserStyles.m; sourceTree = "<group>"; };
+		66EEE8591688CB37002E2658 /* SVGGradientElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientElement.h; sourceTree = "<group>"; };
+		66EEE85A1688CB37002E2658 /* SVGGradientElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientElement.m; sourceTree = "<group>"; };
+		66EEE85B1688CB37002E2658 /* SVGGradientStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientStop.h; sourceTree = "<group>"; };
+		66EEE85C1688CB37002E2658 /* SVGGradientStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientStop.m; sourceTree = "<group>"; };
+		66EEE85D1688CB37002E2658 /* SVGStyleCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleCatcher.h; sourceTree = "<group>"; };
+		66EEE85E1688CB37002E2658 /* SVGStyleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleElement.h; sourceTree = "<group>"; };
+		66EEE85F1688CB37002E2658 /* SVGStyleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyleElement.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -455,6 +481,8 @@
 				66E8633C1688C2770059C9C4 /* SVGElementInstanceList.h */,
 				66E8633D1688C2770059C9C4 /* SVGElementInstanceList.m */,
 				66E8633E1688C2770059C9C4 /* SVGElementInstanceList_Internal.h */,
+				6668E2061688D3CF00F774A6 /* SVGGElement.h */,
+				6668E2071688D3CF00F774A6 /* SVGGElement.m */,
 				66E8633F1688C2770059C9C4 /* SVGLength.h */,
 				66E863401688C2770059C9C4 /* SVGLength.m */,
 				66E863411688C2770059C9C4 /* SVGMatrix.h */,
@@ -477,6 +505,13 @@
 		66E8634E1688C2770059C9C4 /* Unported or Partial DOM */ = {
 			isa = PBXGroup;
 			children = (
+				66EEE8591688CB37002E2658 /* SVGGradientElement.h */,
+				66EEE85A1688CB37002E2658 /* SVGGradientElement.m */,
+				66EEE85B1688CB37002E2658 /* SVGGradientStop.h */,
+				66EEE85C1688CB37002E2658 /* SVGGradientStop.m */,
+				66EEE85D1688CB37002E2658 /* SVGStyleCatcher.h */,
+				66EEE85E1688CB37002E2658 /* SVGStyleElement.h */,
+				66EEE85F1688CB37002E2658 /* SVGStyleElement.m */,
 				66E8634F1688C2770059C9C4 /* SVGCircleElement.h */,
 				66E863501688C2770059C9C4 /* SVGCircleElement.m */,
 				66E863511688C2770059C9C4 /* SVGDescriptionElement.h */,
@@ -544,8 +579,12 @@
 				66E863751688C2770059C9C4 /* SVGKParserDefsAndUse.m */,
 				66E863761688C2770059C9C4 /* SVGKParserDOM.h */,
 				66E863771688C2770059C9C4 /* SVGKParserDOM.m */,
+				66EEE8501688CA8A002E2658 /* SVGKParserGradient.h */,
+				66EEE8511688CA8A002E2658 /* SVGKParserGradient.m */,
 				66E863781688C2770059C9C4 /* SVGKParserPatternsAndGradients.h */,
 				66E863791688C2770059C9C4 /* SVGKParserPatternsAndGradients.m */,
+				66EEE8551688CA94002E2658 /* SVGKParserStyles.h */,
+				66EEE8561688CA94002E2658 /* SVGKParserStyles.m */,
 				66E8637A1688C2770059C9C4 /* SVGKParserSVG.h */,
 				66E8637B1688C2770059C9C4 /* SVGKParserSVG.m */,
 			);
@@ -676,6 +715,13 @@
 				66E864221688C2780059C9C4 /* SVGKImage+SVGPathView.h in Headers */,
 				66E864241688C2780059C9C4 /* SVGKPattern.h in Headers */,
 				66E864261688C2780059C9C4 /* SVGUtils.h in Headers */,
+				66EEE8521688CA8A002E2658 /* SVGKParserGradient.h in Headers */,
+				66EEE8571688CA94002E2658 /* SVGKParserStyles.h in Headers */,
+				66EEE8601688CB37002E2658 /* SVGGradientElement.h in Headers */,
+				66EEE8621688CB37002E2658 /* SVGGradientStop.h in Headers */,
+				66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */,
+				66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */,
+				6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,6 +856,12 @@
 				66E864231688C2780059C9C4 /* SVGKImage+SVGPathView.m in Sources */,
 				66E864251688C2780059C9C4 /* SVGKPattern.m in Sources */,
 				66E864271688C2780059C9C4 /* SVGUtils.m in Sources */,
+				66EEE8531688CA8A002E2658 /* SVGKParserGradient.m in Sources */,
+				66EEE8581688CA94002E2658 /* SVGKParserStyles.m in Sources */,
+				66EEE8611688CB37002E2658 /* SVGGradientElement.m in Sources */,
+				66EEE8631688CB37002E2658 /* SVGGradientStop.m in Sources */,
+				66EEE8661688CB37002E2658 /* SVGStyleElement.m in Sources */,
+				6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

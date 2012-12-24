@@ -45,3 +45,7 @@ Location_European_nation_states
 Reinel_compass_rose.svg
      -- Creative Commons
      -- http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg
+
+lingrad01.svg
+     -- Part of the SVG Spec documents:
+	 -- http://www.w3.org/TR/SVG/images/pservers/lingrad01.svg

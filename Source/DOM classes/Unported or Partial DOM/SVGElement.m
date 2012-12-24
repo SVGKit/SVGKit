@@ -123,7 +123,11 @@
 			NSAssert( firstAncestorThatIsAnyKindOfSVGElement != nil, @"This node has no valid SVG tags as ancestor, but it's not an <svg> tag, so this is an impossible SVG file" );
 			
 			
-			self.rootOfCurrentDocumentFragment = firstAncestorThatIsAnyKindOfSVGElement.rootOfCurrentDocumentFragment;
+			if( [firstAncestorThatIsAnyKindOfSVGElement isKindOfClass:[SVGSVGElement class]] )
+				self.rootOfCurrentDocumentFragment = (SVGSVGElement*) firstAncestorThatIsAnyKindOfSVGElement;
+			else
+				self.rootOfCurrentDocumentFragment = firstAncestorThatIsAnyKindOfSVGElement.rootOfCurrentDocumentFragment;
+			
 			[self reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:firstAncestorThatIsAnyKindOfSVGElement];
 			
 			NSLog(@"viewport Element = %@ ... for node/element = %@", self.viewportElement, self.tagName);

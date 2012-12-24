@@ -1,19 +1,7 @@
 /**
  SVGShapeElement
  
- NB: half of this class is stored in the secret header file "SVGShapeElement+Private". Due to bugs in
- Apple's Xcode, you may not be able to view that file - or come back to the class file - using the
- standard Xcode controls
- 
  The majority of real-world SVG elements are Shapes: arbitrary shapes made out of line segments, curves, etc.
- 
- Co-ordinate system
- ---
-
- Many SVG files have poor internal formatting. We deliberately DO NOT FIX THEM (maybe a future feature).
- 
- We store the EXACT WAY THE SVG SHAPE WAS SPECIFIED. If that means the parent had no transform (even though it
- obviously should have done), we leave it that way.
  
  
  Data:
@@ -32,15 +20,22 @@
 typedef enum {
 	SVGFillTypeNone = 0,
 	SVGFillTypeSolid,
+	SVGFillTypeURL
 } SVGFillType;
 
-@interface SVGShapeElement : SVGElement < SVGLayeredElement > { }
+@interface SVGShapeElement : SVGElement < SVGLayeredElement >
+{
+	/* FIXME: are any of these private elements in the SVG spec? */
+	NSString *_styleClass;
+	CGRect _layerRect;
+}
 
 @property (nonatomic, readwrite) CGFloat opacity;
 
 @property (nonatomic, readwrite) SVGFillType fillType;
 @property (nonatomic, readwrite) SVGColor fillColor;
 @property (nonatomic, readwrite, retain) SVGKPattern* fillPattern;
+@property (nonatomic, readwrite, retain) NSString* fillId;
 
 @property (nonatomic, readwrite) CGFloat strokeWidth;
 @property (nonatomic, readwrite) SVGColor strokeColor;
