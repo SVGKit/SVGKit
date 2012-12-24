@@ -13,6 +13,7 @@
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
 		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
+		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
 		66E8626B1688BA0B0059C9C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862581688BA0B0059C9C4 /* AppDelegate.m */; };
 		66E8626C1688BA0B0059C9C4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862591688BA0B0059C9C4 /* Default-568h@2x.png */; };
 		66E8626E1688BA0B0059C9C4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8625D1688BA0B0059C9C4 /* DetailViewController.m */; };
@@ -70,6 +71,7 @@
 		6649E0AC1617479200AFE92A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
 		66E862571688BA0B0059C9C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66E862581688BA0B0059C9C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		66E862591688BA0B0059C9C4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				66E862851688BA510059C9C4 /* MathCurve.svg */,
 				66E862861688BA510059C9C4 /* Monkey.svg */,
 				66E862871688BA510059C9C4 /* Note.svg */,
+				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
 				66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */,
 				66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
@@ -325,6 +328,7 @@
 				66E862A01688BA510059C9C4 /* Text.svg in Resources */,
 				66E862A11688BA510059C9C4 /* uk-only.svg in Resources */,
 				66E862A21688BA510059C9C4 /* voies.svg in Resources */,
+				66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
