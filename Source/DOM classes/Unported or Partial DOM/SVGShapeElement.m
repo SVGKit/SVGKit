@@ -196,15 +196,17 @@
 				CAGradientLayer *gradientLayer = (CAGradientLayer *)[svgGradient newLayer];
 				
 				//            CGRect filledLayerFrame = filledLayer.frame;
-				CGRect docBounds = CGRectMake( [self.rootOfCurrentDocumentFragment.x pixelsValue], [self.rootOfCurrentDocumentFragment.y pixelsValue],
-											  [self.rootOfCurrentDocumentFragment.width pixelsValue], [self.rootOfCurrentDocumentFragment.height pixelsValue] );
-				gradientLayer.frame = docBounds;
+				gradientLayer.bounds = self.rootOfCurrentDocumentFragment.viewBoxFrame;
 				
 				//            docBounds.size.height *= 100.0f;
-				gradientLayer.startPoint = relativePosition(gradientLayer.startPoint, docBounds);
-				gradientLayer.endPoint = relativePosition(gradientLayer.endPoint, docBounds);
+				/** these are completely wrong, reading the Apple Docs, I don't know
+				 how they worked before?
+				 
+				 gradientLayer.startPoint = relativePosition(gradientLayer.startPoint, gradientLayer.bounds);
+				gradientLayer.endPoint = relativePosition(gradientLayer.endPoint, gradientLayer.bounds);
+				 */
 				
-				[gradientLayer setMask:_shapeLayer];
+				//[gradientLayer setMask:_shapeLayer];
 				return gradientLayer;
 			}
 		} break;

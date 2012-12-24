@@ -31,6 +31,10 @@
 	
 	result.value = [s floatValue];
 	
+	/** Conversion for all the awesome amazing SVG units out there */
+	if( [s hasSuffix:@"%"])
+		result.value /= 100.0f;
+	
 	return result;
 }
 

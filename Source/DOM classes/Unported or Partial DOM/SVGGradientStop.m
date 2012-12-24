@@ -13,6 +13,8 @@
 #import "SVGUtils.h"
 #import "SVGKParser.h"
 
+#import "SVGLength.h"
+
 @implementation SVGGradientStop
 
 @synthesize offset = _offset;
@@ -31,7 +33,7 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [self getAttribute:@"offset"].length > 0 )
-        _offset = [[self getAttribute:@"offset"] floatValue];
+        _offset = [[SVGLength svgLengthFromNSString:[self getAttribute:@"offset"]] pixelsValue];
     
 	/** First, process the style - if it has one! */
     if( [self getAttribute:@"style"].length > 0 )
