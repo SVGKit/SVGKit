@@ -13,11 +13,12 @@
 
 #import "Element.h"
 #import "Node+Mutable.h"
+#import "SVGStylable.h"
 
 @class SVGSVGElement;
 //obj-c's compiler sucks, and doesn't allow this line: #import "SVGSVGElement.h"
 
-@interface SVGElement : Element
+@interface SVGElement : Element <SVGStylable>
 
 @property (nonatomic, readwrite, retain) NSString *identifier; // 'id' is reserved in Obj-C, so we have to break SVG Spec here, slightly
 @property (nonatomic, retain) NSString* xmlbase;
@@ -61,5 +62,9 @@
 - (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes;
 
 -(void) reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:(SVGElement*) firstAncestor;
+
+#pragma mark - CSS cascading special attributes. c.f. full list here: http://www.w3.org/TR/SVG/propidx.html
+
+@property(nonatomic,readonly) NSString* cascadedFill, * cascadedFillOpacity, * cascadedStroke, * cascadedStrokeWidth, * cascadedStrokeOpacity;
 
 @end

@@ -26,7 +26,8 @@
 
 #import "SVGGradientStop.h"
 
-@interface SVGGradientElement : SVGElement < SVGLayeredElement > {
+@interface SVGGradientElement : SVGElement /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
+{
     @public
     BOOL radial; /* FIXME: not in SVG Spec */
     
@@ -40,5 +41,7 @@
 @property (readonly, retain)NSArray *stops; /* FIXME: not in SVG Spec */
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
+
+-(CALayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect;
 
 @end

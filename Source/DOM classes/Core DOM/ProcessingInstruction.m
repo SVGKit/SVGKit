@@ -20,7 +20,7 @@
 
 -(id) initProcessingInstruction:(NSString*) t value:(NSString*) d
 {
-    self = [super initType:SKNodeType_PROCESSING_INSTRUCTION_NODE name:t value:d];
+    self = [super initType:DOMNodeType_PROCESSING_INSTRUCTION_NODE name:t value:d];
     if (self) {
 		self.target = t;
 		self.data = d;

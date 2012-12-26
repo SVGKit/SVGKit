@@ -73,13 +73,6 @@ static NSDictionary *elementMap;
 			NSLog(@"Support for '%@' element has not been implemented", name);
 		}
 		
-		Attr* style = nil;
-		
-		if ((style = [attributes objectForKey:@"style"])) {
-			[attributes removeObjectForKey:@"style"];
-			[attributes addEntriesFromDictionary:[SVGKParser NSDictionaryFromCSSAttributes:style]];
-		}
-		
 		/**
 		 NB: following the SVG Spec, it's critical that we ONLY use the DOM methods for creating
 		 basic 'Element' nodes.
@@ -94,6 +87,8 @@ static NSDictionary *elementMap;
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 		SVGElement *element = [[[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+		
+		/** NB: all the interesting handling of shared / generic attributes - e.g. the whole of CSS styling etc - takes place in this method: */
 		[element postProcessAttributesAddingErrorsTo:parseResult];
 		
 		/** special case: <svg:svg ... version="XXX"> */
@@ -196,7 +191,7 @@ static NSDictionary *elementMap;
 		return false;
 }
 
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node
+-(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult
 {
 	SVGElement* element = (SVGElement*) node;
 	

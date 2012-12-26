@@ -41,48 +41,48 @@
 {
 	switch( item.nodeType )
 	{
-		case SKNodeType_ATTRIBUTE_NODE:
-		case SKNodeType_DOCUMENT_FRAGMENT_NODE:
-		case SKNodeType_DOCUMENT_NODE:
-		case SKNodeType_DOCUMENT_TYPE_NODE:
-		case SKNodeType_ELEMENT_NODE:
-		case SKNodeType_ENTITY_NODE:
-		case SKNodeType_ENTITY_REFERENCE_NODE:
-		case SKNodeType_NOTATION_NODE:
+		case DOMNodeType_ATTRIBUTE_NODE:
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_ELEMENT_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_NOTATION_NODE:
 		{
 			return FALSE; // do nothing, according to the table in : http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1950641247
 		} break;
 			
-		case SKNodeType_CDATA_SECTION_NODE:
-		case SKNodeType_COMMENT_NODE:
-		case SKNodeType_PROCESSING_INSTRUCTION_NODE:
-		case SKNodeType_TEXT_NODE:
+		case DOMNodeType_CDATA_SECTION_NODE:
+		case DOMNodeType_COMMENT_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_TEXT_NODE:
 		{
 			return TRUE;
 		} break;
 	}
 }
 
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node
+-(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult
 {
 	switch( node.nodeType )
 	{
-		case SKNodeType_ATTRIBUTE_NODE:
-		case SKNodeType_DOCUMENT_FRAGMENT_NODE:
-		case SKNodeType_DOCUMENT_NODE:
-		case SKNodeType_DOCUMENT_TYPE_NODE:
-		case SKNodeType_ELEMENT_NODE:
-		case SKNodeType_ENTITY_NODE:
-		case SKNodeType_ENTITY_REFERENCE_NODE:
-		case SKNodeType_NOTATION_NODE:
+		case DOMNodeType_ATTRIBUTE_NODE:
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_ELEMENT_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_NOTATION_NODE:
 		{
 			// do nothing, according to the table in : http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1950641247
 		} break;
 			
-		case SKNodeType_CDATA_SECTION_NODE:
-		case SKNodeType_COMMENT_NODE:
-		case SKNodeType_PROCESSING_INSTRUCTION_NODE:
-		case SKNodeType_TEXT_NODE:
+		case DOMNodeType_CDATA_SECTION_NODE:
+		case DOMNodeType_COMMENT_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_TEXT_NODE:
 		{
 			node.nodeValue = content;
 		} break;

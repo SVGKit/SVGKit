@@ -46,6 +46,8 @@
  Element getElementById(in DOMString elementId);
  */
 
+#import "DocumentCSS.h"
+
 #import "SVGElement.h"
 #import "SVGViewSpec.h"
 
@@ -63,7 +65,7 @@
 
 #import "SVGLayeredElement.h"
 
-@interface SVGSVGElement : SVGElement < SVGLayeredElement >
+@interface SVGSVGElement : SVGElement < DocumentCSS, /* FIXME: refactor and delete this, it's in violation of the spec: */ SVGLayeredElement >
 
 
 

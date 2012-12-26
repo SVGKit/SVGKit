@@ -14,6 +14,8 @@
 #import "SVGKParserGradient.h"
 @class SVGKParserPatternsAndGradients;
 #import "SVGKParserPatternsAndGradients.h"
+@class SVGKParserStyles;
+#import "SVGKParserStyles.h"
 @class SVGKParserDefsAndUse;
 #import "SVGKParserDefsAndUse.h"
 @class SVGKParserDOM;
@@ -88,12 +90,14 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	SVGKParserSVG *subParserSVG = [[[SVGKParserSVG alloc] init] autorelease];
 	SVGKParserGradient* subParserGradients = [[[SVGKParserGradient alloc] init] autorelease];
 	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[[SVGKParserPatternsAndGradients alloc] init] autorelease];
+	SVGKParserStyles* subParserStyles = [[[SVGKParserStyles alloc] init] autorelease];
 	SVGKParserDefsAndUse *subParserDefsAndUse = [[[SVGKParserDefsAndUse alloc] init] autorelease];
 	SVGKParserDOM *subParserXMLDOM = [[[SVGKParserDOM alloc] init] autorelease];
 	
 	[self addParserExtension:subParserSVG];
 	[self addParserExtension:subParserGradients];
 	[self addParserExtension:subParserPatternsAndGradients]; // FIXME: this is a "not implemente yet" parser; now that we have gradients, it should be deleted / renamed!
+	[self addParserExtension:subParserStyles];
 	[self addParserExtension:subParserDefsAndUse];
 	[self addParserExtension:subParserXMLDOM];
 }
@@ -452,7 +456,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 closing - because we haven't finished closing it yet
 	 */
 	if ( [parser createdNodeShouldStoreContent:_parentOfCurrentNode]) {
-		[parser handleStringContent:_storedChars forNode:_parentOfCurrentNode];
+		[parser handleStringContent:_storedChars forNode:_parentOfCurrentNode parseResult:self.currentParseRun];
 		
 		[_storedChars setString:@""];
 		_storingChars = NO;
@@ -477,6 +481,12 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 		
 		[_storedChars appendString:[NSString stringWithUTF8String:value]];
 	}
+}
+
+static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
+{
+    SVGKParser *self = (SVGKParser *) ctx;
+	[self handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
@@ -575,7 +585,7 @@ static xmlSAXHandler SAXHandler = {
     errorEncounteredSAX,        /* error */
     NULL,                       /* fatalError //: unused error() get all the errors */
     NULL,                       /* getParameterEntity */
-    NULL,                       /* cdataBlock */
+    cDataFoundSAX,              /* cdataBlock */
     NULL,                       /* externalSubset */
     XML_SAX2_MAGIC,
     NULL,

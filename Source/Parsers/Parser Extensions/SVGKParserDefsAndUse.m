@@ -109,7 +109,7 @@
 	return false;
 }
 
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node
+-(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult
 {
 	SVGElement* element = (SVGElement*) node;
 	

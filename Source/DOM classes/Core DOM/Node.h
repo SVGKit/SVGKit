@@ -74,28 +74,28 @@
 @class NamedNodeMap;
 /** objc won't allow this: #import "NamedNodeMap.h"*/
 
-typedef enum SKNodeType
+typedef enum DOMNodeType
 {
-	SKNodeType_ELEMENT_NODE                   = 1,
-	SKNodeType_ATTRIBUTE_NODE                 = 2,
-	SKNodeType_TEXT_NODE                      = 3,
-	SKNodeType_CDATA_SECTION_NODE             = 4,
-	SKNodeType_ENTITY_REFERENCE_NODE          = 5,
-	SKNodeType_ENTITY_NODE                    = 6,
-	SKNodeType_PROCESSING_INSTRUCTION_NODE    = 7,
-	SKNodeType_COMMENT_NODE                   = 8,
-	SKNodeType_DOCUMENT_NODE                  = 9,
-	SKNodeType_DOCUMENT_TYPE_NODE             = 10,
-	SKNodeType_DOCUMENT_FRAGMENT_NODE         = 11,
-	SKNodeType_NOTATION_NODE                  = 12
-} SKNodeType;
+	DOMNodeType_ELEMENT_NODE                   = 1,
+	DOMNodeType_ATTRIBUTE_NODE                 = 2,
+	DOMNodeType_TEXT_NODE                      = 3,
+	DOMNodeType_CDATA_SECTION_NODE             = 4,
+	DOMNodeType_ENTITY_REFERENCE_NODE          = 5,
+	DOMNodeType_ENTITY_NODE                    = 6,
+	DOMNodeType_PROCESSING_INSTRUCTION_NODE    = 7,
+	DOMNodeType_COMMENT_NODE                   = 8,
+	DOMNodeType_DOCUMENT_NODE                  = 9,
+	DOMNodeType_DOCUMENT_TYPE_NODE             = 10,
+	DOMNodeType_DOCUMENT_FRAGMENT_NODE         = 11,
+	DOMNodeType_NOTATION_NODE                  = 12
+} DOMNodeType;
 
 @interface Node : NSObject
 
 @property(nonatomic,retain,readonly) NSString* nodeName;
 @property(nonatomic,retain,readonly) NSString* nodeValue;
 	
-@property(nonatomic,readonly) SKNodeType nodeType;
+@property(nonatomic,readonly) DOMNodeType nodeType;
 @property(nonatomic,retain,readonly) Node* parentNode;
 @property(nonatomic,retain,readonly) NodeList* childNodes;
 @property(nonatomic,retain,readonly) Node* firstChild;
@@ -137,9 +137,9 @@ typedef enum SKNodeType
 
 #pragma mark - Objective-C init methods (not in SVG Spec - you're supposed to use SVGDocument's createXXX methods instead)
 /** Designated initializers - 2 pairs (one for DOM 1, no namespace, the other for DOM 2, with namespace) of 2 methods (one for nodes that REQUIRE a value, the other for nodes that MUST NOT have a value) */
-- (id)initType:(SKNodeType) nt name:(NSString*) n;
-- (id)initType:(SKNodeType) nt name:(NSString*) n value:(NSString*) v;
-- (id)initType:(SKNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI;
-- (id)initType:(SKNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI;
+- (id)initType:(DOMNodeType) nt name:(NSString*) n;
+- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v;
+- (id)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI;
+- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI;
 
 @end

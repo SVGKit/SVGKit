@@ -33,7 +33,7 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [self getAttribute:@"offset"].length > 0 )
-        _offset = [[SVGLength svgLengthFromNSString:[self getAttribute:@"offset"]] pixelsValue];
+        _offset = [[SVGLength svgLengthFromNSString:[self getAttribute:@"offset"]] numberValue];
     
 	/** First, process the style - if it has one! */
     if( [self getAttribute:@"style"].length > 0 )

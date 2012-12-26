@@ -57,7 +57,7 @@
 		return false;
 }
 
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node
+-(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult
 {
 	NSAssert( FALSE, @"Patterns and gradients are not supported by SVGKit yet - no-one has implemented them" );
 }

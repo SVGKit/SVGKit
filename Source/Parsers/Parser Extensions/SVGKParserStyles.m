@@ -8,6 +8,9 @@
 
 #import "SVGKParserStyles.h"
 
+#import "CSSStyleSheet.h"
+#import "StyleSheetList+Mutable.h"
+
 @implementation SVGKParserStyles
 
 
@@ -31,16 +34,45 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 
 -(Node *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node *)parentNode
 {
-//    NSLog(@"Parsing style object %@", attributes);
-    //This needs to link with external style sheets per spec... internal styles are represented as inline CDATA and are parsed seperately (styles added to document directly from SVGParser)... definitely one of the hairier parts of this process currently
-    
-    //Would be a good idea to route that functionality through this class for consistency
-    return nil;
+	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
+	{
+		/**
+		 
+		 NB: this section of code is copy/pasted from SVGKParserDOM -- we don't want anything special, we want an ordinary DOM node,
+		 ...but we need this standalone parser-extension because a <style> tag needs some custom *post-processing*
+		 
+		 
+		 
+		 */
+		
+		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
+		
+		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
+		// FIXME: we always return an empty Element here; for DOM spec, should we be detecting things like "comment" nodes? I dont know how libxml handles those and sends them to us. I've never seen one in action...
+		Element *blankElement = [[[Element alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+		
+		return blankElement;
+	}
+	else
+		return nil;
 }
 
--(void)handleStringContent:(NSMutableString *)content forNode:(Node *)node
+-(BOOL)createdNodeShouldStoreContent:(Node *)node
 {
+	return TRUE;
+}
+
+/** This is where the magic happens ... */
+-(void)handleStringContent:(NSMutableString *)content forNode:(Node *)node parseResult:(SVGKParseResult *)parseResult
+{
+	NSString* c = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
+	if( c.length > 0 )
+	{
+		CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:c];
+		
+		[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+	}
 }
 
 -(void) dealloc

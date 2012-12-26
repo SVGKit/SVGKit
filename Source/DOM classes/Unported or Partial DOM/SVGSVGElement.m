@@ -41,6 +41,21 @@
 	[super dealloc];	
 }
 
+#pragma mark - CSS Spec methods (via the DocumentCSS protocol)
+
+-(void)loadDefaults
+{
+	self.styleSheets = [[StyleSheetList alloc] init];
+}
+@synthesize styleSheets;
+
+-(CSSStyleDeclaration *)getOverrideStyle:(Element *)pseudoElt :(NSString *)pseudoElt
+{
+	NSAssert(FALSE, @"Not implemented yet");
+	
+	return nil;
+}
+
 #pragma mark - SVG Spec methods
 
 -(long) suspendRedraw:(long) maxWaitMilliseconds { NSAssert( FALSE, @"Not implemented yet" ); return 0; }
@@ -135,34 +150,21 @@
 					 withObject:[NSNumber numberWithBool:YES]];
 	}
 	
+	/** <SVG> tags know exactly what size/shape their layer needs to be - it's explicit in their width + height attributes! */
+	CGRect newBoundsFromSVGTag = CGRectMake( 0, 0,
+											[self.width pixelsValue],
+											[self.height pixelsValue] );
+	_layer.frame = newBoundsFromSVGTag; // assign to FRAME, not to BOUNDS: Apple has some weird bugs where for particular numeric values (!) assignment to bounds will cause the origin to jump away from (0,0)!
+	
 	return _layer;
 }
 
 - (void)layoutLayer:(CALayer *)layer {
-	NSArray *sublayers = [layer sublayers];
-	CGRect mainRect = CGRectZero;
-	
-	for (NSUInteger n = 0; n < [sublayers count]; n++) {
-		CALayer *currentLayer = [sublayers objectAtIndex:n];
-		
-		if (n == 0) {
-			mainRect = currentLayer.frame;
-		}
-		else {
-			mainRect = CGRectUnion(mainRect, currentLayer.frame);
-		}
-	}
-	
-	layer.frame = mainRect;
-	
-	// TODO: this code looks insanely wrong to me. WTF is it doing? Why? WHY?
-	for (CALayer *currentLayer in sublayers) {
-		CGRect frame = currentLayer.frame;
-		frame.origin.x -= mainRect.origin.x;
-		frame.origin.y -= mainRect.origin.y;
-		
-		currentLayer.frame = frame;
-	}
+ 	
+	/**
+	According to the SVG spec ... what this method originaly did is illegal. I've deleted all of it, and now a few more SVG's render correctly, that
+	 previously were rendering with strange offsets at the top level
+	 */
 }
 
 @end

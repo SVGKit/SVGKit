@@ -12,7 +12,7 @@
 
 - (id)initWithValue:(NSString*) v
 {
-    self = [super initType:SKNodeType_TEXT_NODE name:@"#text" value:v];
+    self = [super initType:DOMNodeType_TEXT_NODE name:@"#text" value:v];
     if (self) {
 		
     }

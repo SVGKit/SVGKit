@@ -10,6 +10,7 @@
 #define MAX_ACCUM 64
 #define NUM_COLORS 147
 
+
 SVGColor ColorValueWithName (const char *name);
 
 static const char *gColorNames[NUM_COLORS] = {

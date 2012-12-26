@@ -7,7 +7,7 @@
 @property(nonatomic,retain,readwrite) NSString* nodeName;
 @property(nonatomic,retain,readwrite) NSString* nodeValue;
 
-@property(nonatomic,readwrite) SKNodeType nodeType;
+@property(nonatomic,readwrite) DOMNodeType nodeType;
 @property(nonatomic,retain,readwrite) Node* parentNode;
 @property(nonatomic,retain,readwrite) NodeList* childNodes;
 @property(nonatomic,retain,readwrite) Node* firstChild;

@@ -49,3 +49,7 @@ Reinel_compass_rose.svg
 lingrad01.svg
      -- Part of the SVG Spec documents:
 	 -- http://www.w3.org/TR/SVG/images/pservers/lingrad01.svg
+	 
+StyleAttribute
+     -- Part of the SVG Spec documents:
+	 -- http://www.w3.org/TR/SVG/images/styling/StyleAttribute.svg

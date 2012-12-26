@@ -23,7 +23,7 @@
 
 - (id)init
 {
-    self = [super initType:SKNodeType_DOCUMENT_NODE name:@"#document"];
+    self = [super initType:DOMNodeType_DOCUMENT_NODE name:@"#document"];
     if (self) {
         
     }

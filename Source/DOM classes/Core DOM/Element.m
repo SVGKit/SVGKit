@@ -12,7 +12,7 @@
 @synthesize tagName;
 
 - (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
-    self = [super initType:SKNodeType_ELEMENT_NODE name:n];
+    self = [super initType:DOMNodeType_ELEMENT_NODE name:n];
     if (self) {
         self.tagName = n;
 		
@@ -25,7 +25,7 @@
 }
 - (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary *)attributes
 {
-    self = [super initType:SKNodeType_ELEMENT_NODE name:n inNamespace:nsURI];
+    self = [super initType:DOMNodeType_ELEMENT_NODE name:n inNamespace:nsURI];
     if (self) {
         self.tagName = n;
 		
@@ -40,7 +40,7 @@
 -(NSString*) getAttribute:(NSString*) name
 {
 	/**
-	 WARNING: the definition in the spec WILL CORRUPT all Objective-C code.
+	 WARNING: the definition in the spec WILL CORRUPT unsuspecting Objective-C code (including a lot of the original SVGKit code!).
 	 
 	 The spec - instead of defining 'nil' - defines "" (empty string) as the
 	 correct response.
@@ -154,8 +154,9 @@
 // Introduced in DOM Level 2:
 -(BOOL) hasAttribute:(NSString*) name
 {
-	NSAssert( FALSE, @"Not implemented yet" );
-	return FALSE;
+	Attr* result = (Attr*) [self.attributes getNamedItem:name];
+	
+	return result != nil;
 }
 
 // Introduced in DOM Level 2:

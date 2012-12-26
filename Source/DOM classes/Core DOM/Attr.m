@@ -30,7 +30,7 @@
 
 - (id)initWithName:(NSString*) n value:(NSString*) v
 {
-    self = [super initType:SKNodeType_ATTRIBUTE_NODE name:n value:v];
+    self = [super initType:DOMNodeType_ATTRIBUTE_NODE name:n value:v];
     if (self)
 	{
 		self.name = n;
@@ -41,7 +41,7 @@
 
 - (id)initWithNamespace:(NSString*) ns qualifiedName:(NSString*) qn value:(NSString *)v
 {
-    self = [super initType:SKNodeType_ATTRIBUTE_NODE name:qn value:v inNamespace:ns];
+    self = [super initType:DOMNodeType_ATTRIBUTE_NODE name:qn value:v inNamespace:ns];
 	if (self)
 	{
 		self.name = qn;

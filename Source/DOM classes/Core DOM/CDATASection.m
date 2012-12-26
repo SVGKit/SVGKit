@@ -12,7 +12,7 @@
 
 - (id)initWithValue:(NSString*) v
 {
-    self = [super initType:SKNodeType_CDATA_SECTION_NODE name:@"#cdata-section" value:v];
+    self = [super initType:DOMNodeType_CDATA_SECTION_NODE name:@"#cdata-section" value:v];
     if (self) {
     }
     return self;

@@ -40,7 +40,7 @@
     return nil;
 }
 
-- (id)initType:(SKNodeType) nt name:(NSString*) n value:(NSString*) v
+- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
     self = [super init];
     if (self) {
@@ -48,24 +48,24 @@
         switch( nt )
 		{
 				
-			case SKNodeType_ATTRIBUTE_NODE:
-			case SKNodeType_CDATA_SECTION_NODE:
-			case SKNodeType_COMMENT_NODE:
-			case SKNodeType_PROCESSING_INSTRUCTION_NODE:
-			case SKNodeType_TEXT_NODE:
+			case DOMNodeType_ATTRIBUTE_NODE:
+			case DOMNodeType_CDATA_SECTION_NODE:
+			case DOMNodeType_COMMENT_NODE:
+			case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+			case DOMNodeType_TEXT_NODE:
 			{
 				self.nodeName = n;
 				self.nodeValue = v;
 			}break;
 			
 				
-			case SKNodeType_DOCUMENT_NODE:
-			case SKNodeType_DOCUMENT_TYPE_NODE:
-			case SKNodeType_DOCUMENT_FRAGMENT_NODE:
-			case SKNodeType_ENTITY_REFERENCE_NODE:
-			case SKNodeType_ENTITY_NODE:
-			case SKNodeType_NOTATION_NODE:
-			case SKNodeType_ELEMENT_NODE:
+			case DOMNodeType_DOCUMENT_NODE:
+			case DOMNodeType_DOCUMENT_TYPE_NODE:
+			case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+			case DOMNodeType_ENTITY_REFERENCE_NODE:
+			case DOMNodeType_ENTITY_NODE:
+			case DOMNodeType_NOTATION_NODE:
+			case DOMNodeType_ELEMENT_NODE:
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
@@ -78,7 +78,7 @@
     return self;
 }
 
-- (id)initType:(SKNodeType) nt name:(NSString*) n
+- (id)initType:(DOMNodeType) nt name:(NSString*) n
 {
     self = [super init];
     if (self) {
@@ -86,11 +86,11 @@
         switch( nt )
 		{
 				
-			case SKNodeType_ATTRIBUTE_NODE:
-			case SKNodeType_CDATA_SECTION_NODE:
-			case SKNodeType_COMMENT_NODE:
-			case SKNodeType_PROCESSING_INSTRUCTION_NODE:
-			case SKNodeType_TEXT_NODE:
+			case DOMNodeType_ATTRIBUTE_NODE:
+			case DOMNodeType_CDATA_SECTION_NODE:
+			case DOMNodeType_COMMENT_NODE:
+			case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+			case DOMNodeType_TEXT_NODE:
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
@@ -98,17 +98,17 @@
 			}break;
 				
 				
-			case SKNodeType_DOCUMENT_NODE:
-			case SKNodeType_DOCUMENT_TYPE_NODE:
-			case SKNodeType_DOCUMENT_FRAGMENT_NODE:
-			case SKNodeType_ENTITY_REFERENCE_NODE:
-			case SKNodeType_ENTITY_NODE:
-			case SKNodeType_NOTATION_NODE:
+			case DOMNodeType_DOCUMENT_NODE:
+			case DOMNodeType_DOCUMENT_TYPE_NODE:
+			case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+			case DOMNodeType_ENTITY_REFERENCE_NODE:
+			case DOMNodeType_ENTITY_NODE:
+			case DOMNodeType_NOTATION_NODE:
 			{
 				self.nodeName = n;
 			}break;
 				
-			case SKNodeType_ELEMENT_NODE:
+			case DOMNodeType_ELEMENT_NODE:
 			{
 				
 				self.nodeName = n;
@@ -134,7 +134,7 @@
 	self.namespaceURI = nsURI;
 }
 
-- (id)initType:(SKNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI
+- (id)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI
 {
 	self = [self initType:nt name:n];
 	
@@ -146,7 +146,7 @@
 	return self;
 }
 
-- (id)initType:(SKNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
+- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
 	self = [self initType:nt name:n value:v];
 	
@@ -177,7 +177,7 @@
 
 -(Node*) replaceChild:(Node*) newChild oldChild:(Node*) oldChild
 {
-	if( newChild.nodeType == SKNodeType_DOCUMENT_FRAGMENT_NODE )
+	if( newChild.nodeType == DOMNodeType_DOCUMENT_FRAGMENT_NODE )
 	{
 		/** Spec:
 		 
@@ -273,40 +273,40 @@
 	NSString* nodeTypeName;
 	switch( self.nodeType )
 	{
-		case SKNodeType_ELEMENT_NODE:
+		case DOMNodeType_ELEMENT_NODE:
 			nodeTypeName = @"ELEMENT";
 			break;
-		case SKNodeType_TEXT_NODE:
+		case DOMNodeType_TEXT_NODE:
 			nodeTypeName = @"TEXT";
 			break;
-		case SKNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_NODE:
 			nodeTypeName = @"ENTITY";
 			break;
-		case SKNodeType_COMMENT_NODE:
+		case DOMNodeType_COMMENT_NODE:
 			nodeTypeName = @"COMMENT";
 			break;
-		case SKNodeType_DOCUMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
 			nodeTypeName = @"DOCUMENT";
 			break;
-		case SKNodeType_NOTATION_NODE:
+		case DOMNodeType_NOTATION_NODE:
 			nodeTypeName = @"NOTATION";
 			break;
-		case SKNodeType_ATTRIBUTE_NODE:
+		case DOMNodeType_ATTRIBUTE_NODE:
 			nodeTypeName = @"ATTRIBUTE";
 			break;
-		case SKNodeType_CDATA_SECTION_NODE:
+		case DOMNodeType_CDATA_SECTION_NODE:
 			nodeTypeName = @"CDATA";
 			break;
-		case SKNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
 			nodeTypeName = @"DOC TYPE";
 			break;
-		case SKNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
 			nodeTypeName = @"ENTITY REF";
 			break;
-		case SKNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
 			nodeTypeName = @"DOC FRAGMENT";
 			break;
-		case SKNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
 			nodeTypeName = @"PROCESSING INSTRUCTION";
 			break;
 			

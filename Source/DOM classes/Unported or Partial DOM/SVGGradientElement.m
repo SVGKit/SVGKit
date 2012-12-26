@@ -30,25 +30,64 @@
 		return [self getAttribute:attrName]; // will return blank if there was no value AND no parent value
 }
 
--(CALayer *)newLayer
+-(CGPoint) normalizeGradientCoordinate:(SVGLength*) x y:(SVGLength*) y rectToFill:(CGRect) rectToFill
+{
+	CGFloat xNormalized, yNormalized;
+	
+	switch( x.unitType )  // SVG needs gradients measured in percent...
+	{
+		case SVG_LENGTHTYPE_PERCENTAGE:
+		{
+			 xNormalized = [x numberValue]; // will convert the percent into [0,1]
+		}break;
+			
+		case SVG_LENGTHTYPE_NUMBER:
+		case SVG_LENGTHTYPE_PX:
+		{
+			xNormalized = (([x pixelsValue] - rectToFill.origin.x) / rectToFill.size.width);
+		}
+	}
+	
+	switch( y.unitType )  // SVG needs gradients measured in percent...
+	{
+		case SVG_LENGTHTYPE_PERCENTAGE:
+		{
+			yNormalized = [y numberValue]; // will convert the percent into [0,1]
+		}break;
+			
+		case SVG_LENGTHTYPE_NUMBER:
+		case SVG_LENGTHTYPE_PX:
+		{
+			yNormalized = (([y pixelsValue] - rectToFill.origin.y) / rectToFill.size.height);
+		}
+	}
+	
+	return CGPointMake( xNormalized, yNormalized );
+}
+
+-(CALayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect
 {
     CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+	
+	CGRect rectForRelativeUnits;
+	NSString* gradientUnits = [self getAttributeInheritedIfNil:@"gradientUnits"];
+	if( gradientUnits == nil
+	|| [gradientUnits isEqualToString:@"objectBoundingBox"])
+		rectForRelativeUnits = objectRect;
+	else
+		rectForRelativeUnits = viewportRect;
     
-	float testObjectX = [[self getAttributeInheritedIfNil:@"x1"] floatValue];
-    float testObjectY = [[self getAttributeInheritedIfNil:@"x2"] floatValue];
-	   
-    CGPoint startPoint = CGPointMake( testObjectX, testObjectY); //default value is 0.0f, so if the attribute is nil, we will end up with the correct values
-    
-    testObjectX = ([self getAttributeInheritedIfNil:@"y1"].length > 0) ? [[self getAttributeInheritedIfNil:@"y1"] floatValue] : 1.0f; // it will be a blank string if not set; default from SVG Spec is 1.0
-    testObjectY = [[self getAttributeInheritedIfNil:@"y2"] floatValue];
-	   
-	//    if(testObjectY == nil ) //y2 defaults to 0.0f by SVG spec
-	//        testObjectY = [NSNumber numberWithFloat:1.0f];
-    
-	CGPoint endPoint = CGPointMake( testObjectX, testObjectY );
-	//    endPoint = CGPointMake(1.0f,1.0f);
-    
-    NSString* gradientUnits = [self getAttributeInheritedIfNil:@"gradientUnits"];
+	gradientLayer.frame = rectForRelativeUnits;
+	
+	SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
+	SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
+	
+	CGPoint startPoint = [self normalizeGradientCoordinate:svgX1 y:svgY1 rectToFill:rectForRelativeUnits];
+	
+	SVGLength* svgX2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x2"]];
+	SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y2"]];
+	
+	CGPoint endPoint = [self normalizeGradientCoordinate:svgX2 y:svgY2 rectToFill:rectForRelativeUnits];
     
 #ifdef SVG_DEBUG_GRADIENTS
     NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
@@ -89,6 +128,8 @@
     [gradientLayer setColors:colors];
     [gradientLayer setLocations:locations];
 	
+	NSLog(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
+	NSLog(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
 	NSLog(@"[%@] set gradient layer colors = %@", [self class], colors);
 	NSLog(@"[%@] set gradient layer locations = %@", [self class], locations);
 //    gradientLayer.colors = colors;

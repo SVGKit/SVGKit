@@ -8,6 +8,13 @@
 #import "SVGElement.h"
 
 #import "SVGElement_ForParser.h" //.h" // to solve insane Xcode circular dependencies
+#import "StyleSheetList+Mutable.h"
+
+#import "CSSStyleSheet.h"
+#import "CSSStyleRule.h"
+#import "CSSRuleList+Mutable.h"
+
+#import "SVGGroupElement.h"
 
 @interface SVGElement ()
 
@@ -36,6 +43,16 @@
 
 @synthesize transformRelative = _transformRelative;
 
+
+@synthesize className; /**< CSS class, from SVGStylable interface */
+@synthesize style; /**< CSS style, from SVGStylable interface */
+
+/** from SVGStylable interface */
+-(CSSValue*) getPresentationAttribute:(NSString*) name
+{
+	NSAssert(FALSE, @"getPresentationAttribute: not implemented yet");
+	return nil;
+}
 
 
 + (BOOL)shouldStoreContent {
@@ -153,7 +170,18 @@
 	if( [[self getAttribute:@"id"] length] > 0 )
 		self.identifier = [self getAttribute:@"id"];
 	
-
+	/** CSS styles and classes */
+	if ( [self getAttributeNode:@"style"] )
+	{
+		self.style = [[CSSStyleDeclaration alloc] init];
+		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
+	}
+	if( [self getAttributeNode:@"class"])
+	{
+		self.className = [self getAttribute:@"class"];
+	}
+	
+	
 	/**
 	 http://www.w3.org/TR/SVG/coords.html#TransformAttribute
 	 
@@ -356,7 +384,7 @@
 	/** SELF absolute */
 	CGAffineTransform result = CGAffineTransformConcat( selfRelativeTransform, CGAffineTransformConcat( optionalViewportTransform, parentAbsoluteTransform));
 	
-	NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.1f %2.1f %2.1f %2.1f), (%2.1f %2.1f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
+	NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
 	
 	return result;
 }
@@ -391,6 +419,107 @@
 		self.transformRelative = CGAffineTransformIdentity;
 	}
 	return self;
+}
+
+#pragma mark - CSS cascading special attributes
+-(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty
+{
+	/**
+	 This is the core implementation of Cascading Style Sheets, inside SVG.
+	 
+	 c.f.: http://www.w3.org/TR/SVG/styling.html
+	 
+	 In SVG, the set of things that can be cascaded is strictly defined, c.f.:
+	 
+	 http://www.w3.org/TR/SVG/propidx.html
+	 
+	 For each of those, the implementaiton is the same.
+	 
+	 ********* WAWRNING: THE CURRENT IMPLEMENTATION BELOW IS VEYR MUCH INCOMPLETE, BUT IT WORKS FOR VERY SIMPLE SVG'S ************
+	 */
+	if( [self hasAttribute:stylableProperty])
+		return [self getAttribute:stylableProperty];
+	else
+	{
+		NSString* localStyleValue = [self.style getPropertyValue:stylableProperty];
+		
+		if( localStyleValue != nil )
+			return localStyleValue;
+		else
+		{
+			if( self.className != nil )
+			{
+				/** we have a locally declared CSS class; let's go hunt for it in the document's stylesheets */
+				
+				@autoreleasepool /** DOM / CSS is insanely verbose, so this is likely to generate a lot of crud objects */
+				{
+					for( StyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
+					{
+						if( [genericSheet isKindOfClass:[CSSStyleSheet class]])
+						{
+							CSSStyleSheet* cssSheet = (CSSStyleSheet*) genericSheet;
+							
+							for( CSSRule* genericRule in cssSheet.cssRules.internalArray)
+							{
+								if( [genericRule isKindOfClass:[CSSStyleRule class]])
+								{
+									CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
+									
+									if( [styleRule.selectorText isEqualToString:self.className] )
+									{
+										return [styleRule.style getPropertyValue:stylableProperty];
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				/** Finally: move up the tree until you find a <G> node, and ask it to provide the value
+				 OR: if you find an <SVG> tag before you find a <G> tag, give up
+				 */
+				
+				SVGElement* parentElement = self.parentNode;
+				while( parentElement != nil
+				&& ! [parentElement isKindOfClass:[SVGGroupElement class]]
+				&& ! [parentElement isKindOfClass:[SVGSVGElement class]])
+				{
+					parentElement = parentElement.parentNode;
+				}
+				
+				if( parentElement == nil
+				|| [parentElement isKindOfClass:[SVGSVGElement class]])
+					return nil; // give up!
+				else
+				{
+					return [parentElement cascadedValueForStylableProperty:stylableProperty];
+				}
+			}
+		}
+	}
+}
+
+-(NSString *)cascadedFill
+{
+	return [self cascadedValueForStylableProperty:@"fill"];
+}
+-(NSString *)cascadedFillOpacity
+{
+	return [self cascadedValueForStylableProperty:@"opacity"];
+}
+-(NSString *)cascadedStroke
+{
+	return [self cascadedValueForStylableProperty:@"stroke"];
+}
+-(NSString *)cascadedStrokeWidth
+{
+	return [self cascadedValueForStylableProperty:@"stroke-width"];
+}
+-(NSString *)cascadedStrokeOpacity
+{
+	return [self cascadedValueForStylableProperty:@"stroke-opacity"];
 }
 
 @end

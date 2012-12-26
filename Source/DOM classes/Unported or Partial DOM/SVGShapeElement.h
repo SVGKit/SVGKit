@@ -17,13 +17,6 @@
 @class SVGGradientElement;
 @class SVGKPattern;
 
-typedef enum {
-	SVGFillTypeUnspecified,
-	SVGFillTypeNone,
-	SVGFillTypeSolid,
-	SVGFillTypeURL
-} SVGFillType;
-
 @interface SVGShapeElement : SVGElement < SVGLayeredElement >
 {
 	/* FIXME: are any of these private elements in the SVG spec? */
@@ -33,13 +26,9 @@ typedef enum {
 
 @property (nonatomic, readwrite) CGFloat opacity;
 
-@property (nonatomic, readwrite) SVGFillType fillType;
-@property (nonatomic, readwrite) SVGColor fillColor;
-@property (nonatomic, readwrite, retain) SVGKPattern* fillPattern;
-@property (nonatomic, readwrite, retain) NSString* fillId;
+@property (nonatomic) float fillOpacity, strokeOpacity;
 
-@property (nonatomic, readwrite) CGFloat strokeWidth;
-@property (nonatomic, readwrite) SVGColor strokeColor;
+@property (nonatomic, readwrite, retain) SVGKPattern* fillPattern;
 
 @property (nonatomic, readonly) CGPathRef pathRelative;
 

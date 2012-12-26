@@ -43,7 +43,7 @@
  subclass of DOM's Node class
  */
 - (Node*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(Node*) parentNode;
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node;
+-(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult;
 -(BOOL) createdNodeShouldStoreContent:(Node*) node;
 
 @end
