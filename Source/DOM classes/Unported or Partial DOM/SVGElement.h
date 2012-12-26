@@ -65,6 +65,8 @@
 
 #pragma mark - CSS cascading special attributes. c.f. full list here: http://www.w3.org/TR/SVG/propidx.html
 
+/** FIXME: delete all these fake properties, and refactor code to directly call the method these are all delegating to
+ FIXME: also - work out what the 'correct' way is to achieve the cascade using DOM-calls in the CSS-DOM specification */
 @property(nonatomic,readonly) NSString* cascadedFill, * cascadedFillOpacity, * cascadedStroke, * cascadedStrokeWidth, * cascadedStrokeOpacity;
 
 @end
