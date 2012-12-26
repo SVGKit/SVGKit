@@ -17,6 +17,18 @@
 		return [super init];
 }
 
+-(id)initWithFrame:(CGRect)frame
+{
+	if( [self class] == [SVGKImageView class ])
+	{
+		NSAssert(false, @"You cannot init this class directly. Instead, use a subclass e.g. SVGKFastImageView");
+		
+		return nil;
+	}
+	else
+		return [super initWithFrame:frame];
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
 	if( [self class] == [SVGKImageView class ])

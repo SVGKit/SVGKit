@@ -26,6 +26,16 @@
 	return [self initWithSVGKImage:nil];
 }
 
+-(id)initWithFrame:(CGRect)frame
+{
+	self = [super initWithFrame:frame];
+	if( self )
+	{
+		self.backgroundColor = [UIColor clearColor];
+	}
+	return self;
+}
+
 - (id)initWithSVGKImage:(SVGKImage*) im
 {
 	if( im == nil )
