@@ -56,6 +56,7 @@
 		663C41C6149E638000F546A3 /* SVGPointsAndPathsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 663C41C5149E638000F546A3 /* SVGPointsAndPathsParser.m */; };
 		663DEFEC14BFD6BC00C56E07 /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663DEFEB14BFD6BC00C56E07 /* Location_European_nation_states.svg */; };
 		663DEFEF14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663DEFEE14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg */; };
+		666674E0168B5E0000486B68 /* Rsimplified.svg in Resources */ = {isa = PBXBuildFile; fileRef = 666674DF168B5E0000486B68 /* Rsimplified.svg */; };
 		6680A6D3149E4F0B00F2113F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */; };
 		6680A6D5149E4F3900F2113F /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6680A6D4149E4F3900F2113F /* Sample Licenses.txt */; };
 		66BBD74315028F0A00102FEF /* map-test-australia_states_blank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */; };
@@ -159,6 +160,7 @@
 		663DEFEE14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "map-test-Location_European_nation_states-ukonly.svg"; sourceTree = "<group>"; };
 		66436E5114A0BCEF001CC769 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
 		66436E5214A0BCEF001CC769 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
+		666674DF168B5E0000486B68 /* Rsimplified.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rsimplified.svg; sourceTree = "<group>"; };
 		6680A6D2149E4F0B00F2113F /* Blank_Map-Africa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Blank_Map-Africa.svg"; sourceTree = "<group>"; };
 		6680A6D4149E4F3900F2113F /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses.txt"; sourceTree = "<group>"; };
 		66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "map-test-australia_states_blank.svg"; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		3BF5041A148C63F500CC7D17 /* Samples */ = {
 			isa = PBXGroup;
 			children = (
+				666674DF168B5E0000486B68 /* Rsimplified.svg */,
 				C1A500B314F4348200D45858 /* RainbowWing.svg */,
 				66BBD7451502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg */,
 				66BBD74215028F0A00102FEF /* map-test-australia_states_blank.svg */,
@@ -497,6 +500,7 @@
 				663DEFEF14BFDAC100C56E07 /* map-test-Location_European_nation_states-ukonly.svg in Resources */,
 				66BBD74315028F0A00102FEF /* map-test-australia_states_blank.svg in Resources */,
 				66BBD7461502A4EE00102FEF /* map-test-Location_European_nation_states-adam1.svg in Resources */,
+				666674E0168B5E0000486B68 /* Rsimplified.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
