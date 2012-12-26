@@ -4,9 +4,7 @@ SVGKit is a Cocoa framework for rendering SVG files as Core Animation layers.
 All shapes are represented by instances of the `CAShapeLayer` class, and are, by design, animatable. 
 SVGKit works on OS X and iOS.
 
-##
-
-PLEASE DO NOT USE THIS BRANCH - USE THE 2013base BRANCH INSTEAD.
+## PLEASE DO NOT USE THIS BRANCH - USE THE 2013base BRANCH INSTEAD.
 
 (we are in the process of upgrading everything to the 2013base branch. When all the bugs are fixed, that branch WILL OVERWRITE THIS BRANCH)
 
