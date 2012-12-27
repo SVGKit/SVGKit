@@ -14,6 +14,6 @@
 
 @protocol DocumentCSS <DocumentStyle>
 
--(CSSStyleDeclaration*) getOverrideStyle:(Element*) pseudoElt: (NSString*) pseudoElt;
+-(CSSStyleDeclaration *)getOverrideStyle:(Element *)element pseudoElt:(NSString *)pseudoElt;
 
 @end

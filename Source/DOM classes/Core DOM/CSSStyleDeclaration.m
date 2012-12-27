@@ -84,22 +84,22 @@
                 NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
 				NSString *cssValueString = [NSString stringWithUTF8String:accum];
 				
-				NSMutableCharacterSet* trimmingSetForKey = [[NSMutableCharacterSet alloc] init];
+				NSMutableCharacterSet* trimmingSetForKey = [[[NSMutableCharacterSet alloc] init] autorelease];
 				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
+				[keyString autorelease]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
 				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
 				
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
-					cssValue = [[CSSValueList alloc] init];
+					cssValue = [[[CSSValueList alloc] init] autorelease];
 				else
-					cssValue = [[CSSPrimitiveValue alloc] init];
+					cssValue = [[[CSSPrimitiveValue alloc] init] autorelease];
 				cssValue.cssText = cssValueString; // has the side-effect of parsing, if required
 				
                 [dict setObject:cssValue
                          forKey:keyString];
-                [keyString release];
                 
                 bzero(name, MAX_NAME);
                 

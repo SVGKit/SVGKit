@@ -173,7 +173,7 @@
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{
-		self.style = [[CSSStyleDeclaration alloc] init];
+		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])
@@ -475,27 +475,27 @@
 					}
 				}
 			}
+			
+			/** either there's no class *OR* it found no match for the class in the stylesheets */
+			
+			/** Finally: move up the tree until you find a <G> node, and ask it to provide the value
+			 OR: if you find an <SVG> tag before you find a <G> tag, give up
+			 */
+			
+			Node* parentElement = self.parentNode;
+			while( parentElement != nil
+				  && ! [parentElement isKindOfClass:[SVGGroupElement class]]
+				  && ! [parentElement isKindOfClass:[SVGSVGElement class]])
+			{
+				parentElement = parentElement.parentNode;
+			}
+			
+			if( parentElement == nil
+			   || [parentElement isKindOfClass:[SVGSVGElement class]] )
+				return nil; // give up!
 			else
 			{
-				/** Finally: move up the tree until you find a <G> node, and ask it to provide the value
-				 OR: if you find an <SVG> tag before you find a <G> tag, give up
-				 */
-				
-				SVGElement* parentElement = self.parentNode;
-				while( parentElement != nil
-				&& ! [parentElement isKindOfClass:[SVGGroupElement class]]
-				&& ! [parentElement isKindOfClass:[SVGSVGElement class]])
-				{
-					parentElement = parentElement.parentNode;
-				}
-				
-				if( parentElement == nil
-				|| [parentElement isKindOfClass:[SVGSVGElement class]])
-					return nil; // give up!
-				else
-				{
-					return [parentElement cascadedValueForStylableProperty:stylableProperty];
-				}
+				return [((SVGElement*)parentElement) cascadedValueForStylableProperty:stylableProperty];
 			}
 		}
 	}

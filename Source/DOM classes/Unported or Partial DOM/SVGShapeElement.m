@@ -152,7 +152,7 @@
 	else if ( [actualFill hasPrefix:@"url"] )
 	{
 		NSRange idKeyRange = NSMakeRange(5, actualFill.length - 6);
-		NSString* _fillId = [[actualFill substringWithRange:idKeyRange] retain];
+		NSString* _fillId = [actualFill substringWithRange:idKeyRange];
 		
 		/** Replace the return layer with a special layer using the URL fill */
 		/** fetch the fill layer by URL using the DOM */
@@ -163,10 +163,11 @@
 		
 		//if( _shapeLayer != nil && svgGradient != nil ) //this nil check here is distrubing but blocking
 		{
-			CAGradientLayer *gradientLayer = (CAGradientLayer *)[svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:self.rootOfCurrentDocumentFragment.viewBoxFrame];
+			CAGradientLayer *gradientLayer = [((CAGradientLayer *)svgGradient) newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:self.rootOfCurrentDocumentFragment.viewBoxFrame];
 			
 			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;
+			[_shapeLayer release]; // because it was created with a +1 retain count
 			
 			return gradientLayer;
 		}

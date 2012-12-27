@@ -5,10 +5,6 @@
 
 #import "NodeList+Mutable.h" // needed for access to underlying array, because SVG doesnt specify how lists are made mutable
 
-@interface Document()
--(Element*) privateGetElementById:(NSString*) idValue childrenOfElement:(Node*) parent;
-@end
-
 @implementation Document
 
 @synthesize doctype;

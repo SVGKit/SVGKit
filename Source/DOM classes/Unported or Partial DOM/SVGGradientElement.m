@@ -45,6 +45,12 @@
 		case SVG_LENGTHTYPE_PX:
 		{
 			xNormalized = (([x pixelsValue] - rectToFill.origin.x) / rectToFill.size.width);
+		} break;
+			
+		default:
+		{
+			NSAssert( FALSE, @"Unsupported input units in the SVGLength variable passed in for 'x': %i", x.unitType );
+			xNormalized = 0;
 		}
 	}
 	
@@ -59,6 +65,12 @@
 		case SVG_LENGTHTYPE_PX:
 		{
 			yNormalized = (([y pixelsValue] - rectToFill.origin.y) / rectToFill.size.height);
+		}break;
+			
+		default:
+		{
+			NSAssert( FALSE, @"Unsupported input units in the SVGLength variable passed in for 'y': %i", y.unitType );
+			yNormalized = 0;
 		}
 	}
 	

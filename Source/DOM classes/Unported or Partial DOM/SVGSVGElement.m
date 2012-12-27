@@ -45,11 +45,11 @@
 
 -(void)loadDefaults
 {
-	self.styleSheets = [[StyleSheetList alloc] init];
+	self.styleSheets = [[[StyleSheetList alloc] init] autorelease];
 }
 @synthesize styleSheets;
 
--(CSSStyleDeclaration *)getOverrideStyle:(Element *)pseudoElt :(NSString *)pseudoElt
+-(CSSStyleDeclaration *)getOverrideStyle:(Element *)element pseudoElt:(NSString *)pseudoElt
 {
 	NSAssert(FALSE, @"Not implemented yet");
 	
