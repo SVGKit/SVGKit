@@ -81,6 +81,7 @@
 #if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
 + (SVGKImage *)imageWithData:(NSData *)data;
 #endif
++ (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
 
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithData:(NSData *)data;
@@ -136,7 +137,10 @@
 
 /*! If you want to provide a custom SVGKSource */
 - (id)initWithSource:(SVGKSource *)source;
+
 /*! If you already have a parsed SVG, and just want to upgrade it to an SVGKImage
+ 
+ This is the designated initialiser used by all other init methods
  
  NB: this is frequently used if you have to add custom SVGKParserExtensions to parse an
  SVG which contains custom tags

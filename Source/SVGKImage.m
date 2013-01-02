@@ -133,6 +133,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
 }
 
++ (SVGKImage*) imageWithSource:(SVGKSource *)newSource
+{
+	NSParameterAssert(newSource != nil);
+	
+	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+}
+
 /**
  Designated Initializer
  */
