@@ -140,6 +140,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return [[[[self class] alloc] initWithSource:newSource] autorelease];
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	/** Remove and release (if appropriate) all cached render-output */
+	NSLog(@"[%@] source data changed; de-caching cached data", [self class] );
+	self.CALayerTree = nil;
+}
+
 /**
  Designated Initializer
  */
@@ -172,6 +179,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 			self.svgWidth = self.DOMTree.width;
 			self.svgHeight = self.DOMTree.height;
 		}
+		
+		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
+//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
 }
@@ -248,7 +258,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(CGSize)size
 {
-	return CGSizeMake( [self.svgWidth pixelsValue], [self.svgHeight pixelsValue] );
+	//return CGSizeMake( [self.svgWidth pixelsValue], [self.svgHeight pixelsValue] );
+	return CGSizeMake( self.DOMTree.viewport.width, self.DOMTree.viewport.height );
 }
 
 -(CGFloat)scale

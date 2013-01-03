@@ -377,7 +377,11 @@
 		CGRect frameViewport = CGRectFromSVGRect( selfAsSVGTag.viewport );
 		
 		if( ! CGRectIsEmpty( frameViewBox ) )
-			optionalViewportTransform = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
+		{
+			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.origin.x, -frameViewBox.origin.y );
+			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
+			optionalViewportTransform = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
+		}
 		else
 			optionalViewportTransform = CGAffineTransformIdentity;
 	}
