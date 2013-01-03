@@ -50,6 +50,8 @@ static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
+static SVGKParser *parserThatWasMostRecentlyStarted;
+
 + (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
 {
 	SVGKParser *parser = [[[SVGKParser alloc] initWithSource:source] autorelease];
@@ -136,11 +138,21 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	}
 }
 
+static FILE *desc;
+static int
+readPacket(char *mem, int size) {
+    int res;
+	
+    res = fread(mem, 1, size, desc);
+    return(res);
+}
+
 - (SVGKParseResult*) parseSynchronously
 {
 	self.currentParseRun = [[SVGKParseResult new] autorelease];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
+	parserThatWasMostRecentlyStarted = self;
 	
 	/*
 	// 1. while (source has chunks of BYTES)
@@ -160,13 +172,25 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	}
 	char buff[READ_CHUNK_SZ];
 	
-	xmlParserCtxtPtr ctx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);
+	xmlParserCtxtPtr ctx;
+	ctx = xmlCreatePushParserCtxt(&SAXHandler, NULL, NULL, 0, NULL); // NEVER pass anything except NULL in second arg - libxml has a massive bug internally
+	
+	/* 
+	 NSLog(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
+	 xmlSubstituteEntitiesDefault(1);
+	xmlCtxtUseOptions( ctx,
+					  XML_PARSE_DTDATTR  // default DTD attributes
+					  | XML_PARSE_NOENT    // substitute entities
+					  | XML_PARSE_DTDVALID // validate with the DTD
+					  );
+	*/
 	
 	if( ctx ) // if libxml init succeeds...
 	{
 		// 1. while (source has chunks of BYTES)
 		// 2.   read a chunk from source, send to libxml
-		int bytesRead = [source reader:reader readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
+		int bytesRead;
+		bytesRead = [source reader:reader readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
 			int libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
@@ -347,6 +371,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
 	
 	SVGKParser *self = (SVGKParser *) ctx;
+	self = parserThatWasMostRecentlyStarted;
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
@@ -470,6 +495,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
 	SVGKParser *self = (SVGKParser *) ctx;
+	self = parserThatWasMostRecentlyStarted;
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
@@ -486,11 +512,13 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
 {
     SVGKParser *self = (SVGKParser *) ctx;
+	self = parserThatWasMostRecentlyStarted;
 	[self handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 	SVGKParser *self = (SVGKParser *) ctx;
+	self = parserThatWasMostRecentlyStarted;
 	[self handleFoundCharacters:chars length:len];
 }
 
@@ -570,7 +598,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* notationDecl */
     NULL,                       /* attributeDecl */
     NULL,                       /* elementDecl */
-    unparsedEntityDeclaration,  /* unparsedEntityDecl */
+    NULL,                       /* unparsedEntityDecl */
     NULL,                       /* setDocumentLocator */
     NULL,                       /* startDocument */
     NULL,                       /* endDocument */

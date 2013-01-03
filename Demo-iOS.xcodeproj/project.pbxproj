@@ -10,6 +10,7 @@
 		661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
 		661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
 		661A0DD3161727CF008D5FBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD2161727CF008D5FBE /* CoreGraphics.framework */; };
+		663730351696111E008C6C56 /* PreserveAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663730341696111E008C6C56 /* PreserveAspectRatio.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
 		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
@@ -71,6 +72,7 @@
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		661A0DD0161727CF008D5FBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		661A0DD2161727CF008D5FBE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		663730341696111E008C6C56 /* PreserveAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PreserveAspectRatio.svg; sourceTree = "<group>"; };
 		6649E0AC1617479200AFE92A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -217,13 +219,14 @@
 		66E8627B1688BA510059C9C4 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
-				666674D9168B5D7E00486B68 /* Rsimplified.svg */,
+				663730341696111E008C6C56 /* PreserveAspectRatio.svg */,
 				66E8627C1688BA510059C9C4 /* australia_states_blank.svg */,
 				66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */,
 				66E8627E1688BA510059C9C4 /* breaking-1.svg */,
 				66E8627F1688BA510059C9C4 /* CurvedDiamond.svg */,
 				66E862801688BA510059C9C4 /* Europe_states_reduced.svg */,
 				66E862811688BA510059C9C4 /* imageWithASinglePointPath.svg */,
+				666674D9168B5D7E00486B68 /* Rsimplified.svg */,
 				6668E20B1688EB2900F774A6 /* lingrad01.svg */,
 				66E862821688BA510059C9C4 /* Lion.svg */,
 				66E862831688BA510059C9C4 /* Location_European_nation_states.svg */,
@@ -341,6 +344,7 @@
 				6668E20C1688EB2900F774A6 /* lingrad01.svg in Resources */,
 				66988DD8168A22E700EC93C7 /* StyleAttribute.svg in Resources */,
 				666674DA168B5D7E00486B68 /* Rsimplified.svg in Resources */,
+				663730351696111E008C6C56 /* PreserveAspectRatio.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

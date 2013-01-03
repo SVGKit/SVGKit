@@ -262,7 +262,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSAssert( self.DOMTree != nil, @"You cannot request a .UIImage for an SVG that you haven't parsed yet! There's no data to return!");
 	
-	UIGraphicsBeginImageContextWithOptions(self.size, FALSE, [UIScreen mainScreen].scale );
+	CGSize sizeUsingRootViewport = CGSizeMake( self.DOMTree.viewport.width, self.DOMTree.viewport.height );
+	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], sizeUsingRootViewport.width, sizeUsingRootViewport.height);
+	UIGraphicsBeginImageContextWithOptions( sizeUsingRootViewport, FALSE, [UIScreen mainScreen].scale );
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[self.CALayerTree renderInContext:context];
 	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();

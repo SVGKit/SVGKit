@@ -95,9 +95,6 @@ static NSDictionary *elementMap;
 		if( [@"svg" isEqualToString:name] )
 		{
 			NSString* svgVersion = nil;
-			if ((svgVersion = [attributes objectForKey:@"version"])) {
-				SVGKSource.svgLanguageVersion = svgVersion;
-			}
 			
 			/** According to spec, if the first XML node is an SVG node, then it
 			 becomes TWO THINGS:
@@ -140,7 +137,7 @@ static NSDictionary *elementMap;
 			else
 			{
 				/** It's not the first SVG node */
-				generateAnSVGDocument = TRUE;
+				// ... so: do nothing special
 			}
 			
 			/**
@@ -149,6 +146,12 @@ static NSDictionary *elementMap;
 			if( overwriteRootOfTree )
 			{
 				parseResult.rootOfSVGTree = (SVGSVGElement*) element;
+				
+				/** Post-processing of the ROOT SVG ONLY (doesn't apply to embedded SVG's )
+				 */
+				if ((svgVersion = [attributes objectForKey:@"version"])) {
+					SVGKSource.svgLanguageVersion = svgVersion;
+				}
 			}
 			if( generateAnSVGDocument )
 			{
@@ -163,7 +166,7 @@ static NSDictionary *elementMap;
 				}
 				else
 				{
-					NSAssert( FALSE, @"Currently not supported: multiple SVG nodes (ie secondary Document reference) inside one file" );
+					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
 			}
 			

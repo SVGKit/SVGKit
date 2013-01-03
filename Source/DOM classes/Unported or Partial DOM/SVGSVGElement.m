@@ -107,8 +107,9 @@
 	NSAssert( [[self getAttribute:@"height"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit height attribute");
 	
 	self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
-	
 	self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
+	SVGRect initialViewport = { 0, 0, [self.width pixelsValue], [self.height pixelsValue] };
+	self.viewport = initialViewport;
 	
 	if( [[self getAttribute:@"viewBox"] length] > 0 )
 	{

@@ -10,6 +10,8 @@
  */
 #import <Foundation/Foundation.h>
 
+#import <CoreGraphics/CoreGraphics.h>
+
 typedef struct
 {
 	float x;
@@ -17,3 +19,5 @@ typedef struct
 	float width;
 	float height;
 } SVGRect;
+
+CGRect CGRectFromSVGRect( SVGRect rect );

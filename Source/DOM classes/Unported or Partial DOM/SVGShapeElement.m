@@ -111,8 +111,8 @@
 	
 	NSString* actualStroke = self.cascadedStroke;
 	NSString* actualStrokeWidth = self.cascadedStrokeWidth;
-	if( ! [@"none" isEqualToString:actualStroke]
-	&& actualStrokeWidth.length > 0 )
+	if( actualStroke.length > 0
+	&& (! [@"none" isEqualToString:actualStroke]) )
 	{
 		CGFloat strokeWidth = actualStrokeWidth.length > 0 ? [actualStrokeWidth floatValue] : 1.0f;
 		

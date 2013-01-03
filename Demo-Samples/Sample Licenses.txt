@@ -53,3 +53,7 @@ lingrad01.svg
 StyleAttribute
      -- Part of the SVG Spec documents:
 	 -- http://www.w3.org/TR/SVG/images/styling/StyleAttribute.svg
+
+PreserveAspectRatio
+     -- Part of the SVG Spec documents:
+	 -- http://www.w3.org/TR/SVG11/images/coords/PreserveAspectRatio.svg

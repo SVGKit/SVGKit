@@ -268,6 +268,7 @@ typedef enum {
 } Phase;
 
 SVGColor SVGColorFromString (const char *string) {
+	NSCAssert(string != NULL, @"NullPointerException: you gave us a null pointer, very bad thing to do...");
 	SVGColor color;
 	bzero(&color, sizeof(color));
 	

@@ -16,6 +16,8 @@
 
 #import "SVGGroupElement.h"
 
+#import "SVGRect.h"
+
 @interface SVGElement ()
 
 @property (nonatomic, copy) NSString *stringValue;
@@ -372,7 +374,7 @@
 		
 		SVGSVGElement* selfAsSVGTag = (SVGSVGElement*) self;
 		CGRect frameViewBox = selfAsSVGTag.viewBoxFrame;
-		CGRect frameViewport = CGRectMake(0,0, [selfAsSVGTag.width pixelsValue], [selfAsSVGTag.height pixelsValue] );
+		CGRect frameViewport = CGRectFromSVGRect( selfAsSVGTag.viewport );
 		
 		if( ! CGRectIsEmpty( frameViewBox ) )
 			optionalViewportTransform = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
