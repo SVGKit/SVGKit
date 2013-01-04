@@ -149,7 +149,9 @@
 			
 			[self reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:firstAncestorThatIsAnyKindOfSVGElement];
 			
+#if DEBUG_SVG_ELEMENT_PARSING
 			NSLog(@"viewport Element = %@ ... for node/element = %@", self.viewportElement, self.tagName);
+#endif
 		}
 	}
 }
@@ -390,7 +392,7 @@
 	/** SELF absolute */
 	CGAffineTransform result = CGAffineTransformConcat( selfRelativeTransform, CGAffineTransformConcat( optionalViewportTransform, parentAbsoluteTransform));
 	
-	NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
+	//DEBUG: NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
 	
 	return result;
 }

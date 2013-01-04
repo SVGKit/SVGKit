@@ -50,6 +50,7 @@
 
 /*! Verbose parser logging - ONLY needed if you have an SVG file that's failing to load / crashing */
 #define DEBUG_VERBOSE_LOG_EVERY_TAG 0
+#define DEBUG_XML_PARSER 0
 
 @interface SVGKParser : NSObject {
   @private

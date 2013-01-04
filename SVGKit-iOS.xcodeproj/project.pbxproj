@@ -25,6 +25,7 @@
 		666674CA168A561C00486B68 /* MediaList.m in Sources */ = {isa = PBXBuildFile; fileRef = 666674C8168A561B00486B68 /* MediaList.m */; };
 		6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6668E2061688D3CF00F774A6 /* SVGGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6668E2071688D3CF00F774A6 /* SVGGElement.m */; };
+		6694BB7B16967407007D0947 /* DOMGlobalSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694BB7A16967407007D0947 /* DOMGlobalSettings.h */; };
 		66988DB3168A001400EC93C7 /* CSSStyleDeclaration.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DB4168A001400EC93C7 /* CSSStyleDeclaration.m in Sources */ = {isa = PBXBuildFile; fileRef = 66988DB2168A001400EC93C7 /* CSSStyleDeclaration.m */; };
 		66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DB5168A004D00EC93C7 /* CSSValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -224,6 +225,7 @@
 		666674CB168A58D000486B68 /* StyleSheetList+Mutable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StyleSheetList+Mutable.h"; sourceTree = "<group>"; };
 		6668E2061688D3CF00F774A6 /* SVGGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGElement.h; sourceTree = "<group>"; };
 		6668E2071688D3CF00F774A6 /* SVGGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGElement.m; sourceTree = "<group>"; };
+		6694BB7A16967407007D0947 /* DOMGlobalSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOMGlobalSettings.h; sourceTree = "<group>"; };
 		66988DAF1689FF5D00EC93C7 /* SVGStylable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGStylable.h; sourceTree = "<group>"; };
 		66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSStyleDeclaration.h; sourceTree = "<group>"; };
 		66988DB2168A001400EC93C7 /* CSSStyleDeclaration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSStyleDeclaration.m; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				66E8632E1688C2770059C9C4 /* ProcessingInstruction.m */,
 				66E8632F1688C2770059C9C4 /* Text.h */,
 				66E863301688C2770059C9C4 /* Text.m */,
+				6694BB7A16967407007D0947 /* DOMGlobalSettings.h */,
 			);
 			path = "Core DOM";
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				666674C1168A556300486B68 /* StyleSheetList.h in Headers */,
 				666674C5168A55AF00486B68 /* StyleSheet.h in Headers */,
 				666674C9168A561C00486B68 /* MediaList.h in Headers */,
+				6694BB7B16967407007D0947 /* DOMGlobalSettings.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

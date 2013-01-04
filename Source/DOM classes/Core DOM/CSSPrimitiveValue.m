@@ -2,6 +2,8 @@
 #import "CSSValue_ForSubclasses.h"
 #import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
 
+#import "DOMGlobalSettings.h"
+
 #define INCHES_PER_CENTIMETRE ( 0.393700787f )
 
 @interface CSSPrimitiveValue()
@@ -217,8 +219,6 @@
 	[_cssText retain];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
-	NSLog(@"[%@] received new CSS Text, need to convert to float OR string (how do you tell the differnce? Argh!) and save as correct primitive type: %@", [self class], _cssText);
-	
 	if( _cssText == nil
 	|| _cssText.length == 0 )
 	{
@@ -280,7 +280,9 @@
 		else
 		{
 			/* Option 2: it's a string - or corrupt, which we're not going to handle here */
+#if DEBUG_DOM_PARSING
 			NSLog(@"[%@] WARNING: not bothering to work out 'what kind of CSS string' this string is. CSS is stupid. String = %@", [self class], _cssText );
+#endif
 			[self setStringValue:CSS_STRING stringValue:_cssText]; // -------- NB: we allow any string-to-string conversion, so it's not a huge problem that we dont correctly detect "url" versus "other kind of string". I hate CSS Parsing...
 		}
 	}

@@ -272,7 +272,18 @@ static NSMutableDictionary* globalSVGKImageCache;
 -(UIImage *)UIImage
 {
 	NSAssert( self.DOMTree != nil, @"You cannot request a .UIImage for an SVG that you haven't parsed yet! There's no data to return!");
+	NSDate* startTime;
 	
+	if( CALayerTree == nil )
+	{
+		startTime = [NSDate date];
+		[self CALayerTree]; // creates and caches a calayertree if needed
+		NSLog(@"[%@] create UIImage: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
+	}
+	else
+		NSLog(@"[%@] create UIImage: re-using cached CALayers (FREE))", [self class] );
+	
+	startTime = [NSDate date];
 	CGSize sizeUsingRootViewport = CGSizeMake( self.DOMTree.viewport.width, self.DOMTree.viewport.height );
 	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], sizeUsingRootViewport.width, sizeUsingRootViewport.height);
 	UIGraphicsBeginImageContextWithOptions( sizeUsingRootViewport, FALSE, [UIScreen mainScreen].scale );
@@ -280,6 +291,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	[self.CALayerTree renderInContext:context];
 	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
+	NSLog(@"[%@] create UIImage: time taken to render CALayers to texture: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
 	
 	return result;
 }
@@ -384,9 +396,10 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 		
 		while( currentLayer.superlayer != nil )
 		{
-			//NSLog(@"shifting (%2.2f, %2.2f) to accomodate offset of layer = %@ inside superlayer = %@", currentLayer.superlayer.frame.origin.x, currentLayer.superlayer.frame.origin.y, currentLayer, currentLayer.superlayer );
+			//DEBUG: NSLog(@"shifting (%2.2f, %2.2f) to accomodate offset of layer = %@ inside superlayer = %@", currentLayer.superlayer.frame.origin.x, currentLayer.superlayer.frame.origin.y, currentLayer, currentLayer.superlayer );
 			
 			currentLayer = currentLayer.superlayer;
+			//DEBUG: NSLog(@"...next superlayer in positioning absolute = %@, %@", currentLayer, NSStringFromCGRect(currentLayer.frame));
 			xOffset += currentLayer.frame.origin.x;
 			yOffset += currentLayer.frame.origin.y;
 		}
@@ -403,7 +416,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 {
 	CALayer *layer = [element newLayer];
 	
-	NSLog(@"[%@] DEBUG: converted SVG element (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([element class]), NSStringFromClass([layer class]), NSStringFromCGRect( layer.frame ), layer, element.identifier);
+	//DEBUG: NSLog(@"[%@] DEBUG: converted SVG element (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([element class]), NSStringFromClass([layer class]), NSStringFromCGRect( layer.frame ), layer, element.identifier);
 	
 	NodeList* childNodes = element.childNodes;
 	
@@ -423,7 +436,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	for (SVGElement *child in childNodes )
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
-			CALayer *sublayer = [self newLayerWithElement:(id<SVGLayeredElement>)child];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
 			
 			if (!sublayer) {
 				continue;

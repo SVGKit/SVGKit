@@ -294,7 +294,9 @@ readPacket(char *mem, int size) {
 			/** Parser Extenstion creates a node for us */
 			Node* subParserResult = [subParser handleStartElement:name document:source namePrefix:prefix namespaceURI:XMLNSURI attributes:attributeObjects parseResult:self.currentParseRun parentNode:_parentOfCurrentNode];
 			
+#if DEBUG_XML_PARSER
 			NSLog(@"[%@] tag: <%@:%@> id=%@ -- handled by subParser: %@", [self class], prefix, name, ([((Attr*)[attributeObjects objectForKey:@"id"]) value] != nil?[((Attr*)[attributeObjects objectForKey:@"id"]) value]:@"(none)"), subParser );
+#endif
 			
 			/** Add the new (partially parsed) node to the parent node in tree
 			 
@@ -338,7 +340,9 @@ readPacket(char *mem, int size) {
 	/** Parser Extenstion creates a node for us */
 	Node* subParserResult = [eventualParser handleStartElement:name document:source namePrefix:prefix namespaceURI:XMLNSURI attributes:attributeObjects parseResult:self.currentParseRun parentNode:_parentOfCurrentNode];
 	
+#if DEBUG_XML_PARSER
 	NSLog(@"[%@] tag: <%@:%@> id=%@ -- handled by subParser: %@", [self class], prefix, name, ([((Attr*)[attributeObjects objectForKey:@"id"]) value] != nil?[((Attr*)[attributeObjects objectForKey:@"id"]) value]:@"(none)"), eventualParser );
+#endif
 	
 	/** Add the new (partially parsed) node to the parent node in tree
 	 
@@ -424,8 +428,10 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 			[self.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
 	}
 	
+#if DEBUG_XML_PARSER
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
 	NSLog(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], [NSString stringWithFormat:@"%@:",stringPrefix], name, stringURI, nb_attributes );
+#endif
 #endif
 	
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
@@ -473,8 +479,11 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	NSObject<SVGKParserExtension>* parser = (NSObject<SVGKParserExtension>*)lastobject;
 	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
 	
-	
+#if DEBUG_XML_PARSER
+#if DEBUG_VERBOSE_LOG_EVERY_TAG
 	NSLog(@"[%@] DEBUG-PARSER: ended tag (</%@>), handled by parser (%@) with parent parsed by %@", [self class], name, parser, parentParser );
+#endif
+#endif
 	
 	/**
 	 At this point, the "parent of current node" is still set to the node we're
