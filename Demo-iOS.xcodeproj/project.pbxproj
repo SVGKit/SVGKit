@@ -14,6 +14,9 @@
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
 		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
+		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
+		6661A7801698C2A70061E349 /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6661A77E1698C2A70061E349 /* text01.svg */; };
+		6661A7811698C2A70061E349 /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6661A77F1698C2A70061E349 /* tspan01.svg */; };
 		666674DA168B5D7E00486B68 /* Rsimplified.svg in Resources */ = {isa = PBXBuildFile; fileRef = 666674D9168B5D7E00486B68 /* Rsimplified.svg */; };
 		6668E20C1688EB2900F774A6 /* lingrad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6668E20B1688EB2900F774A6 /* lingrad01.svg */; };
 		66988DD8168A22E700EC93C7 /* StyleAttribute.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66988DD7168A22E700EC93C7 /* StyleAttribute.svg */; };
@@ -76,6 +79,9 @@
 		6649E0AC1617479200AFE92A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		6661A77C1698BBE20061E349 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		6661A77E1698C2A70061E349 /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
+		6661A77F1698C2A70061E349 /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		666674D9168B5D7E00486B68 /* Rsimplified.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rsimplified.svg; sourceTree = "<group>"; };
 		6668E20B1688EB2900F774A6 /* lingrad01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lingrad01.svg; sourceTree = "<group>"; };
 		66988DD7168A22E700EC93C7 /* StyleAttribute.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = StyleAttribute.svg; sourceTree = "<group>"; };
@@ -123,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
 				6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */,
 				6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */,
@@ -138,6 +145,7 @@
 		661A0DBF161727CF008D5FBE = {
 			isa = PBXGroup;
 			children = (
+				6661A77C1698BBE20061E349 /* CoreText.framework */,
 				66E862561688BA0B0059C9C4 /* Demo-iOS */,
 				66E862761688BA510059C9C4 /* Demo-Samples */,
 				6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */,
@@ -240,6 +248,8 @@
 				66988DD7168A22E700EC93C7 /* StyleAttribute.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
 				66E8628B1688BA510059C9C4 /* Text.svg */,
+				6661A77E1698C2A70061E349 /* text01.svg */,
+				6661A77F1698C2A70061E349 /* tspan01.svg */,
 				66E8628C1688BA510059C9C4 /* uk-only.svg */,
 				66E8628D1688BA510059C9C4 /* voies.svg */,
 			);
@@ -345,6 +355,8 @@
 				66988DD8168A22E700EC93C7 /* StyleAttribute.svg in Resources */,
 				666674DA168B5D7E00486B68 /* Rsimplified.svg in Resources */,
 				663730351696111E008C6C56 /* PreserveAspectRatio.svg in Resources */,
+				6661A7801698C2A70061E349 /* text01.svg in Resources */,
+				6661A7811698C2A70061E349 /* tspan01.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

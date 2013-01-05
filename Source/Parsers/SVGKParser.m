@@ -250,6 +250,18 @@ readPacket(char *mem, int size) {
 	if( _parentOfCurrentNode == nil )
 		parsingRootTag = TRUE;
 	
+	if( ! parsingRootTag )
+	{
+	/** Send any partially-parsed text data into the old node that is now the parent node,
+	 then change the "storing chars" flag to fit the new node */
+		NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
+		if ( [parentParser createdNodeShouldStoreContent:_parentOfCurrentNode])
+		{
+			[parentParser handleStringContent:_storedChars forNode:_parentOfCurrentNode parseResult:self.currentParseRun];
+			[_storedChars setString:@""];
+		}
+	}
+	
 	/**
 	 Search for a Parser Extension to handle this XML tag ...
 	 
@@ -305,7 +317,6 @@ readPacket(char *mem, int size) {
 			 */
 			[_parentOfCurrentNode appendChild:subParserResult]; // this is a DOM method: should NOT have side-effects
 			_parentOfCurrentNode = subParserResult;
-			
 			
 			if ([subParser createdNodeShouldStoreContent:subParserResult]) {
 				[_storedChars setString:@""];
@@ -493,12 +504,19 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		[parser handleStringContent:_storedChars forNode:_parentOfCurrentNode parseResult:self.currentParseRun];
 		
 		[_storedChars setString:@""];
-		_storingChars = NO;
 	}
 	
 	/** Update the _parentOfCurrentNode to point to the parent of the node we just closed...
 	 */
 	_parentOfCurrentNode = _parentOfCurrentNode.parentNode;
+	/** ... and flip the storing-characters flag appropriately in case there's trailing text content for the parent node */
+	if ([parentParser createdNodeShouldStoreContent:_parentOfCurrentNode]) {
+		[_storedChars setString:@""];
+		_storingChars = YES;
+	}
+	else {
+		_storingChars = NO;
+	}
 	
 }
 

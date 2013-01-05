@@ -398,7 +398,10 @@
 }
 
 - (void)parseContent:(NSString *)content {
-	self.stringValue = content;
+	if( self.stringValue == nil )
+		self.stringValue = content;
+	else
+		self.stringValue = [self.stringValue stringByAppendingString:content];
 }
 
 - (NSString *)description {

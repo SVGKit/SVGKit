@@ -46,14 +46,20 @@ Reinel_compass_rose.svg
      -- Creative Commons
      -- http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg
 
+
+FILES TAKEN DIRECT FROM THE OFFICIAL SVG SPEC:
+-----------
 lingrad01.svg
-     -- Part of the SVG Spec documents:
 	 -- http://www.w3.org/TR/SVG/images/pservers/lingrad01.svg
 	 
 StyleAttribute
-     -- Part of the SVG Spec documents:
 	 -- http://www.w3.org/TR/SVG/images/styling/StyleAttribute.svg
 
 PreserveAspectRatio
-     -- Part of the SVG Spec documents:
 	 -- http://www.w3.org/TR/SVG11/images/coords/PreserveAspectRatio.svg
+	 
+text01.svg
+     -- http://www.w3.org/TR/SVG/images/text/text01.svg
+	 
+tspan01.svg
+	 -- http://www.w3.org/TR/SVG/images/text/tspan01.svg

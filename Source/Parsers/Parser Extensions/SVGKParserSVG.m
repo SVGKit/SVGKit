@@ -14,6 +14,7 @@
 #import "SVGPolylineElement.h"
 #import "SVGRectElement.h"
 #import "SVGTitleElement.h"
+#import "SVGTextElement.h"
 
 #import "SVGDocument_Mutable.h"
 
@@ -38,7 +39,9 @@ static NSDictionary *elementMap;
                           [SVGPolygonElement class], @"polygon",
                           [SVGPolylineElement class], @"polyline",
                           [SVGRectElement class], @"rect",
-                          [SVGTitleElement class], @"title", nil] retain];
+                          [SVGTitleElement class], @"title",
+						   [SVGTextElement class], @"text",
+						   nil] retain];
 		}
 	}
 	return self;
