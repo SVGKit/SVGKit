@@ -62,8 +62,6 @@
 @property (nonatomic, readonly) UIImage* UIImage; /** generates an image on the fly */
 #endif
 
-@property (nonatomic, retain, readonly) SVGLength* svgWidth;
-@property (nonatomic, retain, readonly) SVGLength* svgHeight;
 @property (nonatomic, retain, readonly) SVGKSource* source;
 @property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
 
@@ -88,8 +86,15 @@
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 
-/** The natural / preferred size of the SVG (SVG's are infinitely scalable, by definition). This is saved in the original image by the image's author */
-@property(nonatomic,readonly) CGSize             size;
+/** The natural / preferred size of the SVG (SVG's are infinitely scalable, by definition).
+ >  
+ >  NOTE: if you change this property, it will invalidate any cached render-data, and all future
+ >  renders will be done at this pixel-size/pixel-resolution
+ >  
+ >  NOTE: when you read the .UIImage property of this class, it generates a bitmap using the
+ >  current value of this property (or x2 if retina display)
+ >  */
+@property(nonatomic) CGSize             size;
 
 /**
  

@@ -7,6 +7,8 @@
 #import "SVGPathElement.h"
 #import "SVGUseElement.h"
 
+#import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
+
 #import "SVGKParserSVG.h"
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
@@ -22,8 +24,6 @@
 
 @interface SVGKImage ()
 
-@property (nonatomic, retain, readwrite) SVGLength* svgWidth;
-@property (nonatomic, retain, readwrite) SVGLength* svgHeight;
 @property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
 @property (nonatomic, retain, readwrite) SVGKSource* source;
@@ -46,8 +46,7 @@
 
 @synthesize DOMDocument, DOMTree, CALayerTree;
 
-@synthesize svgWidth = _width;
-@synthesize svgHeight = _height;
+@synthesize size = _size;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
 
@@ -153,9 +152,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithParsedSVG:(SVGKParseResult *)parseResult {
 	self = [super init];
 	if (self) {
-		self.svgWidth = [SVGLength svgLengthZero];
-		self.svgHeight = [SVGLength svgLengthZero];
-		
 		self.parseErrorsAndWarnings = parseResult;
 		
 		if( parseErrorsAndWarnings.parsedDocument != nil )
@@ -176,8 +172,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		}
 		else
 		{
-			self.svgWidth = self.DOMTree.width;
-			self.svgHeight = self.DOMTree.height;
+			_size = CGSizeMake( [self.DOMTree.width pixelsValue], [self.DOMTree.height pixelsValue] );
 		}
 		
 		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
@@ -223,8 +218,6 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 
-    self.svgWidth = nil;
-    self.svgHeight = nil;
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
     
@@ -256,10 +249,19 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
 
--(CGSize)size
+-(void)setSize:(CGSize)newSize
 {
-	//return CGSizeMake( [self.svgWidth pixelsValue], [self.svgHeight pixelsValue] );
-	return CGSizeMake( self.DOMTree.viewport.width, self.DOMTree.viewport.height );
+	/** MUST invalidate all the cached data, so that next render uses the new size */
+	_size = newSize;
+	
+	/** "size" is part of SVGKImage, not the SVG spec; we need to update the SVG spec size too (aka the ViewPort) */
+	SVGRect newViewport = self.DOMTree.viewport;
+	newViewport.width = newSize.width;
+	newViewport.height = newSize.height;
+	self.DOMTree.viewport = newViewport; // implicitly resizes all the internal rendering of the SVG
+	
+	/** invalidate all cached data that's dependent upon SVG's size */
+	self.CALayerTree = nil; // invalidate the cached copy
 }
 
 -(CGFloat)scale
@@ -284,9 +286,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 		NSLog(@"[%@] create UIImage: re-using cached CALayers (FREE))", [self class] );
 	
 	startTime = [NSDate date];
-	CGSize sizeUsingRootViewport = CGSizeMake( self.DOMTree.viewport.width, self.DOMTree.viewport.height );
-	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], sizeUsingRootViewport.width, sizeUsingRootViewport.height);
-	UIGraphicsBeginImageContextWithOptions( sizeUsingRootViewport, FALSE, [UIScreen mainScreen].scale );
+	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[self.CALayerTree renderInContext:context];
 	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();

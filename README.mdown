@@ -65,7 +65,19 @@ Alternatively, most people like to compile an embeddable library:
   5. Drag/drop the library file, and the headers folder (should be called "usr") into your iPhone/iPad project.
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
+  8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
 
-  8. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
-  9. (Optional but recommended): Add the framework "libxml2.dylib"
+  9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
+  10. (Optional but recommended): Add the framework "libxml2.dylib"
 
+### REQUIRED APPLE FRAMEWORKS
+
+You must add the following frameworks for SVGKit to compile - unless you are embedding the whole project file (in which case Apple does it automatically)
+
+  - CoreText
+  - CoreImage
+  - QuartzCore
+  - CoreGraphics
+  - UIKit
+
+(only the first two are unusual - the rest you probably have by default in your iOS project template)
