@@ -43,7 +43,7 @@
 		internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
 		
 		self.image = im;
-		self.frame = CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height ); // default: 0,0 to width x height of original image
+		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
 		self.tileRatio = CGSizeZero;
 		self.backgroundColor = [UIColor clearColor];
 		
@@ -65,12 +65,14 @@
 {
 	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+	[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) removeInternalRedrawOnResizeObservers
 {
 	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
+	[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void)setDisableAutoRedrawAtHighestResolution:(BOOL)newValue
@@ -139,7 +141,7 @@
 	 view.bounds == width and height of the view
 	 imageBounds == natural width and height of the SVGKImage
 	 */
-	CGRect imageBounds = CGRectMake( 0,0, self.image.CALayerTree.frame.size.width, self.image.CALayerTree.frame.size.height );
+	CGRect imageBounds = CGRectMake( 0,0, self.image.size.width, self.image.size.height );
 	
 	
 	/** Check if tiling is enabled in either direction

@@ -54,7 +54,6 @@
 
 @interface SVGKParser : NSObject {
   @private
-	BOOL _storingChars;
 	NSMutableString *_storedChars;
 	//NSMutableArray *_elementStack;
 	NSMutableArray * _stackOfParserExtensions;

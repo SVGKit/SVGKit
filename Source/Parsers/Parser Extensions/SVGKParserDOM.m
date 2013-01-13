@@ -5,7 +5,7 @@
 @implementation SVGKParserDOM
 
 /**
- This is a special, magical parser that matches "no namespace" - i.e. matches what happens when no namespace was declared\
+ This is a special, magical parser that matches "no namespace" - i.e. matches what happens when no namespace was declared
  */
 -(NSArray*) supportedNamespaces
 {
@@ -37,6 +37,18 @@
 	return nil;
 }
 
+-(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+{
+	
+}
+
+/***
+ 
+ None of this can be used any more; text-processing (the only part that used it) CANNOT be handled
+ generically, because of the way that the DOM is defined and the libxml XML parser works.
+ 
+ Instead, text-handling, and creation of text nodes, MUST be hard-coded into the SVGKParser core parser :(
+ 
 -(BOOL) createdNodeShouldStoreContent:(Node*) item
 {
 	switch( item.nodeType )
@@ -88,5 +100,5 @@
 		} break;
 	}
 }
-
+*/
 @end

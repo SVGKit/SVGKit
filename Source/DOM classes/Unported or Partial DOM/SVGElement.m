@@ -41,8 +41,6 @@
 @synthesize rootOfCurrentDocumentFragment;
 @synthesize viewportElement;
 
-@synthesize stringValue = _stringValue;
-
 @synthesize transformRelative = _transformRelative;
 
 
@@ -395,13 +393,6 @@
 	//DEBUG: NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
 	
 	return result;
-}
-
-- (void)parseContent:(NSString *)content {
-	if( self.stringValue == nil )
-		self.stringValue = content;
-	else
-		self.stringValue = [self.stringValue stringByAppendingString:content];
 }
 
 - (NSString *)description {

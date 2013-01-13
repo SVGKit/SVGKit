@@ -104,16 +104,9 @@
 	return nil;
 }
 
--(BOOL) createdNodeShouldStoreContent:(Node*) item
+-(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
-	return false;
-}
-
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult
-{
-	SVGElement* element = (SVGElement*) node;
 	
-	[element parseContent:content];
 }
 
 @end

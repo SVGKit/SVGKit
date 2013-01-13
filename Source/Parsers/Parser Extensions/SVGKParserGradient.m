@@ -83,16 +83,10 @@ static NSSet *_svgGradientParserSupportedTags = nil;
     return [returnObject autorelease];
 }
 
-//-(void) addChildObject:(NSObject *)child toObject:(NSObject *)parent inDocument:(SVGDocument *)svgDocument
-//{
-//    
-//}
-
-//-(void) parseContent:(NSMutableString *)content forItem:(NSObject *)item
-//{
-//    SVGGradientElement *theGradient = (SVGGradientElement *)item;
-//    NSLog(@"ParsingContent for SVGParserGradient with content %@", [theGradient description]);
-//}
+-(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+{
+	
+}
 
 //-(void)dealloc
 //{
@@ -100,11 +94,6 @@ static NSSet *_svgGradientParserSupportedTags = nil;
 //    [super dealloc];
 //}
 
-//-(BOOL) createdItemShouldStoreContent:(NSObject *)item
-//{
-//    
-//    return false;
-//}
 
 +(void)trim
 {

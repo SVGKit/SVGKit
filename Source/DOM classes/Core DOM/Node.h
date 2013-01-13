@@ -63,6 +63,15 @@
  boolean            hasAttributes();
  };
 
+ -------------------------------
+ 
+ // DOM Level 3 that we *need*, partly because SVG Spec makes one brief reference to it: http://www.w3.org/TR/SVG/text.html#InterfaceSVGTextContentElement
+ 
+ http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#Node3-textContent
+ 
+ // Introduced in DOM Level 3:
+ attribute DOMString       textContent;
+ 
 */
 
 #import <Foundation/Foundation.h>
@@ -134,6 +143,11 @@ typedef enum DOMNodeType
 
 // Introduced in DOM Level 2:
 @property(nonatomic) BOOL hasAttributes;
+
+// DOM Level 3 that we *need*, partly because SVG Spec makes one brief reference to it: http://www.w3.org/TR/SVG/text.html#InterfaceSVGTextContentElement
+
+// Introduced in DOM Level 3: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#Node3-textContent
+@property(nonatomic,readonly) NSString* textContent;
 
 #pragma mark - Objective-C init methods (not in SVG Spec - you're supposed to use SVGDocument's createXXX methods instead)
 /** Designated initializers - 2 pairs (one for DOM 1, no namespace, the other for DOM 2, with namespace) of 2 methods (one for nodes that REQUIRE a value, the other for nodes that MUST NOT have a value) */

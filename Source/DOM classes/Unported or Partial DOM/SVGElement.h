@@ -46,7 +46,6 @@
 /*! This is used when generating CALayer objects, to store the id of the SVGElement that created the CALayer */
 #define kSVGElementIdentifier @"SVGElementIdentifier"
 
-@property (nonatomic, readonly, copy) NSString *stringValue;
 
 /*! Transform to be applied to this node and all sub-nodes; does NOT take account of any transforms applied by parent / ancestor nodes
  
@@ -54,8 +53,6 @@
  code. You need to also refactor / merge the method "transformAbsolute" in the .m file of this class.
  */
 @property (nonatomic) CGAffineTransform transformRelative;
-
-- (void)parseContent:(NSString *)content;
 
 
 #pragma mark - SVG-spec supporting methods that aren't in the Spec itself

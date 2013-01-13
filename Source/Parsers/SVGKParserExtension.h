@@ -43,7 +43,11 @@
  subclass of DOM's Node class
  */
 - (Node*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(Node*) parentNode;
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult;
--(BOOL) createdNodeShouldStoreContent:(Node*) node;
+
+/**
+ Primarily used by the few nodes - <TEXT> and <TSPAN> - that need to post-process their text-content.
+ In SVG, almost all data is stored in the attributes instead
+ */
+-(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult;
 
 @end

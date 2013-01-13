@@ -19,10 +19,6 @@
 
 @implementation SVGTextElement
 
-+ (BOOL)shouldStoreContent {
-    return YES;
-}
-
 @synthesize x = _x;
 @synthesize y = _y;
 @synthesize fontFamily = _fontFamily;
@@ -75,7 +71,9 @@
 		font = CTFontCreateWithName( (CFStringRef) @"Verdana", effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
-	NSString* effectiveText = self.stringValue;
+	
+	NSString* effectiveText = self.textContent; // FIXME: this is a TEMPORARY HACK, UNTIL PROPER PARSING OF <TSPAN> ELEMENTS IS ADDED
+	
 	effectiveText = [effectiveText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	effectiveText = [effectiveText stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
 	

@@ -42,6 +42,13 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
+	if( [v isKindOfClass:[NSMutableString class]])
+	{
+		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
+		 So we have to fix it.*/
+		v = [NSString stringWithString:v];
+	}
+	
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -148,6 +155,13 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
+	if( [v isKindOfClass:[NSMutableString class]])
+	{
+		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
+		 So we have to fix it.*/
+		v = [NSString stringWithString:v];
+	}
+	
 	self = [self initType:nt name:n value:v];
 	
 	if( self )
@@ -264,6 +278,55 @@
 		return FALSE;
 	
 	return (self.attributes.length > 0 );
+}
+
+#pragma mark - SPECIAL CASE: DOM level 3 method
+
+/** 
+ 
+ Note that the DOM 3 spec defines this as RECURSIVE:
+ 
+ http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#Node3-textContent
+ */
+-(NSString *)textContent
+{
+	switch( self.nodeType )
+	{
+		case DOMNodeType_ELEMENT_NODE:
+		case DOMNodeType_ATTRIBUTE_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		{
+			/** DOM 3 Spec:
+			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
+			 */
+			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			for( Node* subNode in self.childNodes.internalArray )
+			{
+				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!
+				if( subText != nil ) // Yes, really: Apple docs require that you never append a nil substring. Sigh
+					[stringAccumulator appendString:subText];
+			}
+			
+			return [NSString stringWithString:stringAccumulator];
+		}
+			
+		case DOMNodeType_TEXT_NODE:
+		case DOMNodeType_CDATA_SECTION_NODE:
+		case DOMNodeType_COMMENT_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		{
+			return self.nodeValue; // should never be nil; anything with a valid value will be at least an empty string i.e. ""
+		}
+			
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_NOTATION_NODE:
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		{
+			return nil;
+		}
+	}
 }
 
 #pragma mark - ADDITIONAL to SVG Spec: useful debug / output / description methods

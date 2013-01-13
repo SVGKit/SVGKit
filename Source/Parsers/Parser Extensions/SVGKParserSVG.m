@@ -182,26 +182,9 @@ static NSDictionary *elementMap;
 	return nil;
 }
 
--(BOOL) createdNodeShouldStoreContent:(Node*) item
+-(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
-	if( [item isKindOfClass:[SVGElement class]] )
-	{
-		if ([[item class] shouldStoreContent]) {
-			return TRUE;
-		}
-		else {
-			return FALSE;
-		}
-	}
-	else
-		return false;
-}
-
--(void) handleStringContent:(NSMutableString*) content forNode:(Node*) node parseResult:(SVGKParseResult *)parseResult
-{
-	SVGElement* element = (SVGElement*) node;
 	
-	[element parseContent:content];
 }
 
 @end

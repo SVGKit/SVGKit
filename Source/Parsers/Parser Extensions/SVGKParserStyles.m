@@ -57,22 +57,18 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 		return nil;
 }
 
--(BOOL)createdNodeShouldStoreContent:(Node *)node
+-(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
-	return TRUE;
-}
-
-/** This is where the magic happens ... */
--(void)handleStringContent:(NSMutableString *)content forNode:(Node *)node parseResult:(SVGKParseResult *)parseResult
-{
-	NSString* c = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	
-	if( c.length > 0 )
-	{
-		CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:c] autorelease];
+	/** This is where the magic happens ... */
+		NSString* c = [newNode.textContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		
-		[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
-	}
+		if( c.length > 0 )
+		{
+			CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:c] autorelease];
+			
+			[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+		}
+
 }
 
 -(void) dealloc

@@ -250,16 +250,16 @@ readPacket(char *mem, int size) {
 	if( _parentOfCurrentNode == nil )
 		parsingRootTag = TRUE;
 	
-	if( ! parsingRootTag )
+	if( ! parsingRootTag && _storedChars.length > 0 )
 	{
-	/** Send any partially-parsed text data into the old node that is now the parent node,
-	 then change the "storing chars" flag to fit the new node */
-		NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
-		if ( [parentParser createdNodeShouldStoreContent:_parentOfCurrentNode])
-		{
-			[parentParser handleStringContent:_storedChars forNode:_parentOfCurrentNode parseResult:self.currentParseRun];
-			[_storedChars setString:@""];
-		}
+		/** Send any partially-parsed text data into the old node that is now the parent node,
+		 then change the "storing chars" flag to fit the new node */
+		
+		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		
+		[_parentOfCurrentNode appendChild:tNode];
+		
+		[_storedChars setString:@""];
 	}
 	
 	/**
@@ -318,14 +318,6 @@ readPacket(char *mem, int size) {
 			[_parentOfCurrentNode appendChild:subParserResult]; // this is a DOM method: should NOT have side-effects
 			_parentOfCurrentNode = subParserResult;
 			
-			if ([subParser createdNodeShouldStoreContent:subParserResult]) {
-				[_storedChars setString:@""];
-				_storingChars = YES;
-			}
-			else {
-				_storingChars = NO;
-			}
-			
 			if( parsingRootTag )
 			{
 				currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
@@ -363,15 +355,7 @@ readPacket(char *mem, int size) {
 	[_parentOfCurrentNode appendChild:subParserResult]; // this is a DOM method: should NOT have side-effects
 	_parentOfCurrentNode = subParserResult;
 	
-	
-	if ([eventualParser createdNodeShouldStoreContent:subParserResult]) {
-		[_storedChars setString:@""];
-		_storingChars = YES;
-	}
-	else {
-		_storingChars = NO;
-	}
-	
+		
 	if( parsingRootTag )
 	{
 		currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
@@ -500,24 +484,22 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 At this point, the "parent of current node" is still set to the node we're
 	 closing - because we haven't finished closing it yet
 	 */
-	if ( [parser createdNodeShouldStoreContent:_parentOfCurrentNode]) {
-		[parser handleStringContent:_storedChars forNode:_parentOfCurrentNode parseResult:self.currentParseRun];
+	if( _storedChars.length > 0 )
+	{
+		/** Send any parsed text data into the node-we're-closing */
+		
+		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		
+		[_parentOfCurrentNode appendChild:tNode];
 		
 		[_storedChars setString:@""];
 	}
 	
+	[parser handleEndElement:_parentOfCurrentNode document:source parseResult:self.currentParseRun];
+	
 	/** Update the _parentOfCurrentNode to point to the parent of the node we just closed...
 	 */
 	_parentOfCurrentNode = _parentOfCurrentNode.parentNode;
-	/** ... and flip the storing-characters flag appropriately in case there's trailing text content for the parent node */
-	if ([parentParser createdNodeShouldStoreContent:_parentOfCurrentNode]) {
-		[_storedChars setString:@""];
-		_storingChars = YES;
-	}
-	else {
-		_storingChars = NO;
-	}
-	
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
@@ -527,13 +509,11 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 }
 
 - (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
-	if (_storingChars) {
 		char value[len + 1];
 		strncpy(value, (const char *) chars, len);
 		value[len] = '\0';
 		
 		[_storedChars appendString:[NSString stringWithUTF8String:value]];
-	}
 }
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
