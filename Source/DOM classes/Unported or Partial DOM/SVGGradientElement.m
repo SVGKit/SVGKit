@@ -34,6 +34,9 @@
 {
 	CGFloat xNormalized, yNormalized;
 	
+	if( x.value == 0 )
+		xNormalized = 0;
+	else
 	switch( x.unitType )  // SVG needs gradients measured in percent...
 	{
 		case SVG_LENGTHTYPE_PERCENTAGE:
@@ -54,6 +57,9 @@
 		}
 	}
 	
+	if( y.value == 0 )
+		yNormalized = 0;
+	else
 	switch( y.unitType )  // SVG needs gradients measured in percent...
 	{
 		case SVG_LENGTHTYPE_PERCENTAGE:
