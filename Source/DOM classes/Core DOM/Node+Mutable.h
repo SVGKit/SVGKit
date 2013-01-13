@@ -8,15 +8,15 @@
 @property(nonatomic,retain,readwrite) NSString* nodeValue;
 
 @property(nonatomic,readwrite) DOMNodeType nodeType;
-@property(nonatomic,retain,readwrite) Node* parentNode;
+@property(nonatomic,assign,readwrite) Node* parentNode;
 @property(nonatomic,retain,readwrite) NodeList* childNodes;
-@property(nonatomic,retain,readwrite) Node* firstChild;
-@property(nonatomic,retain,readwrite) Node* lastChild;
-@property(nonatomic,retain,readwrite) Node* previousSibling;
-@property(nonatomic,retain,readwrite) Node* nextSibling;
+@property(nonatomic,assign,readwrite) Node* firstChild;
+@property(nonatomic,assign,readwrite) Node* lastChild;
+@property(nonatomic,assign,readwrite) Node* previousSibling;
+@property(nonatomic,assign,readwrite) Node* nextSibling;
 @property(nonatomic,retain,readwrite) NamedNodeMap* attributes;
 
-@property(nonatomic,retain,readwrite) Document* ownerDocument;
+@property(nonatomic,assign,readwrite) Document* ownerDocument;
 
 // Introduced in DOM Level 2:
 @property(nonatomic,retain,readwrite) NSString* namespaceURI;

@@ -105,16 +105,16 @@ typedef enum DOMNodeType
 @property(nonatomic,retain,readonly) NSString* nodeValue;
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
-@property(nonatomic,retain,readonly) Node* parentNode;
+@property(nonatomic,assign,readonly) Node* parentNode;
 @property(nonatomic,retain,readonly) NodeList* childNodes;
-@property(nonatomic,retain,readonly) Node* firstChild;
-@property(nonatomic,retain,readonly) Node* lastChild;
-@property(nonatomic,retain,readonly) Node* previousSibling;
-@property(nonatomic,retain,readonly) Node* nextSibling;
+@property(nonatomic,assign,readonly) Node* firstChild;
+@property(nonatomic,assign,readonly) Node* lastChild;
+@property(nonatomic,assign,readonly) Node* previousSibling;
+@property(nonatomic,assign,readonly) Node* nextSibling;
 @property(nonatomic,retain,readonly) NamedNodeMap* attributes; /*< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
 
 // Modified in DOM Level 2:
-@property(nonatomic,retain,readonly) Document* ownerDocument;
+@property(nonatomic,assign,readonly) Document* ownerDocument;
 
 -(Node*) insertBefore:(Node*) newChild refChild:(Node*) refChild;
 

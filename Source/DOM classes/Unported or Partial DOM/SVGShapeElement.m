@@ -123,7 +123,7 @@
 		fakeSize = CGSizeApplyAffineTransform( fakeSize, transformAbsolute );
 		_shapeLayer.lineWidth = fakeSize.width;
 		
-		SVGColor strokeColorAsSVGColor = SVGColorFromString(actualStroke.cString); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
+		SVGColor strokeColorAsSVGColor = SVGColorFromString([actualStroke UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		NSString* actualStrokeOpacity = self.cascadedStrokeOpacity;
 		if( actualStrokeOpacity.length > 0 )
 			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
@@ -174,7 +174,7 @@
 	}
 	else if( actualFill.length > 0 )
 	{
-		SVGColor fillColorAsSVGColor = SVGColorFromString(actualFill.cString); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
+		SVGColor fillColorAsSVGColor = SVGColorFromString([actualFill UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		NSString* actualFillOpacity = self.cascadedFillOpacity;
 		if( actualFillOpacity.length > 0 )
 			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
