@@ -230,7 +230,9 @@
 				return;
 			}
 			NSString* command = [transformString substringToIndex:loc.location];
-			NSArray* parameterStrings = [[transformString substringFromIndex:loc.location+1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
+            
+            //we MUST take SPACE character into consideration as a parameters separator
+			NSArray* parameterStrings = [[transformString substringFromIndex:loc.location+1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]];
 			
 			command = [command stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
 			
@@ -274,25 +276,24 @@
 				 https://github.com/warpflyght/SVGKit/commit/c1bd9b3d0607635dda14ec03579793fc682763d9
 				 
 				 */
-				NSArray *rotateStrings = [[parameterStrings objectAtIndex:0] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-				if( [rotateStrings count] == 1)
+				if( [parameterStrings count] == 1)
 				{
-					CGFloat degrees = [[rotateStrings objectAtIndex:0] floatValue];
+					CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
 					
 					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
 					self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
 				}
-				else if( [rotateStrings count] == 3)
+				else if( [parameterStrings count] == 3)
 				{
-					CGFloat degrees = [[rotateStrings objectAtIndex:0] floatValue];
+					CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
-					CGFloat centerX = [[rotateStrings objectAtIndex:1] floatValue];
-					CGFloat centerY = [[rotateStrings objectAtIndex:2] floatValue];
+					CGFloat centerX = [[parameterStrings objectAtIndex:1] floatValue];
+					CGFloat centerY = [[parameterStrings objectAtIndex:2] floatValue];
 					CGAffineTransform nt = CGAffineTransformIdentity;
-					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
+					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(-centerX, -centerY) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
-					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(-1.0 * centerX, -1.0 * centerY) );
+					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
 					self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
 					} else
 					{

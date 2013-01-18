@@ -16,6 +16,7 @@
 #import "SVGStylable.h"
 
 #define DEBUG_SVG_ELEMENT_PARSING 0
+#define OUTLINE_SHAPES 1
 
 @class SVGSVGElement;
 //obj-c's compiler sucks, and doesn't allow this line: #import "SVGSVGElement.h"

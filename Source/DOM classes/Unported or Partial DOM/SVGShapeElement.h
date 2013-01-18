@@ -24,6 +24,10 @@
 	CGRect _layerRect;
 }
 
+@property (nonatomic, readonly) CGFloat x;
+
+@property (nonatomic, readonly) CGFloat y;
+
 @property (nonatomic, readwrite) CGFloat opacity;
 
 @property (nonatomic) float fillOpacity, strokeOpacity;

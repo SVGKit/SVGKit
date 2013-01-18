@@ -113,6 +113,6 @@
 
 @property (nonatomic, readonly) CGRect viewBoxFrame; // FIXME: this has NON TRIVIAL relationship to the viewport property above
 
-- (SVGElement *)findFirstElementOfClass:(Class)class; /*< temporary convenience method until SVGDocument support is complete */
+- (SVGElement *)findFirstElementOfClass:(Class)cl; /*< temporary convenience method until SVGDocument support is complete */
 
 @end

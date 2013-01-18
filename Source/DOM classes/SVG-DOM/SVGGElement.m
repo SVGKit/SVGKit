@@ -35,34 +35,63 @@
 }
 
 - (void)layoutLayer:(CALayer *)layer {
-	CGRect mainRect = CGRectZero;
-	
-	/** Adam: make a frame thats the UNION of all sublayers frames */
-	for ( CALayer *currentLayer in [layer sublayers] )
-	{
-		CGRect subLayerFrame = currentLayer.frame;
-		mainRect = CGRectUnion(mainRect, subLayerFrame);
-	}
-	
-	layer.frame = mainRect;
-	
-	/** (dont know why this is here): set each sublayer to have a frame the same size as the parent frame, but with 0 offset.
-	 
-	 if I understand this correctly, the person who wrote it should have just written:
-	 
-	 "currentLayer.bounds = layer.frame"
-	 
-	 i.e. make every layer have the same size as the parent layer.
-	 
-	 But whoever wrote this didn't document their code, so I have no idea if thats correct or not
-	 */
-	for (CALayer *currentLayer in [layer sublayers]) {
-		CGRect frame = currentLayer.frame;
-		frame.origin.x -= mainRect.origin.x;
-		frame.origin.y -= mainRect.origin.y;
+	CGRect frameRect = CGRectZero;
+    CGRect mainRect = CGRectZero;
+    CGRect boundsRect = CGRectZero;
+
+	NSArray *sublayers = [layer sublayers];
+    
+	for (NSUInteger n = 0; n < [sublayers count]; n++) {
+		CALayer *currentLayer = [sublayers objectAtIndex:n];
 		
-		currentLayer.frame = frame;
+		if (n == 0) {
+			frameRect = currentLayer.frame;
+		}
+		else {
+			frameRect = CGRectUnion(frameRect, currentLayer.frame);
+		}
+        mainRect = CGRectUnion(mainRect, currentLayer.frame);
 	}
+    
+    boundsRect = CGRectOffset(frameRect, -frameRect.origin.x, -frameRect.origin.y);
+    
+    for (CALayer *currentLayer in sublayers) {
+        [currentLayer setAffineTransform:CGAffineTransformConcat(currentLayer.affineTransform, CGAffineTransformMakeTranslation(-frameRect.origin.x, -frameRect.origin.y))];
+	}
+	
+	layer.frame = boundsRect;
+	
+#if OUTLINE_SHAPES
+    
+    layer.borderColor = [UIColor redColor].CGColor;
+    layer.borderWidth = 2.0f;
+    
+    NSString* textToDraw = [NSString stringWithFormat:@"%@ (%@): {%.1f, %.1f} {%.1f, %.1f}", self.identifier, [self class], layer.frame.origin.x, layer.frame.origin.y, layer.frame.size.width, layer.frame.size.height];
+    
+    UIFont* fontToDraw = [UIFont fontWithName:@"Helvetica"
+                                         size:10.0f];
+    CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
+    
+    CATextLayer *debugText = [[[CATextLayer alloc] init] autorelease];
+    [debugText setFont:@"Helvetica"];
+    [debugText setFontSize:10.0f];
+    [debugText setFrame:CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height)];
+    [debugText setString:textToDraw];
+    [debugText setAlignmentMode:kCAAlignmentLeft];
+    [debugText setForegroundColor:[UIColor redColor].CGColor];
+    [debugText setContentsScale:[[UIScreen mainScreen] scale]];
+    [debugText setShouldRasterize:NO];
+    [layer addSublayer:debugText];
+    
+#endif
+
+    //applying transform relative to centerpoint
+    CGAffineTransform tr1 = layer.affineTransform;
+    tr1 = CGAffineTransformConcat(tr1, CGAffineTransformMakeTranslation(frameRect.size.width/2, frameRect.size.height/2));
+    CGAffineTransform tr2 = CGAffineTransformConcat(tr1, self.transformRelative);
+    tr2 = CGAffineTransformConcat(tr2, CGAffineTransformInvert(tr1));
+    tr1 = CGAffineTransformConcat(CGAffineTransformMakeTranslation(frameRect.origin.x, frameRect.origin.y), tr2);
+    [layer setAffineTransform:tr1];
 }
 
 @end
