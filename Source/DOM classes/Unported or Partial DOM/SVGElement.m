@@ -508,6 +508,10 @@
 {
 	return [self cascadedValueForStylableProperty:@"fill"];
 }
+// TODO:
+// Property "opacity" should be applied to the whole object, not just for the fill.
+// We have "fill-opacity" just for the case. We should use it here.
+// But [self cascadedFillOpacity] returns us the value of "opacity" prop. That's wrong.
 -(NSString *)cascadedFillOpacity
 {
 	return [self cascadedValueForStylableProperty:@"opacity"];
