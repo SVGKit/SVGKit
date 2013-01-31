@@ -189,4 +189,9 @@
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
 
+#pragma mark - Useful bonus methods, will probably move to a different class at some point
+
+/** alters the SVG image's size directly (by changing the viewport) so that it will fit inside the specifed area without stretching or deforming */
+-(void) scaleToFitInside:(CGSize) maxSize;
+
 @end

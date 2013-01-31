@@ -514,5 +514,20 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
     return layersByElementId;
 }
 
+#pragma mark - Useful bonus methods, will probably move to a different class at some point
+
+-(void) scaleToFitInside:(CGSize) maxSize
+{
+	float wScale = maxSize.width / self.size.width;
+	float hScale = maxSize.height / self.size.height;
+	
+	float smallestScaleUp = MIN( wScale, hScale );
+	
+	if( smallestScaleUp < 1.0f )
+		smallestScaleUp = MAX( wScale, hScale ); // instead of scaling-up the smallest, scale-down the largest
+	
+	self.size = CGSizeApplyAffineTransform( self.size, CGAffineTransformMakeScale( smallestScaleUp, smallestScaleUp));
+}
+
 @end
 
