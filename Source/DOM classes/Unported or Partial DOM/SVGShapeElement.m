@@ -18,6 +18,10 @@
 
 #define IDENTIFIER_LEN 256
 
+@synthesize x = _x;
+
+@synthesize y = _y;
+
 @synthesize opacity = _opacity;
 
 @synthesize fillOpacity = _fillOpacity;
@@ -47,6 +51,12 @@
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
 {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
+    
+    if( [[self getAttribute:@"x"] length] > 0 )
+		_x = [[self getAttribute:@"x"] floatValue];
+
+    if( [[self getAttribute:@"y"] length] > 0 )
+		_y = [[self getAttribute:@"y"] floatValue];
 	
 	if( [[self getAttribute:@"class"] length] > 0 )
 		_styleClass = [self getAttribute:@"class"];
@@ -71,6 +81,7 @@
 	
 	if (aPath) {
 		_pathRelative = CGPathCreateCopy(aPath);
+        _layerRect = CGRectIntegral(CGPathGetPathBoundingBox(aPath));
 	}
 }
 
@@ -79,33 +90,19 @@
 	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
 	_shapeLayer.name = self.identifier;
 		[_shapeLayer setValue:self.identifier forKey:kSVGElementIdentifier];
-	
-	/** transform our LOCAL path into ABSOLUTE space */
+    
 	CGAffineTransform transformAbsolute = [self transformAbsolute];
-	CGMutablePathRef pathToPlaceInLayer = CGPathCreateMutable();
-	CGPathAddPath( pathToPlaceInLayer, &transformAbsolute, _pathRelative);
+    
+	CGPathRef path = CGPathCreateByOffsettingPath(_pathRelative, _layerRect.origin.x, _layerRect.origin.y);
 	
-	/** find out the ABSOLUTE BOUNDING BOX of our transformed path */
-    //BIZARRE: Apple sometimes gives a different value for this even when transformAbsolute == identity! : CGRect localPathBB = CGPathGetPathBoundingBox( _pathRelative );
-	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
-	CGRect transformedPathBB = CGPathGetBoundingBox( pathToPlaceInLayer );
-	
-	/** NB: when we set the _shapeLayer.frame, it has a *side effect* of moving the path itself - so, in order to prevent that,
-	 because Apple didn't provide a BOOL to disable that "feature", we have to pre-shift the path forwards by the amount it
-	 will be shifted backwards */
-	CGPathRef finalPath = CGPathCreateByOffsettingPath( pathToPlaceInLayer, transformedPathBB.origin.x, transformedPathBB.origin.y );
-	
-	/** Can't use this - iOS 5 only! path = CGPathCreateCopyByTransformingPath(path, transformFromSVGUnitsToScreenUnits ); */
-	
-	_shapeLayer.path = finalPath;
-	CGPathRelease(finalPath);
-	CGPathRelease(pathToPlaceInLayer);
+	_shapeLayer.path = path;
+	CGPathRelease(path);
 
 	/**
 	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
 	 space! This is why we needed the "CGPathRef finalPath =" line a few lines above...
 	 */
-	_shapeLayer.frame = transformedPathBB;
+	_shapeLayer.frame = _layerRect;
 		
 	//DEBUG ONLY: CGRect shapeLayerFrame = _shapeLayer.frame;
 	
@@ -191,6 +188,38 @@
     if (nil != _fillPattern) {
         _shapeLayer.fillColor = [_fillPattern CGColor];
     }
+    
+    //transforms
+    CGAffineTransform tr1 = self.transformRelative;
+    tr1 = CGAffineTransformConcat(CGAffineTransformMakeTranslation(_x, _y), tr1);
+    [_shapeLayer setAffineTransform:tr1];
+    
+#if OUTLINE_SHAPES
+	
+#if TARGET_OS_IPHONE
+	_shapeLayer.borderColor = [UIColor greenColor].CGColor;
+#endif
+	
+	_shapeLayer.borderWidth = 1.0f;
+    
+    NSString* textToDraw = [NSString stringWithFormat:@"%@ (%@): {%.1f, %.1f} {%.1f, %.1f}", self.identifier, [self class], _shapeLayer.frame.origin.x, _shapeLayer.frame.origin.y, _shapeLayer.frame.size.width, _shapeLayer.frame.size.height];
+    
+    UIFont* fontToDraw = [UIFont fontWithName:@"Helvetica"
+                                         size:10.0f];
+    CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
+    
+    CATextLayer *debugText = [[[CATextLayer alloc] init] autorelease];
+    [debugText setFont:@"Helvetica"];
+    [debugText setFontSize:10.0f];
+    [debugText setFrame:CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height)];
+    [debugText setString:textToDraw];
+    [debugText setAlignmentMode:kCAAlignmentLeft];
+    [debugText setForegroundColor:[UIColor greenColor].CGColor];
+    [debugText setContentsScale:[[UIScreen mainScreen] scale]];
+    [debugText setShouldRasterize:NO];
+    [_shapeLayer addSublayer:debugText];
+    
+#endif
 	
 	if ([_shapeLayer respondsToSelector:@selector(setShouldRasterize:)]) {
 		[_shapeLayer performSelector:@selector(setShouldRasterize:)

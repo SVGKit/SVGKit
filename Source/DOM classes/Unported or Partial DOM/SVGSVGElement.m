@@ -129,10 +129,10 @@
 	}
 }
 
-- (SVGElement *)findFirstElementOfClass:(Class)class {
+- (SVGElement *)findFirstElementOfClass:(Class)cl {
 	for (SVGElement *element in self.childNodes)
 	{
-		if ([element isKindOfClass:class])
+		if ([element isKindOfClass:cl])
 			return element;
 	}
 	

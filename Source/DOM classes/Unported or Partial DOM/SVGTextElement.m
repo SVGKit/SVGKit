@@ -7,25 +7,32 @@
 //
 
 #import "SVGTextElement.h"
+#import "UIColor-Expanded.h"
 
 #import <CoreText/CoreText.h>
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#endif
-
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
+//default values for text element
+#define DEFAULT_FONT_FAMILY @"Verdana"
+#define DEFAULT_FILL [UIColor blackColor]
 
 @implementation SVGTextElement
 
 @synthesize x = _x;
 @synthesize y = _y;
-@synthesize fontFamily = _fontFamily;
-@synthesize fontSize = _fontSize;
+@synthesize fill = _fill;
+
+- (UIColor *)fill
+{
+    if(!_fill) {
+        return DEFAULT_FILL;
+    } else {
+        return _fill;
+    }
+}
 
 - (void)dealloc {
-    [_fontFamily release];
     [super dealloc];
 }
 
@@ -38,6 +45,12 @@
     
 	if( [[self getAttribute:@"y"] length] > 0 )
 	_y = [[self getAttribute:@"y"] floatValue];
+    
+    if( [[self getAttribute:@"fill"] length] > 0 )
+    self.fill = [UIColor colorWithHexString:[self getAttribute:@"fill"]];
+    
+    if( [[self getAttribute:@"fill-opacity"] length] > 0 )
+    self.fill = [UIColor colorWithRed:self.fill.red green:self.fill.green blue:self.fill.blue alpha:[[self getAttribute:@"fill-opacity"] floatValue]];
 }
 
 - (CALayer *) newLayer
@@ -61,17 +74,20 @@
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
 	
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize floatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+    
+    //WHY THE HELL should we do this?! We have transform to be applied to the whole layer!
+    
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
-	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), [self transformAbsolute]).height;
-	CGPoint transformedOrigin = CGPointApplyAffineTransform( CGPointMake(self.x, self.y), [self transformAbsolute]);
+//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), [self transformAbsolute]).height;
+//	CGPoint transformedOrigin = CGPointApplyAffineTransform( CGPointMake(self.x, self.y), [self transformAbsolute]);
 	
 	/** find a valid font reference, or Apple's APIs will break later */
 	/** undocumented Apple bug: CTFontCreateWithName cannot accept nil input*/
 	CTFontRef font;
-	if( actualFamily != nil)
-		font = CTFontCreateWithName( (CFStringRef)actualFamily, effectiveFontSize, NULL);
-	if( font == NULL )
-		font = CTFontCreateWithName( (CFStringRef) @"Verdana", effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
+	if( actualFamily == nil) {
+        actualFamily = @"Verdana"; // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
+    }
+    font = CTFontCreateWithName( (CFStringRef)actualFamily, effectiveFontSize, NULL);
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
 	
@@ -79,37 +95,36 @@
 	
 	effectiveText = [effectiveText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	effectiveText = [effectiveText stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-	
-	/** Calculate 
-	 
-	 1. Create an attributed string (Apple's APIs are hard-coded to require this)
-	 2. Set the font to be the correct one + correct size for whole string, inside the string
-	 3. Ask apple how big the final thing should be
-	 4. Use that to provide a layer.frame
-	 */
-	NSMutableAttributedString* tempString = [[[NSMutableAttributedString alloc] initWithString:effectiveText] autorelease];
-	[tempString addAttribute:(NSString *)kCTFontAttributeName
-					  value:(id)font
-					  range:NSMakeRange(0, tempString.string.length)];
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
-    CGSize suggestedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
-    CFRelease(framesetter);
+    
+    UIFont* fontToDraw = [UIFont fontWithName:actualFamily
+                                         size:effectiveFontSize];
+    CGSize sizeOfTextRect = [effectiveText sizeWithFont:fontToDraw];
 	
     CATextLayer *label = [[CATextLayer alloc] init];
     label.name = self.identifier;
     label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
-    label.frame = CGRectMake( transformedOrigin.x,
-							 transformedOrigin.y - suggestedSize.height, /** NB: specific to SVG: the "origin" is the bottom LEFT corner of first line of text, so we have to make the FRAME start "height" higher up */
-							 suggestedSize.width,
-							 suggestedSize.height); // everything's been pre-scaled by [self transformAbsolute]
+    label.frame = CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height);
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
-    label.foregroundColor = [UIColor blackColor].CGColor;
+    label.foregroundColor = [self.fill CGColor];
     
-	//DEBUG: label.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2].CGColor;
-	
-	//DEBUG: NSLog(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
+    //rotating around basepoint
+    CGAffineTransform tr1 = CGAffineTransformIdentity;
+    tr1 = CGAffineTransformConcat(tr1, CGAffineTransformMakeTranslation(sizeOfTextRect.width/2, sizeOfTextRect.height/2));
+    CGAffineTransform tr2 = CGAffineTransformConcat(tr1, self.transformRelative);
+    tr2 = CGAffineTransformConcat(tr2, CGAffineTransformInvert(tr1));
+    
+    tr2 = CGAffineTransformConcat(CGAffineTransformMakeTranslation(_x, _y - fontToDraw.ascender), tr2);
+    
+    [label setAffineTransform:tr2];
+    
+#if OUTLINE_SHAPES
+    
+    label.borderColor = [UIColor blueColor].CGColor;
+    label.borderWidth = 1.0f;
+    
+#endif
 	
     return label;
 }

@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#import <CoreText/CoreText.h>
+#endif
 
 #import "SVGElement.h"
 #import "SVGLayeredElement.h"
@@ -18,8 +22,8 @@
 
 @property (readwrite,nonatomic,assign) CGFloat x;
 @property (readwrite,nonatomic,assign) CGFloat y;
-@property (readwrite,nonatomic,retain) NSString* fontFamily;
-@property (readwrite,nonatomic,assign) CGFloat fontSize;
+@property (readwrite,nonatomic,retain) UIColor *fill;
+
 
 // TODO: class
 // TODO: style
