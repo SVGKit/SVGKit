@@ -42,7 +42,7 @@
 		
 		Attr* testObject = [styleDict objectForKey:@"stop-color"];
         if( testObject != nil )
-            _stopColor = SVGColorFromString(testObject.value.cString);
+            _stopColor = SVGColorFromString([testObject.value UTF8String]);
         
         testObject = [styleDict objectForKey:@"stop-opacity"];
 		if( testObject != nil )
@@ -52,7 +52,7 @@
 	
 	/** Second, over-ride the style with any locally-specified values */
 	if( [self getAttribute:@"stop-color"].length > 0 )
-        _stopColor = SVGColorFromString( [self getAttribute:@"stop-color"].cString );
+        _stopColor = SVGColorFromString( [[self getAttribute:@"stop-color"] UTF8String] );
 	
 	if( [self getAttribute:@"stop-opacity"].length > 0 )
         _stopOpacity = [[self getAttribute:@"stop-opacity"] floatValue];

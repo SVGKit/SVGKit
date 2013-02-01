@@ -369,8 +369,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
 	
-	SVGKParser *self = (SVGKParser *) ctx;
-	self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
@@ -503,8 +502,8 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
-	SVGKParser *self = (SVGKParser *) ctx;
-	self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
@@ -518,20 +517,21 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
 {
-    SVGKParser *self = (SVGKParser *) ctx;
-	self = parserThatWasMostRecentlyStarted;
+    SVGKParser *self = parserThatWasMostRecentlyStarted;
+	
 	[self handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
-	SVGKParser *self = (SVGKParser *) ctx;
-	self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	
 	[self handleFoundCharacters:chars length:len];
 }
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	NSLog(@"Error encountered during parse: %s", msg);
-	SVGKParseResult* parseResult = ((SVGKParser*) ctx).currentParseRun;
+	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParseResult* parseResult = self.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																				  (NSString*) msg, NSLocalizedDescriptionKey,
 																				nil]]];
@@ -571,7 +571,8 @@ static void structuredError		(void * userData,
 	
 	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
 	
-	SVGKParseResult* parseResult = ((SVGKParser*) userData).currentParseRun;
+	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParseResult* parseResult = self.currentParseRun;
 	switch( errorLevel )
 	{
 		case XML_ERR_WARNING:
