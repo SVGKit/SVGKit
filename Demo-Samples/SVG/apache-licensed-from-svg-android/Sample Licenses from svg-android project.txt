@@ -1,0 +1,7 @@
+All files in this folder come from the SVG-android project:
+
+http://code.google.com/p/svg-android/
+
+Licensed under the Apache 2.0 license:
+
+http://www.apache.org/licenses/LICENSE-2.0

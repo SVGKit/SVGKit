@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1" baseProfile="basic"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="500px" height="500px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
+<defs>
+</defs>
+<rect fill="#FFFFFF" width="500" height="500"/>
+<text transform="matrix(1 0 0 1 31.4707 40.4453)"><tspan x="0" y="0" fill="#444444" font-family="'MyriadPro-Bold'" font-size="12">SVG Parser:</tspan><tspan x="61.811" y="0" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12"> Strokes</tspan></text>
+<rect fill="#FFFFFF" width="500" height="500"/>
+<text transform="matrix(1 0 0 1 31.4707 40.4453)"><tspan x="0" y="0" fill="#444444" font-family="'MyriadPro-Bold'" font-size="12">SVG Parser:</tspan><tspan x="61.811" y="0" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12"> Strokes / Fill</tspan></text>
+<text transform="matrix(1 0 0 1 45.1484 160.7324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">No Fill</text>
+<path fill="none" d="M96.316,85.503c0-6.627-5.373-12-12-12H37.324c-6.627,0-12,5.373-12,12v46.992c0,6.627,5.373,12,12,12h46.992
+	c6.627,0,12-5.373,12-12V85.503z"/>
+<text transform="matrix(1 0 0 1 142.3906 160.7324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Fill </text>
+<path fill="#444444" d="M186.316,85.503c0-6.627-5.373-12-12-12h-46.992c-6.627,0-12,5.373-12,12v46.992c0,6.627,5.373,12,12,12
+	h46.992c6.627,0,12-5.373,12-12V85.503z"/>
+<text transform="matrix(1 0 0 1 225.8003 160.7324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Stroke</text>
+<path fill="none" stroke="#444444" stroke-width="2" d="M277.316,85.503c0-6.627-5.373-12-12-12h-46.992c-6.627,0-12,5.373-12,12
+	v46.992c0,6.627,5.373,12,12,12h46.992c6.627,0,12-5.373,12-12V85.503z"/>
+<text transform="matrix(1 0 0 1 303.4688 160.7324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Stroke &amp; Fill</text>
+<text transform="matrix(1 0 0 1 419.4126 160.7324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Butt Cap</text>
+<path fill="#A5A5A5" stroke="#020202" stroke-width="2" d="M368.316,85.503c0-6.627-5.373-12-12-12h-46.992c-6.627,0-12,5.373-12,12
+	v46.992c0,6.627,5.373,12,12,12h46.992c6.627,0,12-5.373,12-12V85.503z"/>
+<text transform="matrix(1 0 0 1 114.8389 275.2324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Middle Stroke </text>
+<path fill="none" stroke="#444444" stroke-width="4" d="M186.316,200.003c0-6.627-5.373-12-12-12h-46.992c-6.627,0-12,5.373-12,12
+	v46.992c0,6.627,5.373,12,12,12h46.992c6.627,0,12-5.373,12-12V200.003z"/>
+<text transform="matrix(1 0 0 1 209.5947 275.2324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Inside Stroke</text>
+<path fill="#444444" d="M265.316,192.003c4.411,0,8,3.589,8,8v46.992c0,4.411-3.589,8-8,8h-46.992c-4.411,0-8-3.589-8-8v-46.992
+	c0-4.411,3.589-8,8-8H265.316 M265.316,188.003h-46.992c-6.627,0-12,5.373-12,12v46.992c0,6.627,5.373,12,12,12h46.992
+	c6.627,0,12-5.373,12-12v-46.992C277.316,193.376,271.944,188.003,265.316,188.003L265.316,188.003z"/>
+<text transform="matrix(1 0 0 1 295.9326 275.2324)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Outside Stroke</text>
+<path fill="#444444" d="M356.316,188.003c6.627,0,12,5.373,12,12v46.992c0,6.627-5.373,12-12,12h-46.992c-6.627,0-12-5.373-12-12
+	v-46.992c0-6.627,5.373-12,12-12H356.316 M356.316,184.003h-46.992c-8.822,0-16,7.178-16,16v46.992c0,8.822,7.178,16,16,16h46.992
+	c8.822,0,16-7.178,16-16v-46.992C372.316,191.181,365.139,184.003,356.316,184.003L356.316,184.003z"/>
+<polygon fill="none" stroke="#444444" stroke-width="10" points="42.214,391.96 80.25,326.08 118.286,391.96 "/>
+<line fill="none" stroke="#444444" stroke-width="4" x1="411" y1="86" x2="471" y2="86"/>
+<line fill="none" stroke="#444444" stroke-width="6" x1="411" y1="98.201" x2="471" y2="98.201"/>
+<line fill="none" stroke="#444444" stroke-width="9" x1="411" y1="113.541" x2="471" y2="113.541"/>
+<line fill="none" stroke="#444444" stroke-width="12" x1="411" y1="130.77" x2="471" y2="130.77"/>
+<text transform="matrix(1 0 0 1 413.4004 276.4531)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Round Cap</text>
+<line fill="none" stroke="#444444" stroke-width="4" stroke-linecap="round" x1="411" y1="201.721" x2="471" y2="201.721"/>
+<line fill="none" stroke="#444444" stroke-width="6" stroke-linecap="round" x1="411" y1="213.922" x2="471" y2="213.922"/>
+<line fill="none" stroke="#444444" stroke-width="9" stroke-linecap="round" x1="411" y1="229.262" x2="471" y2="229.262"/>
+<line fill="none" stroke="#444444" stroke-width="12" stroke-linecap="round" x1="411" y1="246.49" x2="471" y2="246.49"/>
+<text transform="matrix(1 0 0 1 404.2686 386.4531)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Projecting Cap</text>
+<text transform="matrix(1 0 0 1 56.1187 417.4531)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Miter Join</text>
+<polygon fill="none" stroke="#444444" stroke-width="10" stroke-linejoin="round" points="167.714,391.96 205.75,326.08 
+	243.786,391.96 "/>
+<text transform="matrix(1 0 0 1 178.2588 417.4531)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Round Join</text>
+<polygon fill="none" stroke="#444444" stroke-width="10" stroke-linejoin="bevel" points="285.866,391.96 323.902,326.08 
+	361.938,391.96 "/>
+<text transform="matrix(1 0 0 1 299.3867 417.4531)" fill="#444444" font-family="'MyriadPro-Regular'" font-size="12">Bevel Join</text>
+<line fill="none" stroke="#444444" stroke-width="4" stroke-linecap="square" x1="411" y1="311.721" x2="471" y2="311.721"/>
+<line fill="none" stroke="#444444" stroke-width="6" stroke-linecap="square" x1="411" y1="323.922" x2="471" y2="323.922"/>
+<line fill="none" stroke="#444444" stroke-width="9" stroke-linecap="square" x1="411" y1="339.262" x2="471" y2="339.262"/>
+<line fill="none" stroke="#444444" stroke-width="12" stroke-linecap="square" x1="411" y1="356.49" x2="471" y2="356.49"/>
+</svg>
