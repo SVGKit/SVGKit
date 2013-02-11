@@ -129,6 +129,35 @@
 			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
 		
 		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
+		
+		/**
+		 Line joins + caps: butt / square / miter
+		 */
+		NSString* actualLineCap = [self cascadedValueForStylableProperty:@"stroke-linecap"];
+		NSString* actualLineJoin = [self cascadedValueForStylableProperty:@"stroke-linejoin"];
+		NSString* actualMiterLimit = [self cascadedValueForStylableProperty:@"stroke-miterlimit"];
+		if( actualLineCap.length > 0 )
+		{
+			if( [actualLineCap isEqualToString:@"butt"] )
+				_shapeLayer.lineCap = kCALineCapButt;
+			else if( [actualLineCap isEqualToString:@"round"] )
+				_shapeLayer.lineCap = kCALineCapRound;
+			else if( [actualLineCap isEqualToString:@"square"] )
+				_shapeLayer.lineCap = kCALineCapSquare;
+		}
+		if( actualLineJoin.length > 0 )
+		{
+			if( [actualLineJoin isEqualToString:@"miter"] )
+				_shapeLayer.lineJoin = kCALineJoinMiter;
+			else if( [actualLineJoin isEqualToString:@"round"] )
+				_shapeLayer.lineJoin = kCALineJoinRound;
+			else if( [actualLineJoin isEqualToString:@"bevel"] )
+				_shapeLayer.lineJoin = kCALineJoinBevel;
+		}
+		if( actualMiterLimit.length > 0 )
+		{
+			_shapeLayer.miterLimit = [actualMiterLimit floatValue];
+		}
 	}
 	else
 	{
