@@ -216,12 +216,14 @@
 		NSLog(@"[%@] WARNING: the transform attribute requires OS X 10.7 or above (we need Regular Expressions! Apple was slow to add them :( ). Ignoring TRANSFORMs in SVG!", [self class] );
 #else
 		NSError* error = nil;
-		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(,]*\\([^\\)]*\\)" options:0 error:&error];
+		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
 		
 		[regexpTransformListItem enumerateMatchesInString:value options:0 range:NSMakeRange(0, [value length]) usingBlock:
 		 ^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)
 		{
 			NSString* transformString = [value substringWithRange:[result range]];
+			
+			//EXTREME DEBUG: NSLog(@"[%@] DEBUG: found a transform element (should be command + open bracket + args + close bracket) = %@", [self class], transformString);
 			
 			NSRange loc = [transformString rangeOfString:@"("];
 			if( loc.length == 0 )
@@ -231,6 +233,11 @@
 			}
 			NSString* command = [transformString substringToIndex:loc.location];
 			NSArray* parameterStrings = [[transformString substringFromIndex:loc.location+1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]];
+			
+			/** if you get ", " (comma AND space), Apple sends you an extra 0-length match - "" - between your args. We strip that here */
+			parameterStrings = [parameterStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
+			
+			//EXTREME DEBUG: NSLog(@"[%@] DEBUG: found parameters = %@", [self class], parameterStrings);
 			
 			command = [command stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
 			
@@ -245,10 +252,8 @@
 			}
 			else if( [command isEqualToString:@"scale"] )
 			{
-				NSArray *scaleStrings = [[parameterStrings objectAtIndex:0] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-				
-				CGFloat xScale = [(NSString*)[scaleStrings objectAtIndex:0] floatValue];
-				CGFloat yScale = [scaleStrings count] > 1 ? [(NSString*)[scaleStrings objectAtIndex:1] floatValue] : xScale;
+				CGFloat xScale = [(NSString*)[parameterStrings objectAtIndex:0] floatValue];
+				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] floatValue] : xScale;
 				
 				CGAffineTransform nt = CGAffineTransformMakeScale(xScale, yScale);
 				self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
@@ -274,21 +279,20 @@
 				 https://github.com/warpflyght/SVGKit/commit/c1bd9b3d0607635dda14ec03579793fc682763d9
 				 
 				 */
-				NSArray *rotateStrings = [[parameterStrings objectAtIndex:0] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-				if( [rotateStrings count] == 1)
+				if( [parameterStrings count] == 1)
 				{
-					CGFloat degrees = [[rotateStrings objectAtIndex:0] floatValue];
+					CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
 					
 					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
 					self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
 				}
-				else if( [rotateStrings count] == 3)
+				else if( [parameterStrings count] == 3)
 				{
-					CGFloat degrees = [[rotateStrings objectAtIndex:0] floatValue];
+					CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
-					CGFloat centerX = [[rotateStrings objectAtIndex:1] floatValue];
-					CGFloat centerY = [[rotateStrings objectAtIndex:2] floatValue];
+					CGFloat centerX = [[parameterStrings objectAtIndex:1] floatValue];
+					CGFloat centerY = [[parameterStrings objectAtIndex:2] floatValue];
 					CGAffineTransform nt = CGAffineTransformIdentity;
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
