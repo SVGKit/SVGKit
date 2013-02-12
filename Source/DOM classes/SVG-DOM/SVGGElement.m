@@ -85,6 +85,29 @@
 		
 		currentLayer.frame = frame;
 	}
+	
+#if OUTLINE_SHAPES
+    
+    layer.borderColor = [UIColor redColor].CGColor;
+    layer.borderWidth = 2.0f;
+    
+    NSString* textToDraw = [NSString stringWithFormat:@"%@ (%@): {%.1f, %.1f} {%.1f, %.1f}", self.identifier, [self class], layer.frame.origin.x, layer.frame.origin.y, layer.frame.size.width, layer.frame.size.height];
+    
+    UIFont* fontToDraw = [UIFont fontWithName:@"Helvetica"
+                                         size:10.0f];
+    CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
+    
+    CATextLayer *debugText = [[[CATextLayer alloc] init] autorelease];
+    [debugText setFont:@"Helvetica"];
+    [debugText setFontSize:10.0f];
+    [debugText setFrame:CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height)];
+    [debugText setString:textToDraw];
+    [debugText setAlignmentMode:kCAAlignmentLeft];
+    [debugText setForegroundColor:[UIColor redColor].CGColor];
+    [debugText setContentsScale:[[UIScreen mainScreen] scale]];
+    [debugText setShouldRasterize:NO];
+    [layer addSublayer:debugText];
+#endif
 }
 
 @end

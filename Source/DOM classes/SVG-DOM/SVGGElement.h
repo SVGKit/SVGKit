@@ -16,6 +16,8 @@
 
 #import "SVGLayeredElement.h"
 
+#define OUTLINE_SHAPES 1
+
 @interface SVGGElement : SVGElement < SVGLayeredElement >
 
 @property (nonatomic, readonly) CGFloat opacity;

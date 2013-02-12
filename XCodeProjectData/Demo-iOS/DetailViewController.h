@@ -12,12 +12,15 @@
 #import "CALayerExporter.h"
 #import "SVGKImage.h"
 
+#define ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING 1 // only exists because people ignore the docs and try to do this when they clearly shouldn't. If you're foolish enough to do this, this code will show you how to do it CORRECTLY. Look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
+
 @interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) UITextView* exportText;
 @property (nonatomic, retain) NSMutableString* exportLog;
 @property (nonatomic, retain) CALayerExporter* layerExporter;
+@property (nonatomic, retain) UITapGestureRecognizer* tapGestureRecognizer;
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollViewForSVG;
@@ -25,6 +28,7 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
 
 @property (nonatomic, retain) id detailItem;
+
 
 - (IBAction)animate:(id)sender;
 - (IBAction)exportLayers:(id)sender;

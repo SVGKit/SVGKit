@@ -183,8 +183,22 @@
  because it no longer needs one)
  
  Useful for extracting individual features from an SVG
+ 
+ WARNING: will assert if you supply a nil identifier string
+ WARNING: some SVG editors (e.g. Adobe Illustrator) don't bother creating an 'id' attribute for every node (the spec allows this,
+ but strongly discourages it). Inkscape does the right thing and generates an automatic 'id' for every node. If you are loading
+ docs that have many 'anonymous' nodes, you'll need to get actual pointer refs to the layers you need to work with, and use the
+ alternate version of this method.
  */
 -(CALayer*) newCopyPositionedAbsoluteLayerWithIdentifier:(NSString *)identifier;
+
+/*! As for layerWithIdentifier: but works out the absolute position of the layer,
+ effectively pulling it out of the layer-tree (the newly created layer has NO SUPERLAYER,
+ because it no longer needs one)
+ 
+ Useful for extracting individual features from an SVG
+ */
+-(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
 
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;

@@ -61,6 +61,142 @@
 											   nil];
 }
 
+CALayer* lastTappedLayer;
+CGFloat lastTappedLayerOriginalBorderWidth;
+CGColorRef lastTappedLayerOriginalBorderColor;
+-(void) deselectTappedLayer
+{
+	if( lastTappedLayer != nil )
+	{
+#if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING
+		if( [self.contentView isKindOfClass:[SVGKFastImageView class]])
+		{
+			[lastTappedLayer removeFromSuperlayer]; // nothing else needed
+		}
+		else
+#endif
+		{
+			lastTappedLayer.borderWidth = lastTappedLayerOriginalBorderWidth;
+			lastTappedLayer.borderColor = lastTappedLayerOriginalBorderColor;
+		}
+		
+		lastTappedLayer = nil;
+	}
+}
+
+-(NSString*) layerInfo:(CALayer*) l
+{
+	return [NSString stringWithFormat:@"%@:%@", [l class], NSStringFromCGRect(l.frame)];
+}
+
+/**
+ Example of how to handle gaps on an SVG
+ */
+-(void) handleTapGesture:(UITapGestureRecognizer*) recognizer
+{
+	CGPoint p = [recognizer locationInView:self.contentView];
+	
+#if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
+	SVGKImage* svgImage = nil; // ONLY used for the hacky code below that demonstrates how complex hit-testing is on an SVGKFastImageView
+	
+	/**
+	 WARNING:
+	 
+	 Whenever you're using SVGKFastImageView, it "hides" the raw CALayers from you, and Apple
+	 doesn't provide an easy way around this (we do it this way because there are missing methods
+	 and bugs in Apple's UIScrollView, which SVGKFastImageView fixes).
+	 
+	 So, you cannot do a hittest on "SVGKFastImageView.layer" - that will always return the root,
+	 empty, full-size layer.
+	 
+	 Instead, you have to hit-test the layer INSIDE the fast imageview.
+	 
+	 --------
+	 
+	 HOWEVER: YOU SHOULD NOT BE DOING THIS!
+	 
+	 IF YOU NEED TO DO HIT-TESTING, USE SVGKLayeredImageView (as per the docs!)
+	 
+	 THE EXAMPLE CODE HERE SHOWS YOU HOW YOU COULD, IN THEORY, DO HIT-TESTING WITH EITHER, BUT IT
+	 IS HIGHLY RECOMMENDED NEVER TO USE HIT-TESTING WITH SVGKFastImageView!
+	 */
+#endif
+	CALayer* layerForHitTesting;
+	
+#if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
+	if( [self.contentView isKindOfClass:[SVGKFastImageView class]])
+	{
+		layerForHitTesting = ((SVGKFastImageView*)self.contentView).image.CALayerTree;
+		svgImage = ((SVGKFastImageView*)self.contentView).image;
+		
+		/**
+		 ALSO, because SVGKFastImageView DOES NOT ALTER the underlying layers when it zooms
+		 (the zoom is handled "fast" and done internally at 100% accuracy),
+		 any zoom will be ignored for the hit-test - we have to MANUALLY apply the zoom
+		 */
+		CGSize scaleConvertImageToViewForHitTest = CGSizeMake( self.contentView.bounds.size.width / svgImage.size.width, self.contentView.bounds.size.height / svgImage.size.height ); // this is a copy/paste of the internal "SCALING" logic used in SVGKFastImageView
+		
+		p = CGPointApplyAffineTransform( p, CGAffineTransformInvert( CGAffineTransformMakeScale( scaleConvertImageToViewForHitTest.width, scaleConvertImageToViewForHitTest.height)) ); // must do the OPPOSITE of the zoom (to convert the 'seeming' point to the 'actual' point
+	}
+	else
+#endif
+		layerForHitTesting = self.contentView.layer;
+	
+	
+	CALayer* hitLayer = [layerForHitTesting hitTest:p];
+	
+	if( hitLayer == lastTappedLayer )
+		[self deselectTappedLayer]; // do this both ways, but have to do it AFTER the if-test because it nil's one of the if-phrases!
+	else
+	{
+		[self deselectTappedLayer]; // do this both ways, but have to do it AFTER the if-test because it nil's one of the if-phrases!
+	
+#if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
+		self.title = @""; // reset it so that we can conditionally set it - but also ensuring this code is included in the #if
+		if( [self.contentView isKindOfClass:[SVGKFastImageView class]])
+		{
+			/** NEVER DO THIS - this is a proof-of-concept, but instead you should ALWAYS
+			 use SVGKLayeredImageView if you want to do hit-testing!
+			 */
+			self.title = @"WARNING: don't use SVGKFastImageView for hit-testing";
+			
+			/**
+			 Because SVGKFastImageView "hides" the layers, any visual changes we make
+			 will NOT be reflected on-screen.
+			 
+			 Instead, we have to put a NEW layer over the top
+			 */
+			CALayer* absolutePositionedCloneLayer = [svgImage newCopyPositionedAbsoluteOfLayer:hitLayer];
+			
+			lastTappedLayer = [[CALayer alloc] init];
+			lastTappedLayer.frame = absolutePositionedCloneLayer.frame;
+			[absolutePositionedCloneLayer release];
+			
+			/**
+			 ALSO, because SVGKFastImageView DOES NOT ALTER the underlying layers when it zooms
+			 (the zoom is handled "fast" and done internally at 100% accuracy),
+			 any zoom will be ignored for the new layer - we have to MANUALLY apply the zoom
+			 */
+			CGSize scaleConvertImageToView = CGSizeMake( self.contentView.bounds.size.width / svgImage.size.width, self.contentView.bounds.size.height / svgImage.size.height ); // this is a copy/paste of the internal "SCALING" logic used in SVGKFastImageView
+			lastTappedLayer.frame = CGRectApplyAffineTransform( lastTappedLayer.frame, CGAffineTransformMakeScale(scaleConvertImageToView.width, scaleConvertImageToView.height));
+			
+			[self.contentView.layer addSublayer:lastTappedLayer];
+		}
+		else
+#endif
+			lastTappedLayer = hitLayer;
+		
+		if( lastTappedLayer != nil )
+		{
+			lastTappedLayerOriginalBorderColor = lastTappedLayer.borderColor;
+			lastTappedLayerOriginalBorderWidth = lastTappedLayer.borderWidth;
+			
+			lastTappedLayer.borderColor = [UIColor greenColor].CGColor;
+			lastTappedLayer.borderWidth = 3.0;
+		}
+	}
+}
+
 #pragma mark - CRITICAL: this method makes Apple render SVGs in sharp focus
 
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)finalScale
@@ -106,6 +242,8 @@
 
 - (void)setDetailItem:(id)newDetailItem {
 	if (detailItem != newDetailItem) {
+		[self deselectTappedLayer]; // do this first because it DEPENDS UPON the type of self.contentView BEFORE the change in value
+		
 		[detailItem release];
 		detailItem = [newDetailItem retain];
 		
@@ -147,6 +285,15 @@
 		{
 			NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
 			
+			if( self.contentView != nil
+			&& self.tapGestureRecognizer != nil )
+				[self.contentView removeGestureRecognizer:self.tapGestureRecognizer];
+			
+			if( self.tapGestureRecognizer == nil )
+			{
+				self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+			}
+			
 			if( [name  isEqualToString:@"Monkey"])
 			{
 				/**
@@ -170,6 +317,7 @@
 				((SVGKFastImageView*)self.contentView).disableAutoRedrawAtHighestResolution = TRUE;
 			}
 			self.contentView.showBorder = FALSE;
+			[self.contentView addGestureRecognizer:self.tapGestureRecognizer];
 			
 			if (_name) {
 				[_name release];

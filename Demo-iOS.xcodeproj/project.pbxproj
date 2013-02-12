@@ -16,6 +16,7 @@
 		663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEF16C9AF1C00CCBFB3 /* strokes.svg */; };
 		663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF016C9AF1C00CCBFB3 /* transformations.svg */; };
 		663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
+		663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
 		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
@@ -86,6 +87,7 @@
 		663FCFEF16C9AF1C00CCBFB3 /* strokes.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = strokes.svg; sourceTree = "<group>"; };
 		663FCFF016C9AF1C00CCBFB3 /* transformations.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = transformations.svg; sourceTree = "<group>"; };
 		663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses from svg-android project.txt"; sourceTree = "<group>"; };
+		663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "groups-and-layers-test.svg"; sourceTree = "<group>"; };
 		6649E0AC1617479200AFE92A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -251,6 +253,7 @@
 			children = (
 				663FCFEC16C9AF1C00CCBFB3 /* apache-licensed-from-svg-android */,
 				663730341696111E008C6C56 /* PreserveAspectRatio.svg */,
+				663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */,
 				66E8627C1688BA510059C9C4 /* australia_states_blank.svg */,
 				66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */,
 				66E8627E1688BA510059C9C4 /* breaking-1.svg */,
@@ -385,6 +388,7 @@
 				663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */,
 				663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */,
 				663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */,
+				663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -368,7 +368,22 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 
 -(CALayer*) newCopyPositionedAbsoluteLayerWithIdentifier:(NSString *)identifier
 {
+	NSAssert( identifier != nil, @"Requested the layer with NIL identifier - your calling method is broken and should check its arguments more carefully");
+	
 	CALayer* originalLayer = [self layerWithIdentifier:identifier];
+	
+	if( originalLayer == nil )
+	{
+		NSLog(@"[%@] ERROR: requested a clone of CALayer with id = %@, but there is no layer with that identifier in the parsed SVG layer stack", identifier );
+		return nil;
+	}
+	else
+		return [self newCopyPositionedAbsoluteOfLayer:originalLayer];
+}
+
+-(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer
+{
+	
 	CALayer* clonedLayer = [[[originalLayer class] alloc] init];
 	
 	clonedLayer.frame = originalLayer.frame;

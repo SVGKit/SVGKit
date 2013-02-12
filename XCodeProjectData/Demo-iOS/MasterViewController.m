@@ -21,7 +21,7 @@
 - (id)init
 {
     if (self) {
-        self.sampleNames = [NSMutableArray arrayWithObjects: @"Rsimplified", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"gradients", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"Note", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"MathCurve", @"RainbowWing", @"StyleAttribute", @"voies", nil];
+        self.sampleNames = [NSMutableArray arrayWithObjects: @"Rsimplified", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"gradients", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"Note", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"MathCurve", @"RainbowWing", @"StyleAttribute", @"voies", nil];
     }
 	
 	/** Apple really sucks. They keep randomly changing which init methods they call, BREAKING ALL EXISTING CODE */
