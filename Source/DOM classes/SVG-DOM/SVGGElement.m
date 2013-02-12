@@ -35,6 +35,7 @@
 }
 
 - (void)layoutLayer:(CALayer *)layer {
+#if ORIGINAL_PRE_MTRUBNIKOV_MERGE
 	CGRect mainRect = CGRectZero;
 	
 	/** Adam: make a frame thats the UNION of all sublayers frames */
@@ -45,7 +46,28 @@
 	}
 	
 	layer.frame = mainRect;
+#else
+	CGRect frameRect = CGRectZero;
+    CGRect mainRect = CGRectZero;
+    CGRect boundsRect = CGRectZero;
 	
+	NSArray *sublayers = [layer sublayers];
+    
+	for ( CALayer *sublayer in sublayers) {
+		if (CGRectEqualToRect(frameRect,CGRectZero)) {
+			frameRect = sublayer.frame;
+		}
+		else {
+			frameRect = CGRectUnion(frameRect, sublayer.frame);
+		}
+        mainRect = CGRectUnion(mainRect, sublayer.frame);
+	}
+    
+    boundsRect = CGRectOffset(frameRect, -frameRect.origin.x, -frameRect.origin.y);
+    
+	layer.frame = boundsRect;
+#endif
+
 	/** (dont know why this is here): set each sublayer to have a frame the same size as the parent frame, but with 0 offset.
 	 
 	 if I understand this correctly, the person who wrote it should have just written:
@@ -58,8 +80,8 @@
 	 */
 	for (CALayer *currentLayer in [layer sublayers]) {
 		CGRect frame = currentLayer.frame;
-		frame.origin.x -= mainRect.origin.x;
-		frame.origin.y -= mainRect.origin.y;
+		frame.origin.x -= frameRect.origin.x;
+		frame.origin.y -= frameRect.origin.y;
 		
 		currentLayer.frame = frame;
 	}
