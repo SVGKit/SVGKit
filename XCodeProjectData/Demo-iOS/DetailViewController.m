@@ -64,6 +64,7 @@
 CALayer* lastTappedLayer;
 CGFloat lastTappedLayerOriginalBorderWidth;
 CGColorRef lastTappedLayerOriginalBorderColor;
+CATextLayer *textLayerForLastTappedLayer;
 -(void) deselectTappedLayer
 {
 	if( lastTappedLayer != nil )
@@ -79,6 +80,9 @@ CGColorRef lastTappedLayerOriginalBorderColor;
 			lastTappedLayer.borderWidth = lastTappedLayerOriginalBorderWidth;
 			lastTappedLayer.borderColor = lastTappedLayerOriginalBorderColor;
 		}
+		
+		[textLayerForLastTappedLayer removeFromSuperlayer];
+		textLayerForLastTappedLayer = nil;
 		
 		lastTappedLayer = nil;
 	}
@@ -193,6 +197,29 @@ CGColorRef lastTappedLayerOriginalBorderColor;
 			
 			lastTappedLayer.borderColor = [UIColor greenColor].CGColor;
 			lastTappedLayer.borderWidth = 3.0;
+			
+#if SHOW_DEBUG_INFO_ON_EACH_TAPPED_LAYER
+			/** mtrubnikov's code for adding a text overlay showing exactly what you tapped
+			 */
+			NSString* textToDraw = [NSString stringWithFormat:@"%@ (%@): {%.1f, %.1f} {%.1f, %.1f}", hitLayer.name, [hitLayer class], lastTappedLayer.frame.origin.x, lastTappedLayer.frame.origin.y, lastTappedLayer.frame.size.width, lastTappedLayer.frame.size.height];
+			
+			UIFont* fontToDraw = [UIFont fontWithName:@"Helvetica"
+												 size:14.0f];
+			CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
+			
+			textLayerForLastTappedLayer = [[[CATextLayer alloc] init] autorelease];
+			[textLayerForLastTappedLayer setFont:@"Helvetica"];
+			[textLayerForLastTappedLayer setFontSize:14.0f];
+			[textLayerForLastTappedLayer setFrame:CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height)];
+			[textLayerForLastTappedLayer setString:textToDraw];
+			[textLayerForLastTappedLayer setAlignmentMode:kCAAlignmentLeft];
+			[textLayerForLastTappedLayer setForegroundColor:[UIColor redColor].CGColor];
+			[textLayerForLastTappedLayer setContentsScale:[[UIScreen mainScreen] scale]];
+			[textLayerForLastTappedLayer setShouldRasterize:NO];
+			[self.contentView.layer addSublayer:textLayerForLastTappedLayer];
+			/*
+			 * mtrubnikov's code for adding a text overlay showing exactly what you tapped*/
+#endif
 		}
 	}
 }
