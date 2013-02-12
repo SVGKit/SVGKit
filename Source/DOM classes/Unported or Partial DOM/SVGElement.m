@@ -513,7 +513,7 @@
 }
 -(NSString *)cascadedFillOpacity
 {
-	return [self cascadedValueForStylableProperty:@"opacity"];
+	return [self cascadedValueForStylableProperty:@"fill-opacity"];
 }
 -(NSString *)cascadedStroke
 {
