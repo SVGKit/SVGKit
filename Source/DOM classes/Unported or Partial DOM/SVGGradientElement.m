@@ -4,7 +4,7 @@
 #import "SVGGradientStop.h"
 #import "SVGElement_ForParser.h"
 
-#import "SVGGroupElement.h"
+#import "SVGGElement.h"
 
 @implementation SVGGradientElement
 
@@ -24,7 +24,7 @@
 
 -(NSString*) getAttributeInheritedIfNil:(NSString*) attrName
 {
-	if( [self.parentNode isKindOfClass:[SVGGroupElement class]] )
+	if( [self.parentNode isKindOfClass:[SVGGElement class]] )
 		return [self hasAttribute:attrName] ? [self getAttribute:attrName] : [self.parentNode getAttribute:attrName];
 	else
 		return [self getAttribute:attrName]; // will return blank if there was no value AND no parent value

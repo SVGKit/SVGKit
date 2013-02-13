@@ -9,7 +9,7 @@
  *
  *  "inside ANY of my child sub-layers (some of which have over-ridden hit-testing too)"
  *
- * This implementation is used by SVGGroupElement (for obvious reasons!)
+ * This implementation is used by SVGGElement (for obvious reasons!)
  *
  * This is more useful than Apple's default implementation, but it might cause unexpected
  * problems in other code (not that I'm aware of any - this override appears to be a common

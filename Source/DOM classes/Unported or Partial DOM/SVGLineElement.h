@@ -5,9 +5,9 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGShapeElement.h"
+#import "BaseClassForAllSVGBasicShapes.h"
 
-@interface SVGLineElement : SVGShapeElement { }
+@interface SVGLineElement : BaseClassForAllSVGBasicShapes { }
 
 @property (nonatomic, readonly) CGFloat x1;
 @property (nonatomic, readonly) CGFloat y1;

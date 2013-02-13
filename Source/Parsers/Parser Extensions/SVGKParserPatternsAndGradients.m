@@ -14,7 +14,6 @@
 #import "SVGDescriptionElement.h"
 //#import "SVGKSource.h"
 #import "SVGEllipseElement.h"
-#import "SVGGroupElement.h"
 #import "SVGImageElement.h"
 #import "SVGLineElement.h"
 #import "SVGPathElement.h"

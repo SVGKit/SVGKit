@@ -24,8 +24,9 @@
 #import "SVGElementInstance.h"
 
 #import "SVGLayeredElement.h"
+#import "SVGTransformable.h"
 
-@interface SVGUseElement : SVGElement <SVGLayeredElement>
+@interface SVGUseElement : SVGElement < SVGTransformable /*FIXME: delete this rubbish:*/, SVGLayeredElement>
 
 @property(nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
 @property(nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;

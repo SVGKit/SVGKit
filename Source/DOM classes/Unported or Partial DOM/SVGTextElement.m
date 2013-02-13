@@ -16,6 +16,7 @@
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
+#import "SVGHelperUtilities.h"
 
 @implementation SVGTextElement
 
@@ -23,6 +24,8 @@
 @synthesize y = _y;
 @synthesize fontFamily = _fontFamily;
 @synthesize fontSize = _fontSize;
+
+@synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 - (void)dealloc {
     [_fontFamily release];
@@ -62,8 +65,8 @@
 	
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize floatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
-	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), [self transformAbsolute]).height;
-	CGPoint transformedOrigin = CGPointApplyAffineTransform( CGPointMake(self.x, self.y), [self transformAbsolute]);
+	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), [SVGHelperUtilities transformAbsoluteForTransformableElement:self]).height;
+	CGPoint transformedOrigin = CGPointApplyAffineTransform( CGPointMake(self.x, self.y), [SVGHelperUtilities transformAbsoluteForTransformableElement:self]);
 	
 	/** find a valid font reference, or Apple's APIs will break later */
 	/** undocumented Apple bug: CTFontCreateWithName cannot accept nil input*/

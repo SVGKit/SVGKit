@@ -5,8 +5,9 @@
 //  Copyright Matt Rajca 2011. All rights reserved.
 //
 
-#import "SVGShapeElement.h"
+#import "BaseClassForAllSVGBasicShapes.h"
+#import "BaseClassForAllSVGBasicShapes_ForSubclasses.h"
 
-@interface SVGPolygonElement : SVGShapeElement { }
+@interface SVGPolygonElement : BaseClassForAllSVGBasicShapes { }
 
 @end

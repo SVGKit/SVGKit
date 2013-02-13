@@ -154,7 +154,7 @@
     } while (foundCmd);
 	
     
-	[self setPathByCopyingPathFromLocalSpace:path];
+	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);
 }
 

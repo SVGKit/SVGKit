@@ -47,14 +47,6 @@
 #define kSVGElementIdentifier @"SVGElementIdentifier"
 
 
-/*! Transform to be applied to this node and all sub-nodes; does NOT take account of any transforms applied by parent / ancestor nodes
- 
- FIXME: this method could be removed by some careful refactoring of the code in SVGKImage and its CALayer generation
- code. You need to also refactor / merge the method "transformAbsolute" in the .m file of this class.
- */
-@property (nonatomic) CGAffineTransform transformRelative;
-
-
 #pragma mark - SVG-spec supporting methods that aren't in the Spec itself
 
 - (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes;
@@ -65,9 +57,5 @@
 #pragma mark - CSS cascading special attributes. c.f. full list here: http://www.w3.org/TR/SVG/propidx.html
 
 -(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty;
-
-/** FIXME: delete all these fake properties, and refactor code to directly call the method these are all delegating to
- FIXME: also - work out what the 'correct' way is to achieve the cascade using DOM-calls in the CSS-DOM specification */
-@property(nonatomic,readonly) NSString* cascadedFill, * cascadedFillOpacity, * cascadedStroke, * cascadedStrokeWidth, * cascadedStrokeOpacity;
 
 @end

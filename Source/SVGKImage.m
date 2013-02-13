@@ -374,7 +374,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	
 	if( originalLayer == nil )
 	{
-		NSLog(@"[%@] ERROR: requested a clone of CALayer with id = %@, but there is no layer with that identifier in the parsed SVG layer stack", identifier );
+		NSLog(@"[%@] ERROR: requested a clone of CALayer with id = %@, but there is no layer with that identifier in the parsed SVG layer stack", [self class], identifier );
 		return nil;
 	}
 	else

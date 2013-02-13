@@ -41,7 +41,6 @@
 #import "SVGDocument.h"
 #import "SVGElement.h"
 #import "SVGSVGElement.h"
-#import "SVGGroupElement.h"
 
 #import "SVGKParser.h"
 #import "SVGKSource.h"

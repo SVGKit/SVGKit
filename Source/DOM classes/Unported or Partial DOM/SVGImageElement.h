@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "SVGElement.h"
+#import "SVGTransformable.h"
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
-@interface SVGImageElement : SVGElement <SVGLayeredElement>
+@interface SVGImageElement : SVGElement <SVGTransformable, SVGLayeredElement>
 
 @property (nonatomic, readonly) CGFloat x;
 @property (nonatomic, readonly) CGFloat y;

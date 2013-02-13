@@ -2,20 +2,11 @@
 
 #import "CALayerWithChildHitTest.h"
 
+#import "SVGHelperUtilities.h"
+
 @implementation SVGGElement 
 
-@synthesize opacity = _opacity;
-
-- (void)loadDefaults {
-	_opacity = 1.0f;
-}
-
-- (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
-	[super postProcessAttributesAddingErrorsTo:parseResult];
-	
-	if( [[self getAttribute:@"opacity"] length] > 0 )
-		_opacity = [[self getAttribute:@"opacity"] floatValue];
-}
+@synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 - (CALayer *) newLayer
 {
@@ -24,7 +15,9 @@
 	
 	_layer.name = self.identifier;
 	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-	_layer.opacity = _opacity;
+	
+	NSString* actualOpacity = [self cascadedValueForStylableProperty:@"opacity"];
+	_layer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1.0f; // svg's "opacity" defaults to 1!
 	
 	if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
 		[_layer performSelector:@selector(setShouldRasterize:)
@@ -35,6 +28,7 @@
 }
 
 - (void)layoutLayer:(CALayer *)layer {
+#define ORIGINAL_PRE_MTRUBNIKOV_MERGE 1
 #if ORIGINAL_PRE_MTRUBNIKOV_MERGE
 	CGRect mainRect = CGRectZero;
 	
@@ -80,8 +74,8 @@
 	 */
 	for (CALayer *currentLayer in [layer sublayers]) {
 		CGRect frame = currentLayer.frame;
-		frame.origin.x -= frameRect.origin.x;
-		frame.origin.y -= frameRect.origin.y;
+		frame.origin.x -= mainRect.origin.x;
+		frame.origin.y -= mainRect.origin.y;
 		
 		currentLayer.frame = frame;
 	}

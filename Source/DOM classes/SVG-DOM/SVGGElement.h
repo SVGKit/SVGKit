@@ -15,11 +15,10 @@
 #import "SVGElement_ForParser.h"
 
 #import "SVGLayeredElement.h"
+#import "SVGTransformable.h"
 
 #define OUTLINE_SHAPES 1
 
-@interface SVGGElement : SVGElement < SVGLayeredElement >
-
-@property (nonatomic, readonly) CGFloat opacity;
+@interface SVGGElement : SVGElement <SVGTransformable, SVGLayeredElement >
 
 @end

@@ -1,13 +1,8 @@
-//
-//  SVGRectElement.m
-//  SVGKit
-//
-//  Copyright Matt Rajca 2010-2011. All rights reserved.
-//
-
 #import "SVGRectElement.h"
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+
+#import "SVGHelperUtilities.h"
 
 @interface SVGRectElement ()
 
@@ -16,6 +11,8 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius);
 @end
 
 @implementation SVGRectElement
+
+@synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 @synthesize x = _x;
 @synthesize y = _y;
@@ -59,38 +56,44 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius) {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"x"] length] > 0 )
-	_x = [[self getAttribute:@"x"] floatValue];
+	_x = [SVGLength svgLengthFromNSString:[self getAttribute:@"x"]];
 	
 	if( [[self getAttribute:@"y"] length] > 0 )
-	_y = [[self getAttribute:@"y"] floatValue];
+	_y = [SVGLength svgLengthFromNSString:[self getAttribute:@"y"]];
 	
 	if( [[self getAttribute:@"width"] length] > 0 )
-	_width = [[self getAttribute:@"width"] floatValue];
+	_width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
 	
 	if( [[self getAttribute:@"height"] length] > 0 )
-	_height = [[self getAttribute:@"height"] floatValue];
+	_height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
 	
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	_rx = [[self getAttribute:@"rx"] floatValue];
+	_rx = [SVGLength svgLengthFromNSString:[self getAttribute:@"rx"]];
 	
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	_ry = [[self getAttribute:@"ry"] floatValue];
-	
+	_ry = [SVGLength svgLengthFromNSString:[self getAttribute:@"ry"]];
+
+	/**
+	 Create a square OR rounded rectangle as a CGPath
+	 
+	 */
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGRect rect = CGRectMake(_x, _y, _width, _height);
+	CGRect rect = CGRectMake([_x pixelsValue], [_y pixelsValue], [_width pixelsValue], [_height pixelsValue]);
 	
-	if (_rx == 0 && _ry == 0) {
+	if ([_rx pixelsValue] == 0 && [_ry pixelsValue] == 0) {
 		CGPathAddRect(path, NULL, rect);
 	}
-	else if (_rx == _ry) {
-		CGPathAddRoundedRect(path, rect, _rx);
+	else if ([_rx  pixelsValue] == [_ry  pixelsValue]) {
+		CGPathAddRoundedRect(path, rect, [_rx pixelsValue]);
 	}
 	else {
-		NSLog(@"Unsupported corner-radius configuration: rx differs from ry");
+		NSLog(@"[%@] ERROR: Unsupported corner-radius configuration: rx (%@) differs from ry (%@)", [self class], self.rx, self.ry);
+		CGPathRelease(path);
+		return;
 	}
-	
-	[self setPathByCopyingPathFromLocalSpace:path];
+	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);
 }
+
 
 @end

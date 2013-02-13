@@ -57,7 +57,7 @@
 									   path:path
 								 relativeTo:lastCoordinate];
 	
-	[self setPathByCopyingPathFromLocalSpace:path];
+	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);
 }
 

@@ -6,7 +6,7 @@
 #import "SVGDescriptionElement.h"
 //#import "SVGKSource.h"
 #import "SVGEllipseElement.h"
-#import "SVGGroupElement.h"
+#import "SVGGElement.h"
 #import "SVGImageElement.h"
 #import "SVGLineElement.h"
 #import "SVGPathElement.h"
@@ -32,7 +32,7 @@ static NSDictionary *elementMap;
                           [SVGCircleElement class], @"circle",
                           [SVGDescriptionElement class], @"description",
                           [SVGEllipseElement class], @"ellipse",
-                          [SVGGroupElement class], @"g",
+                          [SVGGElement class], @"g",
                           [SVGImageElement class], @"image",
                           [SVGLineElement class], @"line",
                           [SVGPathElement class], @"path",

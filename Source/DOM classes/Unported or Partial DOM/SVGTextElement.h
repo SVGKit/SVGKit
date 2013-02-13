@@ -10,11 +10,12 @@
 
 #import "SVGElement.h"
 #import "SVGLayeredElement.h"
+#import "SVGTransformable.h"
 
 /**
  http://www.w3.org/TR/2011/REC-SVG11-20110816/text.html#TextElement
  */
-@interface SVGTextElement : SVGElement <SVGLayeredElement>
+@interface SVGTextElement : SVGElement <SVGLayeredElement, SVGTransformable>
 
 @property (readwrite,nonatomic,assign) CGFloat x;
 @property (readwrite,nonatomic,assign) CGFloat y;

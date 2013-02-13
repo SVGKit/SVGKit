@@ -14,9 +14,11 @@
 #import "CSSStyleRule.h"
 #import "CSSRuleList+Mutable.h"
 
-#import "SVGGroupElement.h"
+#import "SVGGElement.h"
 
 #import "SVGRect.h"
+
+#import "SVGTransformable.h"
 
 @interface SVGElement ()
 
@@ -40,8 +42,6 @@
 @synthesize xmlbase;
 @synthesize rootOfCurrentDocumentFragment;
 @synthesize viewportElement;
-
-@synthesize transformRelative = _transformRelative;
 
 
 @synthesize className; /**< CSS class, from SVGStylable interface */
@@ -205,6 +205,10 @@
 	 */
 	if( [[self getAttribute:@"transform"] length] > 0 )
 	{
+		if( [self conformsToProtocol:@protocol(SVGTransformable)] )
+		{
+			SVGElement<SVGTransformable>* selfTransformable = (SVGElement<SVGTransformable>*) self;
+			
 		/**
 		 http://www.w3.org/TR/SVG/coords.html#TransformAttribute
 		 
@@ -247,7 +251,7 @@
 				CGFloat ytrans = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] floatValue] : 0.0;
 				
 				CGAffineTransform nt = CGAffineTransformMakeTranslation(xtrans, ytrans);
-				self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
+				selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
 				
 			}
 			else if( [command isEqualToString:@"scale"] )
@@ -256,7 +260,7 @@
 				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] floatValue] : xScale;
 				
 				CGAffineTransform nt = CGAffineTransformMakeScale(xScale, yScale);
-				self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
+				selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
 			}
 			else if( [command isEqualToString:@"matrix"] )
 			{
@@ -268,7 +272,7 @@
 				CGFloat ty = [(NSString*)[parameterStrings objectAtIndex:5] floatValue];
 				
 				CGAffineTransform nt = CGAffineTransformMake(a, b, c, d, tx, ty );
-				self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
+				selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
 				
 			}
 			else if( [command isEqualToString:@"rotate"] )
@@ -285,7 +289,7 @@
 					CGFloat radians = degrees * M_PI / 180.0;
 					
 					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
-					self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
+					selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
 				}
 				else if( [parameterStrings count] == 3)
 				{
@@ -297,7 +301,7 @@
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(-1.0 * centerX, -1.0 * centerY) );
-					self.transformRelative = CGAffineTransformConcat( self.transformRelative, nt );
+					selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
 					} else
 					{
 					NSLog(@"[%@] ERROR: input file is illegal, has an SVG matrix transform attribute without the required 1 or 3 parameters. Item = %@, transform attribute value = %@", [self class], transformString, value );
@@ -327,76 +331,11 @@
 			}
 		}];
 		
-		NSLog(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], self.transformRelative.a, self.transformRelative.b, self.transformRelative.c, self.transformRelative.d, self.transformRelative.tx, self.transformRelative.ty );
+		NSLog(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], selfTransformable.transform.a, selfTransformable.transform.b, selfTransformable.transform.c, selfTransformable.transform.d, selfTransformable.transform.tx, selfTransformable.transform.ty );
 #endif
-	}
-
-}
-
-/*! ADAM: SVG Official spec is EXTREMELY BADLY WRITTEN for this aspect (transforms + viewports + viewboxes) - almost all the documentation
- is "missing" and what's there is mumbo-jumbo appallingly bad English. I've had to do lots of "intelligent guessing" and "trial and error"
- to work out what the heck the authors were TRYING to say, but failing badly at actually saying.
- */
--(CGAffineTransform) transformAbsolute
-{
-	/**
-	 
-	 Each time you hit a viewPortElement in the DOM Tree, you
-	 have to insert an ADDITIONAL transform into the flow of:
-	 
-	     parent-transform -> child-transform
-	 
-	 has to become:
-	 
-	     parent-transform -> VIEWPORT-TRANSFORM -> child-transform
-	 */
-	
-	CGAffineTransform parentAbsoluteTransform;
-	CGAffineTransform selfRelativeTransform;
-	CGAffineTransform optionalViewportTransform;
-	
-	NSAssert( self.parentNode == nil || [self.parentNode isKindOfClass:[SVGElement class]], @"I don't know what to do when parent node is NOT an SVG element of some kind; presumably, this is when SVG root node gets embedded inside something else? The Spec IS VERY BADLY WRITTEN and doesn't clearly define ANYTHING here, and provides very few examples" );
-	
-	/** PARENT absolute */
-	SVGElement* parentSVGElement = (SVGElement*) self.parentNode;
-	if( self.parentNode == nil)
-		parentAbsoluteTransform = CGAffineTransformIdentity;
-	else
-		parentAbsoluteTransform = [parentSVGElement transformAbsolute];
-	
-	/** SELF relative */
-	selfRelativeTransform = self.transformRelative;
-	
-	/** VIEWPORT relative */
-	if( self.viewportElement != nil // if it's nil, it means THE OPPOSITE of what you'd expect - it means that it IS the viewport element - SVG Spec REQUIRES this
-	&& self.viewportElement != self // if it's some-other-object, then: we simply don't need to worry about it
-	   )
-		optionalViewportTransform = CGAffineTransformIdentity;
-	else
-	{
-		NSAssert( [self isKindOfClass:[SVGSVGElement class]], @"I don't know how to handle a VIEWPORT element that is NOT an <svg> tag. The SVG Spec is appallingly badly written, provides zero guidance, and zero examples. Someone will need to investigate as soon as we have an example!");
-		
-		SVGSVGElement* selfAsSVGTag = (SVGSVGElement*) self;
-		CGRect frameViewBox = selfAsSVGTag.viewBoxFrame;
-		CGRect frameViewport = CGRectFromSVGRect( selfAsSVGTag.viewport );
-		
-		if( ! CGRectIsEmpty( frameViewBox ) )
-		{
-			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.origin.x, -frameViewBox.origin.y );
-			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
-			optionalViewportTransform = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
 		}
-		else
-			optionalViewportTransform = CGAffineTransformIdentity;
 	}
-	
-	
-	/** SELF absolute */
-	CGAffineTransform result = CGAffineTransformConcat( selfRelativeTransform, CGAffineTransformConcat( optionalViewportTransform, parentAbsoluteTransform));
-	
-	//DEBUG: NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
-	
-	return result;
+
 }
 
 - (NSString *)description {
@@ -412,7 +351,12 @@
 	if( self )
 	{
 		[self loadDefaults];
-		self.transformRelative = CGAffineTransformIdentity;
+		
+		if( [self conformsToProtocol:@protocol(SVGTransformable)] )
+		{
+			SVGElement<SVGTransformable>* selfTransformable = (SVGElement<SVGTransformable>*) self;
+		selfTransformable.transform = CGAffineTransformIdentity;
+		}
 	}
 	return self;
 }
@@ -422,7 +366,12 @@
 	if( self )
 	{
 		[self loadDefaults];
-		self.transformRelative = CGAffineTransformIdentity;
+		
+		if( [self conformsToProtocol:@protocol(SVGTransformable)] )
+		{
+			SVGElement<SVGTransformable>* selfTransformable = (SVGElement<SVGTransformable>*) self;
+		selfTransformable.transform = CGAffineTransformIdentity;
+		}
 	}
 	return self;
 }
@@ -490,7 +439,7 @@
 			
 			Node* parentElement = self.parentNode;
 			while( parentElement != nil
-				  && ! [parentElement isKindOfClass:[SVGGroupElement class]]
+				  && ! [parentElement isKindOfClass:[SVGGElement class]]
 				  && ! [parentElement isKindOfClass:[SVGSVGElement class]])
 			{
 				parentElement = parentElement.parentNode;
@@ -505,27 +454,6 @@
 			}
 		}
 	}
-}
-
--(NSString *)cascadedFill
-{
-	return [self cascadedValueForStylableProperty:@"fill"];
-}
--(NSString *)cascadedFillOpacity
-{
-	return [self cascadedValueForStylableProperty:@"fill-opacity"];
-}
--(NSString *)cascadedStroke
-{
-	return [self cascadedValueForStylableProperty:@"stroke"];
-}
--(NSString *)cascadedStrokeWidth
-{
-	return [self cascadedValueForStylableProperty:@"stroke-width"];
-}
--(NSString *)cascadedStrokeOpacity
-{
-	return [self cascadedValueForStylableProperty:@"stroke-opacity"];
 }
 
 @end

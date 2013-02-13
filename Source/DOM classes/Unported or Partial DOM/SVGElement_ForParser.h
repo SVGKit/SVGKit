@@ -15,7 +15,4 @@
  */
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult;
 
-/*! Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform */
--(CGAffineTransform) transformAbsolute;
-
 @end

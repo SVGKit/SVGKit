@@ -3,7 +3,7 @@
 /*! Used by the main ShapeElement (and all subclasses) to do perfect "containsPoint" calculations via Apple's API calls
  
  This will only be called if it's the root of an SVG document and the hit was in the parent view on screen,
- OR if it's inside an SVGGroupElement that contained the hit
+ OR if it's inside an SVGGElement that contained the hit
  */
 @implementation CAShapeLayerWithHitTest
 

@@ -5,9 +5,9 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGShapeElement.h"
+#import "BaseClassForAllSVGBasicShapes.h"
 
-@interface SVGEllipseElement : SVGShapeElement { }
+@interface SVGEllipseElement : BaseClassForAllSVGBasicShapes { }
 
 @property (nonatomic, readonly) CGFloat cx;
 @property (nonatomic, readonly) CGFloat cy;

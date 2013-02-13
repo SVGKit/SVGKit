@@ -8,6 +8,8 @@
 
 #import "SVGImageElement.h"
 
+#import "SVGHelperUtilities.h"
+
 #if TARGET_OS_IPHONE
 
 #import <UIKit/UIKit.h>
@@ -38,6 +40,8 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 @end
 
 @implementation SVGImageElement
+
+@synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 @synthesize x = _x;
 @synthesize y = _y;
@@ -81,7 +85,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	[layer setValue:self.identifier forKey:kSVGElementIdentifier];
 	
 	CGRect frame = CGRectMake(_x, _y, _width, _height);
-	frame = CGRectApplyAffineTransform(frame, [self transformAbsolute]);
+	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteForTransformableElement:self]);
 	layer.frame = frame;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{

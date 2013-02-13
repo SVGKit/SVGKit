@@ -10,6 +10,8 @@
 @synthesize instanceRoot;
 @synthesize animatedInstanceRoot;
 
+@synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
+
 -(CALayer *)newLayer
 {
 	if( [instanceRoot.correspondingElement respondsToSelector:@selector(newLayer)])
@@ -20,9 +22,9 @@
 			return initialLayer;
 		
 		//For Xcode's broken debugger: CGAffineTransform i = initialLayer.affineTransform;
-		//For Xcode's broken debugger: CGAffineTransform mine = self.transformRelative;
+		//For Xcode's broken debugger: CGAffineTransform mine = self.transform;
 		
-		initialLayer.affineTransform = CGAffineTransformConcat( self.transformRelative, initialLayer.affineTransform );
+		initialLayer.affineTransform = CGAffineTransformConcat( self.transform, initialLayer.affineTransform );
 		
 		return initialLayer;
 	}

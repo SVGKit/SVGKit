@@ -1,10 +1,3 @@
-//
-//  SVGPolylineElement.m
-//  SVGKit
-//
-//  Copyright Matt Rajca 2011. All rights reserved.
-//
-
 #import "SVGPolylineElement.h"
 
 #import "SVGUtils.h"
@@ -21,7 +14,7 @@
 	{
 		CGMutablePathRef path = createPathFromPointsInString([[self getAttribute:@"points"] UTF8String], NO);
 		
-		[self setPathByCopyingPathFromLocalSpace:path];
+		self.pathForShapeInRelativeCoords = path;
 		CGPathRelease(path);
 	}
 }
