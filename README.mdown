@@ -23,6 +23,9 @@ To add SVGKit to your own projects - NB: THIS IS A ONE-LINE WAY OF USING SVG, yo
 
     [self.view addSubview: [[SVGKFastImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"mySVGfile.svg"]]];
 
+WARNING: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
+
+
 Key methods / properties you might find useful:
 
   1. SVGKImage - all the magic happens here
