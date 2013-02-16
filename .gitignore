@@ -1,6 +1,7 @@
 # osx
 .DS_Store
 Icon?
+*.swp
 
 # Thumbnails
 ._*

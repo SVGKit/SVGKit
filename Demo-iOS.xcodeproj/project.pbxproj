@@ -17,17 +17,17 @@
 		663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF016C9AF1C00CCBFB3 /* transformations.svg */; };
 		663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
 		663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
-		663FD00C16CADE2300CCBFB3 /* lingrad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00616CADE2200CCBFB3 /* lingrad01.svg */; };
-		663FD00D16CADE2300CCBFB3 /* opacity01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00716CADE2200CCBFB3 /* opacity01.svg */; };
-		663FD00E16CADE2300CCBFB3 /* PreserveAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00816CADE2300CCBFB3 /* PreserveAspectRatio.svg */; };
-		663FD00F16CADE2300CCBFB3 /* StyleAttribute.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00916CADE2300CCBFB3 /* StyleAttribute.svg */; };
-		663FD01016CADE2300CCBFB3 /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00A16CADE2300CCBFB3 /* text01.svg */; };
-		663FD01116CADE2300CCBFB3 /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00B16CADE2300CCBFB3 /* tspan01.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
 		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
+		66A09CA616CFE67B003CD5CD /* lingrad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA016CFE67B003CD5CD /* lingrad01.svg */; };
+		66A09CA716CFE67B003CD5CD /* opacity01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA116CFE67B003CD5CD /* opacity01.svg */; };
+		66A09CA816CFE67B003CD5CD /* PreserveAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */; };
+		66A09CA916CFE67B003CD5CD /* StyleAttribute.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA316CFE67B003CD5CD /* StyleAttribute.svg */; };
+		66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA416CFE67B003CD5CD /* text01.svg */; };
+		66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA516CFE67B003CD5CD /* tspan01.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
 		66E8626B1688BA0B0059C9C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862581688BA0B0059C9C4 /* AppDelegate.m */; };
 		66E8626C1688BA0B0059C9C4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862591688BA0B0059C9C4 /* Default-568h@2x.png */; };
@@ -90,17 +90,17 @@
 		663FCFF016C9AF1C00CCBFB3 /* transformations.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = transformations.svg; sourceTree = "<group>"; };
 		663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Sample Licenses from svg-android project.txt"; sourceTree = "<group>"; };
 		663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "groups-and-layers-test.svg"; sourceTree = "<group>"; };
-		663FD00616CADE2200CCBFB3 /* lingrad01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lingrad01.svg; sourceTree = "<group>"; };
-		663FD00716CADE2200CCBFB3 /* opacity01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opacity01.svg; sourceTree = "<group>"; };
-		663FD00816CADE2300CCBFB3 /* PreserveAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PreserveAspectRatio.svg; sourceTree = "<group>"; };
-		663FD00916CADE2300CCBFB3 /* StyleAttribute.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = StyleAttribute.svg; sourceTree = "<group>"; };
-		663FD00A16CADE2300CCBFB3 /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
-		663FD00B16CADE2300CCBFB3 /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		6649E0AC1617479200AFE92A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
 		6661A77C1698BBE20061E349 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		66A09CA016CFE67B003CD5CD /* lingrad01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lingrad01.svg; sourceTree = "<group>"; };
+		66A09CA116CFE67B003CD5CD /* opacity01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opacity01.svg; sourceTree = "<group>"; };
+		66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PreserveAspectRatio.svg; sourceTree = "<group>"; };
+		66A09CA316CFE67B003CD5CD /* StyleAttribute.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = StyleAttribute.svg; sourceTree = "<group>"; };
+		66A09CA416CFE67B003CD5CD /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
+		66A09CA516CFE67B003CD5CD /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
 		66E862571688BA0B0059C9C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66E862581688BA0B0059C9C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -202,26 +202,25 @@
 			path = "apache-licensed-from-svg-android";
 			sourceTree = "<group>";
 		};
-		663FD00516CADE2200CCBFB3 /* svg spec examples */ = {
-			isa = PBXGroup;
-			children = (
-				663FD00616CADE2200CCBFB3 /* lingrad01.svg */,
-				663FD00716CADE2200CCBFB3 /* opacity01.svg */,
-				663FD00816CADE2300CCBFB3 /* PreserveAspectRatio.svg */,
-				663FD00916CADE2300CCBFB3 /* StyleAttribute.svg */,
-				663FD00A16CADE2300CCBFB3 /* text01.svg */,
-				663FD00B16CADE2300CCBFB3 /* tspan01.svg */,
-			);
-			name = "svg spec examples";
-			path = "apache-licensed-from-svg-android/svg spec examples";
-			sourceTree = "<group>";
-		};
 		6649E1031617574600AFE92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				6649E10A1617574700AFE92A /* libSVGKit-iOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		66A09C9F16CFE67B003CD5CD /* svg spec examples */ = {
+			isa = PBXGroup;
+			children = (
+				66A09CA016CFE67B003CD5CD /* lingrad01.svg */,
+				66A09CA116CFE67B003CD5CD /* opacity01.svg */,
+				66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */,
+				66A09CA316CFE67B003CD5CD /* StyleAttribute.svg */,
+				66A09CA416CFE67B003CD5CD /* text01.svg */,
+				66A09CA516CFE67B003CD5CD /* tspan01.svg */,
+			);
+			path = "svg spec examples";
 			sourceTree = "<group>";
 		};
 		66E862561688BA0B0059C9C4 /* Demo-iOS */ = {
@@ -270,7 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				663FCFEC16C9AF1C00CCBFB3 /* apache-licensed-from-svg-android */,
-				663FD00516CADE2200CCBFB3 /* svg spec examples */,
+				66A09C9F16CFE67B003CD5CD /* svg spec examples */,
 				663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */,
 				665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */,
 				661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */,
@@ -398,14 +397,14 @@
 				663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */,
 				663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */,
 				663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */,
-				663FD00C16CADE2300CCBFB3 /* lingrad01.svg in Resources */,
-				663FD00D16CADE2300CCBFB3 /* opacity01.svg in Resources */,
-				663FD00E16CADE2300CCBFB3 /* PreserveAspectRatio.svg in Resources */,
-				663FD00F16CADE2300CCBFB3 /* StyleAttribute.svg in Resources */,
-				663FD01016CADE2300CCBFB3 /* text01.svg in Resources */,
-				663FD01116CADE2300CCBFB3 /* tspan01.svg in Resources */,
 				661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */,
 				665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */,
+				66A09CA616CFE67B003CD5CD /* lingrad01.svg in Resources */,
+				66A09CA716CFE67B003CD5CD /* opacity01.svg in Resources */,
+				66A09CA816CFE67B003CD5CD /* PreserveAspectRatio.svg in Resources */,
+				66A09CA916CFE67B003CD5CD /* StyleAttribute.svg in Resources */,
+				66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */,
+				66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
