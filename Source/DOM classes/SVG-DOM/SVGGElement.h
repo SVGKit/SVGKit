@@ -17,7 +17,6 @@
 #import "SVGLayeredElement.h"
 #import "SVGTransformable.h"
 
-#define OUTLINE_SHAPES 0
 
 @interface SVGGElement : SVGElement <SVGTransformable, SVGLayeredElement >
 
