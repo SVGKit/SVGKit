@@ -259,7 +259,7 @@
 				CGFloat ytrans = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] floatValue] : 0.0;
 				
 				CGAffineTransform nt = CGAffineTransformMakeTranslation(xtrans, ytrans);
-				selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
+				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 				
 			}
 			else if( [command isEqualToString:@"scale"] )
@@ -268,7 +268,7 @@
 				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] floatValue] : xScale;
 				
 				CGAffineTransform nt = CGAffineTransformMakeScale(xScale, yScale);
-				selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
+				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 			}
 			else if( [command isEqualToString:@"matrix"] )
 			{
@@ -280,7 +280,7 @@
 				CGFloat ty = [(NSString*)[parameterStrings objectAtIndex:5] floatValue];
 				
 				CGAffineTransform nt = CGAffineTransformMake(a, b, c, d, tx, ty );
-				selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
+				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 				
 			}
 			else if( [command isEqualToString:@"rotate"] )
@@ -297,7 +297,7 @@
 					CGFloat radians = degrees * M_PI / 180.0;
 					
 					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
-					selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
+					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 				}
 				else if( [parameterStrings count] == 3)
 				{
@@ -309,7 +309,7 @@
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(-1.0 * centerX, -1.0 * centerY) );
-					selfTransformable.transform = CGAffineTransformConcat( selfTransformable.transform, nt );
+					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 					} else
 					{
 					NSLog(@"[%@] ERROR: input file is illegal, has an SVG matrix transform attribute without the required 1 or 3 parameters. Item = %@, transform attribute value = %@", [self class], transformString, value );
