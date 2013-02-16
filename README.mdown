@@ -19,12 +19,15 @@ Because so much has changed, Adam wrote a series of blog posts to explain how to
 
 Open the project "Demo-iOS", select your preferred simulator (or device, if it's plugged in), build and run. Try the sample SVG's packaged with SVGKit.
 
-To add SVGKit to your own projects - NB: THIS IS A ONE-LINE WAY OF USING SVG, you DO NOT need to use UIKit / UIView's with SVGKit - Instantiate any SVGKImageView sub-class using the filename of an SVG file, and add it to your view with [UIView addSubview:]
+To use SVGKit, either CREATE AND DISPLAY AN IMAGE ON SCREEN:
 
     [self.view addSubview: [[SVGKFastImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"mySVGfile.svg"]]];
 
-WARNING: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
+or LOAD AN IMAGE AND CONVERT TO A UIIMAGE OBJECT:
 
+    UIImage* newImage = [SVGKImage imageNamed:@"mySVGfile"].UIImage;
+
+WARNING: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
 
 Key methods / properties you might find useful:
 
