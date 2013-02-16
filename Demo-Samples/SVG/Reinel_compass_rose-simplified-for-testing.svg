@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="440"
+   height="590"
+   viewBox="-220 -370 440 590"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48+devel r10001"
+   sodipodi:docname="Reinel_compass_rose.svg">
+  <metadata
+     id="metadata76">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1178"
+     inkscape:window-height="683"
+     id="namedview74"
+     showgrid="false"
+     inkscape:zoom="0.88813559"
+     inkscape:cx="220"
+     inkscape:cy="159.8855"
+     inkscape:window-x="-195"
+     inkscape:window-y="29"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <g
+       id="r5">
+      <g
+         id="r4">
+        <g
+           id="r3">
+          <g
+             id="r2">
+            <path
+               xd="M0 h94 m9 h49 m12 h51"
+               stroke-width="1.5"
+               fill="none"
+               id="r1" />
+            <use
+               xlink:href="#r1"
+               transform="scale(-1)"
+               id="use11" />
+          </g>
+          <use
+             xlink:href="#r2"
+             transform="rotate(90)"
+             id="use13" />
+        </g>
+        <use
+           xlink:href="#r3"
+           transform="rotate(45)"
+           id="use15" />
+      </g>
+      <use
+         xlink:href="#r4"
+         transform="rotate(22.5)"
+         id="use17" />
+    </g>
+  </defs>
+  <circle
+     r="75"
+     fill="none"
+     stroke="#00923f"
+     stroke-width="8"
+     id="circle19" />
+  <g
+     stroke="#1f1a17"
+     stroke-width="1"
+     fill="none"
+     id="g21">
+    <circle
+       r="71"
+       id="circle23" />
+    <circle
+       r="79"
+       id="circle25" />
+  </g>
+  <use
+     xlink:href="#r4"
+     stroke="#72706f"
+     id="use27" />
+  <circle
+     r="211"
+     fill="none"
+     stroke="#00923f"
+     stroke-width="8"
+     id="circle29" />
+  <circle
+     r="207"
+     stroke="#1f1a17"
+     stroke-width="1"
+     fill="none"
+     id="circle31" />
+  <use
+     xlink:href="#r4"
+     transform="rotate(22.5)"
+     stroke="#00923f"
+     id="use33" />
+  <use
+     xlink:href="#r5"
+     transform="rotate(11.25)"
+     stroke="#da251d"
+     id="use35" />
+  <circle
+     r="8"
+     cx="0"
+     cy="0"
+     fill="#1f1a17"
+     stroke="#28166f"
+     stroke-width=".4"
+     id="circle37" />
+  <g
+     stroke="#1f1a17"
+     stroke-width="1"
+     fill="none"
+     id="g39">
+    <circle
+       r="94"
+       id="circle41" />
+    <circle
+       r="152"
+       id="circle43" />
+    <circle
+       r="164"
+       id="circle45" />
+    <circle
+       r="215"
+       id="circle47" />
+  </g>
+  <g
+     id="s3">
+    <g
+       id="s2">
+      <g
+         id="s1">
+        <path
+           d="M 39.416,95.16 C 33.65,103.95 30.76,110.5 28.93,117.18 15.24,113.43 13.54,127.15 23.04,131 13.71,145.8 7.84,173.93 0,212 L 0,103 a 103,103 0 0 0 39.416,-7.84 z"
+           id="s0"
+           stroke-miterlimit="9"
+           inkscape:connector-curvature="0"
+           style="fill:#0000ff;stroke:#1f1a17;stroke-width:1;stroke-miterlimit:9" />
+        <use
+           xlink:href="#s0"
+           transform="scale(-1,1)"
+           id="use53"
+           style="fill:#ff0000"
+           x="0"
+           y="0"
+           width="440"
+           height="590" />
+        <path
+           d="M -31.995,160.849 A 164,164 0 0,0 31.995,160.849 C 18.9,170.1 8.4,175.3 0,206 C -8.4,175.3 -18.9,170.1 -31.995,160.849 z"
+           fill="#da251d"
+           stroke="#1b1b1b"
+           stroke-width="1"
+           transform="rotate(22.5)"
+           id="path55" />
+      </g>
+      <use
+         xlink:href="#s1"
+         transform="rotate(45)"
+         id="use57" />
+    </g>
+    <use
+       xlink:href="#s2"
+       transform="rotate(90)"
+       id="use59" />
+  </g>
+  <use
+     xlink:href="#s3"
+     transform="scale(-1)"
+     id="use61" />
+  <circle
+     r="8"
+     cy="-360"
+     fill="#da251d"
+     stroke="#1f1a17"
+     stroke-width="1"
+     id="circle70" />
+</svg>
