@@ -10,10 +10,6 @@
 #import <UIKit/UIKit.h>
 #endif
 
-@interface SVGSVGElement()
-@property (nonatomic, readwrite) CGRect viewBoxFrame;
-@end
-
 @implementation SVGSVGElement
 
 @synthesize x;
@@ -32,12 +28,13 @@
 @synthesize currentScale;
 @synthesize currentTranslate;
 
+@synthesize viewBox = _viewBox;
+
 #pragma mark - NON SPEC, violating, properties
-@synthesize viewBoxFrame = _viewBoxFrame;
 
 -(void)dealloc
 {
-	self.viewBoxFrame = CGRectNull;
+	self.viewBox = CGRectNull;
 	[super dealloc];	
 }
 
@@ -115,15 +112,15 @@
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
-		_viewBoxFrame = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		_viewBox = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
         
 		NSLog(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
         //osx logging
 #if TARGET_OS_IPHONE        
-        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBoxFrame));
+        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBox));
 #else
         //mac logging
-     NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBoxFrame));    
+     NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
 #endif   
         
 	}

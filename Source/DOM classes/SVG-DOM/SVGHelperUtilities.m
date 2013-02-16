@@ -48,11 +48,11 @@
 	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // if it's some-other-object, then: we simply don't need to worry about it
 	   )
 	{
-		SVGSVGElement* svgSVGElement = (SVGSVGElement*) transformableOrSVGSVGElement;
+		SVGElement<SVGFitToViewBox>* svgSVGElement = (SVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
 		
 		/** Calculate the "implicit" viewport transform (caused by the <SVG> tag's possible "viewBox" attribute) */
-		CGRect frameViewBox = svgSVGElement.viewBoxFrame;
-		CGRect frameViewport = CGRectFromSVGRect( svgSVGElement.viewport );
+		CGRect frameViewBox = svgSVGElement.viewBox;
+		CGRect frameViewport = CGRectFromSVGRect( ((SVGSVGElement*)svgSVGElement).viewport );
 		
 		if( ! CGRectIsEmpty( frameViewBox ) )
 		{
@@ -245,7 +245,7 @@
 		
 		//if( _shapeLayer != nil && svgGradient != nil ) //this nil check here is distrubing but blocking
 		{
-			CAGradientLayer *gradientLayer = [((CAGradientLayer *)svgGradient) newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBoxFrame];
+			CAGradientLayer *gradientLayer = [((CAGradientLayer *)svgGradient) newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
 			
 			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;

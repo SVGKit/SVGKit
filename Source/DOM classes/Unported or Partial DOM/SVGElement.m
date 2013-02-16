@@ -66,7 +66,7 @@
 -(void) reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:(SVGElement*) firstAncestor
 {
 	// NB the root svg element IS a viewport, but SVG Spec defines it as NOT a viewport, and so we will overwrite this later
-	BOOL isTagAllowedToBeAViewport = [self.tagName isEqualToString:@"svg"] || [self.tagName isEqualToString:@"image"] || [self.tagName isEqualToString:@"foreignObject"];
+	BOOL isTagAllowedToBeAViewport = [self.tagName isEqualToString:@"svg"] || [self.tagName isEqualToString:@"foreignObject"]; // NB: Spec lists "image" tag too but only as an IMPLICIT CREATOR - we don't actually handle it (it creates an <SVG> tag ... that will be handled later)
 	
 	BOOL isTagDefiningAViewport = [self.attributes getNamedItem:@"width"] != nil || [self.attributes getNamedItem:@"height"] != nil;
 		

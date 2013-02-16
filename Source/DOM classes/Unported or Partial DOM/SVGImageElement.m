@@ -1,11 +1,3 @@
-//
-//  SVGKImageElement.m
-//  SvgLoader
-//
-//  Created by Joshua May on 24/06/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
-
 #import "SVGImageElement.h"
 
 #import "SVGHelperUtilities.h"
@@ -42,6 +34,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 @implementation SVGImageElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
+@synthesize viewBox; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 @synthesize x = _x;
 @synthesize y = _y;
@@ -75,10 +68,24 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	self.href = [self getAttribute:@"href"];
 }
 
+
 - (CALayer *) newLayer
 {
-	NSAssert( FALSE, @"NOT SUPPORTED: SVG Image Element . newLayer -- must be upgraded using the algorithm in SVGShapeElement.newLayer");
+	CAShapeLayer* newLayer = [[CALayer alloc] init];
+	newLayer.name = self.identifier;
+	[newLayer setValue:self.identifier forKey:kSVGElementIdentifier];
 	
+	/** transform our LOCAL path into ABSOLUTE space */
+	CGRect frame = CGRectMake(_x, _y, _width, _height);
+	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
+	newLayer.frame = frame;
+	
+	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+	SVGImageRef image = [SVGImage imageWithData:imageData];
+	
+	newLayer.contents = (id)SVGImageCGImage(image);
+		
+#if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];
 
 	layer.name = self.identifier;
@@ -102,6 +109,9 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
     });
 
     return layer;
+#endif
+	
+	return newLayer;
 }
 
 - (void)layoutLayer:(CALayer *)layer {

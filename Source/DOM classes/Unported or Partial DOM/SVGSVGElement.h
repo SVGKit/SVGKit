@@ -47,6 +47,7 @@
  */
 
 #import "DocumentCSS.h"
+#import "SVGFitToViewBox.h"
 
 #import "SVGElement.h"
 #import "SVGViewSpec.h"
@@ -65,7 +66,7 @@
 
 #import "SVGLayeredElement.h"
 
-@interface SVGSVGElement : SVGElement < DocumentCSS, /* FIXME: refactor and delete this, it's in violation of the spec: */ SVGLayeredElement >
+@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ SVGLayeredElement >
 
 
 
@@ -110,8 +111,6 @@
 -(Element*) getElementById:(NSString*) elementId;
 
 #pragma mark - below here VIOLATES THE STANDARD, but needs to be CAREFULLY merged with spec
-
-@property (nonatomic, readonly) CGRect viewBoxFrame; // FIXME: this has NON TRIVIAL relationship to the viewport property above
 
 - (SVGElement *)findFirstElementOfClass:(Class)class; /*< temporary convenience method until SVGDocument support is complete */
 

@@ -261,6 +261,7 @@
 		66988DCE168A129500EC93C7 /* CSSValueList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSValueList.m; sourceTree = "<group>"; };
 		66988DD1168A13BC00EC93C7 /* CSSValue_ForSubclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSValue_ForSubclasses.h; sourceTree = "<group>"; };
 		66988DD9168A2F4200EC93C7 /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSSPrimitiveValue_ConfigurablePixelsPerInch.h; sourceTree = "<group>"; };
+		66A09CB016CFF494003CD5CD /* SVGFitToViewBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGFitToViewBox.h; sourceTree = "<group>"; };
 		66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleSucksDOMImplementation.h; sourceTree = "<group>"; };
 		66E8630F1688C2770059C9C4 /* AppleSucksDOMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleSucksDOMImplementation.m; sourceTree = "<group>"; };
 		66E863101688C2770059C9C4 /* Attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attr.h; sourceTree = "<group>"; };
@@ -609,6 +610,7 @@
 				663FD01216CAEF0B00CCBFB3 /* SVGHelperUtilities.h */,
 				663FD01316CAEF0C00CCBFB3 /* SVGHelperUtilities.m */,
 				663FD01716CAF05900CCBFB3 /* SVGTransformable.h */,
+				66A09CB016CFF494003CD5CD /* SVGFitToViewBox.h */,
 				661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */,
 				661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */,
 				661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */,

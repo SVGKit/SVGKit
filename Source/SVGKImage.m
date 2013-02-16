@@ -452,6 +452,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	for (SVGElement *child in childNodes )
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
+			
 			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
 			
 			if (!sublayer) {
