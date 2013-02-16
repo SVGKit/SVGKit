@@ -10,17 +10,12 @@
 
 @implementation SVGHelperUtilities
 
-/*! ADAM: SVG Official spec is EXTREMELY BADLY WRITTEN for this aspect (transforms + viewports + viewboxes) - almost all the documentation
- is "missing" and what's there is mumbo-jumbo appallingly bad English. I've had to do lots of "intelligent guessing" and "trial and error"
- to work out what the heck the authors were TRYING to say, but failing badly at actually saying.
- 
- Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform
- */
-+(CGAffineTransform) transformAbsoluteForTransformableElement:(SVGElement<SVGTransformable>*) transformable
+
++(CGAffineTransform) transformRelativeIncludingViewportForTransformableOrViewportEstablishingElement:(SVGElement*) transformableOrSVGSVGElement
 {
-	NSAssert([transformable conformsToProtocol:@protocol(SVGTransformable)], @"Illegal argument, sent a non-SVGTransformable object to a method that requires an SVGTransformable (NB: Apple's Xcode is rubbish, it should have thrown a compiler error that you even tried to do this, but it often doesn't bother). Incoming instance = %@", transformable );
+	NSAssert([transformableOrSVGSVGElement conformsToProtocol:@protocol(SVGTransformable)] || [transformableOrSVGSVGElement isKindOfClass:[SVGSVGElement class]], @"Illegal argument, sent a non-SVGTransformable, non-SVGSVGElement object to a method that requires an SVGTransformable (NB: Apple's Xcode is rubbish, it should have thrown a compiler error that you even tried to do this, but it often doesn't bother). Incoming instance = %@", transformableOrSVGSVGElement );
+	
 	/**
-	 
 	 Each time you hit a viewPortElement in the DOM Tree, you
 	 have to insert an ADDITIONAL transform into the flow of:
 	 
@@ -31,46 +26,33 @@
 	 parent-transform -> VIEWPORT-TRANSFORM -> child-transform
 	 */
 	
-	CGAffineTransform parentAbsoluteTransform;
-	CGAffineTransform selfRelativeTransform;
+	CGAffineTransform currentRelativeTransform;
 	CGAffineTransform optionalViewportTransform;
-	
-	NSAssert( transformable.parentNode == nil || [transformable.parentNode isKindOfClass:[SVGElement class]], @"I don't know what to do when parent node is NOT an SVG element of some kind; presumably, this is when SVG root node gets embedded inside something else? The Spec IS VERY BADLY WRITTEN and doesn't clearly define ANYTHING here, and provides very few examples" );
-	
-	/** PARENT absolute:
-	  find the first ancestor that is EITHER transformable (in which case, grab its ABSOLUTE transform)
-	  ...OR is nil (in which case: hit the root of the SVG tree, so we can assume the Identity transform)
-	 */
-	SVGElement* parentSVGElement = (SVGElement*) transformable.parentNode;
-	while( ! [parentSVGElement conformsToProtocol:@protocol(SVGTransformable)])
-	{
-		if( parentSVGElement == nil )
-			break;
-		parentSVGElement = (SVGElement*) parentSVGElement.parentNode;
-	}
-	if( parentSVGElement == nil)
-		parentAbsoluteTransform = CGAffineTransformIdentity;
-	else
-	{
-		SVGElement<SVGTransformable>* firstTransformableAncestor = (SVGElement<SVGTransformable>*) parentSVGElement;
-		parentAbsoluteTransform = [self transformAbsoluteForTransformableElement:firstTransformableAncestor];
-	}
-	
-	/** SELF relative */
-	selfRelativeTransform = transformable.transform;
-	
-	/** VIEWPORT relative */
-	if( transformable.viewportElement != nil // if it's nil, it means THE OPPOSITE of what you'd expect - it means that it IS the viewport element - SVG Spec REQUIRES this
-	   && transformable.viewportElement != transformable // if it's some-other-object, then: we simply don't need to worry about it
-	   )
-		optionalViewportTransform = CGAffineTransformIdentity;
-	else
-	{
-		NSAssert( [transformable isKindOfClass:[SVGSVGElement class]], @"I don't know how to handle a VIEWPORT element that is NOT an <svg> tag. The SVG Spec is appallingly badly written, provides zero guidance, and zero examples. Someone will need to investigate as soon as we have an example!");
 		
-		SVGSVGElement* selfAsSVGTag = (SVGSVGElement*) transformable;
-		CGRect frameViewBox = selfAsSVGTag.viewBoxFrame;
-		CGRect frameViewport = CGRectFromSVGRect( selfAsSVGTag.viewport );
+	/**
+	 Current relative transform: for an incoming "SVGTransformable" it's .transform, for everything else its identity
+	 */
+	if( [transformableOrSVGSVGElement conformsToProtocol:@protocol(SVGTransformable)])
+	{
+		currentRelativeTransform = ((SVGElement<SVGTransformable>*)transformableOrSVGSVGElement).transform;
+	}
+	else
+	{
+		currentRelativeTransform = CGAffineTransformIdentity;
+	}
+	
+	/**
+	 Optional relative transform: if incoming element establishes a viewport, do something clever; for everything else, use identity
+	 */
+	if( transformableOrSVGSVGElement.viewportElement == nil // if it's nil, it means THE OPPOSITE of what you'd expect - it means that it IS the viewport element - SVG Spec REQUIRES this
+	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // if it's some-other-object, then: we simply don't need to worry about it
+	   )
+	{
+		SVGSVGElement* svgSVGElement = (SVGSVGElement*) transformableOrSVGSVGElement;
+		
+		/** Calculate the "implicit" viewport transform (caused by the <SVG> tag's possible "viewBox" attribute) */
+		CGRect frameViewBox = svgSVGElement.viewBoxFrame;
+		CGRect frameViewport = CGRectFromSVGRect( svgSVGElement.viewport );
 		
 		if( ! CGRectIsEmpty( frameViewBox ) )
 		{
@@ -80,11 +62,64 @@
 		}
 		else
 			optionalViewportTransform = CGAffineTransformIdentity;
+		
+	}
+	else
+	{
+		optionalViewportTransform = CGAffineTransformIdentity;
 	}
 	
+	/**
+	 TOTAL relative based on the local "transform" property and the viewport (if present)
+	 */
+	CGAffineTransform result = CGAffineTransformConcat( currentRelativeTransform, optionalViewportTransform);
 	
-	/** SELF absolute */
-	CGAffineTransform result = CGAffineTransformConcat( selfRelativeTransform, CGAffineTransformConcat( optionalViewportTransform, parentAbsoluteTransform));
+	return result;
+}
+
+/*!
+ Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform.
+ 
+ Can take ONLY TWO kinds of element:
+  - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
+  - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
+ */
++(CGAffineTransform) transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:(SVGElement*) transformableOrSVGSVGElement
+{
+	NSAssert([transformableOrSVGSVGElement conformsToProtocol:@protocol(SVGTransformable)] || [transformableOrSVGSVGElement isKindOfClass:[SVGSVGElement class]], @"Illegal argument, sent a non-SVGTransformable, non-SVGSVGElement object to a method that requires an SVGTransformable (NB: Apple's Xcode is rubbish, it should have thrown a compiler error that you even tried to do this, but it often doesn't bother). Incoming instance = %@", transformableOrSVGSVGElement );
+	
+	CGAffineTransform parentAbsoluteTransform = CGAffineTransformIdentity;
+	
+	NSAssert( transformableOrSVGSVGElement.parentNode == nil || [transformableOrSVGSVGElement.parentNode isKindOfClass:[SVGElement class]], @"I don't know what to do when parent node is NOT an SVG element of some kind; presumably, this is when SVG root node gets embedded inside something else? The Spec IS UNCLEAR and doesn't clearly define ANYTHING here, and provides very few examples" );
+	
+	/**
+	 Parent Absolute transform: one of the following
+	 
+	 a. parent is an SVGTransformable (so recurse this method call to find it)
+	 b. parent is a viewport-generating element (so recurse this method call to find it)
+	 c. parent is nil (so treat it as Identity)
+	 d. parent is something else (so do a while loop until we hit an a, b, or c above)
+	 */
+	SVGElement* parentSVGElement = transformableOrSVGSVGElement;
+	while( (parentSVGElement = (SVGElement*) parentSVGElement.parentNode) != nil )
+	{
+		if( [parentSVGElement conformsToProtocol:@protocol(SVGTransformable)] )
+		{
+			parentAbsoluteTransform = [self transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:parentSVGElement];
+			break;
+		}
+		
+		if( [parentSVGElement isKindOfClass:[SVGSVGElement class]] )
+		{
+			parentAbsoluteTransform = [self transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:parentSVGElement];
+			break;
+		}
+	}
+		
+	/**
+	 TOTAL absolute based on the parent transform with relative (and possible viewport) transforms
+	 */
+	CGAffineTransform result = CGAffineTransformConcat( [self transformRelativeIncludingViewportForTransformableOrViewportEstablishingElement:transformableOrSVGSVGElement], parentAbsoluteTransform );
 	
 	//DEBUG: NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
 	
@@ -98,7 +133,7 @@
 	[_shapeLayer setValue:svgElement.identifier forKey:kSVGElementIdentifier];
 	
 	/** transform our LOCAL path into ABSOLUTE space */
-	CGAffineTransform transformAbsolute = [self transformAbsoluteForTransformableElement:svgElement];
+	CGAffineTransform transformAbsolute = [self transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:svgElement];
 	CGMutablePathRef pathToPlaceInLayer = CGPathCreateMutable();
 	CGPathAddPath( pathToPlaceInLayer, &transformAbsolute, pathRelative);
 	
@@ -123,6 +158,7 @@
 	 space! This is why we needed the "CGPathRef finalPath =" line a few lines above...
 	 */
 	_shapeLayer.frame = transformedPathBB;
+	
 	
 	//DEBUG ONLY: CGRect shapeLayerFrame = _shapeLayer.frame;
 	

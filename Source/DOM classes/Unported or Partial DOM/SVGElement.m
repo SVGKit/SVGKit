@@ -165,6 +165,14 @@
 	// to be overriden by subclasses
 }
 
+-(SVGLength*) getAttributeAsSVGLength:(NSString*) attributeName
+{
+	NSString* attributeAsString = [self getAttribute:attributeName];
+	SVGLength* svgLength = [SVGLength svgLengthFromNSString:attributeAsString];
+	
+	return svgLength;
+}
+
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult  {
 	// to be overriden by subclasses
 	// make sure super implementation is called

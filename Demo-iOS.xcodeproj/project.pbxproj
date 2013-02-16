@@ -10,6 +10,7 @@
 		661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
 		661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
 		661A0DD3161727CF008D5FBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD2161727CF008D5FBE /* CoreGraphics.framework */; };
+		661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */; };
 		663FCFF116C9AF1C00CCBFB3 /* gradients.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFED16C9AF1C00CCBFB3 /* gradients.svg */; };
 		663FCFF216C9AF1C00CCBFB3 /* shapes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */; };
 		663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEF16C9AF1C00CCBFB3 /* strokes.svg */; };
@@ -25,6 +26,7 @@
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
 		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
+		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
 		666674DA168B5D7E00486B68 /* Rsimplified.svg in Resources */ = {isa = PBXBuildFile; fileRef = 666674D9168B5D7E00486B68 /* Rsimplified.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
@@ -82,6 +84,7 @@
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		661A0DD0161727CF008D5FBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		661A0DD2161727CF008D5FBE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "rotated-and-skewed-text.svg"; sourceTree = "<group>"; };
 		663FCFED16C9AF1C00CCBFB3 /* gradients.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gradients.svg; sourceTree = "<group>"; };
 		663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shapes.svg; sourceTree = "<group>"; };
 		663FCFEF16C9AF1C00CCBFB3 /* strokes.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = strokes.svg; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 		6649E0AC1617479200AFE92A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
 		6661A77C1698BBE20061E349 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		666674D9168B5D7E00486B68 /* Rsimplified.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rsimplified.svg; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
@@ -270,6 +274,8 @@
 				663FCFEC16C9AF1C00CCBFB3 /* apache-licensed-from-svg-android */,
 				663FD00516CADE2200CCBFB3 /* svg spec examples */,
 				663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */,
+				665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */,
+				661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */,
 				66E8627C1688BA510059C9C4 /* australia_states_blank.svg */,
 				66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */,
 				66E8627E1688BA510059C9C4 /* breaking-1.svg */,
@@ -402,6 +408,8 @@
 				663FD00F16CADE2300CCBFB3 /* StyleAttribute.svg in Resources */,
 				663FD01016CADE2300CCBFB3 /* text01.svg in Resources */,
 				663FD01116CADE2300CCBFB3 /* tspan01.svg in Resources */,
+				661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */,
+				665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

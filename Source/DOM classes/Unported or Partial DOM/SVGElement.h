@@ -4,16 +4,13 @@
  http://www.w3.org/TR/SVG/types.html#InterfaceSVGElement
 
  NB: "id" is illegal in Objective-C language, so we use "identifier" instead
- 
- 
- + NON STANDARD: "transformRelative": identity OR the transform to apply BEFORE rendering this element (and its children)
- 
  */
 #import <QuartzCore/QuartzCore.h>
 
 #import "Element.h"
 #import "Node+Mutable.h"
 #import "SVGStylable.h"
+#import "SVGLength.h"
 
 #define DEBUG_SVG_ELEMENT_PARSING 0
 
@@ -53,6 +50,11 @@
 - (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes;
 
 -(void) reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:(SVGElement*) firstAncestor;
+
+/**
+ Convenience method for reading an attribute (SVG defines all as strings), converting it into an SVGLength object
+ */
+-(SVGLength*) getAttributeAsSVGLength:(NSString*) attributeName;
 
 #pragma mark - CSS cascading special attributes. c.f. full list here: http://www.w3.org/TR/SVG/propidx.html
 

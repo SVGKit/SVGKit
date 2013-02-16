@@ -85,7 +85,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	[layer setValue:self.identifier forKey:kSVGElementIdentifier];
 	
 	CGRect frame = CGRectMake(_x, _y, _width, _height);
-	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteForTransformableElement:self]);
+	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
 	layer.frame = frame;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
