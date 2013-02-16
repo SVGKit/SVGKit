@@ -64,8 +64,16 @@
 		self.cssRules = [[[CSSRuleList alloc]init] autorelease];
 		@autoreleasepool { //creating lots of autoreleased strings, not helpful for older devices
 			
-			NSArray *classNameAndStyleStrings = [styleSheetBody componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"}"]];
+			/**
+			 We have to manually handle the "ignore anything that is between / *  and * / because those are comments"
+			 
+			 NB: you NEED the NSRegularExpressionDotMatchesLineSeparators argument - which Apple DOES NOT HONOUR in NSString - hence have to use NSRegularExpression
+			 */
+			NSError* error;
+			NSRegularExpression* regexp = [NSRegularExpression regularExpressionWithPattern:@"/\\*.*\\*/" options: NSRegularExpressionDotMatchesLineSeparators error:&error];
+			styleSheetBody = [regexp stringByReplacingMatchesInString:styleSheetBody options:0 range:NSMakeRange(0,styleSheetBody.length) withTemplate:@""];
 			
+			NSArray *classNameAndStyleStrings = [styleSheetBody componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"}"]];
 			for( NSString *idStyleString in classNameAndStyleStrings )
 			{
 				if( [idStyleString length] > 1 ) //not necessary unless using shitty svgs
