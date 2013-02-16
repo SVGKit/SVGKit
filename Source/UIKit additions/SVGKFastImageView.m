@@ -8,6 +8,33 @@
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
 
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
+{
+	return [self svgElementAndDescendentsHaveNoGradients:image.DOMTree];
+}
+
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
+{
+	if( [element isKindOfClass:[SVGGradientElement class]])
+		return FALSE;
+	else
+	{
+		for( Node* n in element.childNodes )
+		{
+			if( [n isKindOfClass:[SVGElement class]])
+			{
+				if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
+					;
+				else
+					return FALSE;
+			}
+				
+		}
+	}
+	
+	return TRUE;
+}
+
 - (id)init
 {
 	NSAssert(false, @"init not supported, use initWithSVGKImage:");
@@ -41,6 +68,10 @@
     if (self)
 	{
 		internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
+		
+		BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:im];
+		if( !imageIsGradientFree )
+			NSLog(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
 		
 		self.image = im;
 		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)

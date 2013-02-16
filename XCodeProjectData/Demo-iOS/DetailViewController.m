@@ -321,16 +321,28 @@ CATextLayer *textLayerForLastTappedLayer;
 				self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 			}
 			
-			if( [name  isEqualToString:@"Monkey"])
+			if(
+			   [name  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
+			   || [name isEqualToString:@"RainbowWing"] // RainbodWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
+			   )
 			{
 				/**
 				 
-				 NB: very special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
+				 NB: special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
 				 
+				 MONKEY.SVG -- CAAnimation of layers
+				 -----
 				 The problem: Apple's code doesn't allow us to support CoreAnimation *and* make image loading easy.
 				 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that supports CoreAnimation"
 				 
 				 In this demo, we setup the Monkey.SVG to allow layer-based animation...
+				 
+				 
+				 RAINBOWWING.SVG -- Gradient-fills of shapes
+				 -----
+				 The problem: Apple's renderInContext has a major bug where it ignores CALayer masks
+				 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
+				 
 				 */
 				
 				self.contentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
