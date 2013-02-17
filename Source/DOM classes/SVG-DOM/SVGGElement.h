@@ -18,6 +18,6 @@
 #import "SVGTransformable.h"
 
 
-@interface SVGGElement : SVGElement <SVGTransformable, SVGLayeredElement >
+@interface SVGGElement : SVGElement <SVGTransformable, SVGStylable, SVGLayeredElement >
 
 @end

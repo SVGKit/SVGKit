@@ -92,7 +92,8 @@
 											  suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
 	
     CATextLayer *label = [[CATextLayer alloc] init];
-    label.name = self.identifier;
+    [SVGHelperUtilities configureCALayer:label usingElement:self];
+	
     label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
 	
 	/** This is complicated for three reasons.

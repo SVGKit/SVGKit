@@ -33,6 +33,15 @@ This method ONLY looks at current node to establish the above two things, to do 
  */
 +(CGAffineTransform) transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:(SVGElement*) transformableOrSVGSVGElement;
 
+
+/** Some things - e.g. setting layer's Opacity - have to be done for pretty much EVERY SVGElement; this method automatically looks
+ at the incoming element, uses the protocols that element has (e.g. SVGStylable) to automatically adapt the layer.
+ 
+ This allows each SVGElement subclass to create a custom CALayer as needed (e.g. CATextLayer for text elements), but share the setup
+ code.
+ */
++(void) configureCALayer:(CALayer*) layer usingElement:(SVGElement*) nonStylableElement;
+
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement*) svgElement withPath:(CGPathRef) path;
 
 @end

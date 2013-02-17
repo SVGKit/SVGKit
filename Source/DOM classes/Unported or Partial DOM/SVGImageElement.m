@@ -72,8 +72,8 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 - (CALayer *) newLayer
 {
 	CAShapeLayer* newLayer = [[CALayer alloc] init];
-	newLayer.name = self.identifier;
-	[newLayer setValue:self.identifier forKey:kSVGElementIdentifier];
+	
+	[SVGHelperUtilities configureCALayer:newLayer usingElement:self];
 	
 	/** transform our LOCAL path into ABSOLUTE space */
 	CGRect frame = CGRectMake(_x, _y, _width, _height);

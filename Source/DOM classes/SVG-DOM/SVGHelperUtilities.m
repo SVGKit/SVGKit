@@ -126,11 +126,25 @@
 	return result;
 }
 
++(void) configureCALayer:(CALayer*) layer usingElement:(SVGElement*) nonStylableElement
+{
+	layer.name = nonStylableElement.identifier;
+	[layer setValue:nonStylableElement.identifier forKey:kSVGElementIdentifier];
+	
+	if( [nonStylableElement conformsToProtocol:@protocol(SVGStylable)])
+	{
+		SVGElement<SVGStylable>* stylableElement = (SVGElement<SVGStylable>*) nonStylableElement;
+		
+		NSString* actualOpacity = [stylableElement cascadedValueForStylableProperty:@"opacity"];
+		layer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1.0f; // svg's "opacity" defaults to 1!
+	}
+}
+
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
 	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
-	_shapeLayer.name = svgElement.identifier;
-	[_shapeLayer setValue:svgElement.identifier forKey:kSVGElementIdentifier];
+	
+	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
 	/** transform our LOCAL path into ABSOLUTE space */
 	CGAffineTransform transformAbsolute = [self transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:svgElement];

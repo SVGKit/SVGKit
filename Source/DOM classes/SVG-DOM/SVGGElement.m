@@ -13,11 +13,7 @@
 	
 	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
 	
-	_layer.name = self.identifier;
-	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-	
-	NSString* actualOpacity = [self cascadedValueForStylableProperty:@"opacity"];
-	_layer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1.0f; // svg's "opacity" defaults to 1!
+	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
 	if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
 		[_layer performSelector:@selector(setShouldRasterize:)

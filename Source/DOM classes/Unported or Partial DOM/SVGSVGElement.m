@@ -3,6 +3,7 @@
 #import "SVGSVGElement_Mutable.h"
 #import "CALayerWithChildHitTest.h"
 #import "DOMHelperUtilities.h"
+#import "SVGHelperUtilities.h"
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
@@ -141,13 +142,7 @@
 	
 	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
 	
-	_layer.name = self.identifier;
-	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-	
-	if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
-		[_layer performSelector:@selector(setShouldRasterize:)
-					 withObject:[NSNumber numberWithBool:YES]];
-	}
+	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
 	/** <SVG> tags know exactly what size/shape their layer needs to be - it's explicit in their width + height attributes! */
 	CGRect newBoundsFromSVGTag = CGRectFromSVGRect( self.viewport );
