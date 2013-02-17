@@ -373,8 +373,15 @@ CATextLayer *textLayerForLastTappedLayer;
 			self.scrollViewForSVG.minimumZoomScale = MIN( 1, screenToDocumentSizeRatio );
 			self.scrollViewForSVG.maximumZoomScale = MAX( 1, screenToDocumentSizeRatio );
 			
+			/**
+			 EXAMPLE:
+			 
+			 How to find particular nodes in the tree, after parsing.
+			 
+			 In this case, we search for all SVG <g> tags, which usually mean grouped-objects in Inkscape etc:
 			NodeList* elementsUsingTagG = [document.DOMDocument getElementsByTagName:@"g"];
 			NSLog( @"[%@] checking for SVG standard set of elements with XML tag/node of <g>: %@", [self class], elementsUsingTagG.internalArray );
+			 */
 		}
 		else
 		{
