@@ -25,7 +25,7 @@
 -(NSString*) getAttributeInheritedIfNil:(NSString*) attrName
 {
 	if( [self.parentNode isKindOfClass:[SVGGElement class]] )
-		return [self hasAttribute:attrName] ? [self getAttribute:attrName] : [self.parentNode getAttribute:attrName];
+		return [self hasAttribute:attrName] ? [self getAttribute:attrName] : [((SVGElement*)self.parentNode) getAttribute:attrName];
 	else
 		return [self getAttribute:attrName]; // will return blank if there was no value AND no parent value
 }
@@ -83,7 +83,7 @@
 	return CGPointMake( xNormalized, yNormalized );
 }
 
--(CALayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect
+-(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect
 {
     CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
 	

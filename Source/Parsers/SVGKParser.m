@@ -471,7 +471,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	[_stackOfParserExtensions removeLastObject];
 	
 	NSObject<SVGKParserExtension>* parser = (NSObject<SVGKParserExtension>*)lastobject;
-	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
+//	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
 	
 #if DEBUG_XML_PARSER
 #if DEBUG_VERBOSE_LOG_EVERY_TAG

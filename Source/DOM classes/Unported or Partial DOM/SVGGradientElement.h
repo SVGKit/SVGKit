@@ -42,6 +42,6 @@
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 
--(CALayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect;
+-(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect;
 
 @end

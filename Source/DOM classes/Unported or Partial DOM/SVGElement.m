@@ -42,7 +42,7 @@
 @synthesize xmlbase;
 @synthesize rootOfCurrentDocumentFragment;
 @synthesize viewportElement;
-
+@synthesize stringValue = _stringValue;
 
 @synthesize className; /**< CSS class, from SVGStylable interface */
 @synthesize style; /**< CSS style, from SVGStylable interface */
