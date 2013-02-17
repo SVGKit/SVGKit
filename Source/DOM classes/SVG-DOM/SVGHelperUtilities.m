@@ -131,6 +131,17 @@
 	layer.name = nonStylableElement.identifier;
 	[layer setValue:nonStylableElement.identifier forKey:kSVGElementIdentifier];
 	
+#if FORCE_RASTERIZE_LAYERS
+	if ([layer respondsToSelector:@selector(setShouldRasterize:)]) {
+		[layer performSelector:@selector(setShouldRasterize:)
+						  withObject:[NSNumber numberWithBool:YES]];
+	}
+	
+	/** If you're going to rasterize, Apple's code is dumb, and needs to be "told" if its using a Retina display */
+	layer.contentsScale = [[UIScreen mainScreen] scale];
+	layer.rasterizationScale = _shapeLayer.contentsScale;
+#endif
+	
 	if( [nonStylableElement conformsToProtocol:@protocol(SVGStylable)])
 	{
 		SVGElement<SVGStylable>* stylableElement = (SVGElement<SVGStylable>*) nonStylableElement;
@@ -284,11 +295,6 @@
     
 	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity"];
 	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
-	
-	if ([_shapeLayer respondsToSelector:@selector(setShouldRasterize:)]) {
-		[_shapeLayer performSelector:@selector(setShouldRasterize:)
-						  withObject:[NSNumber numberWithBool:YES]];
-	}
 	
 	return _shapeLayer;
 }

@@ -15,11 +15,6 @@
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
-	if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
-		[_layer performSelector:@selector(setShouldRasterize:)
-					 withObject:[NSNumber numberWithBool:YES]];
-	}
-	
 	return _layer;
 }
 

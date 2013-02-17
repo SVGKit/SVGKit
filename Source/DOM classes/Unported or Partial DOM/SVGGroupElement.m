@@ -44,10 +44,6 @@
 		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
 		_layer.opacity = _opacity;
 		
-		if ([_layer respondsToSelector:@selector(setShouldRasterize:)]) {
-			[_layer performSelector:@selector(setShouldRasterize:)
-						withObject:[NSNumber numberWithBool:YES]];
-		}
 	
 	return _layer;
 }

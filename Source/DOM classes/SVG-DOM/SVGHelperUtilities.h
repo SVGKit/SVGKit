@@ -12,6 +12,8 @@
 #import "SVGElement.h"
 #import "SVGTransformable.h"
 
+#define FORCE_RASTERIZE_LAYERS 0 // If True, all CALayers will be told to rasterize themselves. This MIGHT increase performance (or might not), but leads to blurriness whenever a layer is scaled / zoomed in
+
 @interface SVGHelperUtilities : NSObject
 
 /**
@@ -39,6 +41,8 @@ This method ONLY looks at current node to establish the above two things, to do 
  
  This allows each SVGElement subclass to create a custom CALayer as needed (e.g. CATextLayer for text elements), but share the setup
  code.
+ 
+ If compiled with FORCE_RASTERIZE_LAYERS, also tells every layer to rasterize itself
  */
 +(void) configureCALayer:(CALayer*) layer usingElement:(SVGElement*) nonStylableElement;
 
