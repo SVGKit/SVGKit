@@ -6,7 +6,7 @@
 
 @interface SVGRectElement ()
 
-void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius);
+void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
 
 @end
 
@@ -24,8 +24,8 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius);
 
 // adapted from http://www.cocoanetics.com/2010/02/drawing-rounded-rectangles/
 
-void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius) {
-	CGRect innerRect = CGRectInset(rect, radius, radius);
+void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY) {
+	CGRect innerRect = CGRectInset(rect, radiusX, radiusY);
 	
 	CGFloat innerRight = innerRect.origin.x + innerRect.size.width;
 	CGFloat right = rect.origin.x + rect.size.width;
@@ -40,14 +40,24 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius) {
 	CGPathMoveToPoint(path, NULL, innerLeft, top);
 	
 	CGPathAddLineToPoint(path, NULL, innerRight, top);
-	CGPathAddArcToPoint(path, NULL, right, top, right, innerTop, radius);
+	/** c.f http://stackoverflow.com/a/12152442/153422 */
+	CGAffineTransform t = CGAffineTransformConcat( CGAffineTransformMakeScale(1.0, radiusY/radiusX), CGAffineTransformMakeTranslation(innerRight, innerTop));
+	CGPathAddArc(path, &t, 0, 0, radiusX, -M_PI_2, 0, false);
+	
 	CGPathAddLineToPoint(path, NULL, right, innerBottom);
-	CGPathAddArcToPoint(path, NULL,  right, bottom, innerRight, bottom, radius);
+	/** c.f http://stackoverflow.com/a/12152442/153422 */
+	t = CGAffineTransformConcat( CGAffineTransformMakeScale(1.0, radiusY/radiusX), CGAffineTransformMakeTranslation(innerRight, innerBottom));
+	CGPathAddArc(path, &t, 0, 0, radiusX, 0, M_PI_2, false);
 	
 	CGPathAddLineToPoint(path, NULL, innerLeft, bottom);
-	CGPathAddArcToPoint(path, NULL,  left, bottom, left, innerBottom, radius);
+	/** c.f http://stackoverflow.com/a/12152442/153422 */
+	t = CGAffineTransformConcat( CGAffineTransformMakeScale(1.0, radiusY/radiusX), CGAffineTransformMakeTranslation(innerLeft, innerBottom));
+	CGPathAddArc(path, &t, 0, 0, radiusX, M_PI_2, M_PI, false);
+	
 	CGPathAddLineToPoint(path, NULL, left, innerTop);
-	CGPathAddArcToPoint(path, NULL,  left, top, innerLeft, top, radius);
+	/** c.f http://stackoverflow.com/a/12152442/153422 */
+	t = CGAffineTransformConcat( CGAffineTransformMakeScale(1.0, radiusY/radiusX), CGAffineTransformMakeTranslation(innerLeft, innerTop));
+	CGPathAddArc(path, &t, 0, 0, radiusX, M_PI, 3*M_PI_2, false);
 	
 	CGPathCloseSubpath(path);
 }
@@ -80,16 +90,21 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radius) {
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGRect rect = CGRectMake([_x pixelsValue], [_y pixelsValue], [_width pixelsValue], [_height pixelsValue]);
 	
-	if ([_rx pixelsValue] == 0 && [_ry pixelsValue] == 0) {
+	CGFloat radiusXPixels = _rx != nil ? [_rx pixelsValue] : 0;
+	CGFloat radiusYPixels = _ry != nil ? [_ry pixelsValue] : 0;
+	
+	if( radiusXPixels == 0 && radiusYPixels == 0 )
+	{
 		CGPathAddRect(path, NULL, rect);
 	}
-	else if ([_rx  pixelsValue] == [_ry  pixelsValue]) {
-		CGPathAddRoundedRect(path, rect, [_rx pixelsValue]);
-	}
-	else {
-		NSLog(@"[%@] ERROR: Unsupported corner-radius configuration: rx (%@) differs from ry (%@)", [self class], self.rx, self.ry);
-		CGPathRelease(path);
-		return;
+	else
+	{
+		if( radiusXPixels > 0 && radiusYPixels == 0 ) // if RY unspecified, make it equal to RX
+			radiusYPixels = radiusXPixels;
+		else if( radiusXPixels == 0 && radiusYPixels > 0 ) // if RX unspecified, make it equal to RY
+			radiusXPixels = radiusYPixels;
+		
+		CGPathAddRoundedRect(path, rect, radiusXPixels, radiusYPixels);
 	}
 	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);
