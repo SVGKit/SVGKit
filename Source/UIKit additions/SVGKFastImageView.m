@@ -102,18 +102,31 @@
     return self;
 }
 
+- (void)setImage:(SVGKImage *)image {
+    if (_image) {
+        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+    }
+    [_image release];
+    _image = [image retain];
+    
+    if( self.disableAutoRedrawAtHighestResolution )
+        ;
+    else
+        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+}
+
 -(void) addInternalRedrawOnResizeObservers
 {
 	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-	[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+	//[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) removeInternalRedrawOnResizeObservers
 {
 	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
-	[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void)setDisableAutoRedrawAtHighestResolution:(BOOL)newValue
