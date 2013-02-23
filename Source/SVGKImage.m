@@ -35,6 +35,14 @@
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
 #endif
 
+/**
+ Lowest-level code used by all the "export" methods and by the ".UIImage" property
+ 
+ @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
+ @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
+ @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
+ */
+-(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
@@ -270,33 +278,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return 0.0;
 }
 
-#if TARGET_OS_IPHONE
 -(UIImage *)UIImage
 {
-	NSAssert( self.DOMTree != nil, @"You cannot request a .UIImage for an SVG that you haven't parsed yet! There's no data to return!");
-	NSDate* startTime;
-	
-	if( CALayerTree == nil )
-	{
-		startTime = [NSDate date];
-		[self CALayerTree]; // creates and caches a calayertree if needed
-		NSLog(@"[%@] create UIImage: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
-	}
-	else
-		NSLog(@"[%@] create UIImage: re-using cached CALayers (FREE))", [self class] );
-	
-	startTime = [NSDate date];
-	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
-	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	[self.CALayerTree renderInContext:context];
-	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	NSLog(@"[%@] create UIImage: time taken to render CALayers to texture: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
-	
-	return result;
+	return [self exportUIImageAntiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 }
-#endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
@@ -528,6 +513,93 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	NSLog(@"[%@] ROOT element id: %@ => layer: %@", [self class], self.DOMTree.identifier, rootLayer);
 	
     return layersByElementId;
+}
+
+/**
+ Shared between multiple different "export..." methods
+ */
+-(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	NSAssert( self.DOMTree != nil, @"You cannot render to CGContext for an SVG that you haven't parsed yet! There's no data to return!");
+	NSDate* startTime;
+	
+	if( CALayerTree == nil )
+	{
+		startTime = [NSDate date];
+		[self CALayerTree]; // creates and caches a calayertree if needed
+		NSLog(@"[%@] rendering to CGContext: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
+	}
+	else
+		NSLog(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
+	
+	startTime = [NSDate date];
+	NSLog(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	/** Typically a 10% performance improvement right here */
+	if( !shouldAntialias )
+		CGContextSetShouldAntialias( context, FALSE );
+	
+	/** Apple refuses to let you reset this, because they are selfish */
+	CGContextSetFlatness( context, multiplyFlatness );
+	
+	/** Apple's own performance hints system */
+	CGContextSetInterpolationQuality( context, interpolationQuality );
+	
+	/**
+	 The method that everyone hates, because Apple refuses to fix / implement it properly: renderInContext:
+	 
+	 It's slow.
+	 
+	 It's broken (according to the official API docs)
+	 
+	 But ... it's all that Apple gives us
+	 */
+	[self.CALayerTree renderInContext:context];
+	
+	NSMutableString* perfImprovements = [NSMutableString string];
+	if( shouldAntialias )
+		[perfImprovements appendString:@" NO-ANTI-ALIAS"];
+	if( perfImprovements.length < 1 )
+		[perfImprovements appendString:@"NONE"];
+	
+	NSLog(@"[%@] renderToContext: time taken to render CALayers to CGContext (perf improvements:%@): %2.3f seconds)", [self class], perfImprovements, -1.0f * [startTime timeIntervalSinceNow] );
+}
+
+-(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	NSLog(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
+	CGColorSpaceRelease( colorSpace );
+	
+	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	
+	void* resultAsVoidStar = CGBitmapContextGetData(context);
+	
+	size_t dataSize = 4 * self.size.width * self.size.height; // RGBA = 4 8-bit components
+    NSData* result = [NSData dataWithBytes:resultAsVoidStar length:dataSize];
+	
+	CGContextRelease(context);
+	
+	return result;
+}
+
+
+-(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	
+	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	
+	return result;
 }
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
