@@ -42,7 +42,7 @@
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+-(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
@@ -518,7 +518,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 /**
  Shared between multiple different "export..." methods
  */
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+-(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
 	NSAssert( self.DOMTree != nil, @"You cannot render to CGContext for an SVG that you haven't parsed yet! There's no data to return!");
 	NSDate* startTime;
@@ -545,6 +545,22 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	/** Apple's own performance hints system */
 	CGContextSetInterpolationQuality( context, interpolationQuality );
 	
+	/** Quartz, CoreGraphics, and CoreAnimation all use an "upside-down" co-ordinate system.
+	 This means that images rendered are upside down.
+	 
+	 Apple's UIImage class automatically "un-flips" this - but if you are rendering raw NSData (which is 5x-10x faster than creating UIImages!) then the flipping is "lost"
+	 by Apple's API's.
+	 
+	 The only way to fix it is to pre-transform by y = -y
+	 
+	 This is VERY useful if you want to render SVG's into OpenGL textures!
+	 */
+	if( flipYaxis )
+	{
+		CGContextTranslateCTM(context, 0, self.size.height );
+		CGContextScaleCTM(context, 1.0, -1.0);
+	}
+	
 	/**
 	 The method that everyone hates, because Apple refuses to fix / implement it properly: renderInContext:
 	 
@@ -565,7 +581,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	NSLog(@"[%@] renderToContext: time taken to render CALayers to CGContext (perf improvements:%@): %2.3f seconds)", [self class], perfImprovements, -1.0f * [startTime timeIntervalSinceNow] );
 }
 
--(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+-(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
 	NSLog(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
@@ -573,7 +589,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
-	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis: flipYaxis];
 	
 	void* resultAsVoidStar = CGBitmapContextGetData(context);
 	
@@ -593,7 +609,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
-	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
 	
 	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
