@@ -225,6 +225,8 @@ static NSMutableDictionary* globalSVGKImageCache;
         }
     }
 #endif
+	
+	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
