@@ -124,19 +124,23 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
-	
+	@synchronized(self) {
 	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+    }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
+    @synchronized(self) {
 	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+    }
 }
 
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource
 {
 	NSParameterAssert(newSource != nil);
-	
+	@synchronized(self) {
 	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+    }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
