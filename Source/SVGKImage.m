@@ -457,7 +457,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
 			
-			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
+			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child] autorelease];
 			
 			if (!sublayer) {
 				continue;
