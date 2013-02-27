@@ -153,7 +153,7 @@
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
-	CAShapeLayer* _shapeLayer = [CAShapeLayerWithHitTest layer];
+	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	

@@ -142,7 +142,7 @@
 	//DEBUG: NSLog(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
 	*/
 	
-    return [label autorelease];
+    return label;
 }
 
 - (void)layoutLayer:(CALayer *)layer
