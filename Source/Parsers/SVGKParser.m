@@ -84,6 +84,7 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	[_storedChars release];
 	[_stackOfParserExtensions release];
 	self.parserExtensions = nil;
+    self.parserKnownNamespaces = nil;
 	[super dealloc];
 }
 

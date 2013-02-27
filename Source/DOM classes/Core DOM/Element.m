@@ -11,6 +11,11 @@
 
 @synthesize tagName;
 
+- (void)dealloc {
+    self.tagName = nil;
+    [super dealloc];
+}
+
 - (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
     self = [super initType:DOMNodeType_ELEMENT_NODE name:n];
     if (self) {

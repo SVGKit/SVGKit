@@ -18,6 +18,12 @@
 @synthesize length;
 @synthesize parentRule;
 
+- (void)dealloc {
+    [_cssText release];
+    self.parentRule = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
     self = [super init];
