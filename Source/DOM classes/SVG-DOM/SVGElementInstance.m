@@ -10,6 +10,14 @@
 @synthesize parentNode;
 @synthesize childNodes;
 
+- (void)dealloc {
+    self.parentNode = nil;
+    self.childNodes = nil;
+    self.correspondingElement = nil;
+    self.correspondingUseElement = nil;
+    [super dealloc];
+}
+
 -(void)setParentNode:(SVGElementInstance *)newParentNode
 {
 	if( newParentNode != self.parentNode )

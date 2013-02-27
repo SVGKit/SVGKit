@@ -159,7 +159,7 @@
     
 //    gradientLayer.type = kCAGradientLayerAxial;
     
-    return gradientLayer;
+    return [gradientLayer autorelease];
 }
 
 -(void)layoutLayer:(CALayer *)layer
