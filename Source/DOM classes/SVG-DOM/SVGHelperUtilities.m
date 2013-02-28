@@ -59,6 +59,8 @@
 			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.origin.x, -frameViewBox.origin.y );
 			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
 			optionalViewportTransform = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
+			
+			NSLog(@"DEBUGGING LAYERED SIZE ISSUE: found viewbox, net transform = %2.3f, %2.3f, %2.3f, %2.3f ... %2.3f, %2.3f", optionalViewportTransform.a, optionalViewportTransform.b, optionalViewportTransform.c, optionalViewportTransform.d, optionalViewportTransform.tx, optionalViewportTransform.ty);
 		}
 		else
 			optionalViewportTransform = CGAffineTransformIdentity;

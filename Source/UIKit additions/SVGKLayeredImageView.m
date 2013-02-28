@@ -43,14 +43,16 @@
 		NSLog(@"[%@] WARNING: you have initialized an [%@] with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class], [self class]);
 	}
 	
-    self = [super init];
+    self = [super initWithFrame:CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height ) ]; // default: 0,0 to width x height of original image
     if (self)
 	{
-		self.frame = CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height ); // default: 0,0 to width x height of original image
 		self.backgroundColor = [UIColor clearColor];
 		
 		((SVGKLayer*) self.layer).SVGImage = im;
 		
+		NSLog(@"DEBUGGING LAYERED SIZE ISSUE: on creation, layered image view has self.frame = %@", NSStringFromCGRect(self.frame));
+		NSLog(@"DEBUGGING LAYERED SIZE ISSUE: on creation, layer has self.frame = %@", NSStringFromCGRect(self.layer.frame));
+		NSLog(@"DEBUGGING LAYERED SIZE ISSUE: on creation, layer = %@", self.layer);
     }
     return self;
 }
