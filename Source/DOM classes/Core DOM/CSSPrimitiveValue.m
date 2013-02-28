@@ -53,7 +53,7 @@
 				return self.internalValue;
 			else
 			{
-				NSAssert( FALSE, @"Asked to convert a UNKNONW value to a different type (%i)", unitType );
+				NSAssert( FALSE, @"Asked to convert a UNKNOWN value to a different type (%i)", unitType );
 			}
 		}
 			

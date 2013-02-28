@@ -101,8 +101,19 @@
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
+	/**
+	 If the width + height are missing, we have to get an image width+height from the USER before we even START parsing.
+	 
+	 There is NO SUPPORT IN THE SVG SPEC TO ALLOW THIS. This is strange, but they specified this part badly, so it's not a surprise.
+	 
+	 We would need to put extra (NON STANDARD) properties on SVGDocument, for the "viewport width and height",
+	 and then in *this* method, if we're missing a width or height, take the values from the SVGDocument's temporary/default width height
+	 
+	 (NB: the input to this method "SVGKParseResult" has a .parsedDocument variable, that's how we'd fetch those values here
+	 */
 	NSAssert( [[self getAttribute:@"width"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit width attribute");
 	NSAssert( [[self getAttribute:@"height"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit height attribute");
+	
 	
 	self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
 	self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
@@ -114,7 +125,19 @@
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
 		_viewBox = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
-        
+	}
+	else
+	{
+		/**
+		 According to spec, if we have no viewBox in the source SVG, we must NOT scale-to-fit the available space.
+		 
+		 By NOT SETTING a viewBox here, we disable all the scaling that happens later on.
+		 
+		 If you want to scale an SVG Image, you MUST do it either by:
+		    1. EITHER: set a viewBox *and* a viewport on the image itself
+		    2. OR: 
+		 */
+	}
 		NSLog(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
         //osx logging
 #if TARGET_OS_IPHONE        
@@ -123,8 +146,7 @@
         //mac logging
      NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
 #endif   
-        
-	}
+	
 }
 
 - (SVGElement *)findFirstElementOfClass:(Class)class {
