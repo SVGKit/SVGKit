@@ -83,7 +83,7 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	self.source = nil;
 	[_storedChars release];
 	[_stackOfParserExtensions release];
-    [_parentOfCurrentNode release];
+   // [_parentOfCurrentNode release];
 	self.parserExtensions = nil;
     self.parserKnownNamespaces = nil;
     self.defaultXMLNamespaceForThisParseRun = nil;

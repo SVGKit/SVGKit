@@ -21,6 +21,7 @@
 - (void)dealloc {
     [_cssText release];
     self.parentRule = nil;
+  self.internalDictionaryOfStylesByCSSClass = nil;
     [super dealloc];
 }
 
@@ -50,6 +51,7 @@
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];
 	
 	self.internalDictionaryOfStylesByCSSClass = processedStyles;
+  
 }
 
 -(NSMutableDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {
