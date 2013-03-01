@@ -157,7 +157,9 @@
 - (void)dealloc {
 	[_stringValue release];
 	[_identifier release];
-	
+	[xmlbase release];
+	self.className = nil;
+    self.style = nil;
 	[super dealloc];
 }
 

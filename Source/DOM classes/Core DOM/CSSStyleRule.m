@@ -6,6 +6,12 @@
 @synthesize selectorText;
 @synthesize style;
 
+- (void)dealloc {
+    self.style = nil;
+    self.selectorText = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
 	NSAssert(FALSE, @"Can't be init'd, use the right method, idiot");

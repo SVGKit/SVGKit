@@ -36,6 +36,15 @@
 -(void)dealloc
 {
 	self.viewBox = CGRectNull;
+    [x release];
+    [y release];
+    [width release];
+    [height release];
+    [contentScriptType release];
+    [contentStyleType release];
+    self.currentView = nil;
+    self.currentTranslate = nil;
+    self.styleSheets = nil;
 	[super dealloc];	
 }
 
