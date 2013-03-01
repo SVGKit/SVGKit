@@ -24,6 +24,13 @@
 @synthesize hasSourceFile, hasSourceURL;
 @synthesize filePath, URL;
 
+- (void)dealloc {
+    self.filePath = nil;
+    self.URL = nil;
+    self.svgLanguageVersion = nil;
+    [super dealloc];
+}
+
 +(SVGKSource*) sourceFromFilename:(NSString*) p
 {
 	SVGKSource* d = [[[SVGKSource alloc] init] autorelease];

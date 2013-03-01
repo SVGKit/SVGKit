@@ -11,6 +11,11 @@
 
 @synthesize internalArray;
 
+- (void)dealloc {
+  self.internalArray = nil;
+  [super dealloc];
+}
+
 - (id)init
 {
     self = [super initWithUnitType:CSS_VALUE_LIST];

@@ -18,6 +18,13 @@
 @synthesize length;
 @synthesize parentRule;
 
+- (void)dealloc {
+    [_cssText release];
+    self.parentRule = nil;
+  self.internalDictionaryOfStylesByCSSClass = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
     self = [super init];
@@ -44,6 +51,7 @@
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];
 	
 	self.internalDictionaryOfStylesByCSSClass = processedStyles;
+  
 }
 
 -(NSMutableDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {
