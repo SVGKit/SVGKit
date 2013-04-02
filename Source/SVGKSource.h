@@ -15,31 +15,17 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SVGKSourceReader <NSObject>
-@end
-
-@interface SVGKSourceFileReader : NSObject <SVGKSourceReader>
-{
-    FILE *fileHandle;
-}
-@end
-
-@interface SVGKSourceURLReader : NSObject <SVGKSourceReader>
-@property(nonatomic,retain) NSData* httpDataFullyDownloaded;
-@end
-
 @interface SVGKSource : NSObject
 
-@property(nonatomic,retain) NSString* svgLanguageVersion; /*< <svg version=""> */
-@property(nonatomic) BOOL hasSourceFile, hasSourceURL;
-@property(nonatomic,retain) NSString* filePath;
-@property(nonatomic,retain) NSURL* URL;
+@property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
+@property (nonatomic, retain) NSString* filePath;
+@property (nonatomic, retain) NSURL* URL;
+@property (nonatomic, retain) NSInputStream* stream;
 
-+(SVGKSource*) sourceFromFilename:(NSString*) p;
-+(SVGKSource*) sourceFromURL:(NSURL*) u;
++ (SVGKSource*)sourceFromFilename:(NSString*)p;
++ (SVGKSource*)sourceFromURL:(NSURL*)u;
++ (SVGKSource*)sourceFromData:(NSData*)data;
 
--(NSObject<SVGKSourceReader>*) newReader:(NSError**) error;
--(void) closeReader:(NSObject<SVGKSourceReader>*) reader;
--(int) reader:(NSObject<SVGKSourceReader>*) reader readNextChunk:(char *) chunk maxBytes:(int) READ_CHUNK_SZ;
+- (id)initWithInputSteam:(NSInputStream*)stream;
 
 @end
