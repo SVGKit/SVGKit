@@ -164,13 +164,13 @@ readPacket(char *mem, int size) {
 	// 4. return result
 	*/
 	
-	NSError* error = nil;
-	NSObject<SVGKSourceReader>* reader = [source newReader:&error];
-	if( error != nil )
+	NSInputStream* stream = source.stream;
+	NSStreamStatus status = [stream streamStatus];
+	if (status != NSStreamStatusOpen)
 	{
-		[currentParseRun addSourceError:error];
-        [source closeReader:reader];
-        [reader release];
+		if (status == NSStreamStatusError)
+			[currentParseRun addSourceError:[stream streamError]];
+		[stream close];
 		return  currentParseRun;
 	}
 	char buff[READ_CHUNK_SZ];
@@ -192,8 +192,7 @@ readPacket(char *mem, int size) {
 	{
 		// 1. while (source has chunks of BYTES)
 		// 2.   read a chunk from source, send to libxml
-		int bytesRead;
-		bytesRead = [source reader:reader readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
+		NSInteger bytesRead = [stream read:(uint8_t*)&buff maxLength:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
 			int libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
@@ -218,12 +217,11 @@ readPacket(char *mem, int size) {
 				break;
 			}
 			
-			bytesRead = [source reader:reader readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
+			bytesRead = [stream read:(uint8_t*)&buff maxLength:READ_CHUNK_SZ];
 		}
 	}
 	
-	[source closeReader:reader]; // close the handle NO MATTER WHAT
-	[reader release];
+	[stream close]; // close the handle NO MATTER WHAT
     
 	if (!currentParseRun.libXMLFailed)
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
