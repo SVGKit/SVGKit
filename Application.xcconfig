@@ -1,0 +1,3 @@
+
+OTHER_LDFLAGS=$(inherited) -ObjC
+HEADER_SEARCH_PATHS=$(inherited) /usr/include/libxml2

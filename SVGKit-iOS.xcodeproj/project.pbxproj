@@ -420,6 +420,10 @@
 		378B63F1170D0515004E5B14 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		378B63F3170D051A004E5B14 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		378B6525170D14C4004E5B14 /* NSObject+NSString_CGStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NSString_CGStrings.h"; sourceTree = "<group>"; };
+		378B652F170D4F3A004E5B14 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		378B6530170D4F3B004E5B14 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		378B6532170D4F3C004E5B14 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		378B6533170D4FC9004E5B14 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextPositioningElement.h; sourceTree = "<group>"; };
 		661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextPositioningElement.m; sourceTree = "<group>"; };
 		661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextContentElement.h; sourceTree = "<group>"; };
@@ -685,6 +689,10 @@
 		6639618316145D0400E58CCA = {
 			isa = PBXGroup;
 			children = (
+				378B6530170D4F3B004E5B14 /* Base.xcconfig */,
+				378B6532170D4F3C004E5B14 /* Debug.xcconfig */,
+				378B6533170D4FC9004E5B14 /* Release.xcconfig */,
+				378B652F170D4F3A004E5B14 /* Application.xcconfig */,
 				6639633E16145D7700E58CCA /* EXTERNAL REFERENCES */,
 				6649E05E16172CE200AFE92A /* SVGKit-iOS */,
 				378B63E4170D0487004E5B14 /* SVGKit-Mac */,
@@ -1511,6 +1519,7 @@
 /* Begin XCBuildConfiguration section */
 		378B63EB170D0487004E5B14 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378B652F170D4F3A004E5B14 /* Application.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1534,6 +1543,7 @@
 		};
 		378B63EC170D0487004E5B14 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378B652F170D4F3A004E5B14 /* Application.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1557,6 +1567,7 @@
 		};
 		6639619A16145D0400E58CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378B6532170D4F3C004E5B14 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -1585,6 +1596,7 @@
 		};
 		6639619B16145D0400E58CCA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378B6533170D4FC9004E5B14 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -1607,6 +1619,7 @@
 		};
 		6639619D16145D0400E58CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378B652F170D4F3A004E5B14 /* Application.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/SVGKit_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1625,6 +1638,7 @@
 		};
 		6639619E16145D0400E58CCA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378B652F170D4F3A004E5B14 /* Application.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/SVGKit_iOS.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

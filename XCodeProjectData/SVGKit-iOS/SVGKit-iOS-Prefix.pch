@@ -10,3 +10,9 @@
     #import <Foundation/Foundation.h>
     #import "NSObject+NSString_CGStrings.h"
 #endif
+
+#ifdef DEBUG
+#   define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#   define NSLog(...) do{}while(0)
+#endif

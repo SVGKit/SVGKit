@@ -206,9 +206,9 @@ readPacket(char *mem, size_t size) {
 				else
 				{
 					NSLog(@"[%@] SVG parser generated one or more FATAL errors (not the XML parser), errors follow:", [self class] );
-					for( NSError* error in currentParseRun.errorsFatal )
+					for( NSError* err in currentParseRun.errorsFatal )
 					{
-						NSLog(@"[%@] ... FATAL ERRRO in SVG parse: %@", [self class], error );
+						NSLog(@"[%@] ... FATAL ERRRO in SVG parse: %@", [self class], err );
 					}
 				}
 				
@@ -412,12 +412,12 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 TODO: temporary workaround to PRETEND that all namespaces are always defined;
 	 this is INCORRECT: namespaces should be UNdefined once you close the parent tag that defined them (I think?)
 	 */
-	for( NSString* prefix in namespacesByPrefix )
+	for( NSString* pre in namespacesByPrefix )
 	{
-		NSString* uri = [namespacesByPrefix objectForKey:prefix];
+		NSString* uri = [namespacesByPrefix objectForKey:pre];
 		
-		if( prefix != nil )
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
+		if( pre != nil )
+			[self.currentParseRun.namespacesEncountered setObject:uri forKey:pre];
 		else
 			[self.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
 	}
