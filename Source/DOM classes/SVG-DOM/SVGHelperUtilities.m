@@ -245,7 +245,7 @@
 		
 		//if( _shapeLayer != nil && svgGradient != nil ) //this nil check here is distrubing but blocking
 		{
-			CAGradientLayer *gradientLayer = [((CAGradientLayer *)svgGradient) newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
+			CAGradientLayer *gradientLayer = (CAGradientLayer *)[svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
 			
 			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;

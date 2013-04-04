@@ -1,4 +1,5 @@
 #import "SVGKFastImageView.h"
+#import "SVGGradientElement.h"
 
 @implementation SVGKFastImageView
 {

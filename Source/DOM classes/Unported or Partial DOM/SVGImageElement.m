@@ -71,7 +71,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 
 - (CALayer *) newLayer
 {
-	CAShapeLayer* newLayer = [[CALayer alloc] init];
+	CAShapeLayer* newLayer = [[CAShapeLayer alloc] init];
 	newLayer.name = self.identifier;
 	[newLayer setValue:self.identifier forKey:kSVGElementIdentifier];
 	
