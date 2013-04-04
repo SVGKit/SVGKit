@@ -21,7 +21,11 @@
     self = [super init];
     if (self)
 	{
+#if TARGET_OS_IPHONE
     	self.borderColor = [UIColor blackColor].CGColor;
+#else
+        self.borderColor = [NSColor blackColor].CGColor;
+#endif
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }

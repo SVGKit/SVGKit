@@ -8,7 +8,9 @@
  readonly attribute SVGAnimatedLengthList dy;
  readonly attribute SVGAnimatedNumberList rotate;
  */
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 #import "SVGTextContentElement.h"
 #import "SVGLength.h"

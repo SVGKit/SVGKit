@@ -58,7 +58,7 @@
 #import "Node.h"
 @class Element;
 #import "Element.h"
-@class Comment;
+@class SVGKComment;
 #import "Comment.h"
 @class CDATASection;
 #import "CDATASection.h"
@@ -85,7 +85,7 @@
 -(Element*) createElement:(NSString*) tagName __attribute__((ns_returns_retained));
 -(DocumentFragment*) createDocumentFragment __attribute__((ns_returns_retained));
 -(Text*) createTextNode:(NSString*) data __attribute__((ns_returns_retained));
--(Comment*) createComment:(NSString*) data __attribute__((ns_returns_retained));
+-(SVGKComment*) createComment:(NSString*) data __attribute__((ns_returns_retained));
 -(CDATASection*) createCDATASection:(NSString*) data __attribute__((ns_returns_retained));
 -(ProcessingInstruction*) createProcessingInstruction:(NSString*) target data:(NSString*) data __attribute__((ns_returns_retained));
 -(Attr*) createAttribute:(NSString*) data __attribute__((ns_returns_retained));

@@ -25,7 +25,7 @@
 -(NSString*) getAttributeInheritedIfNil:(NSString*) attrName
 {
 	if( [self.parentNode isKindOfClass:[SVGGElement class]] )
-		return [self hasAttribute:attrName] ? [self getAttribute:attrName] : [self.parentNode getAttribute:attrName];
+		return [self hasAttribute:attrName] ? [self getAttribute:attrName] : [(SVGGElement *)(self.parentNode) getAttribute:attrName];
 	else
 		return [self getAttribute:attrName]; // will return blank if there was no value AND no parent value
 }

@@ -8,7 +8,7 @@
 
 #import "Comment.h"
 
-@implementation Comment
+@implementation SVGKComment
 
 - (id)initWithValue:(NSString*) v
 {

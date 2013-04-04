@@ -31,7 +31,11 @@
 	self = [super initWithFrame:frame];
 	if( self )
 	{
+#if TARGET_OS_IPHONE
 		self.backgroundColor = [UIColor clearColor];
+#else
+        //clear by default
+#endif
 	}
 	return self;
 }
@@ -47,7 +51,11 @@
     if (self)
 	{
 		self.frame = CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height ); // default: 0,0 to width x height of original image
+#if TARGET_OS_IPHONE
 		self.backgroundColor = [UIColor clearColor];
+#else
+        //clear by default
+#endif
 		
 		((SVGKLayer*) self.layer).SVGImage = im;
 		

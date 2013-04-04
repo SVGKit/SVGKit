@@ -58,13 +58,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
 	{
+#if TARGET_OS_IPHONE
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+#endif
 	}
 }
 
 +(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
 {
-	NSLog(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
+	NSLog(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (unsigned long)[globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }
@@ -136,7 +138,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	
-	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+	return [[(SVGKImage *)[[self class] alloc] initWithSource:newSource] autorelease];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -227,6 +229,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     self.nameUsedToInstantiate = nil;
 #endif
+    
+    [self removeObserver:self forKeyPath:@"DOMTree.viewport"];
         
 	[super dealloc];
 }
@@ -271,32 +275,48 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 #if TARGET_OS_IPHONE
--(UIImage *)UIImage
+-(UIImage *)bitmapImage
+#else
+-(CGImageRef)bitmapImage
+#endif
 {
-	NSAssert( self.DOMTree != nil, @"You cannot request a .UIImage for an SVG that you haven't parsed yet! There's no data to return!");
+	NSAssert( self.DOMTree != nil, @"You cannot request a .bitmapImage for an SVG that you haven't parsed yet! There's no data to return!");
 	NSDate* startTime;
 	
 	if( CALayerTree == nil )
 	{
 		startTime = [NSDate date];
 		[self CALayerTree]; // creates and caches a calayertree if needed
-		NSLog(@"[%@] create UIImage: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
+		NSLog(@"[%@] create Bitmap Image: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
 	}
 	else
-		NSLog(@"[%@] create UIImage: re-using cached CALayers (FREE))", [self class] );
+		NSLog(@"[%@] create Bitmap Image: re-using cached CALayers (FREE))", [self class] );
 	
 	startTime = [NSDate date];
-	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
-	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
-	CGContextRef context = UIGraphicsGetCurrentContext();
+	NSLog(@"[%@] DEBUG: Generating a Bitmap Image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+#if TARGET_OS_IPHONE
+	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, 1);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+#else
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    CGContextRef context = CGBitmapContextCreate(NULL, self.size.width, self.size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+#endif
+	
 	[self.CALayerTree renderInContext:context];
+    
+#if TARGET_OS_IPHONE
 	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	NSLog(@"[%@] create UIImage: time taken to render CALayers to texture: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
+    UIGraphicsEndImageContext();
+#else
+    CGImageRef result = CGBitmapContextCreateImage(context);
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+#endif
+	
+	NSLog(@"[%@] create Bitmap Image: time taken to render CALayers to texture: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
 	
 	return result;
 }
-#endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
