@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 #import <QuartzCore/QuartzCore.h>
 
 @protocol CALayerExporterDelegate;
@@ -18,10 +20,19 @@
     NSMutableDictionary* propertyRegistry;
 }
 
+#if TARGET_OS_IPHONE
 @property (readwrite,nonatomic,retain) UIView* rootView;
+#else
+@property (readwrite,nonatomic,retain) NSView* rootView;
+#endif
 @property (readwrite,nonatomic,assign) id<CALayerExporterDelegate> delegate;
 
+#if TARGET_OS_IPHONE
 - (CALayerExporter*) initWithView:(UIView*)v;
+#else
+- (CALayerExporter*) initWithView:(NSView*)v;
+#endif
+
 - (void) startExport;
 
 @end

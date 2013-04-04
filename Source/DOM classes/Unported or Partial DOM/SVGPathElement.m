@@ -45,7 +45,7 @@
         
         if (command.length > 1) {
             // Take only one char (it can happen that multiple commands are consecutive, as "ZM" - so we only want to get the "Z")
-            const int tooManyChars = command.length-1;
+            const NSInteger tooManyChars = command.length-1;
             command = [command substringToIndex:1];
             [dataScanner setScanLocation:([dataScanner scanLocation] - tooManyChars)];
         }

@@ -9,7 +9,9 @@
  SVGTransformable {
  */
 
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 #import "SVGElement.h"
 #import "SVGElement_ForParser.h"

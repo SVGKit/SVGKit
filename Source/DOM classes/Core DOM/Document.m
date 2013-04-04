@@ -31,9 +31,9 @@
 	return [[Text alloc] initWithValue:data];
 }
 
--(Comment*) createComment:(NSString*) data
+-(SVGKComment*) createComment:(NSString*) data
 {
-	return [[Comment alloc] initWithValue:data];
+	return [[SVGKComment alloc] initWithValue:data];
 }
 
 -(CDATASection*) createCDATASection:(NSString*) data

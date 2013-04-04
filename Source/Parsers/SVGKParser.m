@@ -139,9 +139,9 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 }
 
 static FILE *desc;
-static int
-readPacket(char *mem, int size) {
-    int res;
+static size_t
+readPacket(char *mem, size_t size) {
+    size_t res;
 	
     res = fread(mem, 1, size, desc);
     return(res);
@@ -193,14 +193,14 @@ readPacket(char *mem, int size) {
 		bytesRead = [source reader:reader readNextChunk:(char *)&buff maxBytes:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
-			int libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
+			size_t libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
 			
 			if( [currentParseRun.errorsFatal count] > 0 )
 			{
 				// 3.   if libxml failed chunk, break
 				if( libXmlParserParseError > 0 )
 				{
-				NSLog(@"[%@] libXml reported internal parser error with magic libxml code = %i (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], libXmlParserParseError );
+				NSLog(@"[%@] libXml reported internal parser error with magic libxml code = %i (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], (int)libXmlParserParseError );
 				currentParseRun.libXMLFailed = YES;
 				}
 				else
@@ -667,7 +667,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	for (int i = 0; i < attr_ct * 5; i += 5) {
 		const char *begin = (const char *) attrs[i + 3];
 		const char *end = (const char *) attrs[i + 4];
-		int vlen = strlen(begin) - strlen(end);
+		size_t vlen = strlen(begin) - strlen(end);
 		
 		char val[vlen + 1];
 		strncpy(val, begin, vlen);

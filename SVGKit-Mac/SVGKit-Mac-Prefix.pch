@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'SVGKit-iOS' target in the 'SVGKit-iOS' project
+// Prefix header for all source files of the 'SVGKit-Mac' target in the 'SVGKit-Mac' project
 //
 
 #ifdef __APPLE__
@@ -7,6 +7,6 @@
 #endif
 
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
+    #import <Cocoa/Cocoa.h>
     #import "NSObject+NSString_CGStrings.h"
 #endif

@@ -129,16 +129,16 @@
         SVGKSourceURLReader* urlReader = (SVGKSourceURLReader*) reader;
         
 		const char* dataAsBytes = [urlReader.httpDataFullyDownloaded bytes];
-		int dataLength = [urlReader.httpDataFullyDownloaded length];
+		NSUInteger dataLength = [urlReader.httpDataFullyDownloaded length];
 		
-		int actualBytesCopied = MIN( dataLength, READ_CHUNK_SZ );
+		NSUInteger actualBytesCopied = MIN( dataLength, READ_CHUNK_SZ );
 		memcpy( chunk, dataAsBytes, actualBytesCopied);
 		
 		/** trim the copied bytes out of the 'handle' NSData object */
 		NSRange newRange = { actualBytesCopied, dataLength - actualBytesCopied };
 		urlReader.httpDataFullyDownloaded = [urlReader.httpDataFullyDownloaded subdataWithRange:newRange];
 		
-		return actualBytesCopied;
+		return (int)actualBytesCopied;
 	}
 	else
 	{
@@ -148,7 +148,7 @@
 
 		bytesRead = fread(chunk, 1, READ_CHUNK_SZ, [fileReader fileHandle]);
 		
-		return bytesRead;
+		return (int)bytesRead;
 	}
 }
 

@@ -67,7 +67,11 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 @synthesize delegate;
 @synthesize rootView;
 
+#if TARGET_OS_IPHONE
 - (id)initWithView:(UIView*)v
+#else
+- (id)initWithView:(NSView*)v
+#endif
 {
     self = [super init];
     if (self) {
@@ -107,7 +111,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 - (void)processLayer:(CALayer *)currentLayer index:(NSInteger)index parent:(NSString*)parentName
 {
     NSString* className = NSStringFromClass([currentLayer class]);
-    NSString* layerName = [NSString stringWithFormat:@"%@_layer%d", parentName, index];
+    NSString* layerName = [NSString stringWithFormat:@"%@_layer%ld", parentName, (long)index];
     NSString* createStatement = [NSString stringWithFormat:@"%@* %@ = [[%@ alloc] init];", className, layerName, className];
     
     [self.delegate layerExporter:self
@@ -269,7 +273,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                    didParseLayer:currentLayer
                    withStatement:releaseStatement];
     
-    int i = index;
+    NSInteger i = index;
     for (CALayer* childLayer in currentLayer.sublayers) {
         [self processLayer:childLayer index:++i parent:layerName];
     }

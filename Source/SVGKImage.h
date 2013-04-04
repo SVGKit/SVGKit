@@ -35,7 +35,9 @@
  
  */
 
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 #import "SVGLength.h"
 #import "SVGDocument.h"
@@ -58,7 +60,9 @@
 }
 
 #if TARGET_OS_IPHONE
-@property (nonatomic, readonly) UIImage* UIImage; /** generates an image on the fly */
+@property (nonatomic, readonly) UIImage* bitmapImage; /** generates an image on the fly */
+#else
+@property (nonatomic, readonly) CGImageRef bitmapImage; /** generates an image on the fly */
 #endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;
