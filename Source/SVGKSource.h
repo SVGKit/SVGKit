@@ -1,7 +1,12 @@
 /**
  SVGKSource.h
   
- SVGKSource represents the info about a file that was read from disk or over the web during parsing.
+ SVGKSource represents the info about where an SVG image's data came from ... from disk, from URL, from raw string - or anywhere
+ 
+ ----
+ NOTE: you should avoid instantiating SVGKSource directly; it is better to instantiate one of the subclasses, both because this
+ allows faster / more direct reading of raw data, and because it preserves the information about "where" the SVG was loaded from.
+ ----
  
  Once it has been parsed / loaded, that info is NOT PART OF the in-memory SVG any more - if you were to save the file, you could
  save it in a different location, with a different SVG Spec, etc.
@@ -18,14 +23,12 @@
 @interface SVGKSource : NSObject
 
 @property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
-@property (nonatomic, retain) NSString* filePath;
-@property (nonatomic, retain) NSURL* URL;
 @property (nonatomic, retain) NSInputStream* stream;
 
-+ (SVGKSource*)sourceFromFilename:(NSString*)p;
-+ (SVGKSource*)sourceFromURL:(NSURL*)u;
-+ (SVGKSource*)sourceFromData:(NSData*)data;
-
+/**
+ Subclasses convert their proprietary data into something that implements NSInputStream, which allows the
+ base class to handle everything else
+ */
 - (id)initWithInputSteam:(NSInputStream*)stream;
 
 @end

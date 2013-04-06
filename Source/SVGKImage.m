@@ -11,6 +11,9 @@
 
 #import "SVGKParserSVG.h"
 
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
+
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
@@ -206,13 +209,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
-	return [self initWithSource:[SVGKSource sourceFromFilename:aPath]];
+	return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
-	return [self initWithSource:[SVGKSource sourceFromURL:url]];
+	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
 }
 
 - (void)dealloc
