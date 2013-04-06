@@ -121,6 +121,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	SVGKImage* result = [self imageWithContentsOfFile:path];
     
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+	if( result != nil )
+	{
     result->cameFromGlobalCache = TRUE;
     result.nameUsedToInstantiate = name;
     
@@ -128,6 +130,11 @@ static NSMutableDictionary* globalSVGKImageCache;
     newCacheLine.mainInstance = result;
     
     [globalSVGKImageCache setValue:newCacheLine forKey:name];
+	}
+	else
+	{
+		NSLog(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+	}
 #endif
     
     return result;
