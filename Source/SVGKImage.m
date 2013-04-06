@@ -55,6 +55,7 @@
 @synthesize DOMDocument, DOMTree, CALayerTree;
 
 @synthesize size = _size;
+@synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
 
@@ -184,7 +185,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		}
 		
 		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
-//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
+		//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
 }
@@ -227,7 +228,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
 	
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-
+	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
     
@@ -237,7 +238,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     self.nameUsedToInstantiate = nil;
 #endif
-        
+	
 	[super dealloc];
 }
 
@@ -261,8 +262,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(void)setSize:(CGSize)newSize
 {
-	/** MUST invalidate all the cached data, so that next render uses the new size */
 	_size = newSize;
+	
+	if( CGRectIsEmpty(self.DOMTree.viewBox) )
+	{
+		NSLog(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file -- or: use the .scale method on this class (SVGKImage) to scale by desired amount", [self class]);
+	}
 	
 	/** "size" is part of SVGKImage, not the SVG spec; we need to update the SVG spec size too (aka the ViewPort) */
 	SVGRect newViewport = self.DOMTree.viewport;
@@ -274,10 +279,24 @@ static NSMutableDictionary* globalSVGKImageCache;
 	self.CALayerTree = nil; // invalidate the cached copy
 }
 
--(CGFloat)scale
+-(void)setScale:(CGFloat)newScale
 {
-	NSAssert( FALSE, @"image.scale is currently UNDEFINED for an SVGKImage (nothing implemented by SVGKit)" );
-	return 0.0;
+	_scale = newScale;
+	
+	/** "scale" is part of SVGKImage, not the SVG spec; we need to update the SVG spec scale too (aka the viewBox) */
+	if( CGRectIsEmpty(self.DOMTree.viewBox))
+	{
+		/** if there's no viewbox in SVG, we have to create one on-the-fly - otherwise scaling is impossible! */
+		self.DOMTree.viewBox = CGRectMake(0,0,self.DOMTree.viewport.width, self.DOMTree.viewport.height);
+	}
+	
+	CGRect scaledViewbox = self.DOMTree.viewBox;
+	scaledViewbox.size.width *= newScale; 
+	scaledViewbox.size.height *= newScale;
+	self.DOMTree.viewBox = scaledViewbox; // implicitly resizes all the internal rendering of the SVG
+	
+	/** invalidate all cached data that's dependent upon SVG's size */
+	self.CALayerTree = nil; // invalidate the cached copy
 }
 
 -(UIImage *)UIImage
@@ -295,13 +314,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 #pragma mark - unsupported / unimplemented UIImage methods (should add as a feature)
 - (void)drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
-NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
+	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
 - (void)drawInRect:(CGRect)rect                                                           // mode = kCGBlendModeNormal, alpha = 1.0
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
- - (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
+- (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }

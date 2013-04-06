@@ -15,23 +15,23 @@
  
  Creating an SVGKImage:
  
-  - PREFERRED: use the "imageNamed:" method
-  - CUSTOM SVGKSource class: use the "initWithSource:" method
-  - CUSTOM PARSING: Parse using SVGKParser, then send the parse-result to "initWithParsedSVG:"
+ - PREFERRED: use the "imageNamed:" method
+ - CUSTOM SVGKSource class: use the "initWithSource:" method
+ - CUSTOM PARSING: Parse using SVGKParser, then send the parse-result to "initWithParsedSVG:"
  
  
  Data:
-  - UIImage: not supported yet: will be a cached UIImage that is re-generated on demand. Will enable us to implement an SVGKImageView
+ - UIImage: not supported yet: will be a cached UIImage that is re-generated on demand. Will enable us to implement an SVGKImageView
  that works as a drop-in replacement for UIImageView
  
-  - DOMTree: the SVG DOM spec, the root element of a tree of SVGElement subclasses
-  - CALayerTree: the root element of a tree of CALayer subclasses
+ - DOMTree: the SVG DOM spec, the root element of a tree of SVGElement subclasses
+ - CALayerTree: the root element of a tree of CALayer subclasses
  
-  - size: as per the UIImage.size, returns a size in Apple Points (i.e. 320 == width of iPhone, irrespective of Retina)
-  - scale: ??? unknown how we'll define this, but could be useful when doing auto-re-render-on-zoom
-  - svgWidth: the internal SVGLength used to generate the correct .size
-  - svgHeight: the internal SVGLength used to generate the correct .size
-  - rootElement: the SVGSVGElement instance that is the root of the parse SVG tree. Use this to access the full SVG document
+ - size: as per the UIImage.size, returns a size in Apple Points (i.e. 320 == width of iPhone, irrespective of Retina)
+ - scale: ??? unknown how we'll define this, but could be useful when doing auto-re-render-on-zoom
+ - svgWidth: the internal SVGLength used to generate the correct .size
+ - svgHeight: the internal SVGLength used to generate the correct .size
+ - rootElement: the SVGSVGElement instance that is the root of the parse SVG tree. Use this to access the full SVG document
  
  */
 
@@ -101,7 +101,7 @@
  TODO: From UIImage. Not needed, I think?
  
  @property(nonatomic,readonly) CIImage           *CIImage __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // returns underlying CIImage or nil if CGImageRef based
-*/
+ */
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
@@ -109,11 +109,12 @@
 
 #pragma mark - unsupported / unimplemented UIImage methods (should add as a feature)
 
-/** This has no meaning for an SVGImage.
- 
- TODO: *possibly* we could make this writeable, and say "when you request a CALayerTree, it gets scaled by this"
+/**
+ According to SVG Spec, default scale is "1.0", and the correct way to resize/scale an image is by
+ NB: if you *set* this variable directly, and the original file has a viewBox, the viewBox itself will be altered to stay in-synch with this
+ variable
  */
-@property(nonatomic,readonly) CGFloat            scale;
+@property(nonatomic) CGFloat            scale;
 
 - (void)drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
 - (void)drawInRect:(CGRect)rect;                                                           // mode = kCGBlendModeNormal, alpha = 1.0
@@ -130,9 +131,9 @@
 /**
  
  TODO: From UIImage. Not needed, I think?
-
-@property(nonatomic,readonly) NSArray       *images   __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // default is nil for non-animated images
-@property(nonatomic,readonly) NSTimeInterval duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // total duration for all frames. default is 0 for non-animated images
+ 
+ @property(nonatomic,readonly) NSArray       *images   __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // default is nil for non-animated images
+ @property(nonatomic,readonly) NSTimeInterval duration __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // total duration for all frames. default is 0 for non-animated images
  */
 #pragma mark ---------end of unsupported items
 
