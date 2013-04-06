@@ -2,6 +2,10 @@
 
 SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
 
+Versions:
+  v1.0 - 2013, approximately 90% coverage of the SVG spec. Stable and quite fast - https://github.com/SVGKit/SVGKit/
+  v1.1.0 - Current branch in development; all pull-requests should be issued against this branch - https://github.com/SVGKit/SVGKit/tree/1.1.0
+
 ## Xcode Projects Included
 
 For 2013, we have a major refactor/rewrite of the core SVGKit, fixing many bugs, adding many features, and making SVGKit much closer to meeting the SVG official Specification - http://www.w3.org/TR/SVG/
