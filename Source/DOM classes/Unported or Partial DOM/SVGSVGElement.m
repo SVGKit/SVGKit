@@ -35,7 +35,7 @@
 
 -(void)dealloc
 {
-	self.viewBox = CGRectNull;
+	self.viewBox = SVGRectUninitialized();
     [x release];
     [y release];
     [width release];
@@ -120,23 +120,41 @@
 	 
 	 (NB: the input to this method "SVGKParseResult" has a .parsedDocument variable, that's how we'd fetch those values here
 	 */
-	NSAssert( [[self getAttribute:@"width"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit width attribute");
-	NSAssert( [[self getAttribute:@"height"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit height attribute");
 	
+	NSString* stringWidth = [self getAttribute:@"width"];
+	NSString* stringHeight = [self getAttribute:@"height"];
 	
-	self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
-	self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
-	SVGRect initialViewport = { 0, 0, [self.width pixelsValue], [self.height pixelsValue] };
-	self.viewport = initialViewport;
+	if( stringWidth == nil || stringWidth.length < 1 )
+		self.width = nil; // i.e. undefined
+	else
+		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
+	
+	if( stringHeight == nil || stringHeight.length < 1 )
+		self.height = nil; // i.e. undefined
+	else
+		self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
+	
+	/** spec has complex rules for us defining height if width is missing
+	 TODO: implement the rules for "if height is missing"
+	 */
+	if( self.width != nil && self.height != nil )
+	{
+		SVGRect initialViewport = { 0, 0, [self.width pixelsValue], [self.height pixelsValue] };
+		self.viewport = initialViewport;
+	}
+	else
+		self.viewport = SVGRectUninitialized();
 	
 	if( [[self getAttribute:@"viewBox"] length] > 0 )
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
-		_viewBox = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
 	}
 	else
 	{
+		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !
+		
 		/**
 		 According to spec, if we have no viewBox in the source SVG, we must NOT scale-to-fit the available space.
 		 
@@ -150,7 +168,7 @@
 		NSLog(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
         //osx logging
 #if TARGET_OS_IPHONE        
-        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBox));
+        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
 #else
         //mac logging
      NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));

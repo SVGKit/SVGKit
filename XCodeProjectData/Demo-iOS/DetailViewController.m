@@ -290,7 +290,51 @@ CATextLayer *textLayerForLastTappedLayer;
 	[[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; // makes the animation appear
 	
 	SVGKImageView* newContentView = nil;
+	BOOL thisImageRequiresLayeredImageView = false;
+	CGSize customSizeForImage = CGSizeZero;
     
+#if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
+	BOOL shouldScaleTimesTwo = false;
+	if( [name hasSuffix:@"@2x"])
+	{
+		name = [name substringToIndex:name.length - @"@2x".length];
+		shouldScaleTimesTwo = true;
+		thisImageRequiresLayeredImageView = true;
+	}
+#endif
+	
+	if( [name hasSuffix:@"@160x240"])
+	{
+		name = [name substringToIndex:name.length - @"@160x240".length];
+		customSizeForImage = CGSizeMake( 160, 240 );
+	}
+	
+	if(
+	   [name  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
+	   || [name isEqualToString:@"RainbowWing"] // RainbodWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
+	   )
+	{
+		/**
+		 
+		 NB: special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
+		 
+		 MONKEY.SVG -- CAAnimation of layers
+		 -----
+		 The problem: Apple's code doesn't allow us to support CoreAnimation *and* make image loading easy.
+		 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that supports CoreAnimation"
+		 
+		 In this demo, we setup the Monkey.SVG to allow layer-based animation...
+		 
+		 
+		 RAINBOWWING.SVG -- Gradient-fills of shapes
+		 -----
+		 The problem: Apple's renderInContext has a major bug where it ignores CALayer masks
+		 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
+		 
+		 */
+		thisImageRequiresLayeredImageView = true;
+	}
+	
 	/** Detect the magic name(s) for the nil-demos */
 	if( [name isEqualToString:@"nil-demo-layered-imageview"])
 	{
@@ -302,6 +346,12 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 	else
 	{
+		/**
+		 FINALLY:
+		 
+		 the actual loading of the SVG file and making a view to display it!
+		 */
+		
 		SVGKImage *document = nil;
 		
 		/** Detect URL vs file */
@@ -312,7 +362,10 @@ CATextLayer *textLayerForLastTappedLayer;
 		else
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 		
-		
+#if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
+		if( shouldScaleTimesTwo )
+			document.scale = 2.0;
+#endif
 		
 		if( document == nil )
 		{
@@ -323,32 +376,15 @@ CATextLayer *textLayerForLastTappedLayer;
 		{
 			if( document.parseErrorsAndWarnings.rootOfSVGTree != nil )
 			{
-				NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
+				//NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
 				
-				if(
-				   [name  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
-				   || [name isEqualToString:@"RainbowWing"] // RainbodWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
-				   )
+				/** NB: the SVG Spec says that the "correct" way to upscale or downscale an SVG is by changing the
+				 SVG Viewport. SVGKit automagically does this for you if you ever set a value to image.scale */
+				if( ! CGSizeEqualToSize( CGSizeZero, customSizeForImage ) )
+					document.size = customSizeForImage; // preferred way to scale an SVG! (standards compliant!)
+				
+				if( thisImageRequiresLayeredImageView )
 				{
-					/**
-					 
-					 NB: special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
-					 
-					 MONKEY.SVG -- CAAnimation of layers
-					 -----
-					 The problem: Apple's code doesn't allow us to support CoreAnimation *and* make image loading easy.
-					 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that supports CoreAnimation"
-					 
-					 In this demo, we setup the Monkey.SVG to allow layer-based animation...
-					 
-					 
-					 RAINBOWWING.SVG -- Gradient-fills of shapes
-					 -----
-					 The problem: Apple's renderInContext has a major bug where it ignores CALayer masks
-					 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
-					 
-					 */
-					
 					newContentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
 				}
 				else

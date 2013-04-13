@@ -83,7 +83,7 @@
 	return CGPointMake( xNormalized, yNormalized );
 }
 
--(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(CGRect) viewportRect
+-(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect
 {
     CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
 	
@@ -93,7 +93,7 @@
 	|| [gradientUnits isEqualToString:@"objectBoundingBox"])
 		rectForRelativeUnits = objectRect;
 	else
-		rectForRelativeUnits = viewportRect;
+		rectForRelativeUnits = CGRectFromSVGRect( viewportRect );
     
 	gradientLayer.frame = rectForRelativeUnits;
 	

@@ -27,6 +27,8 @@
 
 @interface SVGKImage ()
 
+@property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
+
 @property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
 @property (nonatomic, retain, readwrite) SVGKSource* source;
@@ -57,7 +59,6 @@
 
 @synthesize DOMDocument, DOMTree, CALayerTree;
 
-@synthesize size = _size;
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
@@ -174,7 +175,11 @@ static NSMutableDictionary* globalSVGKImageCache;
  */
 - (id)initWithParsedSVG:(SVGKParseResult *)parseResult {
 	self = [super init];
-	if (self) {
+	if (self)
+	{
+		_internalSizeThatWasSetExplicitlyByUser = CGSizeZero; // mark it explicitly as "uninitialized" = this is important for the getSize method!
+		_scale = 0.0; // flags it as uninitialized (this is important to know later, when outputting rendered layers)
+		
 		self.parseErrorsAndWarnings = parseResult;
 		
 		if( parseErrorsAndWarnings.parsedDocument != nil )
@@ -192,10 +197,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		{
 			NSLog(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
 			self = nil;
-		}
-		else
-		{
-			_size = CGSizeMake( [self.DOMTree.width pixelsValue], [self.DOMTree.height pixelsValue] );
 		}
 		
 		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
@@ -274,16 +275,89 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
 
--(void)setSize:(CGSize)newSize
+-(BOOL) hasSize
 {
-	_size = newSize;
+	if( ! CGSizeEqualToSize(CGSizeZero, self.internalSizeThatWasSetExplicitlyByUser ) )
+		return true;
 	
-	if( CGRectIsEmpty(self.DOMTree.viewBox) )
+	if( SVGRectIsInitialized( self.DOMTree.viewport ) )
+		return true;
+	
+	if( SVGRectIsInitialized( self.DOMTree.viewBox ) )
+		return true;
+	
+	return false;
+}
+
+-(CGSize)size
+{
+	/**
+	 c.f. http://t-machine.org/index.php/2013/04/13/svg-spec-missing-documentation-the-viewport-and-svg-width/
+	 
+	 1. if we have an explicit size (something the user set), we return that; it overrides EVERYTHING else
+	 2. otherwise ... if we have an INTERNAL viewport on the SVG, we return that
+	 3. otherwise ... spec is UNDEFINED. If we have a viewbox, we return that (SVG spec defaults to 1 unit of viewbox = 1 pixel on screen)
+	 4. otherwise ... spec is UNDEFINED. We have no viewbox, so we assume viewbox is "the bounding box of the entire SVG content, in SVG units", and use 3. above
+	 
+	 */
+	
+	/*  1. if we have an explicit size (something the user set), we return that; it overrides EVERYTHING else */
+	if( ! CGSizeEqualToSize(CGSizeZero, self.internalSizeThatWasSetExplicitlyByUser ) )
 	{
-		NSLog(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file -- or: use the .scale method on this class (SVGKImage) to scale by desired amount", [self class]);
+		return self.internalSizeThatWasSetExplicitlyByUser;
 	}
 	
-	/** "size" is part of SVGKImage, not the SVG spec; we need to update the SVG spec size too (aka the ViewPort) */
+	/*  2. otherwise ... if we have an INTERNAL viewport on the SVG, we return that */
+	if( SVGRectIsInitialized( self.DOMTree.viewport ) )
+	{
+		return CGSizeFromSVGRect( self.DOMTree.viewport );
+	}
+
+	/* Calculate a viewbox, either the explicit one from 3. above, or the implicit one from 4. above
+	*/
+	SVGRect effectiveViewbox; 
+	if( ! SVGRectIsInitialized( self.DOMTree.viewBox ) )
+	{
+		/**
+		 This is painful; the only way to calculate this is to recurse down the entire tree and find out the total extent
+		 of every item - taking into account all local and global transforms, etc
+		 
+		 We CANNOT USE the CALayerTree as a cheat to do this - because the CALayerTree itself uses the output of this method
+		 to decide how large to output itself!
+		 
+		 So, for now, we're going to NSAssert and crash, deliberately, until someone can write a better algorithm (without
+		 editing the source of all the SVG* classes, this is quite a lot of work, I think)
+		 */
+		NSAssert(FALSE, @"Your SVG file has no internal size, and you have failed to specify a desired size. Therefore, we cannot give you a value for the 'image.size' property - you MUST use an SVG file that has a viewbox property, OR use an SVG file that defines an explicit svg width, OR provide a size of your own choosing (by setting image.size to a value) ... before you call this method" );
+		effectiveViewbox = SVGRectUninitialized();
+	}
+	else
+		effectiveViewbox = self.DOMTree.viewBox;
+		
+	/* COMBINED TOGETHER: 
+	 
+	 3. otherwise ... spec is UNDEFINED. If we have a viewbox, we return that (SVG spec defaults to 1 unit of viewbox = 1 pixel on screen)
+	 4. otherwise ... spec is UNDEFINED. We have no viewbox, so we assume viewbox is "the bounding box of the entire SVG content, in SVG units", and use 3. above
+	 */
+	return CGSizeFromSVGRect( effectiveViewbox );
+}
+
+-(void)setSize:(CGSize)newSize
+{
+	self.internalSizeThatWasSetExplicitlyByUser = newSize;
+	
+	if( ! SVGRectIsInitialized(self.DOMTree.viewBox) )
+	{
+		NSLog(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file -- or: use the .scale method on this class (SVGKImage) instead to scale by desired amount", [self class]);
+	}
+	
+	/** "size" is part of SVGKImage, not the SVG spec; we need to update the SVG spec size too (aka the ViewPort)
+	 
+	 NB: in SVG world, the DOMTree.viewport is REQUIRED to be deleted if the "rendering agent" (i.e. this library)
+	 uses a different value for viewport.
+	 
+	 You can always re-calculate the "original" viewport by looking at self.DOMTree.width and self.DOMTree.height
+	 */
 	SVGRect newViewport = self.DOMTree.viewport;
 	newViewport.width = newSize.width;
 	newViewport.height = newSize.height;
@@ -295,19 +369,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(void)setScale:(CGFloat)newScale
 {
+	NSAssert( self.DOMTree != nil, @"Can't set a scale before you've parsed an SVG file; scale is sometimes illegal, depending on the SVG file itself");
+	
+	NSAssert( ! SVGRectIsInitialized( self.DOMTree.viewBox ), @"image.scale cannot be set because your SVG has an internal viewbox. To resize this SVG, you must instead call image.size = (a new size) to force the svg to scale itself up or down as appropriate");
+	
 	_scale = newScale;
-	
-	/** "scale" is part of SVGKImage, not the SVG spec; we need to update the SVG spec scale too (aka the viewBox) */
-	if( CGRectIsEmpty(self.DOMTree.viewBox))
-	{
-		/** if there's no viewbox in SVG, we have to create one on-the-fly - otherwise scaling is impossible! */
-		self.DOMTree.viewBox = CGRectMake(0,0,self.DOMTree.viewport.width, self.DOMTree.viewport.height);
-	}
-	
-	CGRect scaledViewbox = self.DOMTree.viewBox;
-	scaledViewbox.size.width *= newScale; 
-	scaledViewbox.size.height *= newScale;
-	self.DOMTree.viewBox = scaledViewbox; // implicitly resizes all the internal rendering of the SVG
 	
 	/** invalidate all cached data that's dependent upon SVG's size */
 	self.CALayerTree = nil; // invalidate the cached copy
@@ -496,7 +562,25 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return nil;
 	else
 	{
-		return [self newLayerWithElement:self.DOMTree];
+		CALayer* newLayerTree = [self newLayerWithElement:self.DOMTree];
+		
+		if( 0.0f != self.scale )
+		{
+			NSLog(@"[%@] WARNING: because you specified an image.scale (you SHOULD be using SVG viewbox or <svg width> instead!), we are changing the .anchorPoint and the .affineTransform of the returned CALayerTree. Apple's own libraries are EXTREMELY BUGGY if you hand them layers that have these variables changed (some of Apple's libraries completely ignore them, this is a major Known Bug that Apple hasn't fixed in many years). Proceed at your own risk, and warned!", [self class] );
+			
+			/** NB this is INSANE! Apple's bugs in CALayer (unfixed for 6+ years now!) are incredible. I have no idea
+			 why they care so little about fixing these howlers.
+			 
+			 When you set the affineTransform on a Layer, if you do not ALSO MANUALLY change the anchorpoint, Apple
+			 renders the layer at the wrong co-ords!
+			 
+			 --- this is only one of MANY bugs in Apple's handling of .transform and .affineTransform on CALayer.
+			 */
+			newLayerTree.anchorPoint = CGPointApplyAffineTransform( newLayerTree.anchorPoint, CGAffineTransformMakeScale(1.0f/self.scale, 1.0f/self.scale));
+			newLayerTree.affineTransform = CGAffineTransformMakeScale( self.scale, self.scale );
+		}
+		
+		return newLayerTree;
 	}
 }
 
@@ -555,7 +639,8 @@ static NSMutableDictionary* globalSVGKImageCache;
  */
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
-	NSAssert( self.DOMTree != nil, @"You cannot render to CGContext for an SVG that you haven't parsed yet! There's no data to return!");
+	NSAssert( [self hasSize], @"Cannot scale this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+	
 	NSDate* startTime;
 	
 	if( CALayerTree == nil )
@@ -568,7 +653,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 		NSLog(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
 	
 	startTime = [NSDate date];
-	NSLog(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	if( SVGRectIsInitialized(self.DOMTree.viewport) )
+		NSLog(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromCGRect(CGRectFromSVGRect(self.DOMTree.viewport)) );
 	
 	/** Typically a 10% performance improvement right here */
 	if( !shouldAntialias )
@@ -592,6 +679,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	 */
 	if( flipYaxis )
 	{
+		NSAssert( [self hasSize], @"Cannot flip this image in Y because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be treated as (by calling .size = something on this SVGKImage instance");
+		
 		CGContextTranslateCTM(context, 0, self.size.height );
 		CGContextScaleCTM(context, 1.0, -1.0);
 	}
@@ -618,6 +707,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
+	NSAssert( [self hasSize], @"Cannot export this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+	
 	NSLog(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -639,24 +730,35 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
-	
-	UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	
-	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
-	
-	UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
-	
-	return result;
+	if( [self hasSize] )
+	{
+		NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		
+		UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		
+		[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
+		
+		UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+		
+		
+		return result;
+	}
+	else
+	{
+		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+		
+		return nil;
+	}
 }
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
 
 -(void) scaleToFitInside:(CGSize) maxSize
 {
+	NSAssert( [self hasSize], @"Cannot scale this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+	
 	float wScale = maxSize.width / self.size.width;
 	float hScale = maxSize.height / self.size.height;
 	

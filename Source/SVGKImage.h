@@ -86,14 +86,35 @@
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 
-/** The natural / preferred size of the SVG (SVG's are infinitely scalable, by definition).
- >  
- >  NOTE: if you change this property, it will invalidate any cached render-data, and all future
- >  renders will be done at this pixel-size/pixel-resolution
- >  
- >  NOTE: when you read the .UIImage property of this class, it generates a bitmap using the
- >  current value of this property (or x2 if retina display)
- >  */
+/** NB: if an SVG defines no limits to itself - neither a viewbox, nor an <svg width=""> nor an <svg height=""> - and
+ you have not explicitly given the SVGKImage instance a "user defined size" (by setting .size) ... then there is NO
+ LEGAL SIZE VALUE for self.size to return, and it WILL ASSERT!
+ 
+ Use this method to double-check, before calling .size, whether it's going to give you a legal value safely
+ */
+-(BOOL) hasSize;
+
+/**
+ NB: always call "hasSize" before calling this method; some SVG's may have NO DEFINED SIZE, and so
+ the .size method could return an invalid value (c.f. the hasSize method for details on how to
+ workaround that issue)
+ 
+ SVG's are infinitely scalable, by definition - but authors can OPTIONALLY set a "preferred size".
+ 
+ Also, we allow you to set an explicit "this is the size I'm going to render at, deal with it" size,
+ which will OVERRIDE the author's own size (if they configured one), and force the SVG to resize itself
+ to fit your dictated size.
+ 
+ (NB: this is as per the spec, so it's OK)
+ 
+ NOTE: if you change this property, it will invalidate any cached render-data, and all future
+ renders will be done at this pixel-size/pixel-resolution
+ 
+ NOTE: when you read the .UIImage property of this class, it generates a bitmap using the
+ current value of this property (or x2 if retina display) -- and if you've never set the
+ property, it will use the de-facto value obtained by reading the SVG file and looking for
+ author-dictated size, etc
+ */
 @property(nonatomic) CGSize             size;
 
 /**
@@ -110,9 +131,24 @@
 #pragma mark - unsupported / unimplemented UIImage methods (should add as a feature)
 
 /**
- According to SVG Spec, default scale is "1.0", and the correct way to resize/scale an image is by
- NB: if you *set* this variable directly, and the original file has a viewBox, the viewBox itself will be altered to stay in-synch with this
- variable
+ According to SVG Spec, default scale is "1.0", and the correct way to resize/scale an image is by:
+ 
+    1. setting an explicit "<svg width="..." height="...">"
+ 
+ ...or, alternatively, you can do:
+ 
+    1. setting an explicit "<svg viewbox="..."
+ 
+ (in which case, we'll use the viewbox width + height as stand-ins for your missing <svg width="" height="")
+ 
+ Either way, you should also do:
+ 
+    2. set an explicit SVGKImage.size = "..."
+ 
+ However, there are cases where none of those are possible. e.g. because your SVG file is badly written and missing
+ both of those bits of data. So, to support these situations, we allow you to set a global "scale" that will be applied
+ to your SVG file *if and only if* it has no explicit viewbox / width+height
+ 
  */
 @property(nonatomic) CGFloat            scale;
 

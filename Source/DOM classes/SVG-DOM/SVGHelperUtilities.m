@@ -45,19 +45,27 @@
 	 Optional relative transform: if incoming element establishes a viewport, do something clever; for everything else, use identity
 	 */
 	if( transformableOrSVGSVGElement.viewportElement == nil // if it's nil, it means THE OPPOSITE of what you'd expect - it means that it IS the viewport element - SVG Spec REQUIRES this
-	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // if it's some-other-object, then: we simply don't need to worry about it
+	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // ?? I don't understand: ?? if it's something other than itself, then: we simply don't need to worry about it ??
 	   )
 	{
 		SVGElement<SVGFitToViewBox>* svgSVGElement = (SVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
 		
-		/** Calculate the "implicit" viewport transform (caused by the <SVG> tag's possible "viewBox" attribute) */
-		CGRect frameViewBox = svgSVGElement.viewBox;
-		CGRect frameViewport = CGRectFromSVGRect( ((SVGSVGElement*)svgSVGElement).viewport );
-		
-		if( ! CGRectIsEmpty( frameViewBox ) )
+		/**
+		 Calculate the "implicit" viewport transform (caused by the <SVG> tag's possible "viewBox" attribute)
+		 
+		 */
+		SVGRect frameViewBox = svgSVGElement.viewBox;
+		if( SVGRectIsInitialized( frameViewBox ) )
 		{
-			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.origin.x, -frameViewBox.origin.y );
-			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
+			/* (NB: the viewport will ALWAYS have a value: UNLESS the SVG is so crappy it has NEITHER a viewbox NOR an explicit width
+		     and height in the root <SVG> tag.
+			 
+			 ...but since we know we already have a viewbox, we can rely upon there being a viewport too.
+			 */
+			SVGRect frameViewport = ((SVGSVGElement*)svgSVGElement).viewport;
+			
+			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.x, -frameViewBox.y );
+			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.width / frameViewBox.width, frameViewport.height / frameViewBox.height);
 			optionalViewportTransform = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
 		}
 		else
