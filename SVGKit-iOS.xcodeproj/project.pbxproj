@@ -237,7 +237,7 @@
 		661ADBF616CC2FCA006F4BC3 /* SVGTextContentElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextContentElement.m; sourceTree = "<group>"; };
 		661ADBFB16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextPositioningElement_Mutable.h; sourceTree = "<group>"; };
 		66372F5916960D4E008C6C56 /* SVGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGRect.m; sourceTree = "<group>"; };
-		6639618E16145D0400E58CCA /* libSVGKit-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSVGKit-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6639618E16145D0400E58CCA /* libSVGKit-iOS.1.1.0pre.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSVGKit-iOS.1.1.0pre.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6639619116145D0400E58CCA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6639633F16145DDC00E58CCA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		6639634116148CDF00E58CCA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -471,7 +471,7 @@
 		6639618F16145D0400E58CCA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6639618E16145D0400E58CCA /* libSVGKit-iOS.a */,
+				6639618E16145D0400E58CCA /* libSVGKit-iOS.1.1.0pre.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -925,7 +925,7 @@
 			);
 			name = "SVGKit-iOS";
 			productName = "SVGKit-iOS";
-			productReference = 6639618E16145D0400E58CCA /* libSVGKit-iOS.a */;
+			productReference = 6639618E16145D0400E58CCA /* libSVGKit-iOS.1.1.0pre.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -1120,6 +1120,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/SVGKit_iOS.dst;
+				DYLIB_CURRENT_VERSION = 1.1.0pre;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1129,7 +1130,7 @@
 					"\"$(SRCROOT)/Source/Core\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1138,6 +1139,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/SVGKit_iOS.dst;
+				DYLIB_CURRENT_VERSION = 1.1.0pre;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1147,7 +1149,7 @@
 					"\"$(SRCROOT)/Source/Core\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
