@@ -21,6 +21,15 @@
 @synthesize rootElement=_rootElement;
 
 
+- (void)dealloc {
+  [title release];
+  [referrer release];
+  [domain release];
+  [URL release];
+  [_rootElement release];
+  [super dealloc];
+}
+
 - (id)init
 {
     self = [super initType:DOMNodeType_DOCUMENT_NODE name:@"#document"];

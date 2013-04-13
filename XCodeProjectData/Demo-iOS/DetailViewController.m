@@ -289,104 +289,136 @@ CATextLayer *textLayerForLastTappedLayer;
 	[self.viewActivityIndicator startAnimating];
 	[[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; // makes the animation appear
 	
-    [self.contentView removeFromSuperview];
+	SVGKImageView* newContentView = nil;
     
-	SVGKImage *document = nil;
-	/** Detect URL vs file */
-	if( [name hasPrefix:@"http://"])
+	/** Detect the magic name(s) for the nil-demos */
+	if( [name isEqualToString:@"nil-demo-layered-imageview"])
 	{
-		document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
-	}
-	else
-		document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
-	
-	
-	
-	if( document == nil )
-	{
-				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		/** This demonstrates / tests what happens if you create an SVGKLayeredImageView with a nil SVGKImage
+		 
+		 NB: this is what Apple's InterfaceBuilder / Xcode 4 FORCES YOU TO DO because of massive bugs in Xcode 4!
+		 */
+		newContentView = [[[SVGKLayeredImageView alloc] initWithCoder:nil] autorelease];
 	}
 	else
 	{
-		if( document.parseErrorsAndWarnings.rootOfSVGTree != nil )
+		SVGKImage *document = nil;
+		
+		/** Detect URL vs file */
+		if( [name hasPrefix:@"http://"])
 		{
-			NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
-			
-			if( self.contentView != nil
-			&& self.tapGestureRecognizer != nil )
-				[self.contentView removeGestureRecognizer:self.tapGestureRecognizer];
-			
-			if( self.tapGestureRecognizer == nil )
-			{
-				self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-			}
-			
-			if(
-			   [name  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
-			   || [name isEqualToString:@"RainbowWing"] // RainbodWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
-			   )
-			{
-				/**
-				 
-				 NB: special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
-				 
-				 MONKEY.SVG -- CAAnimation of layers
-				 -----
-				 The problem: Apple's code doesn't allow us to support CoreAnimation *and* make image loading easy.
-				 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that supports CoreAnimation"
-				 
-				 In this demo, we setup the Monkey.SVG to allow layer-based animation...
-				 
-				 
-				 RAINBOWWING.SVG -- Gradient-fills of shapes
-				 -----
-				 The problem: Apple's renderInContext has a major bug where it ignores CALayer masks
-				 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
-				 
-				 */
-				
-				self.contentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
-			}
-			else
-			{
-				self.contentView = [[[SVGKFastImageView alloc] initWithSVGKImage:document] autorelease];
-				
-				NSLog(@"[%@] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this", [self class]);
-				
-				((SVGKFastImageView*)self.contentView).disableAutoRedrawAtHighestResolution = TRUE;
-			}
-			self.contentView.showBorder = FALSE;
-			[self.contentView addGestureRecognizer:self.tapGestureRecognizer];
-			
-			if (_name) {
-				[_name release];
-				_name = nil;
-			}
-			
-			_name = [name copy];
-			
-			[self.scrollViewForSVG addSubview:self.contentView];
-			[self.scrollViewForSVG setContentSize: self.contentView.frame.size];
-			
-			float screenToDocumentSizeRatio = self.scrollViewForSVG.frame.size.width / self.contentView.frame.size.width;
-			
-			self.scrollViewForSVG.minimumZoomScale = MIN( 1, screenToDocumentSizeRatio );
-			self.scrollViewForSVG.maximumZoomScale = MAX( 1, screenToDocumentSizeRatio );
-			
-			/**
-			 EXAMPLE:
-			 
-			 How to find particular nodes in the tree, after parsing.
-			 
-			 In this case, we search for all SVG <g> tags, which usually mean grouped-objects in Inkscape etc:
-			NodeList* elementsUsingTagG = [document.DOMDocument getElementsByTagName:@"g"];
-			NSLog( @"[%@] checking for SVG standard set of elements with XML tag/node of <g>: %@", [self class], elementsUsingTagG.internalArray );
-			 */
+			document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
+		}
+		else
+			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
+		
+		
+		
+		if( document == nil )
+		{
+			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			newContentView = nil; // signals to the rest of this method: the load failed
 		}
 		else
 		{
-			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			if( document.parseErrorsAndWarnings.rootOfSVGTree != nil )
+			{
+				NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
+				
+				if(
+				   [name  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
+				   || [name isEqualToString:@"RainbowWing"] // RainbodWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
+				   )
+				{
+					/**
+					 
+					 NB: special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
+					 
+					 MONKEY.SVG -- CAAnimation of layers
+					 -----
+					 The problem: Apple's code doesn't allow us to support CoreAnimation *and* make image loading easy.
+					 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that supports CoreAnimation"
+					 
+					 In this demo, we setup the Monkey.SVG to allow layer-based animation...
+					 
+					 
+					 RAINBOWWING.SVG -- Gradient-fills of shapes
+					 -----
+					 The problem: Apple's renderInContext has a major bug where it ignores CALayer masks
+					 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
+					 
+					 */
+					
+					newContentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
+				}
+				else
+				{
+					newContentView = [[[SVGKFastImageView alloc] initWithSVGKImage:document] autorelease];
+					
+					NSLog(@"[%@] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this", [self class]);
+					
+					((SVGKFastImageView*)newContentView).disableAutoRedrawAtHighestResolution = TRUE;
+				}
+			}
+			else
+			{
+				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				newContentView = nil; // signals to the rest of this method: the load failed
+			}
 		}
+	}
+	
+	if( newContentView != nil )
+	{
+		/**
+		 * NB: at this point we're guaranteed to have a "new" replacemtent ready for self.contentView
+		 */
+		
+		/** Move the gesture recognizer off the old view */
+		if( self.contentView != nil
+		   && self.tapGestureRecognizer != nil )
+			[self.contentView removeGestureRecognizer:self.tapGestureRecognizer];
+		
+		[self.contentView removeFromSuperview];
+		
+		/******* swap the new contentview in ************/
+		self.contentView = newContentView;
+		
+	
+		/** set the border for new item */
+		self.contentView.showBorder = FALSE;
+	
+		/** Move the gesture recognizer onto the new one */	
+		if( self.tapGestureRecognizer == nil )
+		{
+			self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+		}
+		[self.contentView addGestureRecognizer:self.tapGestureRecognizer];
+		
+		if (_name) {
+			[_name release];
+			_name = nil;
+		}
+		
+		_name = [name copy];
+		
+		[self.scrollViewForSVG addSubview:self.contentView];
+		[self.scrollViewForSVG setContentSize: self.contentView.frame.size];
+		
+		float screenToDocumentSizeRatio = self.scrollViewForSVG.frame.size.width / self.contentView.frame.size.width;
+		
+		self.scrollViewForSVG.minimumZoomScale = MIN( 1, screenToDocumentSizeRatio );
+		self.scrollViewForSVG.maximumZoomScale = MAX( 1, screenToDocumentSizeRatio );
+		
+		/**
+		 EXAMPLE:
+		 
+		 How to find particular nodes in the tree, after parsing.
+		 
+		 In this case, we search for all SVG <g> tags, which usually mean grouped-objects in Inkscape etc:
+		 NodeList* elementsUsingTagG = [document.DOMDocument getElementsByTagName:@"g"];
+		 NSLog( @"[%@] checking for SVG standard set of elements with XML tag/node of <g>: %@", [self class], elementsUsingTagG.internalArray );
+		 */
 	}
 	
 	[self.viewActivityIndicator stopAnimating];

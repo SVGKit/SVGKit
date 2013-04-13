@@ -12,6 +12,13 @@
 @synthesize documentElement;
 
 
+- (void)dealloc {
+  [doctype release];
+  [implementation release];
+  [documentElement release];
+  [super dealloc];
+}
+
 -(Element*) createElement:(NSString*) tagName
 {
 	Element* newElement = [[Element alloc] initWithLocalName:tagName attributes:nil];

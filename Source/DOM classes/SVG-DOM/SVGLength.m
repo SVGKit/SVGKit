@@ -19,6 +19,12 @@
 @synthesize valueInSpecifiedUnits;
 @synthesize valueAsString;
 
+- (void)dealloc {
+    self.valueAsString = nil;
+    self.internalCSSPrimitiveValue = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
     NSAssert(FALSE, @"This class must not be init'd. Use the static hepler methods to instantiate it instead");

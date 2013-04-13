@@ -22,6 +22,11 @@
 
 @synthesize primitiveType;
 
+- (void)dealloc {
+    self.internalString = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];

@@ -11,6 +11,9 @@
 
 #import "SVGKParserSVG.h"
 
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
+
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
@@ -119,6 +122,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	SVGKImage* result = [self imageWithContentsOfFile:path];
     
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+	if( result != nil )
+	{
     result->cameFromGlobalCache = TRUE;
     result.nameUsedToInstantiate = name;
     
@@ -126,6 +131,11 @@ static NSMutableDictionary* globalSVGKImageCache;
     newCacheLine.mainInstance = result;
     
     [globalSVGKImageCache setValue:newCacheLine forKey:name];
+	}
+	else
+	{
+		NSLog(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+	}
 #endif
     
     return result;
@@ -133,19 +143,23 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
-	
+	@synchronized(self) {
 	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+    }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
+    @synchronized(self) {
 	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+    }
 }
 
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource
 {
 	NSParameterAssert(newSource != nil);
-	
+	@synchronized(self) {
 	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+    }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -203,13 +217,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
-	return [self initWithSource:[SVGKSource sourceFromFilename:aPath]];
+	return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
-	return [self initWithSource:[SVGKSource sourceFromURL:url]];
+	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
 }
 
 - (void)dealloc
@@ -459,7 +473,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
 			
-			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
+			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child] autorelease];
 			
 			if (!sublayer) {
 				continue;
