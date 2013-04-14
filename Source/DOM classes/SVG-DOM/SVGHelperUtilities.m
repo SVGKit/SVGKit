@@ -48,29 +48,55 @@
 	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // ?? I don't understand: ?? if it's something other than itself, then: we simply don't need to worry about it ??
 	   )
 	{
-		SVGElement<SVGFitToViewBox>* svgSVGElement = (SVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
+		SVGSVGElement<SVGFitToViewBox>* svgSVGElement = (SVGSVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
 		
 		/**
-		 Calculate the "implicit" viewport transform (caused by the <SVG> tag's possible "viewBox" attribute)
-		 
+		 Calculate the "implicit" viewport->viewbox transform (caused by the <SVG> tag's possible "viewBox" attribute)
+		 Also calculate the "implicit" realViewport -> svgDefaultViewport transform (caused by the user changing the external
+		    size of the rendered SVG)
 		 */
-		SVGRect frameViewBox = svgSVGElement.viewBox;
-		if( SVGRectIsInitialized( frameViewBox ) )
+		SVGRect frameViewBox = svgSVGElement.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
+		SVGRect frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
+		SVGRect frameRequestedViewport = svgSVGElement.requestedViewport; // the default viewport requested in the SVG source file (may be Uninitialized if no svg width or height params in original source file)
+		
+		if( ! SVGRectIsInitialized(frameActualViewport))
 		{
-			/* (NB: the viewport will ALWAYS have a value: UNLESS the SVG is so crappy it has NEITHER a viewbox NOR an explicit width
-		     and height in the root <SVG> tag.
+			/** We have NO VIEWPORT (renderer was presented too little info)
 			 
-			 ...but since we know we already have a viewbox, we can rely upon there being a viewport too.
+			 Net effect: we MUST render everything at 1:1, and apply NO FURTHER TRANSFORMS
 			 */
-			SVGRect frameViewport = ((SVGSVGElement*)svgSVGElement).viewport;
-			
-			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.x, -frameViewBox.y );
-			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.width / frameViewBox.width, frameViewport.height / frameViewBox.height);
-			optionalViewportTransform = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
+			optionalViewportTransform = CGAffineTransformIdentity;
 		}
 		else
-			optionalViewportTransform = CGAffineTransformIdentity;
+		{
+			CGAffineTransform transformRealViewportToSVGViewport;
+			CGAffineTransform transformSVGViewportToSVGViewBox;
 		
+			/** Transform part 1: from REAL viewport to EXPECTED viewport */
+			SVGRect viewportForViewBoxToRelateTo;
+			if( SVGRectIsInitialized( frameRequestedViewport ))
+			{
+				viewportForViewBoxToRelateTo = frameRequestedViewport;
+				transformRealViewportToSVGViewport = CGAffineTransformMakeScale( frameActualViewport.width / frameRequestedViewport.width, frameActualViewport.height / frameRequestedViewport.height);
+			}
+			else
+			{
+				viewportForViewBoxToRelateTo = frameActualViewport;
+				transformRealViewportToSVGViewport = CGAffineTransformIdentity;
+			}
+			
+			/** Transform part 2: from EXPECTED viewport to internal viewBox */
+			if( SVGRectIsInitialized( frameViewBox ) )
+			{
+				CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.x, -frameViewBox.y );
+				CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( viewportForViewBoxToRelateTo.width / frameViewBox.width, viewportForViewBoxToRelateTo.height / frameViewBox.height);
+				transformSVGViewportToSVGViewBox = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
+			}
+			else
+				transformSVGViewportToSVGViewBox = CGAffineTransformIdentity;
+			
+			optionalViewportTransform = CGAffineTransformConcat( transformRealViewportToSVGViewport, transformSVGViewportToSVGViewBox );
+		}
 	}
 	else
 	{

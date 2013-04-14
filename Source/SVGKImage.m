@@ -346,9 +346,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	self.internalSizeThatWasSetExplicitlyByUser = newSize;
 	
-	if( ! SVGRectIsInitialized(self.DOMTree.viewBox) )
+	if( ! SVGRectIsInitialized(self.DOMTree.viewBox) && !SVGRectIsInitialized( self.DOMTree.viewport ) )
 	{
-		NSLog(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file -- or: use the .scale method on this class (SVGKImage) instead to scale by desired amount", [self class]);
+		NSLog(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no explicit width or height AND no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file, or add an explicit svg width and height -- or: use the .scale method on this class (SVGKImage) instead to scale by desired amount", [self class]);
 	}
 	
 	/** "size" is part of SVGKImage, not the SVG spec; we need to update the SVG spec size too (aka the ViewPort)
@@ -358,10 +358,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	 
 	 You can always re-calculate the "original" viewport by looking at self.DOMTree.width and self.DOMTree.height
 	 */
-	SVGRect newViewport = self.DOMTree.viewport;
-	newViewport.width = newSize.width;
-	newViewport.height = newSize.height;
-	self.DOMTree.viewport = newViewport; // implicitly resizes all the internal rendering of the SVG
+	self.DOMTree.viewport = SVGRectMake(0,0,newSize.width,newSize.height); // implicitly resizes all the internal rendering of the SVG
 	
 	/** invalidate all cached data that's dependent upon SVG's size */
 	self.CALayerTree = nil; // invalidate the cached copy
