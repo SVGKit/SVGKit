@@ -10,6 +10,7 @@ Because so much has changed, Adam wrote a series of blog posts to explain how to
 
   - GETTING STARTED, plus NEW FEATURES:  http://t-machine.org/index.php/2012/12/31/svgkit-2013-usage/
   - QUICK RECIPES for common uses:  http://t-machine.org/index.php/2013/01/02/svgkit-2013-recipes/
+     - additiona: How to scale an SVG image on screen: http://t-machine.org/index.php/2013/04/14/svgkit-scaling-svg-images/
   - CONTRIBUTING to the project, CORE ARCHITECTURE: http://t-machine.org/index.php/2012/12/31/svgkit-2013-development/
  
 
