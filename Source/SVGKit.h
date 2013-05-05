@@ -37,5 +37,6 @@
 	#import "SVGUtils.h"
     #import "SVGKPattern.h"
 	#import "SVGKImageView.h"
+#import "SVGKFastImageView.h"
 	#import "SVGKLayeredImageView.h"
 	#import "SVGKLayer.h"

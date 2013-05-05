@@ -43,6 +43,8 @@
 		666674CA168A561C00486B68 /* MediaList.m in Sources */ = {isa = PBXBuildFile; fileRef = 666674C8168A561B00486B68 /* MediaList.m */; };
 		6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6668E2061688D3CF00F774A6 /* SVGGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6668E2071688D3CF00F774A6 /* SVGGElement.m */; };
+		668B0B851725899C00952E4E /* CALayer+RecursiveClone.h in Headers */ = {isa = PBXBuildFile; fileRef = 668B0B831725899C00952E4E /* CALayer+RecursiveClone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		668B0B861725899C00952E4E /* CALayer+RecursiveClone.m in Sources */ = {isa = PBXBuildFile; fileRef = 668B0B841725899C00952E4E /* CALayer+RecursiveClone.m */; };
 		6694BB7B16967407007D0947 /* DOMGlobalSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694BB7A16967407007D0947 /* DOMGlobalSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DB3168A001400EC93C7 /* CSSStyleDeclaration.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DB4168A001400EC93C7 /* CSSStyleDeclaration.m in Sources */ = {isa = PBXBuildFile; fileRef = 66988DB2168A001400EC93C7 /* CSSStyleDeclaration.m */; };
@@ -260,6 +262,8 @@
 		666674CB168A58D000486B68 /* StyleSheetList+Mutable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StyleSheetList+Mutable.h"; sourceTree = "<group>"; };
 		6668E2061688D3CF00F774A6 /* SVGGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGElement.h; sourceTree = "<group>"; };
 		6668E2071688D3CF00F774A6 /* SVGGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGElement.m; sourceTree = "<group>"; };
+		668B0B831725899C00952E4E /* CALayer+RecursiveClone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RecursiveClone.h"; sourceTree = "<group>"; };
+		668B0B841725899C00952E4E /* CALayer+RecursiveClone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+RecursiveClone.m"; sourceTree = "<group>"; };
 		6694BB7A16967407007D0947 /* DOMGlobalSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOMGlobalSettings.h; sourceTree = "<group>"; };
 		66988DAF1689FF5D00EC93C7 /* SVGStylable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGStylable.h; sourceTree = "<group>"; };
 		66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSStyleDeclaration.h; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 				66E863891688C2770059C9C4 /* CGPathAdditions.m */,
 				66E8638A1688C2780059C9C4 /* SVGKLayer.h */,
 				66E8638B1688C2780059C9C4 /* SVGKLayer.m */,
+				668B0B831725899C00952E4E /* CALayer+RecursiveClone.h */,
+				668B0B841725899C00952E4E /* CALayer+RecursiveClone.m */,
 			);
 			path = "QuartzCore additions";
 			sourceTree = "<group>";
@@ -903,6 +909,7 @@
 				6616CB11171078E800109FF3 /* SVGKSourceString.h in Headers */,
 				6616CB151710790200109FF3 /* SVGKSourceLocalFile.h in Headers */,
 				6616CB191710798300109FF3 /* SVGKSourceURL.h in Headers */,
+				668B0B851725899C00952E4E /* CALayer+RecursiveClone.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,6 +1069,7 @@
 				6616CB12171078E800109FF3 /* SVGKSourceString.m in Sources */,
 				6616CB161710790200109FF3 /* SVGKSourceLocalFile.m in Sources */,
 				6616CB1A1710798300109FF3 /* SVGKSourceURL.m in Sources */,
+				668B0B861725899C00952E4E /* CALayer+RecursiveClone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
