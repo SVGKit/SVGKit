@@ -17,6 +17,7 @@
 
 @synthesize sampleNames = _sampleNames;
 @synthesize detailViewController = _detailViewController;
+@synthesize nameOfBrokenSVGToLoad = _nameOfBrokenSVGToLoad;
 
 - (id)init
 {

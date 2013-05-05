@@ -62,6 +62,7 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
+@synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;

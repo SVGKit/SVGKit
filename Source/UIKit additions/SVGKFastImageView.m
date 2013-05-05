@@ -13,6 +13,7 @@
 
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
+@synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL) svgImageHasNoGradients:(SVGKImage*) image
