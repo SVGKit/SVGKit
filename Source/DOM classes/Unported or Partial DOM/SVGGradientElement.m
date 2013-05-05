@@ -9,6 +9,7 @@
 @implementation SVGGradientElement
 
 @synthesize stops = _stops;
+@synthesize transform;
 
 -(void)addStop:(SVGGradientStop *)gradientStop
 {
@@ -100,12 +101,16 @@
 	SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
 	SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
 	
-	CGPoint startPoint = [self normalizeGradientCoordinate:svgX1 y:svgY1 rectToFill:rectForRelativeUnits];
+	CGPoint startPoint = CGPointMake(svgX1.value, svgY1.value);
+    startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
+    startPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",startPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",startPoint.y]] rectToFill:rectForRelativeUnits];
 	
 	SVGLength* svgX2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x2"]];
 	SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y2"]];
 	
-	CGPoint endPoint = [self normalizeGradientCoordinate:svgX2 y:svgY2 rectToFill:rectForRelativeUnits];
+	CGPoint endPoint = CGPointMake(svgX2.value, svgY2.value);
+    endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
+    endPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.y]] rectToFill:rectForRelativeUnits];
     
 #ifdef SVG_DEBUG_GRADIENTS
     NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
