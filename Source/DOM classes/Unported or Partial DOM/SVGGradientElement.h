@@ -25,8 +25,9 @@
 #import "SVGLayeredElement.h"
 
 #import "SVGGradientStop.h"
+#import "SVGTransformable.h"
 
-@interface SVGGradientElement : SVGElement /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
+@interface SVGGradientElement : SVGElement <SVGTransformable> /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
 {
     @public
     BOOL radial; /* FIXME: not in SVG Spec */
