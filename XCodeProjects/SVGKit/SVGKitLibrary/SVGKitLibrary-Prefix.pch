@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'SVGKitLibrary' target in the 'SVGKitLibrary' project
-//
-
-#ifdef __OBJC__
-	#import <Foundation/Foundation.h>
-#endif
