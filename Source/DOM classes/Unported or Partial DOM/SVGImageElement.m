@@ -7,6 +7,9 @@
 #import <UIKit/UIKit.h>
 
 #else
+
+#import <AppKit/AppKit.h>
+
 #endif
 
 #if TARGET_OS_IPHONE
