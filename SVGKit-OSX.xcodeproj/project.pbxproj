@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5540E67017387C9F004029EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
-		5540E67A17387C9F004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E67817387C9F004029EF /* InfoPlist.strings */; };
 		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; };
 		5540E75117387F2B004029EF /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
 		5540E75217387F2B004029EF /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68917387F2A004029EF /* Attr.h */; };
@@ -151,11 +150,8 @@
 		5540E7DB17387F2B004029EF /* SVGSVGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71417387F2B004029EF /* SVGSVGElement.h */; };
 		5540E7DC17387F2B004029EF /* SVGSVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71517387F2B004029EF /* SVGSVGElement.m */; };
 		5540E7DD17387F2B004029EF /* SVGTextElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71617387F2B004029EF /* SVGTextElement.h */; };
-		5540E7DE17387F2B004029EF /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement.m */; };
 		5540E7DF17387F2B004029EF /* SVGTitleElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71817387F2B004029EF /* SVGTitleElement.h */; };
 		5540E7E017387F2B004029EF /* SVGTitleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71917387F2B004029EF /* SVGTitleElement.m */; };
-		5540E7E117387F2B004029EF /* CALayerExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71B17387F2B004029EF /* CALayerExporter.h */; };
-		5540E7E217387F2B004029EF /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71C17387F2B004029EF /* CALayerExporter.m */; };
 		5540E7E317387F2B004029EF /* SVGKParserDefsAndUse.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71F17387F2B004029EF /* SVGKParserDefsAndUse.h */; };
 		5540E7E417387F2B004029EF /* SVGKParserDefsAndUse.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E72017387F2B004029EF /* SVGKParserDefsAndUse.m */; };
 		5540E7E517387F2B004029EF /* SVGKParserDOM.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E72117387F2B004029EF /* SVGKParserDOM.h */; };
@@ -182,19 +178,17 @@
 		5540E7FA17387F2B004029EF /* CGPathAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73717387F2B004029EF /* CGPathAdditions.h */; };
 		5540E7FB17387F2B004029EF /* CGPathAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73817387F2B004029EF /* CGPathAdditions.m */; };
 		5540E7FC17387F2B004029EF /* SVGKLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73917387F2B004029EF /* SVGKLayer.h */; };
-		5540E7FD17387F2B004029EF /* SVGKLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73A17387F2B004029EF /* SVGKLayer.m */; };
 		5540E7FE17387F2B004029EF /* SVGKImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73B17387F2B004029EF /* SVGKImage.h */; };
-		5540E7FF17387F2B004029EF /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73C17387F2B004029EF /* SVGKImage.m */; };
 		5540E80017387F2B004029EF /* SVGKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73D17387F2B004029EF /* SVGKit.h */; };
 		5540E80117387F2B004029EF /* SVGKSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73E17387F2B004029EF /* SVGKSource.h */; };
 		5540E80217387F2B004029EF /* SVGKSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73F17387F2B004029EF /* SVGKSource.m */; };
 		5540E80B17387F2B004029EF /* SVGKImage+SVGPathView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74A17387F2B004029EF /* SVGKImage+SVGPathView.h */; };
-		5540E80C17387F2B004029EF /* SVGKImage+SVGPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74B17387F2B004029EF /* SVGKImage+SVGPathView.m */; };
 		5540E80D17387F2B004029EF /* SVGKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74C17387F2B004029EF /* SVGKPattern.h */; };
 		5540E80E17387F2B004029EF /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
 		5540E80F17387F2B004029EF /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74E17387F2B004029EF /* SVGUtils.h */; };
 		5540E81017387F2B004029EF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; };
 		5540E81117387F4A004029EF /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74217387F2B004029EF /* NSCharacterSet+SVGKExtensions.m */; };
+		5540E814173881BF004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -204,7 +198,6 @@
 		5540E67317387C9F004029EF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5540E67417387C9F004029EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5540E67717387C9F004029EF /* SVGKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SVGKit-Info.plist"; sourceTree = "<group>"; };
-		5540E67917387C9F004029EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5540E67B17387C9F004029EF /* SVGKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKit-Prefix.pch"; sourceTree = "<group>"; };
 		5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleSucksDOMImplementation.h; sourceTree = "<group>"; };
 		5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleSucksDOMImplementation.m; sourceTree = "<group>"; };
@@ -399,6 +392,7 @@
 		5540E74D17387F2B004029EF /* SVGKPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKPattern.m; sourceTree = "<group>"; };
 		5540E74E17387F2B004029EF /* SVGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGUtils.h; sourceTree = "<group>"; };
 		5540E74F17387F2B004029EF /* SVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGUtils.m; sourceTree = "<group>"; };
+		5540E815173881BF004029EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,7 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				5540E67717387C9F004029EF /* SVGKit-Info.plist */,
-				5540E67817387C9F004029EF /* InfoPlist.strings */,
+				5540E816173881BF004029EF /* InfoPlist.strings */,
 				5540E67B17387C9F004029EF /* SVGKit-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -847,7 +841,6 @@
 				5540E7DB17387F2B004029EF /* SVGSVGElement.h in Headers */,
 				5540E7DD17387F2B004029EF /* SVGTextElement.h in Headers */,
 				5540E7DF17387F2B004029EF /* SVGTitleElement.h in Headers */,
-				5540E7E117387F2B004029EF /* CALayerExporter.h in Headers */,
 				5540E7E317387F2B004029EF /* SVGKParserDefsAndUse.h in Headers */,
 				5540E7E517387F2B004029EF /* SVGKParserDOM.h in Headers */,
 				5540E7E717387F2B004029EF /* SVGKParserGradient.h in Headers */,
@@ -923,7 +916,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5540E67A17387C9F004029EF /* InfoPlist.strings in Resources */,
+				5540E814173881BF004029EF /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -992,9 +985,7 @@
 				5540E7D717387F2B004029EF /* SVGRectElement.m in Sources */,
 				5540E7DA17387F2B004029EF /* SVGStyleElement.m in Sources */,
 				5540E7DC17387F2B004029EF /* SVGSVGElement.m in Sources */,
-				5540E7DE17387F2B004029EF /* SVGTextElement.m in Sources */,
 				5540E7E017387F2B004029EF /* SVGTitleElement.m in Sources */,
-				5540E7E217387F2B004029EF /* CALayerExporter.m in Sources */,
 				5540E7E417387F2B004029EF /* SVGKParserDefsAndUse.m in Sources */,
 				5540E7E617387F2B004029EF /* SVGKParserDOM.m in Sources */,
 				5540E7E817387F2B004029EF /* SVGKParserGradient.m in Sources */,
@@ -1007,10 +998,7 @@
 				5540E7F717387F2B004029EF /* CALayerWithChildHitTest.m in Sources */,
 				5540E7F917387F2B004029EF /* CAShapeLayerWithHitTest.m in Sources */,
 				5540E7FB17387F2B004029EF /* CGPathAdditions.m in Sources */,
-				5540E7FD17387F2B004029EF /* SVGKLayer.m in Sources */,
-				5540E7FF17387F2B004029EF /* SVGKImage.m in Sources */,
 				5540E80217387F2B004029EF /* SVGKSource.m in Sources */,
-				5540E80C17387F2B004029EF /* SVGKImage+SVGPathView.m in Sources */,
 				5540E80E17387F2B004029EF /* SVGKPattern.m in Sources */,
 				5540E81017387F2B004029EF /* SVGUtils.m in Sources */,
 				5540E81117387F4A004029EF /* NSCharacterSet+SVGKExtensions.m in Sources */,
@@ -1020,13 +1008,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5540E67817387C9F004029EF /* InfoPlist.strings */ = {
+		5540E816173881BF004029EF /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5540E67917387C9F004029EF /* en */,
+				5540E815173881BF004029EF /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
+			path = "XCodeProjectData/SVGKit-OSX";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 
@@ -1097,6 +1086,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
@@ -1112,6 +1102,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
