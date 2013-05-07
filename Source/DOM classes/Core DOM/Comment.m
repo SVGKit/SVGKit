@@ -8,7 +8,7 @@
 
 #import "Comment.h"
 
-@implementation Comment
+@implementation SVGComment
 
 - (id)initWithValue:(NSString*) v
 {

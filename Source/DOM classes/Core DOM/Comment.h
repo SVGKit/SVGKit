@@ -3,7 +3,7 @@
  
  http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1728279322
 
- interface Comment : CharacterData {
+ interface SVGComment : CharacterData {
  };
 */
 
@@ -11,7 +11,7 @@
 
 #import "CharacterData.h"
 
-@interface Comment : CharacterData
+@interface SVGComment : CharacterData
 
 - (id)initWithValue:(NSString*) v;
 
