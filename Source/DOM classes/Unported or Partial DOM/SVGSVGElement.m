@@ -175,7 +175,7 @@
         NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
 #else
         //mac logging
-     NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
+     NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(CGRectFromSVGRect(self.viewBox)));
 #endif   
 	
 }

@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		55247B1A173DA85200531BBC /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73C17387F2B004029EF /* SVGKImage.m */; };
+		55247B22173DB63B00531BBC /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */; };
+		55247B24173DB63C00531BBC /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B1E173DB63B00531BBC /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55247B25173DB63C00531BBC /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1F173DB63B00531BBC /* SVGKSourceString.m */; };
+		55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B20173DB63B00531BBC /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B21173DB63B00531BBC /* SVGKSourceURL.m */; };
 		5540E67017387C9F004029EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
 		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; };
 		5540E75117387F2B004029EF /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
@@ -195,6 +201,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceLocalFile.h; sourceTree = "<group>"; };
+		55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceLocalFile.m; sourceTree = "<group>"; };
+		55247B1E173DB63B00531BBC /* SVGKSourceString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceString.h; sourceTree = "<group>"; };
+		55247B1F173DB63B00531BBC /* SVGKSourceString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceString.m; sourceTree = "<group>"; };
+		55247B20173DB63B00531BBC /* SVGKSourceURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceURL.h; sourceTree = "<group>"; };
+		55247B21173DB63B00531BBC /* SVGKSourceURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceURL.m; sourceTree = "<group>"; };
 		5540E66C17387C9F004029EF /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5540E66F17387C9F004029EF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		5540E67217387C9F004029EF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -412,6 +424,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55247B1B173DB63A00531BBC /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */,
+				55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */,
+				55247B1E173DB63B00531BBC /* SVGKSourceString.h */,
+				55247B1F173DB63B00531BBC /* SVGKSourceString.m */,
+				55247B20173DB63B00531BBC /* SVGKSourceURL.h */,
+				55247B21173DB63B00531BBC /* SVGKSourceURL.m */,
+			);
+			name = Sources;
+			path = Source/Sources;
+			sourceTree = SOURCE_ROOT;
+		};
 		5540E66217387C9E004029EF = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +502,7 @@
 				5540E71A17387F2B004029EF /* Exporters */,
 				5540E71D17387F2B004029EF /* Parsers */,
 				5540E73217387F2B004029EF /* QuartzCore additions */,
+				55247B1B173DB63A00531BBC /* Sources */,
 				5540E73B17387F2B004029EF /* SVGKImage.h */,
 				5540E73C17387F2B004029EF /* SVGKImage.m */,
 				5540E73D17387F2B004029EF /* SVGKit.h */,
@@ -867,6 +894,9 @@
 				5540E80B17387F2B004029EF /* SVGKImage+SVGPathView.h in Headers */,
 				5540E80D17387F2B004029EF /* SVGKPattern.h in Headers */,
 				5540E80F17387F2B004029EF /* SVGUtils.h in Headers */,
+				55247B22173DB63B00531BBC /* SVGKSourceLocalFile.h in Headers */,
+				55247B24173DB63C00531BBC /* SVGKSourceString.h in Headers */,
+				55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1010,6 +1040,9 @@
 				5540E81117387F4A004029EF /* NSCharacterSet+SVGKExtensions.m in Sources */,
 				5540E819173887D9004029EF /* SVGTextElement.m in Sources */,
 				55247B1A173DA85200531BBC /* SVGKImage.m in Sources */,
+				55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */,
+				55247B25173DB63C00531BBC /* SVGKSourceString.m in Sources */,
+				55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

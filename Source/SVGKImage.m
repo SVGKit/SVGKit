@@ -14,6 +14,10 @@
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 
+#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
+#endif
+
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
