@@ -650,7 +650,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
 	CIImage *result = [[CIImage alloc] initWithCGImage:cgImage];
 	CGImageRelease(cgImage);
-	return [result autorelease];
+	return result;
 }
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -658,7 +658,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
 	NSImage *result = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
 	CGImageRelease(cgImage);
-	return [result autorelease];
+	return result;
 }
 
 #endif
