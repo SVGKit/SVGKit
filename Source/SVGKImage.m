@@ -639,20 +639,35 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return result;
 }
 #else
-- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+
+- (CGImageRef)newCGImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	//CIImage *result = [[CIImage alloc] initWi]
-	CGSize curSize = self.size;
+		CGSize curSize = self.size;
 	CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 	CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
 	CGColorSpaceRelease(theSpace);
 	[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
 	CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
 	CGContextRelease(bitCont);
+	return cgImage;
+}
+
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
 	CIImage *result = [[CIImage alloc] initWithCGImage:cgImage];
 	CGImageRelease(cgImage);
 	return [result autorelease];
 }
+
+- (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	NSImage *result = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
+	CGImageRelease(cgImage);
+	return [result autorelease];
+}
+
 #endif
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point

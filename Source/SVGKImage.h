@@ -229,6 +229,7 @@
 - (UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #else
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+- (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #endif
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
