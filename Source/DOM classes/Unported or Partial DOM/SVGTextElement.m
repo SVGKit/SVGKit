@@ -5,11 +5,11 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
-#define CGBLACKCOLOR [UIColor blackColor].CGColor
+#define CGBLACKCOLOR() [UIColor blackColor].CGColor
 
 #else
 
-#define CGBLACKCOLOR CGColorGetConstantColor(kCGColorBlack)
+#define CGBLACKCOLOR() CGColorGetConstantColor(kCGColorBlack)
 
 #endif
 
@@ -142,7 +142,7 @@
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
-    label.foregroundColor = CGBLACKCOLOR;
+    label.foregroundColor = CGBLACKCOLOR();
 
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
