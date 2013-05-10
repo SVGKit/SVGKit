@@ -27,9 +27,7 @@
 
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			@"http://www.w3.org/2000/svg",
-			nil];
+	return @[@"http://www.w3.org/2000/svg"];
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */

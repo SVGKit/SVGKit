@@ -14,7 +14,7 @@
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
-@property(nonatomic,retain) SVGKImage* mainInstance;
+@property(nonatomic,strong) SVGKImage* mainInstance;
 @end
 @implementation SVGKImageCacheLine
 @synthesize numberOfInstances;
@@ -24,15 +24,15 @@
 
 @interface SVGKImage ()
 
-@property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, strong, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readwrite) SVGKSource* source;
+@property (nonatomic, strong, readwrite) SVGKSource* source;
 
-@property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readwrite) CALayer* CALayerTree;
+@property (nonatomic, strong, readwrite) SVGDocument* DOMDocument;
+@property (nonatomic, strong, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, strong, readwrite) CALayer* CALayerTree;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, strong, readwrite) NSString* nameUsedToInstantiate;
 #endif
 
 /**
@@ -121,7 +121,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     result->cameFromGlobalCache = TRUE;
     result.nameUsedToInstantiate = name;
     
-    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
+    SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
     newCacheLine.mainInstance = result;
     
     [globalSVGKImageCache setValue:newCacheLine forKey:name];
@@ -133,13 +133,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+	return [[[self class] alloc] initWithContentsOfURL:url];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
     @synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+	return [[[self class] alloc] initWithContentsOfFile:aPath];
     }
 }
 
@@ -147,7 +147,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+	return [[[self class] alloc] initWithSource:newSource];
     }
 }
 
@@ -232,17 +232,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 
-    self.source = nil;
-    self.parseErrorsAndWarnings = nil;
     
-    self.DOMDocument = nil;
-	self.DOMTree = nil;
-	self.CALayerTree = nil;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    self.nameUsedToInstantiate = nil;
 #endif
         
-	[super dealloc];
 }
 
 //TODO mac alternatives to UIKit functions
@@ -444,7 +437,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child] autorelease];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
 			
 			if (!sublayer) {
 				continue;
@@ -476,7 +469,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	if( CALayerTree == nil )
 	{
 		NSLog(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		self.CALayerTree = [[self newCALayerTree] autorelease];
+		self.CALayerTree = [self newCALayerTree];
 	}
 	
 	return CALayerTree;

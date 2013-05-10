@@ -119,11 +119,11 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	}
 	for( NSString* parserNamespace in extension.supportedNamespaces )
 	{
-		NSMutableArray* extensionsForNamespace = [self.parserKnownNamespaces objectForKey:parserNamespace];
+		NSMutableArray* extensionsForNamespace = (self.parserKnownNamespaces)[parserNamespace];
 		if( extensionsForNamespace == nil )
 		{
 			extensionsForNamespace = [NSMutableArray array];
-			[self.parserKnownNamespaces setObject:extensionsForNamespace forKey:parserNamespace];
+			(self.parserKnownNamespaces)[parserNamespace] = extensionsForNamespace;
 		}
 		
 		[extensionsForNamespace addObject:extension];
@@ -404,12 +404,12 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 */
 	for( NSString* prefix in namespacesByPrefix )
 	{
-		NSString* uri = [namespacesByPrefix objectForKey:prefix];
+		NSString* uri = namespacesByPrefix[prefix];
 		
 		if( prefix != nil )
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
+			(self.currentParseRun.namespacesEncountered)[prefix] = uri;
 		else
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
+			(self.currentParseRun.namespacesEncountered)[[NSNull null]] = uri;
 	}
 	
 #if DEBUG_XML_PARSER
@@ -502,7 +502,7 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 		strncpy(value, (const char *) chars, len);
 		value[len] = '\0';
 		
-		[_storedChars appendString:[NSString stringWithUTF8String:value]];
+		[_storedChars appendString:@(value)];
 }
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
@@ -521,14 +521,12 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	va_list va;
 	va_start(va, msg);
-	NSString *errStr = [[NSString alloc] initWithFormat:[NSString stringWithUTF8String:msg] arguments:va];
+	NSString *errStr = [[NSString alloc] initWithFormat:@(msg) arguments:va];
 	va_end(va);
 	NSLog(@"Error encountered during parse: %@", errStr);
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
-	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  errStr, NSLocalizedDescriptionKey,
-																				nil]]];
+	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
 }
 
 static void	unparsedEntityDeclaration(void * ctx, 
@@ -551,19 +549,19 @@ static void structuredError		(void * userData,
 	xmlErrorLevel errorLevel = error->level;
 	
 	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
-									[NSNumber numberWithInt:error->line], @"lineNumber",
-									[NSNumber numberWithInt:error->int2], @"columnNumber",
+									@(error->message), NSLocalizedDescriptionKey,
+									@(error->line), @"lineNumber",
+									@(error->int2), @"columnNumber",
 									nil];
 	
 	if( error->str1 )
-		[details setValue:[NSString stringWithCString:error->str1 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo1"];
+		[details setValue:@(error->str1) forKey:@"bonusInfo1"];
 	if( error->str2 )
-		[details setValue:[NSString stringWithCString:error->str2 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo2"];
+		[details setValue:@(error->str2) forKey:@"bonusInfo2"];
 	if( error->str3 )
-		[details setValue:[NSString stringWithCString:error->str3 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo3"];
+		[details setValue:@(error->str3) forKey:@"bonusInfo3"];
 	
-	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
+	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
@@ -631,7 +629,7 @@ static NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	if( string == NULL ) // Yes, Apple requires we do this check!
 		return nil;
 	else
-		return [NSString stringWithUTF8String:(const char *) string];
+		return @((const char *) string);
 }
 
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct)
@@ -646,8 +644,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **na
 		if( prefix == nil )
 			prefix = @""; // Special case: Apple dictionaries can't handle null keys
 		
-		[dict setObject:uri
-				 forKey:prefix];
+		dict[prefix] = uri;
 	}
 	
 	return dict;
@@ -669,14 +666,13 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		NSString* localName = NSStringFromLibxmlString(attrs[i]);
 		NSString* prefix = NSStringFromLibxmlString(attrs[i+1]);
 		NSString* uri = NSStringFromLibxmlString(attrs[i+2]);
-		NSString* value = [NSString stringWithUTF8String:val];
+		NSString* value = @(val);
 		
 		NSString* qname = (prefix == nil) ? localName : [NSString stringWithFormat:@"%@:%@", prefix, localName];
 		
 		Attr* newAttribute = [[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value];
 		
-		[dict setObject:newAttribute
-				 forKey:qname];
+		dict[qname] = newAttribute;
 	}
 	
 	return dict;
@@ -690,7 +686,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	if( styleAttribute == nil )
 	{
 		NSLog(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
-		return [NSDictionary dictionary];
+		return @{};
 	}
 	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -725,10 +721,9 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		else if (c == ';' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]];
+			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:@(name) value:@(accum)];
 			
-			[dict setObject:newAttribute
-					 forKey:newAttribute.localName];
+			dict[newAttribute.localName] = newAttribute;
 			
 			bzero(name, MAX_NAME);
 			

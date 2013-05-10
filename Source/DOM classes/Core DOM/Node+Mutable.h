@@ -8,12 +8,12 @@
 @property(nonatomic,strong,readwrite) NSString* nodeValue;
 
 @property(nonatomic,readwrite) DOMNodeType nodeType;
-@property(nonatomic,weak,readwrite) Node* parentNode;
+@property(nonatomic,unsafe_unretained,readwrite) Node* parentNode;
 @property(nonatomic,strong,readwrite) NodeList* childNodes;
-@property(nonatomic,weak,readwrite) Node* firstChild;
-@property(nonatomic,weak,readwrite) Node* lastChild;
-@property(nonatomic,weak,readwrite) Node* previousSibling;
-@property(nonatomic,weak,readwrite) Node* nextSibling;
+@property(nonatomic,unsafe_unretained,readwrite) Node* firstChild;
+@property(nonatomic,unsafe_unretained,readwrite) Node* lastChild;
+@property(nonatomic,unsafe_unretained,readwrite) Node* previousSibling;
+@property(nonatomic,unsafe_unretained,readwrite) Node* nextSibling;
 @property(nonatomic,strong,readwrite) NamedNodeMap* attributes;
 
 @property(nonatomic,unsafe_unretained,readwrite) Document* ownerDocument;

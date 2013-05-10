@@ -105,12 +105,12 @@ typedef enum DOMNodeType
 @property(nonatomic,strong,readonly) NSString* nodeValue;
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
-@property(nonatomic,weak,readonly) Node* parentNode;
+@property(nonatomic,unsafe_unretained,readonly) Node* parentNode;
 @property(nonatomic,strong,readonly) NodeList* childNodes;
-@property(nonatomic,weak,readonly) Node* firstChild;
-@property(nonatomic,weak,readonly) Node* lastChild;
-@property(nonatomic,weak,readonly) Node* previousSibling;
-@property(nonatomic,weak,readonly) Node* nextSibling;
+@property(nonatomic,unsafe_unretained,readonly) Node* firstChild;
+@property(nonatomic,unsafe_unretained,readonly) Node* lastChild;
+@property(nonatomic,unsafe_unretained,readonly) Node* previousSibling;
+@property(nonatomic,unsafe_unretained,readonly) Node* nextSibling;
 @property(nonatomic,strong,readonly) NamedNodeMap* attributes; /*< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
 
 // Modified in DOM Level 2:

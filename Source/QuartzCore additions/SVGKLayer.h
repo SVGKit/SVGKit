@@ -29,7 +29,7 @@
  */
 @interface SVGKLayer : CALayer
 
-@property(nonatomic,retain) SVGKImage* SVGImage;
+@property(nonatomic,strong) SVGKImage* SVGImage;
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 
 @end

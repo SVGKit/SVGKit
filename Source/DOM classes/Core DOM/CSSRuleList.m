@@ -22,7 +22,7 @@
 
 -(CSSRule *)item:(unsigned long)index
 {
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 -(NSString *)description

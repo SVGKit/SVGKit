@@ -46,10 +46,6 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 
 @synthesize href = _href;
 
-- (void)dealloc {
-    _href = nil;
-
-}
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];

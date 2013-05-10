@@ -17,7 +17,7 @@
 
 -(Node*) item:(int) index
 {
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 -(long)length

@@ -8,16 +8,35 @@
 
 #import "CALayerExporter.h"
 
-typedef struct ExportPathCommandsContext {
+@interface ExportPathCommandsContext : NSObject
+{
     NSString* pathName;
     NSMutableString* pathCommands;
-} ExportPathCommandsContext;
+}
+
+@property (readwrite, copy) NSString *pathName;
+@property (readwrite, nonatomic, copy) NSMutableString* pathCommands;
+
+@end
+
+@implementation ExportPathCommandsContext
+
+@synthesize pathName;
+@synthesize pathCommands;
+
+- (void)setPathCommands:(NSMutableString *)aPathCommands
+{
+	pathCommands = [aPathCommands mutableCopy];
+}
+
+
+@end
 
 void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
-    ExportPathCommandsContext* ctx = (ExportPathCommandsContext*) exportPathCommandsConextPtr;
-    NSMutableString* pathCommands = ctx->pathCommands;
-    NSString* pathName = ctx-> pathName;
+    ExportPathCommandsContext* ctx = (__bridge ExportPathCommandsContext*) exportPathCommandsConextPtr;
+    NSMutableString* pathCommands = ctx.pathCommands;
+    NSString* pathName = ctx.pathName;
     CGPoint* pathPoints = element->points;
     switch (element->type) {
         case kCGPathElementMoveToPoint:
@@ -73,23 +92,17 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [[NSMutableDictionary dictionary] retain];
+        propertyRegistry = [NSMutableDictionary dictionary];
         
-        NSArray* CALayerProperties = [NSArray arrayWithObjects:@"name", @"bounds", @"frame", nil];
-        [propertyRegistry setObject:CALayerProperties
-                             forKey:NSStringFromClass([CALayer class])];
+        NSArray* CALayerProperties = @[@"name", @"bounds", @"frame"];
+        propertyRegistry[NSStringFromClass([CALayer class])] = CALayerProperties;
         
-        NSArray* CAShapeLayerProperties = [NSArray arrayWithObjects:@"path", @"fillColor", @"fillRule", @"strokeColor", @"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern", nil];
-        [propertyRegistry setObject:CAShapeLayerProperties
-                             forKey:NSStringFromClass([CAShapeLayer class])];
+        NSArray* CAShapeLayerProperties = @[@"path", @"fillColor", @"fillRule", @"strokeColor", @"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern"];
+        propertyRegistry[NSStringFromClass([CAShapeLayer class])] = CAShapeLayerProperties;
     }
     return self;
 }
 
-- (void)dealloc {
-    [rootView release];
-    [super dealloc];
-}
 
 - (void)startExport
 {
@@ -119,7 +132,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         Class registeredClass = NSClassFromString(registeredClassName);
         if ([currentLayer isKindOfClass:registeredClass]) {
             
-            for (NSString* propertyName in [propertyRegistry objectForKey:registeredClassName]) {
+            for (NSString* propertyName in propertyRegistry[registeredClassName]) {
                 
                 SEL message = NSSelectorFromString(propertyName);
                 
@@ -130,6 +143,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                 
                 if (0 == strcmp("@", methodReturnType)) {
                     
+					//FIXME: Clang complains about a potential leak here...
                     id v = [currentLayer performSelector:message];
                     
                     if (nil == v) {
@@ -234,11 +248,11 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                                            withStatement:pathCreateStatement];
                             
                             NSMutableString* pathCommands = [NSMutableString string];
-                            ExportPathCommandsContext exportPathContext;
+                            ExportPathCommandsContext *exportPathContext = [ExportPathCommandsContext new];
                             exportPathContext.pathName = pathName;
                             exportPathContext.pathCommands = pathCommands;
                             
-                            CGPathApply(path, &exportPathContext, exportPathCommands);
+                            CGPathApply(path, (__bridge void*)exportPathContext, exportPathCommands);
                             [self.delegate layerExporter:self
                                            didParseLayer:currentLayer
                                            withStatement:pathCommands];
@@ -246,7 +260,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                             propertyValue = pathName;
                         }
                     } else {
-                        propertyValue = [NSString stringWithCString:methodReturnType encoding:NSUTF8StringEncoding];
+                        propertyValue = @(methodReturnType);
                     }
                 }
                 

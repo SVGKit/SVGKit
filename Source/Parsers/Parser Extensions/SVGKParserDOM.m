@@ -9,7 +9,7 @@
  */
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray array];
+	return @[];
 }
 
 /** 
