@@ -74,6 +74,7 @@
 @property (nonatomic, readonly) UIImage* UIImage;
 #else
 @property (nonatomic, readonly) CIImage *CIImage;
+@property (nonatomic, readonly) NSImage *NSImage;
 #endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;

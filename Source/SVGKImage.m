@@ -300,6 +300,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return [self exportCIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 }
 
+- (NSImage*)NSImage
+{
+	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+}
+
 #endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
