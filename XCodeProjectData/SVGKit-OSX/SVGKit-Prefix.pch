@@ -2,6 +2,10 @@
 // Prefix header for all source files of the 'SVGKit' target in the 'SVGKit' project
 //
 
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 #endif

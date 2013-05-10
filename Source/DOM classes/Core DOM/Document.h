@@ -52,13 +52,20 @@
  
  */
 
+#include <AvailabilityMacros.h>
+#if !TARGET_OS_IPHONE
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+#endif
+
 #import <Foundation/Foundation.h>
 
 /** ObjectiveC won't allow this: @class Node; */
 #import "Node.h"
 @class Element;
 #import "Element.h"
-@class SVGComment;
+@class Comment;
 #import "Comment.h"
 @class CDATASection;
 #import "CDATASection.h"
@@ -85,7 +92,7 @@
 -(Element*) createElement:(NSString*) tagName __attribute__((ns_returns_retained));
 -(DocumentFragment*) createDocumentFragment __attribute__((ns_returns_retained));
 -(Text*) createTextNode:(NSString*) data __attribute__((ns_returns_retained));
--(SVGComment*) createComment:(NSString*) data __attribute__((ns_returns_retained));
+-(Comment*) createComment:(NSString*) data __attribute__((ns_returns_retained));
 -(CDATASection*) createCDATASection:(NSString*) data __attribute__((ns_returns_retained));
 -(ProcessingInstruction*) createProcessingInstruction:(NSString*) target data:(NSString*) data __attribute__((ns_returns_retained));
 -(Attr*) createAttribute:(NSString*) data __attribute__((ns_returns_retained));
