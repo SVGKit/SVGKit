@@ -135,9 +135,11 @@ static inline NSString *NSStringFromCGPoint(CGPoint thepoint)
         for (SVGGradientStop *theStop in _stops) 
         {
             [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
-//            theColor = CGColorWithSVGColor([theStop stopColor]);
+//            theColor = CreateCGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
+			CGColorRef theColor = CreateCGColorWithSVGColor([theStop stopColor]);
+            [colorBuilder addObject:(id)theColor];
+			CGColorRelease(theColor);
             //        CGColorRelease(alphaColor);
         }
         
