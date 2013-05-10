@@ -18,7 +18,7 @@
 #define SVGImage CIImage
 #endif
 
-#define SVGImageRef SVGImage*
+typedef SVGImage *SVGImageRef;
 
 CGImageRef SVGImageCGImage(SVGImageRef img)
 {
