@@ -7,12 +7,7 @@
 #import "SVGGElement.h"
 
 #if !TARGET_OS_IPHONE
-
-static inline NSString *NSStringFromCGPoint(CGPoint thepoint)
-{
-	return NSStringFromPoint(NSPointFromCGPoint(thepoint));
-}
-
+#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
 #endif
 
 @implementation SVGGradientElement

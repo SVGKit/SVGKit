@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55247B1A173DA85200531BBC /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73C17387F2B004029EF /* SVGKImage.m */; };
 		5540E67017387C9F004029EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
 		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; };
 		5540E75117387F2B004029EF /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
@@ -1008,6 +1009,7 @@
 				5540E81017387F2B004029EF /* SVGUtils.m in Sources */,
 				5540E81117387F4A004029EF /* NSCharacterSet+SVGKExtensions.m in Sources */,
 				5540E819173887D9004029EF /* SVGTextElement.m in Sources */,
+				55247B1A173DA85200531BBC /* SVGKImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
