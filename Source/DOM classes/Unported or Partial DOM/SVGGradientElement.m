@@ -137,17 +137,14 @@ static inline NSString *NSStringFromCGPoint(CGPoint thepoint)
             [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
 //            theColor = CGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
+            [colorBuilder addObject:(__bridge id)CGColorWithSVGColor([theStop stopColor])];
             //        CGColorRelease(alphaColor);
         }
         
         colors = [[NSArray alloc] initWithArray:colorBuilder];
-        [colorBuilder release];
         
         locations = [[NSArray alloc] initWithArray:locationBuilder];
-        [locationBuilder release];
         
-        [_stops release];
         _stops = nil;
     }
     
@@ -176,15 +173,5 @@ static inline NSString *NSStringFromCGPoint(CGPoint thepoint)
 	
 }
 
--(void)dealloc
-{
-    [_stops release];
-    _stops = nil;
-    
-    [colors release];
-    [locations release];
-    
-    [super dealloc];
-}
 
 @end

@@ -41,7 +41,7 @@ typedef enum SVGKTransformType
 } SVGKTransformType;
 
 @property(nonatomic) SVGKTransformType type;
-@property(nonatomic,retain) SVGMatrix* matrix;
+@property(nonatomic,strong) SVGMatrix* matrix;
 @property(nonatomic,readonly) float angle;
 
 -(void) setMatrix:(SVGMatrix*) matrix;

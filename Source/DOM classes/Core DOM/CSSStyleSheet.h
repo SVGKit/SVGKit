@@ -18,8 +18,8 @@
 @interface CSSStyleSheet : NSObject
 
 
-@property(nonatomic,retain) CSSRule* ownerRule;
-@property(nonatomic,retain) CSSRuleList* cssRules;
+@property(nonatomic,strong) CSSRule* ownerRule;
+@property(nonatomic,strong) CSSRuleList* cssRules;
 
 -(long) insertRule:(NSString*) rule index:(unsigned long) index;
 -(void) deleteRule:(unsigned long) index;

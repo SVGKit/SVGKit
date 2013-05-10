@@ -19,8 +19,8 @@
 
 @interface SVGElement : Element <SVGStylable>
 
-@property (nonatomic, readwrite, retain) NSString *identifier; // 'id' is reserved in Obj-C, so we have to break SVG Spec here, slightly
-@property (nonatomic, retain) NSString* xmlbase;
+@property (nonatomic, readwrite, strong) NSString *identifier; // 'id' is reserved in Obj-C, so we have to break SVG Spec here, slightly
+@property (nonatomic, strong) NSString* xmlbase;
 /*!
  
  http://www.w3.org/TR/SVG/intro.html#TermSVGDocumentFragment
@@ -28,14 +28,14 @@
  SVG document fragment
  The XML document sub-tree which starts with an ‘svg’ element. An SVG document fragment can consist of a stand-alone SVG document, or a fragment of a parent XML document enclosed by an ‘svg’ element. When an ‘svg’ element is a descendant of another ‘svg’ element, there are two SVG document fragments, one for each ‘svg’ element. (One SVG document fragment is contained within another SVG document fragment.)
  */
-@property (nonatomic, assign) SVGSVGElement* rootOfCurrentDocumentFragment;
+@property (nonatomic, weak) SVGSVGElement* rootOfCurrentDocumentFragment;
 
 /*! The viewport is set / re-set whenever an SVG node specifies a "width" (and optionally: a "height") attribute,
  assuming that SVG node is one of: svg, symbol, image, foreignobject
  
  The spec isn't clear what happens if this element redefines the viewport itself, but IMHO it implies that the
  viewportElement becomes a reference to "self" */
-@property (nonatomic, assign) SVGElement* viewportElement;
+@property (nonatomic, weak) SVGElement* viewportElement;
 
 
 #pragma mark - NON-STANDARD features of class (these are things that are NOT in the SVG spec, and should NOT be in SVGKit's implementation - they should be moved to a different class, although WE DO STILL NEED THESE in order to implement the spec, and to provide SVGKit features!)

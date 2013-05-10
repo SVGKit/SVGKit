@@ -70,21 +70,21 @@
 
 
 
-@property (nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
-@property (nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;
-@property (nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* width;
-@property (nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
-@property (nonatomic, retain, readonly) NSString* contentScriptType;
-@property (nonatomic, retain, readonly) NSString* contentStyleType;
+@property (nonatomic, strong, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
+@property (nonatomic, strong, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;
+@property (nonatomic, strong, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* width;
+@property (nonatomic, strong, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
+@property (nonatomic, strong, readonly) NSString* contentScriptType;
+@property (nonatomic, strong, readonly) NSString* contentStyleType;
 @property (nonatomic, readonly) SVGRect viewport;
 @property (nonatomic, readonly) float pixelUnitToMillimeterX;
 @property (nonatomic, readonly) float pixelUnitToMillimeterY;
 @property (nonatomic, readonly) float screenPixelToMillimeterX;
 @property (nonatomic, readonly) float screenPixelToMillimeterY;
 @property (nonatomic, readonly) BOOL useCurrentView;
-@property (nonatomic, retain, readonly) SVGViewSpec* currentView;
+@property (nonatomic, strong, readonly) SVGViewSpec* currentView;
 @property (nonatomic, readonly) float currentScale;
-@property (nonatomic, retain, readonly) SVGPoint* currentTranslate;
+@property (nonatomic, strong, readonly) SVGPoint* currentTranslate;
 
 -(long) suspendRedraw:(long) maxWaitMilliseconds;
 -(void) unsuspendRedraw:(long) suspendHandleID;

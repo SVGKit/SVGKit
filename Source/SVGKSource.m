@@ -12,7 +12,7 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithFileAtPath:p];
 	[stream open];
 	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+	SVGKSource* s = [[SVGKSource alloc] initWithInputSteam:stream];
 	s.filePath = p;
 	
 	return s;
@@ -22,7 +22,7 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
 	[stream open];
 	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+	SVGKSource* s = [[SVGKSource alloc] initWithInputSteam:stream];
 	s.URL = u;
 	
 	return s;
@@ -32,7 +32,7 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
 	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+	SVGKSource* s = [[SVGKSource alloc] initWithInputSteam:stream];
 	return s;
 }
 
@@ -45,12 +45,5 @@
 	return self;
 }
 
-- (void)dealloc {
-	self.filePath = nil;
-	self.URL = nil;
-	self.svgLanguageVersion = nil;
-	self.stream = nil;
-	[super dealloc];
-}
 
 @end

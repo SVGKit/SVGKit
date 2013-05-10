@@ -29,7 +29,7 @@ typedef enum CSSUnitType
 	NSString* _cssText; // for subclasses to manually set
 }
 
-@property(nonatomic,retain) NSString* cssText;
+@property(nonatomic,strong) NSString* cssText;
 @property(nonatomic) CSSUnitType cssValueType;
 
 @end

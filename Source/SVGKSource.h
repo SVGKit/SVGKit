@@ -17,10 +17,10 @@
 
 @interface SVGKSource : NSObject
 
-@property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
-@property (nonatomic, retain) NSString* filePath;
-@property (nonatomic, retain) NSURL* URL;
-@property (nonatomic, retain) NSInputStream* stream;
+@property (nonatomic, strong) NSString* svgLanguageVersion; /*< <svg version=""> */
+@property (nonatomic, strong) NSString* filePath;
+@property (nonatomic, strong) NSURL* URL;
+@property (nonatomic, strong) NSInputStream* stream;
 
 + (SVGKSource*)sourceFromFilename:(NSString*)p;
 + (SVGKSource*)sourceFromURL:(NSURL*)u;

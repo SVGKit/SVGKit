@@ -80,7 +80,7 @@ static NSSet *_svgGradientParserSupportedTags = nil;
 //                                                        linearGrad.y2 = xml_grad.@y2;
 //                                            else if(linearGrad.y2 == null)
 //                                                        linearGrad.y2 = "0%";
-    return [returnObject autorelease];
+    return returnObject;
 }
 
 -(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
@@ -97,7 +97,6 @@ static NSSet *_svgGradientParserSupportedTags = nil;
 
 +(void)trim
 {
-    [_svgGradientParserSupportedTags release];
     _svgGradientParserSupportedTags = nil;
 }
 

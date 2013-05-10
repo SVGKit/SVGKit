@@ -6,10 +6,6 @@
 @synthesize cssText = _cssText;
 @synthesize cssValueType;
 
-- (void)dealloc {
-    [_cssText release];
-    [super dealloc];
-}
 
 - (id)init
 {

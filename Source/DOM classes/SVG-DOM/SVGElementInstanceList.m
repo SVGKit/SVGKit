@@ -3,10 +3,6 @@
 
 @implementation SVGElementInstanceList
 
-- (void)dealloc {
-  self.internalArray = nil;
-  [super dealloc];
-}
 
 - (id)init
 {

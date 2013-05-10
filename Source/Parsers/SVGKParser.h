@@ -60,12 +60,12 @@
 	Node * _parentOfCurrentNode;
 }
 
-@property(nonatomic,retain,readonly) SVGKSource* source;
-@property(nonatomic,retain,readonly) SVGKParseResult* currentParseRun;
+@property(nonatomic,strong,readonly) SVGKSource* source;
+@property(nonatomic,strong,readonly) SVGKParseResult* currentParseRun;
 
 
-@property(nonatomic,retain) NSMutableArray* parserExtensions;
-@property(nonatomic,retain) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
+@property(nonatomic,strong) NSMutableArray* parserExtensions;
+@property(nonatomic,strong) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
 
 #pragma mark - NEW
 

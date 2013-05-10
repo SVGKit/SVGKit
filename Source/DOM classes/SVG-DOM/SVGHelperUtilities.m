@@ -162,7 +162,7 @@ static inline NSString *NSStringFromCGRect(CGRect theRect)
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
-	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
+	CAShapeLayer* _shapeLayer = [CAShapeLayerWithHitTest layer];
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
@@ -287,7 +287,6 @@ static inline NSString *NSStringFromCGRect(CGRect theRect)
 			
 			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;
-			[_shapeLayer release]; // because it was created with a +1 retain count
 			
 			return gradientLayer;
 		}
