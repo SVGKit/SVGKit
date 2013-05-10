@@ -62,6 +62,9 @@
 static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
+//iOS only
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+
 +(void) initialize
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
@@ -76,6 +79,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }
+#endif
 #endif
 
 #pragma mark - Convenience initializers
@@ -147,7 +151,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+	return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
     }
 }
 
@@ -278,16 +282,25 @@ static NSMutableDictionary* globalSVGKImageCache;
 	self.CALayerTree = nil; // invalidate the cached copy
 }
 
--(CGFloat)scale
+- (CGFloat)scale
 {
 	NSAssert( FALSE, @"image.scale is currently UNDEFINED for an SVGKImage (nothing implemented by SVGKit)" );
 	return 0.0;
 }
 
--(UIImage *)UIImage
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+- (UIImage *)UIImage
 {
 	return [self exportUIImageAntiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 }
+#else
+
+- (CIImage*)CIImage
+{
+	return [self exportCIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+}
+
+#endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
@@ -299,13 +312,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 #pragma mark - unsupported / unimplemented UIImage methods (should add as a feature)
 - (void)drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
-NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
+	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
+
 - (void)drawInRect:(CGRect)rect                                                           // mode = kCGBlendModeNormal, alpha = 1.0
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
- - (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
+
+- (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
@@ -607,7 +622,7 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return result;
 }
 
-
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
@@ -623,6 +638,22 @@ NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	
 	return result;
 }
+#else
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	//CIImage *result = [[CIImage alloc] initWi]
+	CGSize curSize = self.size;
+	CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+	CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
+	CGColorSpaceRelease(theSpace);
+	[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
+	CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
+	CGContextRelease(bitCont);
+	CIImage *result = [[CIImage alloc] initWithCGImage:cgImage];
+	CGImageRelease(cgImage);
+	return [result autorelease];
+}
+#endif
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
 

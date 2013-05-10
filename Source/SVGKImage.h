@@ -35,6 +35,11 @@
  
  */
 
+//Both OS X and iOS have this header
+//Include it so the Target OS preprocessor is defined.
+//Probably could have included AvailabilityMacros.h, but meh.
+#import <Foundation/Foundation.h>
+
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #import <UIKit/UIKit.h>
 #else
@@ -65,7 +70,11 @@
  
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 @property (nonatomic, readonly) UIImage* UIImage;
+#else
+@property (nonatomic, readonly) CIImage *CIImage;
+#endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;
 @property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
@@ -164,7 +173,7 @@
  For all other use-cases, you should probably use the .CALayerTree property, which is automatically cached between
  calls - but MUST NOT be altered!
  */
--(CALayer *)newCALayerTree;
+- (CALayer *)newCALayerTree;
 
 /*! uses the current .CALayerTree property to find the layer, recursing down the tree (or creates a new
  CALayerTree on demand, and caches it)
@@ -194,7 +203,7 @@
  docs that have many 'anonymous' nodes, you'll need to get actual pointer refs to the layers you need to work with, and use the
  alternate version of this method.
  */
--(CALayer*) newCopyPositionedAbsoluteLayerWithIdentifier:(NSString *)identifier;
+- (CALayer*) newCopyPositionedAbsoluteLayerWithIdentifier:(NSString *)identifier;
 
 /*! As for layerWithIdentifier: but works out the absolute position of the layer,
  effectively pulling it out of the layer-tree (the newly created layer has NO SUPERLAYER,
@@ -202,7 +211,7 @@
  
  Useful for extracting individual features from an SVG
  */
--(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
+- (CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
 
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
@@ -216,7 +225,11 @@
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
--(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+- (UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#else
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#endif
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
  
