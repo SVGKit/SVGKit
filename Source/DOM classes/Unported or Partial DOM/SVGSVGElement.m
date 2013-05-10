@@ -11,6 +11,11 @@
 #import <UIKit/UIKit.h>
 #endif
 
+@interface SVGSVGElement()
+#pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
+@property(nonatomic,readwrite) SVGRect requestedViewport;
+@end
+
 @implementation SVGSVGElement
 
 @synthesize x;
@@ -35,7 +40,7 @@
 
 -(void)dealloc
 {
-	self.viewBox = CGRectNull;
+	self.viewBox = SVGRectUninitialized();
     [x release];
     [y release];
     [width release];
@@ -120,37 +125,54 @@
 	 
 	 (NB: the input to this method "SVGKParseResult" has a .parsedDocument variable, that's how we'd fetch those values here
 	 */
-	NSAssert( [[self getAttribute:@"width"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit width attribute");
-	NSAssert( [[self getAttribute:@"height"] length] > 0, @"Not supported yet: <svg> tag that is missing an explicit height attribute");
+	
+	NSString* stringWidth = [self getAttribute:@"width"];
+	NSString* stringHeight = [self getAttribute:@"height"];
+	
+	if( stringWidth == nil || stringWidth.length < 1 )
+		self.width = nil; // i.e. undefined
+	else
+		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
+	
+	if( stringHeight == nil || stringHeight.length < 1 )
+		self.height = nil; // i.e. undefined
+	else
+		self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
+	
+	/* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
+	if( self.width != nil && self.height != nil )
+		self.requestedViewport = SVGRectMake( 0, 0, [self.width pixelsValue], [self.height pixelsValue] );
+	else
+		self.requestedViewport = SVGRectUninitialized();
 	
 	
-	self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
-	self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
-	SVGRect initialViewport = { 0, 0, [self.width pixelsValue], [self.height pixelsValue] };
-	self.viewport = initialViewport;
+	/**
+	 NB: this is VERY CONFUSING due to badly written SVG Spec, but: the viewport MUST NOT be set by the parser,
+	 it MUST ONLY be set by the "renderer" -- and the renderer MAY have decided to use a different viewport from
+	 the one that the SVG file *implies* (e.g. if the user scales the SVG, the viewport WILL BE DIFFERENT,
+	 by definition!
+	 
+	 ...However: the renderer will ALWAYS start with the default viewport values (that are calcualted by the parsing process)
+	 and it makes it much cleaner and safer to implement if we have the PARSER set the viewport initially
+	 
+	 (and the renderer will IMMEDIATELY overwrite them once the parsing is finished IFF IT NEEDS TO)
+	 */
+	self.viewport = self.requestedViewport; // renderer can/will change the .viewport, but .requestedViewport can only be set by the PARSER
 	
 	if( [[self getAttribute:@"viewBox"] length] > 0 )
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
-		_viewBox = CGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
 	}
 	else
 	{
-		/**
-		 According to spec, if we have no viewBox in the source SVG, we must NOT scale-to-fit the available space.
-		 
-		 By NOT SETTING a viewBox here, we disable all the scaling that happens later on.
-		 
-		 If you want to scale an SVG Image, you MUST do it either by:
-		    1. EITHER: set a viewBox *and* a viewport on the image itself
-		    2. OR: 
-		 */
+		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
 	}
 		NSLog(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
         //osx logging
 #if TARGET_OS_IPHONE        
-        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect(self.viewBox));
+        NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
 #else
         //mac logging
      NSLog(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));

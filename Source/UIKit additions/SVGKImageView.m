@@ -33,7 +33,7 @@
 {
 	if( [self class] == [SVGKImageView class ])
 	{
-		NSAssert(false, @"You cannot init this class directly. Instead, use a subclass e.g. SVGKFastImageView");
+		NSAssert(false, @"Xcode is trying to load this class from a StoryBoard or from a NIB/XIB files. You cannot init this class directly - in your Storyboard/NIB file, set the Class type to one of the subclasses, e.g. SVGKFastImageView");
 		
 		return nil;
 	}

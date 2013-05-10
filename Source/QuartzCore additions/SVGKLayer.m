@@ -6,6 +6,7 @@
 }
 
 @synthesize SVGImage = _SVGImage;
+@synthesize showBorder;
 
 //self.backgroundColor = [UIColor clearColor];
 

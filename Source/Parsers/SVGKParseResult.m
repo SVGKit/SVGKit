@@ -3,7 +3,7 @@
 @implementation SVGKParseResult
 
 @synthesize libXMLFailed;
-@synthesize parsedDocument, rootOfSVGTree;
+@synthesize parsedDocument, rootOfSVGTree, namespacesEncountered;
 @synthesize warnings, errorsRecoverable, errorsFatal;
 
 #if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA

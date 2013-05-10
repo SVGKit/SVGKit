@@ -38,6 +38,7 @@
 @synthesize defaultXMLNamespaceForThisParseRun;
 
 @synthesize parserExtensions;
+@synthesize parserKnownNamespaces;
 
 static xmlSAXHandler SAXHandler;
 
