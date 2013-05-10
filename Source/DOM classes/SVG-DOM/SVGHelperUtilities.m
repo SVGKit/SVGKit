@@ -9,12 +9,7 @@
 #import "SVGSVGElement.h"
 
 #if !TARGET_OS_IPHONE
-
-static inline NSString *NSStringFromCGRect(CGRect theRect)
-{
-	return NSStringFromRect(NSRectFromCGRect(theRect));
-}
-
+#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
 #endif
 
 @implementation SVGHelperUtilities
