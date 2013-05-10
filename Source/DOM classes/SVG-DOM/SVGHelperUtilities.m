@@ -219,7 +219,8 @@ static inline NSString *NSStringFromCGRect(CGRect theRect)
 		if( actualStrokeOpacity.length > 0 )
 			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
 		
-		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
+		//FIXME: Does this really leak?
+		_shapeLayer.strokeColor = CreateCGColorWithSVGColor( strokeColorAsSVGColor );
 		
 		/**
 		 Line joins + caps: butt / square / miter
@@ -298,7 +299,8 @@ static inline NSString *NSStringFromCGRect(CGRect theRect)
 		if( actualFillOpacity.length > 0 )
 			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
 		
-		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
+		//FIXME: Does this really leak?
+		_shapeLayer.fillColor = CreateCGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
 	{

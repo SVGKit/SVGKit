@@ -519,11 +519,15 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 }
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
-	NSLog(@"Error encountered during parse: %s", msg);
+	va_list va;
+	va_start(va, msg);
+	NSString *errStr = [[NSString alloc] initWithFormat:[NSString stringWithUTF8String:msg] arguments:va];
+	va_end(va);
+	NSLog(@"Error encountered during parse: %@", errStr);
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  [NSString stringWithUTF8String:msg], NSLocalizedDescriptionKey,
+																				  errStr, NSLocalizedDescriptionKey,
 																				nil]]];
 }
 
