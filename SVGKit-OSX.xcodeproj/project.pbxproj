@@ -206,6 +206,8 @@
 		55B4D7A7173EC58700D2C676 /* SVGKLayeredImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B4D7A1173EC58700D2C676 /* SVGKLayeredImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55B4D7A8173EC58700D2C676 /* SVGKLayeredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B4D7A2173EC58700D2C676 /* SVGKLayeredImageView.m */; };
 		55B4D7A9173EC87C00D2C676 /* SVGKLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73A17387F2B004029EF /* SVGKLayer.m */; };
+		55B4D7AA173ECEA200D2C676 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71C17387F2B004029EF /* CALayerExporter.m */; };
+		55B4D7AB173ECEC200D2C676 /* CALayerExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71B17387F2B004029EF /* CALayerExporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -918,6 +920,7 @@
 				55B4D7A3173EC58700D2C676 /* SVGKFastImageView.h in Headers */,
 				55B4D7A5173EC58700D2C676 /* SVGKImageView.h in Headers */,
 				55B4D7A7173EC58700D2C676 /* SVGKLayeredImageView.h in Headers */,
+				55B4D7AB173ECEC200D2C676 /* CALayerExporter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1071,7 @@
 				55B4D7A6173EC58700D2C676 /* SVGKImageView.m in Sources */,
 				55B4D7A8173EC58700D2C676 /* SVGKLayeredImageView.m in Sources */,
 				55B4D7A9173EC87C00D2C676 /* SVGKLayer.m in Sources */,
+				55B4D7AA173ECEA200D2C676 /* CALayerExporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
