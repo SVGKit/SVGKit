@@ -11,6 +11,6 @@
 
 @interface SVGKitImageRep : NSImageRep
 
-@property (nonatomic, retain) SVGDocument *document;
+@property (nonatomic, retain) SVGKImage *image;
 
 @end
