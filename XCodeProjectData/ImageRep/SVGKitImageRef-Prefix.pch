@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'SVGKitImageRef' target in the 'SVGKitImageRef' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <SVGKit/SVGKit.h>
+#endif
