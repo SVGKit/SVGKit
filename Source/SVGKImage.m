@@ -554,6 +554,29 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 	
 	/** ...relayout */
+	/**
+	 NOTE:
+	 
+	 This call (layoutLayer:), and the fact that we call it directly on the "ConverterSVGToCALayer" instance,
+	 is critical to ensuring that SVG <g> tags generate correctly sized/shaped/positioned CALayer's.
+	 
+	 It is not used for any other class / SVG Element.
+	 
+	 It's only needed by G elements because they have no explicit size, and their extent is defined by
+	 
+	    "all the space occupied by my children"
+	 
+	 If you refactor this method, or CALayer exporting, please make sure you keep the current behaviour. You can
+	 test it by:
+	 
+	 1. Make an SVG file with a G element wrapping some shape in the middle of screen
+	 2. Load the file
+	 3. Select the CALayer for the shape, and clone it (using the category for CAShape in this project)
+	 4. add the clone to the screen, with its CALayer.position set to 0,0
+	 5. If the code is correct, it will be positioned in top left corner.
+	 6. If the code is broken, it will be positioned somewhere in the middle of the screen (probably directly on top of the one you cloned)
+	    --- i.e. you've accidentally embedded the "relative position" into the "absolute position" of the CALayer
+	 */
 	[element layoutLayer:layer];
     [layer setNeedsDisplay];
 	
