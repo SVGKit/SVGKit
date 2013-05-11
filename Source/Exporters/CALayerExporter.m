@@ -9,27 +9,13 @@
 #import "CALayerExporter.h"
 
 @interface ExportPathCommandsContext : NSObject
-{
-    NSString* pathName;
-    NSMutableString* pathCommands;
-}
-
-@property (readwrite, copy) NSString *pathName;
-@property (readwrite, nonatomic, copy) NSMutableString* pathCommands;
-
+@property (readwrite, strong) NSString *pathName;
+@property (readwrite, strong) NSMutableString* pathCommands;
 @end
 
 @implementation ExportPathCommandsContext
-
 @synthesize pathName;
 @synthesize pathCommands;
-
-- (void)setPathCommands:(NSMutableString *)aPathCommands
-{
-	pathCommands = [aPathCommands mutableCopy];
-}
-
-
 @end
 
 void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
