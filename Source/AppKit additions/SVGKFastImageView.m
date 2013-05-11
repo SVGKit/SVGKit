@@ -269,7 +269,7 @@
 	if( self.showBorder )
 	{
 		[[NSColor blackColor] set];
-		CGContextStrokeRect(context, rect);
+		[NSBezierPath strokeRect:rect];
 	}
 }
 
