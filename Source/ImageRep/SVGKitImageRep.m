@@ -117,6 +117,8 @@
 		
 		CGAffineTransform scaleTrans = CGContextGetCTM(CGCtx);
 		
+		//Just in case the image is in a differently-sized NSImage
+		//should also work for retina displays
 		_image.scale = MIN(scaleTrans.a, scaleTrans.d);
 		
 		NSImage *tmpImage = _image.NSImage;
