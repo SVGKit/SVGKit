@@ -8,4 +8,5 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
+	#include "SVGKit.h"
 #endif
