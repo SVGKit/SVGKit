@@ -79,7 +79,6 @@
 			_image = [[SVGKImage alloc] initWithSource:sour];
 			[sour release];
 		}
-
 		
 		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count]) {
 			[self autorelease];
