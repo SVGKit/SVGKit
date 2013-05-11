@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import <QuartzCore/QuartzCore.h>
-#import "SVGElement.h"
-#import "SVGTransformable.h"
+@class SVGElement;
+//#import "SVGElement.h"
+#import <SVGKit/SVGTransformable.h>
 
 #define FORCE_RASTERIZE_LAYERS 0 // If True, all CALayers will be told to rasterize themselves. This MIGHT increase performance (or might not), but leads to blurriness whenever a layer is scaled / zoomed in
 #define IMPROVE_PERFORMANCE_BY_WORKING_AROUND_APPLE_FRAME_ALIGNMENT_BUG 1 // NB: Apple's code for rendering ANY CALayer is extremely slow if the layer has non-integer co-ordinates for its "frame" or "bounds" property. This flag technically makes your SVG's render incorrect at sub-pixel level, but often increases performance of Apple's rendering by a factor of 2 or more!

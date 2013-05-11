@@ -1,7 +1,7 @@
 /**
  
  */
-#import "SVGKSource.h"
+#import <SVGKit/SVGKSource.h>
 
 @interface SVGKSourceLocalFile : SVGKSource
 

@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #import <AppKit/AppKit.h>
-#import "SVGKImage.h" // cannot import "SVGKit.h" because that would cause ciruclar imports
+#import <SVGKit/SVGKImage.h> // cannot import "SVGKit.h" because that would cause ciruclar imports
 
 /**
  * SVGKit's version of UIImageView - with some improvements over Apple's design. There are multiple versions of this class, for different use cases.

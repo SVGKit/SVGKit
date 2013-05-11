@@ -14,10 +14,10 @@
  - "pathRelative": the actual path as parsed from the original file. THIS MIGHT NOT BE NORMALISED (maybe a future feature)
  */
 
-#import "SVGElement.h"
-#import "SVGLayeredElement.h"
-#import "SVGUtils.h"
-#import "SVGTransformable.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGLayeredElement.h>
+#import <SVGKit/SVGUtils.h>
+#import <SVGKit/SVGTransformable.h>
 
 @class SVGGradientElement;
 @class SVGKPattern;

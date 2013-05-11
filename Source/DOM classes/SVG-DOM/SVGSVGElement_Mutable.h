@@ -1,4 +1,4 @@
-#import "SVGSVGElement.h"
+#import <SVGKit/SVGSVGElement.h>
 
 @interface SVGSVGElement ()
 

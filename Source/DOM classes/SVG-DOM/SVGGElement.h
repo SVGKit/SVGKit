@@ -15,11 +15,11 @@
 #import <AppKit/AppKit.h>
 #endif
 
-#import "SVGElement.h"
-#import "SVGElement_ForParser.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGElement_ForParser.h>
 
-#import "SVGLayeredElement.h"
-#import "SVGTransformable.h"
+#import <SVGKit/SVGLayeredElement.h>
+#import <SVGKit/SVGTransformable.h>
 
 
 @interface SVGGElement : SVGElement <SVGTransformable, SVGStylable, SVGLayeredElement >

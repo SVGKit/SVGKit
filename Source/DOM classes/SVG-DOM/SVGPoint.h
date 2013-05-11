@@ -11,7 +11,8 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "SVGMatrix.h"
+//#import "SVGMatrix.h"
+@class SVGMatrix;
 
 @interface SVGPoint : NSObject
 

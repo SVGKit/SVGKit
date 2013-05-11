@@ -1,4 +1,4 @@
-#import "SVGTextPositioningElement.h"
+#import <SVGKit/SVGTextPositioningElement.h>
 
 @interface SVGTextPositioningElement ()
 @property(nonatomic,retain,readwrite) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ x;

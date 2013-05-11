@@ -12,7 +12,7 @@
 #import <AppKit/AppKit.h>
 #endif
 
-#import "SVGKParser.h"
+#import <SVGKit/SVGKParser.h>
 
 @interface SVGKParserPatternsAndGradients : NSObject <SVGKParserExtension>
 

@@ -17,25 +17,25 @@
 
 #include <TargetConditionals.h>
 
-#import "DOMHelperUtilities.h"
-	#import "SVGCircleElement.h"
-	#import "SVGDefsElement.h"
-	#import "SVGDescriptionElement.h"
-	#import "SVGKImage.h"
-	#import "SVGElement.h"
-	#import "SVGEllipseElement.h"
-	#import "SVGGElement.h"
-    #import "SVGImageElement.h"
-	#import "SVGLineElement.h"
-	#import "SVGPathElement.h"
-	#import "SVGPolygonElement.h"
-	#import "SVGPolylineElement.h"
-	#import "SVGRectElement.h"
-	#import "BaseClassForAllSVGBasicShapes.h"
-	#import "SVGKSource.h"
-	#import "SVGTitleElement.h"
-	#import "SVGUtils.h"
-    #import "SVGKPattern.h"
-	#import "SVGKImageView.h"
-	#import "SVGKLayeredImageView.h"
-	#import "SVGKLayer.h"
+#import <SVGKit/DOMHelperUtilities.h>
+	#import <SVGKit/SVGCircleElement.h>
+	#import <SVGKit/SVGDefsElement.h>
+	#import <SVGKit/SVGDescriptionElement.h>
+	#import <SVGKit/SVGKImage.h>
+	#import <SVGKit/SVGElement.h>
+	#import <SVGKit/SVGEllipseElement.h>
+	#import <SVGKit/SVGGElement.h>
+    #import <SVGKit/SVGImageElement.h>
+	#import <SVGKit/SVGLineElement.h>
+	#import <SVGKit/SVGPathElement.h>
+	#import <SVGKit/SVGPolygonElement.h>
+	#import <SVGKit/SVGPolylineElement.h>
+	#import <SVGKit/SVGRectElement.h>
+	#import <SVGKit/BaseClassForAllSVGBasicShapes.h>
+	#import <SVGKit/SVGKSource.h>
+	#import <SVGKit/SVGTitleElement.h>
+	#import <SVGKit/SVGUtils.h>
+    #import <SVGKit/SVGKPattern.h>
+	#import <SVGKit/SVGKImageView.h>
+	#import <SVGKit/SVGKLayeredImageView.h>
+	#import <SVGKit/SVGKLayer.h>

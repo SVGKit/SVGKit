@@ -91,7 +91,7 @@
 		5540E79917387F2B004029EF /* SVGElementInstance_Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D117387F2B004029EF /* SVGElementInstance_Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79A17387F2B004029EF /* SVGElementInstanceList.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D217387F2B004029EF /* SVGElementInstanceList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79B17387F2B004029EF /* SVGElementInstanceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6D317387F2B004029EF /* SVGElementInstanceList.m */; };
-		5540E79C17387F2B004029EF /* SVGElementInstanceList_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D417387F2B004029EF /* SVGElementInstanceList_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5540E79C17387F2B004029EF /* SVGElementInstanceList_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D417387F2B004029EF /* SVGElementInstanceList_Internal.h */; settings = {ATTRIBUTES = (); }; };
 		5540E79D17387F2B004029EF /* SVGFitToViewBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D517387F2B004029EF /* SVGFitToViewBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79E17387F2B004029EF /* SVGGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D617387F2B004029EF /* SVGGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79F17387F2B004029EF /* SVGGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6D717387F2B004029EF /* SVGGElement.m */; };
@@ -185,7 +185,7 @@
 		5540E7FA17387F2B004029EF /* CGPathAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73717387F2B004029EF /* CGPathAdditions.h */; };
 		5540E7FB17387F2B004029EF /* CGPathAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73817387F2B004029EF /* CGPathAdditions.m */; };
 		5540E7FC17387F2B004029EF /* SVGKLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73917387F2B004029EF /* SVGKLayer.h */; };
-		5540E7FE17387F2B004029EF /* SVGKImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73B17387F2B004029EF /* SVGKImage.h */; };
+		5540E7FE17387F2B004029EF /* SVGKImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73B17387F2B004029EF /* SVGKImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E80017387F2B004029EF /* SVGKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73D17387F2B004029EF /* SVGKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E80117387F2B004029EF /* SVGKSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73E17387F2B004029EF /* SVGKSource.h */; };
 		5540E80217387F2B004029EF /* SVGKSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73F17387F2B004029EF /* SVGKSource.m */; };
@@ -931,9 +931,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5540E68117387C9F004029EF /* Build configuration list for PBXNativeTarget "SVGKit" */;
 			buildPhases = (
+				5540E66917387C9F004029EF /* Headers */,
 				5540E66717387C9F004029EF /* Sources */,
 				5540E66817387C9F004029EF /* Frameworks */,
-				5540E66917387C9F004029EF /* Headers */,
 				5540E66A17387C9F004029EF /* Resources */,
 			);
 			buildRules = (

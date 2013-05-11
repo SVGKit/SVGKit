@@ -46,25 +46,25 @@
  Element getElementById(in DOMString elementId);
  */
 
-#import "DocumentCSS.h"
-#import "SVGFitToViewBox.h"
+#import <SVGKit/DocumentCSS.h>
+#import <SVGKit/SVGFitToViewBox.h>
 
-#import "SVGElement.h"
-#import "SVGViewSpec.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGViewSpec.h>
 
 #pragma mark - the SVG* types (SVGLength, SVGNumber, etc)
-#import "SVGAngle.h"
-#import "SVGLength.h"
-#import "SVGNumber.h"
-#import "SVGPoint.h"
-#import "SVGRect.h"
-#import "SVGTransform.h"
+#import <SVGKit/SVGAngle.h>
+#import <SVGKit/SVGLength.h>
+#import <SVGKit/SVGNumber.h>
+#import <SVGKit/SVGPoint.h>
+#import <SVGKit/SVGRect.h>
+#import <SVGKit/SVGTransform.h>
 
 #pragma mark - a few raw DOM imports are required for SVG DOM, but not many
-#import "Element.h"
-#import "NodeList.h"
+#import <SVGKit/Element.h>
+#import <SVGKit/NodeList.h>
 
-#import "SVGLayeredElement.h"
+#import <SVGKit/SVGLayeredElement.h>
 
 @interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ SVGLayeredElement >
 

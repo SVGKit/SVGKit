@@ -7,6 +7,7 @@
 //
 
 #import "NamedNodeMap.h"
+#import "Node.h"
 
 @interface NamedNodeMap()
 @property(nonatomic,retain) NSMutableDictionary* internalDictionary;

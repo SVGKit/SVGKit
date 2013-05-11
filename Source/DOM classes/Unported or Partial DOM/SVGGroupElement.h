@@ -5,8 +5,8 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGElement.h"
-#import "SVGLayeredElement.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGLayeredElement.h>
 
 @interface SVGGroupElement : SVGElement < SVGLayeredElement > { }
 

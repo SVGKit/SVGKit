@@ -7,10 +7,11 @@
  */
 #import <QuartzCore/QuartzCore.h>
 
-#import "Element.h"
-#import "Node+Mutable.h"
-#import "SVGStylable.h"
-#import "SVGLength.h"
+#import <SVGKit/Element.h>
+#import <SVGKit/Node+Mutable.h>
+#import <SVGKit/SVGStylable.h>
+//#import "SVGLength.h"
+@class SVGLength;
 
 #define DEBUG_SVG_ELEMENT_PARSING 0
 

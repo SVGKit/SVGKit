@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
-#import "SVGTextPositioningElement.h"
-#import "SVGLayeredElement.h"
-#import "SVGTransformable.h"
+#import <SVGKit/SVGTextPositioningElement.h>
+#import <SVGKit/SVGLayeredElement.h>
+#import <SVGKit/SVGTransformable.h>
 
 /**
  http://www.w3.org/TR/2011/REC-SVG11-20110816/text.html#TextElement
