@@ -539,8 +539,9 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  [errStr autorelease], NSLocalizedDescriptionKey,
+																				  errStr, NSLocalizedDescriptionKey,
 																				nil]]];
+	[errStr release];
 }
 
 static void	unparsedEntityDeclaration(void * ctx, 
