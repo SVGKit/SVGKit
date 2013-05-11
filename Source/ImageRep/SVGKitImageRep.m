@@ -72,10 +72,11 @@
 		
 		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
 		[stream open];
-		
-		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-		_image = [[SVGKImage alloc] initWithSource:sour];
-		[sour release];
+		@autoreleasepool {
+			SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
+			_image = [[SVGKImage alloc] initWithSource:sour];
+			[sour release];
+		}
 
 		
 		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![_image hasSize]) {
@@ -109,21 +110,23 @@
 
 - (BOOL)draw
 {
-	CGContextRef CGCtx = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-
-	CGAffineTransform scaleTrans = CGContextGetCTM(CGCtx);
-	
-	self.image.scale = MIN(scaleTrans.a, scaleTrans.d);
-
-	NSImage *tmpImage = self.image.NSImage;
+	@autoreleasepool {
+		CGContextRef CGCtx = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 		
-	NSRect imageRect;
-	imageRect.size = _image.size;
-	imageRect.origin = NSMakePoint(0, 0);
-	
-	[tmpImage drawAtPoint:NSMakePoint(0, 0) fromRect:imageRect operation:NSCompositeCopy fraction:1];
-	
-	return YES;
+		CGAffineTransform scaleTrans = CGContextGetCTM(CGCtx);
+		
+		_image.scale = MIN(scaleTrans.a, scaleTrans.d);
+		
+		NSImage *tmpImage = _image.NSImage;
+		
+		NSRect imageRect;
+		imageRect.size = _image.size;
+		imageRect.origin = NSMakePoint(0, 0);
+		
+		[tmpImage drawAtPoint:NSMakePoint(0, 0) fromRect:imageRect operation:NSCompositeCopy fraction:1];
+		
+		return YES;
+	}
 }
 
 @end
