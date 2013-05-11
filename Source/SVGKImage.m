@@ -205,7 +205,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		if ( self.DOMDocument == nil )
 		{
 			NSLog(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
-            [self release];
 			self = nil;
 		}
 		
@@ -258,12 +257,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
 }
 
-- (void)finalize
-{
-	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-
-	[super finalize];
-}
 
 //TODO mac alternatives to UIKit functions
 

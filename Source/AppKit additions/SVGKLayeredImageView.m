@@ -6,7 +6,7 @@
 #import "SVGKLayer.h"
 
 @interface SVGKLayeredImageView()
-@property(nonatomic,retain) CAShapeLayer* internalBorderLayer;
+@property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end
 
 @implementation SVGKLayeredImageView

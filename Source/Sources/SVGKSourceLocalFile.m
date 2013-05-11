@@ -6,15 +6,11 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithFileAtPath:p];
 	[stream open];
 	
-	SVGKSourceLocalFile* s = [[[SVGKSourceLocalFile alloc] initWithInputSteam:stream] autorelease];
+	SVGKSourceLocalFile* s = [[SVGKSourceLocalFile alloc] initWithInputSteam:stream];
 	s.filePath = p;
 	
 	return s;
 }
 
-- (void)dealloc {
-	self.filePath = nil;
-	[super dealloc];
-}
 
 @end
