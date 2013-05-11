@@ -21,6 +21,7 @@
     dispatch_once(&onceToken, ^{
         sWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%c%c%c%c", 0x20, 0x9, 0xD, 0xA]];
     });
+	
     return sWhitespaceCharacterSet;
 }
 

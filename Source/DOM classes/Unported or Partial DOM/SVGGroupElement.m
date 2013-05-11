@@ -19,7 +19,6 @@
 
 @synthesize opacity = _opacity;
 
-
 - (void)loadDefaults {
 	_opacity = 1.0f;
 }

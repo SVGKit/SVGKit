@@ -3,9 +3,10 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "SVGKSourceString.h"
+#import "SVGKLayer.h"
 
 @interface SVGKLayeredImageView()
-@property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
+@property(nonatomic,retain) CAShapeLayer* internalBorderLayer;
 @end
 
 @implementation SVGKLayeredImageView
@@ -14,7 +15,7 @@
 /** uses the custom SVGKLayer instead of a default CALayer */
 +(Class)layerClass
 {
-	return NSClassFromString(@"SVGKLayer");
+	return [SVGKLayer class];
 }
 
 - (id)init
@@ -29,12 +30,12 @@
 	return [self initWithSVGKImage:nil];
 }
 
--(id)initWithFrame:(CGRect)frame
+-(id)initWithFrame:(NSRect)frame
 {
 	self = [super initWithFrame:frame];
 	if( self )
 	{
-		self.backgroundColor = [UIColor clearColor];
+		//self.backgroundColor = [UIColor clearColor];
 	}
 	return self;
 }
@@ -48,7 +49,7 @@
 		self = [super initWithFrame:CGRectMake(0,0,100,100)]; // coincides with the inline SVG below!
 		if( self )
 		{
-			self.backgroundColor = [UIColor clearColor];
+			//self.backgroundColor = [UIColor clearColor];
 			
 /**
  ************* NB: it is critical that the string we're about to create is NOT INDENTED - the tabs would break the parsing!
@@ -106,7 +107,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 			
 			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
 			
-			self.backgroundColor = [UIColor cyanColor];
+			//self.backgroundColor = [UIColor cyanColor];
 			
 			((SVGKLayer*) self.layer).SVGImage = defaultBlankImage;
 		}
@@ -116,7 +117,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 		self = [super initWithFrame:CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height )]; // default: 0,0 to width x height of original image];
 		if (self)
 		{
-			self.backgroundColor = [UIColor clearColor];
+			//self.backgroundColor = [UIColor clearColor];
 			
 			((SVGKLayer*) self.layer).SVGImage = im;
 			
@@ -148,5 +149,13 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 	((SVGKLayer*)self.layer).showBorder = showBorder;
 }
 
+/*
+ * We don't have any extra data to release
+- (void)dealloc
+{
+	
+    [super dealloc];
+}
+ */
 
 @end

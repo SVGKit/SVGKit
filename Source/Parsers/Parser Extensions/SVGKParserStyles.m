@@ -71,7 +71,6 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 
 }
 
-
 +(void)trim
 {
     _svgParserStylesSupportedTags = nil;

@@ -1,11 +1,19 @@
 #import "SVGKLayer.h"
 
+//DW stands for Darwin
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define DWColor UIColor
+#else
+#define DWColor NSColor
+#endif
+
 @implementation SVGKLayer
 {
 
 }
 
 @synthesize SVGImage = _SVGImage;
+@synthesize showBorder;
 
 //self.backgroundColor = [UIColor clearColor];
 
@@ -21,7 +29,7 @@
     self = [super init];
     if (self)
 	{
-    	self.borderColor = [UIColor blackColor].CGColor;
+    	self.borderColor = [DWColor blackColor].CGColor;
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }

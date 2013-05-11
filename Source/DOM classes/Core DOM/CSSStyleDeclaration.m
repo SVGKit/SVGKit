@@ -18,7 +18,6 @@
 @synthesize length;
 @synthesize parentRule;
 
-
 - (id)init
 {
     self = [super init];

@@ -19,7 +19,7 @@
 		663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
 		663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
-		6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.a */; };
+		6649E10D1617577000AFE92A /* libSVGKit-iOS.1.1.0pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.1.1.0pre.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
@@ -30,6 +30,8 @@
 		66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA416CFE67B003CD5CD /* text01.svg */; };
 		66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA516CFE67B003CD5CD /* tspan01.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
+		66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */; };
+		66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */; };
 		66E8626B1688BA0B0059C9C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862581688BA0B0059C9C4 /* AppDelegate.m */; };
 		66E8626C1688BA0B0059C9C4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862591688BA0B0059C9C4 /* Default-568h@2x.png */; };
 		66E8626E1688BA0B0059C9C4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8625D1688BA0B0059C9C4 /* DetailViewController.m */; };
@@ -70,7 +72,7 @@
 			remoteGlobalIDString = 6639618E16145D0400E58CCA;
 			remoteInfo = "SVGKit-iOS";
 		};
-		6649E10B1617575500AFE92A /* PBXContainerItemProxy */ = {
+		66E785A8171A1208001EF59D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
 			proxyType = 1;
@@ -104,6 +106,8 @@
 		66A09CA416CFE67B003CD5CD /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
 		66A09CA516CFE67B003CD5CD /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
+		66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width.svg"; sourceTree = "<group>"; };
+		66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width-large.svg"; sourceTree = "<group>"; };
 		66E862571688BA0B0059C9C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66E862581688BA0B0059C9C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		66E862591688BA0B0059C9C4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -149,7 +153,7 @@
 			files = (
 				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
-				6649E10D1617577000AFE92A /* libSVGKit-iOS.a in Frameworks */,
+				6649E10D1617577000AFE92A /* libSVGKit-iOS.1.1.0pre.a in Frameworks */,
 				6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */,
 				661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */,
 				661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */,
@@ -207,7 +211,7 @@
 		6649E1031617574600AFE92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6649E10A1617574700AFE92A /* libSVGKit-iOS.a */,
+				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.1.0pre.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -291,6 +295,8 @@
 				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
 				66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */,
 				66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */,
+				66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */,
+				66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
 				66E8628B1688BA510059C9C4 /* Text.svg */,
 				66E8628C1688BA510059C9C4 /* uk-only.svg */,
@@ -313,7 +319,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				6649E10C1617575500AFE92A /* PBXTargetDependency */,
+				66E785A9171A1208001EF59D /* PBXTargetDependency */,
 			);
 			name = "Demo-iOS";
 			productName = iOSDemo;
@@ -353,10 +359,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6649E10A1617574700AFE92A /* libSVGKit-iOS.a */ = {
+		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.1.0pre.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libSVGKit-iOS.a";
+			path = "libSVGKit-iOS.1.1.0pre.a";
 			remoteRef = 6649E1091617574700AFE92A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -409,6 +415,8 @@
 				66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */,
 				66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */,
 				66324BE216D24FA4001C1E83 /* rounded-rects.svg in Resources */,
+				66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */,
+				66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,10 +437,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6649E10C1617575500AFE92A /* PBXTargetDependency */ = {
+		66E785A9171A1208001EF59D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SVGKit-iOS";
-			targetProxy = 6649E10B1617575500AFE92A /* PBXContainerItemProxy */;
+			targetProxy = 66E785A8171A1208001EF59D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

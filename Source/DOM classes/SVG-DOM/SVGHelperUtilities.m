@@ -49,24 +49,58 @@
 	 Optional relative transform: if incoming element establishes a viewport, do something clever; for everything else, use identity
 	 */
 	if( transformableOrSVGSVGElement.viewportElement == nil // if it's nil, it means THE OPPOSITE of what you'd expect - it means that it IS the viewport element - SVG Spec REQUIRES this
-	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // if it's some-other-object, then: we simply don't need to worry about it
+	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // ?? I don't understand: ?? if it's something other than itself, then: we simply don't need to worry about it ??
 	   )
 	{
-		SVGElement<SVGFitToViewBox>* svgSVGElement = (SVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
+		SVGSVGElement<SVGFitToViewBox>* svgSVGElement = (SVGSVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
 		
-		/** Calculate the "implicit" viewport transform (caused by the <SVG> tag's possible "viewBox" attribute) */
-		CGRect frameViewBox = svgSVGElement.viewBox;
-		CGRect frameViewport = CGRectFromSVGRect( ((SVGSVGElement*)svgSVGElement).viewport );
+		/**
+		 Calculate the "implicit" viewport->viewbox transform (caused by the <SVG> tag's possible "viewBox" attribute)
+		 Also calculate the "implicit" realViewport -> svgDefaultViewport transform (caused by the user changing the external
+		    size of the rendered SVG)
+		 */
+		SVGRect frameViewBox = svgSVGElement.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
+		SVGRect frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
+		SVGRect frameRequestedViewport = svgSVGElement.requestedViewport; // the default viewport requested in the SVG source file (may be Uninitialized if no svg width or height params in original source file)
 		
-		if( ! CGRectIsEmpty( frameViewBox ) )
+		if( ! SVGRectIsInitialized(frameActualViewport))
 		{
-			CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.origin.x, -frameViewBox.origin.y );
-			CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( frameViewport.size.width / frameViewBox.size.width, frameViewport.size.height / frameViewBox.size.height);
-			optionalViewportTransform = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
+			/** We have NO VIEWPORT (renderer was presented too little info)
+			 
+			 Net effect: we MUST render everything at 1:1, and apply NO FURTHER TRANSFORMS
+			 */
+			optionalViewportTransform = CGAffineTransformIdentity;
 		}
 		else
-			optionalViewportTransform = CGAffineTransformIdentity;
+		{
+			CGAffineTransform transformRealViewportToSVGViewport;
+			CGAffineTransform transformSVGViewportToSVGViewBox;
 		
+			/** Transform part 1: from REAL viewport to EXPECTED viewport */
+			SVGRect viewportForViewBoxToRelateTo;
+			if( SVGRectIsInitialized( frameRequestedViewport ))
+			{
+				viewportForViewBoxToRelateTo = frameRequestedViewport;
+				transformRealViewportToSVGViewport = CGAffineTransformMakeScale( frameActualViewport.width / frameRequestedViewport.width, frameActualViewport.height / frameRequestedViewport.height);
+			}
+			else
+			{
+				viewportForViewBoxToRelateTo = frameActualViewport;
+				transformRealViewportToSVGViewport = CGAffineTransformIdentity;
+			}
+			
+			/** Transform part 2: from EXPECTED viewport to internal viewBox */
+			if( SVGRectIsInitialized( frameViewBox ) )
+			{
+				CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.x, -frameViewBox.y );
+				CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( viewportForViewBoxToRelateTo.width / frameViewBox.width, viewportForViewBoxToRelateTo.height / frameViewBox.height);
+				transformSVGViewportToSVGViewBox = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
+			}
+			else
+				transformSVGViewportToSVGViewBox = CGAffineTransformIdentity;
+			
+			optionalViewportTransform = CGAffineTransformConcat( transformRealViewportToSVGViewport, transformSVGViewportToSVGViewBox );
+		}
 	}
 	else
 	{

@@ -56,12 +56,12 @@
 	return [self initWithSVGKImage:nil];
 }
 
--(id)initWithFrame:(CGRect)frame
+-(id)initWithFrame:(NSRect)frame
 {
 	self = [super initWithFrame:frame];
 	if( self )
 	{
-		self.backgroundColor = [UIColor clearColor];
+		//self.backgroundColor = [UIColor clearColor];
 	}
 	return self;
 }
@@ -81,7 +81,7 @@
 		self.image = im;
 		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
 		self.tileRatio = CGSizeZero;
-		self.backgroundColor = [UIColor clearColor];
+		//self.backgroundColor = [UIColor clearColor];
 		
 		/** redraw-observers */
 		if( self.disableAutoRedrawAtHighestResolution )
@@ -90,9 +90,9 @@
 			[self addInternalRedrawOnResizeObservers];
 		
 		/** other obeservers */
-		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-		[self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+		[self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
     }
     return self;
 }
@@ -109,27 +109,28 @@
 #endif
 	
     if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
     }
-    _image = image;
+    [_image release];
+    _image = [image retain];
     
     if( self.disableAutoRedrawAtHighestResolution )
         ;
     else
-        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) addInternalRedrawOnResizeObservers
 {
-	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 	//[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) removeInternalRedrawOnResizeObservers
 {
-	[self removeObserver:self  forKeyPath:@"layer" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	[self.layer removeObserver:self forKeyPath:@"transform" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
+	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
 	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
 }
 
@@ -157,12 +158,27 @@
 	else
 		[self removeInternalRedrawOnResizeObservers];
 	
-	[self removeObserver:self forKeyPath:@"image" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	[self removeObserver:self forKeyPath:@"tileRatio" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	[self removeObserver:self forKeyPath:@"showBorder" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
     
 	self.image = nil;
 	
+    [super dealloc];
+}
+
+- (void)finalize
+{
+	if( self.disableAutoRedrawAtHighestResolution )
+		;
+	else
+		[self removeInternalRedrawOnResizeObservers];
+	
+	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
+	
+	[super finalize];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
@@ -173,7 +189,7 @@
 		/*NSLog(@"transform changed. Setting layer scale: %2.2f --> %2.2f", self.layer.contentsScale, self.transform.a);
 		 self.layer.contentsScale = self.transform.a;*/
 		[self.image.CALayerTree removeFromSuperlayer]; // force apple to redraw?
-		[self setNeedsDisplay];
+		[self setNeedsDisplay:YES];
 	}
 	else
 	{
@@ -182,7 +198,7 @@
 			;
 		else
 		{
-			[self setNeedsDisplay];
+			[self setNeedsDisplay:YES];
 		}
 	}
 }
@@ -192,7 +208,7 @@
  and "automatic rescaling"
  
  */
--(void)drawRect:(CGRect)rect
+-(void)drawRect:(NSRect)rect
 {
 	/**
 	 view.bounds == width and height of the view
@@ -249,7 +265,7 @@
 	
 	//DEBUG: NSLog(@"cols, rows: %i, %i ... scaleConvert: %@ ... tilesize: %@", cols, rows, NSStringFromCGSize(scaleConvertImageToView), NSStringFromCGSize(tileSize) );
 	/** To support tiling, and to allow internal shrinking, we use renderInContext */
-	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 	for( int k=0; k<rows; k++ )
 		for( int i=0; i<cols; i++ )
 		{
@@ -266,8 +282,8 @@
 	/** The border is VERY helpful when debugging rendering and touch / hit detection problems! */
 	if( self.showBorder )
 	{
-		[[UIColor blackColor] set];
-		CGContextStrokeRect(context, rect);
+		[[NSColor blackColor] set];
+		[NSBezierPath strokeRect:rect];
 	}
 }
 

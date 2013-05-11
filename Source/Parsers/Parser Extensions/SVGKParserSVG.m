@@ -45,7 +45,6 @@ static NSDictionary *elementMap;
 	return self;
 }
 
-
 -(NSArray*) supportedNamespaces
 {
 	return @[@"http://www.w3.org/2000/svg"];

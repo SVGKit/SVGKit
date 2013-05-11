@@ -2,6 +2,7 @@
 #import "SVGElementInstanceList_Internal.h"
 
 @implementation SVGElementInstanceList
+@synthesize internalArray;
 
 
 - (id)init

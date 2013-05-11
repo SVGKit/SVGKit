@@ -17,7 +17,7 @@
 		return [super init];
 }
 
--(id)initWithFrame:(CGRect)frame
+-(id)initWithFrame:(NSRect)frame
 {
 	if( [self class] == [SVGKImageView class ])
 	{
@@ -48,5 +48,13 @@
     return nil;
 }
 
+/*
+ * We don't have any extra data to release
+- (void)dealloc
+{
+	[super dealloc];
+}
+ 
+ */
 
 @end

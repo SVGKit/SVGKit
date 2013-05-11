@@ -18,6 +18,7 @@
 @synthesize value;
 @synthesize valueInSpecifiedUnits;
 @synthesize valueAsString;
+@synthesize internalCSSPrimitiveValue;
 
 
 - (id)init
