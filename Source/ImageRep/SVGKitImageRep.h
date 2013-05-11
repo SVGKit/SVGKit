@@ -6,8 +6,13 @@
 //
 //
 
+//This will cause problems...
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
 #import <Cocoa/Cocoa.h>
-#import <SVGKit/SVGKit.h>
+#import "SVGKit.h"
 
 @interface SVGKitImageRep : NSImageRep
 

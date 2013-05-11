@@ -10,7 +10,7 @@
 
 @implementation SVGKitImageRep
 
-@synthesize document = _document;
+@synthesize image = _image;
 
 + (NSArray *)imageUnfilteredFileTypes
 {
@@ -38,11 +38,21 @@
 
 + (BOOL)canInitWithData:(NSData *)d
 {
-	SVGDocument *tempDoc = [[SVGDocument alloc] initWithData:d];
-	if (tempDoc == nil) {
+	NSInputStream* stream = [NSInputStream inputStreamWithData:d];
+	[stream open];
+
+	SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
+	SVGKImage *tmpImage = [[SVGKImage alloc] initWithSource:sour];
+	[sour release];
+	//SVGDocument *tempDoc = [[SVGDocument alloc] initWithData:d];
+	if (tmpImage == nil) {
 		return NO;
 	}
-	[tempDoc release];
+	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![tmpImage hasSize]) {
+		[tmpImage release];
+		return NO;
+	}
+	[tmpImage release];
 	return YES;
 }
 
@@ -59,26 +69,30 @@
 - (id)initWithData:(NSData *)theData
 {
 	if (self = [super init]) {
-		_document = [[SVGDocument alloc] initWithData:theData];
-		if (_document == nil) {
-			[self release];
+		
+		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
+		[stream open];
+		
+		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
+		self.image = [[SVGKImage alloc] initWithSource:sour];
+		[sour release];
+
+		
+		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![_image hasSize]) {
+			[self autorelease];
 			return nil;
 		}
+
 		[self setColorSpaceName:NSCalibratedRGBColorSpace];
 		[self setAlpha:YES];
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
 		{
 			
-			NSSize renderSize = NSMakeSize(_document.width, _document.height);
+			NSSize renderSize = _image.size;
 			[self setSize:renderSize];
-#if CGFLOAT_IS_DOUBLE
 			[self setPixelsHigh:ceil(renderSize.height)];
 			[self setPixelsWide:ceil(renderSize.width)];
-#else
-			[self setPixelsHigh:ceilf(renderSize.height)];
-			[self setPixelsWide:ceilf(renderSize.width)];
-#endif
 
 		}
 
@@ -88,7 +102,7 @@
 
 - (void)dealloc
 {
-	[_document release];
+	[_image release];
 	
 	[super dealloc];
 }
@@ -97,13 +111,17 @@
 {
 	CGContextRef CGCtx = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 
-	//[self drawLayer:[_document layerTree] inContext:CGCtx];
-	//[_document drawInContext:CGCtx];
-	CALayer *layerTree = [_document layerTree];
+	CGAffineTransform scaleTrans = CGContextGetCTM(CGCtx);
 	
-	[layerTree setNeedsDisplay];
-	[layerTree drawInContext:CGCtx];
+	self.image.scale = MIN(scaleTrans.a, scaleTrans.d);
+
+	NSImage *tmpImage = self.image.NSImage;
+		
+	NSRect imageRect;
+	imageRect.size = _image.size;
+	imageRect.origin = NSMakePoint(0, 0);
 	
+	[tmpImage drawAtPoint:NSMakePoint(0, 0) fromRect:imageRect operation:NSCompositeCopy fraction:1];
 	
 	return YES;
 }

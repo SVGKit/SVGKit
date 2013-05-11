@@ -11,6 +11,7 @@
 		55B4D7BF173EDAB900D2C676 /* SVGKitImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B4D7BE173EDAB900D2C676 /* SVGKitImageRep.m */; };
 		55B4D7C5173EDACD00D2C676 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55B4D7C1173EDACD00D2C676 /* InfoPlist.strings */; };
 		55B4D7CF173EDC2500D2C676 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B4D7CC173EDB0600D2C676 /* SVGKit.framework */; };
+		55B4D7D5173EF4BE00D2C676 /* SVGKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55B4D7CC173EDB0600D2C676 /* SVGKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,19 @@
 			remoteInfo = SVGKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		55B4D7D4173EF4B200D2C676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				55B4D7D5173EF4BE00D2C676 /* SVGKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5540E66F17387C9F004029EF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -136,6 +150,7 @@
 				55B4D7AC173EDA7A00D2C676 /* Sources */,
 				55B4D7AD173EDA7A00D2C676 /* Frameworks */,
 				55B4D7AE173EDA7A00D2C676 /* Resources */,
+				55B4D7D4173EF4B200D2C676 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -292,8 +307,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = bundle;
@@ -304,8 +321,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = bundle;
@@ -331,6 +350,7 @@
 				55B4D7BB173EDA7A00D2C676 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
