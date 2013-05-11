@@ -74,7 +74,7 @@
 		[stream open];
 		
 		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-		self.image = [[SVGKImage alloc] initWithSource:sour];
+		_image = [[SVGKImage alloc] initWithSource:sour];
 		[sour release];
 
 		
