@@ -167,6 +167,20 @@
     [super dealloc];
 }
 
+- (void)finalize
+{
+	if( self.disableAutoRedrawAtHighestResolution )
+		;
+	else
+		[self removeInternalRedrawOnResizeObservers];
+	
+	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
+	
+	[super finalize];
+}
+
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {

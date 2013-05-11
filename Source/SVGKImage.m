@@ -267,6 +267,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 	[super dealloc];
 }
 
+- (void)finalize
+{
+	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+
+	[super finalize];
+}
+
 //TODO mac alternatives to UIKit functions
 
 #if TARGET_OS_IPHONE
