@@ -48,7 +48,7 @@
 	if (tmpImage == nil) {
 		return NO;
 	}
-	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![tmpImage hasSize]) {
+	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count]) {
 		[tmpImage release];
 		return NO;
 	}
@@ -79,9 +79,12 @@
 		}
 
 		
-		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![_image hasSize]) {
+		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count]) {
 			[self autorelease];
 			return nil;
+		}
+		if (![_image hasSize]) {
+			_image.size = CGSizeMake(32, 32);
 		}
 
 		[self setColorSpaceName:NSCalibratedRGBColorSpace];
