@@ -134,7 +134,11 @@
         NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
         for (SVGGradientStop *theStop in _stops) 
         {
-            [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
+#if CGFLOAT_IS_DOUBLE
+			[locationBuilder addObject:[NSNumber numberWithDouble:theStop.offset]];
+#else
+			[locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
+#endif
 //            theColor = CGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
             [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
