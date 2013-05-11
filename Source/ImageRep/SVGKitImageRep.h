@@ -16,6 +16,6 @@
 
 @interface SVGKitImageRep : NSImageRep
 
-@property (nonatomic, retain) SVGKImage *image;
+@property (nonatomic, strong) SVGKImage *image;
 
 @end

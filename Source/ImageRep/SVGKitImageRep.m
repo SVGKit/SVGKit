@@ -43,22 +43,19 @@
 
 	SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
 	SVGKImage *tmpImage = [[SVGKImage alloc] initWithSource:sour];
-	[sour release];
 	//SVGDocument *tempDoc = [[SVGDocument alloc] initWithData:d];
 	if (tmpImage == nil) {
 		return NO;
 	}
 	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![tmpImage hasSize]) {
-		[tmpImage release];
 		return NO;
 	}
-	[tmpImage release];
 	return YES;
 }
 
 + (NSImageRep *)imageRepWithData:(NSData *)d
 {
-	return [[[self alloc] initWithData:d] autorelease];
+	return [[self alloc] initWithData:d];
 }
 
 + (void)load
@@ -75,11 +72,10 @@
 		
 		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
 		_image = [[SVGKImage alloc] initWithSource:sour];
-		[sour release];
 
 		
 		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count] || /*SVGs with no size will cause issues!*/![_image hasSize]) {
-			[self autorelease];
+			//[self autorelease];
 			return nil;
 		}
 
@@ -100,12 +96,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[_image release];
-	
-	[super dealloc];
-}
 
 - (BOOL)draw
 {
