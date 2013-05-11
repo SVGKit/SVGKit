@@ -19,7 +19,8 @@
 	static NSCharacterSet *sWhitespaceCharacterSet = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sWhitespaceCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%c%c%c%c", 0x20, 0x9, 0xD, 0xA]] retain];
+		sWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%c%c%c%c", 0x20, 0x9, 0xD, 0xA]];
+		[sWhitespaceCharacterSet retain]; // required, this is a non-ARC project.
     });
 	
     return sWhitespaceCharacterSet;

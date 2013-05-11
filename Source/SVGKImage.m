@@ -62,6 +62,7 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
+@synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;
@@ -196,6 +197,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		if ( self.DOMDocument == nil )
 		{
 			NSLog(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
+            [self release];
 			self = nil;
 		}
 		
@@ -511,7 +513,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
-- (CALayer *)newLayerWithElement:(SVGElement <SVGLayeredElement> *)element
+- (CALayer *)newLayerWithElement:(SVGElement <ConverterSVGToCALayer> *)element
 {
 	CALayer *layer = [element newLayer];
 	
@@ -532,11 +534,16 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return layer;
 	}
 	
+	/**
+	 Generate child nodes and then re-layout
+	 
+	 (parent may have to change its size to fit children)
+	 */
 	for (SVGElement *child in childNodes )
 	{
-		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
+		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child] autorelease];
+			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child] autorelease];
 			
 			if (!sublayer) {
 				continue;
@@ -546,8 +553,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 		}
 	}
 	
+	/** ...relayout */
 	[element layoutLayer:layer];
-	
     [layer setNeedsDisplay];
 	
 	return layer;
@@ -565,13 +572,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 		{
 			NSLog(@"[%@] WARNING: because you specified an image.scale (you SHOULD be using SVG viewbox or <svg width> instead!), we are changing the .anchorPoint and the .affineTransform of the returned CALayerTree. Apple's own libraries are EXTREMELY BUGGY if you hand them layers that have these variables changed (some of Apple's libraries completely ignore them, this is a major Known Bug that Apple hasn't fixed in many years). Proceed at your own risk, and warned!", [self class] );
 			
-			/** NB this is INSANE! Apple's bugs in CALayer (unfixed for 6+ years now!) are incredible. I have no idea
-			 why they care so little about fixing these howlers.
+			/** Apple's bugs in CALayer are legion, and some have been around for almost 10 years...
 			 
 			 When you set the affineTransform on a Layer, if you do not ALSO MANUALLY change the anchorpoint, Apple
-			 renders the layer at the wrong co-ords!
-			 
-			 --- this is only one of MANY bugs in Apple's handling of .transform and .affineTransform on CALayer.
+			 renders the layer at the wrong co-ords.
 			 */
 			newLayerTree.anchorPoint = CGPointApplyAffineTransform( newLayerTree.anchorPoint, CGAffineTransformMakeScale(1.0f/self.scale, 1.0f/self.scale));
 			newLayerTree.affineTransform = CGAffineTransformMakeScale( self.scale, self.scale );

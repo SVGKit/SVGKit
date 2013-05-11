@@ -13,6 +13,9 @@
 #import "DetailViewController.h"
 
 @implementation AppDelegate
+@synthesize window = _window;
+@synthesize navigationController = _navigationController;
+@synthesize splitViewController = _splitViewController;
 
 - (void)dealloc
 {
@@ -50,7 +53,7 @@
 		
 	    self.splitViewController = [[[UISplitViewController alloc] init] autorelease];
 	    self.splitViewController.delegate = detailViewController;
-	    self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
+	    self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
 	    
 		self.window.rootViewController = self.splitViewController;
 	}

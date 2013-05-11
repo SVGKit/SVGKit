@@ -28,6 +28,11 @@
 
 @synthesize toolbar, popoverController, contentView, detailItem;
 @synthesize viewActivityIndicator;
+@synthesize name = _name;
+@synthesize exportText = _exportText;
+@synthesize layerExporter = _layerExporter;
+@synthesize tapGestureRecognizer = _tapGestureRecognizer;
+@synthesize exportLog = _exportLog;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
