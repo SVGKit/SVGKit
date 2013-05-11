@@ -14,8 +14,11 @@
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 
-#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
+#else
 #define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
@@ -741,7 +744,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	NSLog(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
 	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
