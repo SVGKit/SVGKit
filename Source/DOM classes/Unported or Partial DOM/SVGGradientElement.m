@@ -135,11 +135,9 @@
         for (SVGGradientStop *theStop in _stops) 
         {
             [locationBuilder addObject:@(theStop.offset)];
-//            theColor = CreateCGColorWithSVGColor([theStop stopColor]);
+//            theColor = CGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-			CGColorRef theColor = CreateCGColorWithSVGColor([theStop stopColor]);
-            [colorBuilder addObject:(__bridge id)theColor];
-			CGColorRelease(theColor);
+            [colorBuilder addObject:(__bridge id)CGColorWithSVGColor([theStop stopColor])];
             //        CGColorRelease(alphaColor);
         }
         
