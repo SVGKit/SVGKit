@@ -16,7 +16,7 @@
 {
 	static NSArray *types = nil;
 	if (types == nil) {
-		types = [[NSArray alloc] initWithObjects:@"svg", nil];
+		types = @[@"svg"];
 	}
 	return types;
 }
@@ -25,7 +25,7 @@
 {
 	static NSArray *UTItypes = nil;
 	if (UTItypes == nil) {
-		UTItypes = [[NSArray alloc] initWithObjects:@"public.svg-image", nil];
+		UTItypes = @[@"public.svg-image"];
 	}
 	return UTItypes;
 }
