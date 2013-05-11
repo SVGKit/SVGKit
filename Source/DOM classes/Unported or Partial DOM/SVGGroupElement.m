@@ -19,6 +19,8 @@
 
 @synthesize opacity = _opacity;
 
+/*
+ * We don't have any extra data to release
 - (void)dealloc {
 	
     [super dealloc];
@@ -27,6 +29,7 @@
 - (void)loadDefaults {
 	_opacity = 1.0f;
 }
+ */
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];

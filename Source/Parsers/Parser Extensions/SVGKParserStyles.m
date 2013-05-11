@@ -71,6 +71,8 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 
 }
 
+/*
+ * We don't have any extra data to release
 -(void) dealloc
 {
 //    [_tags release];
@@ -78,6 +80,7 @@ static NSSet *_svgParserStylesSupportedTags = nil;
     
     [super dealloc];
 }
+ */
 
 +(void)trim
 {

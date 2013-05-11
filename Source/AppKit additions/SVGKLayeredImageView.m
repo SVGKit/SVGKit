@@ -149,10 +149,13 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 	((SVGKLayer*)self.layer).showBorder = showBorder;
 }
 
+/*
+ * We don't have any extra data to release
 - (void)dealloc
 {
 	
     [super dealloc];
 }
+ */
 
 @end

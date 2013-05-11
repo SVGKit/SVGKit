@@ -21,7 +21,7 @@
 - (void)dealloc {
     [_cssText release];
     self.parentRule = nil;
-  self.internalDictionaryOfStylesByCSSClass = nil;
+	self.internalDictionaryOfStylesByCSSClass = nil;
     [super dealloc];
 }
 
