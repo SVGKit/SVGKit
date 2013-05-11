@@ -38,13 +38,15 @@
 
 + (BOOL)canInitWithData:(NSData *)d
 {
-	NSInputStream* stream = [NSInputStream inputStreamWithData:d];
-	[stream open];
-
-	SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-	SVGKImage *tmpImage = [[SVGKImage alloc] initWithSource:sour];
-	[sour release];
-	//SVGDocument *tempDoc = [[SVGDocument alloc] initWithData:d];
+	SVGKImage *tmpImage = nil;
+	@autoreleasepool {
+		NSInputStream* stream = [NSInputStream inputStreamWithData:d];
+		[stream open];
+		
+		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
+		tmpImage = [[SVGKImage alloc] initWithSource:sour];
+		[sour release];
+	}
 	if (tmpImage == nil) {
 		return NO;
 	}
@@ -70,9 +72,9 @@
 {
 	if (self = [super init]) {
 		
-		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
-		[stream open];
 		@autoreleasepool {
+			NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
+			[stream open];
 			SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
 			_image = [[SVGKImage alloc] initWithSource:sour];
 			[sour release];
@@ -92,12 +94,10 @@
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
 		{
-			
 			NSSize renderSize = _image.size;
 			[self setSize:renderSize];
 			[self setPixelsHigh:ceil(renderSize.height)];
 			[self setPixelsWide:ceil(renderSize.width)];
-
 		}
 
 	}
