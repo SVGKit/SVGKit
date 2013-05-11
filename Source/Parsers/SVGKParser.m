@@ -550,7 +550,7 @@ static void	unparsedEntityDeclaration(void * ctx,
 									 const xmlChar * systemId, 
 									 const xmlChar * notationName)
 {
-	NSLog(@"ERror: unparsed entity Decl");
+	NSLog(@"Error: unparsed entity Decl, name: %s publicID: %s systemID: %s notation name: %s", name, publicId, systemId, notationName);
 }
 
 static void structuredError		(void * userData, 
