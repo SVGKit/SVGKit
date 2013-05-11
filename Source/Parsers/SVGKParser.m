@@ -539,8 +539,9 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  [errStr autorelease], NSLocalizedDescriptionKey,
+																				  errStr, NSLocalizedDescriptionKey,
 																				nil]]];
+	[errStr release];
 }
 
 static void	unparsedEntityDeclaration(void * ctx, 
@@ -549,7 +550,7 @@ static void	unparsedEntityDeclaration(void * ctx,
 									 const xmlChar * systemId, 
 									 const xmlChar * notationName)
 {
-	NSLog(@"ERror: unparsed entity Decl");
+	NSLog(@"Error: unparsed entity Decl, name: %s publicID: %s systemID: %s notation name: %s", name, publicId, systemId, notationName);
 }
 
 static void structuredError		(void * userData, 
