@@ -59,7 +59,7 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	[parser addDefaultSVGParserExtensions];
 	
 	SVGKParseResult* result = [parser parseSynchronously];
-	
+	[parser release];
 	return result;
 }
 
@@ -95,6 +95,14 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	[self addParserExtension:subParserStyles];
 	[self addParserExtension:subParserDefsAndUse];
 	[self addParserExtension:subParserXMLDOM];
+	
+	[subParserSVG release];
+	[subParserGradients release];
+	[subParserPatternsAndGradients release];
+	[subParserStyles release];
+	[subParserDefsAndUse release];
+	[subParserXMLDOM release];
+
 }
 
 - (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension
@@ -725,6 +733,8 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:@(name) value:@(accum)];
 			
 			dict[newAttribute.localName] = newAttribute;
+			
+			[newAttribute release];
 			
 			bzero(name, MAX_NAME);
 			

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+
+//DW stands for Darwin
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #import <UIKit/UIKit.h>
 #define DWView UIView

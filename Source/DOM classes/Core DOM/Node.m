@@ -310,7 +310,9 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:stringAccumulator];
+			NSString *tmpStr = [NSString stringWithString:stringAccumulator];
+			[stringAccumulator release];
+			return tmpStr;
 		}
 			
 		case DOMNodeType_TEXT_NODE:

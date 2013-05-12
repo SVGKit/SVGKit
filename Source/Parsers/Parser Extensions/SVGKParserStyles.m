@@ -67,6 +67,8 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 			CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:c];
 			
 			[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+			
+			[parsedStylesheet release];
 		}
 
 }

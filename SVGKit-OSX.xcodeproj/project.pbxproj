@@ -197,6 +197,7 @@
 		5540E814173881BF004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 		5540E818173887BF004029EF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E817173887BE004029EF /* Quartz.framework */; };
 		5540E819173887D9004029EF /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement.m */; };
+		5587F25E173F3C9800DC0EC1 /* SVGKImage+SVGPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74B17387F2B004029EF /* SVGKImage+SVGPathView.m */; };
 		55B4D796173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B4D794173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h */; };
 		55B4D797173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B4D795173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m */; };
 		55B4D7A3173EC58700D2C676 /* SVGKFastImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B4D79D173EC58700D2C676 /* SVGKFastImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1072,6 +1073,7 @@
 				55B4D7A8173EC58700D2C676 /* SVGKLayeredImageView.m in Sources */,
 				55B4D7A9173EC87C00D2C676 /* SVGKLayer.m in Sources */,
 				55B4D7AA173ECEA200D2C676 /* CALayerExporter.m in Sources */,
+				5587F25E173F3C9800DC0EC1 /* SVGKImage+SVGPathView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
