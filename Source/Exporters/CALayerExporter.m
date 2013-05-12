@@ -258,7 +258,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         }
     }
     
-    
     NSString* addSublayerStatement = [NSString stringWithFormat:@"[%@ addSublayer:%@];", parentName, layerName];
     [self.delegate layerExporter:self
                    didParseLayer:currentLayer
@@ -274,10 +273,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         [self processLayer:childLayer index:++i parent:layerName];
     }
 }
-
-
-
-
 
 @end
 

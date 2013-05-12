@@ -11,6 +11,10 @@
 
 #import <UIKit/UIKit.h>
 
+#else
+
+#import <AppKit/AppKit.h>
+
 #endif
 
 #if CGFLOAT_IS_DOUBLE
