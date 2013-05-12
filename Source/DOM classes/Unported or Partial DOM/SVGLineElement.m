@@ -10,6 +10,7 @@
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 #import "SVGHelperUtilities.h"
+#import "SVGKCGFloatAdditions.h"
 
 @implementation SVGLineElement
 
@@ -22,16 +23,16 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"x1"] length] > 0 )
-	_x1 = [[self getAttribute:@"x1"] floatValue];
+	_x1 = [[self getAttribute:@"x1"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"y1"] length] > 0 )
-	_y1 = [[self getAttribute:@"y1"] floatValue];
+	_y1 = [[self getAttribute:@"y1"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"x2"] length] > 0 )
-	_x2 = [[self getAttribute:@"x2"] floatValue];
+	_x2 = [[self getAttribute:@"x2"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"y2"] length] > 0 )
-	_y2 = [[self getAttribute:@"y2"] floatValue];
+	_y2 = [[self getAttribute:@"y2"] SVGKCGFloatValue];
 }
 
 -(CALayer *)newLayer

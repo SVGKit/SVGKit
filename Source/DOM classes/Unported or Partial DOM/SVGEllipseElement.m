@@ -11,6 +11,8 @@
 
 #import "SVGHelperUtilities.h"
 
+#import "SVGKCGFloatAdditions.h"
+
 @interface SVGEllipseElement()
 @property (nonatomic, readwrite) CGFloat cx;
 @property (nonatomic, readwrite) CGFloat cy;
@@ -29,19 +31,19 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"cx"] length] > 0 )
-	self.cx = [[self getAttribute:@"cx"] floatValue];
+	self.cx = [[self getAttribute:@"cx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"cy"] length] > 0 )
-	self.cy = [[self getAttribute:@"cy"] floatValue];
+	self.cy = [[self getAttribute:@"cy"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	self.rx = [[self getAttribute:@"rx"] floatValue];
+	self.rx = [[self getAttribute:@"rx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	self.ry = [[self getAttribute:@"ry"] floatValue];
+	self.ry = [[self getAttribute:@"ry"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
-		self.ry = self.rx = [[self getAttribute:@"r"] floatValue];
+		self.ry = self.rx = [[self getAttribute:@"r"] SVGKCGFloatValue];
 	}
 }
 

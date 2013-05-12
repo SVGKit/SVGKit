@@ -197,6 +197,8 @@
 		5540E814173881BF004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 		5540E818173887BF004029EF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E817173887BE004029EF /* Quartz.framework */; };
 		5540E819173887D9004029EF /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement.m */; };
+		557E69D3174014E4006B0029 /* SVGKCGFloatAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */; };
+		557E69D4174014E4006B0029 /* SVGKCGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */; };
 		5587F25E173F3C9800DC0EC1 /* SVGKImage+SVGPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74B17387F2B004029EF /* SVGKImage+SVGPathView.m */; };
 		55B4D796173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B4D794173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h */; };
 		55B4D797173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B4D795173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m */; };
@@ -412,6 +414,8 @@
 		5540E74F17387F2B004029EF /* SVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGUtils.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5540E815173881BF004029EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5540E817173887BE004029EF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
+		557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
 		55B4D794173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		55B4D795173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
 		55B4D79D173EC58700D2C676 /* SVGKFastImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKFastImageView.h; sourceTree = "<group>"; };
@@ -797,6 +801,8 @@
 			children = (
 				55B4D794173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h */,
 				55B4D795173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m */,
+				557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */,
+				557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */,
 			);
 			name = "Shared Additions";
 			path = "Source/Shared Additions";
@@ -922,6 +928,7 @@
 				55B4D7A5173EC58700D2C676 /* SVGKImageView.h in Headers */,
 				55B4D7A7173EC58700D2C676 /* SVGKLayeredImageView.h in Headers */,
 				55B4D7AB173ECEC200D2C676 /* CALayerExporter.h in Headers */,
+				557E69D3174014E4006B0029 /* SVGKCGFloatAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1074,6 +1081,7 @@
 				55B4D7A9173EC87C00D2C676 /* SVGKLayer.m in Sources */,
 				55B4D7AA173ECEA200D2C676 /* CALayerExporter.m in Sources */,
 				5587F25E173F3C9800DC0EC1 /* SVGKImage+SVGPathView.m in Sources */,
+				557E69D4174014E4006B0029 /* SVGKCGFloatAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
