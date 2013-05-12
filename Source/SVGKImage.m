@@ -23,7 +23,7 @@
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
-@property(nonatomic) int numberOfInstances;
+@property(nonatomic) NSInteger numberOfInstances;
 @property(nonatomic,retain) SVGKImage* mainInstance;
 @end
 @implementation SVGKImageCacheLine
