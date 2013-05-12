@@ -17,6 +17,8 @@
 
 #import "SVGHelperUtilities.h"
 
+#import "SVGKCGFloatAdditions.h"
+
 @implementation SVGTextElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
@@ -56,7 +58,7 @@
 	NSString* actualSize = [self cascadedValueForStylableProperty:@"font-size"];
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
 	
-	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize floatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
 //	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 	

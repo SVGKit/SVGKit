@@ -12,6 +12,8 @@
 
 #endif
 
+#import "SVGKCGFloatAdditions.h"
+
 #if TARGET_OS_IPHONE
 #define SVGImage UIImage
 #else
@@ -51,16 +53,16 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 
 	if( [[self getAttribute:@"x"] length] > 0 )
-	_x = [[self getAttribute:@"x"] floatValue];
+	_x = [[self getAttribute:@"x"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"y"] length] > 0 )
-	_y = [[self getAttribute:@"y"] floatValue];
+	_y = [[self getAttribute:@"y"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"width"] length] > 0 )
-	_width = [[self getAttribute:@"width"] floatValue];
+	_width = [[self getAttribute:@"width"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"height"] length] > 0 )
-	_height = [[self getAttribute:@"height"] floatValue];
+	_height = [[self getAttribute:@"height"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"href"] length] > 0 )
 	self.href = [self getAttribute:@"href"];
