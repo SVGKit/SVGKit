@@ -451,7 +451,7 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 		//I am unsure how well this will preform: something could break it
 		CGColorRef tmpoutColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
 		
-		outColor = (CGColorRef)[NSMakeCollectable(tmpoutColor) autorelease];
+		outColor = (CGColorRef)[(id)tmpoutColor autorelease];
 	}
 #endif
 	

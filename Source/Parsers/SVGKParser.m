@@ -734,8 +734,6 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 			
 			dict[newAttribute.localName] = newAttribute;
 			
-			[newAttribute release];
-			
 			bzero(name, MAX_NAME);
 			
 			bzero(accum, MAX_ACCUM);

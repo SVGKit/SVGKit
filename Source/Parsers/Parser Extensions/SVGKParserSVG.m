@@ -162,7 +162,6 @@ static NSDictionary *elementMap;
 				{
 					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
-				[newDocument release];
 			}
 			
 		}

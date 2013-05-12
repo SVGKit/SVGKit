@@ -104,8 +104,6 @@ static float cachedDevicePixelsPerInch;
 	
 	SVGLength* result = [[SVGLength alloc] initWithCSSPrimitiveValue:pv];
 	
-	[pv release];
-	
 	return result;
 }
 
