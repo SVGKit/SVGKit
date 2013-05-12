@@ -193,7 +193,7 @@
 		5540E80D17387F2B004029EF /* SVGKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74C17387F2B004029EF /* SVGKPattern.h */; };
 		5540E80E17387F2B004029EF /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
 		5540E80F17387F2B004029EF /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74E17387F2B004029EF /* SVGUtils.h */; };
-		5540E81017387F2B004029EF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; };
+		5540E81017387F2B004029EF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5540E814173881BF004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 		5540E818173887BF004029EF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E817173887BE004029EF /* Quartz.framework */; };
 		5540E819173887D9004029EF /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement.m */; };
