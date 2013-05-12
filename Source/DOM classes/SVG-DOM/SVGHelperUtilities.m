@@ -248,7 +248,6 @@
 		if( actualStrokeOpacity.length > 0 )
 			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
 		
-		//FIXME: Does this really leak?
 		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
 		
 		/**
@@ -329,7 +328,6 @@
 		if( actualFillOpacity.length > 0 )
 			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
 		
-		//FIXME: Does this really leak?
 		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
