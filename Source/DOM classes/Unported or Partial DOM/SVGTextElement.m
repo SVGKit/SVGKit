@@ -72,7 +72,7 @@
 	if( actualFamily != nil)
 		font = CTFontCreateWithName( (CFStringRef)actualFamily, effectiveFontSize, NULL);
 	if( font == NULL )
-		font = CTFontCreateWithName( (CFStringRef) @"Verdana", effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
+		font = CTFontCreateWithName( CFSTR("Verdana"), effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
 	
