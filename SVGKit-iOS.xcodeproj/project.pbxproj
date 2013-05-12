@@ -336,6 +336,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		557E69D517401644006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
+		557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
 		55B4D799173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		55B4D79A173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
 		6616CB0F171078E800109FF3 /* SVGKSourceString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceString.h; sourceTree = "<group>"; };
@@ -563,6 +565,8 @@
 			children = (
 				55B4D799173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.h */,
 				55B4D79A173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.m */,
+				557E69D517401644006B0029 /* SVGKCGFloatAdditions.h */,
+				557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */,
 			);
 			path = "Shared Additions";
 			sourceTree = "<group>";
@@ -1043,6 +1047,7 @@
 				6616CB161710790200109FF3 /* SVGKSourceLocalFile.m in Sources */,
 				6616CB1A1710798300109FF3 /* SVGKSourceURL.m in Sources */,
 				55B4D79C173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.m in Sources */,
+				557E69D817401644006B0029 /* SVGKCGFloatAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
