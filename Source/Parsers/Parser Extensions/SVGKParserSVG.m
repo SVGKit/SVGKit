@@ -163,7 +163,7 @@ static NSDictionary *elementMap;
 			{
 				NSAssert( [element isKindOfClass:[SVGSVGElement class]], @"Trying to create a new internal SVGDocument from a Node that is NOT of type SVGSVGElement (tag: svg). Node was of type: %@", NSStringFromClass([element class]));
 				
-				SVGDocument* newDocument = [[[SVGDocument alloc] init] autorelease];
+				SVGDocument* newDocument = [[SVGDocument alloc] init];
 				newDocument.rootElement = (SVGSVGElement*) element;
 				
 				if( overwriteRootSVGDocument )
@@ -174,6 +174,7 @@ static NSDictionary *elementMap;
 				{
 					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
+				[newDocument release];
 			}
 			
 		}

@@ -137,13 +137,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil )
 	{
-    result->cameFromGlobalCache = TRUE;
-    result.nameUsedToInstantiate = name;
-    
-    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
-    newCacheLine.mainInstance = result;
-    
-    [globalSVGKImageCache setValue:newCacheLine forKey:name];
+		result->cameFromGlobalCache = TRUE;
+		result.nameUsedToInstantiate = name;
+		
+		SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
+		newCacheLine.mainInstance = result;
+		
+		[globalSVGKImageCache setValue:newCacheLine forKey:name];
+		[newCacheLine release];
 	}
 	else
 	{
@@ -586,13 +587,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child] autorelease];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
 			
 			if (!sublayer) {
 				continue;
             }
 			
 			[layer addSublayer:sublayer];
+			[sublayer release];
 		}
 	}
 	
