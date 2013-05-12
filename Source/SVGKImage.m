@@ -48,7 +48,7 @@
 #endif
 
 /**
- Lowest-level code used by all the "export" methods and by the ".UIImage" property
+ Lowest-level code used by all the "export" methods and by the ".UIImage", "CIImage", and NSImage property
  
  @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
@@ -272,6 +272,20 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)finalize
 {
+#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    if( self->cameFromGlobalCache )
+    {
+        SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
+        cacheLine.numberOfInstances --;
+        
+        if( cacheLine.numberOfInstances < 1 )
+        {
+            [globalSVGKImageCache removeObjectForKey:self.nameUsedToInstantiate];
+        }
+    }
+#endif
+
+	
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 
 	[super finalize];
@@ -789,19 +803,30 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (CGImageRef)newCGImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
+	if( [self hasSize] )
+	{
 		CGSize curSize = self.size;
-	CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-	CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
-	CGColorSpaceRelease(theSpace);
-	[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
-	CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
-	CGContextRelease(bitCont);
-	return cgImage;
+		CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
+		CGColorSpaceRelease(theSpace);
+		[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
+		CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
+		CGContextRelease(bitCont);
+		return cgImage;
+	} else {
+		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+		
+		return NULL;
+	}
+
 }
 
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (cgImage == NULL) {
+		return nil;
+	}
 	CIImage *result = [[CIImage alloc] initWithCGImage:cgImage];
 	CGImageRelease(cgImage);
 	return [result autorelease];
@@ -810,6 +835,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (cgImage == NULL) {
+		return nil;
+	}
 	NSImage *result = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
 	CGImageRelease(cgImage);
 	return [result autorelease];
