@@ -144,7 +144,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		newCacheLine.mainInstance = result;
 		
 		[globalSVGKImageCache setValue:newCacheLine forKey:name];
-		[newCacheLine release];
 	}
 	else
 	{
