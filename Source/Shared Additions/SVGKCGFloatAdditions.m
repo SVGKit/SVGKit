@@ -28,6 +28,7 @@
 	if ([self respondsToSelector:@selector(CGFloatValue)]) {
 		return [self CGFloatValue];
 	}
+	
 #if CGFLOAT_IS_DOUBLE
 	return [self doubleValue];
 #else

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+//The SVGK prefix is to prevent possible clashes when/if Apple implements the functions
 @interface NSString (SVGKCGFloatAdditions)
 
 - (CGFloat)SVGKCGFloatValue;
