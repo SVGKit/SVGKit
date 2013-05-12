@@ -102,12 +102,14 @@
 static float cachedDevicePixelsPerInch;
 +(SVGLength*) svgLengthFromNSString:(NSString*) s
 {
-	CSSPrimitiveValue* pv = [[[CSSPrimitiveValue alloc] init] autorelease];
+	CSSPrimitiveValue* pv = [[CSSPrimitiveValue alloc] init];
 	
 	pv.pixelsPerInch = cachedDevicePixelsPerInch;
 	pv.cssText = s;
 	
 	SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:pv] autorelease];
+	
+	[pv release];
 	
 	return result;
 }
@@ -126,9 +128,11 @@ static float cachedDevicePixelsPerInch;
 
 +(float) pixelsPerInchForCurrentDevice
 {
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+	
 	/** Using this as reference: http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
 	 */
-	
+
 	size_t size;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
 	char *machine = malloc(size);
@@ -186,6 +190,10 @@ static float cachedDevicePixelsPerInch;
 	
 	NSAssert(FALSE, @"Cannot determine the PPI values for current device; returning 0.0f - hopefully this will crash your code (you CANNOT run SVG's that use CM/IN/MM etc until you fix this)" );
 	return 0.0f; // Bet you'll get a divide by zero here...
+#else
+	//TODO: port to OS X.
+	return 72.0;
+#endif
 }
 
 @end

@@ -90,8 +90,11 @@
 				self = nil;
 			}break;
 		}
-		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		{
+			NodeList *tmpList = [[NodeList alloc] init];
+			self.childNodes = tmpList;
+			[tmpList release];
+		}
     }
     return self;
 }
@@ -130,12 +133,18 @@
 			{
 				
 				self.nodeName = n;
-				
-				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
+				{
+					NamedNodeMap *tmpMap = [[NamedNodeMap alloc] init];
+					self.attributes = tmpMap;
+					[tmpMap release];
+				}
 			}break;
 		}
-		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		{
+			NodeList *tmpList = [[NodeList alloc] init];
+			self.childNodes = tmpList;
+			[tmpList release];
+		}
     }
     return self;
 }
@@ -312,7 +321,7 @@
 			/** DOM 3 Spec:
 			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
 			 */
-			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			NSMutableString* stringAccumulator = [[NSMutableString alloc] init];
 			for( Node* subNode in self.childNodes.internalArray )
 			{
 				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!
@@ -320,7 +329,9 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:stringAccumulator];
+			NSString *tmpStr = [NSString stringWithString:stringAccumulator];
+			[stringAccumulator release];
+			return tmpStr;
 		}
 			
 		case DOMNodeType_TEXT_NODE:

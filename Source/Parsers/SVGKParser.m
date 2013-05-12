@@ -50,11 +50,11 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 
 + (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
 {
-	SVGKParser *parser = [[[SVGKParser alloc] initWithSource:source] autorelease];
+	SVGKParser *parser = [[SVGKParser alloc] initWithSource:source];
 	[parser addDefaultSVGParserExtensions];
 	
 	SVGKParseResult* result = [parser parseSynchronously];
-	
+	[parser release];
 	return result;
 }
 
@@ -88,12 +88,12 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 
 -(void) addDefaultSVGParserExtensions
 {
-	SVGKParserSVG *subParserSVG = [[[SVGKParserSVG alloc] init] autorelease];
-	SVGKParserGradient* subParserGradients = [[[SVGKParserGradient alloc] init] autorelease];
-	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[[SVGKParserPatternsAndGradients alloc] init] autorelease];
-	SVGKParserStyles* subParserStyles = [[[SVGKParserStyles alloc] init] autorelease];
-	SVGKParserDefsAndUse *subParserDefsAndUse = [[[SVGKParserDefsAndUse alloc] init] autorelease];
-	SVGKParserDOM *subParserXMLDOM = [[[SVGKParserDOM alloc] init] autorelease];
+	SVGKParserSVG *subParserSVG = [[SVGKParserSVG alloc] init];
+	SVGKParserGradient* subParserGradients = [[SVGKParserGradient alloc] init];
+	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[SVGKParserPatternsAndGradients alloc] init];
+	SVGKParserStyles* subParserStyles = [[SVGKParserStyles alloc] init];
+	SVGKParserDefsAndUse *subParserDefsAndUse = [[SVGKParserDefsAndUse alloc] init];
+	SVGKParserDOM *subParserXMLDOM = [[SVGKParserDOM alloc] init];
 	
 	[self addParserExtension:subParserSVG];
 	[self addParserExtension:subParserGradients];
@@ -101,6 +101,14 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	[self addParserExtension:subParserStyles];
 	[self addParserExtension:subParserDefsAndUse];
 	[self addParserExtension:subParserXMLDOM];
+	
+	[subParserSVG release];
+	[subParserGradients release];
+	[subParserPatternsAndGradients release];
+	[subParserStyles release];
+	[subParserDefsAndUse release];
+	[subParserXMLDOM release];
+
 }
 
 - (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension
@@ -534,8 +542,9 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  [errStr autorelease], NSLocalizedDescriptionKey,
+																				  errStr, NSLocalizedDescriptionKey,
 																				nil]]];
+	[errStr release];
 }
 
 static void	unparsedEntityDeclaration(void * ctx, 
@@ -544,7 +553,7 @@ static void	unparsedEntityDeclaration(void * ctx,
 									 const xmlChar * systemId, 
 									 const xmlChar * notationName)
 {
-	NSLog(@"ERror: unparsed entity Decl");
+	NSLog(@"Error: unparsed entity Decl, name: %s publicID: %s systemID: %s notation name: %s", name, publicId, systemId, notationName);
 }
 
 static void structuredError		(void * userData, 
@@ -680,10 +689,11 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		
 		NSString* qname = (prefix == nil) ? localName : [NSString stringWithFormat:@"%@:%@", prefix, localName];
 		
-		Attr* newAttribute = [[[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value] autorelease];
+		Attr* newAttribute = [[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value];
 		
 		[dict setObject:newAttribute
 				 forKey:qname];
+		[newAttribute release];
 	}
 	
 	return [dict autorelease];
@@ -732,10 +742,12 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		else if (c == ';' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			Attr* newAttribute = [[[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]] autorelease];
+			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]];
 			
 			[dict setObject:newAttribute
 					 forKey:newAttribute.localName];
+			
+			[newAttribute release];
 			
 			bzero(name, MAX_NAME);
 			

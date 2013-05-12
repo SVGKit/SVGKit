@@ -1104,7 +1104,7 @@
 				DYLIB_CURRENT_VERSION = 1.1.0pre;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1123,7 +1123,7 @@
 				DYLIB_CURRENT_VERSION = 1.1.0pre;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

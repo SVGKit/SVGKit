@@ -2,9 +2,9 @@
 
 //DW stands for Darwin
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-#define DWColor UIColor
+#define DWBlackColor() [UIColor blackColor].CGColor
 #else
-#define DWColor NSColor
+#define DWBlackColor() CGColorGetConstantColor(kCGColorBlack)
 #endif
 
 @implementation SVGKLayer
@@ -29,7 +29,7 @@
     self = [super init];
     if (self)
 	{
-    	self.borderColor = [DWColor blackColor].CGColor;
+    	self.borderColor = DWBlackColor();
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }

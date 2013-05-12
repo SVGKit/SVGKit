@@ -14,13 +14,16 @@
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import <SVGKit/SVGKSourceURL.h>
 
-#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
+#else
 #define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
-@property(nonatomic) int numberOfInstances;
+@property(nonatomic) NSInteger numberOfInstances;
 @property(nonatomic,retain) SVGKImage* mainInstance;
 @end
 @implementation SVGKImageCacheLine
@@ -45,7 +48,7 @@
 #endif
 
 /**
- Lowest-level code used by all the "export" methods and by the ".UIImage" property
+ Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
  
  @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
@@ -134,13 +137,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil )
 	{
-    result->cameFromGlobalCache = TRUE;
-    result.nameUsedToInstantiate = name;
-    
-    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
-    newCacheLine.mainInstance = result;
-    
-    [globalSVGKImageCache setValue:newCacheLine forKey:name];
+		result->cameFromGlobalCache = TRUE;
+		result.nameUsedToInstantiate = name;
+		
+		SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
+		newCacheLine.mainInstance = result;
+		
+		[globalSVGKImageCache setValue:newCacheLine forKey:name];
+		[newCacheLine release];
 	}
 	else
 	{
@@ -269,6 +273,20 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)finalize
 {
+#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    if( self->cameFromGlobalCache )
+    {
+        SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
+        cacheLine.numberOfInstances --;
+        
+        if( cacheLine.numberOfInstances < 1 )
+        {
+            [globalSVGKImageCache removeObjectForKey:self.nameUsedToInstantiate];
+        }
+    }
+#endif
+
+	
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 
 	[super finalize];
@@ -569,13 +587,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child] autorelease];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
 			
 			if (!sublayer) {
 				continue;
             }
 			
 			[layer addSublayer:sublayer];
+			[sublayer release];
 		}
 	}
 	
@@ -741,7 +760,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	NSLog(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
 	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
@@ -786,19 +805,30 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (CGImageRef)newCGImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
+	if( [self hasSize] )
+	{
 		CGSize curSize = self.size;
-	CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-	CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
-	CGColorSpaceRelease(theSpace);
-	[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
-	CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
-	CGContextRelease(bitCont);
-	return cgImage;
+		CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+		CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
+		CGColorSpaceRelease(theSpace);
+		[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
+		CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
+		CGContextRelease(bitCont);
+		return cgImage;
+	} else {
+		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+		
+		return NULL;
+	}
+
 }
 
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (cgImage == NULL) {
+		return nil;
+	}
 	CIImage *result = [[CIImage alloc] initWithCGImage:cgImage];
 	CGImageRelease(cgImage);
 	return [result autorelease];
@@ -807,6 +837,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (cgImage == NULL) {
+		return nil;
+	}
 	NSImage *result = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
 	CGImageRelease(cgImage);
 	return [result autorelease];

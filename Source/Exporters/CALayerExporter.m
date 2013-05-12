@@ -203,7 +203,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                             size_t colorComponentsCount = CGColorGetNumberOfComponents(color);
                             NSMutableString* colorComponentsCreateStatement = [NSMutableString stringWithFormat:@"CGFloat %@[] = ", componentsName];
                             [colorComponentsCreateStatement appendString:@"{"];
-                            for (int i=0; i != colorComponentsCount; ++i) {
+                            for (NSInteger i=0; i != colorComponentsCount; ++i) {
                                 [colorComponentsCreateStatement appendFormat:@"%@%f", ((i != 0) ? @"," : @""), colorComponents[i]];
                             }
                             [colorComponentsCreateStatement appendString:@"};"];
@@ -258,7 +258,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         }
     }
     
-    
     NSString* addSublayerStatement = [NSString stringWithFormat:@"[%@ addSublayer:%@];", parentName, layerName];
     [self.delegate layerExporter:self
                    didParseLayer:currentLayer
@@ -274,10 +273,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         [self processLayer:childLayer index:++i parent:layerName];
     }
 }
-
-
-
-
 
 @end
 

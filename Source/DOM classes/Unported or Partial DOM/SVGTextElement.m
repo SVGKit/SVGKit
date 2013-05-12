@@ -72,7 +72,7 @@
 	if( actualFamily != nil)
 		font = CTFontCreateWithName( (CFStringRef)actualFamily, effectiveFontSize, NULL);
 	if( font == NULL )
-		font = CTFontCreateWithName( (CFStringRef) @"Verdana", effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
+		font = CTFontCreateWithName( CFSTR("Verdana"), effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
 	
@@ -88,11 +88,12 @@
 	 3. Ask apple how big the final thing should be
 	 4. Use that to provide a layer.frame
 	 */
-	NSMutableAttributedString* tempString = [[[NSMutableAttributedString alloc] initWithString:effectiveText] autorelease];
+	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
 	[tempString addAttribute:(NSString *)kCTFontAttributeName
 					  value:(id)font
 					  range:NSMakeRange(0, tempString.string.length)];
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+	[tempString release];
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
 	

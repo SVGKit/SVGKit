@@ -248,8 +248,7 @@
 		if( actualStrokeOpacity.length > 0 )
 			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
 		
-		//FIXME: Does this really leak?
-		_shapeLayer.strokeColor = CreateCGColorWithSVGColor( strokeColorAsSVGColor );
+		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
 		
 		/**
 		 Line joins + caps: butt / square / miter
@@ -329,8 +328,7 @@
 		if( actualFillOpacity.length > 0 )
 			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
 		
-		//FIXME: Does this really leak?
-		_shapeLayer.fillColor = CreateCGColorWithSVGColor(fillColorAsSVGColor);
+		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
 	{
