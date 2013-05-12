@@ -549,11 +549,10 @@ static void structuredError		(void * userData,
 	 */
 	xmlErrorLevel errorLevel = error->level;
 	
-	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									@(error->message), NSLocalizedDescriptionKey,
-									@(error->line), @"lineNumber",
-									@(error->int2), @"columnNumber",
-									nil];
+	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithDictionary:@{
+									NSLocalizedDescriptionKey:	@(error->message),
+									@"lineNumber":				@(error->line),
+									@"columnNumber":			@(error->int2)}];
 	
 	if( error->str1 )
 		[details setValue:@(error->str1) forKey:@"bonusInfo1"];
@@ -569,19 +568,15 @@ static void structuredError		(void * userData,
 	switch( errorLevel )
 	{
 		case XML_ERR_WARNING:
-		{
 			[parseResult addParseWarning:objcError];
-		}break;
+			break;
 			
 		case XML_ERR_ERROR:
-		{
 			[parseResult addParseErrorRecoverable:objcError];
-		}break;
+			break;
 			
 		case XML_ERR_FATAL:
-		{
 			[parseResult addParseErrorFatal:objcError];
-		}
         default:
             break;
 	}

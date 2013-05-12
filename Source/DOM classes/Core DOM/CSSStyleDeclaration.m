@@ -87,7 +87,6 @@
 				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
-				//[keyString autorelease]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
 				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
 				
 				CSSValue *cssValue;
