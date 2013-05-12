@@ -119,6 +119,9 @@
 		5587F2E4173FFFAC00DC0EC1 /* SVGKPattern.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 66E8639B1688C2780059C9C4 /* SVGKPattern.h */; };
 		5587F2E5173FFFAC00DC0EC1 /* SVGUtils.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 66E8639D1688C2780059C9C4 /* SVGUtils.h */; };
 		5587F2E61740003000DC0EC1 /* AppleSucksDOMImplementation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */; };
+		557E69D717401644006B0029 /* SVGKCGFloatAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 557E69D517401644006B0029 /* SVGKCGFloatAdditions.h */; };
+		557E69D817401644006B0029 /* SVGKCGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */; };
+		55B4D79B173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B4D799173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.h */; };
 		55B4D79C173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B4D79A173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.m */; };
 		6616CB12171078E800109FF3 /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6616CB10171078E800109FF3 /* SVGKSourceString.m */; };
 		6616CB161710790200109FF3 /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6616CB141710790200109FF3 /* SVGKSourceLocalFile.m */; };
@@ -911,6 +914,128 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6639624616145D3E00E58CCA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66E8639F1688C2780059C9C4 /* AppleSucksDOMImplementation.h in Headers */,
+				66E863A11688C2780059C9C4 /* Attr.h in Headers */,
+				66E863A31688C2780059C9C4 /* CDATASection.h in Headers */,
+				66E863A51688C2780059C9C4 /* CharacterData.h in Headers */,
+				66E863A71688C2780059C9C4 /* Comment.h in Headers */,
+				66E863A91688C2780059C9C4 /* Document+Mutable.h in Headers */,
+				66E863AA1688C2780059C9C4 /* Document.h in Headers */,
+				66372EEE1695F16A008C6C56 /* DocumentCSS.h in Headers */,
+				66E863AC1688C2780059C9C4 /* DocumentFragment.h in Headers */,
+				66372EEF1695F17F008C6C56 /* DocumentStyle.h in Headers */,
+				66E863AE1688C2780059C9C4 /* DocumentType.h in Headers */,
+				66E863B01688C2780059C9C4 /* DOMHelperUtilities.h in Headers */,
+				66E863B21688C2780059C9C4 /* Element.h in Headers */,
+				66E863B41688C2780059C9C4 /* EntityReference.h in Headers */,
+				66E863B61688C2780059C9C4 /* NamedNodeMap.h in Headers */,
+				66E863B81688C2780059C9C4 /* Node+Mutable.h in Headers */,
+				66E863B91688C2780059C9C4 /* Node.h in Headers */,
+				66E863BB1688C2780059C9C4 /* NodeList+Mutable.h in Headers */,
+				66E863BC1688C2780059C9C4 /* NodeList.h in Headers */,
+				66E863BE1688C2780059C9C4 /* ProcessingInstruction.h in Headers */,
+				66E863C01688C2780059C9C4 /* Text.h in Headers */,
+				66E863C21688C2780059C9C4 /* SVGAngle.h in Headers */,
+				66E863C41688C2780059C9C4 /* SVGDefsElement.h in Headers */,
+				66E863C61688C2780059C9C4 /* SVGDocument.h in Headers */,
+				66E863C81688C2780059C9C4 /* SVGDocument_Mutable.h in Headers */,
+				66E863C91688C2780059C9C4 /* SVGElementInstance.h in Headers */,
+				66E863CB1688C2780059C9C4 /* SVGElementInstance_Mutable.h in Headers */,
+				66E863CC1688C2780059C9C4 /* SVGElementInstanceList.h in Headers */,
+				66E863CE1688C2780059C9C4 /* SVGElementInstanceList_Internal.h in Headers */,
+				66E863CF1688C2780059C9C4 /* SVGLength.h in Headers */,
+				66E863D11688C2780059C9C4 /* SVGMatrix.h in Headers */,
+				66E863D31688C2780059C9C4 /* SVGNumber.h in Headers */,
+				66E863D41688C2780059C9C4 /* SVGPoint.h in Headers */,
+				66E863D61688C2780059C9C4 /* SVGRect.h in Headers */,
+				66E863D71688C2780059C9C4 /* SVGSVGElement_Mutable.h in Headers */,
+				66E863D81688C2780059C9C4 /* SVGTransform.h in Headers */,
+				66E863DA1688C2780059C9C4 /* SVGUseElement.h in Headers */,
+				66E863DC1688C2780059C9C4 /* SVGUseElement_Mutable.h in Headers */,
+				66E863DD1688C2780059C9C4 /* SVGViewSpec.h in Headers */,
+				66E863DE1688C2780059C9C4 /* SVGCircleElement.h in Headers */,
+				66E863E01688C2780059C9C4 /* SVGDescriptionElement.h in Headers */,
+				66E863E21688C2780059C9C4 /* SVGElement.h in Headers */,
+				66E863E41688C2780059C9C4 /* SVGElement_ForParser.h in Headers */,
+				66E863E51688C2780059C9C4 /* SVGEllipseElement.h in Headers */,
+				66E863E71688C2780059C9C4 /* SVGGroupElement.h in Headers */,
+				66E863E91688C2780059C9C4 /* SVGImageElement.h in Headers */,
+				66E863EB1688C2780059C9C4 /* SVGLayeredElement.h in Headers */,
+				66E863EC1688C2780059C9C4 /* SVGLineElement.h in Headers */,
+				66E863EE1688C2780059C9C4 /* SVGPathElement.h in Headers */,
+				66E863F01688C2780059C9C4 /* SVGPolygonElement.h in Headers */,
+				66E863F21688C2780059C9C4 /* SVGPolylineElement.h in Headers */,
+				66E863F41688C2780059C9C4 /* SVGRectElement.h in Headers */,
+				66E863F61688C2780059C9C4 /* BaseClassForAllSVGBasicShapes.h in Headers */,
+				66E863F81688C2780059C9C4 /* SVGSVGElement.h in Headers */,
+				66E863FA1688C2780059C9C4 /* SVGTextElement.h in Headers */,
+				66E863FC1688C2780059C9C4 /* SVGTitleElement.h in Headers */,
+				66E863FE1688C2780059C9C4 /* CALayerExporter.h in Headers */,
+				66E864001688C2780059C9C4 /* SVGKParserDefsAndUse.h in Headers */,
+				66E864021688C2780059C9C4 /* SVGKParserDOM.h in Headers */,
+				66E864041688C2780059C9C4 /* SVGKParserPatternsAndGradients.h in Headers */,
+				66E864061688C2780059C9C4 /* SVGKParserSVG.h in Headers */,
+				66E864081688C2780059C9C4 /* SVGKParser.h in Headers */,
+				66E8640A1688C2780059C9C4 /* SVGKParseResult.h in Headers */,
+				66E8640C1688C2780059C9C4 /* SVGKParserExtension.h in Headers */,
+				66E8640D1688C2780059C9C4 /* SVGKPointsAndPathsParser.h in Headers */,
+				66E8640F1688C2780059C9C4 /* CALayerWithChildHitTest.h in Headers */,
+				66E864111688C2780059C9C4 /* CAShapeLayerWithHitTest.h in Headers */,
+				66E864131688C2780059C9C4 /* CGPathAdditions.h in Headers */,
+				66E864151688C2780059C9C4 /* SVGKLayer.h in Headers */,
+				66E864171688C2780059C9C4 /* SVGKImage.h in Headers */,
+				66E864191688C2780059C9C4 /* SVGKit.h in Headers */,
+				66E8641A1688C2780059C9C4 /* SVGKSource.h in Headers */,
+				66E8641C1688C2780059C9C4 /* SVGKFastImageView.h in Headers */,
+				66E8641E1688C2780059C9C4 /* SVGKImageView.h in Headers */,
+				66E864201688C2780059C9C4 /* SVGKLayeredImageView.h in Headers */,
+				66E864221688C2780059C9C4 /* SVGKImage+SVGPathView.h in Headers */,
+				66E864241688C2780059C9C4 /* SVGKPattern.h in Headers */,
+				66E864261688C2780059C9C4 /* SVGUtils.h in Headers */,
+				66EEE8521688CA8A002E2658 /* SVGKParserGradient.h in Headers */,
+				66EEE8571688CA94002E2658 /* SVGKParserStyles.h in Headers */,
+				66EEE8601688CB37002E2658 /* SVGGradientElement.h in Headers */,
+				66EEE8621688CB37002E2658 /* SVGGradientStop.h in Headers */,
+				66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */,
+				66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */,
+				66372EF01695F193008C6C56 /* SVGStylable.h in Headers */,
+				6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */,
+				66988DB3168A001400EC93C7 /* CSSStyleDeclaration.h in Headers */,
+				66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */,
+				66988DBB168A027E00EC93C7 /* CSSRule.h in Headers */,
+				66988DBF168A031200EC93C7 /* CSSStyleSheet.h in Headers */,
+				66988DC3168A038400EC93C7 /* CSSRuleList.h in Headers */,
+				66988DC7168A04D100EC93C7 /* CSSRuleList+Mutable.h in Headers */,
+				66988DCB168A0A2300EC93C7 /* CSSPrimitiveValue.h in Headers */,
+				66988DCF168A129500EC93C7 /* CSSValueList.h in Headers */,
+				66988DD3168A13BD00EC93C7 /* CSSValue_ForSubclasses.h in Headers */,
+				666674BA168A511400486B68 /* CSSStyleRule.h in Headers */,
+				666674C1168A556300486B68 /* StyleSheetList.h in Headers */,
+				666674C5168A55AF00486B68 /* StyleSheet.h in Headers */,
+				666674C9168A561C00486B68 /* MediaList.h in Headers */,
+				6694BB7B16967407007D0947 /* DOMGlobalSettings.h in Headers */,
+				663FD01416CAEF0D00CCBFB3 /* SVGHelperUtilities.h in Headers */,
+				663FD01B16CBEF5E00CCBFB3 /* BaseClassForAllSVGBasicShapes_ForSubclasses.h in Headers */,
+				661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */,
+				661ADBF716CC2FCA006F4BC3 /* SVGTextContentElement.h in Headers */,
+				661ADBFC16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h in Headers */,
+				661AE44916D13DA8005E69D9 /* SVGTransformable.h in Headers */,
+				661AE44A16D13DAD005E69D9 /* SVGFitToViewBox.h in Headers */,
+				6616CB11171078E800109FF3 /* SVGKSourceString.h in Headers */,
+				6616CB151710790200109FF3 /* SVGKSourceLocalFile.h in Headers */,
+				6616CB191710798300109FF3 /* SVGKSourceURL.h in Headers */,
+				55B4D79B173EC40900D2C676 /* NSCharacterSet+SVGKExtensions.h in Headers */,
+				557E69D717401644006B0029 /* SVGKCGFloatAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		6639618D16145D0400E58CCA /* SVGKit-iOS */ = {

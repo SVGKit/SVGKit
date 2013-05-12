@@ -11,6 +11,8 @@
 
 #import <SVGKit/SVGHelperUtilities.h>
 
+#import "SVGKCGFloatAdditions.h"
+
 @implementation SVGLineElement
 
 @synthesize x1 = _x1;
