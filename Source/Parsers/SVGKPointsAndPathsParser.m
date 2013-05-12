@@ -1,4 +1,4 @@
-#import "SVGKPointsAndPathsParser.h"
+#import <SVGKit/SVGKPointsAndPathsParser.h>
 
 #import "NSCharacterSet+SVGKExtensions.h"
 

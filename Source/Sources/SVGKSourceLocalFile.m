@@ -1,4 +1,4 @@
-#import "SVGKSourceLocalFile.h"
+#import <SVGKit/SVGKSourceLocalFile.h>
 
 @implementation SVGKSourceLocalFile
 

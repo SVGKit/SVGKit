@@ -10,13 +10,13 @@
 #import <SVGKit/Element.h>
 #import <SVGKit/Node+Mutable.h>
 #import <SVGKit/SVGStylable.h>
-//#import "SVGLength.h"
+//#import <SVGKit/SVGLength.h>
 @class SVGLength;
 
 #define DEBUG_SVG_ELEMENT_PARSING 0
 
 @class SVGSVGElement;
-//obj-c's compiler sucks, and doesn't allow this line: #import "SVGSVGElement.h"
+//obj-c's compiler sucks, and doesn't allow this line: #import <SVGKit/SVGSVGElement.h"
 
 @interface SVGElement : Element <SVGStylable>
 

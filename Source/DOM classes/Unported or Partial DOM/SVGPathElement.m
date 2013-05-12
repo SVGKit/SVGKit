@@ -5,12 +5,12 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGPathElement.h"
+#import <SVGKit/SVGPathElement.h>
 
-#import "SVGUtils.h"
-#import "SVGKPointsAndPathsParser.h"
+#import <SVGKit/SVGUtils.h>
+#import <SVGKit/SVGKPointsAndPathsParser.h>
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 @interface SVGPathElement ()
 

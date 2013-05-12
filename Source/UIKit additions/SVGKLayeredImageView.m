@@ -1,8 +1,8 @@
-#import "SVGKLayeredImageView.h"
+#import <SVGKit/SVGKLayeredImageView.h>
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SVGKSourceString.h"
+#import <SVGKit/SVGKSourceString.h>
 
 @interface SVGKLayeredImageView()
 @property(nonatomic,retain) CAShapeLayer* internalBorderLayer;

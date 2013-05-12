@@ -5,11 +5,11 @@
 //  Copyright Matt Rajca 2011. All rights reserved.
 //
 
-#import "SVGPolygonElement.h"
+#import <SVGKit/SVGPolygonElement.h>
 
-#import "SVGKPointsAndPathsParser.h"
+#import <SVGKit/SVGKPointsAndPathsParser.h>
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 @interface SVGPolygonElement()
 

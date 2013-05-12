@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DocumentFragment.h"
+#import <SVGKit/DocumentFragment.h>
 
 @implementation DocumentFragment
 

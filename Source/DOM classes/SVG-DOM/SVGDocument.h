@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 
 #import <SVGKit/Document.h>
-//#import "SVGSVGElement.h"
+//#import <SVGKit/SVGSVGElement.h>
 @class SVGSVGElement;
 
 @interface SVGDocument : Document

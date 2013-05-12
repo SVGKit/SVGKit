@@ -1,5 +1,5 @@
-#import "StyleSheetList.h"
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/StyleSheetList.h>
+#import <SVGKit/StyleSheetList+Mutable.h>
 
 @implementation StyleSheetList
 

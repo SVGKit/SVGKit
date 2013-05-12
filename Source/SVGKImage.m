@@ -1,18 +1,18 @@
-#import "SVGKImage.h"
+#import <SVGKit/SVGKImage.h>
 
-#import "SVGDefsElement.h"
-#import "SVGDescriptionElement.h"
-#import "SVGKParser.h"
-#import "SVGTitleElement.h"
-#import "SVGPathElement.h"
-#import "SVGUseElement.h"
+#import <SVGKit/SVGDefsElement.h>
+#import <SVGKit/SVGDescriptionElement.h>
+#import <SVGKit/SVGKParser.h>
+#import <SVGKit/SVGTitleElement.h>
+#import <SVGKit/SVGPathElement.h>
+#import <SVGKit/SVGUseElement.h>
 
-#import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
+#import <SVGKit/SVGSVGElement_Mutable.h> // so that changing .size can change the SVG's .viewport
 
-#import "SVGKParserSVG.h"
+#import <SVGKit/SVGKParserSVG.h>
 
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
+#import <SVGKit/SVGKSourceLocalFile.h>
+#import <SVGKit/SVGKSourceURL.h>
 
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define NSStringFromCGRect(theRect) NSStringFromRect(theRect)

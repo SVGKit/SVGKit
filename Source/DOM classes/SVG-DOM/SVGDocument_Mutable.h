@@ -2,7 +2,7 @@
  Makes the writable properties all package-private, effectively
  */
 
-#import "SVGDocument.h"
+#import <SVGKit/SVGDocument.h>
 
 @interface SVGDocument ()
 @property (nonatomic, retain, readwrite) NSString* title;

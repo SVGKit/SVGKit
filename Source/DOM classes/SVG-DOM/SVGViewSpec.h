@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 
 @class SVGElement;
-//#import "SVGElement.h"
+//#import <SVGKit/SVGElement.h>
 
 @interface SVGViewSpec : NSObject
 

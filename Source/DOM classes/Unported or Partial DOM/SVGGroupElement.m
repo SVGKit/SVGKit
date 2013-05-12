@@ -8,12 +8,12 @@
  
  This is the "G" tag.
  */
-#import "SVGGroupElement.h"
+#import <SVGKit/SVGGroupElement.h>
 
 #import "CALayerWithChildHitTest.h"
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
-#import "Node.h"
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/Node.h>
 
 @implementation SVGGroupElement
 

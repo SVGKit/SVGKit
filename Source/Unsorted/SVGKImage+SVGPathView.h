@@ -1,4 +1,4 @@
-#import "SVGKImage.h"
+#import <SVGKit/SVGKImage.h>
 
 /*!
  This extension is used by SVGPathView to make a call recurse down the whole document stack
@@ -8,7 +8,7 @@
  it's pretty clean at the moment
  */
 
-#import "SVGLayeredElement.h"
+#import <SVGKit/SVGLayeredElement.h>
 
 #if NS_BLOCKS_AVAILABLE
 typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);

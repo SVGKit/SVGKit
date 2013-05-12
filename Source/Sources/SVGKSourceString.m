@@ -1,4 +1,4 @@
-#import "SVGKSourceString.h"
+#import <SVGKit/SVGKSourceString.h>
 
 @implementation SVGKSourceString
 

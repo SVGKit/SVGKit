@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SVGKParserGradient.h"
+#import <SVGKit/SVGKParserGradient.h>
 
-#import "SVGElement_ForParser.h"
+#import <SVGKit/SVGElement_ForParser.h>
 
-#import "SVGGradientStop.h"
+#import <SVGKit/SVGGradientStop.h>
 
-#import "SVGGradientElement.h"
+#import <SVGKit/SVGGradientElement.h>
 
 @implementation SVGKParserGradient
 

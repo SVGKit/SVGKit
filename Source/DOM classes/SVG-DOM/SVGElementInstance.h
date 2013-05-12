@@ -20,7 +20,7 @@
 @class SVGElement, SVGElementInstanceList;
 
 @class SVGUseElement;
-//#import "SVGUseElement.h"
+//#import <SVGKit/SVGUseElement.h"
 
 
 @interface SVGElementInstance : NSObject

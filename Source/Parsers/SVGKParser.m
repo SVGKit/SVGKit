@@ -5,25 +5,20 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGKParser.h"
+#import <SVGKit/SVGKParser.h>
 #import <libxml/parser.h>
 
-#import "SVGKParserSVG.h"
+#import <SVGKit/SVGKParserSVG.h>
 
-@class SVGKParserGradient;
-#import "SVGKParserGradient.h"
-@class SVGKParserPatternsAndGradients;
-#import "SVGKParserPatternsAndGradients.h"
-@class SVGKParserStyles;
-#import "SVGKParserStyles.h"
-@class SVGKParserDefsAndUse;
-#import "SVGKParserDefsAndUse.h"
-@class SVGKParserDOM;
-#import "SVGKParserDOM.h"
+#import <SVGKit/SVGKParserGradient.h>
+#import <SVGKit/SVGKParserPatternsAndGradients.h>
+#import <SVGKit/SVGKParserStyles.h>
+#import <SVGKit/SVGKParserDefsAndUse.h>
+#import <SVGKit/SVGKParserDOM.h>
 
-#import "SVGDocument_Mutable.h" // so we can modify the SVGDocuments we're parsing
+#import <SVGKit/SVGDocument_Mutable.h> // so we can modify the SVGDocuments we're parsing
 
-#import "Node.h"
+#import <SVGKit/Node.h>
 
 @interface SVGKParser()
 @property(nonatomic,retain, readwrite) SVGKSource* source;

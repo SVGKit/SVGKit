@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SVGKParserStyles.h"
+#import <SVGKit/SVGKParserStyles.h>
 
-#import "CSSStyleSheet.h"
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/CSSStyleSheet.h>
+#import <SVGKit/StyleSheetList+Mutable.h>
 
 @implementation SVGKParserStyles
 

@@ -1,7 +1,7 @@
-#import "SVGElementInstance.h"
-#import "SVGElementInstance_Mutable.h"
+#import <SVGKit/SVGElementInstance.h>
+#import <SVGKit/SVGElementInstance_Mutable.h>
 
-#import "SVGElementInstanceList_Internal.h"
+#import <SVGKit/SVGElementInstanceList_Internal.h>
 
 @implementation SVGElementInstance
 
