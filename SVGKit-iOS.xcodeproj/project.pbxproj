@@ -21,6 +21,7 @@
 		00E86D6E1741586600F0FA0A /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D5F1741586600F0FA0A /* ContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D601741586600F0FA0A /* DispatchQueueLogFormatter.h */; };
 		00E86D701741586600F0FA0A /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D7317415AA000F0FA0A /* SVGKit.m */; };
 		036A524C16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */; };
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
 		661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -246,6 +247,7 @@
 		00E86D601741586600F0FA0A /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		00E86D621741586600F0FA0A /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		00E86D7317415AA000F0FA0A /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKit.m; sourceTree = "<group>"; };
 		036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
 		661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextPositioningElement.h; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				66E8638C1688C2780059C9C4 /* SVGKImage.h */,
 				66E8638D1688C2780059C9C4 /* SVGKImage.m */,
 				66E8638E1688C2780059C9C4 /* SVGKit.h */,
+				00E86D7317415AA000F0FA0A /* SVGKit.m */,
 				66E8638F1688C2780059C9C4 /* SVGKSource.h */,
 				66E863901688C2780059C9C4 /* SVGKSource.m */,
 				66E863911688C2780059C9C4 /* UIKit additions */,
@@ -1112,6 +1115,7 @@
 				00E86D6C1741586600F0FA0A /* DDTTYLogger.m in Sources */,
 				00E86D6E1741586600F0FA0A /* ContextFilterLogFormatter.m in Sources */,
 				00E86D701741586600F0FA0A /* DispatchQueueLogFormatter.m in Sources */,
+				00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

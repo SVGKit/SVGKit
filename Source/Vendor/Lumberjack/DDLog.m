@@ -26,12 +26,12 @@
 // But we still want to leave our log statements for any future debugging,
 // and to allow other developers to trace the implementation (which is a great learning tool).
 // 
-// So we use a primitive logging macro around NSLog.
-// We maintain the NS prefix on the macros to be explicit about the fact that we're using NSLog.
+// So we use a primitive logging macro around DDLogWarn.
+// We maintain the NS prefix on the macros to be explicit about the fact that we're using DDLogWarn.
 
 #define DD_DEBUG NO
 
-#define NSLogDebug(frmt, ...) do{ if(DD_DEBUG) NSLog((frmt), ##__VA_ARGS__); } while(0)
+#define DDLogWarnDebug(frmt, ...) do{ if(DD_DEBUG) DDLogWarn((frmt), ##__VA_ARGS__); } while(0)
 
 // Specifies the maximum queue size of the logging thread.
 // 
@@ -117,7 +117,7 @@ static unsigned int numProcessors;
 		
 		loggers = [[NSMutableArray alloc] initWithCapacity:4];
 		
-		NSLogDebug(@"DDLog: Using grand central dispatch");
+		DDLogWarnDebug(@"DDLog: Using grand central dispatch");
 		
 		loggingQueue = dispatch_queue_create("cocoa.lumberjack", NULL);
 		loggingGroup = dispatch_group_create();
@@ -141,7 +141,7 @@ static unsigned int numProcessors;
 		
 		numProcessors = MAX(result, one);
 		
-		NSLogDebug(@"DDLog: numProcessors = %u", numProcessors);
+		DDLogWarnDebug(@"DDLog: numProcessors = %u", numProcessors);
 			
 		
 	#if TARGET_OS_IPHONE
@@ -564,7 +564,7 @@ static unsigned int numProcessors;
 	
 	if (loggerNode == nil)
 	{
-		NSLogDebug(@"DDLog: Request to remove logger which wasn't added");
+		DDLogWarnDebug(@"DDLog: Request to remove logger which wasn't added");
 		return;
 	}
 	

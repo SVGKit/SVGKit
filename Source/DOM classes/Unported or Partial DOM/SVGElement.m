@@ -72,7 +72,7 @@
 		
 	if( isTagAllowedToBeAViewport && isTagDefiningAViewport )
 	{
-		NSLog(@"[%@] WARNING: setting self (tag = %@) to be a viewport", [self class], self.tagName );
+		DDLogVerbose(@"[%@] WARNING: setting self (tag = %@) to be a viewport", [self class], self.tagName );
 		self.viewportElement =  self;
 	}
 	else
@@ -148,7 +148,7 @@
 			[self reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:firstAncestorThatIsAnyKindOfSVGElement];
 			
 #if DEBUG_SVG_ELEMENT_PARSING
-			NSLog(@"viewport Element = %@ ... for node/element = %@", self.viewportElement, self.tagName);
+			DDLogVerbose(@"viewport Element = %@ ... for node/element = %@", self.viewportElement, self.tagName);
 #endif
 		}
 	}
@@ -227,7 +227,7 @@
 		NSString* value = [self getAttribute:@"transform"];
 		
 #if !(TARGET_OS_IPHONE) && ( !defined( __MAC_10_7 ) || __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_6_7 )
-		NSLog(@"[%@] WARNING: the transform attribute requires OS X 10.7 or above (we need Regular Expressions! Apple was slow to add them :( ). Ignoring TRANSFORMs in SVG!", [self class] );
+		DDLogVerbose(@"[%@] WARNING: the transform attribute requires OS X 10.7 or above (we need Regular Expressions! Apple was slow to add them :( ). Ignoring TRANSFORMs in SVG!", [self class] );
 #else
 		NSError* error = nil;
 		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
@@ -237,12 +237,12 @@
 		{
 			NSString* transformString = [value substringWithRange:[result range]];
 			
-			//EXTREME DEBUG: NSLog(@"[%@] DEBUG: found a transform element (should be command + open bracket + args + close bracket) = %@", [self class], transformString);
+			//EXTREME DEBUG: DDLogVerbose(@"[%@] DEBUG: found a transform element (should be command + open bracket + args + close bracket) = %@", [self class], transformString);
 			
 			NSRange loc = [transformString rangeOfString:@"("];
 			if( loc.length == 0 )
 			{
-				NSLog(@"[%@] ERROR: input file is illegal, has an item in the SVG transform attribute which has no open-bracket. Item = %@, transform attribute value = %@", [self class], transformString, value );
+				DDLogError(@"[%@] ERROR: input file is illegal, has an item in the SVG transform attribute which has no open-bracket. Item = %@, transform attribute value = %@", [self class], transformString, value );
 				return;
 			}
 			NSString* command = [transformString substringToIndex:loc.location];
@@ -251,7 +251,7 @@
 			/** if you get ", " (comma AND space), Apple sends you an extra 0-length match - "" - between your args. We strip that here */
 			parameterStrings = [parameterStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
 			
-			//EXTREME DEBUG: NSLog(@"[%@] DEBUG: found parameters = %@", [self class], parameterStrings);
+			//EXTREME DEBUG: DDLogVerbose(@"[%@] DEBUG: found parameters = %@", [self class], parameterStrings);
 			
 			command = [command stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
 			
@@ -314,13 +314,13 @@
 					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 					} else
 					{
-					NSLog(@"[%@] ERROR: input file is illegal, has an SVG matrix transform attribute without the required 1 or 3 parameters. Item = %@, transform attribute value = %@", [self class], transformString, value );
+					DDLogError(@"[%@] ERROR: input file is illegal, has an SVG matrix transform attribute without the required 1 or 3 parameters. Item = %@, transform attribute value = %@", [self class], transformString, value );
 					return;
 				}
 			}
 			else if( [command isEqualToString:@"skewX"] )
 			{
-				NSLog(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
+				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
 				
 				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																			   @"transform=skewX is unsupported", NSLocalizedDescriptionKey,
@@ -329,7 +329,7 @@
 			}
 			else if( [command isEqualToString:@"skewY"] )
 			{
-				NSLog(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
+				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
 				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																			   @"transform=skewY is unsupported", NSLocalizedDescriptionKey,
 																			   nil]
@@ -341,7 +341,7 @@
 			}
 		}];
 		
-		//DEBUG: NSLog(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], selfTransformable.transform.a, selfTransformable.transform.b, selfTransformable.transform.c, selfTransformable.transform.d, selfTransformable.transform.tx, selfTransformable.transform.ty );
+		//DEBUG: DDLogVerbose(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], selfTransformable.transform.a, selfTransformable.transform.b, selfTransformable.transform.c, selfTransformable.transform.d, selfTransformable.transform.tx, selfTransformable.transform.ty );
 #endif
 		}
 	}

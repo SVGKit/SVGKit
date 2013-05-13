@@ -108,9 +108,9 @@
 	CGPoint endPoint = [self normalizeGradientCoordinate:svgX2 y:svgY2 rectToFill:rectForRelativeUnits];
     
 #ifdef SVG_DEBUG_GRADIENTS
-    NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+    DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
     
-    NSLog(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+    DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
 
 //    return gradientLayer;
@@ -142,14 +142,14 @@
         _stops = nil;
     }
     
-//    NSLog(@"Setting gradient shiz");
+//    DDLogVerbose(@"Setting gradient shiz");
     [gradientLayer setColors:colors];
     [gradientLayer setLocations:locations];
 	
-	NSLog(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
-	NSLog(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
-	NSLog(@"[%@] set gradient layer colors = %@", [self class], colors);
-	NSLog(@"[%@] set gradient layer locations = %@", [self class], locations);
+	DDLogVerbose(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
+	DDLogVerbose(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
+	DDLogVerbose(@"[%@] set gradient layer colors = %@", [self class], colors);
+	DDLogVerbose(@"[%@] set gradient layer locations = %@", [self class], locations);
 //    gradientLayer.colors = colors;
 //    gradientLayer.locations = locations;
     

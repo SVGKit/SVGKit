@@ -19,7 +19,7 @@
  * You can learn more about log formatters here:
  * https://github.com/robbiehanson/CocoaLumberjack/wiki/CustomFormatters
  * 
- * A typical NSLog (or DDTTYLogger) prints detailed info as [<process_id>:<thread_id>].
+ * A typical DDLogWarn (or DDTTYLogger) prints detailed info as [<process_id>:<thread_id>].
  * For example:
  * 
  * 2011-10-17 20:21:45.435 AppName[19928:5207] Your log message here
