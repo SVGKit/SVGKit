@@ -113,10 +113,10 @@
 		NSImage *tmpImage = _image.NSImage;
 		
 		NSRect imageRect;
-		imageRect.size = _image.size;
-		imageRect.origin = NSMakePoint(0, 0);
+		imageRect.size = self.size;
+		imageRect.origin = NSZeroPoint;
 		
-		[tmpImage drawAtPoint:NSMakePoint(0, 0) fromRect:imageRect operation:NSCompositeCopy fraction:1];
+		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
 		
 		return YES;
 	}
