@@ -19,37 +19,27 @@
 @synthesize detailViewController = _detailViewController;
 @synthesize nameOfBrokenSVGToLoad = _nameOfBrokenSVGToLoad;
 
-- (id)init
+- (void)_init
 {
-    if (self) {
-        self.sampleNames = [NSMutableArray arrayWithObjects: @"g-element-applies-rotation", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"rounded-rects", @"gradients", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"opacity01", @"Note", @"Note@2x", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"MathCurve", @"rotated-and-skewed-text", @"RainbowWing", @"StyleAttribute", @"voies", @"nil-demo-layered-imageview", @"svg-with-explicit-width", @"svg-with-explicit-width-large", @"svg-with-explicit-width-large@160x240", nil];
-    }
-	
-	/** Apple really sucks. They keep randomly changing which init methods they call, BREAKING ALL EXISTING CODE */
-    return nil;
+    self.sampleNames = [NSMutableArray arrayWithObjects: @"g-element-applies-rotation", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"rounded-rects", @"gradients", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"opacity01", @"Note", @"Note@2x", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"MathCurve", @"rotated-and-skewed-text", @"RainbowWing", @"StyleAttribute", @"voies", @"nil-demo-layered-imageview", @"svg-with-explicit-width", @"svg-with-explicit-width-large", @"svg-with-explicit-width-large@160x240", nil];
+    
 }
 
+- (id)init {
+    self = [super init];
+    [self _init];
+    return self;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		[self init];
-    }
+    [self _init];
     return self;
 }
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	self = [super initWithCoder:aDecoder];
-	if (self) {
-		[self init];
-	}
-	return self;
-}
-
-- (void)dealloc {
-	[_detailViewController release];
-	[_sampleNames release];
-	
-	[super dealloc];
+    self = [super initWithCoder:aDecoder];
+    [self _init];
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -73,8 +63,8 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if (!cell) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-									   reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+									   reuseIdentifier:CellIdentifier];
 	}
 	
 	cell.textLabel.text = [_sampleNames objectAtIndex:indexPath.row];
@@ -88,7 +78,7 @@
 	{
 		NSLog(@"*****************\n*   WARNING\n*\n* The sample 'Reinel_compass_rose' is currently unsupported;\n* it is included in this build so that people working on it can test it and see if it works yet\n*\n*\n*****************");
 		
-		[[[[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Reinel_compass_rose breaks SVGKit, it uses unsupported SVG commands; until we have added support for those commands, it's here as a test - but it WILL CRASH if you try to view it" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK, crash",nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Reinel_compass_rose breaks SVGKit, it uses unsupported SVG commands; until we have added support for those commands, it's here as a test - but it WILL CRASH if you try to view it" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK, crash",nil] show];
 		
 		self.nameOfBrokenSVGToLoad = [_sampleNames objectAtIndex:indexPath.row];
 		
@@ -97,7 +87,7 @@
 	
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 	    if (!self.detailViewController) {
-	        self.detailViewController = [[[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil] autorelease];
+	        self.detailViewController = [[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil];
 	    }
 	    [self.navigationController pushViewController:self.detailViewController animated:YES];
 		self.detailViewController.detailItem = [_sampleNames objectAtIndex:indexPath.row];
@@ -118,7 +108,7 @@
 	
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 	    if (!self.detailViewController) {
-	        self.detailViewController = [[[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil] autorelease];
+	        self.detailViewController = [[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil];
 	    }
 	    [self.navigationController pushViewController:self.detailViewController animated:YES];
 		self.detailViewController.detailItem = self.nameOfBrokenSVGToLoad;

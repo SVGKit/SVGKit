@@ -27,13 +27,6 @@
     return self;
 }
 
-- (void)dealloc {
-    self.internalDictionary = nil;
-	self.internalDictionaryOfNamespaces = nil;
-	
-    [super dealloc];
-}
-
 -(Node*) getNamedItem:(NSString*) name
 {
 	Node* simpleResult = [self.internalDictionary objectForKey:name];
