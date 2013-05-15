@@ -11,11 +11,6 @@
 
 @synthesize internalArray;
 
-- (void)dealloc {
-  self.internalArray = nil;
-  [super dealloc];
-}
-
 - (id)init
 {
     self = [super initWithUnitType:CSS_VALUE_LIST];
@@ -39,9 +34,7 @@
 
 -(void)setCssText:(NSString *)newCssText
 {
-	[_cssText release];
 	_cssText = newCssText;
-	[_cssText retain];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
 	NSLog(@"[%@] received new CSS Text, need to split this and save as CSSValue instances: %@", [self class], _cssText);

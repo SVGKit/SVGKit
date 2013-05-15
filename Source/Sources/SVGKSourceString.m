@@ -6,13 +6,9 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithData:[rawString dataUsingEncoding:NSUTF8StringEncoding]];
 	[stream open];
 	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+	SVGKSource* s = [[SVGKSource alloc] initWithInputSteam:stream];
 	
 	return s;
 }
 
-- (void)dealloc {
-	self.rawString = nil;
-	[super dealloc];
-}
 @end

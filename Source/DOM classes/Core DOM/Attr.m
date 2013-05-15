@@ -50,11 +50,4 @@
     return self;
 }
 
-- (void)dealloc {
-    self.name = nil;
-	self.value = nil;
-  self.ownerElement = nil;
-    [super dealloc];
-}
-
 @end

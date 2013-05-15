@@ -19,11 +19,6 @@
 
 @synthesize opacity = _opacity;
 
-- (void)dealloc {
-	
-    [super dealloc];
-}
-
 - (void)loadDefaults {
 	_opacity = 1.0f;
 }
@@ -38,7 +33,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [CALayerWithChildHitTest layer];
 		
 		_layer.name = self.identifier;
 		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
