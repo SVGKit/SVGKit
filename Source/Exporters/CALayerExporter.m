@@ -13,7 +13,7 @@ typedef struct ExportPathCommandsContext {
     NSMutableString* pathCommands;
 } ExportPathCommandsContext;
 
-void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
+static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
     ExportPathCommandsContext* ctx = (ExportPathCommandsContext*) exportPathCommandsConextPtr;
     NSMutableString* pathCommands = ctx->pathCommands;
