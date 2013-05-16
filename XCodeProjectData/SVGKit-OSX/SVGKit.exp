@@ -2,8 +2,8 @@
 
 _CGColorWithSVGColor
 #_CGPathAddRoundedRect
-#_CGPathCreateByOffsettingPath
-#_CGPathCreateByTranslatingPath
+_CGPathCreateByOffsettingPath
+_CGPathCreateByTranslatingPath
 _CGRectFromSVGRect
 _CGSizeFromSVGRect
 _ColorValueWithName
