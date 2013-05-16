@@ -38,6 +38,7 @@
 
 + (BOOL)canInitWithData:(NSData *)d
 {
+	//TODO: use the parser instead of rendering an image
 	SVGKImage *tmpImage = nil;
 	@autoreleasepool {
 		NSInputStream* stream = [NSInputStream inputStreamWithData:d];
