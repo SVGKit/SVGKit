@@ -44,12 +44,12 @@
 		[stream open];
 		
 		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-		tmpImage = [[SVGKImage alloc] initWithSource:sour];
+		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:sour];
 	}
 	if (parseResult == nil) {
 		return NO;
 	}
-	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count]) {
+	if (parseResult.libXMLFailed || [parseResult.errorsFatal count]) {
 		return NO;
 	}
 	return YES;
