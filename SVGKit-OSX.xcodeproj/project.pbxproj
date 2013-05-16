@@ -416,6 +416,7 @@
 		5540E817173887BE004029EF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
 		557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
+		5580EBDA1744B702005BE5AC /* SVGKit.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; name = SVGKit.exp; path = "XCodeProjectData/SVGKit-OSX/SVGKit.exp"; sourceTree = SOURCE_ROOT; };
 		55B4D794173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		55B4D795173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
 		55B4D79D173EC58700D2C676 /* SVGKFastImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKFastImageView.h; sourceTree = "<group>"; };
@@ -505,6 +506,7 @@
 				5540E67717387C9F004029EF /* SVGKit-Info.plist */,
 				5540E816173881BF004029EF /* InfoPlist.strings */,
 				5540E67B17387C9F004029EF /* SVGKit-Prefix.pch */,
+				5580EBDA1744B702005BE5AC /* SVGKit.exp */,
 			);
 			name = "Supporting Files";
 			path = "XCodeProjectData/SVGKit-OSX";
@@ -1164,6 +1166,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit.exp";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";
@@ -1183,6 +1186,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit.exp";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";

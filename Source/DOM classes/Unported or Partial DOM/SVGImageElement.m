@@ -22,7 +22,7 @@
 
 typedef SVGImage *SVGImageRef;
 
-CGImageRef SVGImageCGImage(SVGImageRef img)
+static CGImageRef SVGImageCGImage(SVGImageRef img)
 {
 #if TARGET_OS_IPHONE
     return img.CGImage;

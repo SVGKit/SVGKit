@@ -18,7 +18,7 @@
 @synthesize pathCommands;
 @end
 
-void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
+static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
     ExportPathCommandsContext* ctx = (__bridge ExportPathCommandsContext*) exportPathCommandsConextPtr;
     NSMutableString* pathCommands = ctx.pathCommands;
