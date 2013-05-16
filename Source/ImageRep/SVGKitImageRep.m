@@ -38,24 +38,23 @@
 
 + (BOOL)canInitWithData:(NSData *)d
 {
-	//TODO: use the parser instead of rendering an image
-	SVGKImage *tmpImage = nil;
+	SVGKParseResult *parseResult = nil;
 	@autoreleasepool {
 		NSInputStream* stream = [NSInputStream inputStreamWithData:d];
 		[stream open];
 		
 		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-		tmpImage = [[SVGKImage alloc] initWithSource:sour];
+		parseResult = [[SVGKParser parseSourceUsingDefaultSVGKParser:sour] retain];
 		[sour release];
 	}
-	if (tmpImage == nil) {
+	if (parseResult == nil) {
 		return NO;
 	}
-	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count]) {
-		[tmpImage release];
+	if (parseResult.libXMLFailed || [parseResult.errorsFatal count]) {
+		[parseResult release];
 		return NO;
 	}
-	[tmpImage release];
+	[parseResult release];
 	return YES;
 }
 
