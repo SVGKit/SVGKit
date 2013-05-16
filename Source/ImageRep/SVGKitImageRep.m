@@ -38,7 +38,7 @@
 
 + (BOOL)canInitWithData:(NSData *)d
 {
-	SVGKImage *tmpImage = nil;
+	SVGKParseResult *parseResult = nil;
 	@autoreleasepool {
 		NSInputStream* stream = [NSInputStream inputStreamWithData:d];
 		[stream open];
@@ -46,7 +46,7 @@
 		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
 		tmpImage = [[SVGKImage alloc] initWithSource:sour];
 	}
-	if (tmpImage == nil) {
+	if (parseResult == nil) {
 		return NO;
 	}
 	if (tmpImage.parseErrorsAndWarnings.libXMLFailed || [tmpImage.parseErrorsAndWarnings.errorsFatal count]) {
