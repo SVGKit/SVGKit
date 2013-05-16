@@ -118,7 +118,7 @@
 				55B4D7BE173EDAB900D2C676 /* SVGKitImageRep.m */,
 			);
 			name = Source;
-			path = Source/ImageRep;
+			path = XCodeProjectData/ImageRep;
 			sourceTree = "<group>";
 		};
 		55B4D7C0173EDACD00D2C676 /* Resources */ = {
