@@ -11,7 +11,7 @@
 
 @interface SVGKitImageRep : NSImageRep
 
-@property (nonatomic, retain) SVGKImage *image;
+@property (nonatomic, retain, readonly) SVGKImage *image;
 
 - (id)initWithData:(NSData *)theData;
 - (id)initWithURL:(NSURL *)theURL;
