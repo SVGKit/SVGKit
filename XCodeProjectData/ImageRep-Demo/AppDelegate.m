@@ -10,10 +10,6 @@
 
 @implementation AppDelegate
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -23,33 +19,28 @@
 	BOOL loaded = [SVGImageRepBundle load];
 	if (!loaded) {
 		NSLog(@"Bundle Not loaded!");
-		[SVGImageRepBundle release];
 		return;
 	}
 	//NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 	//NSImage *tempImage = [[NSImage alloc] initWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"admon-bug.svg"]];
 		
-	[SVGImageRepBundle release];
 }
 
 - (IBAction)selectSVG:(id)sender
 {
-	NSOpenPanel *op = [[NSOpenPanel openPanel] retain];
+	NSOpenPanel *op = [NSOpenPanel openPanel];
 	[op setTitle: @"Open svg file"];
 	[op setAllowsMultipleSelection: NO];
-	[op setAllowedFileTypes:[NSArray arrayWithObjects:@"public.svg-image", @"svg", nil]];
+	[op setAllowedFileTypes:@[@"public.svg-image", @"svg"]];
 	[op setCanChooseDirectories: NO];
 	[op setCanChooseFiles: YES];
 	
 	if ([op runModal] != NSOKButton)
 		return;
-	NSURL *svgUrl = [[op URLs] objectAtIndex:0];
-	
-	[op release];
+	NSURL *svgUrl = [op URLs][0];
 	
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
 	[svgSelected setImage:selectImage];
-	[selectImage release];
 }
 
 
