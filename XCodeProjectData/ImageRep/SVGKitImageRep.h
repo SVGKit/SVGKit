@@ -7,11 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class SVGKImage;
 
 @interface SVGKitImageRep : NSImageRep
-
-@property (nonatomic, retain, readonly) SVGKImage *image;
 
 - (id)initWithData:(NSData *)theData;
 - (id)initWithURL:(NSURL *)theURL;
