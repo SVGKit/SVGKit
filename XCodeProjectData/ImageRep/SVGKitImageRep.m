@@ -6,7 +6,20 @@
 //
 //
 
+//This will cause problems...
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
+#import "SVGKit.h"
+
 #import "SVGKitImageRep.h"
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
+
+@interface SVGKitImageRep ()
+- (id)initWithSVGSource:(SVGKSource*)theSource;
+@end
 
 @implementation SVGKitImageRep
 
@@ -67,6 +80,30 @@
 
 - (id)initWithData:(NSData *)theData
 {
+	@autoreleasepool {
+		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
+		[stream open];
+		SVGKSource *sour = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+		return [self initWithSVGSource:sour];
+	}
+}
+
+- (id)initWithURL:(NSURL *)theURL
+{
+	@autoreleasepool {
+		return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
+	}
+}
+
+- (id)initWithPath:(NSString *)thePath
+{
+	@autoreleasepool {
+		return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
+	}
+}
+
+- (id)initWithSVGSource:(SVGKSource*)theSource
+{
 	if (self = [super init]) {
 		
 		@autoreleasepool {
@@ -82,7 +119,7 @@
 		if (![_image hasSize]) {
 			_image.size = CGSizeMake(32, 32);
 		}
-
+		
 		[self setColorSpaceName:NSCalibratedRGBColorSpace];
 		[self setAlpha:YES];
 		[self setBitsPerSample:0];
@@ -93,7 +130,6 @@
 			[self setPixelsHigh:ceil(renderSize.height)];
 			[self setPixelsWide:ceil(renderSize.width)];
 		}
-
 	}
 	return self;
 }
