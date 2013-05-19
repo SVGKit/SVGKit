@@ -83,7 +83,7 @@
 	@autoreleasepool {
 		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
 		[stream open];
-		SVGKSource *sour = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
 		return [self initWithSVGSource:sour];
 	}
 }
@@ -105,14 +105,7 @@
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
-		
-		@autoreleasepool {
-			NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
-			[stream open];
-			SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-			_image = [[SVGKImage alloc] initWithSource:sour];
-		}
-		
+		_image = [[SVGKImage alloc] initWithSource:theSource];
 		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count]) {
 			return nil;
 		}
