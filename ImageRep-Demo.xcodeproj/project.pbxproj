@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		553D362C167025ED00F44DF2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553D362B167025ED00F44DF2 /* Cocoa.framework */; };
+		553D3636167025ED00F44DF2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553D3634167025ED00F44DF2 /* InfoPlist.strings */; };
+		553D3638167025ED00F44DF2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 553D3637167025ED00F44DF2 /* main.m */; };
+		553D363C167025ED00F44DF2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 553D363A167025ED00F44DF2 /* Credits.rtf */; };
+		553D363F167025ED00F44DF2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 553D363E167025ED00F44DF2 /* AppDelegate.m */; };
+		553D3642167025ED00F44DF2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553D3640167025ED00F44DF2 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		550C570A17498CDE005C3ADD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550C56FB1749888B005C3ADD /* ImageRep.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55B4D7B0173EDA7A00D2C676;
+			remoteInfo = SVGKImageRep;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		553D36621670267300F44DF2 /* Copy PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Copy PlugIns";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		550C56FB1749888B005C3ADD /* ImageRep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = ImageRep.xcodeproj; sourceTree = "<group>"; };
+		553D3627167025ED00F44DF2 /* SVGKitImageRepTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGKitImageRepTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		553D362B167025ED00F44DF2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		553D362E167025ED00F44DF2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		553D362F167025ED00F44DF2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		553D3630167025ED00F44DF2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		553D3633167025ED00F44DF2 /* SVGKitImageRepTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SVGKitImageRepTest-Info.plist"; sourceTree = "<group>"; };
+		553D3635167025ED00F44DF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		553D3637167025ED00F44DF2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		553D3639167025ED00F44DF2 /* SVGKitImageRepTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKitImageRepTest-Prefix.pch"; sourceTree = "<group>"; };
+		553D363B167025ED00F44DF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		553D363D167025ED00F44DF2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		553D363E167025ED00F44DF2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		553D3641167025ED00F44DF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		553D3624167025ED00F44DF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553D362C167025ED00F44DF2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		550C570717498CDE005C3ADD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				550C570B17498CDE005C3ADD /* SVGKImageRep.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		553D361C167025ED00F44DF2 = {
+			isa = PBXGroup;
+			children = (
+				550C56FB1749888B005C3ADD /* ImageRep.xcodeproj */,
+				553D3631167025ED00F44DF2 /* SVGKitImageRepTest */,
+				553D362A167025ED00F44DF2 /* Frameworks */,
+				553D3628167025ED00F44DF2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		553D3628167025ED00F44DF2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				553D3627167025ED00F44DF2 /* SVGKitImageRepTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		553D362A167025ED00F44DF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				553D362B167025ED00F44DF2 /* Cocoa.framework */,
+				553D362D167025ED00F44DF2 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		553D362D167025ED00F44DF2 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				553D362E167025ED00F44DF2 /* AppKit.framework */,
+				553D362F167025ED00F44DF2 /* CoreData.framework */,
+				553D3630167025ED00F44DF2 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		553D3631167025ED00F44DF2 /* SVGKitImageRepTest */ = {
+			isa = PBXGroup;
+			children = (
+				553D363D167025ED00F44DF2 /* AppDelegate.h */,
+				553D363E167025ED00F44DF2 /* AppDelegate.m */,
+				553D3640167025ED00F44DF2 /* MainMenu.xib */,
+				553D3632167025ED00F44DF2 /* Supporting Files */,
+			);
+			name = SVGKitImageRepTest;
+			path = "XCodeProjectData/ImageRep-Demo";
+			sourceTree = "<group>";
+		};
+		553D3632167025ED00F44DF2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				553D3633167025ED00F44DF2 /* SVGKitImageRepTest-Info.plist */,
+				553D3634167025ED00F44DF2 /* InfoPlist.strings */,
+				553D3637167025ED00F44DF2 /* main.m */,
+				553D3639167025ED00F44DF2 /* SVGKitImageRepTest-Prefix.pch */,
+				553D363A167025ED00F44DF2 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		553D3626167025ED00F44DF2 /* SVGKitImageRepTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 553D3645167025ED00F44DF2 /* Build configuration list for PBXNativeTarget "SVGKitImageRepTest" */;
+			buildPhases = (
+				553D3623167025ED00F44DF2 /* Sources */,
+				553D3624167025ED00F44DF2 /* Frameworks */,
+				553D3625167025ED00F44DF2 /* Resources */,
+				553D36621670267300F44DF2 /* Copy PlugIns */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SVGKitImageRepTest;
+			productName = SVGKitImageRepTest;
+			productReference = 553D3627167025ED00F44DF2 /* SVGKitImageRepTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		553D361E167025ED00F44DF2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "C.W. Betts";
+			};
+			buildConfigurationList = 553D3621167025ED00F44DF2 /* Build configuration list for PBXProject "ImageRep-Demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 553D361C167025ED00F44DF2;
+			productRefGroup = 553D3628167025ED00F44DF2 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 550C570717498CDE005C3ADD /* Products */;
+					ProjectRef = 550C56FB1749888B005C3ADD /* ImageRep.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				553D3626167025ED00F44DF2 /* SVGKitImageRepTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		550C570B17498CDE005C3ADD /* SVGKImageRep.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SVGKImageRep.bundle;
+			remoteRef = 550C570A17498CDE005C3ADD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		553D3625167025ED00F44DF2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553D3636167025ED00F44DF2 /* InfoPlist.strings in Resources */,
+				553D363C167025ED00F44DF2 /* Credits.rtf in Resources */,
+				553D3642167025ED00F44DF2 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		553D3623167025ED00F44DF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				553D3638167025ED00F44DF2 /* main.m in Sources */,
+				553D363F167025ED00F44DF2 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		553D3634167025ED00F44DF2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				553D3635167025ED00F44DF2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		553D363A167025ED00F44DF2 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				553D363B167025ED00F44DF2 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		553D3640167025ED00F44DF2 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				553D3641167025ED00F44DF2 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		553D3643167025ED00F44DF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		553D3644167025ED00F44DF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		553D3646167025ED00F44DF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SVGKitImageRepTest/SVGKitImageRepTest-Prefix.pch";
+				INFOPLIST_FILE = "SVGKitImageRepTest/SVGKitImageRepTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		553D3647167025ED00F44DF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SVGKitImageRepTest/SVGKitImageRepTest-Prefix.pch";
+				INFOPLIST_FILE = "SVGKitImageRepTest/SVGKitImageRepTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		553D3621167025ED00F44DF2 /* Build configuration list for PBXProject "ImageRep-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				553D3643167025ED00F44DF2 /* Debug */,
+				553D3644167025ED00F44DF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		553D3645167025ED00F44DF2 /* Build configuration list for PBXNativeTarget "SVGKitImageRepTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				553D3646167025ED00F44DF2 /* Debug */,
+				553D3647167025ED00F44DF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 553D361E167025ED00F44DF2 /* Project object */;
+}
