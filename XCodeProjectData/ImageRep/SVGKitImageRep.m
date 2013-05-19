@@ -6,13 +6,19 @@
 //
 //
 
+//This will cause problems...
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
+#import "SVGKit.h"
+
 #import "SVGKitImageRep.h"
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
-
 @end
 
 @implementation SVGKitImageRep
