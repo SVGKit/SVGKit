@@ -399,7 +399,7 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			static float x, y;
+			static CGFloat x, y;
 			
 			if (currComponent == 0 && accumIdx != 0) {
 				sscanf( accum, "%g", &x );
