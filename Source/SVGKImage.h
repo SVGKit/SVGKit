@@ -87,6 +87,13 @@
 @property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
 #endif
 
+#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if TARGET_OS_MAC
++ (void)clearSVGImageCache;
+#endif
++ (void)removeSVGImageCacheNamed:(NSString*)theName
+#endif
+
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)

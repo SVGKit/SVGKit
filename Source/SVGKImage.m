@@ -69,7 +69,9 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
+#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
+#endif
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;
@@ -92,7 +94,20 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }
+#else
+
++ (void)clearSVGImageCache
+{
+	[globalSVGKImageCache removeAllObjects];
+}
+
 #endif
+
++ (void)removeSVGImageCacheNamed:(NSString*)theName
+{
+	[globalSVGKImageCache removeObjectForKey:theName];
+}
+
 #endif
 
 #pragma mark - Convenience initializers
