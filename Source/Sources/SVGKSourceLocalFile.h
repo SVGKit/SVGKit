@@ -5,7 +5,7 @@
 
 @interface SVGKSourceLocalFile : SVGKSource
 
-@property (nonatomic, retain) NSString* filePath;
+@property (nonatomic, copy) NSString* filePath;
 
 + (SVGKSource*)sourceFromFilename:(NSString*)p;
 
