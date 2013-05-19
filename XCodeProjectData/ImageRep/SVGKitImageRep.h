@@ -18,4 +18,8 @@
 
 @property (nonatomic, retain) SVGKImage *image;
 
+- (id)initWithData:(NSData *)theData;
+- (id)initWithURL:(NSURL *)theURL;
+- (id)initWithPath:(NSString *)thePath;
+
 @end

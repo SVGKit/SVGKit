@@ -7,6 +7,13 @@
 //
 
 #import "SVGKitImageRep.h"
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
+
+@interface SVGKitImageRep ()
+- (id)initWithSVGSource:(SVGKSource*)theSource;
+
+@end
 
 @implementation SVGKitImageRep
 
@@ -70,16 +77,32 @@
 
 - (id)initWithData:(NSData *)theData
 {
+	@autoreleasepool {
+		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
+		[stream open];
+		SVGKSource *sour = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+		return [self initWithSVGSource:sour];
+	}
+}
+
+- (id)initWithURL:(NSURL *)theURL
+{
+	@autoreleasepool {
+		return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
+	}
+}
+
+- (id)initWithPath:(NSString *)thePath
+{
+	@autoreleasepool {
+		return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
+	}
+}
+
+- (id)initWithSVGSource:(SVGKSource*)theSource
+{
 	if (self = [super init]) {
-		
-		@autoreleasepool {
-			NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
-			[stream open];
-			SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-			_image = [[SVGKImage alloc] initWithSource:sour];
-			[sour release];
-		}
-		
+		_image = [[SVGKImage alloc] initWithSource:theSource];
 		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count]) {
 			[self autorelease];
 			return nil;
@@ -87,7 +110,7 @@
 		if (![_image hasSize]) {
 			_image.size = CGSizeMake(32, 32);
 		}
-
+		
 		[self setColorSpaceName:NSCalibratedRGBColorSpace];
 		[self setAlpha:YES];
 		[self setBitsPerSample:0];
@@ -98,7 +121,6 @@
 			[self setPixelsHigh:ceil(renderSize.height)];
 			[self setPixelsWide:ceil(renderSize.width)];
 		}
-
 	}
 	return self;
 }
