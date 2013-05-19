@@ -69,7 +69,9 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
+#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
+#endif
 
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;
@@ -92,11 +94,24 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }
+#else
+
++ (void)clearSVGImageCache
+{
+	[globalSVGKImageCache removeAllObjects];
+}
+
 #endif
+
++ (void)removeSVGImageCacheNamed:(NSString*)theName
+{
+	[globalSVGKImageCache removeObjectForKey:theName];
+}
+
 #endif
 
 #pragma mark - Convenience initializers
-+ (SVGKImage *)imageNamed:(NSString *)name {
++ (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle {
 	NSParameterAssert(name != nil);
     
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
@@ -113,7 +128,9 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-	NSBundle *bundle = [NSBundle mainBundle];
+	if (!bundle) {
+		bundle = [NSBundle mainBundle];
+	}
 	
 	if (!bundle)
 		return nil;
@@ -153,6 +170,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
     
     return result;
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name {
+	NSParameterAssert(name != nil);
+	return [self imageNamed:name fromBundle:[NSBundle mainBundle]];
 }
 
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
@@ -809,7 +831,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		CGSize curSize = self.size;
 		CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-		CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, 32, theSpace, kCGImageAlphaFirst, NULL, NULL);
+		CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, curSize.width * 4, theSpace, kCGImageAlphaPremultipliedFirst, NULL, NULL);
 		CGColorSpaceRelease(theSpace);
 		[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
 		CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
@@ -853,10 +875,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSAssert( [self hasSize], @"Cannot scale this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
-	float wScale = maxSize.width / self.size.width;
-	float hScale = maxSize.height / self.size.height;
+	CGFloat wScale = maxSize.width / self.size.width;
+	CGFloat hScale = maxSize.height / self.size.height;
 	
-	float smallestScaleUp = MIN( wScale, hScale );
+	CGFloat smallestScaleUp = MIN( wScale, hScale );
 	
 	if( smallestScaleUp < 1.0f )
 		smallestScaleUp = MAX( wScale, hScale ); // instead of scaling-up the smallest, scale-down the largest
