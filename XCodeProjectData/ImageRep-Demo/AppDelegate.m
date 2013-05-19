@@ -18,8 +18,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	NSBundle *SVGImageRepBundle;
-	NSString *bundlesPath = [[NSBundle mainBundle] builtInPlugInsPath];
-	SVGImageRepBundle = [[NSBundle alloc] initWithPath:[bundlesPath stringByAppendingPathComponent:@"SVGKImageRep.bundle"]];
+	NSURL *bundlesURL = [[NSBundle mainBundle] builtInPlugInsURL];
+	SVGImageRepBundle = [[NSBundle alloc] initWithURL:[bundlesURL URLByAppendingPathComponent:@"SVGKImageRep.bundle"]];
 	BOOL loaded = [SVGImageRepBundle load];
 	if (!loaded) {
 		NSLog(@"Bundle Not loaded!");
@@ -34,8 +34,7 @@
 
 - (IBAction)selectSVG:(id)sender
 {
-	NSOpenPanel *op;
-	op = [NSOpenPanel openPanel];
+	NSOpenPanel *op = [[NSOpenPanel openPanel] retain];
 	[op setTitle: @"Open svg file"];
 	[op setAllowsMultipleSelection: NO];
 	[op setAllowedFileTypes:[NSArray arrayWithObjects:@"public.svg-image", @"svg", nil]];
@@ -45,6 +44,8 @@
 	if ([op runModal] != NSOKButton)
 		return;
 	NSURL *svgUrl = [[op URLs] objectAtIndex:0];
+	
+	[op release];
 	
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
 	[svgSelected setImage:selectImage];
