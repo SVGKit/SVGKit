@@ -47,14 +47,6 @@ static NSDictionary *elementMap;
 	return self;
 }
 
-/*
- * We don't have any extra data to release
-- (void)dealloc {
-	
-	[super dealloc];
-}
- */
-
 -(NSArray*) supportedNamespaces
 {
 	return [NSArray arrayWithObjects:
