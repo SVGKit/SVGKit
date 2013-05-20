@@ -26,10 +26,11 @@
     if (self) {
         self.selectorText = selector;
 		
-		CSSStyleDeclaration* styleDeclaration = [[[CSSStyleDeclaration alloc] init] autorelease];
+		CSSStyleDeclaration* styleDeclaration = [[CSSStyleDeclaration alloc] init];
 		styleDeclaration.cssText = styleText;
 		
 		self.style = styleDeclaration;
+		[styleDeclaration release];
     }
     return self;
 }

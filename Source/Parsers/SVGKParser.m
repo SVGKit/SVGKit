@@ -161,7 +161,11 @@ readPacket(char *mem, int size) {
 
 - (SVGKParseResult*) parseSynchronously
 {
-	self.currentParseRun = [[SVGKParseResult new] autorelease];
+	{
+		SVGKParseResult *tmpParse = [SVGKParseResult new];
+		self.currentParseRun = tmpParse;
+		[tmpParse release];
+	}
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
 	parserThatWasMostRecentlyStarted = self;
@@ -265,11 +269,12 @@ readPacket(char *mem, int size) {
 		/** Send any partially-parsed text data into the old node that is now the parent node,
 		 then change the "storing chars" flag to fit the new node */
 		
-		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		Text *tNode = [[Text alloc] initWithValue:_storedChars];
 		
 		[_parentOfCurrentNode appendChild:tNode];
 		
 		[_storedChars setString:@""];
+		[tNode release];
 	}
 	
 	/**
@@ -497,11 +502,12 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		/** Send any parsed text data into the node-we're-closing */
 		
-		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		Text *tNode = [[Text alloc] initWithValue:_storedChars];
 		
 		[_parentOfCurrentNode appendChild:tNode];
 		
 		[_storedChars setString:@""];
+		[tNode release];
 	}
 	
 	[parser handleEndElement:_parentOfCurrentNode document:source parseResult:self.currentParseRun];

@@ -84,7 +84,7 @@ static NSDictionary *elementMap;
 		
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-		SVGElement *element = [[[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+		SVGElement *element = [[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 		
 		/** NB: all the interesting handling of shared / generic attributes - e.g. the whole of CSS styling etc - takes place in this method: */
 		[element postProcessAttributesAddingErrorsTo:parseResult];
@@ -172,7 +172,7 @@ static NSDictionary *elementMap;
 		}
 		
 		
-		return element;
+		return [element autorelease];
 	}
 	
 	return nil;

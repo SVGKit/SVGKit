@@ -180,13 +180,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+		return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
     @synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+		return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
     }
 }
 
@@ -194,7 +194,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
+		return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
     }
 }
 
@@ -660,7 +660,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( CALayerTree == nil )
 	{
 		NSLog(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		self.CALayerTree = [[self newCALayerTree] autorelease];
+		CALayer *newLayerTree = [self newCALayerTree];
+		self.CALayerTree = newLayerTree;
+		[newLayerTree release];
 	}
 	
 	return CALayerTree;
