@@ -179,13 +179,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-	return [[[self class] alloc] initWithContentsOfURL:url];
+		return [[[self class] alloc] initWithContentsOfURL:url];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
     @synchronized(self) {
-	return [[[self class] alloc] initWithContentsOfFile:aPath];
+		return [[[self class] alloc] initWithContentsOfFile:aPath];
     }
 }
 
@@ -193,7 +193,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [(SVGKImage*)[[self class] alloc] initWithSource:newSource];
+		return [(SVGKImage*)[[self class] alloc] initWithSource:newSource];
     }
 }
 

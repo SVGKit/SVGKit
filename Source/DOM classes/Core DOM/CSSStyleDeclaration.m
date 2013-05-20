@@ -88,7 +88,6 @@
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
 				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
-				[trimmingSetForKey release];
 				
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
