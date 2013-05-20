@@ -48,13 +48,4 @@
     return nil;
 }
 
-/*
- * We don't have any extra data to release
-- (void)dealloc
-{
-	[super dealloc];
-}
- 
- */
-
 @end

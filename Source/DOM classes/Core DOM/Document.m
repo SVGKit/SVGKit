@@ -66,10 +66,10 @@
 
 -(NodeList*) getElementsByTagName:(NSString*) data
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:data inNamespace:nil childrenOfElement:self.documentElement addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
@@ -93,17 +93,17 @@
 -(Attr*) createAttributeNS:(NSString*) namespaceURI qualifiedName:(NSString*) qualifiedName
 {
 	NSAssert( FALSE, @"This should be re-implemented to share code with createElementNS: method above" );
-	Attr* newAttr = [[[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:@""] autorelease];
-	return newAttr;
+	Attr* newAttr = [[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:@""];
+	return [newAttr autorelease];
 }
 
 // Introduced in DOM Level 2:
 -(NodeList*) getElementsByTagNameNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self.documentElement addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
