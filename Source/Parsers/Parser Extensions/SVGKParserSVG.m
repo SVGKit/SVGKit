@@ -167,7 +167,7 @@ static NSDictionary *elementMap;
 		}
 		
 		
-		return element;
+		return [element autorelease];
 	}
 	
 	return nil;

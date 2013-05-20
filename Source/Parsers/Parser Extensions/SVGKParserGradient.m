@@ -88,13 +88,6 @@ static NSSet *_svgGradientParserSupportedTags = nil;
 	
 }
 
-//-(void)dealloc
-//{
-//    currentElement = nil;
-//    [super dealloc];
-//}
-
-
 +(void)trim
 {
     _svgGradientParserSupportedTags = nil;

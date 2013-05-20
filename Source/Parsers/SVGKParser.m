@@ -251,6 +251,7 @@ readPacket(char *mem, int size) {
 		[_parentOfCurrentNode appendChild:tNode];
 		
 		[_storedChars setString:@""];
+		[tNode release];
 	}
 	
 	/**
@@ -483,6 +484,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		[_parentOfCurrentNode appendChild:tNode];
 		
 		[_storedChars setString:@""];
+		[tNode release];
 	}
 	
 	[parser handleEndElement:_parentOfCurrentNode document:source parseResult:self.currentParseRun];

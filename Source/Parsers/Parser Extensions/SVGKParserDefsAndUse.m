@@ -43,7 +43,7 @@
 		}
 	}
 	
-	return instance;
+	return [instance autorelease];
 }
 
 - (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
@@ -57,7 +57,7 @@
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 			SVGDefsElement *element = [[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			
-			return element;
+			return [element autorelease];
 		}
 		else if( [name isEqualToString:@"use"])
 		{	
@@ -95,7 +95,7 @@
 				useElement.instanceRoot = [self convertSVGElementToElementInstanceTree:linkedElement outermostUseElement:useElement];
 			}
 			
-			return useElement;
+			return [useElement autorelease];
 		}
 	}
 	

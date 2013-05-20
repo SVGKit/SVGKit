@@ -25,6 +25,7 @@
 		styleDeclaration.cssText = styleText;
 		
 		self.style = styleDeclaration;
+		[styleDeclaration release];
     }
     return self;
 }

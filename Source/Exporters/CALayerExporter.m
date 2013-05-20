@@ -149,7 +149,11 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
                         float r;
                         [inv getReturnValue:&r];
                         propertyValue = [NSString stringWithFormat:@"%f", r];
-                    } else if (0 == strcmp("{CGRect={CGPoint=ff}{CGSize=ff}}", methodReturnType)) {
+					} else if (0 == strcmp("d", methodReturnType)) {
+						double r;
+						[inv getReturnValue:&r];
+						propertyValue = [NSString stringWithFormat:@"%f", r];
+                    } else if (0 == strcmp("{CGRect={CGPoint=ff}{CGSize=ff}}", methodReturnType) || 0 == strcmp("{CGRect={CGPoint=dd}{CGSize=dd}}", methodReturnType)) {
                         CGRect r;
                         [inv getReturnValue:&r];
                         propertyValue = [NSString stringWithFormat:@"CGRectMake(%f, %f, %f, %f)", r.origin.x, r.origin.y, r.size.width, r.size.height];

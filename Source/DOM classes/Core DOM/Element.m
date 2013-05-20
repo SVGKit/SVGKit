@@ -100,7 +100,7 @@
 	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:name inNamespace:nil childrenOfElement:self addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
@@ -149,7 +149,7 @@
 	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
