@@ -3,6 +3,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "SVGKSourceString.h"
+#import "SVGKLayer.h"
 
 @interface SVGKLayeredImageView()
 @property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
@@ -14,7 +15,7 @@
 /** uses the custom SVGKLayer instead of a default CALayer */
 +(Class)layerClass
 {
-	return NSClassFromString(@"SVGKLayer");
+	return [SVGKLayer class];
 }
 
 - (id)init
@@ -147,6 +148,5 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 {
 	((SVGKLayer*)self.layer).showBorder = showBorder;
 }
-
 
 @end
