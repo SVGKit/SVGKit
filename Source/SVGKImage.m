@@ -835,7 +835,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 		CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, floor(curSize.width) * 4, theSpace, kCGImageAlphaPremultipliedFirst, NULL, NULL);
 		CGColorSpaceRelease(theSpace);
-		[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:NO];
+		[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
 		CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
 		CGContextRelease(bitCont);
 		return cgImage;
