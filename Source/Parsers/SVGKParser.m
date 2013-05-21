@@ -58,9 +58,9 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	SVGKParser *parser = [[SVGKParser alloc] initWithSource:source];
 	[parser addDefaultSVGParserExtensions];
 	
-	SVGKParseResult* result = [parser parseSynchronously];
+	SVGKParseResult* result = [[parser parseSynchronously] retain];
 	[parser release];
-	return result;
+	return [result autorelease];
 }
 
 
