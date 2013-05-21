@@ -40,7 +40,7 @@
 	NSURL *svgUrl = [op URLs][0];
 	
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
-	[op release];
+
 	[svgSelected setImage:selectImage];
 }
 
