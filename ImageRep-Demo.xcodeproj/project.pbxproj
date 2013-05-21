@@ -13,6 +13,7 @@
 		553D363C167025ED00F44DF2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 553D363A167025ED00F44DF2 /* Credits.rtf */; };
 		553D363F167025ED00F44DF2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 553D363E167025ED00F44DF2 /* AppDelegate.m */; };
 		553D3642167025ED00F44DF2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553D3640167025ED00F44DF2 /* MainMenu.xib */; };
+		55C47381174BE2D000F9341D /* SVGKImageRep.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 550C570B17498CDE005C3ADD /* SVGKImageRep.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -21,6 +22,13 @@
 			containerPortal = 550C56FB1749888B005C3ADD /* ImageRep.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 55B4D7B0173EDA7A00D2C676;
+			remoteInfo = SVGKImageRep;
+		};
+		55C4737E174BE2A400F9341D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550C56FB1749888B005C3ADD /* ImageRep.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 55B4D7AF173EDA7A00D2C676;
 			remoteInfo = SVGKImageRep;
 		};
 /* End PBXContainerItemProxy section */
@@ -32,6 +40,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				55C47381174BE2D000F9341D /* SVGKImageRep.bundle in Copy PlugIns */,
 			);
 			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +160,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55C4737F174BE2A400F9341D /* PBXTargetDependency */,
 			);
 			name = SVGKitImageRepTest;
 			productName = SVGKitImageRepTest;
@@ -223,6 +233,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		55C4737F174BE2A400F9341D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVGKImageRep;
+			targetProxy = 55C4737E174BE2A400F9341D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		553D3634167025ED00F44DF2 /* InfoPlist.strings */ = {

@@ -133,16 +133,18 @@
 - (BOOL)draw
 {
 	@autoreleasepool {
-#if 0
 		CGContextRef CGCtx = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 		
 		CGAffineTransform scaleTrans = CGContextGetCTM(CGCtx);
 		
 		//Just in case the image is in a differently-sized NSImage
 		//should also work for retina displays
-		_image.scale = MIN(scaleTrans.a, scaleTrans.d);
-#endif
-		[_image scaleToFitInside:self.size];
+		CGFloat CGscale = MIN(scaleTrans.a, scaleTrans.d);
+		NSSize scaledSize = self.size;
+		scaledSize.height *= CGscale;
+		scaledSize.width *= CGscale;
+
+		[_image scaleToFitInside:scaledSize];
 
 		NSImage *tmpImage = _image.NSImage;
 		

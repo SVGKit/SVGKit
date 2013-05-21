@@ -29,7 +29,7 @@
 - (IBAction)selectSVG:(id)sender
 {
 	NSOpenPanel *op = [NSOpenPanel openPanel];
-	[op setTitle: @"Open svg file"];
+	[op setTitle: @"Open SVG file"];
 	[op setAllowsMultipleSelection: NO];
 	[op setAllowedFileTypes:@[@"public.svg-image", @"svg"]];
 	[op setCanChooseDirectories: NO];
@@ -40,6 +40,7 @@
 	NSURL *svgUrl = [op URLs][0];
 	
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
+	[op release];
 	[svgSelected setImage:selectImage];
 }
 
