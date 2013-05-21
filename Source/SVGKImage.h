@@ -55,7 +55,11 @@
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 
+#if !__has_feature(objc_arc)
 #define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#else
+#undef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#endif
 
 @class SVGDefsElement;
 
