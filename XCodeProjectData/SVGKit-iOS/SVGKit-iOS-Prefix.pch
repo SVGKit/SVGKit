@@ -4,4 +4,8 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+	#import <QuartzCore/QuartzCore.h>
 #endif
+#include <CoreGraphics/CoreGraphics.h>
+#include <CoreText/CoreText.h>
