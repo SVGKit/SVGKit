@@ -9,9 +9,9 @@
 
 #import "MasterViewController.h"
 
-#import "NodeList+Mutable.h"
+#import <SVGKit/NodeList+Mutable.h>
 
-#import "SVGKFastImageView.h"
+#import <SVGKit/SVGKFastImageView.h>
 
 @interface DetailViewController ()
 
