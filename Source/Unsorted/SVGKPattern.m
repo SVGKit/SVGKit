@@ -55,7 +55,9 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 + (SVGKPattern*)patternWithImage:(NSImage*)image
 {
 	CGImageRef quartzImage = [image CGImageForProposedRect:NULL context:NULL hints:NULL];
-	return [self patternWithCGImage:quartzImage];
+	SVGKPattern *p = [self patternWithCGImage:quartzImage];
+	CGImageRelease(quartzImage);
+	return p;
 }
 
 + (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage
@@ -77,6 +79,26 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 	p.color = cgColor;
 	
 	return [p autorelease];
+}
+
++ (SVGKPattern*)patternWithNSColor:(NSColor*)color
+{
+	if ([color respondsToSelector:@selector(CGColor)]) {
+		return [self patternWithCGColor:color.CGColor];
+	} else {
+		if ([[color colorSpace] colorSpaceModel] == NSPatternColorSpaceModel) {
+			return [self patternWithImage:[color patternImage]];
+		} else {
+			CGColorSpaceRef spaceRef = [[color colorSpace] CGColorSpace];
+			CGFloat * components = malloc(sizeof(CGFloat) * [color numberOfComponents]);
+			[color getComponents:components];
+			CGColorRef tmpColor = CGColorCreate(spaceRef, components);
+			free(components);
+			SVGKPattern *p = [SVGKPattern patternWithCGColor:tmpColor];
+			CGColorRelease(tmpColor);
+			return p;
+		}
+	}
 }
 
 #endif
