@@ -11,7 +11,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class CharacterData;
 #import "CharacterData.h"
 
 @interface Text : CharacterData

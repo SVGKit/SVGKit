@@ -20,7 +20,6 @@
 #import "SVGLength.h"
 #import "SVGElement.h"
 
-@class SVGElementInstance;
 #import "SVGElementInstance.h"
 
 #import "SVGLayeredElement.h"
