@@ -4,6 +4,10 @@
 
 #import <UIKit/UIKit.h>
 
+#else
+
+#import <AppKit/AppKit.h>
+
 #endif
 
 /** lightweight wrapper for UIColor so that we can draw with fill patterns */
@@ -20,7 +24,15 @@
 
 #else
 
+@property (readwrite, nonatomic) CGColorRef color;
+
++ (SVGKPattern*)patternWithNSColor:(NSColor*)color;
++ (SVGKPattern*)patternWithImage:(NSImage*)image;
+
 #endif
+
++ (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage;
++ (SVGKPattern*)patternWithCGColor:(CGColorRef)cgColor;
 
 - (CGColorRef) CGColor;
 

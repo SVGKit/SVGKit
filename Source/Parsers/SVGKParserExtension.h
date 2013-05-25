@@ -16,6 +16,7 @@
 
 #import "SVGKSource.h"
 
+@class SVGKParseResult;
 #import "SVGKParseResult.h"
 
 #import "Node.h"

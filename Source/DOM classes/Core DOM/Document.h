@@ -61,15 +61,25 @@
 
 #import <Foundation/Foundation.h>
 
+/** ObjectiveC won't allow this: @class Node; */
 #import "Node.h"
+@class Element;
 #import "Element.h"
+@class Comment;
 #import "Comment.h"
+@class CDATASection;
 #import "CDATASection.h"
+@class DocumentFragment;
 #import "DocumentFragment.h"
+@class EntityReference;
 #import "EntityReference.h"
+@class NodeList;
 #import "NodeList.h"
+@class ProcessingInstruction;
 #import "ProcessingInstruction.h"
+@class DocumentType;
 #import "DocumentType.h"
+@class AppleSucksDOMImplementation;
 #import "AppleSucksDOMImplementation.h"
 
 @interface Document : Node

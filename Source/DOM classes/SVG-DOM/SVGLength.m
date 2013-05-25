@@ -125,7 +125,7 @@ static float cachedDevicePixelsPerInch;
 	
 	/** Using this as reference: http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
 	 */
-
+	
 	size_t size;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
 	char *machine = malloc(size);

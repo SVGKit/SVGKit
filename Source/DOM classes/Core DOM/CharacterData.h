@@ -30,6 +30,7 @@
 
 #import <Foundation/Foundation.h>
 
+/** objc won't allow this: @class Node;*/
 #import "Node.h"
 
 @interface CharacterData : Node
