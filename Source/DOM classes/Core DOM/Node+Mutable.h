@@ -4,8 +4,8 @@
 #import "Node.h"
 
 @interface Node()
-@property(nonatomic,strong,readwrite) NSString* nodeName;
-@property(nonatomic,strong,readwrite) NSString* nodeValue;
+@property(nonatomic,copy,readwrite) NSString* nodeName;
+@property(nonatomic,copy,readwrite) NSString* nodeValue;
 
 @property(nonatomic,readwrite) DOMNodeType nodeType;
 @property(nonatomic,unsafe_unretained,readwrite) Node* parentNode;

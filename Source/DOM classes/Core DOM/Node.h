@@ -101,8 +101,8 @@ typedef enum DOMNodeType
 
 @interface Node : NSObject
 
-@property(nonatomic,strong,readonly) NSString* nodeName;
-@property(nonatomic,strong,readonly) NSString* nodeValue;
+@property(nonatomic,copy,readonly) NSString* nodeName;
+@property(nonatomic,copy,readonly) NSString* nodeValue;
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
 @property(nonatomic,unsafe_unretained,readonly) Node* parentNode;

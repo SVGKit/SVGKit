@@ -5,7 +5,7 @@
 
 @interface SVGKSourceString : SVGKSource
 
-@property (nonatomic, strong) NSString* rawString;
+@property (nonatomic, copy) NSString* rawString;
 
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString;
 
