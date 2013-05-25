@@ -549,7 +549,7 @@ static void structuredError		(void * userData,
 	 */
 	xmlErrorLevel errorLevel = error->level;
 	
-	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithDictionary:@{
+	NSMutableDictionary* details = [[NSMutableDictionary alloc] initWithDictionary:@{
 									NSLocalizedDescriptionKey:	@(error->message),
 									@"lineNumber":				@(error->line),
 									@"columnNumber":			@(error->int2)}];
@@ -562,6 +562,8 @@ static void structuredError		(void * userData,
 		details[@"bonusInfo3"] = @(error->str3);
 	
 	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
+	
+	details = nil;
 	
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
