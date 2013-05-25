@@ -87,7 +87,8 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
-				self = nil;
+				[self autorelease];
+				return nil;
 			}break;
 		}
 		{
@@ -115,7 +116,8 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
-				self = nil;
+				[self autorelease];
+				return nil;
 			}break;
 				
 				
