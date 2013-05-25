@@ -112,4 +112,24 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 #endif
 }
 
+- (void)dealloc
+{
+#if TARGET_OS_IPHONE
+	[color release];
+#else
+	self.color = NULL;
+#endif
+	
+	[super dealloc];
+}
+
+#if !TARGET_OS_IPHONE
+- (void)finalize
+{
+	self.color = NULL;
+	
+	[super finalize];
+}
+#endif
+
 @end
