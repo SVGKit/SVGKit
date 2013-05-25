@@ -231,8 +231,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 		if ( self.DOMDocument == nil )
 		{
 			NSLog(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
-            [self release];
-			self = nil;
+			[self autorelease];
+			return nil;
 		}
 		
 		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
