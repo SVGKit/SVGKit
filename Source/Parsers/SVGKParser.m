@@ -10,15 +10,10 @@
 
 #import "SVGKParserSVG.h"
 
-@class SVGKParserGradient;
 #import "SVGKParserGradient.h"
-@class SVGKParserPatternsAndGradients;
 #import "SVGKParserPatternsAndGradients.h"
-@class SVGKParserStyles;
 #import "SVGKParserStyles.h"
-@class SVGKParserDefsAndUse;
 #import "SVGKParserDefsAndUse.h"
-@class SVGKParserDOM;
 #import "SVGKParserDOM.h"
 
 #import "SVGDocument_Mutable.h" // so we can modify the SVGDocuments we're parsing
