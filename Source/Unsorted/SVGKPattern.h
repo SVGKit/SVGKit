@@ -26,6 +26,7 @@
 
 @property (readwrite, nonatomic) CGColorRef color;
 
++ (SVGKPattern*)patternWithNSColor:(NSColor*)color;
 + (SVGKPattern*)patternWithImage:(NSImage*)image;
 
 #endif
