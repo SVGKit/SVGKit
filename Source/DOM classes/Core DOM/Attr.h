@@ -17,6 +17,7 @@
 
 /** objc won't allow this: @class Node;*/
 #import "Node.h"
+@class Element;
 #import "Element.h"
 
 @interface Attr : Node

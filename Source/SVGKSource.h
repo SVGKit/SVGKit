@@ -20,6 +20,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SVGKSource;
+
 @interface SVGKSource : NSObject
 
 @property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */

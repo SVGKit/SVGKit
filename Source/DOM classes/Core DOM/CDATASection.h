@@ -8,6 +8,7 @@
  */
 #import <Foundation/Foundation.h>
 
+@class Text;
 #import "Text.h"
 
 @interface CDATASection : Text
