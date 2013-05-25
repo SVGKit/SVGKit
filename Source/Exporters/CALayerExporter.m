@@ -14,8 +14,7 @@
 @end
 
 @implementation ExportPathCommandsContext
-@synthesize pathName;
-@synthesize pathCommands;
+
 @end
 
 static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
