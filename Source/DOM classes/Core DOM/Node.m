@@ -53,13 +53,6 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -177,13 +170,6 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
 	self = [self initType:nt name:n value:v];
 	
 	if( self )
