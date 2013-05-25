@@ -78,7 +78,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 	
 	p.color = cgColor;
 	
-	return [p autorelease];
+	return p;
 }
 
 + (SVGKPattern*)patternWithNSColor:(NSColor*)color
@@ -112,23 +112,10 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 #endif
 }
 
+#if !TARGET_OS_IPHONE
 - (void)dealloc
 {
-#if TARGET_OS_IPHONE
-	[color release];
-#else
 	self.color = NULL;
-#endif
-	
-	[super dealloc];
-}
-
-#if !TARGET_OS_IPHONE
-- (void)finalize
-{
-	self.color = NULL;
-	
-	[super finalize];
 }
 #endif
 
