@@ -80,7 +80,7 @@
             {
                 accum[accumIdx] = '\0';
                 
-                NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
+                NSString *keyString = @(name);
 				NSString *cssValueString = @(accum);
 				
 				NSMutableCharacterSet* trimmingSetForKey = [[NSMutableCharacterSet alloc] init];
