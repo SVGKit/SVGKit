@@ -555,11 +555,11 @@ static void structuredError		(void * userData,
 									@"columnNumber":			@(error->int2)}];
 	
 	if( error->str1 )
-		[details setValue:@(error->str1) forKey:@"bonusInfo1"];
+		details[@"bonusInfo1"] = @(error->str1);
 	if( error->str2 )
-		[details setValue:@(error->str2) forKey:@"bonusInfo2"];
+		details[@"bonusInfo2"] = @(error->str2);
 	if( error->str3 )
-		[details setValue:@(error->str3) forKey:@"bonusInfo3"];
+		details[@"bonusInfo3"] = @(error->str3);
 	
 	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
