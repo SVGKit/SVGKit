@@ -13,5 +13,6 @@
 - (id)initWithData:(NSData *)theData;
 - (id)initWithURL:(NSURL *)theURL;
 - (id)initWithPath:(NSString *)thePath;
+- (id)initWithSVGString:(NSString *)theString;
 
 @end
