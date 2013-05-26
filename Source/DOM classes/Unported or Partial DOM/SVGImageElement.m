@@ -22,13 +22,16 @@
 
 typedef SVGImage *SVGImageRef;
 
-static CGImageRef SVGImageCGImage(SVGImageRef img)
+//create a retained CGImage because I don't trust ARC not to release
+//the classes, thus the images, when we leave this function.
+//This is mainly for the benefit of the OS X port
+static CGImageRef CreateSVGImageCGImage(SVGImageRef img)
 {
 #if TARGET_OS_IPHONE
-    return img.CGImage;
+    return CGImageRetain(img.CGImage);
 #else
     NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCIImage:img];
-    return rep.CGImage;
+    return CGImageRetain(rep.CGImage);
 #endif
 }
 
@@ -83,7 +86,7 @@ static CGImageRef SVGImageCGImage(SVGImageRef img)
 	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
 	SVGImageRef image = [SVGImage imageWithData:imageData];
 	
-	newLayer.contents = (__bridge id)SVGImageCGImage(image);
+	newLayer.contents = CFBridgingRelease(CreateSVGImageCGImage(image));
 		
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];
