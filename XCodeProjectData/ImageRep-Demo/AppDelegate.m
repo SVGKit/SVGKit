@@ -42,7 +42,10 @@
 	[op setCanChooseFiles: YES];
 	
 	if ([op runModal] != NSOKButton)
+	{
+		[op release];
 		return;
+	}
 	NSURL *svgUrl = [[op URLs] objectAtIndex:0];
 	
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
