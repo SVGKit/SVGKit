@@ -65,7 +65,6 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 {
 	CGImageRef quartzImage = [image CGImageForProposedRect:NULL context:NULL hints:NULL];
 	SVGKPattern *p = [self patternWithCGImage:quartzImage];
-	CGImageRelease(quartzImage);
 	return p;
 }
 
