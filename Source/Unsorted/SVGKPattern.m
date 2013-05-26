@@ -28,8 +28,14 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 - (void)setColor:(CGColorRef)aColor
 {
 	if (color != aColor) {
-		CGColorRelease(color);
-		color = CGColorRetain(aColor);
+		if (color) {
+			CGColorRelease(color);
+		}
+		if (aColor) {
+			color = CGColorRetain(aColor);
+		} else {
+			color = NULL;
+		}
 	}
 }
 
