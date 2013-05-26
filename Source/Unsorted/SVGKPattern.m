@@ -1,36 +1,5 @@
 #import "SVGKPattern.h"
 
-@implementation SVGKPattern
-
-#if TARGET_OS_IPHONE
-
-@synthesize color;
-
-+ (SVGKPattern *)patternWithUIColor:(UIColor *)color
-{
-    SVGKPattern* p = [[SVGKPattern alloc] init];
-    p.color = color;
-    return p;
-}
-
-+ (SVGKPattern*)patternWithImage:(UIImage*)image
-{
-    UIColor* patternImage = [UIColor colorWithPatternImage:image];
-    return [self patternWithUIColor:patternImage];
-}
-
-+ (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage
-{
-	return [self patternWithImage:[UIImage imageWithCGImage:cgImage]];
-}
-
-+ (SVGKPattern*)patternWithCGColor:(CGColorRef)cgColor
-{
-	return [self patternWithUIColor:[UIColor colorWithCGColor:cgColor]];
-}
-
-#else
-
 //Code taken from TBColor from https://github.com/zrxq/TBColor
 static void ImagePatternCallback (void *imagePtr, CGContextRef ctx) {
     CGContextDrawImage(ctx, CGRectMake(0, 0, CGImageGetWidth(imagePtr), CGImageGetHeight(imagePtr)), imagePtr);
@@ -42,7 +11,7 @@ static void ImageReleaseCallback(void *imagePtr) {
 
 static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
     static const CGPatternCallbacks callback = {0, ImagePatternCallback, ImageReleaseCallback};
-    CGPatternRef pattern = CGPatternCreate(image, NSMakeRect(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
+    CGPatternRef pattern = CGPatternCreate(image, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
     CGColorSpaceRef coloredPatternColorSpace = CGColorSpaceCreatePattern(NULL);
     CGFloat dummy = 1.0f;
     CGColorRef color = CGColorCreateWithPattern(coloredPatternColorSpace, pattern, &dummy);
@@ -52,13 +21,9 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 }
 //end taken code
 
-+ (SVGKPattern*)patternWithImage:(NSImage*)image
-{
-	CGImageRef quartzImage = [image CGImageForProposedRect:NULL context:NULL hints:NULL];
-	SVGKPattern *p = [self patternWithCGImage:quartzImage];
-	CGImageRelease(quartzImage);
-	return p;
-}
+@implementation SVGKPattern
+
+@synthesize color;
 
 + (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage
 {
@@ -80,6 +45,30 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 	
 	return p;
 }
+
+#if TARGET_OS_IPHONE
+
++ (SVGKPattern *)patternWithUIColor:(UIColor *)color
+{
+	return [self patternWithCGColor:[color CGColor]];
+}
+
++ (SVGKPattern*)patternWithImage:(UIImage*)image
+{
+    UIColor* patternImage = [UIColor colorWithPatternImage:image];
+    return [self patternWithUIColor:patternImage];
+}
+
+#else
+
++ (SVGKPattern*)patternWithImage:(NSImage*)image
+{
+	CGImageRef quartzImage = [image CGImageForProposedRect:NULL context:NULL hints:NULL];
+	SVGKPattern *p = [self patternWithCGImage:quartzImage];
+	CGImageRelease(quartzImage);
+	return p;
+}
+
 
 + (SVGKPattern*)patternWithNSColor:(NSColor*)color
 {
@@ -105,18 +94,12 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 
 - (CGColorRef)CGColor
 {
-#if TARGET_OS_IPHONE
-    return [self.color CGColor];
-#else
     return self.color;
-#endif
 }
 
-#if !TARGET_OS_IPHONE
 - (void)dealloc
 {
 	self.color = NULL;
 }
-#endif
 
 @end

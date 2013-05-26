@@ -14,26 +14,23 @@
 @interface SVGKPattern : NSObject
 {
 }
+@property (readwrite, nonatomic) CGColorRef color;
+
++ (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage;
++ (SVGKPattern*)patternWithCGColor:(CGColorRef)cgColor;
+
+- (CGColorRef) CGColor;
 
 #if TARGET_OS_IPHONE
 
 + (SVGKPattern*) patternWithUIColor:(UIColor*)color;
 + (SVGKPattern*) patternWithImage:(UIImage*)image;
 
-@property (readwrite,nonatomic,strong) UIColor* color;
-
 #else
-
-@property (readwrite, nonatomic) CGColorRef color;
 
 + (SVGKPattern*)patternWithNSColor:(NSColor*)color;
 + (SVGKPattern*)patternWithImage:(NSImage*)image;
 
 #endif
-
-+ (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage;
-+ (SVGKPattern*)patternWithCGColor:(CGColorRef)cgColor;
-
-- (CGColorRef) CGColor;
 
 @end
