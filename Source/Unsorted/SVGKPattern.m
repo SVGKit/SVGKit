@@ -25,6 +25,14 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 
 @synthesize color;
 
+- (void)setColor:(CGColorRef)aColor
+{
+	if (color != aColor) {
+		CGColorRelease(color);
+		color = CGColorRetain(aColor);
+	}
+}
+
 + (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage
 {
 	SVGKPattern *p = nil;
