@@ -154,7 +154,7 @@
 		scaledSize.height *= CGscale;
 		scaledSize.width *= CGscale;
 
-		[_image scaleToFitInside:scaledSize];
+		//[_image scaleToFitInside:scaledSize];
 
 		NSImage *tmpImage = _image.NSImage;
 		
