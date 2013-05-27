@@ -326,10 +326,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (id)initWithData:(NSData *)data
 {
+	@autoreleasepool {
 	NSInputStream *stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
 	SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
 	return [self initWithSource:[sour autorelease]];
+	}
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
