@@ -83,11 +83,12 @@ static CGImageRef CreateSVGImageCGImage(SVGImageRef img)
 	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
 	newLayer.frame = frame;
 	
-	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
-	SVGImageRef image = [SVGImage imageWithData:imageData];
-	
-	newLayer.contents = CFBridgingRelease(CreateSVGImageCGImage(image));
+	@autoreleasepool {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+		SVGImageRef image = [SVGImage imageWithData:imageData];
 		
+		newLayer.contents = CFBridgingRelease(CreateSVGImageCGImage(image));
+	}
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];
 
