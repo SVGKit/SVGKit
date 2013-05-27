@@ -20,8 +20,8 @@
 
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
-@property (nonatomic, strong, readonly) SVGKImage *image;
 
+@property (nonatomic, strong, readonly) SVGKImage *image;
 @end
 
 @implementation SVGKitImageRep
@@ -141,18 +141,11 @@
 - (BOOL)draw
 {
 	@autoreleasepool {
-		CGContextRef CGCtx = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-		
-		CGAffineTransform scaleTrans = CGContextGetCTM(CGCtx);
-		
-		//Just in case the image is in a differently-sized NSImage
-		//should also work for retina displays
-		CGFloat CGscale = MIN(scaleTrans.a, scaleTrans.d);
+		//Just in case someone resized the image rep.
 		NSSize scaledSize = self.size;
-		scaledSize.height *= CGscale;
-		scaledSize.width *= CGscale;
-
-		//[_image scaleToFitInside:scaledSize];
+		if (!CGSizeEqualToSize(_image.size, scaledSize)) {
+			[_image scaleToFitInside:scaledSize];
+		}
 
 		NSImage *tmpImage = _image.NSImage;
 		
