@@ -77,7 +77,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [NSMutableDictionary dictionary];
+        propertyRegistry = [[NSMutableDictionary alloc] initWithCapacity:2];
         
         NSArray* CALayerProperties = @[@"name", @"bounds", @"frame"];
         propertyRegistry[NSStringFromClass([CALayer class])] = CALayerProperties;

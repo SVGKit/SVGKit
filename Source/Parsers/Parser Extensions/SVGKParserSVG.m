@@ -20,7 +20,7 @@
 
 @implementation SVGKParserSVG
 
-static NSDictionary *elementMap;
+static NSDictionary *elementMap = nil;
 
 - (id)init {
 	self = [super init];

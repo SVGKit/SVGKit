@@ -34,13 +34,11 @@
 
 - (CALayer *) newLayer
 {
-	
-	CALayer* _layer = [CALayerWithChildHitTest layer];
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 		
-		_layer.name = self.identifier;
-		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-		_layer.opacity = _opacity;
-		
+	_layer.name = self.identifier;
+	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
+	_layer.opacity = _opacity;		
 	
 	return _layer;
 }
