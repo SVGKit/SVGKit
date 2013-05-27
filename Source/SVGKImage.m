@@ -319,15 +319,19 @@ static NSMutableDictionary* globalSVGKImageCache;
 #if TARGET_OS_IPHONE
 + (UIImage *)imageWithData:(NSData *)data
 {
-	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
-	return nil;
+	SVGKImage *img = [[[self alloc] initWithData:data] autorelease];
+	return img.UIImage;
 }
 #endif
 
 - (id)initWithData:(NSData *)data
 {
-	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
-	return nil;
+	@autoreleasepool {
+	NSInputStream *stream = [NSInputStream inputStreamWithData:data];
+	[stream open];
+	SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
+	return [self initWithSource:[sour autorelease]];
+	}
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
