@@ -91,7 +91,17 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 			return [self patternWithImage:[color patternImage]];
 		} else {
 			CGColorSpaceRef spaceRef = [[color colorSpace] CGColorSpace];
-			CGFloat * components = malloc(sizeof(CGFloat) * [color numberOfComponents]);
+			if (!spaceRef) {
+				return nil;
+			}
+			NSInteger colorComponents = 0;
+			@try {
+				colorComponents = [color numberOfComponents];
+			}
+			@catch (NSException *exception) {
+				return nil;
+			}
+			CGFloat * components = malloc(sizeof(CGFloat) * colorComponents);
 			[color getComponents:components];
 			CGColorRef tmpColor = CGColorCreate(spaceRef, components);
 			free(components);
