@@ -20,15 +20,15 @@
 
 @implementation SVGKParserSVG
 
-static NSDictionary *elementMap;
+static NSDictionary *elementMap = nil;
 
 - (id)init {
 	self = [super init];
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGSVGElement class], @"svg",
+			elementMap = [[NSDictionary alloc] initWithObjectsAndKeys:
+						  [SVGSVGElement class], @"svg",
                           [SVGCircleElement class], @"circle",
                           [SVGDescriptionElement class], @"description",
                           [SVGEllipseElement class], @"ellipse",
@@ -40,8 +40,8 @@ static NSDictionary *elementMap;
                           [SVGPolylineElement class], @"polyline",
                           [SVGRectElement class], @"rect",
                           [SVGTitleElement class], @"title",
-						   [SVGTextElement class], @"text",
-						   nil] retain];
+						  [SVGTextElement class], @"text",
+						  nil];
 		}
 	}
 	return self;
