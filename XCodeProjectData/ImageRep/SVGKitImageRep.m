@@ -56,11 +56,7 @@
 {
 	SVGKParseResult *parseResult = nil;
 	@autoreleasepool {
-		NSInputStream* stream = [NSInputStream inputStreamWithData:d];
-		[stream open];
-		
-		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:sour];
+		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[SVGKSource sourceFromData:d]];
 	}
 	if (parseResult == nil) {
 		return NO;
@@ -84,10 +80,7 @@
 - (id)initWithData:(NSData *)theData
 {
 	@autoreleasepool {
-		NSInputStream* stream = [NSInputStream inputStreamWithData:theData];
-		[stream open];
-		SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-		return [self initWithSVGSource:sour];
+		return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
 	}
 }
 

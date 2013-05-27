@@ -184,6 +184,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
+	NSParameterAssert(aPath != nil);
     @synchronized(self) {
 		return [[[self class] alloc] initWithContentsOfFile:aPath];
     }
@@ -285,21 +286,20 @@ static NSMutableDictionary* globalSVGKImageCache;
 //TODO mac alternatives to UIKit functions
 
 #if TARGET_OS_IPHONE
-+ (UIImage *)imageWithData:(NSData *)data
++ (SVGKImage *)imageWithData:(NSData *)data
 {
-	SVGKImage *img = [[self alloc] initWithData:data];
-	return img.UIImage;
+	NSParameterAssert(data != nil);
+	@synchronized(self){
+		return [(SVGKImage*)[[self class] alloc] initWithData:data];
+	}
 }
 #endif
 
 - (id)initWithData:(NSData *)data
 {
-	@autoreleasepool {
-	NSInputStream *stream = [NSInputStream inputStreamWithData:data];
-	[stream open];
-	SVGKSource *sour = [[SVGKSource alloc] initWithInputSteam:stream];
-	return [self initWithSource:sour];
-	}
+	NSParameterAssert(data != nil);
+	
+	return [self initWithSource:[SVGKSource sourceFromData:data]];
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
