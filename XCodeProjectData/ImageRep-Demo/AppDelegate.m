@@ -8,6 +8,24 @@
 
 #import "AppDelegate.h"
 
+#ifndef DONTUSESVGIMAGEREPDIRECTLY
+#define DONTUSESVGIMAGEREPDIRECTLY 0
+#endif
+
+#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
+#else
+@interface SVGKitImageRep : NSImageRep
+
++ (NSImageRep *)imageRepWithData:(NSData *)d;
+
+- (id)initWithData:(NSData *)theData;
+- (id)initWithURL:(NSURL *)theURL;
+- (id)initWithPath:(NSString *)thePath;
+- (id)initWithSVGString:(NSString *)theString;
+
+@end
+#endif
+
 @implementation AppDelegate
 
 - (void)dealloc
@@ -19,17 +37,16 @@
 {
 	NSBundle *SVGImageRepBundle;
 	NSURL *bundlesURL = [[NSBundle mainBundle] builtInPlugInsURL];
-	SVGImageRepBundle = [[NSBundle alloc] initWithURL:[bundlesURL URLByAppendingPathComponent:@"SVGKImageRep.bundle"]];
+	SVGImageRepBundle = [NSBundle bundleWithURL:[bundlesURL URLByAppendingPathComponent:@"SVGKImageRep.bundle"]];
 	BOOL loaded = [SVGImageRepBundle load];
 	if (!loaded) {
 		NSLog(@"Bundle Not loaded!");
-		[SVGImageRepBundle release];
+#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
+#else
+		abort();
+#endif
 		return;
 	}
-	//NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
-	//NSImage *tempImage = [[NSImage alloc] initWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"admon-bug.svg"]];
-		
-	[SVGImageRepBundle release];
 }
 
 - (IBAction)selectSVG:(id)sender
@@ -47,8 +64,14 @@
 		return;
 	}
 	NSURL *svgUrl = [[op URLs] objectAtIndex:0];
-	
+#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
+#else
+	NSImage *selectImage = [[NSImage alloc] init];
+	SVGKitImageRep *imRep = [[SVGKitImageRep alloc] initWithURL:svgUrl];
+	[selectImage addRepresentation:imRep];
+	[imRep release];
+#endif
 	[op release];
 	[svgSelected setImage:selectImage];
 	[selectImage release];
