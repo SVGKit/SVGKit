@@ -68,7 +68,7 @@
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
 #else
 	NSImage *selectImage = [[NSImage alloc] init];
-	SVGKitImageRep *imRep = [[SVGKitImageRep alloc] initWithURL:svgUrl];
+	SVGKitImageRep *imRep = [[NSClassFromString(@"SVGKitImageRep") alloc] initWithURL:svgUrl];
 	[selectImage addRepresentation:imRep];
 	[imRep release];
 #endif
