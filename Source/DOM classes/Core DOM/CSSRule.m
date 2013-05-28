@@ -8,5 +8,4 @@
 @synthesize parentStyleSheet;
 @synthesize parentRule;
 
-
 @end

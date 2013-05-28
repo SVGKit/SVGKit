@@ -11,8 +11,6 @@
 @synthesize implementation;
 @synthesize documentElement;
 
-
-
 -(Element*) createElement:(NSString*) tagName
 {
 	Element* newElement = [[Element alloc] initWithLocalName:tagName attributes:nil];

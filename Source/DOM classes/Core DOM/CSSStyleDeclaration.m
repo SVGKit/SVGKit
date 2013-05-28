@@ -42,7 +42,7 @@
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];
 	
 	self.internalDictionaryOfStylesByCSSClass = processedStyles;
-  
+	
 }
 
 -(NSMutableDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {

@@ -339,10 +339,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		return CGSizeFromSVGRect( self.DOMTree.viewport );
 	}
-
+	
 	/* Calculate a viewbox, either the explicit one from 3. above, or the implicit one from 4. above
-	*/
-	SVGRect effectiveViewbox; 
+	 */
+	SVGRect effectiveViewbox;
 	if( ! SVGRectIsInitialized( self.DOMTree.viewBox ) )
 	{
 		/**
@@ -360,8 +360,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 	else
 		effectiveViewbox = self.DOMTree.viewBox;
-		
-	/* COMBINED TOGETHER: 
+	
+	/* COMBINED TOGETHER:
 	 
 	 3. otherwise ... spec is UNDEFINED. If we have a viewbox, we return that (SVG spec defaults to 1 unit of viewbox = 1 pixel on screen)
 	 4. otherwise ... spec is UNDEFINED. We have no viewbox, so we assume viewbox is "the bounding box of the entire SVG content, in SVG units", and use 3. above
@@ -525,7 +525,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( clonedLayer == nil )
 		return nil;
 	else
-	{		
+	{
 		CGRect lFrame = clonedLayer.frame;
 		CGFloat xOffset = 0.0;
 		CGFloat yOffset = 0.0;

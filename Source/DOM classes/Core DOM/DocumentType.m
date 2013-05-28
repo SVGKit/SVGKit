@@ -22,7 +22,7 @@
  
  // Introduced in DOM Level 2:
  @property(nonatomic,retain,readonly) NSString* internalSubset;
-
+ 
  */
 
 @implementation DocumentType
@@ -39,6 +39,5 @@
 
 // Introduced in DOM Level 2:
 @synthesize internalSubset;
-
 
 @end

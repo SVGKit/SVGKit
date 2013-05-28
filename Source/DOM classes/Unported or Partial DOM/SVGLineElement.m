@@ -23,16 +23,16 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"x1"] length] > 0 )
-	_x1 = [[self getAttribute:@"x1"] SVGKCGFloatValue];
+		_x1 = [[self getAttribute:@"x1"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"y1"] length] > 0 )
-	_y1 = [[self getAttribute:@"y1"] SVGKCGFloatValue];
+		_y1 = [[self getAttribute:@"y1"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"x2"] length] > 0 )
-	_x2 = [[self getAttribute:@"x2"] SVGKCGFloatValue];
+		_x2 = [[self getAttribute:@"x2"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"y2"] length] > 0 )
-	_y2 = [[self getAttribute:@"y2"] SVGKCGFloatValue];
+		_y2 = [[self getAttribute:@"y2"] SVGKCGFloatValue];
 }
 
 -(CALayer *)newLayer

@@ -19,8 +19,8 @@ static NSSet *_svgParserStylesSupportedNamespaces = nil;
 {
     if( _svgParserStylesSupportedNamespaces == nil )
         _svgParserStylesSupportedNamespaces = [[NSSet alloc] initWithObjects:
-        @"http://www.w3.org/2000/svg",
-        nil];
+											   @"http://www.w3.org/2000/svg",
+											   nil];
 	return _svgParserStylesSupportedNamespaces;
 }
 
@@ -60,15 +60,14 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 -(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	/** This is where the magic happens ... */
-		NSString* c = [newNode.textContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString* c = [newNode.textContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	
+	if( c.length > 0 )
+	{
+		CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:c];
 		
-		if( c.length > 0 )
-		{
-			CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:c];
-			
-			[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
-		}
-
+		[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+	}
 }
 
 +(void)trim

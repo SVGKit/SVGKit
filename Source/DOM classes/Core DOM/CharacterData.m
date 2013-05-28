@@ -14,7 +14,6 @@
 
 @synthesize length;
 
-
 -(NSString*) substringData:(unsigned long) offset count:(unsigned long) count
 {
 	NSAssert( FALSE, @"Not implemented yet" );

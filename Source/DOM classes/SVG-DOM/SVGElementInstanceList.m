@@ -4,7 +4,6 @@
 @implementation SVGElementInstanceList
 @synthesize internalArray;
 
-
 - (id)init
 {
     self = [super init];

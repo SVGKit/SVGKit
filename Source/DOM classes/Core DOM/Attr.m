@@ -11,12 +11,12 @@
 #import "Node+Mutable.h"
 
 @interface Attr()
- @property(nonatomic,strong,readwrite) NSString* name;
- @property(nonatomic,readwrite) BOOL specified;
- @property(nonatomic,strong,readwrite) NSString* value;
- 
- // Introduced in DOM Level 2:
- @property(nonatomic,strong,readwrite) Element* ownerElement;
+@property(nonatomic,strong,readwrite) NSString* name;
+@property(nonatomic,readwrite) BOOL specified;
+@property(nonatomic,strong,readwrite) NSString* value;
+
+// Introduced in DOM Level 2:
+@property(nonatomic,strong,readwrite) Element* ownerElement;
 @end
 
 @implementation Attr

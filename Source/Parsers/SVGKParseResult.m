@@ -21,7 +21,7 @@
 		
 		self.namespacesEncountered = [NSMutableDictionary dictionary];
 		
-		#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
+#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
 		self.extensionsData = [NSMutableDictionary dictionary];
 #endif
     }

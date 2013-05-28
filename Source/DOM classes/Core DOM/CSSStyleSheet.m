@@ -12,7 +12,7 @@
 
 /**
  Used to insert a new rule into the style sheet. The new rule now becomes part of the cascade.
-
+ 
  Parameters
  
  rule of type DOMString
@@ -84,7 +84,7 @@
 				
 			}
 		}
-	
+		
     }
     return self;
 }

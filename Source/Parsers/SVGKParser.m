@@ -78,7 +78,6 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	return self;
 }
 
-
 -(void) addDefaultSVGParserExtensions
 {
 	SVGKParserSVG *subParserSVG = [[SVGKParserSVG alloc] init];
@@ -94,7 +93,6 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	[self addParserExtension:subParserStyles];
 	[self addParserExtension:subParserDefsAndUse];
 	[self addParserExtension:subParserXMLDOM];
-	
 }
 
 - (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension
@@ -148,11 +146,11 @@ readPacket(char *mem, int size) {
 	parserThatWasMostRecentlyStarted = self;
 	
 	/*
-	// 1. while (source has chunks of BYTES)
-	// 2.   read a chunk from source, send to libxml
-	// 3.   if libxml failed chunk, break
-	// 4. return result
-	*/
+	 // 1. while (source has chunks of BYTES)
+	 // 2.   read a chunk from source, send to libxml
+	 // 3.   if libxml failed chunk, break
+	 // 4. return result
+	 */
 	
 	NSInputStream* stream = source.stream;
 	NSStreamStatus status = [stream streamStatus];
@@ -168,15 +166,15 @@ readPacket(char *mem, int size) {
 	xmlParserCtxtPtr ctx;
 	ctx = xmlCreatePushParserCtxt(&SAXHandler, NULL, NULL, 0, NULL); // NEVER pass anything except NULL in second arg - libxml has a massive bug internally
 	
-	/* 
+	/*
 	 NSLog(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
 	 xmlSubstituteEntitiesDefault(1);
-	xmlCtxtUseOptions( ctx,
-					  XML_PARSE_DTDATTR  // default DTD attributes
-					  | XML_PARSE_NOENT    // substitute entities
-					  | XML_PARSE_DTDVALID // validate with the DTD
-					  );
-	*/
+	 xmlCtxtUseOptions( ctx,
+	 XML_PARSE_DTDATTR  // default DTD attributes
+	 | XML_PARSE_NOENT    // substitute entities
+	 | XML_PARSE_DTDVALID // validate with the DTD
+	 );
+	 */
 	
 	if( ctx ) // if libxml init succeeds...
 	{
@@ -192,8 +190,8 @@ readPacket(char *mem, int size) {
 				// 3.   if libxml failed chunk, break
 				if( libXmlParserParseError > 0 )
 				{
-				NSLog(@"[%@] libXml reported internal parser error with magic libxml code = %i (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], libXmlParserParseError );
-				currentParseRun.libXMLFailed = YES;
+					NSLog(@"[%@] libXml reported internal parser error with magic libxml code = %i (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], libXmlParserParseError );
+					currentParseRun.libXMLFailed = YES;
 				}
 				else
 				{
@@ -224,13 +222,13 @@ readPacket(char *mem, int size) {
 
 /** ADAM: use this for a higher-performance, *non-blocking* parse
  (when someone upgrades this class and the interface to support non-blocking parse)
-// Called when a chunk of data has been downloaded.
-- (void)connection:(NSURLConnection *)connection 
-	didReceiveData:(NSData *)data 
-{
-	// Process the downloaded chunk of data.
-	xmlParseChunk(_xmlParserContext, (const char *)[data bytes], [data length], 0);//....Getting Exception at this line.
-}
+ // Called when a chunk of data has been downloaded.
+ - (void)connection:(NSURLConnection *)connection
+ didReceiveData:(NSData *)data
+ {
+ // Process the downloaded chunk of data.
+ xmlParseChunk(_xmlParserContext, (const char *)[data bytes], [data length], 0);//....Getting Exception at this line.
+ }
  */
 
 
@@ -285,7 +283,7 @@ readPacket(char *mem, int size) {
 		
 		if( shouldBreakBecauseParserIsADefault )
 			continue;
-			
+		
 		/**
 		 Now we know it's a specific parser, check if it handles this particular node
 		 */
@@ -346,7 +344,7 @@ readPacket(char *mem, int size) {
 	[_parentOfCurrentNode appendChild:subParserResult]; // this is a DOM method: should NOT have side-effects
 	_parentOfCurrentNode = subParserResult;
 	
-		
+	
 	if( parsingRootTag )
 	{
 		currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
@@ -379,7 +377,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	}
 	
 	if( stringURI == nil
-	&& self.defaultXMLNamespaceForThisParseRun != nil )
+	   && self.defaultXMLNamespaceForThisParseRun != nil )
 	{
 		/** Apply the default XML NS to this tag as if it had been typed in.
 		 
@@ -449,7 +447,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		NSLog(@"[%@] WARNING: Your input SVG contains tags that have no namespace, and your document doesn't define a default namespace. This is always incorrect - it means some of your SVG data will be ignored, and usually means you have a typo in there somewhere. Tag with no namespace: <%@>", [self class], stringLocalName );
 	}
-		  
+	
 	[self handleStartElement:stringLocalName namePrefix:stringPrefix namespaceURI:stringURI attributeObjects:attributeObjects];
 }
 
@@ -462,7 +460,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	[_stackOfParserExtensions removeLastObject];
 	
 	NSObject<SVGKParserExtension>* parser = (NSObject<SVGKParserExtension>*)lastobject;
-//	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
+	//	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
 	
 #if DEBUG_XML_PARSER
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
@@ -499,11 +497,11 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 }
 
 - (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
-		char value[len + 1];
-		strncpy(value, (const char *) chars, len);
-		value[len] = '\0';
-		
-		[_storedChars appendString:@(value)];
+	char value[len + 1];
+	strncpy(value, (const char *) chars, len);
+	value[len] = '\0';
+	
+	[_storedChars appendString:@(value)];
 }
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
@@ -530,17 +528,17 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
 }
 
-static void	unparsedEntityDeclaration(void * ctx, 
-									 const xmlChar * name, 
-									 const xmlChar * publicId, 
-									 const xmlChar * systemId, 
-									 const xmlChar * notationName)
+static void	unparsedEntityDeclaration(void * ctx,
+									  const xmlChar * name,
+									  const xmlChar * publicId,
+									  const xmlChar * systemId,
+									  const xmlChar * notationName)
 {
 	NSLog(@"Error: unparsed entity Decl, name: %s publicID: %s systemID: %s notation name: %s", name, publicId, systemId, notationName);
 }
 
-static void structuredError		(void * userData, 
-									 xmlErrorPtr error)
+static void structuredError		(void * userData,
+								 xmlErrorPtr error)
 {
 	/**
 	 XML_ERR_WARNING = 1 : A simple warning

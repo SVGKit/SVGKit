@@ -4,7 +4,7 @@
 
 #import "SVGHelperUtilities.h"
 
-@implementation SVGGElement 
+@implementation SVGGElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
@@ -29,7 +29,7 @@
 	}
 	
 	layer.frame = mainRect;
-
+	
 	/** (dont know why this is here): set each sublayer to have a frame the same size as the parent frame, but with 0 offset.
 	 
 	 if I understand this correctly, the person who wrote it should have just written:

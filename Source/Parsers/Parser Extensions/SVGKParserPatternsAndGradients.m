@@ -37,7 +37,7 @@
 
 - (Node*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(Node*) parentNode
 {
-		
+	
 	NSAssert( FALSE, @"Patterns are not supported by SVGKit yet - no-one has implemented them" );
 	
 	return nil;

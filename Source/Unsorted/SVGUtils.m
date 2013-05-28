@@ -445,7 +445,7 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 #else
 	if ([NSColor instancesRespondToSelector:@selector(CGColor)]) {
 		outColor = [[NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
-											  blue:RGB_N(color.b) alpha:RGB_N(color.a)] CGColor];
+											   blue:RGB_N(color.b) alpha:RGB_N(color.a)] CGColor];
 	} else {
 		//THIS IS DICEY CODE!
 		//I am unsure how well this will preform: something could break it

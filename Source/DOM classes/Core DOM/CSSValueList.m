@@ -11,7 +11,6 @@
 
 @synthesize internalArray;
 
-
 - (id)init
 {
     self = [super initWithUnitType:CSS_VALUE_LIST];
