@@ -15,7 +15,24 @@
 @implementation Node
 
 @synthesize nodeName;
+
+- (void)setNodeName:(NSString *)anodeName
+{
+	if (nodeName != anodeName) {
+		[nodeName release];
+		nodeName = [[NSString alloc] initWithString:anodeName];
+	}
+}
+
 @synthesize nodeValue;
+
+- (void)setNodeValue:(NSString *)anodeValue
+{
+	if (nodeValue != anodeValue) {
+		[nodeValue release];
+		nodeValue = [[NSString alloc] initWithString:anodeValue];
+	}
+}
 
 @synthesize nodeType;
 @synthesize parentNode;
