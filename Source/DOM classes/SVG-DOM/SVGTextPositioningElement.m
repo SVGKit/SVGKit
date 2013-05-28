@@ -8,12 +8,12 @@
 @synthesize x,y,dx,dy,rotate;
 
 - (void)dealloc {
-  self.x = nil;
-  self.y = nil;
-  self.dx = nil;
-  self.dy = nil;
-  self.rotate = nil;
-  [super dealloc];
+	self.x = nil;
+	self.y = nil;
+	self.dx = nil;
+	self.dy = nil;
+	self.rotate = nil;
+	[super dealloc];
 }
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult

@@ -13,10 +13,10 @@
 
 
 - (void)dealloc {
-  [doctype release];
-  [implementation release];
-  [documentElement release];
-  [super dealloc];
+	[doctype release];
+	[implementation release];
+	[documentElement release];
+	[super dealloc];
 }
 
 -(Element*) createElement:(NSString*) tagName

@@ -45,7 +45,7 @@
 		 
 		 NB: according to spec, this behaviour is:
 		 
-		    "The result depends on the implementation"
+		 "The result depends on the implementation"
 		 
 		 I've chosen to implement it the most user-friendly way possible. It is NOT the best
 		 solution IMHO - the spec authors should have defined the outcome!

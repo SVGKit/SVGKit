@@ -68,7 +68,7 @@
 				self.nodeName = n;
 				self.nodeValue = v;
 			}break;
-			
+				
 				
 			case DOMNodeType_DOCUMENT_NODE:
 			case DOMNodeType_DOCUMENT_TYPE_NODE:
@@ -152,7 +152,7 @@
 	self.localName = [nameSpaceParts lastObject];
 	if( [nameSpaceParts count] > 1 )
 		self.prefix = [nameSpaceParts objectAtIndex:0];
-		
+	
 	self.namespaceURI = nsURI;
 }
 
@@ -290,7 +290,7 @@
 
 #pragma mark - SPECIAL CASE: DOM level 3 method
 
-/** 
+/**
  
  Note that the DOM 3 spec defines this as RECURSIVE:
  

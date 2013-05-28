@@ -230,7 +230,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
                         if (0 == path) {
                             propertyValue = @"0";
                         } else {
-                        
+							
                             NSString* pathName = [NSString stringWithFormat:@"%@_%@_pathref", layerName, propertyName];
                             NSString* pathCreateStatement = [NSString stringWithFormat:@"CGMutablePathRef %@ = CGPathCreateMutable();", pathName];
                             [self.delegate layerExporter:self

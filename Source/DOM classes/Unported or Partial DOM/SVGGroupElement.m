@@ -29,16 +29,16 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"opacity"] length] > 0 )
-	_opacity = [[self getAttribute:@"opacity"] SVGKCGFloatValue];
+		_opacity = [[self getAttribute:@"opacity"] SVGKCGFloatValue];
 }
 
 - (CALayer *) newLayer
 {
 	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
-		
+	
 	_layer.name = self.identifier;
 	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-	_layer.opacity = _opacity;		
+	_layer.opacity = _opacity;
 	
 	return _layer;
 }

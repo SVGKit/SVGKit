@@ -50,7 +50,7 @@ static NSDictionary *elementMap = nil;
 -(NSArray*) supportedNamespaces
 {
 	return [NSArray arrayWithObjects:
-			 @"http://www.w3.org/2000/svg",
+			@"http://www.w3.org/2000/svg",
 			nil];
 }
 

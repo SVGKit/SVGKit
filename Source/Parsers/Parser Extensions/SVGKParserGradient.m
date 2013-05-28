@@ -28,7 +28,7 @@
 static NSSet *_svgGradientParserSupportedTags = nil;
 -(NSSet *)supportedTags
 {
-//    static NSSet *supportedTags = nil;
+	//    static NSSet *supportedTags = nil;
     if( _svgGradientParserSupportedTags == nil )
         _svgGradientParserSupportedTags = [[NSSet alloc] initWithObjects:@"linearGradient", @"radialGradient", @"stop", nil];
     return _svgGradientParserSupportedTags;
@@ -36,8 +36,8 @@ static NSSet *_svgGradientParserSupportedTags = nil;
 
 -(Node *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node *)parentNode
 {
-//    SVGColor startColor = SVGColorFromString(<#const char *string#>)
-//    CGPoint startPos = CGPointMake([attributes objectFor, <#CGFloat y#>)
+	//    SVGColor startColor = SVGColorFromString(<#const char *string#>)
+	//    CGPoint startPos = CGPointMake([attributes objectFor, <#CGFloat y#>)
     
     Node *returnObject = nil;
     
@@ -54,7 +54,7 @@ static NSSet *_svgGradientParserSupportedTags = nil;
         SVGGradientStop *gradientStop = [[SVGGradientStop alloc] initWithQualifiedName:name inNameSpaceURI:XMLNSURI attributes:attributes];
         
         [gradientStop postProcessAttributesAddingErrorsTo:parseResult];
-        returnObject = gradientStop;       
+        returnObject = gradientStop;
         
         [currentElement addStop:gradientStop];
     }
@@ -237,4 +237,4 @@ static NSSet *_svgGradientParserSupportedTags = nil;
                          //
                          
                          return grad;
-*/
+ */
