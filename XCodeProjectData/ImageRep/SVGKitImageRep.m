@@ -79,30 +79,22 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	@autoreleasepool {
-		return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
-	}
+	return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
 }
 
 - (id)initWithURL:(NSURL *)theURL
 {
-	@autoreleasepool {
-		return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
-	}
+	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
 }
 
 - (id)initWithPath:(NSString *)thePath
 {
-	@autoreleasepool {
-		return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
-	}
+	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
 {
-	@autoreleasepool {
-		return [self initWithSVGSource:[SVGKSourceString sourceFromContentsOfString:theString]];
-	}
+	return [self initWithSVGSource:[SVGKSourceString sourceFromContentsOfString:theString]];
 }
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
@@ -133,23 +125,24 @@
 
 - (BOOL)draw
 {
-	@autoreleasepool {
-		//Just in case someone resized the image rep.
-		NSSize scaledSize = self.size;
-		if (!CGSizeEqualToSize(_image.size, scaledSize)) {
-			[_image scaleToFitInside:scaledSize];
-		}
-
-		NSImage *tmpImage = _image.NSImage;
-		
-		NSRect imageRect;
-		imageRect.size = self.size;
-		imageRect.origin = NSZeroPoint;
-		
-		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
-		
-		return YES;
+	//Just in case someone resized the image rep.
+	NSSize scaledSize = self.size;
+	if (!CGSizeEqualToSize(_image.size, scaledSize)) {
+		[_image scaleToFitInside:scaledSize];
 	}
+	
+	NSImage *tmpImage = _image.NSImage;
+	if (!tmpImage) {
+		return NO;
+	}
+	
+	NSRect imageRect;
+	imageRect.size = self.size;
+	imageRect.origin = NSZeroPoint;
+	
+	[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
+	
+	return YES;
 }
 
 @end
