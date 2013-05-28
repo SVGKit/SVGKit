@@ -45,6 +45,13 @@
 @synthesize rootOfCurrentDocumentFragment;
 @synthesize viewportElement;
 @synthesize stringValue = _stringValue;
+- (void)setStringValue:(NSString *)stringValue
+{
+	if (_stringValue != stringValue) {
+		[_stringValue release];
+		_stringValue = [[NSString alloc] initWithString:stringValue];
+	}
+}
 
 @synthesize className; /**< CSS class, from SVGStylable interface */
 @synthesize style; /**< CSS style, from SVGStylable interface */

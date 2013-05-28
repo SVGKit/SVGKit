@@ -2,6 +2,15 @@
 
 @implementation SVGKSourceString
 
+@synthesize rawString = _rawString;
+- (void)setRawString:(NSString *)rawString
+{
+	if (rawString != _rawString) {
+		[_rawString release];
+		_rawString = [[NSString alloc] initWithString:rawString];
+	}
+}
+
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
 	SVGKSourceString *s = nil;
 	@autoreleasepool {
