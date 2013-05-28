@@ -7,7 +7,11 @@
 {
 	if (_filePath != filePath) {
 		[_filePath release];
-		_filePath = [[NSString alloc] initWithString:filePath];
+		if (filePath) {
+			_filePath = [[NSString alloc] initWithString:filePath];
+		} else {
+			_filePath = nil;
+		}
 	}
 }
 

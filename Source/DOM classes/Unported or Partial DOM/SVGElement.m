@@ -49,7 +49,11 @@
 {
 	if (_stringValue != stringValue) {
 		[_stringValue release];
-		_stringValue = [[NSString alloc] initWithString:stringValue];
+		if (stringValue) {
+			_stringValue = [[NSString alloc] initWithString:stringValue];
+		} else {
+			_stringValue = nil;
+		}
 	}
 }
 

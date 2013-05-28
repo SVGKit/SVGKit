@@ -7,7 +7,11 @@
 {
 	if (rawString != _rawString) {
 		[_rawString release];
-		_rawString = [[NSString alloc] initWithString:rawString];
+		if (rawString) {
+			_rawString = [[NSString alloc] initWithString:rawString];
+		} else {
+			_rawString = nil;
+		}
 	}
 }
 

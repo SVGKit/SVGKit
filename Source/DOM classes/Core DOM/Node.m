@@ -20,7 +20,11 @@
 {
 	if (nodeName != anodeName) {
 		[nodeName release];
-		nodeName = [[NSString alloc] initWithString:anodeName];
+		if (anodeName) {
+			nodeName = [[NSString alloc] initWithString:anodeName];
+		} else {
+			nodeName = nil;
+		}
 	}
 }
 
@@ -30,7 +34,11 @@
 {
 	if (nodeValue != anodeValue) {
 		[nodeValue release];
-		nodeValue = [[NSString alloc] initWithString:anodeValue];
+		if (anodeValue) {
+			nodeValue = [[NSString alloc] initWithString:anodeValue];
+		} else {
+			nodeValue = nil;
+		}
 	}
 }
 
