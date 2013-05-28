@@ -24,9 +24,29 @@
 - (id)initWithSVGString:(NSString *)theString;
 
 @end
+
+@interface AppDelegate ()
++ (Class)imageRepClass;
+@end
+
 #endif
 
 @implementation AppDelegate
+
+#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
+#else
+
++ (Class)imageRepClass
+{
+	static Class storedRep = nil;
+	if (storedRep == nil) {
+		storedRep = [NSClassFromString(@"SVGKitImageRep") retain];
+	}
+	return storedRep;
+}
+
+#endif
+
 
 - (void)dealloc
 {
@@ -41,10 +61,6 @@
 	BOOL loaded = [SVGImageRepBundle load];
 	if (!loaded) {
 		NSLog(@"Bundle Not loaded!");
-#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
-#else
-		abort();
-#endif
 		return;
 	}
 }
@@ -66,13 +82,18 @@
 	NSURL *svgUrl = [[op URLs] objectAtIndex:0];
 #if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
+	[op release];
 #else
 	NSImage *selectImage = [[NSImage alloc] init];
-	SVGKitImageRep *imRep = [[NSClassFromString(@"SVGKitImageRep") alloc] initWithURL:svgUrl];
+	SVGKitImageRep *imRep = [[[[self class] imageRepClass] alloc] initWithURL:svgUrl];
+	[op release];
+	if (!imRep) {
+		[selectImage release];
+		return;
+	}
 	[selectImage addRepresentation:imRep];
 	[imRep release];
 #endif
-	[op release];
 	[svgSelected setImage:selectImage];
 	[selectImage release];
 }
