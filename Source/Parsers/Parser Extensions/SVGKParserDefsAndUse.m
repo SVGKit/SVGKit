@@ -51,18 +51,18 @@
 - (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
-	{	
+	{
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		
 		if( [name isEqualToString:@"defs"])
-		{	
+		{
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 			SVGDefsElement *element = [[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			
 			return [element autorelease];
 		}
 		else if( [name isEqualToString:@"use"])
-		{	
+		{
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 			SVGUseElement *useElement = [[SVGUseElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			

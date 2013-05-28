@@ -103,7 +103,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  ( "Q" | "q" ) wsp* quadratic-bezier-curveto-argument-sequence
  quadratic-bezier-curveto-argument-sequence:
  quadratic-bezier-curveto-argument
- | quadratic-bezier-curveto-argument comma-wsp? 
+ | quadratic-bezier-curveto-argument comma-wsp?
  quadratic-bezier-curveto-argument-sequence
  quadratic-bezier-curveto-argument:
  coordinate-pair comma-wsp? coordinate-pair
@@ -118,7 +118,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  elliptical-arc-argument
  | elliptical-arc-argument comma-wsp? elliptical-arc-argument-sequence
  elliptical-arc-argument:
- nonnegative-number comma-wsp? nonnegative-number comma-wsp? 
+ nonnegative-number comma-wsp? nonnegative-number comma-wsp?
  number comma-wsp flag comma-wsp? flag comma-wsp? coordinate-pair
  coordinate-pair:
  coordinate comma-wsp? coordinate
@@ -318,7 +318,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     return f;
 }
 
-/** 
+/**
  lineto:
  ( "L" | "l" ) wsp* lineto-argument-sequence
  */
@@ -337,7 +337,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     return lastCoordinate;
 }
 
-/** 
+/**
  lineto-argument-sequence:
  coordinate-pair
  | coordinate-pair comma-wsp? lineto-argument-sequence
@@ -362,7 +362,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 /**
  quadratic-bezier-curveto:
  ( "Q" | "q" ) wsp* quadratic-bezier-curveto-argument-sequence
-*/
+ */
 + (SVGCurve) readQuadraticCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     NSString* cmd = nil;
@@ -381,7 +381,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  quadratic-bezier-curveto-argument-sequence:
  quadratic-bezier-curveto-argument
  | quadratic-bezier-curveto-argument comma-wsp? quadratic-bezier-curveto-argument-sequence
-*/
+ */
 + (SVGCurve) readQuadraticCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     SVGCurve curve = [SVGKPointsAndPathsParser readQuadraticCurvetoArgument:scanner path:path relativeTo:origin];
@@ -414,7 +414,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     
     return SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, coord2.x, coord2.y);
 }
- 
+
 /**
  curveto:
  ( "C" | "c" ) wsp* curveto-argument-sequence

@@ -60,7 +60,7 @@
 	
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
-//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
+	//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 	
 	/** find a valid font reference, or Apple's APIs will break later */
 	/** undocumented Apple bug: CTFontCreateWithName cannot accept nil input*/
@@ -77,7 +77,7 @@
 	effectiveText = [effectiveText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	effectiveText = [effectiveText stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
 	
-	/** Calculate 
+	/** Calculate
 	 
 	 1. Create an attributed string (Apple's APIs are hard-coded to require this)
 	 2. Set the font to be the correct one + correct size for whole string, inside the string
@@ -86,23 +86,23 @@
 	 */
 	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
 	[tempString addAttribute:(NSString *)kCTFontAttributeName
-					  value:(id)font
-					  range:NSMakeRange(0, tempString.string.length)];
+					   value:(id)font
+					   range:NSMakeRange(0, tempString.string.length)];
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
 	[tempString release];
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
 	
 	CGRect unTransformedFinalBounds = CGRectMake( 0,
-											  0,
-											  suggestedUntransformedSize.width,
-											  suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
+												 0,
+												 suggestedUntransformedSize.width,
+												 suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
 	
     CATextLayer *label = [[CATextLayer alloc] init];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
 	
     label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
-  CFRelease(font);
+	CFRelease(font);
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
@@ -113,12 +113,12 @@
 	 2. CALayer.bounds and .position ARE NOT AFFECTED BY .affineTransform - only the contents of the layer is affected
 	 3. SVG defines two SEMI-INCOMPATIBLE ways of positioning TEXT objects, that we have to correctly combine here.
 	 4. So ... to apply a transform to the layer text:
-	     i. find the TRANSFORM
-	     ii. merge it with the local offset (.x and .y from SVG) - which defaults to (0,0)
-	     iii. apply that to the layer
-	     iv. set the position to 0
-	     v. BECAUSE SVG AND APPLE DEFINE ORIGIN DIFFERENTLY: subtract the "untransformed" height of the font ... BUT: pre-transformed ONLY BY the 'multiplying (non-translating)' part of the TRANSFORM.
-	     vi. set the bounds to be (whatever Apple's CoreText says is necessary to render TEXT at FONT SIZE, with NO TRANSFORMS)
+	 i. find the TRANSFORM
+	 ii. merge it with the local offset (.x and .y from SVG) - which defaults to (0,0)
+	 iii. apply that to the layer
+	 iv. set the position to 0
+	 v. BECAUSE SVG AND APPLE DEFINE ORIGIN DIFFERENTLY: subtract the "untransformed" height of the font ... BUT: pre-transformed ONLY BY the 'multiplying (non-translating)' part of the TRANSFORM.
+	 vi. set the bounds to be (whatever Apple's CoreText says is necessary to render TEXT at FONT SIZE, with NO TRANSFORMS)
 	 */
     label.bounds = unTransformedFinalBounds;
 	
@@ -143,12 +143,12 @@
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
     label.foregroundColor = CGBlackColor();
-
+	
 	/** VERY USEFUL when trying to debug text issues:
-	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
-	label.borderColor = [UIColor redColor].CGColor;
-	//DEBUG: NSLog(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
-	*/
+	 label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
+	 label.borderColor = [UIColor redColor].CGColor;
+	 //DEBUG: NSLog(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
+	 */
 	
     return label;
 }
