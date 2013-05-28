@@ -18,13 +18,10 @@
 
 - (void)setNodeName:(NSString *)anodeName
 {
-	if (nodeName != anodeName) {
-		[nodeName release];
-		if (anodeName) {
-			nodeName = [[NSString alloc] initWithString:anodeName];
-		} else {
-			nodeName = nil;
-		}
+	if (!anodeName) {
+		nodeName = nil;
+	} else {
+		nodeName = [[NSString alloc] initWithString:anodeName];
 	}
 }
 
@@ -32,13 +29,10 @@
 
 - (void)setNodeValue:(NSString *)anodeValue
 {
-	if (nodeValue != anodeValue) {
-		[nodeValue release];
-		if (anodeValue) {
-			nodeValue = [[NSString alloc] initWithString:anodeValue];
-		} else {
-			nodeValue = nil;
-		}
+	if (!anodeValue) {
+		nodeValue = nil;
+	} else {
+		nodeValue = [[NSString alloc] initWithString:anodeValue];
 	}
 }
 

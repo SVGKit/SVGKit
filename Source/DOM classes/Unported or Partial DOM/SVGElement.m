@@ -47,13 +47,10 @@
 @synthesize stringValue = _stringValue;
 - (void)setStringValue:(NSString *)stringValue
 {
-	if (_stringValue != stringValue) {
-		[_stringValue release];
-		if (stringValue) {
-			_stringValue = [[NSString alloc] initWithString:stringValue];
-		} else {
-			_stringValue = nil;
-		}
+	if (!stringValue) {
+		_stringValue = nil;
+	} else {
+		_stringValue = [[NSString alloc] initWithString:stringValue];
 	}
 }
 

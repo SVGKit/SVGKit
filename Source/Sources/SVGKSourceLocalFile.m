@@ -5,13 +5,10 @@
 @synthesize filePath = _filePath;
 - (void)setFilePath:(NSString *)filePath
 {
-	if (_filePath != filePath) {
-		[_filePath release];
-		if (filePath) {
-			_filePath = [[NSString alloc] initWithString:filePath];
-		} else {
-			_filePath = nil;
-		}
+	if (!filePath) {
+		_filePath = nil;
+	} else {
+		_filePath = [[NSString alloc] initWithString:filePath];
 	}
 }
 

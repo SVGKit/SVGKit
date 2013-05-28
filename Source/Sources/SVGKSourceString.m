@@ -5,13 +5,10 @@
 @synthesize rawString = _rawString;
 - (void)setRawString:(NSString *)rawString
 {
-	if (rawString != _rawString) {
-		[_rawString release];
-		if (rawString) {
-			_rawString = [[NSString alloc] initWithString:rawString];
-		} else {
-			_rawString = nil;
-		}
+	if (!rawString) {
+		_rawString = nil;
+	} else {
+		_rawString = [[NSString alloc] initWithString:rawString];
 	}
 }
 

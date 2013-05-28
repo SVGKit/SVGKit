@@ -331,8 +331,8 @@
 		559C10F9175568DD00486FEA /* Inspect */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_GC = supported;
 				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -347,7 +347,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_GC = unsupported;
 				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -362,7 +361,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_GC = unsupported;
 				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
