@@ -21,7 +21,7 @@
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) NSInteger numberOfInstances;
 @property(nonatomic,retain) SVGKImage* mainInstance;
@@ -43,7 +43,7 @@
 @property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
 #endif
 
@@ -69,11 +69,9 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
-#endif
 
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
@@ -114,7 +112,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle {
 	NSParameterAssert(name != nil);
     
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     if( globalSVGKImageCache == nil )
     {
         globalSVGKImageCache = [NSMutableDictionary new];
@@ -151,7 +149,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	SVGKImage* result = [self imageWithContentsOfFile:path];
     
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil )
 	{
 		result->cameFromGlobalCache = TRUE;
@@ -266,7 +264,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)dealloc
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     if( self->cameFromGlobalCache )
     {
         SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
@@ -287,7 +285,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     self.nameUsedToInstantiate = nil;
 #endif
 	
@@ -296,7 +294,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)finalize
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     if( self->cameFromGlobalCache )
     {
         SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
@@ -443,7 +441,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return [self exportUIImageAntiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 }
 #else
-
 - (CIImage*)CIImage
 {
 	return [self exportCIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
@@ -453,7 +450,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 }
-
 #endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
@@ -491,11 +487,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
 }
+
 + (UIImage *)animatedResizableImageNamed:(NSString *)name capInsets:(UIEdgeInsets)capInsets duration:(NSTimeInterval)duration // squence of files
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
 }
+
 + (UIImage *)animatedImageWithImages:(NSArray *)images duration:(NSTimeInterval)duration
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
