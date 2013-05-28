@@ -10,6 +10,9 @@
 
 @interface SVGKitImageRep : NSImageRep
 
+//Function used by NSImageRep to init.
++ (NSImageRep *)imageRepWithData:(NSData *)d;
+
 - (id)initWithData:(NSData *)theData;
 - (id)initWithURL:(NSURL *)theURL;
 - (id)initWithPath:(NSString *)thePath;
