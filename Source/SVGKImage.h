@@ -77,6 +77,7 @@
 #else
 @property (nonatomic, readonly) CIImage *CIImage;
 @property (nonatomic, readonly) NSImage *NSImage;
+@property (nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;
@@ -277,6 +278,7 @@
 #else
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #endif
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
