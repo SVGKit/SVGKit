@@ -418,6 +418,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 }
+
+- (NSBitmapImageRep *)bitmapImageRep
+{
+	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+}
+
 #endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
@@ -833,6 +839,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSImage *result = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
 	CGImageRelease(cgImage);
 	return result;
+}
+
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	CIImage *tmpImage = [self exportCIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	return [[NSBitmapImageRep alloc] initWithCIImage:tmpImage];
 }
 
 #endif
