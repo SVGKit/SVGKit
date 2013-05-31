@@ -29,7 +29,7 @@
 
 - (NSBitmapImageRep *)bitmapImageRep
 {
-	return [[[NSBitmapImageRep alloc] initWithCIImage:self.image.CIImage] autorelease];
+	return self.image.bitmapImageRep;
 }
 
 - (NSData *)TIFFRepresentation
