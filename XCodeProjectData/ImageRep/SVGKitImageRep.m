@@ -20,13 +20,26 @@
 
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
+- (NSBitmapImageRep *)bitmapImageRep;
 
-@property (nonatomic, strong, readonly) SVGKImage *image;
+@property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
 @end
 
 @implementation SVGKitImageRep
 
-@synthesize image = _image;
+- (NSBitmapImageRep *)bitmapImageRep
+{
+	return [[[NSBitmapImageRep alloc] initWithCIImage:self.image.CIImage] autorelease];
+}
+
+- (NSData *)TIFFRepresentation
+{
+	return [[self bitmapImageRep] TIFFRepresentation];
+}
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor
+{
+	return [[self bitmapImageRep] TIFFRepresentationUsingCompression:comp factor:factor];
+}
 
 + (NSArray *)imageUnfilteredFileTypes
 {
@@ -100,12 +113,15 @@
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
-		_image = [[SVGKImage alloc] initWithSource:theSource];
-		if (_image == nil || _image.parseErrorsAndWarnings.libXMLFailed || [_image.parseErrorsAndWarnings.errorsFatal count]) {
+		{
+			SVGKImage *tmpImage = [[SVGKImage alloc] initWithSource:theSource];
+			self.image = tmpImage;
+		}
+		if (self.image == nil || self.image.parseErrorsAndWarnings.libXMLFailed || [self.image.parseErrorsAndWarnings.errorsFatal count]) {
 			return nil;
 		}
-		if (![_image hasSize]) {
-			_image.size = CGSizeMake(32, 32);
+		if (![self.image hasSize]) {
+			self.image.size = CGSizeMake(32, 32);
 		}
 		
 		[self setColorSpaceName:NSCalibratedRGBColorSpace];
@@ -113,7 +129,7 @@
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
 		{
-			NSSize renderSize = _image.size;
+			NSSize renderSize = self.image.size;
 			[self setSize:renderSize];
 			[self setPixelsHigh:ceil(renderSize.height)];
 			[self setPixelsWide:ceil(renderSize.width)];
@@ -122,16 +138,15 @@
 	return self;
 }
 
-
 - (BOOL)draw
 {
 	//Just in case someone resized the image rep.
 	NSSize scaledSize = self.size;
-	if (!CGSizeEqualToSize(_image.size, scaledSize)) {
-		[_image scaleToFitInside:scaledSize];
+	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
+		[self.image scaleToFitInside:scaledSize];
 	}
 	
-	NSImage *tmpImage = _image.NSImage;
+	NSImage *tmpImage = self.image.NSImage;
 	if (!tmpImage) {
 		return NO;
 	}
