@@ -17,5 +17,7 @@
 - (id)initWithURL:(NSURL *)theURL;
 - (id)initWithPath:(NSString *)thePath;
 - (id)initWithSVGString:(NSString *)theString;
+- (NSData *)TIFFRepresentation;
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
 
 @end

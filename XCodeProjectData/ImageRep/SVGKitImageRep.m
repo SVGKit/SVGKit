@@ -20,6 +20,8 @@
 
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
+- (NSBitmapImageRep *)bitmapImageRep;
+
 
 @property (nonatomic, retain, readonly) SVGKImage *image;
 @end
@@ -27,6 +29,20 @@
 @implementation SVGKitImageRep
 
 @synthesize image = _image;
+
+- (NSBitmapImageRep *)bitmapImageRep
+{
+	return [[[NSBitmapImageRep alloc] initWithCIImage:_image.CIImage] autorelease];
+}
+
+- (NSData *)TIFFRepresentation
+{
+	return [[self bitmapImageRep] TIFFRepresentation];
+}
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor
+{
+	return [[self bitmapImageRep] TIFFRepresentationUsingCompression:comp factor:factor];
+}
 
 + (NSArray *)imageUnfilteredFileTypes
 {
