@@ -22,4 +22,8 @@
 	return [[SVGKSource alloc] initWithInputSteam:stream];
 }
 
++ (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
+	return [self sourceFromData:[rawString dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
 @end

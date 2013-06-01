@@ -49,9 +49,7 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 		
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 		// FIXME: we always return an empty Element here; for DOM spec, should we be detecting things like "comment" nodes? I dont know how libxml handles those and sends them to us. I've never seen one in action...
-		Element *blankElement = [[Element alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
-		
-		return blankElement;
+		return [[Element alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 	}
 	else
 		return nil;

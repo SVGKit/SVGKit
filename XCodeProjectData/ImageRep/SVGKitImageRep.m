@@ -16,7 +16,6 @@
 #import "SVGKitImageRep.h"
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
-#import "SVGKSourceString.h"
 
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
@@ -107,7 +106,7 @@
 
 - (id)initWithSVGString:(NSString *)theString
 {
-	return [self initWithSVGSource:[SVGKSourceString sourceFromContentsOfString:theString]];
+	return [self initWithSVGSource:[SVGKSource sourceFromContentsOfString:theString]];
 }
 
 - (id)initWithSVGSource:(SVGKSource*)theSource

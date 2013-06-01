@@ -67,7 +67,6 @@ _ColorValueWithName
 .objc_class_name_SVGKPointsAndPathsParser
 .objc_class_name_SVGKSource
 .objc_class_name_SVGKSourceLocalFile
-.objc_class_name_SVGKSourceString
 .objc_class_name_SVGKSourceURL
 .objc_class_name_SVGLength
 .objc_class_name_SVGLineElement
