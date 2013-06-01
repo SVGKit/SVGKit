@@ -10,8 +10,6 @@
 		55247B1A173DA85200531BBC /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73C17387F2B004029EF /* SVGKImage.m */; };
 		55247B22173DB63B00531BBC /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */; };
-		55247B24173DB63C00531BBC /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B1E173DB63B00531BBC /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55247B25173DB63C00531BBC /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1F173DB63B00531BBC /* SVGKSourceString.m */; };
 		55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B20173DB63B00531BBC /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B21173DB63B00531BBC /* SVGKSourceURL.m */; };
 		5540E67017387C9F004029EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
@@ -216,8 +214,6 @@
 /* Begin PBXFileReference section */
 		55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceLocalFile.h; sourceTree = "<group>"; };
 		55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceLocalFile.m; sourceTree = "<group>"; };
-		55247B1E173DB63B00531BBC /* SVGKSourceString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceString.h; sourceTree = "<group>"; };
-		55247B1F173DB63B00531BBC /* SVGKSourceString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceString.m; sourceTree = "<group>"; };
 		55247B20173DB63B00531BBC /* SVGKSourceURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceURL.h; sourceTree = "<group>"; };
 		55247B21173DB63B00531BBC /* SVGKSourceURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceURL.m; sourceTree = "<group>"; };
 		5540E66C17387C9F004029EF /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,7 +254,7 @@
 		5540E6A317387F2B004029EF /* CSSValueList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSValueList.m; sourceTree = "<group>"; };
 		5540E6A417387F2B004029EF /* Document+Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Document+Mutable.h"; sourceTree = "<group>"; };
 		5540E6A517387F2B004029EF /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Document.h; sourceTree = "<group>"; };
-		5540E6A617387F2B004029EF /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Document.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		5540E6A617387F2B004029EF /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Document.m; sourceTree = "<group>"; };
 		5540E6A717387F2B004029EF /* DocumentCSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentCSS.h; sourceTree = "<group>"; };
 		5540E6A817387F2B004029EF /* DocumentFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentFragment.h; sourceTree = "<group>"; };
 		5540E6A917387F2B004029EF /* DocumentFragment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentFragment.m; sourceTree = "<group>"; };
@@ -445,8 +441,6 @@
 			children = (
 				55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */,
 				55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */,
-				55247B1E173DB63B00531BBC /* SVGKSourceString.h */,
-				55247B1F173DB63B00531BBC /* SVGKSourceString.m */,
 				55247B20173DB63B00531BBC /* SVGKSourceURL.h */,
 				55247B21173DB63B00531BBC /* SVGKSourceURL.m */,
 			);
@@ -923,7 +917,6 @@
 				5540E80D17387F2B004029EF /* SVGKPattern.h in Headers */,
 				5540E80F17387F2B004029EF /* SVGUtils.h in Headers */,
 				55247B22173DB63B00531BBC /* SVGKSourceLocalFile.h in Headers */,
-				55247B24173DB63C00531BBC /* SVGKSourceString.h in Headers */,
 				55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */,
 				55B4D796173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.h in Headers */,
 				55B4D7A3173EC58700D2C676 /* SVGKFastImageView.h in Headers */,
@@ -1074,7 +1067,6 @@
 				5540E819173887D9004029EF /* SVGTextElement.m in Sources */,
 				55247B1A173DA85200531BBC /* SVGKImage.m in Sources */,
 				55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */,
-				55247B25173DB63C00531BBC /* SVGKSourceString.m in Sources */,
 				55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */,
 				55B4D797173EC3D900D2C676 /* NSCharacterSet+SVGKExtensions.m in Sources */,
 				55B4D7A4173EC58700D2C676 /* SVGKFastImageView.m in Sources */,
