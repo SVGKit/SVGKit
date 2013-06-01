@@ -878,8 +878,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	CIImage *tmpImage = [self exportCIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
-	return [[[NSBitmapImageRep alloc] initWithCIImage:tmpImage] autorelease];
+	CGImageRef tmpimage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (tmpimage == NULL) {
+		return nil;
+	}
+	NSBitmapImageRep *retval = [[NSBitmapImageRep alloc] initWithCGImage:tmpimage];
+	CGImageRelease(tmpimage);
+	return [retval autorelease];
 }
 
 #endif
