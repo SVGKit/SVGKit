@@ -111,7 +111,6 @@
     if (_image) {
         [_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
     }
-    //[_image release];
     _image = image;
     
     if( self.disableAutoRedrawAtHighestResolution )
