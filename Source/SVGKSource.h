@@ -24,6 +24,7 @@
 
 @interface SVGKSource : NSObject
 + (SVGKSource*)sourceFromData:(NSData*)data;
++ (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString;
 
 @property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
 @property (nonatomic, retain) NSInputStream* stream;
