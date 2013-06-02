@@ -109,11 +109,7 @@
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
-		{
-			SVGKImage *tmpImage = [[SVGKImage alloc] initWithSource:theSource];
-			self.image = tmpImage;
-			[tmpImage release];
-		}
+		self.image = [SVGKImage imageWithSource:theSource];
 		if (self.image == nil || self.image.parseErrorsAndWarnings.libXMLFailed || [self.image.parseErrorsAndWarnings.errorsFatal count]) {
 			[self autorelease];
 			return nil;
