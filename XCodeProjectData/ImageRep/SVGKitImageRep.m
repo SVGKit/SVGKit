@@ -79,6 +79,16 @@
 	return [[self alloc] initWithData:d];
 }
 
++ (id)imageRepWithContentsOfFile:(NSString *)filename
+{
+	return [[self alloc] initWithPath:filename];
+}
+
++ (id)imageRepWithContentsOfURL:(NSURL *)url
+{
+	return [[self alloc] initWithURL:url];
+}
+
 + (void)load
 {
 	[NSImageRep registerImageRepClass:[SVGKitImageRep class]];
@@ -107,10 +117,7 @@
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
-		{
-			SVGKImage *tmpImage = [[SVGKImage alloc] initWithSource:theSource];
-			self.image = tmpImage;
-		}
+		self.image = [[SVGKImage alloc] initWithSource:theSource];
 		if (self.image == nil || self.image.parseErrorsAndWarnings.libXMLFailed || [self.image.parseErrorsAndWarnings.errorsFatal count]) {
 			return nil;
 		}

@@ -13,6 +13,9 @@
 //Function used by NSImageRep to init.
 + (NSImageRep *)imageRepWithData:(NSData *)d;
 
++ (id)imageRepWithContentsOfFile:(NSString *)filename;
++ (id)imageRepWithContentsOfURL:(NSURL *)url;
+
 - (id)initWithData:(NSData *)theData;
 - (id)initWithURL:(NSURL *)theURL;
 - (id)initWithPath:(NSString *)thePath;
