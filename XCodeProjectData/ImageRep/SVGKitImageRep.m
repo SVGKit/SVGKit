@@ -81,6 +81,16 @@
 	return [[[self alloc] initWithData:d] autorelease];
 }
 
++ (id)imageRepWithContentsOfFile:(NSString *)filename
+{
+	return [[[self alloc] initWithPath:filename] autorelease];
+}
+
++ (id)imageRepWithContentsOfURL:(NSURL *)url
+{
+	return [[[self alloc] initWithURL:url] autorelease];
+}
+
 + (void)load
 {
 	[NSImageRep registerImageRepClass:[SVGKitImageRep class]];
