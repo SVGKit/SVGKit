@@ -9,9 +9,9 @@ static void ImageReleaseCallback(void *imagePtr) {
     CGImageRelease(imagePtr);
 }
 
-static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
+static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     static const CGPatternCallbacks callback = {0, ImagePatternCallback, ImageReleaseCallback};
-    CGPatternRef pattern = CGPatternCreate(image, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
+    CGPatternRef pattern = CGPatternCreate(CGImageRetain(image), CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
     CGColorSpaceRef coloredPatternColorSpace = CGColorSpaceCreatePattern(NULL);
     CGFloat dummy = 1.0f;
     CGColorRef color = CGColorCreateWithPattern(coloredPatternColorSpace, pattern, &dummy);
@@ -43,7 +43,6 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 {
 	SVGKPattern *p = nil;
 	
-	CGImageRetain(cgImage);
 	CGColorRef tmpColor = CGColorMakeFromImage(cgImage);
 	p = [SVGKPattern patternWithCGColor:tmpColor];
 	CGColorRelease(tmpColor);
@@ -69,8 +68,10 @@ static CGColorRef CGColorMakeFromImage(CGImageRef CF_CONSUMED image) {
 
 + (SVGKPattern*)patternWithImage:(UIImage*)image
 {
-    UIColor* patternImage = [UIColor colorWithPatternImage:image];
-    return [self patternWithUIColor:patternImage];
+    UIColor* patternImage = [[UIColor alloc] initWithPatternImage:image];
+    SVGKPattern *p = [self patternWithUIColor:patternImage];
+	[patternImage release];
+	return p;
 }
 
 #else
