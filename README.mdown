@@ -3,8 +3,13 @@
 SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
 
 Versions:
-  - v1.0 - 2013, approximately 90% coverage of the SVG spec. Stable and quite fast - https://github.com/SVGKit/SVGKit/tree/v1.0
-  - v1.1.0 - Current branch in development; all pull-requests should be issued against this branch - https://github.com/SVGKit/SVGKit/tree/1.1.0
+  - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0
+  - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. NOW DEFUNCT! It has been merged with master.
+  - arc - Branch that has the iOS and OS X project use Automatic Reference Counting as well as "modern" (as of Xcode 4.6) Objective-C syntax.
+  - imageRep - Branch that has OS X's SVGKit' image rep implemented. NOW DEFUNCT! It has been been merged back into master.
+  - namespace - Branch that has the SVGKit headers better designed to work with OS X. Not actively maintained
+  - toSVGKit - Branch that contains staged changes to put back into SVGKit's 1.1.0 branch.
+  - patterns - Branch for working on pattern support. based off of SVGKit's 1.1.0 branch as opposed to my master. Parts have been merged back to master.
 
 ## Xcode Projects Included
 
@@ -55,7 +60,7 @@ There are many new features in this version (2013) of SVGKit. Read the blog post
 
 ## Usage - OS X
 
-UNTESTED: The code has been updated to run on OS X as well as iOS, but the image views have not been tested. Note that the SVG Image Rep in the ''imageRep'' and ''arc'' branches has been tested and seems to work just fine.
+UNTESTED: The code has been updated to run on OS X as well as iOS, but the image views have not been tested. Note that the SVG Image Rep in the ''master'' and ''arc'' branches has been tested and seems to work just fine.
 
 ## Installation
 
