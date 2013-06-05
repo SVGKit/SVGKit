@@ -1,5 +1,12 @@
 #import "SVGKLayer.h"
 
+//DW stands for Darwin
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define DWBlackColor() [UIColor blackColor].CGColor
+#else
+#define DWBlackColor() CGColorGetConstantColor(kCGColorBlack)
+#endif
+
 @implementation SVGKLayer
 {
 
@@ -13,8 +20,7 @@
 /** Apple requires this to be implemented by CALayer subclasses */
 +(id)layer
 {
-	SVGKLayer* layer = [[[SVGKLayer alloc] init] autorelease];
-	return layer;
+	return [[[SVGKLayer alloc] init] autorelease];
 }
 
 - (id)init
@@ -22,7 +28,7 @@
     self = [super init];
     if (self)
 	{
-    	self.borderColor = [UIColor blackColor].CGColor;
+    	self.borderColor = DWBlackColor();
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }

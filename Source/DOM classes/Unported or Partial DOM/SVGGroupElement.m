@@ -15,14 +15,11 @@
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 #import "Node.h"
 
+#import "SVGKCGFloatAdditions.h"
+
 @implementation SVGGroupElement
 
 @synthesize opacity = _opacity;
-
-- (void)dealloc {
-	
-    [super dealloc];
-}
 
 - (void)loadDefaults {
 	_opacity = 1.0f;
@@ -32,18 +29,16 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"opacity"] length] > 0 )
-	_opacity = [[self getAttribute:@"opacity"] floatValue];
+		_opacity = [[self getAttribute:@"opacity"] SVGKCGFloatValue];
 }
 
 - (CALayer *) newLayer
 {
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
-		
-		_layer.name = self.identifier;
-		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-		_layer.opacity = _opacity;
-		
+	_layer.name = self.identifier;
+	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
+	_layer.opacity = _opacity;
 	
 	return _layer;
 }

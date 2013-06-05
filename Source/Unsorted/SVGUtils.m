@@ -443,7 +443,16 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 								blue:RGB_N(color.b)
 							   alpha:RGB_N(color.a)].CGColor;
 #else
-	outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
+	if ([NSColor instancesRespondToSelector:@selector(CGColor)]) {
+		outColor = [[NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
+											   blue:RGB_N(color.b) alpha:RGB_N(color.a)] CGColor];
+	} else {
+		//THIS IS DICEY CODE!
+		//I am unsure how well this will preform: something could break it
+		CGColorRef tmpoutColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
+		
+		outColor = (CGColorRef)[NSMakeCollectable(tmpoutColor) autorelease];
+	}
 #endif
 	
 	return outColor;

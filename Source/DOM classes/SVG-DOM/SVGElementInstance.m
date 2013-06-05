@@ -65,7 +65,7 @@
 		return nil;
 	else
 	{
-		int indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
+		NSInteger indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
 		
 		if( indexInParent < 1 )
 			return nil;
@@ -80,7 +80,7 @@
 		return nil;
 	else
 	{
-		int indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
+		NSInteger indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
 		
 		if( indexInParent >= [self.parentNode.childNodes length] )
 			return nil;

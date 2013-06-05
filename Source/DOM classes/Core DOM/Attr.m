@@ -11,12 +11,12 @@
 #import "Node+Mutable.h"
 
 @interface Attr()
- @property(nonatomic,retain,readwrite) NSString* name;
- @property(nonatomic,readwrite) BOOL specified;
- @property(nonatomic,retain,readwrite) NSString* value;
- 
- // Introduced in DOM Level 2:
- @property(nonatomic,retain,readwrite) Element* ownerElement;
+@property(nonatomic,retain,readwrite) NSString* name;
+@property(nonatomic,readwrite) BOOL specified;
+@property(nonatomic,retain,readwrite) NSString* value;
+
+// Introduced in DOM Level 2:
+@property(nonatomic,retain,readwrite) Element* ownerElement;
 @end
 
 @implementation Attr
@@ -53,7 +53,7 @@
 - (void)dealloc {
     self.name = nil;
 	self.value = nil;
-  self.ownerElement = nil;
+	self.ownerElement = nil;
     [super dealloc];
 }
 

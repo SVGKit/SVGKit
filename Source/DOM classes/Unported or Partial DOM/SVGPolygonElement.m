@@ -41,21 +41,21 @@
 	
 	NSString* cmdArgs = nil;
 	[dataScanner scanUpToCharactersFromSet:knownCommands
-													   intoString:&cmdArgs];
+								intoString:&cmdArgs];
 	
 	NSString* commandWithParameters = [@"M" stringByAppendingString:cmdArgs];
 	NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
 	
 	
 	lastCoordinate = [SVGKPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
-													path:path
-											  relativeTo:CGPointZero
-											  isRelative:FALSE];
+																		path:path
+																  relativeTo:CGPointZero
+																  isRelative:FALSE];
 	
     
 	[SVGKPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
-									   path:path
-								 relativeTo:lastCoordinate];
+										  path:path
+									relativeTo:lastCoordinate];
 	
 	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);

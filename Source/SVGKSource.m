@@ -19,8 +19,11 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
 	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
-	return s;
+	return [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+}
+
++ (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
+	return [self sourceFromData:[rawString dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (void)dealloc {

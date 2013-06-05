@@ -13,7 +13,7 @@ typedef struct ExportPathCommandsContext {
     NSMutableString* pathCommands;
 } ExportPathCommandsContext;
 
-void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
+static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
     ExportPathCommandsContext* ctx = (ExportPathCommandsContext*) exportPathCommandsConextPtr;
     NSMutableString* pathCommands = ctx->pathCommands;
@@ -67,13 +67,13 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 @synthesize delegate;
 @synthesize rootView;
 
-- (id)initWithView:(UIView*)v
+- (id)initWithView:(DWView*)v
 {
     self = [super init];
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [[NSMutableDictionary dictionary] retain];
+        propertyRegistry = [[NSMutableDictionary alloc] initWithCapacity:2];
         
         NSArray* CALayerProperties = [NSArray arrayWithObjects:@"name", @"bounds", @"frame", nil];
         [propertyRegistry setObject:CALayerProperties
@@ -107,7 +107,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 - (void)processLayer:(CALayer *)currentLayer index:(NSInteger)index parent:(NSString*)parentName
 {
     NSString* className = NSStringFromClass([currentLayer class]);
-    NSString* layerName = [NSString stringWithFormat:@"%@_layer%d", parentName, index];
+    NSString* layerName = [NSString stringWithFormat:@"%@_layer%ld", parentName, (long)index];
     NSString* createStatement = [NSString stringWithFormat:@"%@* %@ = [[%@ alloc] init];", className, layerName, className];
     
     [self.delegate layerExporter:self
@@ -149,7 +149,11 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                         float r;
                         [inv getReturnValue:&r];
                         propertyValue = [NSString stringWithFormat:@"%f", r];
-                    } else if (0 == strcmp("{CGRect={CGPoint=ff}{CGSize=ff}}", methodReturnType)) {
+					} else if (0 == strcmp("d", methodReturnType)) {
+						double r;
+						[inv getReturnValue:&r];
+						propertyValue = [NSString stringWithFormat:@"%f", r];
+                    } else if (0 == strcmp("{CGRect={CGPoint=ff}{CGSize=ff}}", methodReturnType) || 0 == strcmp("{CGRect={CGPoint=dd}{CGSize=dd}}", methodReturnType)) {
                         CGRect r;
                         [inv getReturnValue:&r];
                         propertyValue = [NSString stringWithFormat:@"CGRectMake(%f, %f, %f, %f)", r.origin.x, r.origin.y, r.size.width, r.size.height];
@@ -203,7 +207,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                             size_t colorComponentsCount = CGColorGetNumberOfComponents(color);
                             NSMutableString* colorComponentsCreateStatement = [NSMutableString stringWithFormat:@"CGFloat %@[] = ", componentsName];
                             [colorComponentsCreateStatement appendString:@"{"];
-                            for (int i=0; i != colorComponentsCount; ++i) {
+                            for (NSInteger i=0; i != colorComponentsCount; ++i) {
                                 [colorComponentsCreateStatement appendFormat:@"%@%f", ((i != 0) ? @"," : @""), colorComponents[i]];
                             }
                             [colorComponentsCreateStatement appendString:@"};"];
@@ -226,7 +230,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                         if (0 == path) {
                             propertyValue = @"0";
                         } else {
-                        
+							
                             NSString* pathName = [NSString stringWithFormat:@"%@_%@_pathref", layerName, propertyName];
                             NSString* pathCreateStatement = [NSString stringWithFormat:@"CGMutablePathRef %@ = CGPathCreateMutable();", pathName];
                             [self.delegate layerExporter:self
@@ -258,7 +262,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         }
     }
     
-    
     NSString* addSublayerStatement = [NSString stringWithFormat:@"[%@ addSublayer:%@];", parentName, layerName];
     [self.delegate layerExporter:self
                    didParseLayer:currentLayer
@@ -269,15 +272,11 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                    didParseLayer:currentLayer
                    withStatement:releaseStatement];
     
-    int i = index;
+    NSInteger i = index;
     for (CALayer* childLayer in currentLayer.sublayers) {
         [self processLayer:childLayer index:++i parent:layerName];
     }
 }
-
-
-
-
 
 @end
 

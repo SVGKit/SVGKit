@@ -2,7 +2,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SVGKSourceString.h"
+#import "SVGKLayer.h"
 
 @interface SVGKLayeredImageView()
 @property(nonatomic,retain) CAShapeLayer* internalBorderLayer;
@@ -14,7 +14,7 @@
 /** uses the custom SVGKLayer instead of a default CALayer */
 +(Class)layerClass
 {
-	return NSClassFromString(@"SVGKLayer");
+	return [SVGKLayer class];
 }
 
 - (id)init
@@ -104,7 +104,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 			
 			NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
 			
-			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
+			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:svgStringDefaultContents]];
 			
 			self.backgroundColor = [UIColor cyanColor];
 			
@@ -146,12 +146,6 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 -(void)setShowBorder:(BOOL)showBorder
 {
 	((SVGKLayer*)self.layer).showBorder = showBorder;
-}
-
-- (void)dealloc
-{
-	
-    [super dealloc];
 }
 
 @end

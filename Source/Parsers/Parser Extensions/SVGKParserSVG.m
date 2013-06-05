@@ -20,15 +20,15 @@
 
 @implementation SVGKParserSVG
 
-static NSDictionary *elementMap;
+static NSDictionary *elementMap = nil;
 
 - (id)init {
 	self = [super init];
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGSVGElement class], @"svg",
+			elementMap = [[NSDictionary alloc] initWithObjectsAndKeys:
+						  [SVGSVGElement class], @"svg",
                           [SVGCircleElement class], @"circle",
                           [SVGDescriptionElement class], @"description",
                           [SVGEllipseElement class], @"ellipse",
@@ -40,22 +40,17 @@ static NSDictionary *elementMap;
                           [SVGPolylineElement class], @"polyline",
                           [SVGRectElement class], @"rect",
                           [SVGTitleElement class], @"title",
-						   [SVGTextElement class], @"text",
-						   nil] retain];
+						  [SVGTextElement class], @"text",
+						  nil];
 		}
 	}
 	return self;
 }
 
-- (void)dealloc {
-	
-	[super dealloc];
-}
-
 -(NSArray*) supportedNamespaces
 {
 	return [NSArray arrayWithObjects:
-			 @"http://www.w3.org/2000/svg",
+			@"http://www.w3.org/2000/svg",
 			nil];
 }
 
@@ -89,7 +84,7 @@ static NSDictionary *elementMap;
 		
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-		SVGElement *element = [[[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+		SVGElement *element = [[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 		
 		/** NB: all the interesting handling of shared / generic attributes - e.g. the whole of CSS styling etc - takes place in this method: */
 		[element postProcessAttributesAddingErrorsTo:parseResult];
@@ -160,7 +155,7 @@ static NSDictionary *elementMap;
 			{
 				NSAssert( [element isKindOfClass:[SVGSVGElement class]], @"Trying to create a new internal SVGDocument from a Node that is NOT of type SVGSVGElement (tag: svg). Node was of type: %@", NSStringFromClass([element class]));
 				
-				SVGDocument* newDocument = [[[SVGDocument alloc] init] autorelease];
+				SVGDocument* newDocument = [[SVGDocument alloc] init];
 				newDocument.rootElement = (SVGSVGElement*) element;
 				
 				if( overwriteRootSVGDocument )
@@ -171,12 +166,13 @@ static NSDictionary *elementMap;
 				{
 					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
+				[newDocument release];
 			}
 			
 		}
 		
 		
-		return element;
+		return [element autorelease];
 	}
 	
 	return nil;

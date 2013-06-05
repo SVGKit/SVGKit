@@ -55,12 +55,7 @@ There are many new features in this version (2013) of SVGKit. Read the blog post
 
 ## Usage - OS X
 
-UNSUPPORTED: the code exists, but none of the maintainers have used it recently, so we're not even sure if the OS X build still works!
-
-OS X: ...this needs updating; some minor code changes are needed to "fix" this project. The OS X framework currently DOES NOT BUILD because iOS classes are being referenced in a couple of places.
-
-Feel free to report any issues or suggest improvements in the issue tracker
-
+UNTESTED: The code has been updated to run on OS X as well as iOS, but the image views have not been tested. Note that the SVG Image Rep in the ''imageRep'' and ''arc'' branches has been tested and seems to work just fine.
 
 ## Installation
 
