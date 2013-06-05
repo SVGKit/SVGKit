@@ -11,9 +11,6 @@
 
 #import "SVGKParserSVG.h"
 
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
-
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
 #else
@@ -88,7 +85,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 +(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
 {
-	NSLog(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
+	DDLogCWarn(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }
@@ -143,7 +140,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	if (!path)
 	{
-		NSLog(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
+		DDLogCWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
 	}
 	
@@ -200,7 +197,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	/** Remove and release (if appropriate) all cached render-output */
-	NSLog(@"[%@] source data changed; de-caching cached data", [self class] );
+	DDLogVerbose(@"[%@] source data changed; de-caching cached data", [self class] );
 	self.CALayerTree = nil;
 }
 
@@ -229,7 +226,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		if ( self.DOMDocument == nil )
 		{
-			NSLog(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
+			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
 			[self autorelease];
 			return nil;
 		}
@@ -282,7 +279,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+//SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
@@ -544,7 +541,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	if( originalLayer == nil )
 	{
-		NSLog(@"[%@] ERROR: requested a clone of CALayer with id = %@, but there is no layer with that identifier in the parsed SVG layer stack", [self class], identifier );
+		DDLogError(@"[%@] ERROR: requested a clone of CALayer with id = %@, but there is no layer with that identifier in the parsed SVG layer stack", [self class], identifier );
 		return nil;
 	}
 	else
@@ -577,15 +574,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		if( currentLayer.superlayer == nil )
 		{
-			NSLog(@"AWOOGA: layer %@ has no superlayer!", originalLayer );
+			DDLogWarn(@"AWOOGA: layer %@ has no superlayer!", originalLayer );
 		}
 		
 		while( currentLayer.superlayer != nil )
 		{
-			//DEBUG: NSLog(@"shifting (%2.2f, %2.2f) to accomodate offset of layer = %@ inside superlayer = %@", currentLayer.superlayer.frame.origin.x, currentLayer.superlayer.frame.origin.y, currentLayer, currentLayer.superlayer );
+			//DEBUG: DDLogVerbose(@"shifting (%2.2f, %2.2f) to accomodate offset of layer = %@ inside superlayer = %@", currentLayer.superlayer.frame.origin.x, currentLayer.superlayer.frame.origin.y, currentLayer, currentLayer.superlayer );
 			
 			currentLayer = currentLayer.superlayer;
-			//DEBUG: NSLog(@"...next superlayer in positioning absolute = %@, %@", currentLayer, NSStringFromCGRect(currentLayer.frame));
+			//DEBUG: DDLogVerbose(@"...next superlayer in positioning absolute = %@, %@", currentLayer, NSStringFromCGRect(currentLayer.frame));
 			xOffset += currentLayer.frame.origin.x;
 			yOffset += currentLayer.frame.origin.y;
 		}
@@ -598,11 +595,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
-- (CALayer *)newLayerWithElement:(SVGElement <SVGLayeredElement> *)element
+- (CALayer *)newLayerWithElement:(SVGElement <ConverterSVGToCALayer> *)element
 {
 	CALayer *layer = [element newLayer];
 	
-	//DEBUG: NSLog(@"[%@] DEBUG: converted SVG element (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([element class]), NSStringFromClass([layer class]), NSStringFromCGRect( layer.frame ), layer, element.identifier);
+	//DEBUG: DDLogVerbose(@"[%@] DEBUG: converted SVG element (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([element class]), NSStringFromClass([layer class]), NSStringFromCGRect( layer.frame ), layer, element.identifier);
 	
 	NodeList* childNodes = element.childNodes;
 	
@@ -619,11 +616,16 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return layer;
 	}
 	
+	/**
+	 Generate child nodes and then re-layout
+	 
+	 (parent may have to change its size to fit children)
+	 */
 	for (SVGElement *child in childNodes )
 	{
-		if ([child conformsToProtocol:@protocol(SVGLayeredElement)]) {
+		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
 			
-			CALayer *sublayer = [self newLayerWithElement:(SVGElement<SVGLayeredElement> *)child];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child];
 			
 			if (!sublayer) {
 				continue;
@@ -634,8 +636,31 @@ static NSMutableDictionary* globalSVGKImageCache;
 		}
 	}
 	
+	/** ...relayout */
+	/**
+	 NOTE:
+	 
+	 This call (layoutLayer:), and the fact that we call it directly on the "ConverterSVGToCALayer" instance,
+	 is critical to ensuring that SVG <g> tags generate correctly sized/shaped/positioned CALayer's.
+	 
+	 It is not used for any other class / SVG Element.
+	 
+	 It's only needed by G elements because they have no explicit size, and their extent is defined by
+	 
+	    "all the space occupied by my children"
+	 
+	 If you refactor this method, or CALayer exporting, please make sure you keep the current behaviour. You can
+	 test it by:
+	 
+	 1. Make an SVG file with a G element wrapping some shape in the middle of screen
+	 2. Load the file
+	 3. Select the CALayer for the shape, and clone it (using the category for CAShape in this project)
+	 4. add the clone to the screen, with its CALayer.position set to 0,0
+	 5. If the code is correct, it will be positioned in top left corner.
+	 6. If the code is broken, it will be positioned somewhere in the middle of the screen (probably directly on top of the one you cloned)
+	    --- i.e. you've accidentally embedded the "relative position" into the "absolute position" of the CALayer
+	 */
 	[element layoutLayer:layer];
-	
     [layer setNeedsDisplay];
 	
 	return layer;
@@ -653,13 +678,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 		{
 			NSLog(@"[%@] WARNING: because you specified an image.scale (you SHOULD be using SVG viewbox or <svg width> instead!), we are changing the .anchorPoint and the .affineTransform of the returned CALayerTree. Apple's own libraries are EXTREMELY BUGGY if you hand them layers that have these variables changed (some of Apple's libraries completely ignore them, this is a major Known Bug that Apple hasn't fixed in many years). Proceed at your own risk, and warned!", [self class] );
 			
-			/** NB this is INSANE! Apple's bugs in CALayer (unfixed for 6+ years now!) are incredible. I have no idea
-			 why they care so little about fixing these howlers.
+			/** Apple's bugs in CALayer are legion, and some have been around for almost 10 years...
 			 
 			 When you set the affineTransform on a Layer, if you do not ALSO MANUALLY change the anchorpoint, Apple
-			 renders the layer at the wrong co-ords!
-			 
-			 --- this is only one of MANY bugs in Apple's handling of .transform and .affineTransform on CALayer.
+			 renders the layer at the wrong co-ords.
 			 */
 			newLayerTree.anchorPoint = CGPointApplyAffineTransform( newLayerTree.anchorPoint, CGAffineTransformMakeScale(1.0f/self.scale, 1.0f/self.scale));
 			newLayerTree.affineTransform = CGAffineTransformMakeScale( self.scale, self.scale );
@@ -673,7 +695,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if( CALayerTree == nil )
 	{
-		NSLog(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
+		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
 		CALayer *newLayerTree = [self newCALayerTree];
 		self.CALayerTree = newLayerTree;
 		[newLayerTree release];
@@ -699,7 +721,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		if( subLayerID != nil )
 		{
-			NSLog(@"[%@] element id: %@ => layer: %@", [self class], subLayerID, subLayer);
+			DDLogVerbose(@"[%@] element id: %@ => layer: %@", [self class], subLayerID, subLayer);
 			
 			[self addSVGLayerTree:subLayer withIdentifier:subLayerID toDictionary:layersByID];
 			
@@ -716,7 +738,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	[self addSVGLayerTree:rootLayer withIdentifier:self.DOMTree.identifier toDictionary:layersByElementId];
 	
-	NSLog(@"[%@] ROOT element id: %@ => layer: %@", [self class], self.DOMTree.identifier, rootLayer);
+	DDLogVerbose(@"[%@] ROOT element id: %@ => layer: %@", [self class], self.DOMTree.identifier, rootLayer);
 	
     return layersByElementId;
 }
@@ -734,15 +756,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		startTime = [NSDate date];
 		[self CALayerTree]; // creates and caches a calayertree if needed
-		NSLog(@"[%@] rendering to CGContext: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
+		DDLogInfo(@"[%@] rendering to CGContext: time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );
 	}
 	else
-		NSLog(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
+		DDLogInfo(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
 	
 	startTime = [NSDate date];
 	
 	if( SVGRectIsInitialized(self.DOMTree.viewport) )
-		NSLog(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromCGRect(CGRectFromSVGRect(self.DOMTree.viewport)) );
+		DDLogInfo(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromCGRect(CGRectFromSVGRect(self.DOMTree.viewport)) );
 	
 	/** Typically a 10% performance improvement right here */
 	if( !shouldAntialias )
@@ -789,14 +811,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( perfImprovements.length < 1 )
 		[perfImprovements appendString:@"NONE"];
 	
-	NSLog(@"[%@] renderToContext: time taken to render CALayers to CGContext (perf improvements:%@): %2.3f seconds)", [self class], perfImprovements, -1.0f * [startTime timeIntervalSinceNow] );
+	DDLogVerbose(@"[%@] renderToContext: time taken to render CALayers to CGContext (perf improvements:%@): %2.3f seconds)", [self class], perfImprovements, -1.0f * [startTime timeIntervalSinceNow] );
 }
 
 -(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
 	NSAssert( [self hasSize], @"Cannot export this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
-	NSLog(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	DDLogVerbose(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
 	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
 	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
@@ -819,7 +841,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if( [self hasSize] )
 	{
-		NSLog(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		DDLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 		
 		UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
 		CGContextRef context = UIGraphicsGetCurrentContext();
