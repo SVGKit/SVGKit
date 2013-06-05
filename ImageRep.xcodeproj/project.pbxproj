@@ -332,7 +332,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_GC = supported;
 				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -346,7 +345,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_GC = supported;
 				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -360,7 +358,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_ENABLE_OBJC_GC = supported;
 				HEADER_SEARCH_PATHS = "Source/**";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep/SVGKImageRep-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
