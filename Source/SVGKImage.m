@@ -242,8 +242,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (id)initWithSource:(SVGKSource *)newSource {
 	NSAssert( newSource != nil, @"Attempted to init an SVGKImage using a nil SVGKSource");
-	
-	self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
+	@autoreleasepool {
+		self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
+	}
 	if (self) {
 		self.source = newSource;
 	}
@@ -253,13 +254,17 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
-	return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
+	@autoreleasepool {
+		return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
+	}
 }
 
 - (id)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
-	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
+	@autoreleasepool {
+		return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
+	}
 }
 
 - (void)dealloc
@@ -328,8 +333,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithData:(NSData *)data
 {
 	NSParameterAssert(data != nil);
-	
-	return [self initWithSource:[SVGKSource sourceFromData:data]];
+	@autoreleasepool {
+		return [self initWithSource:[SVGKSource sourceFromData:data]];
+	}
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
