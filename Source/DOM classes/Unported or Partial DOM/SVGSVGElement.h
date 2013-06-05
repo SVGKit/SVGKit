@@ -64,9 +64,9 @@
 #import "Element.h"
 #import "NodeList.h"
 
-#import "SVGLayeredElement.h"
+#import "ConverterSVGToCALayer.h"
 
-@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ SVGLayeredElement >
+@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
 
 
 

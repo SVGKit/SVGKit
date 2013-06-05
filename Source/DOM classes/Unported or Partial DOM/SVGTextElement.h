@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #import "SVGTextPositioningElement.h"
-#import "SVGLayeredElement.h"
+#import "ConverterSVGToCALayer.h"
 #import "SVGTransformable.h"
 
 /**
@@ -9,6 +9,6 @@
  
  interface SVGTextElement : SVGTextPositioningElement, SVGTransformable
  */
-@interface SVGTextElement : SVGTextPositioningElement <SVGTransformable, SVGLayeredElement>
+@interface SVGTextElement : SVGTextPositioningElement <SVGTransformable, ConverterSVGToCALayer>
 
 @end

@@ -23,10 +23,10 @@
 @class SVGElementInstance;
 #import "SVGElementInstance.h"
 
-#import "SVGLayeredElement.h"
+#import "ConverterSVGToCALayer.h"
 #import "SVGTransformable.h"
 
-@interface SVGUseElement : SVGElement < SVGTransformable /*FIXME: delete this rubbish:*/, SVGLayeredElement>
+@interface SVGUseElement : SVGElement < SVGTransformable /*FIXME: delete this rubbish:*/, ConverterSVGToCALayer>
 
 @property(nonatomic, strong, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
 @property(nonatomic, strong, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;

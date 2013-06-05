@@ -17,7 +17,7 @@
 {
 	if( [instanceRoot.correspondingElement respondsToSelector:@selector(newLayer)])
 	{
-		CALayer* initialLayer = [((SVGElement<SVGLayeredElement>*)instanceRoot.correspondingElement) newLayer];
+		CALayer* initialLayer = [((SVGElement<ConverterSVGToCALayer>*)instanceRoot.correspondingElement) newLayer];
 		
 		if( CGRectIsEmpty( initialLayer.frame ) ) // Avoid Apple's UIKit getting upset by infinitely large/small areas due to floating point inaccuracy
 			return initialLayer;
@@ -36,7 +36,7 @@
 -(void)layoutLayer:(CALayer *)layer
 {
 	if( [instanceRoot.correspondingElement respondsToSelector:@selector(layoutLayer:)])
-		[((SVGElement<SVGLayeredElement>*)instanceRoot.correspondingElement) layoutLayer:layer];
+		[((SVGElement<ConverterSVGToCALayer>*)instanceRoot.correspondingElement) layoutLayer:layer];
 }
 
 @end

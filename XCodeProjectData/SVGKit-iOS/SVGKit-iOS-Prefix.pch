@@ -6,6 +6,13 @@
     #import <Foundation/Foundation.h>
 	#import <UIKit/UIKit.h>
 	#import <QuartzCore/QuartzCore.h>
+    #import "DDLog.h"
+
+    #if DEBUG
+    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+    #else
+    static const int ddLogLevel = LOG_LEVEL_WARN;
+    #endif
 #endif
 #include <CoreGraphics/CoreGraphics.h>
 #include <CoreText/CoreText.h>

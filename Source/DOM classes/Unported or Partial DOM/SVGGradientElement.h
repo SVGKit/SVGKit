@@ -22,7 +22,6 @@
  */
 
 #import "SVGElement.h"
-#import "SVGLayeredElement.h"
 
 #import "SVGRect.h"
 #import "SVGGradientStop.h"
