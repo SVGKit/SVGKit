@@ -33,17 +33,6 @@
 
 @synthesize localName;
 
-- (void)dealloc {
-    [nodeName release];
-    [nodeValue release];
-    [childNodes release];
-    [attributes release];
-    [prefix release];
-    [namespaceURI release];
-    [localName release];
-    [super dealloc];
-}
-
 - (id)init
 {
     NSAssert( FALSE, @"This class has no init method - it MUST NOT be init'd via init - you MUST use one of the multi-argument constructors instead" );
@@ -91,7 +80,7 @@
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -131,11 +120,11 @@
 				
 				self.nodeName = n;
 				
-				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
+				self.attributes = [[NamedNodeMap alloc] init];
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -312,7 +301,7 @@
 			/** DOM 3 Spec:
 			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
 			 */
-			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			NSMutableString* stringAccumulator = [[NSMutableString alloc] init];
 			for( Node* subNode in self.childNodes.internalArray )
 			{
 				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!

@@ -22,7 +22,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 #if TARGET_OS_IPHONE
     return img.CGImage;
 #else
-    NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCIImage:img] autorelease];
+    NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCIImage:img];
     return rep.CGImage;
 #endif
 }
@@ -42,12 +42,6 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 @synthesize height = _height;
 
 @synthesize href = _href;
-
-- (void)dealloc {
-    [_href release], _href = nil;
-
-    [super dealloc];
-}
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
@@ -83,7 +77,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
 	SVGImageRef image = [SVGImage imageWithData:imageData];
 	
-	newLayer.contents = (id)SVGImageCGImage(image);
+	newLayer.contents = CFBridgingRelease(SVGImageCGImage(image));
 		
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];

@@ -40,14 +40,4 @@
 // Introduced in DOM Level 2:
 @synthesize internalSubset;
 
-- (void)dealloc {
-  [name release];
-  [entities release];
-  [notations release];
-  [publicId release];
-  [systemId release];
-  [internalSubset release];
-  [super dealloc];
-}
-
 @end

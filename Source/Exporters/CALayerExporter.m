@@ -8,16 +8,20 @@
 
 #import "CALayerExporter.h"
 
-typedef struct ExportPathCommandsContext {
-    NSString* pathName;
-    NSMutableString* pathCommands;
-} ExportPathCommandsContext;
+@interface ExportPathCommandsContext : NSObject
+@property (nonatomic, retain) NSString* pathName;
+@property (nonatomic, retain) NSMutableString* pathCommands;
+@end
+
+@implementation ExportPathCommandsContext
+@end
+
 
 void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
-    ExportPathCommandsContext* ctx = (ExportPathCommandsContext*) exportPathCommandsConextPtr;
-    NSMutableString* pathCommands = ctx->pathCommands;
-    NSString* pathName = ctx-> pathName;
+    ExportPathCommandsContext* ctx = (__bridge ExportPathCommandsContext *)(exportPathCommandsConextPtr);
+    NSMutableString* pathCommands = ctx.pathCommands;
+    NSString* pathName = ctx.pathName;
     CGPoint* pathPoints = element->points;
     switch (element->type) {
         case kCGPathElementMoveToPoint:
@@ -73,7 +77,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [[NSMutableDictionary dictionary] retain];
+        propertyRegistry = [NSMutableDictionary dictionary];
         
         NSArray* CALayerProperties = [NSArray arrayWithObjects:@"name", @"bounds", @"frame", nil];
         [propertyRegistry setObject:CALayerProperties
@@ -84,11 +88,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                              forKey:NSStringFromClass([CAShapeLayer class])];
     }
     return self;
-}
-
-- (void)dealloc {
-    [rootView release];
-    [super dealloc];
 }
 
 - (void)startExport
@@ -234,11 +233,11 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                                            withStatement:pathCreateStatement];
                             
                             NSMutableString* pathCommands = [NSMutableString string];
-                            ExportPathCommandsContext exportPathContext;
+                            ExportPathCommandsContext* exportPathContext;
                             exportPathContext.pathName = pathName;
                             exportPathContext.pathCommands = pathCommands;
                             
-                            CGPathApply(path, &exportPathContext, exportPathCommands);
+                            CGPathApply(path, (__bridge void *)(exportPathContext), exportPathCommands);
                             [self.delegate layerExporter:self
                                            didParseLayer:currentLayer
                                            withStatement:pathCommands];

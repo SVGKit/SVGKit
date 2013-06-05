@@ -40,24 +40,14 @@
 
 -(void)dealloc
 {
-	self.viewBox = SVGRectUninitialized();
-    [x release];
-    [y release];
-    [width release];
-    [height release];
-    [contentScriptType release];
-    [contentStyleType release];
-    self.currentView = nil;
-    self.currentTranslate = nil;
-    self.styleSheets = nil;
-	[super dealloc];	
+	self.viewBox = SVGRectUninitialized();	
 }
 
 #pragma mark - CSS Spec methods (via the DocumentCSS protocol)
 
 -(void)loadDefaults
 {
-	self.styleSheets = [[[StyleSheetList alloc] init] autorelease];
+	self.styleSheets = [[StyleSheetList alloc] init];
 }
 @synthesize styleSheets;
 
@@ -193,7 +183,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [CALayerWithChildHitTest layer];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	

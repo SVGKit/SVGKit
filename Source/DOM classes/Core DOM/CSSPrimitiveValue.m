@@ -22,11 +22,6 @@
 
 @synthesize primitiveType;
 
-- (void)dealloc {
-    self.internalString = nil;
-    [super dealloc];
-}
-
 - (id)init
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];
@@ -219,9 +214,7 @@
 
 -(void)setCssText:(NSString *)newCssText
 {
-	[_cssText release];
 	_cssText = newCssText;
-	[_cssText retain];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
 	if( _cssText == nil
