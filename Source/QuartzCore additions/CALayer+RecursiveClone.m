@@ -83,6 +83,7 @@
 		specificClone.fillColor = selfSpecific.fillColor;
 		specificClone.strokeColor = selfSpecific.strokeColor;
 		specificClone.lineWidth = selfSpecific.lineWidth;
+		specificClone.lineCap = selfSpecific.lineCap;
 	}
 	
 	if( [clone isKindOfClass:[CATextLayer class]])
