@@ -11,6 +11,9 @@
 
 #import "SVGKParserSVG.h"
 
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
+
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
 #else
