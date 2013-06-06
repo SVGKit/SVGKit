@@ -629,7 +629,6 @@ static NSMutableDictionary* globalSVGKImageCache;
             }
 			
 			[layer addSublayer:sublayer];
-			[sublayer release];
 		}
 	}
 	
