@@ -25,10 +25,8 @@
     return self;
 }
 
-
 - (void)dealloc {
 	CGPathRelease(_pathForShapeInRelativeCoords);
-    
 }
 
 -(void)setPathForShapeInRelativeCoords:(CGPathRef)pathForShapeInRelativeCoords
