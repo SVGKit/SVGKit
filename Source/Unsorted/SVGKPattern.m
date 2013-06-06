@@ -68,10 +68,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 
 + (SVGKPattern*)patternWithImage:(UIImage*)image
 {
-    UIColor* patternImage = [[UIColor alloc] initWithPatternImage:image];
-    SVGKPattern *p = [self patternWithUIColor:patternImage];
-	[patternImage release];
-	return p;
+    return [self patternWithUIColor:[[UIColor alloc] initWithPatternImage:image]];
 }
 
 #else
