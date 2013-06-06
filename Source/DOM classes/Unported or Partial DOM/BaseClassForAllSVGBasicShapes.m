@@ -25,11 +25,6 @@
     return self;
 }
 
-- (void)finalize {
-	CGPathRelease(_pathForShapeInRelativeCoords);
-	[super finalize];
-}
-
 - (void)dealloc {
 	CGPathRelease(_pathForShapeInRelativeCoords);
     

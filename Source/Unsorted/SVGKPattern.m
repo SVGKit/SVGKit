@@ -127,11 +127,4 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 	[super dealloc];
 }
 
-- (void)finalize
-{
-	self.color = NULL;
-	
-	[super finalize];
-}
-
 @end

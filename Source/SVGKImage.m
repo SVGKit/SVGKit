@@ -297,27 +297,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 	[super dealloc];
 }
 
-- (void)finalize
-{
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( self->cameFromGlobalCache )
-    {
-        SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
-        cacheLine.numberOfInstances --;
-        
-        if( cacheLine.numberOfInstances < 1 )
-        {
-            [globalSVGKImageCache removeObjectForKey:self.nameUsedToInstantiate];
-        }
-    }
-#endif
-	
-	
-	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-	
-	[super finalize];
-}
-
 //TODO mac alternatives to UIKit functions
 
 #if TARGET_OS_IPHONE
