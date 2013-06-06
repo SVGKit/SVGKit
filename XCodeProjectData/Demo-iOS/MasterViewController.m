@@ -68,20 +68,20 @@
 									   reuseIdentifier:CellIdentifier];
 	}
 	
-	cell.textLabel.text = [_sampleNames objectAtIndex:indexPath.row];
+	cell.textLabel.text = _sampleNames[indexPath.row];
 	
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if( [[_sampleNames objectAtIndex:indexPath.row] isEqualToString:@"Reinel_compass_rose"])
+	if( [_sampleNames[indexPath.row] isEqualToString:@"Reinel_compass_rose"])
 	{
 		NSLog(@"*****************\n*   WARNING\n*\n* The sample 'Reinel_compass_rose' is currently unsupported;\n* it is included in this build so that people working on it can test it and see if it works yet\n*\n*\n*****************");
 		
 		[[[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Reinel_compass_rose breaks SVGKit, it uses unsupported SVG commands; until we have added support for those commands, it's here as a test - but it WILL CRASH if you try to view it" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK, crash",nil] show];
 		
-		self.nameOfBrokenSVGToLoad = [_sampleNames objectAtIndex:indexPath.row];
+		self.nameOfBrokenSVGToLoad = _sampleNames[indexPath.row];
 		
 		return;
 	}
@@ -91,9 +91,9 @@
 	        self.detailViewController = [[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil];
 	    }
 	    [self.navigationController pushViewController:self.detailViewController animated:YES];
-		self.detailViewController.detailItem = [_sampleNames objectAtIndex:indexPath.row];
+		self.detailViewController.detailItem = _sampleNames[indexPath.row];
     } else {
-        self.detailViewController.detailItem = [_sampleNames objectAtIndex:indexPath.row];
+        self.detailViewController.detailItem = _sampleNames[indexPath.row];
     }
 }
 
