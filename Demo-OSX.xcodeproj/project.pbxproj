@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
+		55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3017628A71009C25F1 /* InfoPlist.strings */; };
+		55D8EE3417628A71009C25F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3317628A71009C25F1 /* main.m */; };
+		55D8EE3817628A71009C25F1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3617628A71009C25F1 /* Credits.rtf */; };
+		55D8EE3B17628A71009C25F1 /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */; };
+		55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3C17628A71009C25F1 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		55D8EE2417628A71009C25F1 /* Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55D8EE2717628A71009C25F1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		55D8EE2A17628A71009C25F1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		55D8EE2B17628A71009C25F1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		55D8EE2C17628A71009C25F1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		55D8EE2F17628A71009C25F1 /* Demo-OSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-OSX-Info.plist"; sourceTree = "<group>"; };
+		55D8EE3117628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55D8EE3317628A71009C25F1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		55D8EE3517628A71009C25F1 /* Demo-OSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-OSX-Prefix.pch"; sourceTree = "<group>"; };
+		55D8EE3717628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		55D8EE3917628A71009C25F1 /* SKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKAppDelegate.h; sourceTree = "<group>"; };
+		55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKAppDelegate.m; sourceTree = "<group>"; };
+		55D8EE3D17628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		55D8EE2117628A71009C25F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		55D8EE1B17628A71009C25F1 = {
+			isa = PBXGroup;
+			children = (
+				55D8EE2D17628A71009C25F1 /* Demo-OSX */,
+				55D8EE2617628A71009C25F1 /* Frameworks */,
+				55D8EE2517628A71009C25F1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		55D8EE2517628A71009C25F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55D8EE2417628A71009C25F1 /* Demo-OSX.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55D8EE2617628A71009C25F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55D8EE2717628A71009C25F1 /* Cocoa.framework */,
+				55D8EE2917628A71009C25F1 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55D8EE2917628A71009C25F1 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55D8EE2A17628A71009C25F1 /* AppKit.framework */,
+				55D8EE2B17628A71009C25F1 /* CoreData.framework */,
+				55D8EE2C17628A71009C25F1 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		55D8EE2D17628A71009C25F1 /* Demo-OSX */ = {
+			isa = PBXGroup;
+			children = (
+				55D8EE3917628A71009C25F1 /* SKAppDelegate.h */,
+				55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */,
+				55D8EE3C17628A71009C25F1 /* MainMenu.xib */,
+				55D8EE2E17628A71009C25F1 /* Supporting Files */,
+			);
+			name = "Demo-OSX";
+			path = "XCodeProjectData/Demo-OSX";
+			sourceTree = "<group>";
+		};
+		55D8EE2E17628A71009C25F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				55D8EE2F17628A71009C25F1 /* Demo-OSX-Info.plist */,
+				55D8EE3017628A71009C25F1 /* InfoPlist.strings */,
+				55D8EE3317628A71009C25F1 /* main.m */,
+				55D8EE3517628A71009C25F1 /* Demo-OSX-Prefix.pch */,
+				55D8EE3617628A71009C25F1 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		55D8EE2317628A71009C25F1 /* Demo-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55D8EE4117628A71009C25F1 /* Build configuration list for PBXNativeTarget "Demo-OSX" */;
+			buildPhases = (
+				55D8EE2017628A71009C25F1 /* Sources */,
+				55D8EE2117628A71009C25F1 /* Frameworks */,
+				55D8EE2217628A71009C25F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Demo-OSX";
+			productName = "Demo-OSX";
+			productReference = 55D8EE2417628A71009C25F1 /* Demo-OSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		55D8EE1C17628A71009C25F1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SK;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "C.W. Betts";
+			};
+			buildConfigurationList = 55D8EE1F17628A71009C25F1 /* Build configuration list for PBXProject "Demo-OSX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 55D8EE1B17628A71009C25F1;
+			productRefGroup = 55D8EE2517628A71009C25F1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				55D8EE2317628A71009C25F1 /* Demo-OSX */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55D8EE2217628A71009C25F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */,
+				55D8EE3817628A71009C25F1 /* Credits.rtf in Resources */,
+				55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		55D8EE2017628A71009C25F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55D8EE3417628A71009C25F1 /* main.m in Sources */,
+				55D8EE3B17628A71009C25F1 /* SKAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		55D8EE3017628A71009C25F1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55D8EE3117628A71009C25F1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		55D8EE3617628A71009C25F1 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55D8EE3717628A71009C25F1 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		55D8EE3C17628A71009C25F1 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55D8EE3D17628A71009C25F1 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		55D8EE3F17628A71009C25F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		55D8EE4017628A71009C25F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		55D8EE4217628A71009C25F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Demo-OSX/Demo-OSX-Prefix.pch";
+				INFOPLIST_FILE = "Demo-OSX/Demo-OSX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		55D8EE4317628A71009C25F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Demo-OSX/Demo-OSX-Prefix.pch";
+				INFOPLIST_FILE = "Demo-OSX/Demo-OSX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		55D8EE1F17628A71009C25F1 /* Build configuration list for PBXProject "Demo-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55D8EE3F17628A71009C25F1 /* Debug */,
+				55D8EE4017628A71009C25F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55D8EE4117628A71009C25F1 /* Build configuration list for PBXNativeTarget "Demo-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55D8EE4217628A71009C25F1 /* Debug */,
+				55D8EE4317628A71009C25F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 55D8EE1C17628A71009C25F1 /* Project object */;
+}
