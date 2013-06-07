@@ -8,11 +8,21 @@
 
 #import "SKAppDelegate.h"
 
+@interface SKAppDelegate ()
+
+@property (readwrite, retain) NSArray *svgArray;
+
+
+@end
+
 @implementation SKAppDelegate
 
 - (void)dealloc
 {
-    [super dealloc];
+    self.svgArray = nil;
+	self.svgImage = nil;
+	
+	[super dealloc];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
