@@ -963,7 +963,7 @@
 	
 	#if TARGET_OS_IPHONE
 	
-		const char *path = [filePath UTF8String];
+		const char *path = [filePath fileSystemRepresentation];
 		
 		struct attrlist attrList;
 		memset(&attrList, 0, sizeof(attrList));
@@ -1266,7 +1266,7 @@
 
 - (BOOL)hasExtendedAttributeWithName:(NSString *)attrName
 {
-	const char *path = [filePath UTF8String];
+	const char *path = [filePath fileSystemRepresentation];
 	const char *name = [attrName UTF8String];
 	
 	ssize_t result = getxattr(path, name, NULL, 0, 0, 0);
@@ -1276,7 +1276,7 @@
 
 - (void)addExtendedAttributeWithName:(NSString *)attrName
 {
-	const char *path = [filePath UTF8String];
+	const char *path = [filePath fileSystemRepresentation];
 	const char *name = [attrName UTF8String];
 	
 	int result = setxattr(path, name, NULL, 0, 0, 0);
@@ -1289,7 +1289,7 @@
 
 - (void)removeExtendedAttributeWithName:(NSString *)attrName
 {
-	const char *path = [filePath UTF8String];
+	const char *path = [filePath fileSystemRepresentation];
 	const char *name = [attrName UTF8String];
 	
 	int result = removexattr(path, name, 0);
