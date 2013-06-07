@@ -21,7 +21,6 @@
 		55D8EE7A17629224009C25F1 /* strokes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5517629224009C25F1 /* strokes.svg */; };
 		55D8EE7B17629224009C25F1 /* transformations.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5617629224009C25F1 /* transformations.svg */; };
 		55D8EE7C17629224009C25F1 /* australia_states_blank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5717629224009C25F1 /* australia_states_blank.svg */; };
-		55D8EE7D17629224009C25F1 /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5817629224009C25F1 /* Blank_Map-Africa.svg */; };
 		55D8EE7E17629224009C25F1 /* breaking-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5917629224009C25F1 /* breaking-1.svg */; };
 		55D8EE7F17629224009C25F1 /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5A17629224009C25F1 /* CurvedDiamond.svg */; };
 		55D8EE8017629224009C25F1 /* Europe_states_reduced.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5B17629224009C25F1 /* Europe_states_reduced.svg */; };
@@ -363,7 +362,6 @@
 				55D8EE7A17629224009C25F1 /* strokes.svg in Resources */,
 				55D8EE7B17629224009C25F1 /* transformations.svg in Resources */,
 				55D8EE7C17629224009C25F1 /* australia_states_blank.svg in Resources */,
-				55D8EE7D17629224009C25F1 /* Blank_Map-Africa.svg in Resources */,
 				55D8EE7E17629224009C25F1 /* breaking-1.svg in Resources */,
 				55D8EE7F17629224009C25F1 /* CurvedDiamond.svg in Resources */,
 				55D8EE8017629224009C25F1 /* Europe_states_reduced.svg in Resources */,
