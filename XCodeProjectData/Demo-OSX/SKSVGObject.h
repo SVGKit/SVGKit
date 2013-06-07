@@ -8,11 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SKSVGObject : NSObject
+
+@protocol SKSVGObject <NSObject>
+
+- (NSURL *)svgURL;
+- (NSString *)fileName;
+
+@end
+
+
+@interface SKSVGBundleObject : NSObject <SKSVGObject>
+
+//@property (readonly) NSURL *svgURL;
+//@property (readonly) NSString *fileName;
+
+- (id)initWithName:(NSString *)theName;
+
+@end
+
+@interface SKSVGURLObject : NSObject <SKSVGObject>
 
 @property (retain, nonatomic, readonly) NSURL *svgURL;
-@property (readonly) NSString *fileName;
+//@property (readonly) NSString *fileName;
 
 - (id)initWithURL:(NSURL *)aURL;
 
 @end
+
