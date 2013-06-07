@@ -13,7 +13,25 @@
 		55D8EE3817628A71009C25F1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3617628A71009C25F1 /* Credits.rtf */; };
 		55D8EE3B17628A71009C25F1 /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */; };
 		55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3C17628A71009C25F1 /* MainMenu.xib */; };
+		55D8EE4C17628B7C009C25F1 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		55D8EE4817628B57009C25F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5540E66C17387C9F004029EF;
+			remoteInfo = SVGKit;
+		};
+		55D8EE4A17628B6E009C25F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5540E66B17387C9F004029EF;
+			remoteInfo = SVGKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		55D8EE2417628A71009C25F1 /* Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +47,7 @@
 		55D8EE3917628A71009C25F1 /* SKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKAppDelegate.h; sourceTree = "<group>"; };
 		55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKAppDelegate.m; sourceTree = "<group>"; };
 		55D8EE3D17628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-OSX.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55D8EE4C17628B7C009C25F1 /* SVGKit.framework in Frameworks */,
 				55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,6 +66,7 @@
 		55D8EE1B17628A71009C25F1 = {
 			isa = PBXGroup;
 			children = (
+				55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */,
 				55D8EE2D17628A71009C25F1 /* Demo-OSX */,
 				55D8EE2617628A71009C25F1 /* Frameworks */,
 				55D8EE2517628A71009C25F1 /* Products */,
@@ -103,6 +124,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		55D8EE4517628B56009C25F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55D8EE4917628B57009C25F1 /* SVGKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -117,6 +146,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55D8EE4B17628B6E009C25F1 /* PBXTargetDependency */,
 			);
 			name = "Demo-OSX";
 			productName = "Demo-OSX";
@@ -143,12 +173,28 @@
 			mainGroup = 55D8EE1B17628A71009C25F1;
 			productRefGroup = 55D8EE2517628A71009C25F1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 55D8EE4517628B56009C25F1 /* Products */;
+					ProjectRef = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				55D8EE2317628A71009C25F1 /* Demo-OSX */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		55D8EE4917628B57009C25F1 /* SVGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGKit.framework;
+			remoteRef = 55D8EE4817628B57009C25F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		55D8EE2217628A71009C25F1 /* Resources */ = {
@@ -174,6 +220,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		55D8EE4B17628B6E009C25F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVGKit;
+			targetProxy = 55D8EE4A17628B6E009C25F1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		55D8EE3017628A71009C25F1 /* InfoPlist.strings */ = {
@@ -265,8 +319,21 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Demo-OSX/Demo-OSX-Prefix.pch";
-				INFOPLIST_FILE = "Demo-OSX/Demo-OSX-Info.plist";
+				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-OSX/Demo-OSX-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
+				INFOPLIST_FILE = "XCodeProjectData/Demo-OSX/Demo-OSX-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -277,8 +344,21 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Demo-OSX/Demo-OSX-Prefix.pch";
-				INFOPLIST_FILE = "Demo-OSX/Demo-OSX-Info.plist";
+				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-OSX/Demo-OSX-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
+				INFOPLIST_FILE = "XCodeProjectData/Demo-OSX/Demo-OSX-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

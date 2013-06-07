@@ -7,9 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SVGKit.h"
 
 @interface SKAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow *selectorWindow;
+
+
+@property (assign) IBOutlet NSWindow *layeredWindow;
+@property (assign) IBOutlet SVGKLayeredImageView *layeredView;
+
+@property (assign) IBOutlet NSWindow *quickWindow;
+@property (assign) IBOutlet SVGKFastImageView *fastView;
+
 
 @end
