@@ -93,7 +93,8 @@
 -(Attr*) createAttributeNS:(NSString*) namespaceURI qualifiedName:(NSString*) qualifiedName
 {
 	NSAssert( FALSE, @"This should be re-implemented to share code with createElementNS: method above" );
-	return [[[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:@""] autorelease];
+	Attr* newAttr = [[[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:@""] autorelease];
+	return newAttr;
 }
 
 // Introduced in DOM Level 2:
