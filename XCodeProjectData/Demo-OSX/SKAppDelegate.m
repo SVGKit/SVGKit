@@ -77,7 +77,7 @@
 			}
 		}
 		
-		[tmpArray addObject:[[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]] autorelease]];
+		//[tmpArray addObject:[[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]] autorelease]];
 		
 		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 			NSString *rhsString = [rhs fileName];
