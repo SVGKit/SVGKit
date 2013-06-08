@@ -12,7 +12,7 @@
 @interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
 
 @property (assign) IBOutlet NSWindow *selectorWindow;
-@property (readwrite, retain) SVGKImage *svgImage;
+@property (readwrite, retain, nonatomic) SVGKImage *svgImage;
 @property (readonly, retain) NSArray *svgArray;
 
 @property (assign) IBOutlet NSWindow *layeredWindow;

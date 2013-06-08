@@ -18,6 +18,25 @@
 
 @implementation SKAppDelegate
 
+@synthesize svgImage = _svgImage;
+- (void)setSvgImage:(SVGKImage *)anImage
+{
+	if (_svgImage) {
+		[_svgImage release];
+		_svgImage = nil;
+	}
+	if (anImage) {
+		_svgImage = [anImage retain];
+		
+		if (![anImage hasSize]) {
+			anImage.size = NSMakeSize(32, 32);
+		}
+		self.layeredView.image = self.fastView.image = anImage;
+		
+		self.layeredView.frameSize = self.fastView.frameSize = anImage.size;
+	}
+}
+
 - (void)dealloc
 {
     self.svgArray = nil;
@@ -37,6 +56,8 @@
 	//NSDirectoryEnumerationOptions
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
 
+	self.svgImage = self.layeredView.image;
+	
 	@autoreleasepool {
 		while (pname = [dirEnum nextObject]) {
 			//Only look for SVGs that are in the resources folder, no deeper.
@@ -70,13 +91,13 @@
 		SVGKImage *theImage = [[SVGKImage alloc] initWithContentsOfURL:[[self.svgArray objectAtIndex:selRow] svgURL]];
 		self.svgImage = theImage;
 		[theImage release];
-		if ([self.svgImage hasSize]) {
-			self.svgImage.size = NSMakeSize(32, 32);
-		}
-		self.layeredView.image = self.fastView.image = self.svgImage;
-		
-		self.layeredView.frameSize = self.fastView.frameSize = self.svgImage.size;
 	}else NSBeep();
+	if (![self.layeredWindow isVisible]) {
+		[self.layeredWindow orderFront:nil];
+	}
+	if (![self.quickWindow isVisible]) {
+		[self.quickWindow orderFront:nil];
+	}
 }
 
 @end

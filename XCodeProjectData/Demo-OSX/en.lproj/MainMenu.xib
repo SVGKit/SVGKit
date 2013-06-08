@@ -1449,7 +1449,6 @@
 									<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 									<reference key="NSSuperview" ref="750426548"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:60</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<int key="NSsFlags">1</int>
@@ -1492,7 +1491,7 @@
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{196, 207}, {480, 270}}</string>
-				<int key="NSWTFlags">611845120</int>
+				<int key="NSWTFlags">1685586944</int>
 				<string key="NSWindowTitle">Layered View</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
@@ -1539,7 +1538,6 @@
 									<string key="NSFrame">{{465, 1}, {16, 270}}</string>
 									<reference key="NSSuperview" ref="507102939"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:15</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="507102939"/>
@@ -1590,7 +1588,7 @@
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{196, 207}, {480, 270}}</string>
-				<int key="NSWTFlags">611845120</int>
+				<int key="NSWTFlags">1685586944</int>
 				<string key="NSWindowTitle">Quick View</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
@@ -1632,7 +1630,6 @@
 									<string key="NSFrame">{{465, 1}, {16, 270}}</string>
 									<reference key="NSSuperview" ref="200596080"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:15</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="200596080"/>
