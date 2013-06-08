@@ -25,7 +25,7 @@
 
 - (void)setUpLayer
 {
-	self.layer = [SVGKLayer layer];
+	self.layer = [[SVGKLayer alloc] init];
 	self.wantsLayer = YES;
 }
 
