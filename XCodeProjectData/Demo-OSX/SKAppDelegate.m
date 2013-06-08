@@ -10,9 +10,7 @@
 #import "SKSVGObject.h"
 
 @interface SKAppDelegate ()
-
 @property (readwrite, strong) NSArray *svgArray;
-
 
 @end
 
@@ -29,6 +27,8 @@
 		self.layeredView.image = self.fastView.image = anImage;
 		
 		self.layeredView.frameSize = self.fastView.frameSize = anImage.size;
+	} else {
+		self.layeredView.image = self.fastView.image = nil;
 	}
 }
 
