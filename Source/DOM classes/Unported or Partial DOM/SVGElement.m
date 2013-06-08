@@ -254,8 +254,8 @@
 			
 			if( [command isEqualToString:@"translate"] )
 			{
-				CGFloat xtrans = [(NSString*)[parameterStrings objectAtIndex:0] SVGKCGFloatValue];
-				CGFloat ytrans = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] SVGKCGFloatValue] : 0.0;
+				CGFloat xtrans = [(NSString*)parameterStrings[0] SVGKCGFloatValue];
+				CGFloat ytrans = [parameterStrings count] > 1 ? [(NSString*)parameterStrings[1] SVGKCGFloatValue] : 0.0;
 				
 				CGAffineTransform nt = CGAffineTransformMakeTranslation(xtrans, ytrans);
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
@@ -263,20 +263,20 @@
 			}
 			else if( [command isEqualToString:@"scale"] )
 			{
-				CGFloat xScale = [(NSString*)[parameterStrings objectAtIndex:0] SVGKCGFloatValue];
-				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)[parameterStrings objectAtIndex:1] SVGKCGFloatValue] : xScale;
+				CGFloat xScale = [(NSString*)parameterStrings[0] SVGKCGFloatValue];
+				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)parameterStrings[1] SVGKCGFloatValue] : xScale;
 				
 				CGAffineTransform nt = CGAffineTransformMakeScale(xScale, yScale);
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 			}
 			else if( [command isEqualToString:@"matrix"] )
 			{
-				CGFloat a = [(NSString*)[parameterStrings objectAtIndex:0] SVGKCGFloatValue];
-				CGFloat b = [(NSString*)[parameterStrings objectAtIndex:1] SVGKCGFloatValue];
-				CGFloat c = [(NSString*)[parameterStrings objectAtIndex:2] SVGKCGFloatValue];
-				CGFloat d = [(NSString*)[parameterStrings objectAtIndex:3] SVGKCGFloatValue];
-				CGFloat tx = [(NSString*)[parameterStrings objectAtIndex:4] SVGKCGFloatValue];
-				CGFloat ty = [(NSString*)[parameterStrings objectAtIndex:5] SVGKCGFloatValue];
+				CGFloat a = [(NSString*)parameterStrings[0] SVGKCGFloatValue];
+				CGFloat b = [(NSString*)parameterStrings[1] SVGKCGFloatValue];
+				CGFloat c = [(NSString*)parameterStrings[2] SVGKCGFloatValue];
+				CGFloat d = [(NSString*)parameterStrings[3] SVGKCGFloatValue];
+				CGFloat tx = [(NSString*)parameterStrings[4] SVGKCGFloatValue];
+				CGFloat ty = [(NSString*)parameterStrings[5] SVGKCGFloatValue];
 				
 				CGAffineTransform nt = CGAffineTransformMake(a, b, c, d, tx, ty );
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
@@ -292,7 +292,7 @@
 				 */
 				if( [parameterStrings count] == 1)
 				{
-					CGFloat degrees = [[parameterStrings objectAtIndex:0] SVGKCGFloatValue];
+					CGFloat degrees = [parameterStrings[0] SVGKCGFloatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
 					
 					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
@@ -300,10 +300,10 @@
 				}
 				else if( [parameterStrings count] == 3)
 				{
-					CGFloat degrees = [[parameterStrings objectAtIndex:0] SVGKCGFloatValue];
+					CGFloat degrees = [parameterStrings[0] SVGKCGFloatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
-					CGFloat centerX = [[parameterStrings objectAtIndex:1] SVGKCGFloatValue];
-					CGFloat centerY = [[parameterStrings objectAtIndex:2] SVGKCGFloatValue];
+					CGFloat centerX = [parameterStrings[1] SVGKCGFloatValue];
+					CGFloat centerY = [parameterStrings[2] SVGKCGFloatValue];
 					CGAffineTransform nt = CGAffineTransformIdentity;
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
@@ -319,17 +319,13 @@
 			{
 				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
 				
-				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																			   @"transform=skewX is unsupported", NSLocalizedDescriptionKey,
-																			   nil]
+				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:@{NSLocalizedDescriptionKey: @"transform=skewX is unsupported"}
 						]];
 			}
 			else if( [command isEqualToString:@"skewY"] )
 			{
 				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
-				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																			   @"transform=skewY is unsupported", NSLocalizedDescriptionKey,
-																			   nil]
+				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:@{NSLocalizedDescriptionKey: @"transform=skewY is unsupported"}
 						]];
 			}
 			else
