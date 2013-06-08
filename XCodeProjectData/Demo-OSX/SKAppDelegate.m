@@ -55,15 +55,14 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	// Insert code here to initialize your application
 	[SVGKit enableLogging];
 	
 	NSMutableArray *tmpArray = [NSMutableArray array];
 	NSString *pname;
 		
-	//NSDirectoryEnumerationOptions
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
 
+	//The layered view comes with an SVG image, even when inited without one.
 	self.svgImage = self.layeredView.image;
 	
 	@autoreleasepool {
