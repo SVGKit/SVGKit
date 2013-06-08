@@ -29,6 +29,8 @@
 		self.layeredView.frameSize = self.fastView.frameSize = anImage.size;
 	} else {
 		self.layeredView.image = self.fastView.image = nil;
+		
+		self.layeredView.frameSize = self.fastView.frameSize = NSMakeSize(32, 32);
 	}
 }
 
