@@ -23,12 +23,13 @@
 //@property (readonly) NSString *fileName;
 
 - (id)initWithName:(NSString *)theName;
+- (id)initWithName:(NSString *)theName bundle:(NSBundle*)aBundle;
 
 @end
 
 @interface SKSVGURLObject : NSObject <SKSVGObject>
 
-@property (strong, nonatomic, readonly) NSURL *svgURL;
+@property (strong, readonly) NSURL *svgURL;
 //@property (readonly) NSString *fileName;
 
 - (id)initWithURL:(NSURL *)aURL;

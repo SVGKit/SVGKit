@@ -10,37 +10,41 @@
 
 @interface SKSVGBundleObject ()
 @property (copy) NSString *bundleName;
+@property (retain) NSBundle *theBundle;
 @end
 
 @implementation SKSVGBundleObject
 
 - (id)initWithName:(NSString *)theName
 {
+	return [self initWithName:theName bundle:[NSBundle mainBundle]];
+}
+
+- (id)initWithName:(NSString *)theName bundle:(NSBundle*)aBundle
+{
 	if (self = [super init]) {
 		self.bundleName = theName;
+		self.theBundle = aBundle;
 	}
 	return self;
 }
 
 - (NSURL*)svgURL
 {
-	return [[[NSBundle mainBundle] resourceURL] URLByAppendingPathComponent:self.bundleName];
+	return [[self.theBundle resourceURL] URLByAppendingPathComponent:self.bundleName];
 }
 
 - (NSString*)fileName
 {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	
-	return [manager displayNameAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.bundleName]];
+	return [manager displayNameAtPath:[[self.theBundle resourcePath] stringByAppendingPathComponent:self.bundleName]];
 }
 
 @end
 
-
-
 @interface SKSVGURLObject ()
-@property (strong, nonatomic, readwrite) NSURL *svgURL;
-
+@property (strong, readwrite) NSURL *svgURL;
 @end
 
 @implementation SKSVGURLObject
@@ -70,6 +74,5 @@
 	}
 	else return [tmpURL lastPathComponent];
 }
-
 
 @end
