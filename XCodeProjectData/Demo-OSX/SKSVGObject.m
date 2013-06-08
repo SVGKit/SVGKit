@@ -9,7 +9,7 @@
 #import "SKSVGObject.h"
 
 @interface SKSVGBundleObject ()
-@property (copy) NSString *bundleName;
+@property (readwrite, copy) NSString* fullFileName;
 @property (retain) NSBundle *theBundle;
 @end
 
@@ -23,7 +23,7 @@
 - (id)initWithName:(NSString *)theName bundle:(NSBundle*)aBundle
 {
 	if (self = [super init]) {
-		self.bundleName = theName;
+		self.fullFileName = theName;
 		self.theBundle = aBundle;
 	}
 	return self;
@@ -31,19 +31,19 @@
 
 - (NSURL*)svgURL
 {
-	return [[self.theBundle resourceURL] URLByAppendingPathComponent:self.bundleName];
+	return [[self.theBundle resourceURL] URLByAppendingPathComponent:self.fullFileName];
 }
 
 - (NSString*)fileName
 {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	
-	return [manager displayNameAtPath:[[self.theBundle resourcePath] stringByAppendingPathComponent:self.bundleName]];
+	return [manager displayNameAtPath:[[self.theBundle resourcePath] stringByAppendingPathComponent:self.fullFileName]];
 }
 
 - (void)dealloc
 {
-	self.bundleName = nil;
+	self.fullFileName = nil;
 	self.theBundle = nil;
 	
 	[super dealloc];
@@ -81,6 +81,11 @@
 		}
 	}
 	else return [tmpURL lastPathComponent];
+}
+
+- (NSString*)fullFileName
+{
+	return [self.svgURL lastPathComponent];
 }
 
 - (void)dealloc
