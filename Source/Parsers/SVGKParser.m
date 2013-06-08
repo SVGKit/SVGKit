@@ -198,7 +198,7 @@ readPacket(char *mem, int size) {
 					DDLogWarn(@"[%@] SVG parser generated one or more FATAL errors (not the XML parser), errors follow:", [self class] );
 					for( NSError* error in currentParseRun.errorsFatal )
 					{
-						DDLogWarn(@"[%@] ... FATAL ERRRO in SVG parse: %@", [self class], error );
+						DDLogWarn(@"[%@] ... FATAL ERRROR in SVG parse: %@", [self class], error );
 					}
 				}
 				
