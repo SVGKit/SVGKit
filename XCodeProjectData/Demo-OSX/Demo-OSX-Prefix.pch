@@ -1,0 +1,15 @@
+//
+// Prefix header for all source files of the 'Demo-OSX' target in the 'Demo-OSX' project
+//
+
+#include <AvailabilityMacros.h>
+#if !TARGET_OS_IPHONE
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+#endif
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import "SVGKit.h"
+#endif

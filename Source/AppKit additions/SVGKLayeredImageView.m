@@ -11,12 +11,6 @@
 @implementation SVGKLayeredImageView
 @synthesize internalBorderLayer = _internalBorderLayer;
 
-/** uses the custom SVGKLayer instead of a default CALayer */
-+(Class)layerClass
-{
-	return [SVGKLayer class];
-}
-
 - (id)init
 {
 	NSAssert(false, @"init not supported, use initWithSVGKImage:");
@@ -35,6 +29,8 @@
 	if( self )
 	{
 		//self.backgroundColor = [UIColor clearColor];
+		self.layer = [SVGKLayer layer];
+		self.wantsLayer = YES;
 	}
 	return self;
 }
@@ -49,6 +45,9 @@
 		if( self )
 		{
 			//self.backgroundColor = [UIColor clearColor];
+			self.layer = [SVGKLayer layer];
+			self.wantsLayer = YES;
+
 			
 /**
  ************* NB: it is critical that the string we're about to create is NOT INDENTED - the tabs would break the parsing!

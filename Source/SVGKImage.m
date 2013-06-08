@@ -111,28 +111,24 @@ static NSMutableDictionary* globalSVGKImageCache;
 #pragma mark - Convenience initializers
 + (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle {
 	NSParameterAssert(name != nil);
+	NSParameterAssert(bundle != nil);
     
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( globalSVGKImageCache == nil )
-    {
-        globalSVGKImageCache = [NSMutableDictionary new];
-    }
-    
-    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
-    if( cacheLine != nil )
-    {
-        cacheLine.numberOfInstances ++;
-        return cacheLine.mainInstance;
-    }
-#endif
-	
-	if (!bundle) {
-		bundle = [NSBundle mainBundle];
+	if ([[NSBundle mainBundle] isEqual:bundle]) {
+		if( globalSVGKImageCache == nil )
+		{
+			globalSVGKImageCache = [NSMutableDictionary new];
+		}
+		
+		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
+		if( cacheLine != nil )
+		{
+			cacheLine.numberOfInstances ++;
+			return cacheLine.mainInstance;
+		}
 	}
-	
-	if (!bundle)
-		return nil;
-	
+#endif
+		
 	NSString *newName = [name stringByDeletingPathExtension];
 	NSString *extension = [name pathExtension];
     if ([@"" isEqualToString:extension]) {
@@ -150,7 +146,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	SVGKImage* result = [self imageWithContentsOfFile:path];
     
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-	if( result != nil )
+	if( result != nil  && [[NSBundle mainBundle] isEqual:bundle])
 	{
 		result->cameFromGlobalCache = TRUE;
 		result.nameUsedToInstantiate = name;

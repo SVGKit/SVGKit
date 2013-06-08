@@ -41,6 +41,7 @@ _ColorValueWithName
 .objc_class_name_SVGDescriptionElement
 .objc_class_name_SVGDocument
 .objc_class_name_SVGElement
+.objc_class_name_SVGKit
 .objc_class_name_SVGElementInstance
 .objc_class_name_SVGElementInstanceList
 .objc_class_name_SVGEllipseElement
