@@ -10,7 +10,7 @@
 
 @interface SKSVGBundleObject ()
 @property (copy) NSString *bundleName;
-@property (retain) NSBundle *theBundle;
+@property (strong) NSBundle *theBundle;
 @end
 
 @implementation SKSVGBundleObject
