@@ -9,7 +9,7 @@
 #import "SKSVGObject.h"
 
 @interface SKSVGBundleObject ()
-@property (retain) NSString *bundleName;
+@property (copy) NSString *bundleName;
 @end
 
 @implementation SKSVGBundleObject
@@ -17,7 +17,7 @@
 - (id)initWithName:(NSString *)theName
 {
 	if (self = [super init]) {
-		self.bundleName = [[theName copy] autorelease];
+		self.bundleName = theName;
 	}
 	return self;
 }
