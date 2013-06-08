@@ -16,7 +16,6 @@
 		55D8EE4C17628B7C009C25F1 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 		55D8EE4F17628FBC009C25F1 /* SKSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */; };
 		55D8EE7717629224009C25F1 /* gradients.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5217629224009C25F1 /* gradients.svg */; };
-		55D8EE7817629224009C25F1 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5317629224009C25F1 /* Sample Licenses from svg-android project.txt */; };
 		55D8EE7917629224009C25F1 /* shapes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5417629224009C25F1 /* shapes.svg */; };
 		55D8EE7A17629224009C25F1 /* strokes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5517629224009C25F1 /* strokes.svg */; };
 		55D8EE7B17629224009C25F1 /* transformations.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5617629224009C25F1 /* transformations.svg */; };
@@ -357,7 +356,6 @@
 				55D8EE3817628A71009C25F1 /* Credits.rtf in Resources */,
 				55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */,
 				55D8EE7717629224009C25F1 /* gradients.svg in Resources */,
-				55D8EE7817629224009C25F1 /* Sample Licenses from svg-android project.txt in Resources */,
 				55D8EE7917629224009C25F1 /* shapes.svg in Resources */,
 				55D8EE7A17629224009C25F1 /* strokes.svg in Resources */,
 				55D8EE7B17629224009C25F1 /* transformations.svg in Resources */,

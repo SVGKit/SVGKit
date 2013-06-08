@@ -278,4 +278,3 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
 }
 
 @end
-
