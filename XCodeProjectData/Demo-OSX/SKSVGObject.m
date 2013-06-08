@@ -10,44 +10,49 @@
 
 @interface SKSVGBundleObject ()
 @property (copy) NSString *bundleName;
+@property (retain) NSBundle *theBundle;
 @end
 
 @implementation SKSVGBundleObject
 
 - (id)initWithName:(NSString *)theName
 {
+	return [self initWithName:theName bundle:[NSBundle mainBundle]];
+}
+
+- (id)initWithName:(NSString *)theName bundle:(NSBundle*)aBundle
+{
 	if (self = [super init]) {
 		self.bundleName = theName;
+		self.theBundle = aBundle;
 	}
 	return self;
 }
 
 - (NSURL*)svgURL
 {
-	return [[[NSBundle mainBundle] resourceURL] URLByAppendingPathComponent:self.bundleName];
+	return [[self.theBundle resourceURL] URLByAppendingPathComponent:self.bundleName];
 }
 
 - (NSString*)fileName
 {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	
-	return [manager displayNameAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.bundleName]];
+	return [manager displayNameAtPath:[[self.theBundle resourcePath] stringByAppendingPathComponent:self.bundleName]];
 }
 
 - (void)dealloc
 {
 	self.bundleName = nil;
+	self.theBundle = nil;
 	
 	[super dealloc];
 }
 
 @end
 
-
-
 @interface SKSVGURLObject ()
-@property (retain, nonatomic, readwrite) NSURL *svgURL;
-
+@property (retain, readwrite) NSURL *svgURL;
 @end
 
 @implementation SKSVGURLObject
@@ -84,6 +89,5 @@
 	
 	[super dealloc];
 }
-
 
 @end
