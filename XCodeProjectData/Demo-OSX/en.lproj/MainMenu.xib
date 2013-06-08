@@ -1321,6 +1321,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{480, 360}</string>
 											<reference key="NSSuperview" ref="682368214"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="130078782"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
@@ -1409,9 +1410,10 @@
 												</object>
 											</object>
 											<double key="NSRowHeight">17</double>
-											<int key="NSTvFlags">1447034880</int>
+											<int key="NSTvFlags">918552576</int>
 											<reference key="NSDelegate"/>
 											<reference key="NSDataSource"/>
+											<int key="NSGridStyleMask">2</int>
 											<int key="NSColumnAutoresizingStyle">4</int>
 											<int key="NSDraggingSourceMaskForLocal">15</int>
 											<int key="NSDraggingSourceMaskForNonLocal">0</int>
@@ -1422,6 +1424,7 @@
 									</array>
 									<string key="NSFrame">{{1, 1}, {480, 360}}</string>
 									<reference key="NSSuperview" ref="750426548"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="469037665"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
 									<reference key="NSDocView" ref="469037665"/>
@@ -1433,6 +1436,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{224, 17}, {15, 102}}</string>
 									<reference key="NSSuperview" ref="750426548"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="988636543"/>
 									<string key="NSReuseIdentifierKey">_NS:58</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1445,6 +1449,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{1, 119}, {223, 15}}</string>
 									<reference key="NSSuperview" ref="750426548"/>
+									<reference key="NSWindow"/>
 									<string key="NSReuseIdentifierKey">_NS:60</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<int key="NSsFlags">1</int>
@@ -1455,6 +1460,7 @@
 							</array>
 							<string key="NSFrame">{{-1, -1}, {482, 362}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="682368214"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
@@ -1469,6 +1475,7 @@
 					</array>
 					<string key="NSFrameSize">{480, 360}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="750426548"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
@@ -1507,12 +1514,14 @@
 											<int key="NSvFlags">274</int>
 											<string key="NSFrameSize">{480, 270}</string>
 											<reference key="NSSuperview" ref="569160338"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="834174226"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 										</object>
 									</array>
 									<string key="NSFrame">{{1, 1}, {480, 270}}</string>
 									<reference key="NSSuperview" ref="507102939"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="55246788"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
 									<reference key="NSDocView" ref="55246788"/>
@@ -1529,6 +1538,7 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{465, 1}, {16, 270}}</string>
 									<reference key="NSSuperview" ref="507102939"/>
+									<reference key="NSWindow"/>
 									<string key="NSReuseIdentifierKey">_NS:15</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="507102939"/>
@@ -1541,6 +1551,7 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{1, 255}, {480, 16}}</string>
 									<reference key="NSSuperview" ref="507102939"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="700611722"/>
 									<string key="NSReuseIdentifierKey">_NS:26</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1552,6 +1563,7 @@
 							</array>
 							<string key="NSFrame">{{-1, -1}, {482, 272}}</string>
 							<reference key="NSSuperview" ref="481917923"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="569160338"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133170</int>
@@ -1565,6 +1577,7 @@
 					</array>
 					<string key="NSFrameSize">{480, 270}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="507102939"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
@@ -1598,12 +1611,14 @@
 											<int key="NSvFlags">274</int>
 											<string key="NSFrameSize">{480, 270}</string>
 											<reference key="NSSuperview" ref="355816529"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="331482811"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 										</object>
 									</array>
 									<string key="NSFrame">{{1, 1}, {480, 270}}</string>
 									<reference key="NSSuperview" ref="200596080"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="427398179"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
 									<reference key="NSDocView" ref="427398179"/>
@@ -1615,6 +1630,7 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{465, 1}, {16, 270}}</string>
 									<reference key="NSSuperview" ref="200596080"/>
+									<reference key="NSWindow"/>
 									<string key="NSReuseIdentifierKey">_NS:15</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="200596080"/>
@@ -1627,6 +1643,7 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{1, 255}, {480, 16}}</string>
 									<reference key="NSSuperview" ref="200596080"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="421291664"/>
 									<string key="NSReuseIdentifierKey">_NS:26</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1638,6 +1655,7 @@
 							</array>
 							<string key="NSFrame">{{-1, -1}, {482, 272}}</string>
 							<reference key="NSSuperview" ref="436575611"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="355816529"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133170</int>
@@ -1651,6 +1669,7 @@
 					</array>
 					<string key="NSFrameSize">{480, 270}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="200596080"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
@@ -4017,7 +4036,79 @@
 			<nil key="sourceID"/>
 			<int key="maxID">587</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">NSLayoutConstraint</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SKAppDelegate</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="fastView">SVGKFastImageView</string>
+						<string key="layeredView">SVGKLayeredImageView</string>
+						<string key="layeredWindow">NSWindow</string>
+						<string key="quickWindow">NSWindow</string>
+						<string key="selectorWindow">NSWindow</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="fastView">
+							<string key="name">fastView</string>
+							<string key="candidateClassName">SVGKFastImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="layeredView">
+							<string key="name">layeredView</string>
+							<string key="candidateClassName">SVGKLayeredImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="layeredWindow">
+							<string key="name">layeredWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="quickWindow">
+							<string key="name">quickWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="selectorWindow">
+							<string key="name">selectorWindow</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SKAppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SVGKFastImageView</string>
+					<string key="superclassName">SVGKImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SVGKFastImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SVGKImageView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SVGKImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SVGKLayeredImageView</string>
+					<string key="superclassName">SVGKImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SVGKLayeredImageView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
