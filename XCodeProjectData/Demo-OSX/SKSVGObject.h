@@ -28,7 +28,7 @@
 
 @interface SKSVGURLObject : NSObject <SKSVGObject>
 
-@property (retain, nonatomic, readonly) NSURL *svgURL;
+@property (strong, nonatomic, readonly) NSURL *svgURL;
 //@property (readonly) NSString *fileName;
 
 - (id)initWithURL:(NSURL *)aURL;

@@ -11,20 +11,13 @@
 
 @interface SKAppDelegate ()
 
-@property (readwrite, retain) NSArray *svgArray;
+@property (readwrite, strong) NSArray *svgArray;
 
 
 @end
 
 @implementation SKAppDelegate
 
-- (void)dealloc
-{
-    self.svgArray = nil;
-	self.svgImage = nil;
-	
-	[super dealloc];
-}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -45,11 +38,11 @@
 				continue;
 			}
 			if (NSOrderedSame == [[pname pathExtension] caseInsensitiveCompare:@"svg"]) {
-				[tmpArray addObject:[[[SKSVGBundleObject alloc] initWithName:pname] autorelease]];
+				[tmpArray addObject:[[SKSVGBundleObject alloc] initWithName:pname]];
 			}
 		}
 		
-		[tmpArray addObject:[[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]] autorelease]];
+		[tmpArray addObject:[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
 		
 		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 			NSString *rhsString = [rhs fileName];
@@ -69,7 +62,6 @@
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		SVGKImage *theImage = [[SVGKImage alloc] initWithContentsOfURL:[[self.svgArray objectAtIndex:selRow] svgURL]];
 		self.svgImage = theImage;
-		[theImage release];
 		if ([self.svgImage hasSize]) {
 			self.svgImage.size = NSMakeSize(32, 32);
 		}

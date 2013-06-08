@@ -9,7 +9,7 @@
 #import "SKSVGObject.h"
 
 @interface SKSVGBundleObject ()
-@property (retain) NSString *bundleName;
+@property (strong) NSString *bundleName;
 @end
 
 @implementation SKSVGBundleObject
@@ -17,7 +17,7 @@
 - (id)initWithName:(NSString *)theName
 {
 	if (self = [super init]) {
-		self.bundleName = [[theName copy] autorelease];
+		self.bundleName = [theName copy];
 	}
 	return self;
 }
@@ -34,19 +34,12 @@
 	return [manager displayNameAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.bundleName]];
 }
 
-- (void)dealloc
-{
-	self.bundleName = nil;
-	
-	[super dealloc];
-}
-
 @end
 
 
 
 @interface SKSVGURLObject ()
-@property (retain, nonatomic, readwrite) NSURL *svgURL;
+@property (strong, nonatomic, readwrite) NSURL *svgURL;
 
 @end
 
@@ -76,13 +69,6 @@
 		}
 	}
 	else return [tmpURL lastPathComponent];
-}
-
-- (void)dealloc
-{
-	self.svgURL = nil;
-	
-	[super dealloc];
 }
 
 

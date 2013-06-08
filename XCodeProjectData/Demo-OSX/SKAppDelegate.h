@@ -11,15 +11,15 @@
 
 @interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
 
-@property (assign) IBOutlet NSWindow *selectorWindow;
-@property (readwrite, retain) SVGKImage *svgImage;
-@property (readonly, retain) NSArray *svgArray;
+@property (weak) IBOutlet NSWindow *selectorWindow;
+@property (readwrite, strong) SVGKImage *svgImage;
+@property (readonly, strong) NSArray *svgArray;
 
-@property (assign) IBOutlet NSWindow *layeredWindow;
-@property (assign) IBOutlet SVGKLayeredImageView *layeredView;
+@property (weak) IBOutlet NSWindow *layeredWindow;
+@property (weak) IBOutlet SVGKLayeredImageView *layeredView;
 
-@property (assign) IBOutlet NSWindow *quickWindow;
-@property (assign) IBOutlet SVGKFastImageView *fastView;
+@property (weak) IBOutlet NSWindow *quickWindow;
+@property (weak) IBOutlet SVGKFastImageView *fastView;
 
 
 @end
