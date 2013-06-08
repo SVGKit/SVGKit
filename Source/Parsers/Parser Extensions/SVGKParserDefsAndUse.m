@@ -55,7 +55,9 @@
 		if( [name isEqualToString:@"defs"])
 		{
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-			return [[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
+			SVGDefsElement *element = [[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
+			
+			return element;
 		}
 		else if( [name isEqualToString:@"use"])
 		{

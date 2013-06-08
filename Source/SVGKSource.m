@@ -19,7 +19,8 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
 	
-	return [[SVGKSource alloc] initWithInputSteam:stream];
+	SVGKSource* s = [[SVGKSource alloc] initWithInputSteam:stream];
+	return s;
 }
 
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {

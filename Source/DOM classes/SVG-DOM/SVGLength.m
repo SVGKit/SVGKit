@@ -89,7 +89,8 @@
 
 +(SVGLength*) svgLengthZero
 {
-	return [[SVGLength alloc] initWithCSSPrimitiveValue:nil];
+	SVGLength *zeroLength = [[SVGLength alloc] initWithCSSPrimitiveValue:nil];
+	return zeroLength;
 }
 
 static float cachedDevicePixelsPerInch;
