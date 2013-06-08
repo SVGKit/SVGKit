@@ -596,19 +596,15 @@ static void structuredError		(void * userData,
 	switch( errorLevel )
 	{
 		case XML_ERR_WARNING:
-		{
 			[parseResult addParseWarning:objcError];
-		}break;
+			break;
 			
 		case XML_ERR_ERROR:
-		{
 			[parseResult addParseErrorRecoverable:objcError];
-		}break;
+			break;
 			
 		case XML_ERR_FATAL:
-		{
 			[parseResult addParseErrorFatal:objcError];
-		}
         default:
             break;
 	}
