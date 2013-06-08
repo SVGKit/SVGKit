@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SVGKit.h"
 
-@interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
+@interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate, NSWindowDelegate>
 
 @property (assign) IBOutlet NSWindow *selectorWindow;
 @property (readwrite, retain, nonatomic) SVGKImage *svgImage;

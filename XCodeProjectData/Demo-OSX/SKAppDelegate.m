@@ -45,6 +45,14 @@
 	[super dealloc];
 }
 
+- (void)windowWillClose:(NSNotification *)notification
+{
+	NSWindow *theWin = [notification object];
+	if (theWin == self.selectorWindow) {
+		[[NSApplication sharedApplication] stop:nil];
+	}
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Insert code here to initialize your application
