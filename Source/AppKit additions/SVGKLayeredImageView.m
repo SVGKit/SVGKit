@@ -44,7 +44,7 @@
 {
 	if( im == nil )
 	{
-		NSLog(@"[%@] WARNING: you have initialized an [%@] with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class], [self class]);
+		DDLogWarn(@"[%@] WARNING: you have initialized an [%@] with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class], [self class]);
 		
 		self = [super initWithFrame:NSMakeRect(0,0,100,100)]; // coincides with the inline SVG below!
 		if( self )
@@ -105,7 +105,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 </g> \
 </svg>";
 			
-			NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
+			DDLogWarn(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
 			
 			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:svgStringDefaultContents]];
 			
