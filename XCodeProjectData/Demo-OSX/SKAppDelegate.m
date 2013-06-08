@@ -18,18 +18,41 @@
 
 @implementation SKAppDelegate
 
+@synthesize svgImage = _svgImage;
+- (void)setSvgImage:(SVGKImage *)anImage
+{
+	_svgImage = anImage;
+	if (anImage) {
+		if (![anImage hasSize]) {
+			anImage.size = NSMakeSize(32, 32);
+		}
+		self.layeredView.image = self.fastView.image = anImage;
+		
+		self.layeredView.frameSize = self.fastView.frameSize = anImage.size;
+	}
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+	NSWindow *theWin = [notification object];
+	if (theWin == self.selectorWindow) {
+		[[NSApplication sharedApplication] stop:nil];
+	}
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Insert code here to initialize your application
 	[SVGKit enableLogging];
 	
-	NSMutableArray *tmpArray = [NSMutableArray array];
+	NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
 	NSString *pname;
 		
 	//NSDirectoryEnumerationOptions
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
 
+	self.svgImage = self.layeredView.image;
+	
 	@autoreleasepool {
 		while (pname = [dirEnum nextObject]) {
 			//Only look for SVGs that are in the resources folder, no deeper.
@@ -51,7 +74,7 @@
 			return result;
 		}];
 		
-		self.svgArray = [NSArray arrayWithArray:tmpArray];
+		self.svgArray = [[NSArray alloc] initWithArray:tmpArray];
 	}
 }
 
@@ -62,13 +85,13 @@
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		SVGKImage *theImage = [[SVGKImage alloc] initWithContentsOfURL:[[self.svgArray objectAtIndex:selRow] svgURL]];
 		self.svgImage = theImage;
-		if ([self.svgImage hasSize]) {
-			self.svgImage.size = NSMakeSize(32, 32);
-		}
-		self.layeredView.image = self.fastView.image = self.svgImage;
-		
-		self.layeredView.frameSize = self.fastView.frameSize = self.svgImage.size;
 	}else NSBeep();
+	if (![self.layeredWindow isVisible]) {
+		[self.layeredWindow orderFront:nil];
+	}
+	if (![self.quickWindow isVisible]) {
+		[self.quickWindow orderFront:nil];
+	}
 }
 
 @end
