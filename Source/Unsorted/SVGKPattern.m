@@ -24,7 +24,6 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 @implementation SVGKPattern
 
 @synthesize color;
-
 - (void)setColor:(CGColorRef)aColor
 {
 	if (color != aColor) {
@@ -128,13 +127,6 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 	self.color = NULL;
 	
 	[super dealloc];
-}
-
-- (void)finalize
-{
-	self.color = NULL;
-	
-	[super finalize];
 }
 
 @end
