@@ -46,15 +46,15 @@
 {
 	[SVGKit enableLogging];
 	
-	NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
-	NSString *pname;
-		
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
-
 	//The layered view comes with an SVG image, even when inited without one.
 	self.svgImage = self.layeredView.image;
 	
 	@autoreleasepool {
+		NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
+		NSString *pname;
+		
+		NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
+
 		while (pname = [dirEnum nextObject]) {
 			//Only look for SVGs that are in the resources folder, no deeper.
 			if ([[[dirEnum fileAttributes] objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
@@ -68,12 +68,14 @@
 		
 		//[tmpArray addObject:[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
 		
+#if 0
 		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 			NSString *rhsString = [rhs fileName];
 			NSString *lhsString = [lhs fileName];
 			NSComparisonResult result = [rhsString localizedStandardCompare:lhsString];
 			return result;
 		}];
+#endif
 		
 		self.svgArray = [[NSArray alloc] initWithArray:tmpArray];
 	}

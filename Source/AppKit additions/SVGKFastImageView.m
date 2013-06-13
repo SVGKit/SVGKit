@@ -11,7 +11,6 @@
 	NSString* internalContextPointerBecauseApplesDemandsIt;
 }
 
-@synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
@@ -61,7 +60,7 @@
 	self = [super initWithFrame:frame];
 	if( self )
 	{
-		//self.backgroundColor = [UIColor clearColor];
+		
 	}
 	return self;
 }
@@ -81,7 +80,6 @@
 		self.image = im;
 		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
 		self.tileRatio = CGSizeZero;
-		//self.backgroundColor = [UIColor clearColor];
 		
 		/** redraw-observers */
 		if( self.disableAutoRedrawAtHighestResolution )
@@ -108,15 +106,15 @@
 		DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own transforms. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using scale: you SHOULD INSTEAD be scaling by setting .size on the image, and ensuring that the incoming SVG has either a viewbox or an explicit svg width or svg height)", [self class]);
 #endif
 	
-    if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+    if (self.image) {
+        [self.image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
     }
-    _image = image;
+	super.image = image;
     
     if( self.disableAutoRedrawAtHighestResolution )
         ;
     else
-        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+        [self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 }
 
 -(void) addInternalRedrawOnResizeObservers
