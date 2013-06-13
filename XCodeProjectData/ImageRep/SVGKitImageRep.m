@@ -73,7 +73,7 @@
 	if (parseResult == nil) {
 		return NO;
 	}
-	if (parseResult.libXMLFailed || [parseResult.errorsFatal count]) {
+	if (!parseResult.parsedDocument) {
 		[parseResult release];
 		return NO;
 	}
@@ -125,7 +125,7 @@
 {
 	if (self = [super init]) {
 		self.image = [SVGKImage imageWithSource:theSource];
-		if (self.image == nil || self.image.parseErrorsAndWarnings.libXMLFailed || [self.image.parseErrorsAndWarnings.errorsFatal count]) {
+		if (self.image == nil) {
 			[self autorelease];
 			return nil;
 		}
