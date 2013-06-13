@@ -81,12 +81,14 @@
 		
 		//[tmpArray addObject:[[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]] autorelease]];
 		
+#if 0
 		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 			NSString *rhsString = [rhs fileName];
 			NSString *lhsString = [lhs fileName];
 			NSComparisonResult result = [rhsString localizedStandardCompare:lhsString];
 			return result;
 		}];
+#endif
 		
 		self.svgArray = [NSArray arrayWithArray:tmpArray];
 	}
