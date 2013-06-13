@@ -436,7 +436,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 }
-
 #endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
