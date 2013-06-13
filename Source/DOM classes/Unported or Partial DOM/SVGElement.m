@@ -379,6 +379,7 @@
 	}
 	return self;
 }
+
 - (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes
 {
 	self = [super initWithQualifiedName:n inNameSpaceURI:nsURI attributes:attributes];
