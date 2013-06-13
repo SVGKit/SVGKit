@@ -23,6 +23,11 @@
 @property (nonatomic, retain, readwrite, setter = setTheSVG:) SVGKImage *image;
 @end
 
+@interface SVGKitImageRep (deprecated)
+- (id)initWithPath:(NSString *)thePath DEPRECATED_ATTRIBUTE;
+- (id)initWithURL:(NSURL *)theURL DEPRECATED_ATTRIBUTE;
+@end
+
 @implementation SVGKitImageRep
 
 - (NSData *)TIFFRepresentation
@@ -83,12 +88,12 @@
 
 + (id)imageRepWithContentsOfFile:(NSString *)filename
 {
-	return [[[self alloc] initWithPath:filename] autorelease];
+	return [[[self alloc] initWithContentsOfFile:filename] autorelease];
 }
 
 + (id)imageRepWithContentsOfURL:(NSURL *)url
 {
-	return [[[self alloc] initWithURL:url] autorelease];
+	return [[[self alloc] initWithContentsOfURL:url] autorelease];
 }
 
 + (void)load
@@ -101,12 +106,12 @@
 	return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
 }
 
-- (id)initWithURL:(NSURL *)theURL
+- (id)initWithContentsOfURL:(NSURL *)theURL
 {
 	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
 }
 
-- (id)initWithPath:(NSString *)thePath
+- (id)initWithContentsOfFile:(NSString *)thePath
 {
 	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
 }
@@ -170,5 +175,30 @@
 	
 	return YES;
 }
+
+@end
+
+@implementation SVGKitImageRep (deprecated)
+
+#define DEPRECATE_WARN_ONCE(NewMethodSel) static BOOL HasBeenWarned = NO; \
+if(HasBeenWarned == NO) \
+{\
+fprintf(stderr, "SVGKitImageRep: %s has been deprecated, use %s instead", sel_getName(_cmd), sel_getName(NewMethodSel));\
+HasBeenWarned = YES;\
+}
+
+- (id)initWithPath:(NSString *)thePath
+{
+	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfPath:));
+	return [self initWithContentsOfFile:thePath];	
+}
+
+- (id)initWithURL:(NSURL *)theURL
+{
+	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfURL:));
+	return [self initWithContentsOfURL:theURL];
+}
+
+#undef DEPRECATE_WARN_ONCE
 
 @end
