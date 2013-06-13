@@ -23,11 +23,9 @@
 
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
-@property(nonatomic) NSInteger numberOfInstances;
 @property(nonatomic,strong) SVGKImage* mainInstance;
 @end
 @implementation SVGKImageCacheLine
-@synthesize numberOfInstances;
 @synthesize mainInstance;
 @end
 #endif
@@ -123,7 +121,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
 		if( cacheLine != nil )
 		{
-			cacheLine.numberOfInstances ++;
 			return cacheLine.mainInstance;
 		}
 	}
@@ -264,16 +261,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (void)dealloc
 {
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( self->cameFromGlobalCache )
-    {
-        SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
-        cacheLine.numberOfInstances --;
-        
-        if( cacheLine.numberOfInstances < 1 )
-        {
-            [globalSVGKImageCache removeObjectForKey:self.nameUsedToInstantiate];
-        }
-    }
 #endif
 	
 //SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
