@@ -23,6 +23,11 @@
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
 @end
 
+@interface SVGKitImageRep (deprecated)
+- (id)initWithPath:(NSString *)thePath DEPRECATED_ATTRIBUTE;
+- (id)initWithURL:(NSURL *)theURL DEPRECATED_ATTRIBUTE;
+@end
+
 @implementation SVGKitImageRep
 
 - (NSData *)TIFFRepresentation
@@ -68,7 +73,7 @@
 	if (parseResult == nil) {
 		return NO;
 	}
-	if (parseResult.libXMLFailed || [parseResult.errorsFatal count]) {
+	if (!parseResult.parsedDocument) {
 		return NO;
 	}
 	return YES;
@@ -81,12 +86,12 @@
 
 + (id)imageRepWithContentsOfFile:(NSString *)filename
 {
-	return [[self alloc] initWithPath:filename];
+	return [[self alloc] initWithContentsOfFile:filename];
 }
 
 + (id)imageRepWithContentsOfURL:(NSURL *)url
 {
-	return [[self alloc] initWithURL:url];
+	return [[self alloc] initWithContentsOfURL:url];
 }
 
 + (void)load
@@ -99,12 +104,12 @@
 	return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
 }
 
-- (id)initWithURL:(NSURL *)theURL
+- (id)initWithContentsOfURL:(NSURL *)theURL
 {
 	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
 }
 
-- (id)initWithPath:(NSString *)thePath
+- (id)initWithContentsOfFile:(NSString *)thePath
 {
 	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
 }
@@ -118,7 +123,7 @@
 {
 	if (self = [super init]) {
 		self.image = [[SVGKImage alloc] initWithSource:theSource];
-		if (self.image == nil || self.image.parseErrorsAndWarnings.libXMLFailed || [self.image.parseErrorsAndWarnings.errorsFatal count]) {
+		if (self.image == nil) {
 			return nil;
 		}
 		if (![self.image hasSize]) {
@@ -160,5 +165,30 @@
 	
 	return YES;
 }
+
+@end
+
+@implementation SVGKitImageRep (deprecated)
+
+#define DEPRECATE_WARN_ONCE(NewMethodSel) static BOOL HasBeenWarned = NO; \
+if(HasBeenWarned == NO) \
+{\
+fprintf(stderr, "SVGKitImageRep: %s has been deprecated, use %s instead", sel_getName(_cmd), sel_getName(NewMethodSel));\
+HasBeenWarned = YES;\
+}
+
+- (id)initWithPath:(NSString *)thePath
+{
+	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfPath:));
+	return [self initWithContentsOfFile:thePath];	
+}
+
+- (id)initWithURL:(NSURL *)theURL
+{
+	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfURL:));
+	return [self initWithContentsOfURL:theURL];
+}
+
+#undef DEPRECATE_WARN_ONCE
 
 @end

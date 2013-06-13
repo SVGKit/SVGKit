@@ -17,8 +17,8 @@
 + (id)imageRepWithContentsOfURL:(NSURL *)url;
 
 - (id)initWithData:(NSData *)theData;
-- (id)initWithURL:(NSURL *)theURL;
-- (id)initWithPath:(NSString *)thePath;
+- (id)initWithContentsOfURL:(NSURL *)theURL;
+- (id)initWithContentsOfFile:(NSString *)thePath;
 - (id)initWithSVGString:(NSString *)theString;
 - (NSData *)TIFFRepresentation;
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
