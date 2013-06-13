@@ -38,7 +38,8 @@
         extension = @"svg";
     }
 	
-	return [self.theBundle URLForResource:newName withExtension:extension];
+	NSURL *retURL = [self.theBundle URLForResource:newName withExtension:extension];
+	return retURL;
 }
 
 - (NSString*)fileName
@@ -51,7 +52,9 @@
         extension = @"svg";
     }
 	
-	return [manager displayNameAtPath:[self.theBundle pathForResource:newName ofType:extension]];
+	NSString *fullPath = [self.theBundle pathForResource:newName ofType:extension];
+	NSString *retShortName = [manager displayNameAtPath:fullPath];
+	return retShortName;
 }
 
 - (void)dealloc
