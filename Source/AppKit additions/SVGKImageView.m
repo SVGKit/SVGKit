@@ -55,4 +55,9 @@
 	[super dealloc];
 }
 
+- (BOOL)isFlipped
+{
+	return YES;
+}
+
 @end
