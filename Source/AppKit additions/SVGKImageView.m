@@ -48,4 +48,11 @@
     return nil;
 }
 
+- (void)dealloc
+{
+	self.image = nil;
+	
+	[super dealloc];
+}
+
 @end
