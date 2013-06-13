@@ -31,14 +31,27 @@
 
 - (NSURL*)svgURL
 {
-	return [[self.theBundle resourceURL] URLByAppendingPathComponent:self.fullFileName];
+	NSString *name = self.fullFileName;
+	NSString *newName = [name stringByDeletingPathExtension];
+	NSString *extension = [name pathExtension];
+    if ([@"" isEqualToString:extension]) {
+        extension = @"svg";
+    }
+	
+	return [self.theBundle URLForResource:newName withExtension:extension];
 }
 
 - (NSString*)fileName
 {
 	NSFileManager *manager = [NSFileManager defaultManager];
+	NSString *name = self.fullFileName;
+	NSString *newName = [name stringByDeletingPathExtension];
+	NSString *extension = [name pathExtension];
+    if ([@"" isEqualToString:extension]) {
+        extension = @"svg";
+    }
 	
-	return [manager displayNameAtPath:[[self.theBundle resourcePath] stringByAppendingPathComponent:self.fullFileName]];
+	return [manager displayNameAtPath:[self.theBundle pathForResource:newName ofType:extension]];
 }
 
 - (void)dealloc
