@@ -152,4 +152,9 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 	((SVGKLayer*)self.layer).showBorder = showBorder;
 }
 
+- (BOOL)isFlipped
+{
+	return YES;
+}
+
 @end
