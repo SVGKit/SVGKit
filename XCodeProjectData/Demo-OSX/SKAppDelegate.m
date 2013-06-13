@@ -59,15 +59,15 @@
 {
 	[SVGKit enableLogging];
 	
-	NSMutableArray *tmpArray = [NSMutableArray array];
-	NSString *pname;
-		
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
-
 	//The layered view comes with an SVG image, even when inited without one.
 	self.svgImage = self.layeredView.image;
 	
 	@autoreleasepool {
+		NSMutableArray *tmpArray = [NSMutableArray array];
+		NSString *pname;
+		
+		NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
+
 		while (pname = [dirEnum nextObject]) {
 			//Only look for SVGs that are in the resources folder, no deeper.
 			if ([[[dirEnum fileAttributes] objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
