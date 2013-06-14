@@ -281,18 +281,8 @@ static unsigned int numProcessors;
 	{
 		va_start(args, format);
 		
-		NSString *logMsg = [[NSString alloc] initWithFormat:format arguments:args];
-		DDLogMessage *logMessage = [[DDLogMessage alloc] initWithLogMsg:logMsg
-		                                                          level:level
-		                                                           flag:flag
-		                                                        context:context
-		                                                           file:file
-		                                                       function:function
-		                                                           line:line
-		                                                            tag:tag
-		                                                        options:0];
-		
-		[self queueLogMessage:logMessage asynchronously:asynchronous];
+		[self log:asynchronous level:level flag:flag context:context file:file
+		 function:function line:line tag:tag format:format args:args];
 		
 		va_end(args);
 	}
