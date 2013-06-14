@@ -24,7 +24,7 @@
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
 
-@property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
+@property (nonatomic, strong, readwrite) SVGKImage *image;
 @end
 
 @interface SVGKitImageRep (deprecated)
@@ -157,10 +157,12 @@
 	}
 	
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
-	CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
-	
-	[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		//We'll use this because it's probably faster, and we're drawing directly to the graphics context...
+		CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
+		
+		[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
 	} else {
+		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = self.image.NSImage;
 		if (!tmpImage) {
 			return NO;
@@ -184,11 +186,10 @@
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-fprintf(stderr, "SVGKitImageRep: %s has been deprecated, use %s instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
+fprintf(stderr, "[SVGKitImageRep %s] has been deprecated, use [SVGKitImageRep %s] instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
-} \
-
+}
 
 - (id)initWithPath:(NSString *)thePath
 {
