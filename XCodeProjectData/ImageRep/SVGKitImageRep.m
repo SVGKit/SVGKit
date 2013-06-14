@@ -155,13 +155,16 @@
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
 		[self.image scaleToFitInside:scaledSize];
 	}
-	
+#ifdef USERENDERTOCONTEXT
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing directly to the graphics context...
 		CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
+		CGContextSaveGState(tmpContext);
 		
 		[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		CGContextRestoreGState(tmpContext);
 	} else {
+#endif
 		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = self.image.NSImage;
 		if (!tmpImage) {
@@ -173,7 +176,9 @@
 		imageRect.origin = NSZeroPoint;
 		
 		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
+#ifdef USERENDERTOCONTEXT
 	}
+#endif
 	
 	return YES;
 }
