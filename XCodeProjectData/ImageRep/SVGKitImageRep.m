@@ -17,6 +17,10 @@
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 
+@interface SVGKImage ()
+-(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
+@end
+
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
 
@@ -152,16 +156,22 @@
 		[self.image scaleToFitInside:scaledSize];
 	}
 	
-	NSImage *tmpImage = self.image.NSImage;
-	if (!tmpImage) {
-		return NO;
+	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
+	CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
+	
+	[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+	} else {
+		NSImage *tmpImage = self.image.NSImage;
+		if (!tmpImage) {
+			return NO;
+		}
+		
+		NSRect imageRect;
+		imageRect.size = self.size;
+		imageRect.origin = NSZeroPoint;
+		
+		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
 	}
-	
-	NSRect imageRect;
-	imageRect.size = self.size;
-	imageRect.origin = NSZeroPoint;
-	
-	[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
 	
 	return YES;
 }
@@ -170,14 +180,15 @@
 
 @implementation SVGKitImageRep (deprecated)
 
-#define DEPRECATE_WARN_ONCE(NewMethodSel) {\
+#define DEPRECATE_WARN_ONCE(NewMethodSel) { \
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
-{\
-fprintf(stderr, "SVGKitImageRep: %s has been deprecated, use %s instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel));\
-HasBeenWarned = YES;\
-}\
-}
+{ \
+fprintf(stderr, "SVGKitImageRep: %s has been deprecated, use %s instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
+HasBeenWarned = YES; \
+} \
+} \
+
 
 - (id)initWithPath:(NSString *)thePath
 {

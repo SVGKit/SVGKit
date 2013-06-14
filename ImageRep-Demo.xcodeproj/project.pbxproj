@@ -97,8 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5534A7C6176AD321003FBEE2 /* SVGKit.framework in Frameworks */,
 				553D362C167025ED00F44DF2 /* Cocoa.framework in Frameworks */,
+				5534A7C6176AD321003FBEE2 /* SVGKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,10 +378,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/ImageRep-Demo-dchghpwbwzhasrfojeaunjtvadhc/Build/Products/Debug\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Prefix.pch";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
@@ -396,10 +392,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/ImageRep-Demo-dchghpwbwzhasrfojeaunjtvadhc/Build/Products/Debug\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Prefix.pch";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
@@ -434,10 +426,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/ImageRep-Demo-dchghpwbwzhasrfojeaunjtvadhc/Build/Products/Debug\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Prefix.pch";
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
