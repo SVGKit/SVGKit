@@ -136,7 +136,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	if (!path)
 	{
-		DDLogCWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
+		DDLogWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
 	}
 	

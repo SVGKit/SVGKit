@@ -522,9 +522,12 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	va_list va;
+	char errcStr[2048];
 	va_start(va, msg);
-	NSString *errStr = [[NSString alloc] initWithFormat:@(msg) arguments:va];
+	vsprintf(errcStr, msg, va);
 	va_end(va);
+	
+	NSString *errStr = [[NSString alloc] initWithUTF8String:errcStr];
 	DDLogCWarn(@"Error encountered during parse: %@", errStr);
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
@@ -684,7 +687,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	
 	if( styleAttribute == nil )
 	{
-		DDLogCWarn(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
+		DDLogWarn(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
 		return @{};
 	}
 	
