@@ -120,6 +120,8 @@
 		NSSavePanel *savePanel = [[NSSavePanel savePanel] retain];
 		[savePanel setTitle:@"Save TIFF data"];
 		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:(NSString*)kUTTypeTIFF]];
+		[savePanel setCanCreateDirectories:YES];
+		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {
 			NSData *tiffData = nil;
 #if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
