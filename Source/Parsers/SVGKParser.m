@@ -216,6 +216,9 @@ readPacket(char *mem, int size) {
 	
 	xmlFreeParserCtxt(ctx);
 	
+	//Release the parser from parserThatWasMostRecentlyStarted, as it is retained when set in ARC code
+	parserThatWasMostRecentlyStarted = nil;
+	
 	// 4. return result
 	return currentParseRun;
 }
