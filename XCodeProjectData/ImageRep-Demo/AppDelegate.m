@@ -8,6 +8,15 @@
 
 #import "AppDelegate.h"
 
+#define DONTUSESVGIMAGEREPDIRECTLY 1
+
+//This is done so we don't have to include the entire SVGKit Headers.
+@interface SVGKit : NSObject
+
++ (void) enableLogging;
+
+@end
+
 #ifndef DONTUSESVGIMAGEREPDIRECTLY
 #define DONTUSESVGIMAGEREPDIRECTLY 0
 #endif
@@ -57,6 +66,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	[SVGKit enableLogging];
 	NSBundle *SVGImageRepBundle;
 	NSURL *bundlesURL = [[NSBundle mainBundle] builtInPlugInsURL];
 	SVGImageRepBundle = [NSBundle bundleWithURL:[bundlesURL URLByAppendingPathComponent:@"SVGKImageRep.bundle"]];
