@@ -194,7 +194,7 @@
 #else
 	NSString *appName = [[NSProcessInfo processInfo] processName];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-	NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
 	NSString *logsDirectory = [[basePath stringByAppendingPathComponent:@"Logs"] stringByAppendingPathComponent:appName];
 
 #endif
@@ -992,7 +992,7 @@
 		
 	#else
 		
-		creationDate = [[self fileAttributes] objectForKey:NSFileCreationDate];
+		creationDate = [self fileAttributes][NSFileCreationDate];
 		
 	#endif
 		

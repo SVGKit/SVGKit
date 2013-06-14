@@ -527,7 +527,7 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	vsprintf(errcStr, msg, va);
 	va_end(va);
 	
-	NSString *errStr = [[NSString alloc] initWithUTF8String:errcStr];
+	NSString *errStr = @(errcStr);
 	DDLogCWarn(@"Error encountered during parse: %@", errStr);
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
