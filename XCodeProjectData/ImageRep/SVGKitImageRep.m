@@ -167,10 +167,12 @@
 	}
 	
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
-	CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
-	
-	[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		//We'll use this because it's probably faster, and we're drawing directly to the graphics context...
+		CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
+		
+		[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
 	} else {
+		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = self.image.NSImage;
 		if (!tmpImage) {
 			return NO;
