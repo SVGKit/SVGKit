@@ -194,11 +194,10 @@
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-fprintf(stderr, "SVGKitImageRep: %s has been deprecated, use %s instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
+fprintf(stderr, "[SVGKitImageRep %s] has been deprecated, use [SVGKitImageRep %s] instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
-} \
-
+}
 
 - (id)initWithPath:(NSString *)thePath
 {
