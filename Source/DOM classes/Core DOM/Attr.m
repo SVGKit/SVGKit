@@ -50,4 +50,9 @@
     return self;
 }
 
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@:%@, owner: %@, specified %@", self.name, self.value, self.ownerElement, self.specified ? @"Yes" : @"No"];
+}
+
 @end
