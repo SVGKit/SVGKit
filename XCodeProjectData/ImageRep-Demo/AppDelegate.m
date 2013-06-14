@@ -15,6 +15,8 @@
 #if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
 #else
 @interface SVGKitImageRep : NSImageRep
+- (NSData *)TIFFRepresentation;
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
 
 + (NSImageRep *)imageRepWithData:(NSData *)d;
 
@@ -98,5 +100,45 @@
 	[selectImage release];
 }
 
+- (IBAction)exportAsTIFF:(id)sender
+{
+	NSImage *theImage = [svgSelected image];
+	if (!theImage) {
+		NSBeep();
+		return;
+	} else {
+		NSSavePanel *savePanel = [[NSSavePanel savePanel] retain];
+		[savePanel setTitle:@"Save TIFF data"];
+		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:(NSString*)kUTTypeTIFF]];
+		if ([savePanel runModal] == NSOKButton) {
+			NSData *tiffData = nil;
+#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
+			tiffData = [theImage TIFFRepresentation];
+#else
+			NSArray *imageRepArrays = [theImage representations];
+			SVGKitImageRep *promising = nil;
+			NSSize oldSize = NSZeroSize;
+			for (id anObject in imageRepArrays) {
+				if ([anObject isKindOfClass:[[self class] imageRepClass]]) {
+					SVGKitImageRep *tmpRef = anObject;
+					if (oldSize.height < tmpRef.size.height && oldSize.width < tmpRef.size.width) {
+						promising = tmpRef;
+						oldSize = tmpRef.size;
+					}
+				}
+			}
+			if (promising) {
+				tiffData = [promising TIFFRepresentation];
+			}
+#endif
+			if (tiffData) {
+				[tiffData writeToURL:[savePanel URL] atomically:YES];
+			} else {
+				
+			}
+		}
+		[savePanel release];
+	}
+}
 
 @end

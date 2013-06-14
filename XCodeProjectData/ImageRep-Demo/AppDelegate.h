@@ -16,6 +16,6 @@
 @property (assign) IBOutlet NSWindow *window;
 
 - (IBAction)selectSVG:(id)sender;
-
+- (IBAction)exportAsTIFF:(id)sender;
 
 @end
