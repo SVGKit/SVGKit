@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		55CB78A4176BF56500BD97F1 /* All Mac Demos */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 55CB78A8176BF56500BD97F1 /* Build configuration list for PBXAggregateTarget "All Mac Demos" */;
+			buildPhases = (
+			);
+			dependencies = (
+				55CB78AA176BF56D00BD97F1 /* PBXTargetDependency */,
+				55CB78AC176BF56D00BD97F1 /* PBXTargetDependency */,
+			);
+			name = "All Mac Demos";
+			productName = "All Mac Demos";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		55CB7856176BE32C00BD97F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
 		55CB7878176BE36F00BD97F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB786E176BE36F00BD97F1 /* AppDelegate.m */; };
@@ -82,6 +97,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5540E66B17387C9F004029EF;
 			remoteInfo = SVGKit;
+		};
+		55CB78A9176BF56D00BD97F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55D8EE1C17628A71009C25F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D8EE2317628A71009C25F1;
+			remoteInfo = "Demo-OSX";
+		};
+		55CB78AB176BF56D00BD97F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55D8EE1C17628A71009C25F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55CB7854176BE32C00BD97F1;
+			remoteInfo = ImageRepTest;
 		};
 		55D8EE4817628B57009C25F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -465,6 +494,7 @@
 			targets = (
 				55D8EE2317628A71009C25F1 /* Demo-OSX */,
 				55CB7854176BE32C00BD97F1 /* ImageRepTest */,
+				55CB78A4176BF56500BD97F1 /* All Mac Demos */,
 			);
 		};
 /* End PBXProject section */
@@ -576,6 +606,16 @@
 			name = SVGKit;
 			targetProxy = 55CB7888176BE42900BD97F1 /* PBXContainerItemProxy */;
 		};
+		55CB78AA176BF56D00BD97F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D8EE2317628A71009C25F1 /* Demo-OSX */;
+			targetProxy = 55CB78A9176BF56D00BD97F1 /* PBXContainerItemProxy */;
+		};
+		55CB78AC176BF56D00BD97F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55CB7854176BE32C00BD97F1 /* ImageRepTest */;
+			targetProxy = 55CB78AB176BF56D00BD97F1 /* PBXContainerItemProxy */;
+		};
 		55D8EE4B17628B6E009C25F1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SVGKit;
@@ -641,6 +681,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -652,6 +693,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -715,8 +757,30 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
+			};
+			name = Inspect;
+		};
+		55CB78A5176BF56500BD97F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55CB78A6176BF56500BD97F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55CB78A7176BF56500BD97F1 /* Inspect */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Inspect;
 		};
@@ -843,6 +907,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		55CB78A8176BF56500BD97F1 /* Build configuration list for PBXAggregateTarget "All Mac Demos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55CB78A5176BF56500BD97F1 /* Debug */,
+				55CB78A6176BF56500BD97F1 /* Release */,
+				55CB78A7176BF56500BD97F1 /* Inspect */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		55D8EE1F17628A71009C25F1 /* Build configuration list for PBXProject "Demo-OSX" */ = {
 			isa = XCConfigurationList;
