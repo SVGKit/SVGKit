@@ -227,7 +227,6 @@
 				55CB786D176BE36F00BD97F1 /* AppDelegate.h */,
 				55CB786E176BE36F00BD97F1 /* AppDelegate.m */,
 				55CB7873176BE36F00BD97F1 /* MainMenu.xib */,
-				55CB7875176BE36F00BD97F1 /* main.m */,
 				55CB787E176BE38100BD97F1 /* Supporting Files */,
 			);
 			name = "ImageRep-Demo";
@@ -241,6 +240,7 @@
 				55CB7871176BE36F00BD97F1 /* InfoPlist.strings */,
 				55CB7876176BE36F00BD97F1 /* SVGKitImageRepTest-Info.plist */,
 				55CB7877176BE36F00BD97F1 /* SVGKitImageRepTest-Prefix.pch */,
+				55CB7875176BE36F00BD97F1 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
