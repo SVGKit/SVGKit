@@ -7,8 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SVGKit.h"
 
 int main(int argc, char *argv[])
 {
+	[SVGKit enableLogging];
+	
 	return NSApplicationMain(argc, (const char **)argv);
 }

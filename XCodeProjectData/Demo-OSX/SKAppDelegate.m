@@ -9,11 +9,6 @@
 #import "SKAppDelegate.h"
 #import "SKSVGObject.h"
 
-@interface SKAppDelegate ()
-@property (readwrite, retain) NSArray *svgArray;
-
-@end
-
 @implementation SKAppDelegate
 
 @synthesize svgImage = _svgImage;
@@ -57,8 +52,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	[SVGKit enableLogging];
-	
 	//The layered view comes with an SVG image, even when inited without one.
 	self.svgImage = self.layeredView.image;
 	
