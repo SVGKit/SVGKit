@@ -59,6 +59,7 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 	[parser addDefaultSVGParserExtensions];
 	
 	SVGKParseResult* result = [parser parseSynchronously];
+	
 	return result;
 }
 
@@ -81,7 +82,6 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 #define AddParser(clazz) { \
 clazz *parser = [[clazz alloc] init]; \
 [self addParserExtension:parser];\
-parser = nil; \
 }
 
 -(void) addDefaultSVGParserExtensions
