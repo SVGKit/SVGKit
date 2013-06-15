@@ -10,7 +10,7 @@
 #import "SKSVGObject.h"
 
 @interface SKAppDelegate ()
-@property (readwrite, retain) NSArray *svgArray;
+@property (readwrite, strong) NSArray *svgArray;
 
 @end
 
