@@ -9,6 +9,11 @@
 #import "SKAppDelegate.h"
 #import "SKSVGObject.h"
 
+@interface SKAppDelegate ()
+@property (readwrite, retain) NSArray *svgArray;
+
+@end
+
 @implementation SKAppDelegate
 
 @synthesize svgImage = _svgImage;
