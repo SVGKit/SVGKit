@@ -52,11 +52,10 @@
 			//self.backgroundColor = [UIColor clearColor];
 			[self setUpLayer];
 			
-			
 /**
  ************* NB: it is critical that the string we're about to create is NOT INDENTED - the tabs would break the parsing!
  */
-			NSString* svgStringDefaultContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
+			static NSString* const svgStringDefaultContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
 \n\
 <svg \
 xmlns:svg=\"http://www.w3.org/2000/svg\" \
