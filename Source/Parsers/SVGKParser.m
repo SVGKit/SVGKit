@@ -102,7 +102,7 @@ clazz *parser = [[clazz alloc] init]; \
 	
 	if( self.parserExtensions == nil )
 	{
-		self.parserExtensions = [NSMutableArray array];
+		self.parserExtensions = [[NSMutableArray alloc] init];
 	}
 	
 	if( [self.parserExtensions containsObject:extension])
@@ -115,14 +115,14 @@ clazz *parser = [[clazz alloc] init]; \
 	
 	if( self.parserKnownNamespaces == nil )
 	{
-		self.parserKnownNamespaces = [NSMutableDictionary dictionary];
+		self.parserKnownNamespaces = [[NSMutableDictionary alloc] init];
 	}
 	for( NSString* parserNamespace in extension.supportedNamespaces )
 	{
 		NSMutableArray* extensionsForNamespace = (self.parserKnownNamespaces)[parserNamespace];
 		if( extensionsForNamespace == nil )
 		{
-			extensionsForNamespace = [NSMutableArray array];
+			extensionsForNamespace = [[NSMutableArray alloc] init];
 			(self.parserKnownNamespaces)[parserNamespace] = extensionsForNamespace;
 		}
 		
