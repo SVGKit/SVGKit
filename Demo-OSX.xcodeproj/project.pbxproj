@@ -916,6 +916,7 @@
 				55CB78A7176BF56500BD97F1 /* Inspect */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55D8EE1F17628A71009C25F1 /* Build configuration list for PBXProject "Demo-OSX" */ = {
 			isa = XCConfigurationList;
