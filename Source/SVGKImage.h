@@ -104,6 +104,7 @@
 + (SVGKImage *)imageWithData:(NSData *)data;
 #endif
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
++ (SVGKImage *)defaultImage; //For a simple default image
 
 - (id)initWithContentsOfURL:(NSURL *)url;
 - (id)initWithContentsOfFile:(NSString *)path;
