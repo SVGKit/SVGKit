@@ -262,9 +262,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 #endif
-	
-//SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-	
+#if !TARGET_OS_IPHONE
+	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+#endif
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
     
