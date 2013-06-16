@@ -14,6 +14,8 @@
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 
+#import "BlankSVG.h"
+
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
 #else
@@ -105,6 +107,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 #endif
+
++ (SVGKImage *)defaultImage
+{
+	return [self imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
+}
 
 #pragma mark - Convenience initializers
 + (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle {

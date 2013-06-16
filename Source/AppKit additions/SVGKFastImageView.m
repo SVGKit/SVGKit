@@ -301,6 +301,11 @@
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
+			CGAffineTransform textTrans = CGContextGetTextMatrix(context);
+			//textTrans = CGAffineTransformTranslate(textTrans, 0, tileSize.height);
+			textTrans = CGAffineTransformScale(textTrans, 1.0, -1.0);
+			CGContextSetTextMatrix(context, textTrans);
+			
 			[self.image.CALayerTree renderInContext:context];
 			
 			CGContextRestoreGState(context);
