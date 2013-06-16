@@ -263,6 +263,7 @@
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
+			DDLogWarn(@"If the CALayer in %@ is not initialized correctly, text WILL be upside-down!", self.image);
 			[self.image.CALayerTree renderInContext:context];
 			
 			CGContextRestoreGState(context);
