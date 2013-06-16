@@ -1,4 +1,5 @@
 #import "SVGKFastImageView.h"
+#import "BlankSVG.h"
 
 #define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
 
@@ -70,6 +71,9 @@
 	if( im == nil )
 	{
 		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
+		NSString *svgtmpstr = SVGKsvgStringDefaultContents;
+		DDLogInfo(@"[%@] Using default SVG: %@", [self class], svgtmpstr);
+		im = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:svgtmpstr]];
 	}
 	
     self = [super init];
@@ -159,7 +163,10 @@
 	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
     
+	//The superclass will take care of this
+#if 0
 	self.image = nil;
+#endif
 	
     [super dealloc];
 }
