@@ -195,6 +195,8 @@
 		5540E819173887D9004029EF /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement.m */; };
 		557E69D3174014E4006B0029 /* SVGKCGFloatAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */; };
 		557E69D4174014E4006B0029 /* SVGKCGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */; };
+		55801825176E4D7800F64989 /* BlankSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 55801823176E4D7800F64989 /* BlankSVG.h */; };
+		55801826176E4D7800F64989 /* BlankSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 55801824176E4D7800F64989 /* BlankSVG.m */; };
 		55A5AD49175FEB94009F2FDD /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD48175FEB94009F2FDD /* SVGKit.m */; };
 		55A5AD5C175FEBB0009F2FDD /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD4C175FEBB0009F2FDD /* DDAbstractDatabaseLogger.h */; };
 		55A5AD5D175FEBB0009F2FDD /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD4D175FEBB0009F2FDD /* DDAbstractDatabaseLogger.m */; };
@@ -424,6 +426,8 @@
 		5540E817173887BE004029EF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
 		557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
+		55801823176E4D7800F64989 /* BlankSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlankSVG.h; path = Source/BlankSVG.h; sourceTree = SOURCE_ROOT; };
+		55801824176E4D7800F64989 /* BlankSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlankSVG.m; path = Source/BlankSVG.m; sourceTree = SOURCE_ROOT; };
 		5580EBDA1744B702005BE5AC /* SVGKit.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; name = SVGKit.exp; path = "XCodeProjectData/SVGKit-OSX/SVGKit.exp"; sourceTree = SOURCE_ROOT; };
 		55A5AD48175FEB94009F2FDD /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGKit.m; path = Source/SVGKit.m; sourceTree = SOURCE_ROOT; };
 		55A5AD4C175FEBB0009F2FDD /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -554,6 +558,8 @@
 				55A5AD48175FEB94009F2FDD /* SVGKit.m */,
 				5540E73E17387F2B004029EF /* SVGKSource.h */,
 				5540E73F17387F2B004029EF /* SVGKSource.m */,
+				55801823176E4D7800F64989 /* BlankSVG.h */,
+				55801824176E4D7800F64989 /* BlankSVG.m */,
 				5540E74917387F2B004029EF /* Unsorted */,
 			);
 			path = Source;
@@ -1003,6 +1009,7 @@
 				55A5AD68175FEBB0009F2FDD /* DispatchQueueLogFormatter.h in Headers */,
 				55A5AD6C175FEBF4009F2FDD /* ConverterSVGToCALayer.h in Headers */,
 				55A5AD8A1760037A009F2FDD /* CALayer+RecursiveClone.h in Headers */,
+				55801825176E4D7800F64989 /* BlankSVG.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1163,6 +1170,7 @@
 				55A5AD67175FEBB0009F2FDD /* ContextFilterLogFormatter.m in Sources */,
 				55A5AD69175FEBB0009F2FDD /* DispatchQueueLogFormatter.m in Sources */,
 				55A5AD8B1760037A009F2FDD /* CALayer+RecursiveClone.m in Sources */,
+				55801826176E4D7800F64989 /* BlankSVG.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,5 @@
 #import "SVGKFastImageView.h"
+#import "BlankSVG.h"
 
 #define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
 
@@ -70,6 +71,8 @@
 	if( im == nil )
 	{
 		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
+		DDLogInfo(@"[%@] Using default SVG: %@", [self class], SVGKsvgStringDefaultContents);
+		im = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
 	}
 	
     self = [super init];
@@ -158,8 +161,6 @@
 	[self removeObserver:self forKeyPath:@"image" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 	[self removeObserver:self forKeyPath:@"tileRatio" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 	[self removeObserver:self forKeyPath:@"showBorder" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-    
-	self.image = nil;
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
@@ -255,6 +256,7 @@
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
+			DDLogWarn(@"If the CALayer in %@ is not initialized correctly, text WILL be upside-down!", self.image);
 			[self.image.CALayerTree renderInContext:context];
 			
 			CGContextRestoreGState(context);
