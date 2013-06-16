@@ -50,7 +50,7 @@
 
 - (void)dealloc
 {
-	self.image = nil;
+	[_image release];
 	
 	[super dealloc];
 }
