@@ -2,10 +2,18 @@
 #import "BlankSVG.h"
 
 #define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
+#ifndef TEMPORARY_WARNING_FOR_FLIPPED_TEXT
+#define TEMPORARY_WARNING_FOR_FLIPPED_TEXT 1 // ONLY needed until we know how to fix the text.
+#endif
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 #import "SVGGradientElement.h"
 #endif
+
+#if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
+#import "SVGTextElement.h"
+#endif
+
 
 @implementation SVGKFastImageView
 {
@@ -15,15 +23,15 @@
 @synthesize tileRatio = _tileRatio;
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-+(BOOL) svgImageHasNoGradients:(SVGKImage*) image
+#if (TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD || TEMPORARY_WARNING_FOR_FLIPPED_TEXT)
++ (BOOL)svgImage:(SVGKImage*)theImage hasNoClass:(Class)theClass
 {
-	return [self svgElementAndDescendentsHaveNoGradients:image.DOMTree];
+	return [self svgElementAndDescendents:theImage.DOMTree haveNoClass:theClass];
 }
 
-+(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
++ (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
 {
-	if( [element isKindOfClass:[SVGGradientElement class]])
+	if( [element isKindOfClass:theClass])
 		return FALSE;
 	else
 	{
@@ -31,7 +39,7 @@
 		{
 			if( [n isKindOfClass:[SVGElement class]])
 			{
-				if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
+				if( [self svgElementAndDescendents:(SVGElement*)n haveNoClass:theClass])
 					;
 				else
 					return FALSE;
@@ -41,6 +49,30 @@
 	}
 	
 	return TRUE;
+}
+#endif
+
+#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
+{
+	return [self svgImage:image hasNoClass:[SVGGradientElement class]];
+}
+
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
+{
+	return [self svgElementAndDescendents:element haveNoClass:[SVGGradientElement class]];
+}
+#endif
+
+#if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
++ (BOOL)svgImageHasNoText:(SVGKImage*)image
+{
+	return [self svgImage:image hasNoClass:[SVGTextElement class]];
+}
+
++ (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element
+{
+	return [self svgElementAndDescendents:element haveNoClass:[SVGTextElement class]];
 }
 #endif
 
@@ -101,12 +133,23 @@
 - (void)setImage:(SVGKImage *)image {
 	
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-	BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:image];
-	if( !imageIsGradientFree )
-		DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
+	{
+		BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:image];
+		if( !imageIsGradientFree )
+			DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
+	}
 	
 	if( image.scale != 0.0f )
 		DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own transforms. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using scale: you SHOULD INSTEAD be scaling by setting .size on the image, and ensuring that the incoming SVG has either a viewbox or an explicit svg width or svg height)", [self class]);
+#endif
+	
+#if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
+	{
+		BOOL imageIsTextFree = [SVGKFastImageView svgImageHasNoText:image];
+		if (!imageIsTextFree) {
+			DDLogWarn(@"[%@] WARNING: There is currently a bug that makes text generated via newCALayerTree on the drawRect: method to be upside-down.", [self class]);
+		}
+	}
 #endif
 	
     if (self.image) {
@@ -263,11 +306,6 @@
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
-			static BOOL wasWarned = NO;
-			if (wasWarned == NO) {
-				DDLogWarn(@"If the CALayer in %@ is not initialized correctly, text WILL be upside-down!", self.image);
-				wasWarned = YES;
-			}
 			[self.image.CALayerTree renderInContext:context];
 			
 			CGContextRestoreGState(context);
