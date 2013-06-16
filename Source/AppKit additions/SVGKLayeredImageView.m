@@ -52,11 +52,9 @@
 		{
 			[self setUpLayer];
 			
-			NSString* svgStringDefaultContents = SVGKsvgStringDefaultContents;
+			DDLogInfo(@"About to make a blank image using the inlined SVG = %@", SVGKsvgStringDefaultContents);
 			
-			DDLogWarn(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
-			
-			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:svgStringDefaultContents]];
+			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
 			
 			((SVGKLayer*) self.layer).SVGImage = defaultBlankImage;
 		}
@@ -67,7 +65,6 @@
 		if (self)
 		{
 			[self setUpLayer];
-			//self.backgroundColor = [UIColor clearColor];
 			
 			((SVGKLayer*) self.layer).SVGImage = im;
 			

@@ -51,11 +51,9 @@
 		{
 			self.backgroundColor = [UIColor clearColor];
 			
-			NSString* svgStringDefaultContents = SVGKsvgStringDefaultContents;
+			DDLogInfo(@"About to make a blank image using the inlined SVG = %@", SVGKsvgStringDefaultContents);
 			
-			NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
-			
-			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:svgStringDefaultContents]];
+			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
 			
 			self.backgroundColor = [UIColor cyanColor];
 			
