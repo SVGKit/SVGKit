@@ -205,10 +205,7 @@
 	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
     
-	//The superclass will take care of this
-#if 0
 	self.image = nil;
-#endif
 	
     [super dealloc];
 }
