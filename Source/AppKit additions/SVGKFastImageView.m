@@ -32,7 +32,7 @@
 + (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
 {
 	if( [element isKindOfClass:theClass])
-		return FALSE;
+		return NO;
 	else
 	{
 		for( Node* n in element.childNodes )
@@ -42,13 +42,13 @@
 				if( [self svgElementAndDescendents:(SVGElement*)n haveNoClass:theClass])
 					;
 				else
-					return FALSE;
+					return NO;
 			}
 			
 		}
 	}
 	
-	return TRUE;
+	return YES;
 }
 #endif
 
