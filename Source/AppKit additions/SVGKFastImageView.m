@@ -55,7 +55,7 @@
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL) svgImageHasNoGradients:(SVGKImage*) image
 {
-	return [self svgImage:image hasNoClass:[SVGGradientElement class]];
+	return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGGradientElement class]];
 }
 
 +(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
@@ -67,7 +67,7 @@
 #if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
 + (BOOL)svgImageHasNoText:(SVGKImage*)image
 {
-	return [self svgImage:image hasNoClass:[SVGTextElement class]];
+	return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGTextElement class]];
 }
 
 + (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element
