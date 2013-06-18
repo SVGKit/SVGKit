@@ -275,7 +275,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)dealloc
 {	
-//SOMETIMES CRASHES IN APPLE CODE, MIGHT BE DUE TO SVGKImageCacheLine's instance counter:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
