@@ -17,8 +17,11 @@
  */
 @interface SVGKImageView : NSView
 
-@property(nonatomic,retain) SVGKImage* image;
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
+//@property(nonatomic,retain) SVGKImage* image;
+
+- (void)setImage:(SVGKImage*)image;
+- (SVGKImage *)image;
 
 - (id)initWithSVGKImage:(SVGKImage*) im;
 

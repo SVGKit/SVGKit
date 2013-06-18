@@ -23,5 +23,5 @@
  */
 
 @interface SVGKLayeredImageView : SVGKImageView
-
+@property(nonatomic) SVGKImage* image;
 @end
