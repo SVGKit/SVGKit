@@ -31,6 +31,7 @@
  */
 @interface SVGKFastImageView : SVGKImageView
 
+@property(nonatomic,retain) SVGKImage* image;
 @property(nonatomic) CGSize tileRatio;
 @property(nonatomic) BOOL disableAutoRedrawAtHighestResolution;
 
