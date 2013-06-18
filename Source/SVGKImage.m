@@ -708,7 +708,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 			DDLogVerbose(@"[%@] element id: %@ => layer: %@", [self class], subLayerID, subLayer);
 			
 			[self addSVGLayerTree:subLayer withIdentifier:subLayerID toDictionary:layersByID];
-			
 		}
 	}
 }
@@ -800,12 +799,19 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
+#if CGFLOAT_IS_DOUBLE
+#define ceilCG(val) ceil(val)
+#else
+#define ceilCG(val) ceilf(val)
+#endif
+	
 	NSAssert( [self hasSize], @"Cannot export this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
 	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
-	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
+	CGFloat cielWidth = ceilCG(self.size.width);
+	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, cielWidth, ceilCG(self.size.height), 8, 4 * cielWidth, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
 	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis: flipYaxis];
@@ -818,6 +824,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	CGContextRelease(context);
 	
 	return result;
+#undef ceilCG
 }
 
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
@@ -874,7 +881,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if ([self hasSize]) {
 		NSSize curSize = self.size;
-		NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:curSize.width pixelsHigh:curSize.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+		NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:ceil(curSize.width) pixelsHigh:ceil(curSize.height) bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
 		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
 		CGContextRef ctx = [NSctx graphicsPort];
 		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
