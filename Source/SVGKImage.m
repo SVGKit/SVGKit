@@ -23,17 +23,6 @@
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@interface SVGKImageCacheLine : NSObject
-@property(nonatomic) NSInteger numberOfInstances;
-@property(nonatomic,retain) SVGKImage* mainInstance;
-@end
-@implementation SVGKImageCacheLine
-@synthesize numberOfInstances;
-@synthesize mainInstance;
-@end
-#endif
-
 @interface SVGKImage ()
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
@@ -127,10 +116,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 			globalSVGKImageCache = [NSMutableDictionary new];
 		}
 		
-		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
-		if( cacheLine != nil )
+		SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
+		if( cacheImage != nil )
 		{
-			return cacheLine.mainInstance;
+			return cacheImage;
 		}
 	}
 #endif
@@ -157,12 +146,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		result->cameFromGlobalCache = TRUE;
 		result.nameUsedToInstantiate = name;
 		
-		SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
-		newCacheLine.mainInstance = result;
-		newCacheLine.numberOfInstances = 1;
-		
-		[globalSVGKImageCache setValue:newCacheLine forKey:name];
-		[newCacheLine release];
+		[globalSVGKImageCache setValue:result forKey:name];
 	}
 	else
 	{
@@ -276,30 +260,17 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if( self->cameFromGlobalCache )
 	{
-		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
-		cacheLine.numberOfInstances --;
 		NSString *instName = [self.nameUsedToInstantiate retain];
 		
 		[super release];
 		
-		if( cacheLine.numberOfInstances == 1 )
+		if( [self retainCount] == 1 )
 		{
 			[globalSVGKImageCache removeObjectForKey:instName];
 		}
 		[instName release];
 	} else [super release];
 }
-
-- (id)retain
-{
-	if( self->cameFromGlobalCache ) {
-		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
-		cacheLine.numberOfInstances ++;
-	}
-	
-	return [super retain];
-}
-
 #endif
 
 - (void)dealloc
