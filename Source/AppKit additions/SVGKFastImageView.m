@@ -20,6 +20,7 @@
 	NSString* internalContextPointerBecauseApplesDemandsIt;
 }
 
+@synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
@@ -151,15 +152,15 @@
 	}
 #endif
 	
-    if (self.image) {
-        [self.image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+    if (_image) {
+        [_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
     }
-	super.image = image;
+	_image = image;
     
     if( self.disableAutoRedrawAtHighestResolution )
         ;
     else
-        [self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 }
 
 -(void) addInternalRedrawOnResizeObservers

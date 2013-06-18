@@ -2,7 +2,7 @@
 
 @implementation SVGKImageView
 
-@synthesize image = _image;
+//@synthesize image = _image;
 @synthesize showBorder = _showBorder;
 
 - (id)init
@@ -15,6 +15,17 @@
 	}
 	else
 		return [super init];
+}
+
+- (void)setImage:(SVGKImage*)image
+{
+	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+}
+
+- (SVGKImage *)image
+{
+	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+	return nil;
 }
 
 -(id)initWithFrame:(NSRect)frame

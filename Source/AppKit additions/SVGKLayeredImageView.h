@@ -4,7 +4,7 @@
 #import "SVGKit.h"
 
 /**
- * SVGKit's ADVANCED version of UIImageView - for most cases, you want to use the simple version instead (SVGKImageView)
+ * SVGKit's ADVANCED version of NSImageView - for most cases, you want to use the simple version instead (SVGKImageView)
  
  This class is similar to SVGKImageView, but it DOES NOT HAVE the performance optimizations, and it WILL NOT AUTO-DRAW AT FULL RESOLUTION.
  
