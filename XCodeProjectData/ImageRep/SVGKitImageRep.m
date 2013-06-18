@@ -27,11 +27,6 @@
 @property (nonatomic, retain, readwrite) SVGKImage *image;
 @end
 
-@interface SVGKitImageRep (deprecated)
-- (id)initWithPath:(NSString *)thePath DEPRECATED_ATTRIBUTE;
-- (id)initWithURL:(NSURL *)theURL DEPRECATED_ATTRIBUTE;
-@end
-
 @implementation SVGKitImageRep
 
 - (NSData *)TIFFRepresentation
