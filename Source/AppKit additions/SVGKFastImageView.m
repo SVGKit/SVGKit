@@ -44,7 +44,6 @@
 				else
 					return NO;
 			}
-			
 		}
 	}
 	

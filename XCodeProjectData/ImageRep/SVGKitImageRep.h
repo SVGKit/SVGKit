@@ -24,3 +24,9 @@
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
 
 @end
+
+//Deprecated attributes: DO NOT USE
+@interface SVGKitImageRep (deprecated)
+- (id)initWithPath:(NSString *)thePath DEPRECATED_ATTRIBUTE;
+- (id)initWithURL:(NSURL *)theURL DEPRECATED_ATTRIBUTE;
+@end
