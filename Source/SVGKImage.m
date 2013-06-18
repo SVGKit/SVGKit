@@ -36,6 +36,7 @@
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, readwrite) BOOL willBeReleased;
 #endif
 
 /**
@@ -261,15 +262,18 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( self->cameFromGlobalCache )
 	{
 		NSString *instName = [self.nameUsedToInstantiate retain];
-		
+		BOOL isrelease = self.willBeReleased;
 		[super release];
-		
-		if( [self retainCount] == 1 )
-		{
-			[globalSVGKImageCache removeObjectForKey:instName];
+		if (!isrelease) {
+			if( [self retainCount] == 1 )
+			{
+				self.willBeReleased = YES;
+				[globalSVGKImageCache removeObjectForKey:instName];
+			}
 		}
 		[instName release];
-	} else [super release];
+	} else
+		[super release];
 }
 #endif
 
