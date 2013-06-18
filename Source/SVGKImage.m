@@ -284,9 +284,9 @@ static NSMutableDictionary* globalSVGKImageCache;
         }
     }
 #endif
-#if !TARGET_OS_IPHONE
-	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-#endif
+	
+//SOMETIMES CRASHES IN APPLE CODE, MIGHT BE DUE TO SVGKImageCacheLine's instance counter:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
     
