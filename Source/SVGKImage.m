@@ -847,56 +847,43 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 #else
 
-- (CGImageRef)newCGImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
-{
-	if( [self hasSize] )
-	{
-		CGSize curSize = self.size;
-		CGColorSpaceRef theSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-		CGContextRef bitCont = CGBitmapContextCreateWithData(NULL, curSize.width, curSize.height, 8, floor(curSize.width) * 4, theSpace, kCGImageAlphaPremultipliedFirst, NULL, NULL);
-		CGColorSpaceRelease(theSpace);
-		[self renderToContext:bitCont antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
-		CGImageRef cgImage = CGBitmapContextCreateImage(bitCont);
-		CGContextRelease(bitCont);
-		return cgImage;
-	} else {
-		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
-		
-		return NULL;
-	}
-}
-
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
-	if (cgImage == NULL) {
+	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (!imRep) {
 		return nil;
 	}
-	CIImage *result = [[CIImage alloc] initWithCGImage:cgImage];
-	CGImageRelease(cgImage);
+	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
 	return [result autorelease];
 }
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	CGImageRef cgImage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
-	if (cgImage == NULL) {
+	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	if (!imRep) {
 		return nil;
 	}
-	NSImage *result = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
-	CGImageRelease(cgImage);
-	return [result autorelease];
+	NSImage *retval = [[NSImage alloc] init];
+	[retval addRepresentation:imRep];
+	[retval setSize:self.size];
+	
+	return [retval autorelease];
 }
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	CGImageRef tmpimage = [self newCGImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
-	if (tmpimage == NULL) {
+	if ([self hasSize]) {
+		NSSize curSize = self.size;
+		NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:curSize.width pixelsHigh:curSize.height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+		CGContextRef ctx = [NSctx graphicsPort];
+		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
+		return [imageRep autorelease];
+	} else {
+		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+		
 		return nil;
 	}
-	NSBitmapImageRep *retval = [[NSBitmapImageRep alloc] initWithCGImage:tmpimage];
-	CGImageRelease(tmpimage);
-	return [retval autorelease];
 }
 
 #endif
