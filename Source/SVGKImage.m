@@ -130,7 +130,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
 		if( cacheLine != nil )
 		{
-			cacheLine.numberOfInstances ++;
 			return cacheLine.mainInstance;
 		}
 	}
@@ -160,6 +159,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
 		newCacheLine.mainInstance = result;
+		newCacheLine.numberOfInstances = 1;
 		
 		[globalSVGKImageCache setValue:newCacheLine forKey:name];
 		[newCacheLine release];
@@ -270,21 +270,40 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
-- (void)dealloc
-{
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( self->cameFromGlobalCache )
-    {
-        SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
-        cacheLine.numberOfInstances --;
-        
-        if( cacheLine.numberOfInstances < 1 )
-        {
-            [globalSVGKImageCache removeObjectForKey:self.nameUsedToInstantiate];
-        }
-    }
-#endif
+//We use these methods to better keep track of the number of instances
+- (oneway void)release
+{
+	if( self->cameFromGlobalCache )
+	{
+		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
+		cacheLine.numberOfInstances --;
+		NSString *instName = [self.nameUsedToInstantiate retain];
+		
+		[super release];
+		
+		if( cacheLine.numberOfInstances == 1 )
+		{
+			[globalSVGKImageCache removeObjectForKey:instName];
+		}
+		[instName release];
+	} else [super release];
+}
+
+- (id)retain
+{
+	if( self->cameFromGlobalCache ) {
+		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
+		cacheLine.numberOfInstances ++;
+	}
 	
+	return [super retain];
+}
+
+#endif
+
+- (void)dealloc
+{	
 //SOMETIMES CRASHES IN APPLE CODE, MIGHT BE DUE TO SVGKImageCacheLine's instance counter:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	
     self.source = nil;
