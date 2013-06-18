@@ -52,13 +52,6 @@
  
  */
 
-#include <AvailabilityMacros.h>
-#if !TARGET_OS_IPHONE
-#define Comment AIFFComment
-#include <CoreServices/CoreServices.h>
-#undef Comment
-#endif
-
 #import <Foundation/Foundation.h>
 
 /** ObjectiveC won't allow this: @class Node; */
