@@ -8,6 +8,63 @@
 
 #import "SKSVGObject.h"
 
+
+@implementation SKSVGObject
+
+- (NSURL *)svgURL
+{
+	if ([self isKindOfClass:[SKSVGObject class]]) {
+		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
+	}else {
+		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
+	}
+	return nil;
+}
+
+- (NSString *)fileName
+{
+	if ([self isKindOfClass:[SKSVGObject class]]) {
+		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
+	}else {
+		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
+	}
+	return nil;
+}
+
+- (NSString *)fullFileName
+{
+	if ([self isKindOfClass:[SKSVGObject class]]) {
+		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
+	}else {
+		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
+	}
+	return nil;
+}
+
+- (BOOL)isEqualURL:(NSURL*)theURL
+{
+	id dat1, dat2;
+	BOOL bothareValid = YES;
+	BOOL theSame = NO;
+	if (![[self svgURL] getResourceValue:&dat1 forKey:NSURLFileResourceIdentifierKey error:NULL]) {
+		bothareValid = NO;
+	}
+	if (![theURL getResourceValue:&dat2 forKey:NSURLFileResourceIdentifierKey error:NULL]) {
+		bothareValid = NO;
+	}
+	if (bothareValid) {
+		theSame = [dat1 isEqual:dat2];
+	}
+	return theSame;
+}
+
+- (NSUInteger)hash
+{
+	return [[[self svgURL] absoluteURL] hash];
+}
+
+@end
+
 @interface SKSVGBundleObject ()
 @property (readwrite, copy) NSString* fullFileName;
 @property (retain) NSBundle *theBundle;
@@ -57,6 +114,18 @@
 	return retShortName;
 }
 
+- (BOOL)isEqual:(id)object
+{
+	if ([object isKindOfClass:[SKSVGBundleObject class]]) {
+		SKSVGBundleObject* bundObj = object;
+		return [bundObj.fullFileName isEqualToString:self.fullFileName] && [bundObj.theBundle isEqual:self.theBundle];
+	} else if ([object conformsToProtocol:@protocol(SKSVGObject)] || [object isKindOfClass:[SKSVGObject class]]) {
+		return [self isEqualURL:[object svgURL]];
+	} else {
+		return NO;
+	}
+}
+
 - (void)dealloc
 {
 	self.fullFileName = nil;
@@ -102,6 +171,15 @@
 - (NSString*)fullFileName
 {
 	return [self.svgURL lastPathComponent];
+}
+
+- (BOOL)isEqual:(id)object
+{
+	if (/*[object isKindOfClass:[SKSVGURLObject class]] ||*/ [object conformsToProtocol:@protocol(SKSVGObject)] || [object isKindOfClass:[SKSVGObject class]]) {
+		return [self isEqualURL:[object svgURL]];
+	} else {
+		return NO;
+	}
 }
 
 - (void)dealloc
