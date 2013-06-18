@@ -7,6 +7,7 @@
  };
 */
 
+//Include this code snippet on OS X to get the source code that includes SVGKit headers to work
 #include <AvailabilityMacros.h>
 #if !TARGET_OS_IPHONE
 #define Comment AIFFComment
