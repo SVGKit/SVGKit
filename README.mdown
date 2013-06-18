@@ -108,6 +108,10 @@ or load an image and convert it to an NSImage or NSBitmapImageRep object
     NSImage *newImage = [SVGKImage imageNamed:@"mySVGfile"].NSImage;
     NSBitmapImageRep *newImageRep = [SVGKImage imageNamed:@"mySVGfile"].bitmapImageRep;
 
+Note that there is a naming conflict with one of OS X's headers, specifically a struct called *Comment* in the AIFF header. The following code _must be included in any source file that will include SVGKit headers, *before* any other header includes. A good place to put it would be in the prefix header._
+    #define Comment AIFFComment
+    #include <CoreServices/CoreServices.h>
+    #undef Comment
 
 ## Usage - OS X
 
