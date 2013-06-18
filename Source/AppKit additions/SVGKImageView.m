@@ -19,12 +19,12 @@
 
 - (void)setImage:(SVGKImage*)image
 {
-	DDLogError(@"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
 }
 
 - (SVGKImage *)image
 {
-	DDLogError(@"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
 	return nil;
 }
 
