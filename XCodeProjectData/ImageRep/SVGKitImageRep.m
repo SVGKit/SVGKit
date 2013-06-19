@@ -203,7 +203,10 @@
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-fprintf(stderr, "[SVGKitImageRep %s] has been deprecated, use [SVGKitImageRep %s] instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
+NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease]; \
+[formatter setFormatterBehavior:NSDateFormatterBehavior10_4]; \
+[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];\
+fprintf(stderr, "%s SVGKImageRep: -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
 }
@@ -211,7 +214,7 @@ HasBeenWarned = YES; \
 - (id)initWithPath:(NSString *)thePath
 {
 	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfPath:));
-	return [self initWithContentsOfFile:thePath];	
+	return [self initWithContentsOfFile:thePath];
 }
 
 - (id)initWithURL:(NSURL *)theURL

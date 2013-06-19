@@ -95,7 +95,7 @@
 	[op release];
 #else
 	NSImage *selectImage = [[NSImage alloc] init];
-	SVGKitImageRep *imRep = [[[[self class] imageRepClass] alloc] initWithURL:svgUrl];
+	SVGKitImageRep *imRep = [[(SVGKitImageRep*)[[self class] imageRepClass] alloc] initWithURL:svgUrl];
 	[op release];
 	if (!imRep) {
 		[selectImage release];
