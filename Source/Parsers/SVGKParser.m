@@ -677,18 +677,15 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		const char *end = (const char *) attrs[i + 4];
 		long vlen = strlen(begin) - strlen(end);
 		
-		char val[vlen + 1];
-		strncpy(val, begin, vlen);
-		val[vlen] = '\0';
-		
 		NSString* localName = NSStringFromLibxmlString(attrs[i]);
 		NSString* prefix = NSStringFromLibxmlString(attrs[i+1]);
 		NSString* uri = NSStringFromLibxmlString(attrs[i+2]);
-		NSString* value = [NSString stringWithUTF8String:val];
+		NSString* value = [[NSString alloc] initWithBytes:begin length:vlen encoding:NSUTF8StringEncoding];
 		
 		NSString* qname = (prefix == nil) ? localName : [NSString stringWithFormat:@"%@:%@", prefix, localName];
 		
 		Attr* newAttribute = [[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value];
+		[value release];
 		
 		[dict setObject:newAttribute
 				 forKey:qname];
