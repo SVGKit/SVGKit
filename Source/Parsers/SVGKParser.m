@@ -51,8 +51,6 @@ static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
-static SVGKParser *parserThatWasMostRecentlyStarted;
-
 + (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
 {
 	SVGKParser *parser = [[SVGKParser alloc] initWithSource:source];
@@ -157,7 +155,6 @@ readPacket(char *mem, int size) {
 	self.currentParseRun = [[SVGKParseResult new] autorelease];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
-	parserThatWasMostRecentlyStarted = self;
 	
 	/*
 	 // 1. while (source has chunks of BYTES)
@@ -178,8 +175,7 @@ readPacket(char *mem, int size) {
 	char buff[READ_CHUNK_SZ];
 	
 	xmlParserCtxtPtr ctx;
-	ctx = xmlCreatePushParserCtxt(&SAXHandler, NULL, NULL, 0, NULL); // NEVER pass anything except NULL in second arg - libxml has a massive bug internally
-	
+	ctx = xmlCreatePushParserCtxt(&SAXHandler, self, NULL, 0, NULL);	
 	/* 
 	 DDLogVerbose(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
 	 xmlSubstituteEntitiesDefault(1);
@@ -373,7 +369,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
 	
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = ctx;
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
@@ -507,7 +503,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = ctx;
 	
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
@@ -521,13 +517,13 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
 {
-    SVGKParser *self = parserThatWasMostRecentlyStarted;
+    SVGKParser *self = ctx;
 	
 	[self handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = ctx;
 	
 	[self handleFoundCharacters:chars length:len];
 }
@@ -541,7 +537,7 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	
 	NSString *errStr = [[NSString alloc] initWithUTF8String:errcStr];
 	DDLogCWarn(@"Error encountered during parse: %@", errStr);
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = ctx;
 	SVGKParseResult* parseResult = self.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																				  errStr, NSLocalizedDescriptionKey,
@@ -583,7 +579,7 @@ static void structuredError		(void * userData,
 	
 	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
 	
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = userData;
 	SVGKParseResult* parseResult = self.currentParseRun;
 	switch( errorLevel )
 	{
