@@ -87,7 +87,7 @@
 		NSObject <SKSVGObject> *tmpObj = [self.svgArray objectAtIndex:selRow];
 		SVGKImage *theImage = nil;
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
-			theImage = [[SVGKImage imageNamed:tmpObj.fullFileName] retain];
+			theImage = [SVGKImage imageNamed:tmpObj.fullFileName];
 		} else {
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
 		}
