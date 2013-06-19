@@ -148,10 +148,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
     
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if ([[NSBundle mainBundle] isEqual:bundle]) {
-		SVGKImage *cachedImage = [SVGKImageCached imageNamed:name fromBundle:bundle];
-		if (cachedImage) {
-			return cachedImage;
-		}
+		return [SVGKImageCached imageNamed:name fromBundle:bundle];
 	}
 #endif
 		
