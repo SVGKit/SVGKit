@@ -23,15 +23,6 @@
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@interface SVGKImageCacheLine : NSObject
-@property(nonatomic,strong) SVGKImage* mainInstance;
-@end
-@implementation SVGKImageCacheLine
-@synthesize mainInstance;
-@end
-#endif
-
 @interface SVGKImage ()
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
@@ -125,10 +116,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 			globalSVGKImageCache = [NSMutableDictionary new];
 		}
 		
-		SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
-		if( cacheLine != nil )
+		SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
+		if( cacheImage != nil )
 		{
-			return cacheLine.mainInstance;
+			return cacheImage;
 		}
 	}
 #endif
@@ -155,10 +146,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		result->cameFromGlobalCache = TRUE;
 		result.nameUsedToInstantiate = name;
 		
-		SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
-		newCacheLine.mainInstance = result;
-		
-		[globalSVGKImageCache setValue:newCacheLine forKey:name];
+		[globalSVGKImageCache setValue:result forKey:name];
 	}
 	else
 	{
@@ -266,12 +254,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 - (void)dealloc
-{
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-#endif
-#if !TARGET_OS_IPHONE
+{	
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-#endif
+	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
     

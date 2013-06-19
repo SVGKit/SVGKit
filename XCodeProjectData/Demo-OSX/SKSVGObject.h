@@ -16,7 +16,11 @@
 
 @end
 
-@interface SKSVGBundleObject : NSObject <SKSVGObject>
+@interface SKSVGObject : NSObject <SKSVGObject>
+
+@end
+
+@interface SKSVGBundleObject : SKSVGObject <SKSVGObject>
 
 @property (readonly, copy) NSString* fullFileName;
 - (id)initWithName:(NSString *)theName;
@@ -24,7 +28,7 @@
 
 @end
 
-@interface SKSVGURLObject : NSObject <SKSVGObject>
+@interface SKSVGURLObject : SKSVGObject <SKSVGObject>
 
 @property (strong, readonly) NSURL *svgURL;
 

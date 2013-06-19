@@ -84,7 +84,13 @@
 	NSTableView *tmpView = [notification object];
 	NSInteger selRow = [tmpView selectedRow];
 	if (selRow > -1 && selRow < [self.svgArray count]) {
-		SVGKImage *theImage = [[SVGKImage alloc] initWithContentsOfURL:[[self.svgArray objectAtIndex:selRow] svgURL]];
+		NSObject <SKSVGObject> *tmpObj = [self.svgArray objectAtIndex:selRow];
+		SVGKImage *theImage = nil;
+		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
+			theImage = [[SVGKImage imageNamed:tmpObj.fullFileName] retain];
+		} else {
+			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
+		}
 		self.svgImage = theImage;
 	}else NSBeep();
 	if (![self.layeredWindow isVisible]) {
