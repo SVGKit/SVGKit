@@ -725,12 +725,15 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 	if( CALayerTree == nil )
 	{
 		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		CALayer *newLayerTree = [self newCALayerTree];
-		self.CALayerTree = newLayerTree;
-		[newLayerTree release];
+		self.CALayerTree = [[self newCALayerTree] autorelease];
 	}
 	
 	return CALayerTree;
+}
+
+- (BOOL)hasCALayerTree
+{
+	return !!CALayerTree;
 }
 
 

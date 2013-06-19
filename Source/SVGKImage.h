@@ -226,6 +226,8 @@
  */
 - (CALayer *)newCALayerTree;
 
+- (BOOL)hasCALayerTree;
+
 /*! uses the current .CALayerTree property to find the layer, recursing down the tree (or creates a new
  CALayerTree on demand, and caches it)
  
