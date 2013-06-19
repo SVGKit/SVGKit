@@ -150,18 +150,22 @@
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
 		[self.image scaleToFitInside:scaledSize];
 	}
-#ifdef USERENDERTOCONTEXT
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
-		//We'll use this because it's probably faster, and we're drawing directly to the graphics context...
-		[NSGraphicsContext saveGraphicsState];
-		CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
-		CGContextSaveGState(tmpContext);
+		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
+		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
+		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, self.size, NULL);
+		if (!layerRef) {
+			return NO;
+		}
 		
-		[self.image renderToContext:tmpContext antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
-		CGContextRestoreGState(tmpContext);
-		[NSGraphicsContext restoreGraphicsState];
+		CGContextRef layerCont = CGLayerGetContext(layerRef);
+		CGContextSaveGState(layerCont);
+		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		CGContextRestoreGState(layerCont);
+		
+		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
+		CGLayerRelease(layerRef);
 	} else {
-#endif
 		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = self.image.NSImage;
 		if (!tmpImage) {
@@ -173,9 +177,7 @@
 		imageRect.origin = NSZeroPoint;
 		
 		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
-#ifdef USERENDERTOCONTEXT
 	}
-#endif
 	
 	return YES;
 }
@@ -188,7 +190,10 @@
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-fprintf(stderr, "[SVGKitImageRep %s] has been deprecated, use [SVGKitImageRep %s] instead.\n", sel_getName(_cmd), sel_getName(NewMethodSel)); \
+NSDateFormatter *formatter = [[NSDateFormatter alloc] init]; \
+[formatter setFormatterBehavior:NSDateFormatterBehavior10_4]; \
+[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];\
+fprintf(stderr, "%s SVGKImageRep: -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
 }
@@ -196,7 +201,7 @@ HasBeenWarned = YES; \
 - (id)initWithPath:(NSString *)thePath
 {
 	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfPath:));
-	return [self initWithContentsOfFile:thePath];	
+	return [self initWithContentsOfFile:thePath];
 }
 
 - (id)initWithURL:(NSURL *)theURL
