@@ -508,7 +508,7 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
-- (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {	
+- (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
 	NSString *stringToAppend = [[NSString alloc] initWithBytes:chars length:len encoding:NSUTF8StringEncoding];
 	
 	[_storedChars appendString:stringToAppend];
