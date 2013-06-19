@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55247B1A173DA85200531BBC /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73C17387F2B004029EF /* SVGKImage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		55247B1A173DA85200531BBC /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73C17387F2B004029EF /* SVGKImage.m */; };
 		55247B22173DB63B00531BBC /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */; };
 		55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B20173DB63B00531BBC /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };

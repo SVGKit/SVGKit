@@ -40,13 +40,13 @@
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
 
-@property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, strong, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readwrite) SVGKSource* source;
+@property (nonatomic, strong, readwrite) SVGKSource* source;
 
-@property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readwrite) CALayer* CALayerTree;
+@property (nonatomic, strong, readwrite) SVGDocument* DOMDocument;
+@property (nonatomic, strong, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, strong, readwrite) CALayer* CALayerTree;
 
 /**
  Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
@@ -179,14 +179,14 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-		return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+		return [[[self class] alloc] initWithContentsOfURL:url];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
     @synchronized(self) {
-		return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+		return [[[self class] alloc] initWithContentsOfFile:aPath];
     }
 }
 
@@ -194,7 +194,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-		return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
+		return [(SVGKImage*)[[self class] alloc] initWithSource:newSource];
     }
 }
 
@@ -231,7 +231,6 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 		if ( self.DOMDocument == nil )
 		{
 			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
-			[self autorelease];
 			return nil;
 		}
 		
@@ -271,15 +270,6 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 - (void)dealloc
 {
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
-	
-    self.source = nil;
-    self.parseErrorsAndWarnings = nil;
-    
-    self.DOMDocument = nil;
-	self.DOMTree = nil;
-	self.CALayerTree = nil;
-	
-	[super dealloc];
 }
 
 //TODO mac alternatives to UIKit functions
@@ -598,7 +588,6 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
             }
 			
 			[layer addSublayer:sublayer];
-			[sublayer release];
 		}
 	}
 	
@@ -662,7 +651,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 	if( CALayerTree == nil )
 	{
 		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		self.CALayerTree = [[self newCALayerTree] autorelease];
+		self.CALayerTree = [self newCALayerTree];
 	}
 	
 	return CALayerTree;
@@ -844,7 +833,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 		return nil;
 	}
 	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
-	return [result autorelease];
+	return result;
 }
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -857,7 +846,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 	[retval addRepresentation:imRep];
 	[retval setSize:self.size];
 	
-	return [retval autorelease];
+	return retval;
 }
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -868,7 +857,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
 		CGContextRef ctx = [NSctx graphicsPort];
 		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
-		return [imageRep autorelease];
+		return imageRep;
 	} else {
 		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 		

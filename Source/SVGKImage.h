@@ -55,9 +55,7 @@
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 
-#ifndef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
-#endif
+#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 0 // It's a bit hard to do this with ARC code
 
 @class SVGDefsElement;
 
@@ -75,12 +73,12 @@
 @property (unsafe_unretained, nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
 
-@property (nonatomic, retain, readonly) SVGKSource* source;
-@property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, strong, readonly) SVGKSource* source;
+@property (nonatomic, strong, readonly) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readonly) CALayer* CALayerTree;
+@property (nonatomic, strong, readonly) SVGDocument* DOMDocument;
+@property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, strong, readonly) CALayer* CALayerTree;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
