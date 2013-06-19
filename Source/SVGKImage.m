@@ -733,6 +733,11 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 	return CALayerTree;
 }
 
+- (BOOL)hasCALayerTree
+{
+	return !!CALayerTree;
+}
+
 
 - (void) addSVGLayerTree:(CALayer*) layer withIdentifier:(NSString*) layerID toDictionary:(NSMutableDictionary*) layersByID
 {
