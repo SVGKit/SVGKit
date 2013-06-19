@@ -8,6 +8,7 @@
 
 #import "SKAppDelegate.h"
 #import "SKSVGObject.h"
+#import "SVGKit.h"
 
 @interface SKAppDelegate ()
 @property (readwrite, strong) NSArray *svgArray;
@@ -100,6 +101,11 @@
 	if (![self.quickWindow isVisible]) {
 		[self.quickWindow orderFront:nil];
 	}
+}
+
+- (IBAction)clearSVGCache:(id)sender
+{
+	[SVGKImage clearSVGImageCache];
 }
 
 @end

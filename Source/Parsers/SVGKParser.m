@@ -579,7 +579,6 @@ static void structuredError		(void * userData,
         default:
             break;
 	}
-	
 }
 
 static xmlSAXHandler SAXHandler = {
