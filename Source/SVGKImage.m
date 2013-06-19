@@ -80,22 +80,40 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 +(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
 {
-	DDLogCWarn(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
-	
-	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+	if (globalSVGKImageCache) {
+		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
+		
+		[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+	} else {
+		DDLogWarn(@"[%@] Low-mem, but no cache to purge...", self);
+	}
 }
 #else
 
 + (void)clearSVGImageCache
 {
-	[globalSVGKImageCache removeAllObjects];
+	if (globalSVGKImageCache) {
+		DDLogInfo(@"[%@] Purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
+		[globalSVGKImageCache removeAllObjects];
+	}
 }
 
 #endif
 
 + (void)removeSVGImageCacheNamed:(NSString*)theName
 {
-	[globalSVGKImageCache removeObjectForKey:theName];
+	if (globalSVGKImageCache) {
+		[globalSVGKImageCache removeObjectForKey:theName];
+	}
+}
+
++ (NSArray*)storedCacheNames
+{
+	if (globalSVGKImageCache) {
+		return [globalSVGKImageCache allKeys];
+	} else {
+		return [NSArray array];
+	}
 }
 
 #endif
