@@ -851,13 +851,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 @implementation SVGKImageCached
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiateReal;
 
-- (void)dealloc
-{
-	self.nameUsedToInstantiate = nil;
-	
-	[super dealloc];
-}
-
 + (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle
 {
 	NSAssert([bundle isEqual:[NSBundle mainBundle]], @"This should only be called to get images from the main bundle!");
