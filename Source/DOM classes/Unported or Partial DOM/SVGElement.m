@@ -188,7 +188,6 @@
 	if ( [self getAttributeNode:@"style"] )
 	{
 		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
-
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])

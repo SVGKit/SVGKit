@@ -11,7 +11,6 @@
 @synthesize implementation;
 @synthesize documentElement;
 
-
 - (void)dealloc {
 	[doctype release];
 	[implementation release];

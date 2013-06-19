@@ -29,17 +29,17 @@ static NSDictionary *elementMap = nil;
 		if (!elementMap) {
 			elementMap = [[NSDictionary alloc] initWithObjectsAndKeys:
 						  [SVGSVGElement class], @"svg",
-                          [SVGCircleElement class], @"circle",
-                          [SVGDescriptionElement class], @"description",
-                          [SVGEllipseElement class], @"ellipse",
-                          [SVGGElement class], @"g",
-                          [SVGImageElement class], @"image",
-                          [SVGLineElement class], @"line",
-                          [SVGPathElement class], @"path",
-                          [SVGPolygonElement class], @"polygon",
-                          [SVGPolylineElement class], @"polyline",
-                          [SVGRectElement class], @"rect",
-                          [SVGTitleElement class], @"title",
+						  [SVGCircleElement class], @"circle",
+						  [SVGDescriptionElement class], @"description",
+						  [SVGEllipseElement class], @"ellipse",
+						  [SVGGElement class], @"g",
+						  [SVGImageElement class], @"image",
+						  [SVGLineElement class], @"line",
+						  [SVGPathElement class], @"path",
+						  [SVGPolygonElement class], @"polygon",
+						  [SVGPolylineElement class], @"polyline",
+						  [SVGRectElement class], @"rect",
+						  [SVGTitleElement class], @"title",
 						  [SVGTextElement class], @"text",
 						  nil];
 		}
