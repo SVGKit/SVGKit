@@ -804,7 +804,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"${inherited}",
-					DONTUSESVGIMAGEREPDIRECTLY,
+					"DONTUSESVGIMAGEREPDIRECTLY=1",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
@@ -820,7 +820,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"${inherited}",
-					DONTUSESVGIMAGEREPDIRECTLY,
+					"DONTUSESVGIMAGEREPDIRECTLY=1",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
@@ -836,7 +836,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"${inherited}",
-					DONTUSESVGIMAGEREPDIRECTLY,
+					"DONTUSESVGIMAGEREPDIRECTLY=1",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
