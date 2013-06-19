@@ -512,12 +512,11 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
-- (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
-	char value[len + 1];
-	strncpy(value, (const char *) chars, len);
-	value[len] = '\0';
+- (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {	
+	NSString *stringToAppend = [[NSString alloc] initWithBytes:chars length:len encoding:NSUTF8StringEncoding];
 	
-	[_storedChars appendString:[NSString stringWithUTF8String:value]];
+	[_storedChars appendString:stringToAppend];
+	[stringToAppend release];
 }
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
