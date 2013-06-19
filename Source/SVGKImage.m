@@ -756,15 +756,16 @@ static NSMutableDictionary* globalSVGKImageCache;
 	DDLogVerbose(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
 	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
-	CGFloat cielWidth = ceilCG(self.size.width);
-	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, cielWidth, ceilCG(self.size.height), 8, 4 * cielWidth, colorSpace, kCGImageAlphaNoneSkipLast );
+	CGFloat ceilWidth = ceilCG(self.size.width);
+	CGFloat ceilHeight = ceilCG(self.size.height);
+	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, ceilWidth, ceilHeight, 8, 4 * ceilWidth, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
 	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis: flipYaxis];
 	
 	void* resultAsVoidStar = CGBitmapContextGetData(context);
 	
-	size_t dataSize = 4 * self.size.width * self.size.height; // RGBA = 4 8-bit components
+	size_t dataSize = 4 * ceilWidth * ceilHeight; // RGBA = 4 8-bit components
     NSData* result = [NSData dataWithBytes:resultAsVoidStar length:dataSize];
 	
 	CGContextRelease(context);
