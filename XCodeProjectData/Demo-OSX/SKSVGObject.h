@@ -22,7 +22,7 @@
 
 @interface SKSVGBundleObject : SKSVGObject <SKSVGObject>
 
-@property (strong, readonly) NSBundle *theBundle;
+@property (readonly, strong) NSBundle *theBundle;
 @property (readonly, copy) NSString* fullFileName;
 - (id)initWithName:(NSString *)theName;
 - (id)initWithName:(NSString *)theName bundle:(NSBundle*)aBundle;
