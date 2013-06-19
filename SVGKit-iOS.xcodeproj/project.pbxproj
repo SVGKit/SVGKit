@@ -199,7 +199,7 @@
 		66E864151688C2780059C9C4 /* SVGKLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8638A1688C2780059C9C4 /* SVGKLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E864161688C2780059C9C4 /* SVGKLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8638B1688C2780059C9C4 /* SVGKLayer.m */; };
 		66E864171688C2780059C9C4 /* SVGKImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8638C1688C2780059C9C4 /* SVGKImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66E864181688C2780059C9C4 /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8638D1688C2780059C9C4 /* SVGKImage.m */; };
+		66E864181688C2780059C9C4 /* SVGKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8638D1688C2780059C9C4 /* SVGKImage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		66E864191688C2780059C9C4 /* SVGKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8638E1688C2780059C9C4 /* SVGKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E8641A1688C2780059C9C4 /* SVGKSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8638F1688C2780059C9C4 /* SVGKSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E8641B1688C2780059C9C4 /* SVGKSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863901688C2780059C9C4 /* SVGKSource.m */; };

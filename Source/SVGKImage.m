@@ -27,15 +27,16 @@
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
 
-@property (nonatomic, strong, readwrite) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, strong, readwrite) SVGKSource* source;
+@property (nonatomic, retain, readwrite) SVGKSource* source;
 
-@property (nonatomic, strong, readwrite) SVGDocument* DOMDocument;
-@property (nonatomic, strong, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, strong, readwrite) CALayer* CALayerTree;
+@property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
+@property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, retain, readwrite) CALayer* CALayerTree;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, strong, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, readwrite) BOOL willBeReleased;
 #endif
 
 /**
@@ -165,14 +166,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-		return [[[self class] alloc] initWithContentsOfURL:url];
+		return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
     @synchronized(self) {
-		return [[[self class] alloc] initWithContentsOfFile:aPath];
+		return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
     }
 }
 
@@ -180,7 +181,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-		return [(SVGKImage*)[[self class] alloc] initWithSource:newSource];
+		return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
     }
 }
 
@@ -217,6 +218,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		if ( self.DOMDocument == nil )
 		{
 			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
+			[self autorelease];
 			return nil;
 		}
 		
@@ -253,6 +255,28 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+//We use these methods to better keep track of the number of instances
+- (oneway void)release
+{
+	if( self->cameFromGlobalCache )
+	{
+		NSString *instName = [self.nameUsedToInstantiate retain];
+		BOOL isrelease = self.willBeReleased;
+		[super release];
+		if (!isrelease) {
+			if( [self retainCount] == 1 )
+			{
+				self.willBeReleased = YES;
+				[globalSVGKImageCache removeObjectForKey:instName];
+			}
+		}
+		[instName release];
+	} else
+		[super release];
+}
+#endif
+
 - (void)dealloc
 {	
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
@@ -260,8 +284,14 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
     
+    self.DOMDocument = nil;
+	self.DOMTree = nil;
+	self.CALayerTree = nil;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    self.nameUsedToInstantiate = nil;
 #endif
+	
+	[super dealloc];
 }
 
 //TODO mac alternatives to UIKit functions
@@ -271,7 +301,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(data != nil);
 	@synchronized(self){
-		return [(SVGKImage*)[[self class] alloc] initWithData:data];
+		return [[(SVGKImage*)[[self class] alloc] initWithData:data] autorelease];
 	}
 }
 #endif
@@ -580,6 +610,7 @@ static NSMutableDictionary* globalSVGKImageCache;
             }
 			
 			[layer addSublayer:sublayer];
+			[sublayer release];
 		}
 	}
 	
@@ -643,7 +674,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( CALayerTree == nil )
 	{
 		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		self.CALayerTree = [self newCALayerTree];
+		CALayer *newLayerTree = [self newCALayerTree];
+		self.CALayerTree = newLayerTree;
+		[newLayerTree release];
 	}
 	
 	return CALayerTree;
@@ -822,7 +855,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return nil;
 	}
 	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
-	return result;
+	return [result autorelease];
 }
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -835,7 +868,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	[retval addRepresentation:imRep];
 	[retval setSize:self.size];
 	
-	return retval;
+	return [retval autorelease];
 }
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -846,7 +879,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
 		CGContextRef ctx = [NSctx graphicsPort];
 		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
-		return imageRep;
+		return [imageRep autorelease];
 	} else {
 		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 		

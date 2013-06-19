@@ -80,15 +80,14 @@
 @property (unsafe_unretained, nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
 
-@property (nonatomic, strong, readonly) SVGKSource* source;
-@property (nonatomic, strong, readonly) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, retain, readonly) SVGKSource* source;
+@property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, strong, readonly) SVGDocument* DOMDocument;
-@property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, strong, readonly) CALayer* CALayerTree;
+@property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
+@property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, retain, readonly) CALayer* CALayerTree;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, strong, readonly) NSString* nameUsedToInstantiate;
-
+@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 + (void)clearSVGImageCache;
 #endif
