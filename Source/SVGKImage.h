@@ -85,7 +85,7 @@
 @property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, strong, readonly) CALayer* CALayerTree;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+@property (nonatomic, strong, readonly) NSString* nameUsedToInstantiate;
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 + (void)clearSVGImageCache;
 #endif
