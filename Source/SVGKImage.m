@@ -23,6 +23,19 @@
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+@interface SVGKImageCached : SVGKImage
+{
+	@public
+	BOOL cameFromGlobalCache;
+}
+
+@property (nonatomic, retain) NSString* nameUsedToInstantiate;
+@property (nonatomic) BOOL willBeReleased;
+
+@end
+#endif
+
 @interface SVGKImage ()
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
@@ -34,10 +47,6 @@
 @property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
-@property (nonatomic, readwrite) BOOL willBeReleased;
-#endif
 
 /**
  Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
@@ -62,8 +71,6 @@
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
-
 static NSMutableDictionary* globalSVGKImageCache;
 
 #if 0
@@ -75,7 +82,7 @@ static inline void PrepareForCacheRemoval(SVGKImage *im)
 #define PrepareForCacheRemoval(im) [im retain]
 #endif
 
-static inline void DoneWithCacheRemoval(SVGKImage *im)
+static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 {
 	im->cameFromGlobalCache = NO;
 	im.nameUsedToInstantiate = nil;
@@ -86,39 +93,17 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 {
 	NSArray *objArray = [globalSVGKImageCache allValues];
 	
-	for (SVGKImage *im in objArray) {
+	for (SVGKImageCached *im in objArray) {
 		PrepareForCacheRemoval(im);
 	}
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
-	for (SVGKImage *im in objArray) {
+	for (SVGKImageCached *im in objArray) {
 		DoneWithCacheRemoval(im);
 	}
 }
 
-#pragma mark - Respond to low-memory warnings by dumping the global static cache
-//iOS only
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-
-+(void) initialize
-{
-	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
-	{
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-	}
-}
-
-+(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
-{
-	if (globalSVGKImageCache) {
-		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
-		
-		[self purgeCache];
-	} else {
-		DDLogWarn(@"[%@] Low-mem; but no cache to purge...", self);
-	}
-}
-#else
+#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 
 + (void)clearSVGImageCache
 {
@@ -133,7 +118,7 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 + (void)removeSVGImageCacheNamed:(NSString*)theName
 {
 	if (globalSVGKImageCache) {
-		SVGKImage *im = [globalSVGKImageCache objectForKey:theName];
+		SVGKImageCached *im = [globalSVGKImageCache objectForKey:theName];
 		PrepareForCacheRemoval(im);
 		[globalSVGKImageCache removeObjectForKey:theName];
 		DoneWithCacheRemoval(im);
@@ -163,16 +148,7 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
     
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if ([[NSBundle mainBundle] isEqual:bundle]) {
-		if( globalSVGKImageCache == nil )
-		{
-			globalSVGKImageCache = [NSMutableDictionary new];
-		}
-		
-		SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
-		if( cacheImage != nil )
-		{
-			return cacheImage;
-		}
+		return [SVGKImageCached imageNamed:name fromBundle:bundle];
 	}
 #endif
 		
@@ -191,20 +167,6 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 	}
 	
 	SVGKImage* result = [self imageWithContentsOfFile:path];
-    
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-	if( result != nil  && [[NSBundle mainBundle] isEqual:bundle])
-	{
-		result->cameFromGlobalCache = TRUE;
-		result.nameUsedToInstantiate = name;
-		
-		[globalSVGKImageCache setValue:result forKey:name];
-	}
-	else
-	{
-		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
-	}
-#endif
     
     return result;
 }
@@ -306,28 +268,6 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 	}
 }
 
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-//We use these methods to better keep track of the number of instances
-- (oneway void)release
-{
-	if( self->cameFromGlobalCache )
-	{
-		NSString *instName = [self.nameUsedToInstantiate retain];
-		BOOL isrelease = self.willBeReleased;
-		[super release];
-		if (!isrelease) {
-			if( [self retainCount] == 1 )
-			{
-				self.willBeReleased = YES;
-				[globalSVGKImageCache removeObjectForKey:instName];
-			}
-		}
-		[instName release];
-	} else
-		[super release];
-}
-#endif
-
 - (void)dealloc
 {
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
@@ -338,9 +278,6 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
     self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    self.nameUsedToInstantiate = nil;
-#endif
 	
 	[super dealloc];
 }
@@ -900,7 +837,6 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 	}
 }
 #else
-
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
@@ -939,7 +875,6 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 		return nil;
 	}
 }
-
 #endif
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
@@ -961,3 +896,104 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 
 @end
 
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+@implementation SVGKImageCached
+@synthesize nameUsedToInstantiate = _nameUsedToInstantiateReal;
+
+- (void)dealloc
+{
+	self.nameUsedToInstantiate = nil;
+	
+	[super dealloc];
+}
+
+//We use these methods to better keep track of the number of instances
+- (oneway void)release
+{
+	if( self->cameFromGlobalCache )
+	{
+		NSString *instName = [self.nameUsedToInstantiate retain];
+		BOOL isrelease = self.willBeReleased;
+		[super release];
+		if (!isrelease) {
+			if( [self retainCount] == 1 )
+			{
+				self.willBeReleased = YES;
+				[globalSVGKImageCache removeObjectForKey:instName];
+			}
+		}
+		[instName release];
+	} else
+		[super release];
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle
+{
+	NSAssert([bundle isEqual:[NSBundle mainBundle]], @"This should only be called to get images from the main bundle!");
+	if( globalSVGKImageCache == nil )
+	{
+		globalSVGKImageCache = [NSMutableDictionary new];
+	}
+	
+	SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
+	if( cacheImage != nil )
+	{
+		return cacheImage;
+	}
+
+	NSString *newName = [name stringByDeletingPathExtension];
+	NSString *extension = [name pathExtension];
+    if ([@"" isEqualToString:extension]) {
+        extension = @"svg";
+    }
+	
+	NSURL *path = [bundle  URLForResource:newName withExtension:extension];
+	
+	if (!path)
+	{
+		DDLogWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
+		return nil;
+	}
+	
+	SVGKImageCached* result = (SVGKImageCached*)[self imageWithContentsOfURL:path];
+    
+	if( result != nil )
+	{
+		result->cameFromGlobalCache = YES;
+		result.nameUsedToInstantiate = name;
+		
+		[globalSVGKImageCache setValue:result forKey:name];
+	}
+	else
+	{
+		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+	}
+    
+    return result;
+}
+
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#pragma mark - Respond to low-memory warnings by dumping the global static cache
+//iOS only
++(void) initialize
+{
+	if( self == [SVGKImageCached class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
+	{
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+	}
+}
+
++(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
+{
+	if (globalSVGKImageCache) {
+		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
+		
+		[self purgeCache];
+	} else {
+		DDLogWarn(@"[%@] Low-mem; but no cache to purge...", self);
+	}
+}
+#endif
+
+@end
+#endif

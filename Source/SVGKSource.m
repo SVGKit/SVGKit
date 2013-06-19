@@ -1,4 +1,6 @@
 #import "SVGKSource.h"
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
 
 
 @implementation SVGKSource
@@ -13,6 +15,16 @@
 	
 	self.stream = s;
 	return self;
+}
+
++ (SVGKSource*)sourceFromFilename:(NSString*)p
+{
+	return [SVGKSourceLocalFile sourceFromFilename:p];
+}
+
++ (SVGKSource*)sourceFromURL:(NSURL*)u
+{
+	return [SVGKSourceURL sourceFromURL:u];
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
