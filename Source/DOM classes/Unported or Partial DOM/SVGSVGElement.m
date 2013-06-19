@@ -57,9 +57,7 @@
 
 -(void)loadDefaults
 {
-	StyleSheetList *tmpList = [[StyleSheetList alloc] init];
-	self.styleSheets = tmpList;
-	[tmpList release];
+	self.styleSheets = [[[StyleSheetList alloc] init] autorelease];
 }
 @synthesize styleSheets;
 

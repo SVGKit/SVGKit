@@ -84,11 +84,8 @@
 				return nil;
 			}break;
 		}
-		{
-			NodeList *tmpList = [[NodeList alloc] init];
-			self.childNodes = tmpList;
-			[tmpList release];
-		}
+
+		self.childNodes = [[[NodeList alloc] init] autorelease];
     }
     return self;
 }
@@ -128,18 +125,12 @@
 			{
 				
 				self.nodeName = n;
-				{
-					NamedNodeMap *tmpMap = [[NamedNodeMap alloc] init];
-					self.attributes = tmpMap;
-					[tmpMap release];
-				}
+
+				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
 			}break;
 		}
-		{
-			NodeList *tmpList = [[NodeList alloc] init];
-			self.childNodes = tmpList;
-			[tmpList release];
-		}
+
+		self.childNodes = [[[NodeList alloc] init] autorelease];
     }
     return self;
 }
@@ -317,9 +308,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			NSString *tmpStr = [NSString stringWithString:stringAccumulator];
-			[stringAccumulator release];
-			return tmpStr;
+			return [NSString stringWithString:[stringAccumulator autorelease]];
 		}
 			
 		case DOMNodeType_TEXT_NODE:

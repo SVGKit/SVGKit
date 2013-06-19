@@ -154,11 +154,7 @@ readPacket(char *mem, int size) {
 
 - (SVGKParseResult*) parseSynchronously
 {
-	{
-		SVGKParseResult *tmpParse = [SVGKParseResult new];
-		self.currentParseRun = tmpParse;
-		[tmpParse release];
-	}
+	self.currentParseRun = [[SVGKParseResult new] autorelease];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
 	parserThatWasMostRecentlyStarted = self;

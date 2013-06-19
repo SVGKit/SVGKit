@@ -67,11 +67,7 @@
     self = [super init];
     if (self)
 	{
-		{
-			CSSRuleList *tmpRuleList = [[CSSRuleList alloc] init];
-			self.cssRules = tmpRuleList;
-			[tmpRuleList release];
-		}
+		self.cssRules = [[[CSSRuleList alloc] init] autorelease];
 		@autoreleasepool { //creating lots of autoreleased strings, not helpful for older devices
 			
 			/**
