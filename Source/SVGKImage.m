@@ -23,14 +23,6 @@
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@interface SVGKImageCached : SVGKImage
-
-@property (nonatomic, retain) NSString* nameUsedToInstantiate;
-
-@end
-#endif
-
 @interface SVGKImage ()
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
@@ -42,6 +34,9 @@
 @property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+@property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+#endif
 
 /**
  Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
@@ -66,15 +61,41 @@
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+@synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
+
 static NSMutableDictionary* globalSVGKImageCache;
 
-#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#pragma mark - Respond to low-memory warnings by dumping the global static cache
+//iOS only
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+
++(void) initialize
+{
+	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
+	{
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+	}
+}
+
++(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
+{
+	if (globalSVGKImageCache) {
+		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
+		
+		[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+	} else {
+		DDLogWarn(@"[%@] Low-mem, but no cache to purge...", self);
+	}
+}
+#else
 
 + (void)clearSVGImageCache
 {
 	if (globalSVGKImageCache) {
 		DDLogInfo(@"[%@] Purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
 		[globalSVGKImageCache removeAllObjects];
+	}else {
+		DDLogInfo(@"[%@] Nothing to purge...", self);
 	}
 }
 
@@ -110,7 +131,16 @@ static NSMutableDictionary* globalSVGKImageCache;
     
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if ([[NSBundle mainBundle] isEqual:bundle]) {
-		return [SVGKImageCached imageNamed:name fromBundle:bundle];
+		if( globalSVGKImageCache == nil )
+		{
+			globalSVGKImageCache = [NSMutableDictionary new];
+		}
+		
+		SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
+		if( cacheImage != nil )
+		{
+			return cacheImage;
+		}
 	}
 #endif
 		
@@ -129,6 +159,20 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 	
 	SVGKImage* result = [self imageWithContentsOfFile:path];
+    
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+	if( result != nil  && [[NSBundle mainBundle] isEqual:bundle])
+	{
+		result->cameFromGlobalCache = YES;
+		result.nameUsedToInstantiate = name;
+		
+		[globalSVGKImageCache setValue:result forKey:name];
+	}
+	else
+	{
+		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+	}
+#endif
     
     return result;
 }
@@ -240,6 +284,9 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
+#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    self.nameUsedToInstantiate = nil;
+#endif
 	
 	[super dealloc];
 }
@@ -858,85 +905,3 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 @end
-
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@implementation SVGKImageCached
-@synthesize nameUsedToInstantiate = _nameUsedToInstantiateReal;
-
-- (void)dealloc
-{
-	self.nameUsedToInstantiate = nil;
-	
-	[super dealloc];
-}
-
-+ (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle
-{
-	NSAssert([bundle isEqual:[NSBundle mainBundle]], @"This should only be called to get images from the main bundle!");
-	if( globalSVGKImageCache == nil )
-	{
-		globalSVGKImageCache = [NSMutableDictionary new];
-	}
-	
-	SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
-	if( cacheImage != nil )
-	{
-		return cacheImage;
-	}
-
-	NSString *newName = [name stringByDeletingPathExtension];
-	NSString *extension = [name pathExtension];
-    if ([@"" isEqualToString:extension]) {
-        extension = @"svg";
-    }
-	
-	NSURL *path = [bundle  URLForResource:newName withExtension:extension];
-	
-	if (!path)
-	{
-		DDLogWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
-		return nil;
-	}
-	
-	SVGKImageCached* result = (SVGKImageCached*)[self imageWithContentsOfURL:path];
-    
-	if( result != nil )
-	{
-		result->cameFromGlobalCache = YES;
-		result.nameUsedToInstantiate = name;
-		
-		[globalSVGKImageCache setValue:result forKey:name];
-	}
-	else
-	{
-		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
-	}
-    
-    return result;
-}
-
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-#pragma mark - Respond to low-memory warnings by dumping the global static cache
-//iOS only
-+(void) initialize
-{
-	if( self == [SVGKImageCached class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
-	{
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-	}
-}
-
-+(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
-{
-	if (globalSVGKImageCache) {
-		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
-		
-		[globalSVGKImageCache removeAllObjects];
-	} else {
-		DDLogWarn(@"[%@] Low-mem; but no cache to purge...", self);
-	}
-}
-#endif
-
-@end
-#endif
