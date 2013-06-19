@@ -329,7 +329,7 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 #endif
 
 - (void)dealloc
-{	
+{
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	
     self.source = nil;
