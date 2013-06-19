@@ -21,5 +21,6 @@
 @property (assign) IBOutlet NSWindow *quickWindow;
 @property (assign) IBOutlet SVGKFastImageView *fastView;
 
+- (IBAction)clearSVGCache:(id)sender;
 
 @end
