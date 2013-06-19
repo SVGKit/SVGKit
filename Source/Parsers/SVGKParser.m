@@ -163,6 +163,7 @@ readPacket(char *mem, int size) {
 	
 	xmlParserCtxtPtr ctx;
 	ctx = xmlCreatePushParserCtxt(&SAXHandler, (__bridge void *)(self), NULL, 0, NULL);	
+	
 	/* 
 	 DDLogVerbose(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
 	 xmlSubstituteEntitiesDefault(1);

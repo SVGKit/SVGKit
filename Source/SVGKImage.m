@@ -736,7 +736,6 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 	return !!CALayerTree;
 }
 
-
 - (void) addSVGLayerTree:(CALayer*) layer withIdentifier:(NSString*) layerID toDictionary:(NSMutableDictionary*) layersByID
 {
 	// TODO: consider removing this method: it caches the lookup of individual items in the CALayerTree. It's a performance boost, but is it enough to be worthwhile?
