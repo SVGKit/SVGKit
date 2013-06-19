@@ -205,10 +205,10 @@
 	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
-    
+	
 	self.image = nil;
 	
-    [super dealloc];
+	[super dealloc];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
