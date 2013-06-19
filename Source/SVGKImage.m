@@ -115,7 +115,7 @@ static inline void DoneWithCacheRemoval(SVGKImage *im)
 		
 		[self purgeCache];
 	} else {
-		DDLogWarn(@"[%@] Low-mem, but no cache to purge...", self);
+		DDLogWarn(@"[%@] Low-mem; but no cache to purge...", self);
 	}
 }
 #else
