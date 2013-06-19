@@ -162,8 +162,8 @@
 	}
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
-		CGContextRef tmpContext = [[NSGraphicsContext currentContext] graphicsPort];
-		CGLayerRef layerRef = CGLayerCreateWithContext(tmpContext, self.size, NULL);
+		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
+		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, self.size, NULL);
 		if (!layerRef) {
 			return NO;
 		}
@@ -173,10 +173,7 @@
 		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
 		CGContextRestoreGState(layerCont);
 		
-		CGRect tmpRect;
-		tmpRect.size = self.size;
-		tmpRect.origin = CGPointZero;
-		CGContextDrawLayerInRect(tmpContext, tmpRect, layerRef);
+		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
