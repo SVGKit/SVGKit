@@ -66,6 +66,36 @@
 
 static NSMutableDictionary* globalSVGKImageCache;
 
+#if 0
+static inline void PrepareForCacheRemoval(SVGKImage *im)
+{
+	[im retain];
+}
+#else
+#define PrepareForCacheRemoval(im) [im retain]
+#endif
+
+static inline void DoneWithCacheRemoval(SVGKImage *im)
+{
+	im->cameFromGlobalCache = NO;
+	im.nameUsedToInstantiate = nil;
+	[im release];
+}
+
++ (void)purgeCache
+{
+	NSArray *objArray = [globalSVGKImageCache allValues];
+	
+	for (SVGKImage *im in objArray) {
+		PrepareForCacheRemoval(im);
+	}
+	
+	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+	for (SVGKImage *im in objArray) {
+		DoneWithCacheRemoval(im);
+	}
+}
+
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
 //iOS only
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
@@ -80,22 +110,43 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 +(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
 {
-	DDLogCWarn(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
-	
-	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+	if (globalSVGKImageCache) {
+		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
+		
+		[self purgeCache];
+	} else {
+		DDLogWarn(@"[%@] Low-mem; but no cache to purge...", self);
+	}
 }
 #else
 
 + (void)clearSVGImageCache
 {
-	[globalSVGKImageCache removeAllObjects];
+	if (globalSVGKImageCache) {
+		DDLogInfo(@"[%@] Purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
+		[self purgeCache];
+	}
 }
 
 #endif
 
 + (void)removeSVGImageCacheNamed:(NSString*)theName
 {
-	[globalSVGKImageCache removeObjectForKey:theName];
+	if (globalSVGKImageCache) {
+		SVGKImage *im = [globalSVGKImageCache objectForKey:theName];
+		PrepareForCacheRemoval(im);
+		[globalSVGKImageCache removeObjectForKey:theName];
+		DoneWithCacheRemoval(im);
+	}
+}
+
++ (NSArray*)storedCacheNames
+{
+	if (globalSVGKImageCache) {
+		return [globalSVGKImageCache allKeys];
+	} else {
+		return [NSArray array];
+	}
 }
 
 #endif

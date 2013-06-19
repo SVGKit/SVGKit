@@ -92,6 +92,7 @@
 + (void)clearSVGImageCache;
 #endif
 + (void)removeSVGImageCacheNamed:(NSString*)theName;
++ (NSArray*)storedCacheNames;
 #endif
 
 #pragma mark - methods to quick load an SVG as an image
