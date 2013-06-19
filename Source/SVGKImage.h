@@ -62,6 +62,9 @@
 @class SVGDefsElement;
 
 @interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
+{
+	BOOL cameFromGlobalCache;
+}
 
 /** Generates an image on the fly
  

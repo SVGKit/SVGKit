@@ -25,13 +25,8 @@
 
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCached : SVGKImage
-{
-	@public
-	BOOL cameFromGlobalCache;
-}
 
 @property (nonatomic, retain) NSString* nameUsedToInstantiate;
-@property (nonatomic) BOOL willBeReleased;
 
 @end
 #endif
@@ -73,43 +68,13 @@
 #if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;
 
-#if 0
-static inline void PrepareForCacheRemoval(SVGKImage *im)
-{
-	[im retain];
-}
-#else
-#define PrepareForCacheRemoval(im) [im retain]
-#endif
-
-static inline void DoneWithCacheRemoval(SVGKImageCached *im)
-{
-	im->cameFromGlobalCache = NO;
-	im.nameUsedToInstantiate = nil;
-	[im release];
-}
-
-+ (void)purgeCache
-{
-	NSArray *objArray = [globalSVGKImageCache allValues];
-	
-	for (SVGKImageCached *im in objArray) {
-		PrepareForCacheRemoval(im);
-	}
-	
-	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
-	for (SVGKImageCached *im in objArray) {
-		DoneWithCacheRemoval(im);
-	}
-}
-
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 
 + (void)clearSVGImageCache
 {
 	if (globalSVGKImageCache) {
 		DDLogInfo(@"[%@] Purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
-		[self purgeCache];
+		[globalSVGKImageCache removeAllObjects];
 	}
 }
 
@@ -118,10 +83,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 + (void)removeSVGImageCacheNamed:(NSString*)theName
 {
 	if (globalSVGKImageCache) {
-		SVGKImageCached *im = [globalSVGKImageCache objectForKey:theName];
-		PrepareForCacheRemoval(im);
 		[globalSVGKImageCache removeObjectForKey:theName];
-		DoneWithCacheRemoval(im);
 	}
 }
 
@@ -907,26 +869,6 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 	[super dealloc];
 }
 
-//We use these methods to better keep track of the number of instances
-- (oneway void)release
-{
-	if( self->cameFromGlobalCache )
-	{
-		NSString *instName = [self.nameUsedToInstantiate retain];
-		BOOL isrelease = self.willBeReleased;
-		[super release];
-		if (!isrelease) {
-			if( [self retainCount] == 1 )
-			{
-				self.willBeReleased = YES;
-				[globalSVGKImageCache removeObjectForKey:instName];
-			}
-		}
-		[instName release];
-	} else
-		[super release];
-}
-
 + (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle
 {
 	NSAssert([bundle isEqual:[NSBundle mainBundle]], @"This should only be called to get images from the main bundle!");
@@ -988,7 +930,7 @@ static inline void DoneWithCacheRemoval(SVGKImageCached *im)
 	if (globalSVGKImageCache) {
 		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
 		
-		[self purgeCache];
+		[globalSVGKImageCache removeAllObjects];
 	} else {
 		DDLogWarn(@"[%@] Low-mem; but no cache to purge...", self);
 	}
