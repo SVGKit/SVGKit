@@ -36,6 +36,17 @@
 	tmpImage.size = tempSize;
 }
 
+- (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
+{
+	__block NSData *tiffData = nil;
+	[self renderToTiffUsingBlock:^{
+		self.image.size = theSize;
+		tiffData = [self.image.bitmapImageRep TIFFRepresentation];
+	}];
+	return tiffData;
+
+}
+
 - (NSData *)TIFFRepresentation
 {
 	__block NSData *tiffData = nil;
@@ -49,6 +60,16 @@
 {
 	__block NSData *tiffData = nil;
 	[self renderToTiffUsingBlock:^{
+		tiffData = [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
+	}];
+	return tiffData;
+}
+
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize
+{
+	__block NSData *tiffData = nil;
+	[self renderToTiffUsingBlock:^{
+		self.image.size = asize;
 		tiffData = [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
 	}];
 	return tiffData;
