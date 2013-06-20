@@ -18,6 +18,8 @@
 
 @interface SKSVGObject : NSObject <SKSVGObject>
 
+- (BOOL)isEqualURL:(NSURL*)theURL;
+
 @end
 
 @interface SKSVGBundleObject : SKSVGObject <SKSVGObject>

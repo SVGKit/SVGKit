@@ -8,7 +8,6 @@
 
 #import "SKSVGObject.h"
 
-
 @implementation SKSVGObject
 
 - (NSURL *)svgURL

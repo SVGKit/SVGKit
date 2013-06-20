@@ -14,8 +14,6 @@
 #import "SVGKit.h"
 
 #import "SVGKitImageRep.h"
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
 
 @interface SVGKImage ()
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
@@ -105,12 +103,12 @@
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
+	return [self initWithSVGSource:[SVGKSource sourceFromURL:theURL]];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
+	return [self initWithSVGSource:[SVGKSource sourceFromFilename:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
@@ -199,7 +197,7 @@ static NSDateFormatter* debugDateFormatter()
 		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
 		CGContextRestoreGState(layerCont);
 		
-		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
+		CGContextDrawLayerAtPoint(imRepCtx, NSZeroPoint, layerRef);
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
