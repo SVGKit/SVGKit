@@ -27,13 +27,25 @@
 
 @implementation SVGKitImageRep
 
+- (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
+{
+	self.image.size = theSize;
+	return [self.image.bitmapImageRep TIFFRepresentation];
+}
+
 - (NSData *)TIFFRepresentation
 {
-	return [self.image.bitmapImageRep TIFFRepresentation];
+	return [self TIFFRepresentationWithSize:self.size];
 }
 
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor
 {
+	return [self TIFFRepresentationUsingCompression:comp factor:factor size:self.size];
+}
+
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize
+{
+	self.image.size = asize;
 	return [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
 }
 
@@ -76,7 +88,7 @@
 	return YES;
 }
 
-+ (NSImageRep *)imageRepWithData:(NSData *)d
++ (id)imageRepWithData:(NSData *)d
 {
 	return [[self alloc] initWithData:d];
 }
@@ -121,7 +133,6 @@ static NSDateFormatter* debugDateFormatter()
 	static NSDateFormatter* theFormatter = nil;
 	if (theFormatter == nil) {
 		theFormatter = [[NSDateFormatter alloc] init];
-		[theFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 		[theFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
 	}
 	return theFormatter;
@@ -175,6 +186,44 @@ static NSDateFormatter* debugDateFormatter()
 		}
 	}
 	return self;
+}
+
+- (BOOL)drawInRect:(NSRect)rect
+{
+	NSSize scaledSize = rect.size;
+	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
+		[self.image scaleToFitInside:scaledSize];
+	}
+	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
+		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
+		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
+		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, rect.size, NULL);
+		if (!layerRef) {
+			return NO;
+		}
+		
+		CGContextRef layerCont = CGLayerGetContext(layerRef);
+		CGContextSaveGState(layerCont);
+		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		CGContextRestoreGState(layerCont);
+		
+		CGContextDrawLayerInRect(imRepCtx, rect, layerRef);
+		CGLayerRelease(layerRef);
+	} else {
+		//...But should the method be removed in a future version, fall back to the old method
+		NSImage *tmpImage = self.image.NSImage;
+		if (!tmpImage) {
+			return NO;
+		}
+		
+		NSRect imageRect;
+		imageRect.size = rect.size;
+		imageRect.origin = NSZeroPoint;
+		
+		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeCopy fraction:1];
+	}
+	
+	return YES;
 }
 
 - (BOOL)draw

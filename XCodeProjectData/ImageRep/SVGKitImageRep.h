@@ -11,7 +11,7 @@
 @interface SVGKitImageRep : NSImageRep
 
 //Function used by NSImageRep to init.
-+ (NSImageRep *)imageRepWithData:(NSData *)d;
++ (id)imageRepWithData:(NSData *)d;
 
 + (id)imageRepWithContentsOfFile:(NSString *)filename;
 + (id)imageRepWithContentsOfURL:(NSURL *)url;
@@ -21,7 +21,9 @@
 - (id)initWithContentsOfFile:(NSString *)thePath;
 - (id)initWithSVGString:(NSString *)theString;
 - (NSData *)TIFFRepresentation;
+- (NSData *)TIFFRepresentationWithSize:(NSSize)theSize;
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
+- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize;
 
 @end
 
