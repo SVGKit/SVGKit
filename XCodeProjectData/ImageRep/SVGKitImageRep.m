@@ -27,52 +27,26 @@
 
 @implementation SVGKitImageRep
 
-- (void)renderToTiffUsingBlock:(void(^)() )theblock
-{
-	SVGKImage *tmpImage = self.image;
-	NSSize tempSize = tmpImage.size;
-	tmpImage.size = self.size;
-	theblock();
-	tmpImage.size = tempSize;
-}
-
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
 {
-	__block NSData *tiffData = nil;
-	[self renderToTiffUsingBlock:^{
-		self.image.size = theSize;
-		tiffData = [self.image.bitmapImageRep TIFFRepresentation];
-	}];
-	return tiffData;
-
+	self.image.size = theSize;
+	return [self.image.bitmapImageRep TIFFRepresentation];
 }
 
 - (NSData *)TIFFRepresentation
 {
-	__block NSData *tiffData = nil;
-	[self renderToTiffUsingBlock:^{
-		tiffData = [self.image.bitmapImageRep TIFFRepresentation];
-	}];
-	return tiffData;
+	return [self TIFFRepresentationWithSize:self.size];
 }
 
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor
 {
-	__block NSData *tiffData = nil;
-	[self renderToTiffUsingBlock:^{
-		tiffData = [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
-	}];
-	return tiffData;
+	return [self TIFFRepresentationUsingCompression:comp factor:factor size:self.size];
 }
 
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize
 {
-	__block NSData *tiffData = nil;
-	[self renderToTiffUsingBlock:^{
-		self.image.size = asize;
-		tiffData = [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
-	}];
-	return tiffData;
+	self.image.size = asize;
+	return [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
 }
 
 + (NSArray *)imageUnfilteredFileTypes
@@ -116,7 +90,7 @@
 	return YES;
 }
 
-+ (NSImageRep *)imageRepWithData:(NSData *)d
++ (id)imageRepWithData:(NSData *)d
 {
 	return [[[self alloc] initWithData:d] autorelease];
 }

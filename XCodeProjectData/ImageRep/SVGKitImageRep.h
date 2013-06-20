@@ -11,7 +11,7 @@
 @interface SVGKitImageRep : NSImageRep
 
 //Function used by NSImageRep to init.
-+ (NSImageRep *)imageRepWithData:(NSData *)d;
++ (id)imageRepWithData:(NSData *)d;
 
 + (id)imageRepWithContentsOfFile:(NSString *)filename;
 + (id)imageRepWithContentsOfURL:(NSURL *)url;
