@@ -207,7 +207,7 @@ static NSDateFormatter* debugDateFormatter()
 		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
 		CGContextRestoreGState(layerCont);
 		
-		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
+		CGContextDrawLayerAtPoint(imRepCtx, NSZeroPoint, layerRef);
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
