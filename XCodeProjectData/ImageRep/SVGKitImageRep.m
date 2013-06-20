@@ -120,6 +120,17 @@
 	return [self initWithSVGSource:[SVGKSource sourceFromContentsOfString:theString]];
 }
 
+static NSDateFormatter* debugDateFormatter()
+{
+	static NSDateFormatter* theFormatter = nil;
+	if (theFormatter == nil) {
+		theFormatter = [[NSDateFormatter alloc] init];
+		[theFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+		[theFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
+	}
+	return theFormatter;
+}
+
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
@@ -132,9 +143,7 @@
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
 
 		if (hasGrad || hasText) {
-			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-			[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-			[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
+			NSDateFormatter *formatter = debugDateFormatter();
 			
 			NSString *errstuff = nil;
 			
@@ -153,7 +162,6 @@
 			}
 			
 			fprintf(stderr, "%s SVGKitImageRep: the image \"%s\" might have problems rendering correctly due to %s.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
-			[formatter release];
 		}
 		
 		if (![self.image hasSize]) {
@@ -228,9 +236,7 @@
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease]; \
-[formatter setFormatterBehavior:NSDateFormatterBehavior10_4]; \
-[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];\
+NSDateFormatter *formatter = debugDateFormatter(); \
 fprintf(stderr, "%s SVGKImageRep: -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
