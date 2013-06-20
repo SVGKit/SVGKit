@@ -21,6 +21,8 @@
 
 @interface SVGKitImageRep ()
 - (id)initWithSVGSource:(SVGKSource*)theSource;
+- (id)initWithSVGImage:(SVGKImage*)theImage;
++ (id)imageRepWithSVGImage:(SVGKImage*)theImage;
 
 @property (nonatomic, retain, readwrite) SVGKImage *image;
 @end
@@ -105,6 +107,11 @@
 	return [[[self alloc] initWithContentsOfURL:url] autorelease];
 }
 
++ (id)imageRepWithSVGImage:(SVGKImage*)theImage
+{
+	return [[[self alloc] initWithSVGImage:theImage] autorelease];
+}
+
 + (void)load
 {
 	[NSImageRep registerImageRepClass:[SVGKitImageRep class]];
@@ -142,12 +149,18 @@ static NSDateFormatter* debugDateFormatter()
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
+	return [self initWithSVGImage:[SVGKImage imageWithSource:theSource]];
+}
+
+- (id)initWithSVGImage:(SVGKImage*)theImage
+{
 	if (self = [super init]) {
-		self.image = [SVGKImage imageWithSource:theSource];
-		if (self.image == nil) {
+		if (theImage == nil) {
 			[self autorelease];
 			return nil;
 		}
+		self.image = theImage;
+	
 		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
 
