@@ -49,7 +49,7 @@
 {
 	static Class storedRep = nil;
 	if (storedRep == nil) {
-		storedRep = [NSClassFromString(@"SVGKitImageRep") retain];
+		storedRep = NSClassFromString(@"SVGKitImageRep");
 	}
 	return storedRep;
 }
