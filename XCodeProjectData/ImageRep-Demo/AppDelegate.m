@@ -103,7 +103,7 @@
 	} else {
 		NSSavePanel *savePanel = [NSSavePanel savePanel];
 		[savePanel setTitle:@"Save TIFF data"];
-		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:(NSString*)kUTTypeTIFF]];
+		[savePanel setAllowedFileTypes:@[(NSString*)kUTTypeTIFF]];
 		[savePanel setCanCreateDirectories:YES];
 		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {
