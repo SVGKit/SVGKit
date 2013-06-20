@@ -128,6 +128,34 @@
 			[self autorelease];
 			return nil;
 		}
+		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
+		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
+
+		if (hasGrad || hasText) {
+			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+			[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+			[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
+			
+			NSString *errstuff = nil;
+			
+			if (hasGrad) {
+				errstuff = @"gradients";
+				if (hasText) {
+					errstuff = [errstuff stringByAppendingString:@" and text"];
+				}
+			} else if (hasText) {
+				errstuff = @"text";
+			}
+			
+			if (errstuff == nil) {
+				//We shouldn't get here!
+				errstuff = @"";
+			}
+			
+			fprintf(stderr, "%s SVGKitImageRep: the image \"%s\" might have problems rendering correctly due to %s.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
+			[formatter release];
+		}
+		
 		if (![self.image hasSize]) {
 			self.image.size = CGSizeMake(32, 32);
 		}
