@@ -55,8 +55,14 @@
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 
-#ifndef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#ifndef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+//Use caching on iOS: it needs it for the speed boost
+#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1
+#else
+//Don't use caching on OS X: It's fast enough to handle creating a new image each time
+#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 0
+#endif
 #endif
 
 @class SVGDefsElement;

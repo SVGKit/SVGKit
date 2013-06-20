@@ -105,7 +105,11 @@
 
 - (IBAction)clearSVGCache:(id)sender
 {
-	[SVGKImage clearSVGImageCache];
+	if ([[SVGKImage class] respondsToSelector:@selector(clearSVGImageCache)]) {
+		[SVGKImage clearSVGImageCache];
+	} else {
+		NSLog(@"Cached images not implemented in SVGKit.");
+	}
 }
 
 @end
