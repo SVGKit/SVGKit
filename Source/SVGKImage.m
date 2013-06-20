@@ -369,6 +369,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(void)setSize:(CGSize)newSize
 {
+	if (CGSizeEqualToSize(self.internalSizeThatWasSetExplicitlyByUser, newSize)) {
+		return;
+	}
+	
 	self.internalSizeThatWasSetExplicitlyByUser = newSize;
 	
 	if( ! SVGRectIsInitialized(self.DOMTree.viewBox) && !SVGRectIsInitialized( self.DOMTree.viewport ) )

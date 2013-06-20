@@ -192,7 +192,12 @@ static NSDateFormatter* debugDateFormatter()
 {
 	NSSize scaledSize = rect.size;
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
-		[self.image scaleToFitInside:scaledSize];
+		//For when we're at the full size.
+		if (CGSizeEqualToSize(CGSizeMake(self.pixelsWide, self.pixelsHigh), scaledSize)) {
+			self.image.size = self.size;
+		} else {
+			[self.image scaleToFitInside:scaledSize];
+		}
 	}
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
