@@ -370,7 +370,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
 	
-	SVGKParser *self = ctx;
+	SVGKParser *NSctx = ctx;
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
@@ -379,17 +379,17 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	NSString *stringURI = NSStringFromLibxmlString(URI);
 	
 	/** Set a default Namespace for rest of this document if one is included in the attributes */
-	if( self.defaultXMLNamespaceForThisParseRun == nil )
+	if( NSctx.defaultXMLNamespaceForThisParseRun == nil )
 	{
 		NSString* newDefaultNamespace = [namespacesByPrefix valueForKey:@""];
 		if( newDefaultNamespace != nil )
 		{
-			self.defaultXMLNamespaceForThisParseRun = newDefaultNamespace;
+			NSctx.defaultXMLNamespaceForThisParseRun = newDefaultNamespace;
 		}
 	}
 	
 	if( stringURI == nil
-	   && self.defaultXMLNamespaceForThisParseRun != nil )
+	   && NSctx.defaultXMLNamespaceForThisParseRun != nil )
 	{
 		/** Apply the default XML NS to this tag as if it had been typed in.
 		 
@@ -400,13 +400,13 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		 ...then any time we find a tag that HAS NO EXPLICIT NAMESPACE, we act as if it had that one.
 		 */
 		
-		stringURI = self.defaultXMLNamespaceForThisParseRun;
+		stringURI = NSctx.defaultXMLNamespaceForThisParseRun;
 	}
 	
 	for( Attr* newAttribute in attributeObjects.allValues )
 	{
 		if( newAttribute.namespaceURI == nil )
-			newAttribute.namespaceURI = self.defaultXMLNamespaceForThisParseRun;
+			newAttribute.namespaceURI = NSctx.defaultXMLNamespaceForThisParseRun;
 	}
 	
 	/**
@@ -418,14 +418,14 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		NSString* uri = [namespacesByPrefix objectForKey:prefix];
 		
 		if( prefix != nil )
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
+			[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
 		else
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
+			[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
 	}
 	
 #if DEBUG_XML_PARSER
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
-	DDLogCWarn(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], [NSString stringWithFormat:@"%@:",stringPrefix], name, stringURI, nb_attributes );
+	DDLogCWarn(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [NSctx class], [NSString stringWithFormat:@"%@:",stringPrefix], name, stringURI, nb_attributes );
 #endif
 #endif
 	
@@ -457,10 +457,10 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	
 	if( stringURI == nil && stringPrefix == nil )
 	{
-		DDLogCWarn(@"[%@] WARNING: Your input SVG contains tags that have no namespace, and your document doesn't define a default namespace. This is always incorrect - it means some of your SVG data will be ignored, and usually means you have a typo in there somewhere. Tag with no namespace: <%@>", [self class], stringLocalName );
+		DDLogCWarn(@"[%@] WARNING: Your input SVG contains tags that have no namespace, and your document doesn't define a default namespace. This is always incorrect - it means some of your SVG data will be ignored, and usually means you have a typo in there somewhere. Tag with no namespace: <%@>", [NSctx class], stringLocalName );
 	}
 	
-	[self handleStartElement:stringLocalName namePrefix:stringPrefix namespaceURI:stringURI attributeObjects:attributeObjects];
+	[NSctx handleStartElement:stringLocalName namePrefix:stringPrefix namespaceURI:stringURI attributeObjects:attributeObjects];
 }
 
 - (void)handleEndElement:(NSString *)name {
@@ -504,9 +504,9 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
-	SVGKParser *self = ctx;
+	SVGKParser *NSctx = ctx;
 	
-	[self handleEndElement:NSStringFromLibxmlString(localname)];
+	[NSctx handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
 - (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
@@ -518,15 +518,15 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
 {
-    SVGKParser *self = ctx;
+    SVGKParser *NSctx = ctx;
 	
-	[self handleFoundCharacters:value length:len];
+	[NSctx handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
-	SVGKParser *self = ctx;
+	SVGKParser *NSctx = ctx;
 	
-	[self handleFoundCharacters:chars length:len];
+	[NSctx handleFoundCharacters:chars length:len];
 }
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
@@ -538,8 +538,8 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	
 	NSString *errStr = [[NSString alloc] initWithUTF8String:errcStr];
 	DDLogCWarn(@"Error encountered during parse: %@", errStr);
-	SVGKParser *self = ctx;
-	SVGKParseResult* parseResult = self.currentParseRun;
+	SVGKParser *NSctx = ctx;
+	SVGKParseResult* parseResult = NSctx.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																				  errStr, NSLocalizedDescriptionKey,
 																				  nil]]];
@@ -580,8 +580,8 @@ static void structuredError		(void * userData,
 	
 	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
 	
-	SVGKParser *self = userData;
-	SVGKParseResult* parseResult = self.currentParseRun;
+	SVGKParser *NSctx = userData;
+	SVGKParseResult* parseResult = NSctx.currentParseRun;
 	switch( errorLevel )
 	{
 		case XML_ERR_WARNING:
