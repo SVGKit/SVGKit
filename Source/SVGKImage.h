@@ -1,5 +1,5 @@
-#ifndef SVGKIT_SCGKIMAGE_H
-#define SVGKIT_SCGKIMAGE_H
+#ifndef SVGKIT_SVGKIMAGE_H
+#define SVGKIT_SVGKIMAGE_H
 /*
  SVGKImage
  
