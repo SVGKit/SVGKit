@@ -846,6 +846,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = XCodeProjectData/ImageRep;
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -857,6 +858,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = XCodeProjectData/ImageRep;
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -919,6 +921,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = XCodeProjectData/ImageRep;
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

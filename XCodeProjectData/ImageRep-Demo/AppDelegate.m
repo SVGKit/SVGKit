@@ -21,23 +21,7 @@
 
 #if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
 #else
-@interface SVGKitImageRep : NSImageRep
-- (NSData *)TIFFRepresentation;
-- (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
-
-+ (NSImageRep *)imageRepWithData:(NSData *)d;
-
-- (id)initWithData:(NSData *)theData;
-- (id)initWithURL:(NSURL *)theURL;
-- (id)initWithPath:(NSString *)thePath;
-- (id)initWithSVGString:(NSString *)theString;
-
-@end
-
-@interface AppDelegate ()
-+ (Class)imageRepClass;
-@end
-
+#import "SVGKitImageRep.h"
 #endif
 
 @implementation AppDelegate
@@ -95,7 +79,7 @@
 	[op release];
 #else
 	NSImage *selectImage = [[NSImage alloc] init];
-	SVGKitImageRep *imRep = [(SVGKitImageRep*)[[[self class] imageRepClass] alloc] initWithURL:svgUrl];
+	SVGKitImageRep *imRep = [(SVGKitImageRep*)[[[self class] imageRepClass] alloc] initWithContentsOfURL:svgUrl];
 	[op release];
 	if (!imRep) {
 		[selectImage release];
