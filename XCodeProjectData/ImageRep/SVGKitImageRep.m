@@ -20,10 +20,6 @@
 @end
 
 @interface SVGKitImageRep ()
-- (id)initWithSVGSource:(SVGKSource*)theSource;
-- (id)initWithSVGImage:(SVGKImage*)theImage;
-+ (id)imageRepWithSVGImage:(SVGKImage*)theImage;
-
 @property (nonatomic, strong, readwrite) SVGKImage *image;
 @end
 
