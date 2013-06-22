@@ -1,3 +1,5 @@
+#ifndef SVGKIT_SCGKIMAGE_H
+#define SVGKIT_SCGKIMAGE_H
 /*
  SVGKImage
  
@@ -308,3 +310,5 @@
 -(void) scaleToFitInside:(CGSize) maxSize;
 
 @end
+
+#endif
