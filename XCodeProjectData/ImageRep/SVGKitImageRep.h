@@ -25,6 +25,12 @@
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize;
 
+#ifdef SVGKIT_SCGKIMAGE_H
+- (id)initWithSVGSource:(SVGKSource*)theSource;
+- (id)initWithSVGImage:(SVGKImage*)theImage;
++ (id)imageRepWithSVGImage:(SVGKImage*)theImage;
+#endif
+
 @end
 
 //Deprecated functions: DO NOT USE
