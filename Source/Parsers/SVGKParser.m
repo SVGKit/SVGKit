@@ -25,6 +25,10 @@
 
 #import "Node.h"
 
+#ifndef USENSSTRINGFROMLIBXMLSTRINGFUNCTION
+#define USENSSTRINGFROMLIBXMLSTRINGFUNCTION 0
+#endif
+
 @interface SVGKParser()
 @property(nonatomic,strong, readwrite) SVGKSource* source;
 @property(nonatomic,strong, readwrite) SVGKParseResult* currentParseRun;
@@ -47,10 +51,10 @@ static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *pr
 static void	charactersFoundSAX(void * ctx, const xmlChar * ch, int len);
 static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 
-#if 0
-static NSString *NSStringFromLibxmlString (const xmlChar *string);
+#if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
+static inline NSString *NSStringFromLibxmlString (const xmlChar *string);
 #else
-#define NSStringFromLibxmlString(string) @((const char *) string)
+#define NSStringFromLibxmlString(string) (string ? @((const char*)string): nil)
 #endif
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
@@ -236,10 +240,10 @@ readPacket(char *mem, int size) {
 
 - (void)handleStartElement:(NSString *)name namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributeObjects:(NSMutableDictionary *) attributeObjects
 {
-	BOOL parsingRootTag = FALSE;
+	BOOL parsingRootTag = NO;
 	
 	if( _parentOfCurrentNode == nil )
-		parsingRootTag = TRUE;
+		parsingRootTag = YES;
 	
 	if( ! parsingRootTag && _storedChars.length > 0 )
 	{
@@ -623,8 +627,8 @@ static xmlSAXHandler SAXHandler = {
 #pragma mark -
 #pragma mark Utility
 
-#if 0
-static NSString *NSStringFromLibxmlString (const xmlChar *string) {
+#if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
+static inline NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	if( string == NULL ) // Yes, Apple requires we do this check!
 		return nil;
 	else
