@@ -80,10 +80,12 @@
 	
 #if 0
 	[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
-		NSString *rhsString = [rhs fileName];
-		NSString *lhsString = [lhs fileName];
-		NSComparisonResult result = [rhsString localizedStandardCompare:lhsString];
-		return result;
+		@autoreleasepool {
+			NSString *rhsString = [rhs fileName];
+			NSString *lhsString = [lhs fileName];
+			NSComparisonResult result = [rhsString localizedStandardCompare:lhsString];
+			return result;
+		}
 	}];
 #endif
 	
@@ -96,7 +98,7 @@
 	NSTableView *tmpView = [notification object];
 	NSInteger selRow = [tmpView selectedRow];
 	if (selRow > -1 && selRow < [self.svgArray count]) {
-		NSObject <SKSVGObject> *tmpObj = [self.svgArray objectAtIndex:selRow];
+		NSObject<SKSVGObject> *tmpObj = [self.svgArray objectAtIndex:selRow];
 		SVGKImage *theImage = nil;
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
