@@ -411,10 +411,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		NSString* uri = namespacesByPrefix[prefix];
 		
-		if( prefix != nil )
-			(NSctx.currentParseRun.namespacesEncountered)[prefix] = uri;
-		else
-			(NSctx.currentParseRun.namespacesEncountered)[[NSNull null]] = uri;
+		(NSctx.currentParseRun.namespacesEncountered)[prefix ? prefix : [NSNull null]] = uri;
 	}
 	
 #if DEBUG_XML_PARSER

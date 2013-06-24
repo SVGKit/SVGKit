@@ -10,34 +10,27 @@
 
 @implementation SKSVGObject
 
+#define NotImplemented() \
+if ([self isMemberOfClass:[SKSVGObject class]]) { \
+NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly."); \
+}else { \
+NSAssert(NO, @"The subclass %@ should implement %s.", [self class],  sel_getName(_cmd)); \
+} \
+return nil
+
 - (NSURL *)svgURL
 {
-	if ([self isKindOfClass:[SKSVGObject class]]) {
-		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
-	}else {
-		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
-	}
-	return nil;
+	NotImplemented();
 }
 
 - (NSString *)fileName
 {
-	if ([self isKindOfClass:[SKSVGObject class]]) {
-		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
-	}else {
-		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
-	}
-	return nil;
+	NotImplemented();
 }
 
 - (NSString *)fullFileName
 {
-	if ([self isKindOfClass:[SKSVGObject class]]) {
-		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
-	}else {
-		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
-	}
-	return nil;
+	NotImplemented();
 }
 
 - (BOOL)isEqualURL:(NSURL*)theURL
@@ -85,14 +78,21 @@
 	return self;
 }
 
+- (void)getFileName:(out NSString **)filNam extension:(out NSString **)ext
+{
+	NSParameterAssert(filNam != nil);
+	NSParameterAssert(ext != nil);
+
+	*filNam = [self.fullFileName stringByDeletingPathExtension];
+	NSString *extension = [self.fullFileName pathExtension];
+	*ext = extension ? extension : @"svg";
+}
+
 - (NSURL*)svgURL
 {
-	NSString *name = self.fullFileName;
-	NSString *newName = [name stringByDeletingPathExtension];
-	NSString *extension = [name pathExtension];
-    if ([@"" isEqualToString:extension]) {
-        extension = @"svg";
-    }
+	NSString *newName = nil;
+	NSString *extension = nil;
+	[self getFileName:&newName extension:&extension];
 	
 	NSURL *retURL = [self.theBundle URLForResource:newName withExtension:extension];
 	return retURL;
@@ -101,12 +101,9 @@
 - (NSString*)fileName
 {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *name = self.fullFileName;
-	NSString *newName = [name stringByDeletingPathExtension];
-	NSString *extension = [name pathExtension];
-    if ([@"" isEqualToString:extension]) {
-        extension = @"svg";
-    }
+	NSString *newName = nil;
+	NSString *extension = nil;
+	[self getFileName:&newName extension:&extension];
 	
 	NSString *fullPath = [self.theBundle pathForResource:newName ofType:extension];
 	NSString *retShortName = [manager displayNameAtPath:fullPath];
@@ -146,7 +143,7 @@
 	NSURL *tmpURL = self.svgURL;
 	
 	if([tmpURL isFileURL]){
-		id val = nil;
+		NSString *val = nil;
 		NSError *err = nil;
 		if([tmpURL getResourceValue:&val forKey:NSURLLocalizedNameKey error:&err] == NO)
 		{
