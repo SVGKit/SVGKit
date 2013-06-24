@@ -443,7 +443,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 - (UIImage *)UIImage
 {
-	return [self exportUIImageAntiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
+	return [self exportUIImageAntiAliased:YES curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 }
 #else
 - (CIImage*)CIImage
@@ -879,6 +879,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if (!imRep) {
 		return nil;
 	}
+	
+	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	DDLogVerbose(@"[%@] DEBUG: You should have got a similar message from the NSBitmapImageRep generator.", [self class]);
+	
 	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
 	return [result autorelease];
 }
@@ -889,6 +893,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if (!imRep) {
 		return nil;
 	}
+	
+	DDLogVerbose(@"[%@] DEBUG: Generating an NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	DDLogVerbose(@"[%@] DEBUG: You should have got a similar message from the NSBitmapImageRep generator.", [self class]);
+	
 	NSImage *retval = [[NSImage alloc] init];
 	[retval addRepresentation:imRep];
 	[retval setSize:self.size];
@@ -899,6 +907,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
 	if ([self hasSize]) {
+		DDLogVerbose(@"[%@] DEBUG: Generating an NSBitmapImageRep using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+
 		NSSize curSize = self.size;
 		NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:ceil(curSize.width) pixelsHigh:ceil(curSize.height) bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
 		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
