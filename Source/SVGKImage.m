@@ -16,6 +16,16 @@
 
 #import "BlankSVG.h"
 
+#ifndef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+//Use caching on iOS: it needs it for the speed boost
+#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1
+#else
+//Don't use caching on OS X: It's fast enough to handle creating a new image each time
+#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 0
+#endif
+#endif
+
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
 #else
@@ -34,7 +44,7 @@
 @property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
 #endif
 
@@ -60,15 +70,14 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
 //iOS only
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-
 +(void) initialize
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
@@ -87,7 +96,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		DDLogWarn(@"[%@] Low-mem, but no cache to purge...", self);
 	}
 }
-#else
+#endif
 
 + (void)clearSVGImageCache
 {
@@ -98,8 +107,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		DDLogInfo(@"[%@] Nothing to purge...", self);
 	}
 }
-
-#endif
 
 + (void)removeSVGImageCacheNamed:(NSString*)theName
 {
@@ -116,7 +123,24 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return [NSArray array];
 	}
 }
+#else
+#define NotInCachedVersion() DDLogError(@"[%@]The function %s is not implemented in this version of SVGKit.", self, sel_getName(_cmd))
++ (void)clearSVGImageCache
+{
+	NotInCachedVersion();
+}
 
++ (void)removeSVGImageCacheNamed:(NSString*)theName
+{
+	NotInCachedVersion();
+}
+
++ (NSArray*)storedCacheNames
+{
+	NotInCachedVersion();
+	return nil;
+}
+#undef NotInCachedVersion
 #endif
 
 + (SVGKImage *)defaultImage
@@ -129,7 +153,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSParameterAssert(name != nil);
 	NSParameterAssert(bundle != nil);
     
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if ([[NSBundle mainBundle] isEqual:bundle]) {
 		if( globalSVGKImageCache == nil )
 		{
@@ -160,7 +184,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	SVGKImage* result = [self imageWithContentsOfFile:path];
     
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil  && [[NSBundle mainBundle] isEqual:bundle])
 	{
 		result->cameFromGlobalCache = YES;
@@ -168,7 +192,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		[globalSVGKImageCache setValue:result forKey:name];
 	}
-	else
+	else if([[NSBundle mainBundle] isEqual:bundle])
 	{
 		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
 	}
@@ -284,7 +308,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     self.nameUsedToInstantiate = nil;
 #endif
 	
@@ -293,7 +317,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 //TODO mac alternatives to UIKit functions
 
-#if TARGET_OS_IPHONE
 + (SVGKImage *)imageWithData:(NSData *)data
 {
 	NSParameterAssert(data != nil);
@@ -301,7 +324,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return [[(SVGKImage*)[[self class] alloc] initWithData:data] autorelease];
 	}
 }
-#endif
 
 - (id)initWithData:(NSData *)data
 {
