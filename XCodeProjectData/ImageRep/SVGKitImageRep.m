@@ -101,6 +101,11 @@
 	return [[self alloc] initWithContentsOfURL:url];
 }
 
++ (id)imageRepWithSVGSource:(SVGKSource*)theSource
+{
+	return [[self alloc] initWithSVGSource:theSource];
+}
+
 + (id)imageRepWithSVGImage:(SVGKImage*)theImage
 {
 	return [[self alloc] initWithSVGImage:theImage];

@@ -28,6 +28,7 @@
 #ifdef SVGKIT_SVGKIMAGE_H
 - (id)initWithSVGSource:(SVGKSource*)theSource;
 - (id)initWithSVGImage:(SVGKImage*)theImage;
++ (id)imageRepWithSVGSource:(SVGKSource*)theSource;
 + (id)imageRepWithSVGImage:(SVGKImage*)theImage;
 #endif
 
