@@ -306,14 +306,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	[self removeObserver:self forKeyPath:@"scale"];
 	
-    self.source = nil;
-    self.parseErrorsAndWarnings = nil;
-    
-    self.DOMDocument = nil;
+	self.source = nil;
+	self.parseErrorsAndWarnings = nil;
+	
+	self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    self.nameUsedToInstantiate = nil;
+	self.nameUsedToInstantiate = nil;
 #endif
 	
 	[super dealloc];
