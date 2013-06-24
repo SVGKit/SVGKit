@@ -10,34 +10,27 @@
 
 @implementation SKSVGObject
 
+#define NotImplemented() \
+if ([self isMemberOfClass:[SKSVGObject class]]) { \
+NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly."); \
+}else { \
+NSAssert(NO, @"The subclass %@ should implement %s.", [self class],  sel_getName(_cmd)); \
+} \
+return nil
+
 - (NSURL *)svgURL
 {
-	if ([self isKindOfClass:[SKSVGObject class]]) {
-		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
-	}else {
-		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
-	}
-	return nil;
+	NotImplemented();
 }
 
 - (NSString *)fileName
 {
-	if ([self isKindOfClass:[SKSVGObject class]]) {
-		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
-	}else {
-		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
-	}
-	return nil;
+	NotImplemented();
 }
 
 - (NSString *)fullFileName
 {
-	if ([self isKindOfClass:[SKSVGObject class]]) {
-		NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly");
-	}else {
-		NSAssert(NO, @"The subclass should implement %s.", sel_getName(_cmd));
-	}
-	return nil;
+	NotImplemented();
 }
 
 - (BOOL)isEqualURL:(NSURL*)theURL
