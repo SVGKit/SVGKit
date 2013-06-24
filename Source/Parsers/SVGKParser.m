@@ -47,11 +47,7 @@ static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *pr
 static void	charactersFoundSAX(void * ctx, const xmlChar * ch, int len);
 static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 
-#if 0
 static NSString *NSStringFromLibxmlString (const xmlChar *string);
-#else
-#define NSStringFromLibxmlString(string) @((const char *) string)
-#endif
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
@@ -641,14 +637,12 @@ static xmlSAXHandler SAXHandler = {
 #pragma mark -
 #pragma mark Utility
 
-#if 0
 static NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	if( string == NULL ) // Yes, Apple requires we do this check!
 		return nil;
 	else
 		return [NSString stringWithUTF8String:(const char *) string];
 }
-#endif
 
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct)
 {
