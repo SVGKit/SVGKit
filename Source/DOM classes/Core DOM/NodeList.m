@@ -9,7 +9,7 @@
     self = [super init];
 	
     if (self) {
-        self.internalArray = [NSMutableArray array];
+        self.internalArray = [[NSMutableArray alloc] init];
     }
     return self;
 }

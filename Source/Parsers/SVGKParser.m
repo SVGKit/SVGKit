@@ -75,12 +75,12 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 - (id)initWithSource:(SVGKSource *) s {
 	self = [super init];
 	if (self) {
-		self.parserExtensions = [NSMutableArray array];
+		self.parserExtensions = [[NSMutableArray alloc] init];
 		
 		self.source = s;
 		
-		_storedChars = [NSMutableString new];
-		_stackOfParserExtensions = [NSMutableArray new];
+		_storedChars = [[NSMutableString alloc] init];
+		_stackOfParserExtensions = [[NSMutableArray alloc] init];
 	}
 	return self;
 }

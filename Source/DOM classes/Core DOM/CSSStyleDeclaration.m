@@ -22,7 +22,7 @@
 {
     self = [super init];
     if (self) {
-        self.internalDictionaryOfStylesByCSSClass = [NSMutableDictionary dictionary];
+        self.internalDictionaryOfStylesByCSSClass = [[NSMutableDictionary alloc] init];
     }
     return self;
 }

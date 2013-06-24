@@ -21,8 +21,8 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.internalDictionary = [NSMutableDictionary dictionary];
-		self.internalDictionaryOfNamespaces = [NSMutableDictionary dictionary];
+        self.internalDictionary = [[NSMutableDictionary alloc] init];
+		self.internalDictionaryOfNamespaces = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -148,7 +148,7 @@
 	NSMutableDictionary* namespaceDict = (self.internalDictionaryOfNamespaces)[effectiveNamespace];
 	if( namespaceDict == nil )
 	{
-		namespaceDict = [NSMutableDictionary dictionary];
+		namespaceDict = [[NSMutableDictionary alloc] init];
 		(self.internalDictionaryOfNamespaces)[effectiveNamespace] = namespaceDict;
 	}
 	Node* oldNode = namespaceDict[arg.localName];
