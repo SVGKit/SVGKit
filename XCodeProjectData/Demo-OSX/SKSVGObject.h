@@ -18,7 +18,7 @@
 
 @interface SKSVGObject : NSObject <SKSVGObject>
 
-- (BOOL)isEqualURL:(NSURL*)theURL;
+- (BOOL)isEqualToURL:(NSURL*)theURL;
 
 @end
 
