@@ -103,6 +103,11 @@
 	return [[[self alloc] initWithContentsOfURL:url] autorelease];
 }
 
++ (id)imageRepWithSVGSource:(SVGKSource*)theSource
+{
+	return [[[self alloc] initWithSVGSource:theSource] autorelease];
+}
+
 + (id)imageRepWithSVGImage:(SVGKImage*)theImage
 {
 	return [[[self alloc] initWithSVGImage:theImage] autorelease];
