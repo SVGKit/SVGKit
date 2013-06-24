@@ -124,7 +124,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 #else
-#define NotInCachedVersion() DDLogError(@"[%@]The function %s is not implemented in this version of SVGKit.", self, sel_getName(_cmd))
+#define NotInCachedVersion() DDLogError(@"[%@]The function +%s is not implemented in this version of SVGKit because caching has been disabled.", self, sel_getName(_cmd))
 + (void)clearSVGImageCache
 {
 	NotInCachedVersion();
