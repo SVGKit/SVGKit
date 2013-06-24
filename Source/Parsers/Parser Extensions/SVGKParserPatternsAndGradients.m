@@ -34,7 +34,7 @@
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
 -(NSArray*) supportedTags
 {
-	return [NSMutableArray arrayWithObjects:@"pattern", nil];
+	return [NSMutableArray arrayWithObject:@"pattern"];
 }
 
 - (Node*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(Node*) parentNode
