@@ -57,23 +57,11 @@
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 
-#ifndef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-//Use caching on iOS: it needs it for the speed boost
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1
-#else
-//Don't use caching on OS X: It's fast enough to handle creating a new image each time
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 0
-#endif
-#endif
-
 @class SVGDefsElement;
 
 @interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
 {
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	BOOL cameFromGlobalCache;
-#endif
 }
 
 /** Generates an image on the fly
@@ -94,14 +82,10 @@
 @property (nonatomic, strong, readonly) SVGDocument* DOMDocument;
 @property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, strong, readonly) CALayer* CALayerTree;
-#if defined(ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED) && ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, strong, readonly) NSString* nameUsedToInstantiate;
-#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 + (void)clearSVGImageCache;
-#endif
 + (void)removeSVGImageCacheNamed:(NSString*)theName;
 + (NSArray*)storedCacheNames;
-#endif
 
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
@@ -109,11 +93,9 @@
 + (SVGKImage *)imageNamed:(NSString*)name fromBundle:(NSBundle*)bundle;
 #endif
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
-#if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
 + (SVGKImage *)imageWithData:(NSData *)data;
-#endif
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
-+ (SVGKImage *)defaultImage; //For a simple default image
++ (SVGKImage*) defaultImage; //For a simple default image
 
 - (id)initWithContentsOfURL:(NSURL *)url;
 - (id)initWithContentsOfFile:(NSString *)path;
