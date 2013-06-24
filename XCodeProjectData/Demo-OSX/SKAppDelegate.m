@@ -10,13 +10,8 @@
 #import "SKSVGObject.h"
 #import "SVGKit.h"
 
-@interface SVGKImage ()
-+ (void)clearSVGImageCache;
-@end
-
 @interface SKAppDelegate ()
 @property (readwrite, retain) NSArray *svgArray;
-
 @end
 
 @implementation SKAppDelegate
