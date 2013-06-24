@@ -226,6 +226,8 @@
 		55B4D7A9173EC87C00D2C676 /* SVGKLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73A17387F2B004029EF /* SVGKLayer.m */; };
 		55B4D7AA173ECEA200D2C676 /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71C17387F2B004029EF /* CALayerExporter.m */; };
 		55B4D7AB173ECEC200D2C676 /* CALayerExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71B17387F2B004029EF /* CALayerExporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55D274791779029C0068FD7C /* SVGKSourceData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D274771779029C0068FD7C /* SVGKSourceData.h */; };
+		55D2747A1779029C0068FD7C /* SVGKSourceData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D274781779029C0068FD7C /* SVGKSourceData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -456,6 +458,8 @@
 		55B4D7A0173EC58700D2C676 /* SVGKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGKImageView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		55B4D7A1173EC58700D2C676 /* SVGKLayeredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKLayeredImageView.h; sourceTree = "<group>"; };
 		55B4D7A2173EC58700D2C676 /* SVGKLayeredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGKLayeredImageView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		55D274771779029C0068FD7C /* SVGKSourceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceData.h; sourceTree = "<group>"; };
+		55D274781779029C0068FD7C /* SVGKSourceData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,6 +482,8 @@
 				55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */,
 				55247B20173DB63B00531BBC /* SVGKSourceURL.h */,
 				55247B21173DB63B00531BBC /* SVGKSourceURL.m */,
+				55D274771779029C0068FD7C /* SVGKSourceData.h */,
+				55D274781779029C0068FD7C /* SVGKSourceData.m */,
 			);
 			name = Sources;
 			path = Source/Sources;
@@ -1010,6 +1016,7 @@
 				55A5AD6C175FEBF4009F2FDD /* ConverterSVGToCALayer.h in Headers */,
 				55A5AD8A1760037A009F2FDD /* CALayer+RecursiveClone.h in Headers */,
 				55801825176E4D7800F64989 /* BlankSVG.h in Headers */,
+				55D274791779029C0068FD7C /* SVGKSourceData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,6 +1178,7 @@
 				55A5AD69175FEBB0009F2FDD /* DispatchQueueLogFormatter.m in Sources */,
 				55A5AD8B1760037A009F2FDD /* CALayer+RecursiveClone.m in Sources */,
 				55801826176E4D7800F64989 /* BlankSVG.m in Sources */,
+				55D2747A1779029C0068FD7C /* SVGKSourceData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,9 +11,9 @@
 @implementation SKSVGObject
 
 #define NotImplemented() \
-if ([self isMemberOfClass:[SKSVGObject class]]) { \
+if ([self class] == [SKSVGObject class]) { \
 NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly."); \
-}else { \
+} else { \
 NSAssert(NO, @"The subclass %@ should implement %s.", [self class],  sel_getName(_cmd)); \
 } \
 return nil
@@ -33,21 +33,26 @@ return nil
 	NotImplemented();
 }
 
-- (BOOL)isEqualURL:(NSURL*)theURL
+- (BOOL)isEqualToURL:(NSURL*)theURL
 {
-	id dat1, dat2;
-	BOOL bothareValid = YES;
-	BOOL theSame = NO;
-	if (![[self svgURL] getResourceValue:&dat1 forKey:NSURLFileResourceIdentifierKey error:NULL]) {
-		bothareValid = NO;
-	}
-	if (![theURL getResourceValue:&dat2 forKey:NSURLFileResourceIdentifierKey error:NULL]) {
-		bothareValid = NO;
-	}
-	if (bothareValid) {
-		theSame = [dat1 isEqual:dat2];
-	}
-	return theSame;
+	if ([self.svgURL isFileURL] && [theURL isFileURL]) {
+		id dat1, dat2;
+		BOOL bothareValid = YES;
+		BOOL theSame = NO;
+		if (![[self svgURL] getResourceValue:&dat1 forKey:NSURLFileResourceIdentifierKey error:NULL]) {
+			bothareValid = NO;
+		}
+		if (![theURL getResourceValue:&dat2 forKey:NSURLFileResourceIdentifierKey error:NULL]) {
+			bothareValid = NO;
+		}
+		if (bothareValid) {
+			theSame = [dat1 isEqual:dat2];
+		}
+		return theSame;
+	} else if (![self.svgURL isFileURL] && ![theURL isFileURL]) {
+		return [[self.svgURL absoluteURL] isEqual:[theURL absoluteURL]];
+	} else
+		return NO;
 }
 
 - (NSUInteger)hash
@@ -100,13 +105,12 @@ return nil
 
 - (NSString*)fileName
 {
-	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *newName = nil;
 	NSString *extension = nil;
 	[self getFileName:&newName extension:&extension];
 	
 	NSString *fullPath = [self.theBundle pathForResource:newName ofType:extension];
-	NSString *retShortName = [manager displayNameAtPath:fullPath];
+	NSString *retShortName = [[NSFileManager defaultManager] displayNameAtPath:fullPath];
 	return retShortName;
 }
 
@@ -116,7 +120,7 @@ return nil
 		SKSVGBundleObject* bundObj = object;
 		return [bundObj.fullFileName isEqualToString:self.fullFileName] && [bundObj.theBundle isEqual:self.theBundle];
 	} else if ([object conformsToProtocol:@protocol(SKSVGObject)] || [object isKindOfClass:[SKSVGObject class]]) {
-		return [self isEqualURL:[object svgURL]];
+		return [self isEqualToURL:[object svgURL]];
 	} else {
 		return NO;
 	}
@@ -164,7 +168,7 @@ return nil
 - (BOOL)isEqual:(id)object
 {
 	if (/*[object isKindOfClass:[SKSVGURLObject class]] ||*/ [object conformsToProtocol:@protocol(SKSVGObject)] || [object isKindOfClass:[SKSVGObject class]]) {
-		return [self isEqualURL:[object svgURL]];
+		return [self isEqualToURL:[object svgURL]];
 	} else {
 		return NO;
 	}
