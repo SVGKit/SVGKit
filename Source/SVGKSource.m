@@ -1,7 +1,7 @@
 #import "SVGKSource.h"
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
-
+#import "SVGKSourceData.h"
 
 @implementation SVGKSource
 
@@ -28,11 +28,7 @@
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
-	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
-	[stream open];
-	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
-	return s;
+	return [SVGKSourceData sourceFromData:data];
 }
 
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
