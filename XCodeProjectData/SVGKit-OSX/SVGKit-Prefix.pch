@@ -8,6 +8,7 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
+	#import <QuartzCore/QuartzCore.h>
 	#import "SVGKit.h"
 	#import "DDLog.h"
 
