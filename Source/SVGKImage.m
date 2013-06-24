@@ -230,9 +230,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	/** Remove and release (if appropriate) all cached render-output */
-	DDLogVerbose(@"[%@] source data changed; de-caching cached data", [self class] );
-	self.CALayerTree = nil;
+	if ([keyPath isEqualToString:@"DOMTree.viewport"] || [keyPath isEqualToString:@"scale"]) {
+		/** Remove and release (if appropriate) all cached render-output */
+		DDLogVerbose(@"[%@] source data changed; de-caching cached data", [self class] );
+		self.CALayerTree = nil;
+	}
 }
 
 /**
@@ -266,6 +268,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		}
 		
 		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
+		[self addObserver:self forKeyPath:@"scale" options:NSKeyValueObservingOptionOld context:nil];
 		//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
@@ -301,6 +304,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (void)dealloc
 {
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	[self removeObserver:self forKeyPath:@"scale"];
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
@@ -425,7 +429,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	self.DOMTree.viewport = SVGRectMake(0,0,newSize.width,newSize.height); // implicitly resizes all the internal rendering of the SVG
 	
 	/** invalidate all cached data that's dependent upon SVG's size */
-	self.CALayerTree = nil; // invalidate the cached copy
+	/** The KVO observer will do this for us */
+	//self.CALayerTree = nil; // invalidate the cached copy
 }
 
 -(void)setScale:(CGFloat)newScale
@@ -437,7 +442,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	_scale = newScale;
 	
 	/** invalidate all cached data that's dependent upon SVG's size */
-	self.CALayerTree = nil; // invalidate the cached copy
+	/** The KVO observer will do this for us */
+	//self.CALayerTree = nil; // invalidate the cached copy
 }
 
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
