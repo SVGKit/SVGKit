@@ -100,12 +100,16 @@
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		NSObject<SKSVGObject> *tmpObj = [self.svgArray objectAtIndex:selRow];
 		SVGKImage *theImage = nil;
+#ifdef USEBUNDLEINIT
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
 			theImage = [[SVGKImage imageNamed:tmpObj.fullFileName fromBundle:((SKSVGBundleObject*)tmpObj).theBundle] retain];
 		} else {
+#endif
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
+#ifdef USEBUNDLEINIT
 		}
+#endif
 		self.svgImage = theImage;
 		[theImage release];
 	}else NSBeep();
