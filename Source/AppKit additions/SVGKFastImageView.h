@@ -12,7 +12,7 @@
  Basic usage:
  - as per NSImageView, simpy:
  - SVGKImageView *skv = [[SVGKImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"image.svg"]];
- - [self.view addSubview: skv];
+ - [view addSubview: skv];
  
  Advanced usage:
  - to make the contents shrink to half their actual size, and tile to fill, set self.tileRatio = CGSizeMake( 2.0f, 2.0f );
@@ -28,7 +28,6 @@
 @interface SVGKFastImageView : SVGKImageView
 
 @property(nonatomic) CGSize tileRatio;
-@property(nonatomic) BOOL disableAutoRedrawAtHighestResolution;
 @property(nonatomic,retain) SVGKImage* image;
 
 /** Connvenience function to the text and gradient checkers
@@ -42,13 +41,13 @@
  can invent a workaround (or Apple fixes their bug), it's best to warn developers that their SVG will NOT render
  correctly
  */
-+(BOOL) svgImageHasNoGradients:(SVGKImage*) image;
-+(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element DEPRECATED_ATTRIBUTE;
++(BOOL)svgImageHasNoGradients:(SVGKImage*) image;
++(BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*) element DEPRECATED_ATTRIBUTE;
 
 /** The text implementation on OS X is different between CALayers and NSViews. If the CALayer is made in 
  SVGKLayeredImageView, it renders right-side up. Otherwise, it is upside-down.
  */
 + (BOOL)svgImageHasNoText:(SVGKImage*)image;
-+ (BOOL) svgElementAndDescendentsHaveNoText:(SVGElement*) element DEPRECATED_ATTRIBUTE;
++ (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element DEPRECATED_ATTRIBUTE;
 
 @end
