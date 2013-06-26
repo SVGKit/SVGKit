@@ -120,7 +120,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if (globalSVGKImageCache) {
 		return [globalSVGKImageCache allKeys];
 	} else {
-		return [NSArray array];
+		return @[];
 	}
 }
 #else
@@ -160,7 +160,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 			globalSVGKImageCache = [NSMutableDictionary new];
 		}
 		
-		SVGKImage* cacheImage = [globalSVGKImageCache valueForKey:name];
+		SVGKImage* cacheImage = globalSVGKImageCache[name];
 		if( cacheImage != nil )
 		{
 			return cacheImage;
@@ -190,7 +190,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		result->cameFromGlobalCache = YES;
 		result.nameUsedToInstantiate = name;
 		
-		[globalSVGKImageCache setValue:result forKey:name];
+		globalSVGKImageCache[name] = result ;
 	}
 	else if([[NSBundle mainBundle] isEqual:bundle])
 	{

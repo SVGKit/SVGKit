@@ -188,7 +188,7 @@
 {
 #if TARGET_OS_IPHONE
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-	NSString *baseDir = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+	NSString *baseDir = ([paths count] > 0) ? paths[0] : nil;
 	NSString *logsDirectory = [baseDir stringByAppendingPathComponent:@"Logs"];
     
 #else
@@ -1145,7 +1145,7 @@
 	NSUInteger i;
 	for (i = 1; i < max; i++)
 	{
-		NSString *attr = [components objectAtIndex:i];
+		NSString *attr = components[i];
 		
 		if ([attrName isEqualToString:attr])
 		{
@@ -1177,7 +1177,7 @@
 	
 	if (count > 0)
 	{
-		[newFileName appendString:[components objectAtIndex:0]];
+		[newFileName appendString:components[0]];
 	}
 	
 	NSString *lastExt = @"";
@@ -1185,7 +1185,7 @@
 	NSUInteger i;
 	for (i = 1; i < count; i++)
 	{
-		NSString *attr = [components objectAtIndex:i];
+		NSString *attr = components[i];
 		if ([attr length] == 0)
 		{
 			continue;
@@ -1236,7 +1236,7 @@
 	
 	if (count > 0)
 	{
-		[newFileName appendString:[components objectAtIndex:0]];
+		[newFileName appendString:components[0]];
 	}
 	
 	BOOL found = NO;
@@ -1244,7 +1244,7 @@
 	NSUInteger i;
 	for (i = 1; i < count; i++)
 	{
-		NSString *attr = [components objectAtIndex:i];
+		NSString *attr = components[i];
 		
 		if ([attrName isEqualToString:attr])
 		{
