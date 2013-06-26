@@ -23,7 +23,7 @@
 		
 		for( NSString* attributeName in attributes.allKeys )
 		{
-			[self setAttribute:attributeName value:[attributes objectForKey:attributeName]];
+			[self setAttribute:attributeName value:attributes[attributeName]];
 		}
     }
     return self;

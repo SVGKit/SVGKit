@@ -49,9 +49,7 @@ static NSDictionary *elementMap = nil;
 
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			@"http://www.w3.org/2000/svg",
-			nil];
+	return @[@"http://www.w3.org/2000/svg"];
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
@@ -64,7 +62,7 @@ static NSDictionary *elementMap = nil;
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
 	{
-		Class elementClass = [elementMap objectForKey:name];
+		Class elementClass = elementMap[name];
 		
 		if (!elementClass) {
 			elementClass = [SVGElement class];
@@ -147,7 +145,7 @@ static NSDictionary *elementMap = nil;
 				
 				/** Post-processing of the ROOT SVG ONLY (doesn't apply to embedded SVG's )
 				 */
-				if ((svgVersion = [attributes objectForKey:@"version"])) {
+				if ((svgVersion = attributes[@"version"])) {
 					SVGKSource.svgLanguageVersion = svgVersion;
 				}
 			}

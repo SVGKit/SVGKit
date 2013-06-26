@@ -42,11 +42,11 @@
     {
         NSDictionary *styleDict = [SVGKParser NSDictionaryFromCSSAttributes:[self getAttributeNode:@"style"]];
 		
-		Attr* testObject = [styleDict objectForKey:@"stop-color"];
+		Attr* testObject = styleDict[@"stop-color"];
         if( testObject != nil )
             _stopColor = SVGColorFromString([testObject.value UTF8String]);
         
-        testObject = [styleDict objectForKey:@"stop-opacity"];
+        testObject = styleDict[@"stop-opacity"];
 		if( testObject != nil )
 			_stopOpacity = [testObject.value SVGKCGFloatValue];
         _stopColor.a = (_stopOpacity * 255);

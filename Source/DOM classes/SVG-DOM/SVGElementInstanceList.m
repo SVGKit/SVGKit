@@ -28,7 +28,7 @@
 	if( index >= [self.internalArray count] )
 		return nil;
 	
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 @end

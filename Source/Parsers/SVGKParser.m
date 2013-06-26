@@ -138,11 +138,11 @@ clazz *parser = [[clazz alloc] init]; \
 	}
 	for( NSString* parserNamespace in extension.supportedNamespaces )
 	{
-		NSMutableArray* extensionsForNamespace = [self.parserKnownNamespaces objectForKey:parserNamespace];
+		NSMutableArray* extensionsForNamespace = (self.parserKnownNamespaces)[parserNamespace];
 		if( extensionsForNamespace == nil )
 		{
 			extensionsForNamespace = [NSMutableArray array];
-			[self.parserKnownNamespaces setObject:extensionsForNamespace forKey:parserNamespace];
+			(self.parserKnownNamespaces)[parserNamespace] = extensionsForNamespace;
 		}
 		
 		[extensionsForNamespace addObject:extension];
@@ -423,9 +423,9 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 */
 	for( NSString* prefix in namespacesByPrefix )
 	{
-		NSString* uri = [namespacesByPrefix objectForKey:prefix];
+		NSString* uri = namespacesByPrefix[prefix];
 		
-		[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:prefix ? prefix : [NSNull null]];
+		(NSctx.currentParseRun.namespacesEncountered)[prefix ? prefix : [NSNull null]] = uri;
 	}
 	
 #if DEBUG_XML_PARSER
@@ -542,12 +542,10 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	va_end(va);
 	
 	NSString *errStr = [[NSString alloc] initWithUTF8String:errcStr];
-	DDLogCWarn(@"Error encountered during parse: %@", errStr);
 	SVGKParser *NSctx = ctx;
+	DDLogCWarn(@"[%@] WARNING: Error encountered during parse: %@", [NSctx class], errStr);
 	SVGKParseResult* parseResult = NSctx.currentParseRun;
-	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  errStr, NSLocalizedDescriptionKey,
-																				  nil]]];
+	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
 	[errStr release];
 }
 
@@ -557,7 +555,7 @@ static void	unparsedEntityDeclaration(void * ctx,
 									  const xmlChar * systemId,
 									  const xmlChar * notationName)
 {
-	DDLogCWarn(@"Error: unparsed entity Decl, name: %s publicID: %s systemID: %s notation name: %s", name, publicId, systemId, notationName);
+	DDLogCWarn(@"Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@", NSStringFromLibxmlString(name), NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId), NSStringFromLibxmlString(notationName));
 }
 
 static void structuredError		(void * userData,
@@ -570,20 +568,20 @@ static void structuredError		(void * userData,
 	 */
 	xmlErrorLevel errorLevel = error->level;
 	
-	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
-									[NSNumber numberWithInt:error->line], @"lineNumber",
-									[NSNumber numberWithInt:error->int2], @"columnNumber",
-									nil];
+	NSMutableDictionary* details = [NSMutableDictionary
+									dictionaryWithDictionary:@{
+									NSLocalizedDescriptionKey : @(error->message),
+									@"lineNumber" : @(error->line),
+									@"columnNumber" : @(error->int2)}];
 	
 	if( error->str1 )
-		[details setValue:[NSString stringWithCString:error->str1 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo1"];
+		details[@"bonusInfo1"] = @(error->str1);
 	if( error->str2 )
-		[details setValue:[NSString stringWithCString:error->str2 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo2"];
+		details[@"bonusInfo2"] = @(error->str2);
 	if( error->str3 )
-		[details setValue:[NSString stringWithCString:error->str3 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo3"];
+		details[@"bonusInfo3"] = @(error->str3);
 	
-	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
+	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
 	SVGKParser *NSctx = userData;
 	SVGKParseResult* parseResult = NSctx.currentParseRun;
@@ -663,8 +661,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **na
 		if( prefix == nil )
 			prefix = @""; // Special case: Apple dictionaries can't handle null keys
 		
-		[dict setObject:uri
-				 forKey:prefix];
+		dict[prefix] = uri;
 	}
 	
 	return [dict autorelease];
@@ -689,8 +686,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		Attr* newAttribute = [[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value];
 		[value release];
 		
-		[dict setObject:newAttribute
-				 forKey:qname];
+		dict[qname] = newAttribute;
 		[newAttribute release];
 	}
 	
@@ -705,7 +701,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	if( styleAttribute == nil )
 	{
 		DDLogWarn(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
-		return [NSDictionary dictionary];
+		return @{};
 	}
 	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -740,10 +736,9 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		else if (c == ';' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]];
+			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:@(name) value:@(accum)];
 			
-			[dict setObject:newAttribute
-					 forKey:newAttribute.localName];
+			dict[newAttribute.localName] = newAttribute;
 			[newAttribute release];
 			
 			bzero(name, MAX_NAME);

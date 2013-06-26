@@ -64,7 +64,7 @@
 	NSOpenPanel *op = [[NSOpenPanel openPanel] retain];
 	[op setTitle: @"Open SVG file"];
 	[op setAllowsMultipleSelection: NO];
-	[op setAllowedFileTypes:[NSArray arrayWithObjects:@"public.svg-image", @"svg", nil]];
+	[op setAllowedFileTypes:@[@"public.svg-image", @"svg"]];
 	[op setCanChooseDirectories: NO];
 	[op setCanChooseFiles: YES];
 	
@@ -73,7 +73,7 @@
 		[op release];
 		return;
 	}
-	NSURL *svgUrl = [[op URLs] objectAtIndex:0];
+	NSURL *svgUrl = [op URLs][0];
 #if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
 	[op release];
@@ -101,7 +101,7 @@
 	} else {
 		NSSavePanel *savePanel = [[NSSavePanel savePanel] retain];
 		[savePanel setTitle:@"Save TIFF data"];
-		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:(NSString*)kUTTypeTIFF]];
+		[savePanel setAllowedFileTypes:@[(NSString*)kUTTypeTIFF]];
 		[savePanel setCanCreateDirectories:YES];
 		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {

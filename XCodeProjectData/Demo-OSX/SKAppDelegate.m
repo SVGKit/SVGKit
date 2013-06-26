@@ -67,7 +67,7 @@
 	
 	while (pname = [dirEnum nextObject]) {
 		//Only look for SVGs that are in the resources folder, no deeper.
-		if ([[[dirEnum fileAttributes] objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
+		if ([[dirEnum fileAttributes][NSFileType] isEqualToString:NSFileTypeDirectory]) {
 			[dirEnum skipDescendants];
 			continue;
 		}
@@ -98,7 +98,7 @@
 	NSTableView *tmpView = [notification object];
 	NSInteger selRow = [tmpView selectedRow];
 	if (selRow > -1 && selRow < [self.svgArray count]) {
-		NSObject<SKSVGObject> *tmpObj = [self.svgArray objectAtIndex:selRow];
+		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
 		SVGKImage *theImage = nil;
 #ifdef USEBUNDLEINIT
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {

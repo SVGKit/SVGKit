@@ -75,13 +75,11 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
         
         propertyRegistry = [[NSMutableDictionary alloc] initWithCapacity:2];
         
-        NSArray* CALayerProperties = [NSArray arrayWithObjects:@"name", @"bounds", @"frame", nil];
-        [propertyRegistry setObject:CALayerProperties
-                             forKey:NSStringFromClass([CALayer class])];
+        NSArray* CALayerProperties = @[@"name", @"bounds", @"frame"];
+        propertyRegistry[NSStringFromClass([CALayer class])] = CALayerProperties;
         
-        NSArray* CAShapeLayerProperties = [NSArray arrayWithObjects:@"path", @"fillColor", @"fillRule", @"strokeColor", @"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern", nil];
-        [propertyRegistry setObject:CAShapeLayerProperties
-                             forKey:NSStringFromClass([CAShapeLayer class])];
+        NSArray* CAShapeLayerProperties = @[@"path", @"fillColor", @"fillRule", @"strokeColor", @"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern"];
+        propertyRegistry[NSStringFromClass([CAShapeLayer class])] = CAShapeLayerProperties;
     }
     return self;
 }
@@ -119,7 +117,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
         Class registeredClass = NSClassFromString(registeredClassName);
         if ([currentLayer isKindOfClass:registeredClass]) {
             
-            for (NSString* propertyName in [propertyRegistry objectForKey:registeredClassName]) {
+            for (NSString* propertyName in propertyRegistry[registeredClassName]) {
                 
                 SEL message = NSSelectorFromString(propertyName);
                 
@@ -250,7 +248,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
                             propertyValue = pathName;
                         }
                     } else {
-                        propertyValue = [NSString stringWithCString:methodReturnType encoding:NSUTF8StringEncoding];
+                        propertyValue = @(methodReturnType);
                     }
                 }
                 

@@ -96,8 +96,8 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-	NSNumber *old = [change objectForKey:NSKeyValueChangeOldKey];
-	NSNumber *new = [change objectForKey:NSKeyValueChangeNewKey];
+	NSNumber *old = change[NSKeyValueChangeOldKey];
+	NSNumber *new = change[NSKeyValueChangeNewKey];
 	
 	if ([old isEqual:new])
 	{
@@ -146,7 +146,7 @@
 	
 	if (count > 0)
 	{
-		DDLogFileInfo *logFileInfo = [sortedLogFileInfos objectAtIndex:0];
+		DDLogFileInfo *logFileInfo = sortedLogFileInfos[0];
 		
 		if (!logFileInfo.isArchived)
 		{
@@ -168,7 +168,7 @@
 	NSUInteger i;
 	for (i = maxNumLogFiles; i < count; i++)
 	{
-		DDLogFileInfo *logFileInfo = [sortedArchivedLogFileInfos objectAtIndex:i];
+		DDLogFileInfo *logFileInfo = sortedArchivedLogFileInfos[i];
 		
 		DDLogWarnInfo(@"DDLogFileManagerDefault: Deleting file: %@", logFileInfo.fileName);
 		
@@ -194,7 +194,7 @@
 #else
 	NSString *appName = [[NSProcessInfo processInfo] processName];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-	NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
 	NSString *logsDirectory = [[basePath stringByAppendingPathComponent:@"Logs"] stringByAppendingPathComponent:appName];
 
 #endif
@@ -772,7 +772,7 @@
 		
 		if ([sortedLogFileInfos count] > 0)
 		{
-			DDLogFileInfo *mostRecentLogFileInfo = [sortedLogFileInfos objectAtIndex:0];
+			DDLogFileInfo *mostRecentLogFileInfo = sortedLogFileInfos[0];
 			
 			BOOL useExistingLogFile = YES;
 			BOOL shouldArchiveMostRecent = NO;
@@ -950,7 +950,7 @@
 {
 	if (modificationDate == nil)
 	{
-		modificationDate = [[self fileAttributes] objectForKey:NSFileModificationDate];
+		modificationDate = [self fileAttributes][NSFileModificationDate];
 	}
 	
 	return modificationDate;
@@ -992,7 +992,7 @@
 		
 	#else
 		
-		creationDate = [[self fileAttributes] objectForKey:NSFileCreationDate];
+		creationDate = [self fileAttributes][NSFileCreationDate];
 		
 	#endif
 		
@@ -1004,7 +1004,7 @@
 {
 	if (fileSize == 0)
 	{
-		fileSize = [[[self fileAttributes] objectForKey:NSFileSize] unsignedLongLongValue];
+		fileSize = [[self fileAttributes][NSFileSize] unsignedLongLongValue];
 	}
 	
 	return fileSize;
