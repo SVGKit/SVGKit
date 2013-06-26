@@ -54,7 +54,7 @@ static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 #if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
 static inline NSString *NSStringFromLibxmlString (const xmlChar *string);
 #else
-#define NSStringFromLibxmlString(string) (string ? @((const char*)string): nil)
+#define NSStringFromLibxmlString(string) (string ? @((const char*)string) : nil)
 #endif
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
