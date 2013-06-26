@@ -13,15 +13,12 @@
 + (SVGKSource*)sourceFromData:(NSData*)data {
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];
-	} else {
-		[data retain];
-	}
+	} 
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
 	
 	SVGKSourceData* s = [[SVGKSourceData alloc] initWithInputSteam:stream];
 	s.data = data;
-	[data release];
 	return s;
 }
 
