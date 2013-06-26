@@ -319,14 +319,12 @@
 			{
 				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
 				
-				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:@{NSLocalizedDescriptionKey: @"transform=skewX is unsupported"}
-						]];
+				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:@{NSLocalizedDescriptionKey: @"transform=skewX is unsupported"}]];
 			}
 			else if( [command isEqualToString:@"skewY"] )
 			{
 				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
-				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:@{NSLocalizedDescriptionKey: @"transform=skewY is unsupported"}
-						]];
+				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:@{NSLocalizedDescriptionKey: @"transform=skewY is unsupported"}]];
 			}
 			else
 			{

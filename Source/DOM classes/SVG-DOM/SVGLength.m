@@ -20,7 +20,6 @@
 @synthesize valueAsString;
 @synthesize internalCSSPrimitiveValue;
 
-
 - (id)init
 {
     NSAssert(FALSE, @"This class must not be init'd. Use the static hepler methods to instantiate it instead");

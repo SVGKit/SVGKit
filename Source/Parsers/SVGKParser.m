@@ -526,8 +526,8 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	va_end(va);
 	
 	NSString *errStr = @(errcStr);
-	DDLogCWarn(@"Error encountered during parse: %@", errStr);
 	SVGKParser *NSctx = (__bridge SVGKParser*)(ctx);
+	DDLogCWarn(@"[%@] WARNING: Error encountered during parse: %@", [NSctx class], errStr);
 	SVGKParseResult* parseResult = NSctx.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
 }
@@ -566,7 +566,6 @@ static void structuredError		(void * userData,
 	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
 	details = nil;
-	
 	SVGKParser *NSctx = (__bridge SVGKParser*)(userData);
 	SVGKParseResult* parseResult = NSctx.currentParseRun;
 	switch( errorLevel )
