@@ -35,9 +35,7 @@
 @property (nonatomic, strong, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, strong, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, strong, readwrite) CALayer* CALayerTree;
-#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, strong, readwrite) NSString* nameUsedToInstantiate;
-#endif
 
 /**
  Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
@@ -113,17 +111,18 @@
 	
 	SVGKImage* result = [self imageWithContentsOfFile:path];
     
-#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-	if( result != nil  && [[NSBundle mainBundle] isEqual:bundle])
-	{
-		result->cameFromGlobalCache = YES;
-		result.nameUsedToInstantiate = name;
-		
-		globalSVGKImageCache[name] = result;
-	}
-	else if([[NSBundle mainBundle] isEqual:bundle])
-	{
-		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
+		if( result != nil )
+		{
+			result->cameFromGlobalCache = YES;
+			result.nameUsedToInstantiate = name;
+			
+			[SVGKImage storeImageCache:result forName:name];
+		}
+		else
+		{
+			DDLogError(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+		}
 	}
     
     return result;

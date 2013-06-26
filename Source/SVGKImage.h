@@ -82,10 +82,6 @@
 @property (nonatomic, strong, readonly) SVGDocument* DOMDocument;
 @property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, strong, readonly) CALayer* CALayerTree;
-@property (nonatomic, strong, readonly) NSString* nameUsedToInstantiate;
-+ (void)clearSVGImageCache;
-+ (void)removeSVGImageCacheNamed:(NSString*)theName;
-+ (NSArray*)storedCacheNames;
 
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle

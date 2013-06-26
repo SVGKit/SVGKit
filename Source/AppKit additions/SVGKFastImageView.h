@@ -28,7 +28,6 @@
 @interface SVGKFastImageView : SVGKImageView
 
 @property(nonatomic) CGSize tileRatio;
-@property(nonatomic) BOOL disableAutoRedrawAtHighestResolution;
 @property(nonatomic,strong) SVGKImage* image;
 
 /** Connvenience function to the text and gradient checkers

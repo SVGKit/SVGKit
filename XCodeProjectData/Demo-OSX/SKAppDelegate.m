@@ -61,7 +61,10 @@
 			continue;
 		}
 		if (NSOrderedSame == [[pname pathExtension] caseInsensitiveCompare:@"svg"]) {
-			[tmpArray addObject:[[SKSVGBundleObject alloc] initWithName:pname]];
+			SKSVGObject *tmpObj = [[SKSVGBundleObject alloc] initWithName:[pname lastPathComponent]];
+			if (![tmpArray containsObject:tmpObj]) {
+				[tmpArray addObject:tmpObj];
+			}
 		}
 	}
 	
