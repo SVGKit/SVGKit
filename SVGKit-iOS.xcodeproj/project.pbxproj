@@ -26,6 +26,8 @@
 		557E69D817401644006B0029 /* SVGKCGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */; };
 		55801829176E4F9300F64989 /* BlankSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 55801827176E4F9300F64989 /* BlankSVG.h */; };
 		5580182A176E4F9300F64989 /* BlankSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 55801828176E4F9300F64989 /* BlankSVG.m */; };
+		558BE71F177BA2C300DC9516 /* SVGKImage+CacheManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 558BE71D177BA2C300DC9516 /* SVGKImage+CacheManagement.h */; };
+		558BE720177BA2C300DC9516 /* SVGKImage+CacheManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 558BE71E177BA2C300DC9516 /* SVGKImage+CacheManagement.m */; };
 		55A5AD44175FEAE4009F2FDD /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD40175FEAE4009F2FDD /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55A5AD45175FEAE4009F2FDD /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD41175FEAE4009F2FDD /* SVGKSourceLocalFile.m */; };
 		55A5AD46175FEAE4009F2FDD /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD42175FEAE4009F2FDD /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -261,6 +263,8 @@
 		557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
 		55801827176E4F9300F64989 /* BlankSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankSVG.h; sourceTree = "<group>"; };
 		55801828176E4F9300F64989 /* BlankSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankSVG.m; sourceTree = "<group>"; };
+		558BE71D177BA2C300DC9516 /* SVGKImage+CacheManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKImage+CacheManagement.h"; sourceTree = "<group>"; };
+		558BE71E177BA2C300DC9516 /* SVGKImage+CacheManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGKImage+CacheManagement.m"; sourceTree = "<group>"; };
 		55A5AD40175FEAE4009F2FDD /* SVGKSourceLocalFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceLocalFile.h; sourceTree = "<group>"; };
 		55A5AD41175FEAE4009F2FDD /* SVGKSourceLocalFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceLocalFile.m; sourceTree = "<group>"; };
 		55A5AD42175FEAE4009F2FDD /* SVGKSourceURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceURL.h; sourceTree = "<group>"; };
@@ -591,6 +595,8 @@
 				66E863831688C2770059C9C4 /* QuartzCore additions */,
 				66E8638C1688C2780059C9C4 /* SVGKImage.h */,
 				66E8638D1688C2780059C9C4 /* SVGKImage.m */,
+				558BE71D177BA2C300DC9516 /* SVGKImage+CacheManagement.h */,
+				558BE71E177BA2C300DC9516 /* SVGKImage+CacheManagement.m */,
 				66E8638E1688C2780059C9C4 /* SVGKit.h */,
 				00E86D7317415AA000F0FA0A /* SVGKit.m */,
 				66E8638F1688C2780059C9C4 /* SVGKSource.h */,
@@ -1001,6 +1007,7 @@
 				55A5AD46175FEAE4009F2FDD /* SVGKSourceURL.h in Headers */,
 				55801829176E4F9300F64989 /* BlankSVG.h in Headers */,
 				55D2747E177903820068FD7C /* SVGKSourceData.h in Headers */,
+				558BE71F177BA2C300DC9516 /* SVGKImage+CacheManagement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,6 +1177,7 @@
 				55A5AD47175FEAE4009F2FDD /* SVGKSourceURL.m in Sources */,
 				5580182A176E4F9300F64989 /* BlankSVG.m in Sources */,
 				55D2747F177903820068FD7C /* SVGKSourceData.m in Sources */,
+				558BE720177BA2C300DC9516 /* SVGKImage+CacheManagement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

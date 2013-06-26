@@ -82,10 +82,6 @@
 @property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readonly) CALayer* CALayerTree;
-@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
-+ (void)clearSVGImageCache;
-+ (void)removeSVGImageCacheNamed:(NSString*)theName;
-+ (NSArray*)storedCacheNames;
 
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
@@ -291,6 +287,18 @@
 /** alters the SVG image's size directly (by changing the viewport) so that it will fit inside the specifed area without stretching or deforming */
 -(void) scaleToFitInside:(CGSize) maxSize;
 
+@end
+
+@interface SVGKImage (CacheManagement)
+@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+
++ (void)clearSVGImageCache;
++ (void)removeSVGImageCacheNamed:(NSString*)theName;
++ (NSArray*)storedCacheNames;
+
++ (BOOL)isCacheEnabled;
++ (void)enableCache;
++ (void)disableCache;
 @end
 
 #endif
