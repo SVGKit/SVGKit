@@ -205,9 +205,9 @@
 		5568CD45177B6A7900047B7A /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD53175FEBB0009F2FDD /* DDLog.m */; };
 		5568CD46177B6A7900047B7A /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD54175FEBB0009F2FDD /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5568CD47177B6A7900047B7A /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD55175FEBB0009F2FDD /* DDTTYLogger.m */; };
-		5568CD48177B6A7900047B7A /* ContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD57175FEBB0009F2FDD /* ContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5568CD48177B6A7900047B7A /* ContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD57175FEBB0009F2FDD /* ContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5568CD49177B6A7900047B7A /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD58175FEBB0009F2FDD /* ContextFilterLogFormatter.m */; };
-		5568CD4A177B6A7900047B7A /* DispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD59175FEBB0009F2FDD /* DispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5568CD4A177B6A7900047B7A /* DispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD59175FEBB0009F2FDD /* DispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5568CD4B177B6A7900047B7A /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD5A175FEBB0009F2FDD /* DispatchQueueLogFormatter.m */; };
 		5568CD4C177B6B2000047B7A /* Lumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5568CD2F177B69B700047B7A /* Lumberjack.framework */; };
 		5568CD50177B6B3A00047B7A /* Lumberjack.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5568CD2F177B69B700047B7A /* Lumberjack.framework */; };
