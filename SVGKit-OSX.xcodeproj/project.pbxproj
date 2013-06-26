@@ -1421,7 +1421,6 @@
 				GCC_PREFIX_HEADER = "Source/Vendor/Lumberjack/Lumberjack-Prefix.pch";
 				INFOPLIST_FILE = "Source/Vendor/Lumberjack/Lumberjack-Info.plist";
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1439,11 +1438,72 @@
 				GCC_PREFIX_HEADER = "Source/Vendor/Lumberjack/Lumberjack-Prefix.pch";
 				INFOPLIST_FILE = "Source/Vendor/Lumberjack/Lumberjack-Info.plist";
 				INSTALL_PATH = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
+		};
+		55CD4D22177B71CA00FAF56C /* Inspect */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Inspect;
+		};
+		55CD4D23177B71CA00FAF56C /* Inspect */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit.exp";
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
+				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Inspect;
+		};
+		55CD4D24177B71CA00FAF56C /* Inspect */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Source/Vendor/Lumberjack/Lumberjack-Prefix.pch";
+				INFOPLIST_FILE = "Source/Vendor/Lumberjack/Lumberjack-Info.plist";
+				INSTALL_PATH = "@rpath";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Inspect;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1453,6 +1513,7 @@
 			buildConfigurations = (
 				5540E67F17387C9F004029EF /* Debug */,
 				5540E68017387C9F004029EF /* Release */,
+				55CD4D22177B71CA00FAF56C /* Inspect */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1462,6 +1523,7 @@
 			buildConfigurations = (
 				5540E68217387C9F004029EF /* Debug */,
 				5540E68317387C9F004029EF /* Release */,
+				55CD4D23177B71CA00FAF56C /* Inspect */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1471,6 +1533,7 @@
 			buildConfigurations = (
 				5568CD3B177B69B700047B7A /* Debug */,
 				5568CD3C177B69B700047B7A /* Release */,
+				55CD4D24177B71CA00FAF56C /* Inspect */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
