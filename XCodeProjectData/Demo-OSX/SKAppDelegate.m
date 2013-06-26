@@ -86,12 +86,16 @@
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
 		SVGKImage *theImage = nil;
+#ifdef USEBUNDLEINIT
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
 			theImage = [SVGKImage imageNamed:tmpObj.fullFileName fromBundle:((SKSVGBundleObject*)tmpObj).theBundle];
 		} else {
+#endif
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
+#ifdef USEBUNDLEINIT
 		}
+#endif
 		self.svgImage = theImage;
 	}else NSBeep();
 	if (![self.layeredWindow isVisible]) {
