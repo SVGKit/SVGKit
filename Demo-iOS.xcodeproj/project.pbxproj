@@ -167,7 +167,6 @@
 		661A0DBF161727CF008D5FBE = {
 			isa = PBXGroup;
 			children = (
-				6661A77C1698BBE20061E349 /* CoreText.framework */,
 				66E862561688BA0B0059C9C4 /* Demo-iOS */,
 				66E862761688BA510059C9C4 /* Demo-Samples */,
 				6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */,
@@ -188,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				6649E10E1617578500AFE92A /* libxml2.dylib */,
+				6661A77C1698BBE20061E349 /* CoreText.framework */,
 				6649E0AC1617479200AFE92A /* QuartzCore.framework */,
 				661A0DCE161727CF008D5FBE /* UIKit.framework */,
 				661A0DD0161727CF008D5FBE /* Foundation.framework */,
