@@ -53,9 +53,11 @@
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
 	
 	while (pname = [dirEnum nextObject]) {
-		//Only look for SVGs that are in the resources folder, no deeper.
+		//Only look for SVGs that are in the resources folder and the language subfolders.
 		if ([[dirEnum fileAttributes][NSFileType] isEqualToString:NSFileTypeDirectory]) {
-			[dirEnum skipDescendants];
+			if (!(NSOrderedSame == [[pname pathExtension] caseInsensitiveCompare:@"lproj"])) {
+				[dirEnum skipDescendants];
+			}
 			continue;
 		}
 		if (NSOrderedSame == [[pname pathExtension] caseInsensitiveCompare:@"svg"]) {
@@ -65,7 +67,6 @@
 	
 	//[tmpArray addObject:[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
 	
-#if 0
 	[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 		@autoreleasepool {
 			NSString *rhsString = [rhs fileName];
@@ -74,7 +75,6 @@
 			return result;
 		}
 	}];
-#endif
 	
 	self.svgArray = [[NSArray alloc] initWithArray:tmpArray];
 }
@@ -86,16 +86,12 @@
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
 		SVGKImage *theImage = nil;
-#ifdef USEBUNDLEINIT
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
 			theImage = [SVGKImage imageNamed:tmpObj.fullFileName fromBundle:((SKSVGBundleObject*)tmpObj).theBundle];
 		} else {
-#endif
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
-#ifdef USEBUNDLEINIT
 		}
-#endif
 		self.svgImage = theImage;
 	}else NSBeep();
 	if (![self.layeredWindow isVisible]) {

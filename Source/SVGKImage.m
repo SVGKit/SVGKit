@@ -1,4 +1,5 @@
 #import "SVGKImage.h"
+#import "SVGKImage+CacheManagement.h"
 
 #import "SVGDefsElement.h"
 #import "SVGDescriptionElement.h"
@@ -15,16 +16,6 @@
 #import "SVGKSourceURL.h"
 
 #import "BlankSVG.h"
-
-#ifndef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-//Use caching on iOS: it needs it for the speed boost
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1
-#else
-//Don't use caching on OS X: It's fast enough to handle creating a new image each time
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 0
-#endif
-#endif
 
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
@@ -72,76 +63,20 @@
 @synthesize parseErrorsAndWarnings;
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 
-#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-static NSMutableDictionary* globalSVGKImageCache;
-
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
-//iOS only
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 +(void) initialize
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
 	{
+		//iOS only
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-	}
-}
-
-+(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
-{
-	if (globalSVGKImageCache) {
-		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
-		
-		[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
-	} else {
-		DDLogWarn(@"[%@] Low-mem, but no cache to purge...", self);
-	}
-}
-#endif
-
-+ (void)clearSVGImageCache
-{
-	if (globalSVGKImageCache) {
-		DDLogInfo(@"[%@] Purging cache of %li SVGKImage's...", self, (long)[globalSVGKImageCache count] );
-		[globalSVGKImageCache removeAllObjects];
-	}else {
-		DDLogInfo(@"[%@] Nothing to purge...", self);
-	}
-}
-
-+ (void)removeSVGImageCacheNamed:(NSString*)theName
-{
-	if (globalSVGKImageCache) {
-		[globalSVGKImageCache removeObjectForKey:theName];
-	}
-}
-
-+ (NSArray*)storedCacheNames
-{
-	if (globalSVGKImageCache) {
-		return [globalSVGKImageCache allKeys];
-	} else {
-		return @[];
-	}
-}
+		[self enableCache];
 #else
-#define NotInCachedVersion() DDLogError(@"[%@]The function +%s is not implemented in this version of SVGKit because caching has been disabled.", self, sel_getName(_cmd))
-+ (void)clearSVGImageCache
-{
-	NotInCachedVersion();
-}
-
-+ (void)removeSVGImageCacheNamed:(NSString*)theName
-{
-	NotInCachedVersion();
-}
-
-+ (NSArray*)storedCacheNames
-{
-	NotInCachedVersion();
-	return nil;
-}
-#undef NotInCachedVersion
+		[self disableCache];
 #endif
+	}
+}
 
 + (SVGKImage *)defaultImage
 {
@@ -153,20 +88,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSParameterAssert(name != nil);
 	NSParameterAssert(bundle != nil);
     
-#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-	if ([[NSBundle mainBundle] isEqual:bundle]) {
-		if( globalSVGKImageCache == nil )
-		{
-			globalSVGKImageCache = [NSMutableDictionary new];
-		}
+	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
 		
-		SVGKImage* cacheImage = globalSVGKImageCache[name];
+		SVGKImage* cacheImage = [SVGKImage cachedImageForName:name];
 		if( cacheImage != nil )
 		{
 			return cacheImage;
 		}
 	}
-#endif
 		
 	NSString *newName = [name stringByDeletingPathExtension];
 	NSString *extension = [name pathExtension];
@@ -178,7 +107,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	if (!path)
 	{
-		DDLogWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
+		DDLogError(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
 	}
 	
@@ -196,7 +125,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		DDLogWarn(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
 	}
-#endif
     
     return result;
 }

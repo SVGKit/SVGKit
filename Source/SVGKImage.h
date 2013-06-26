@@ -293,4 +293,16 @@
 
 @end
 
+@interface SVGKImage (CacheManagement)
+@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+
++ (void)clearSVGImageCache;
++ (void)removeSVGImageCacheNamed:(NSString*)theName;
++ (NSArray*)storedCacheNames;
+
++ (BOOL)isCacheEnabled;
++ (void)enableCache;
++ (void)disableCache;
+@end
+
 #endif

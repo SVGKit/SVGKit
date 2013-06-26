@@ -22,7 +22,6 @@
 
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
-@synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
 #if (TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD || TEMPORARY_WARNING_FOR_FLIPPED_TEXT)
 + (BOOL)svgImage:(SVGKImage*)theImage hasNoClass:(Class)theClass
@@ -115,12 +114,6 @@
 		self.image = im;
 		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
 		self.tileRatio = CGSizeZero;
-		
-		/** redraw-observers */
-		if( self.disableAutoRedrawAtHighestResolution )
-			;
-		else
-			[self addInternalRedrawOnResizeObservers];
 		
 		/** other obeservers */
 		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
@@ -220,13 +213,7 @@
 	}
 	else
 	{
-		
-		if( self.disableAutoRedrawAtHighestResolution )
-			;
-		else
-		{
-			[self setNeedsDisplay:YES];
-		}
+		[self setNeedsDisplay:YES];
 	}
 }
 
