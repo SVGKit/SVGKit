@@ -111,9 +111,6 @@ static SVGKCache* cacheObject()
 - (void)dealloc
 {
 	DDLogError(@"[%@] ERROR: how did dealloc get called!?", [self class]);
-	self.imageCache = nil;
-	
-	[super dealloc];
 }
 
 @end

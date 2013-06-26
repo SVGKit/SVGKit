@@ -116,6 +116,7 @@
 		self.tileRatio = CGSizeZero;
 		
 		/** other obeservers */
+		//[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 		[self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
@@ -150,50 +151,13 @@
     }
 	_image = image;
     
-    if( self.disableAutoRedrawAtHighestResolution )
-        ;
-    else
-        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 }
 
--(void) addInternalRedrawOnResizeObservers
-{
-	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	//[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-}
-
--(void) removeInternalRedrawOnResizeObservers
-{
-	[self removeObserver:self  forKeyPath:@"layer" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	[self.layer removeObserver:self forKeyPath:@"transform" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
-}
-
--(void)setDisableAutoRedrawAtHighestResolution:(BOOL)newValue
-{
-	if( newValue == _disableAutoRedrawAtHighestResolution )
-		return;
-	
-	_disableAutoRedrawAtHighestResolution = newValue;
-	
-	if( self.disableAutoRedrawAtHighestResolution ) // disabled, so we have to remove the observers
-	{
-		[self removeInternalRedrawOnResizeObservers];
-	}
-	else // newly-enabled ... must add the observers
-	{
-		[self addInternalRedrawOnResizeObservers];
-	}
-}
 
 - (void)dealloc
 {
-	if( self.disableAutoRedrawAtHighestResolution )
-		;
-	else
-		[self removeInternalRedrawOnResizeObservers];
-	
+	//[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"image" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 	[self removeObserver:self forKeyPath:@"tileRatio" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 	[self removeObserver:self forKeyPath:@"showBorder" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
