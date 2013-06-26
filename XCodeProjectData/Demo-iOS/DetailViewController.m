@@ -365,6 +365,10 @@ CATextLayer *textLayerForLastTappedLayer;
 		else
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 		
+			if (!thisImageRequiresLayeredImageView) {
+				thisImageRequiresLayeredImageView = ![SVGKFastImageView svgImageHasNoGradients:document];
+			}
+
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
 		if( shouldScaleTimesTwo )
 			document.scale = 2.0;

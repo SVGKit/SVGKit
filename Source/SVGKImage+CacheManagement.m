@@ -46,7 +46,7 @@ static SVGKCache* cacheObject()
 - (id)init
 {
 	if (self = [super init]) {
-		self.caching = NO;
+		//self.caching = NO;
 	}
 	return self;
 }
