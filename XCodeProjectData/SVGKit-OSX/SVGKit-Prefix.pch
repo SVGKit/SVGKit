@@ -10,7 +10,7 @@
 	#import <Cocoa/Cocoa.h>
 	#import <QuartzCore/QuartzCore.h>
 	#import "SVGKit.h"
-	#import <Lumberjack/DDLog.h>
+	#import <Lumberjack/Lumberjack.h>
 
 	#if DEBUG
 	static const int ddLogLevel = LOG_LEVEL_VERBOSE;
