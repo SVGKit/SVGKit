@@ -43,14 +43,6 @@ static SVGKCache *cacheObjectGenerator()
 	}
 }
 
-- (id)init
-{
-	if (self = [super init]) {
-		//self.caching = NO;
-	}
-	return self;
-}
-
 - (SVGKImage*)cachedImageForName:(NSString*)theName
 {
 	if (_caching) {
