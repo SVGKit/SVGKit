@@ -15,16 +15,17 @@
 
 @end
 
-static SVGKCache* cacheObject()
+static SVGKCache *cacheObject = nil;
+
+static SVGKCache *cacheObjectGenerator()
 {
-	static SVGKCache *svgCacheObject = nil;
-	if (svgCacheObject == nil) {
-		svgCacheObject = [[SVGKCache alloc] init];
+	if (cacheObject == nil) {
+		cacheObject = [[SVGKCache alloc] init];
 	}
-	return svgCacheObject;
+	return cacheObject;
 }
 
-#define svgCacheObject cacheObject()
+#define svgCacheObject (cacheObject ? cacheObject : cacheObjectGenerator())
 
 @implementation SVGKCache
 @synthesize caching = _caching;
