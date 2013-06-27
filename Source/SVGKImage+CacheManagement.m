@@ -33,7 +33,6 @@ static SVGKCache *cacheObjectGenerator()
 @synthesize caching = _caching;
 - (void)setCaching:(BOOL)caching
 {
-	_caching = caching;
 	if (caching) {
 		if (!self.imageCache) {
 			DDLogVerbose(@"[%@] INFO: generating image cache.", [SVGKImage class]);
@@ -43,6 +42,7 @@ static SVGKCache *cacheObjectGenerator()
 		DDLogVerbose(@"[%@] INFO: deleting image cache, %li images purged.", [SVGKImage class], (long)[self count]);
 		self.imageCache = nil;
 	}
+	_caching = caching;
 }
 
 - (SVGKImage*)cachedImageForName:(NSString*)theName

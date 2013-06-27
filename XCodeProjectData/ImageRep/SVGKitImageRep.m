@@ -212,6 +212,9 @@ static NSDateFormatter* debugDateFormatter()
 		} else {
 			[self.image scaleToFitInside:scaledSize];
 		}
+	} else if (CGSizeEqualToSize(CGSizeMake(self.pixelsWide, self.pixelsHigh), scaledSize) &&
+			   CGSizeEqualToSize(self.image.size, CGSizeMake(self.pixelsWide, self.pixelsHigh))) {
+		return [super drawInRect:rect];
 	}
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
@@ -255,7 +258,7 @@ static NSDateFormatter* debugDateFormatter()
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
 		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
-		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, self.size, NULL);
+		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, scaledSize, NULL);
 		if (!layerRef) {
 			return NO;
 		}
