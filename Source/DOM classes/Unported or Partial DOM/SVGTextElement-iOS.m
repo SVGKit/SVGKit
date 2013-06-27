@@ -1,24 +1,12 @@
 #import "SVGTextElement.h"
 
 #import <CoreText/CoreText.h>
-
-#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
-#define CGBlackColor() [UIColor blackColor].CGColor
-
-#else
-#import <AppKit/AppKit.h>
-
-#define CGBlackColor() CGColorGetConstantColor(kCGColorBlack)
-//TODO: OS X has better font management. Use it!
-
-#endif
-
+#import "SVGUtils.h"
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 #import "SVGHelperUtilities.h"
-
 #import "SVGKCGFloatAdditions.h"
 
 @implementation SVGTextElement
@@ -58,6 +46,14 @@
 	 */
 	NSString* actualSize = [self cascadedValueForStylableProperty:@"font-size"];
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
+	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
+	SVGColor col;
+	if (fillColorString) {
+		col = SVGColorFromString([fillColorString UTF8String]);
+	} else {
+		col = SVGColorFromString("black");
+	}
+
 	
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
@@ -143,7 +139,7 @@
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
-    label.foregroundColor = CGBlackColor();
+    label.foregroundColor = CGColorWithSVGColor(col);
 	
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
