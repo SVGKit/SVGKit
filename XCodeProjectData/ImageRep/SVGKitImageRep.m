@@ -118,17 +118,17 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGImage:[SVGKImage imageWithData:theData]];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithData:theData]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGImage:[SVGKImage imageWithContentsOfURL:theURL]];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfURL:theURL]];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGImage:[SVGKImage imageWithContentsOfFile:thePath]];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfFile:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
