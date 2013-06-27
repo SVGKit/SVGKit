@@ -117,7 +117,7 @@
 	if ([SVGKImage isCacheEnabled]) {
 		[SVGKImage clearSVGImageCache];
 	} else {
-		NSLog(@"Cached images is not enabled at the moment.");
+		NSRunAlertPanel(@"Cached Images", @"Cached images are not enabled at the moment.", nil, nil, nil);
 	}
 }
 
