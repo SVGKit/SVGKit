@@ -268,7 +268,7 @@ static NSDateFormatter* debugDateFormatter()
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
 		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
-		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, self.size, NULL);
+		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, scaledSize, NULL);
 		if (!layerRef) {
 			return NO;
 		}
