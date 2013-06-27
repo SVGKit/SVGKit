@@ -16,50 +16,15 @@
 
 @implementation SKAppDelegate
 
-@synthesize svgImage = _svgImage;
-- (void)setSvgImage:(SVGKImage *)anImage
-{
-	if (_svgImage) {
-		[_svgImage release];
-		_svgImage = nil;
-	}
-	if (anImage) {
-		_svgImage = [anImage retain];
-		
-		if (![anImage hasSize]) {
-			anImage.size = NSMakeSize(32, 32);
-		}
-		self.layeredView.image = self.fastView.image = anImage;
-		
-		self.layeredView.frameSize = self.fastView.frameSize = anImage.size;
-	} else {
-		self.layeredView.image = self.fastView.image = nil;
-		
-		self.layeredView.frameSize = self.fastView.frameSize = NSMakeSize(32, 32);
-	}
-}
-
 - (void)dealloc
 {
     self.svgArray = nil;
-	self.svgImage = nil;
 	
 	[super dealloc];
 }
 
-- (void)windowWillClose:(NSNotification *)notification
-{
-	NSWindow *theWin = [notification object];
-	if (theWin == self.selectorWindow) {
-		[[NSApplication sharedApplication] stop:nil];
-	}
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	//The layered view comes with an SVG image, even when inited without one.
-	self.svgImage = self.layeredView.image;
-	
 	NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
 	NSString *pname;
 	
@@ -110,12 +75,35 @@
 		} else {
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
 		}
-		self.svgImage = theImage;
+		SVGKImageView * theImageView;
+		if (tmpView == self.fastTable) {
+			theImageView = self.fastView;
+		} else if (tmpView == self.layeredTable) {
+			theImageView = self.layeredView;
+		} else {
+			NSLog(@"This shouldn't happen...");
+			[theImage release];
+			return;
+		}
+		if (![theImage hasSize]) {
+			theImage.size = NSMakeSize(32, 32);
+		}
+		
+		theImageView.image = theImage;
+		theImageView.frameSize = theImage.size;
 		[theImage release];
 	}else NSBeep();
+}
+
+- (IBAction)showLayeredWindow:(id)sender
+{
 	if (![self.layeredWindow isVisible]) {
 		[self.layeredWindow orderFront:nil];
 	}
+}
+
+- (IBAction)showFastWindow:(id)sender
+{
 	if (![self.quickWindow isVisible]) {
 		[self.quickWindow orderFront:nil];
 	}
