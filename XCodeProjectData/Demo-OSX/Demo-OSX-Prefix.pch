@@ -2,7 +2,7 @@
 // Prefix header for all source files of the 'Demo-OSX' target in the 'Demo-OSX' project
 //
 
-#include <AvailabilityMacros.h>
+#include <TargetConditionals.h>
 #if !TARGET_OS_IPHONE
 #define Comment AIFFComment
 #include <CoreServices/CoreServices.h>
