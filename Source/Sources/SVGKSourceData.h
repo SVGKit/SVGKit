@@ -12,6 +12,7 @@
 
 @property (readwrite, retain, nonatomic) NSData *data;
 
+- (id)initFromData:(NSData*)data;
 + (SVGKSource*)sourceFromData:(NSData*)data;
 
 @end

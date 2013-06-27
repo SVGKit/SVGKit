@@ -12,10 +12,11 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	return [[SVGKSourceData sourceFromData:self.data] retain];
+	return [[SVGKSourceData alloc] initFromData:self.data];
 }
 
-+ (SVGKSource*)sourceFromData:(NSData*)data {
+- (id)initFromData:(NSData*)data
+{
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];
 	} else {
@@ -23,10 +24,16 @@
 	}
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
-	
-	SVGKSourceData* s = [[[SVGKSourceData alloc] initWithInputSteam:stream] autorelease];
-	s.data = data;
+	if (self = [super initWithInputSteam:stream]) {
+		self.data = data;
+	}
 	[data release];
+
+	return self;
+}
+
++ (SVGKSource*)sourceFromData:(NSData*)data {
+	SVGKSourceData* s = [[[SVGKSourceData alloc] initFromData:data] autorelease];
 	return s;
 }
 
