@@ -14,6 +14,7 @@
 
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
+#import "SVGKSourceData.h"
 
 #import "BlankSVG.h"
 
@@ -78,7 +79,7 @@
 
 + (SVGKImage *)defaultImage
 {
-	return [self imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
+	return [self imageWithSource:[SVGKSourceData sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
 }
 
 #pragma mark - Convenience initializers
@@ -258,7 +259,7 @@
 {
 	NSParameterAssert(data != nil);
 	@autoreleasepool {
-		return [self initWithSource:[SVGKSource sourceFromData:data]];
+		return [self initWithSource:[SVGKSourceData sourceFromData:data]];
 	}
 }
 

@@ -77,7 +77,7 @@
 		} else {
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
 		}
-		SVGKImageView * theImageView;
+		SVGKImageView *theImageView = nil;
 		if (tmpView == self.fastTable) {
 			theImageView = self.fastView;
 		} else if (tmpView == self.layeredTable) {
