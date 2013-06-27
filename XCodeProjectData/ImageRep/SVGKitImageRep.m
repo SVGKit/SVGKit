@@ -118,17 +118,17 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGImage:[[SVGKImage alloc] initWithData:theData]];
+	return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfURL:theURL]];
+	return [self initWithSVGSource:[SVGKSource sourceFromURL:theURL]];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfFile:thePath]];
+	return [self initWithSVGSource:[SVGKSource sourceFromFilename:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
@@ -148,20 +148,15 @@ static NSDateFormatter* debugDateFormatter()
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
-	return [self initWithSVGImage:[[SVGKImage alloc] initWithSource:theSource]];
-}
-
-- (id)initWithSVGImage:(SVGKImage*)theImage
-{
 	if (self = [super init]) {
-		if (theImage == nil) {
+		self.image = [SVGKImage imageWithSource:theSource];
+		if (self.image == nil) {
 			return nil;
 		}
-		self.image = theImage;
-	
+		
 		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
-
+		
 		if (hasGrad || hasText) {
 			NSDateFormatter *formatter = debugDateFormatter();
 			
@@ -200,6 +195,11 @@ static NSDateFormatter* debugDateFormatter()
 		}
 	}
 	return self;
+}
+
+- (id)initWithSVGImage:(SVGKImage*)theImage
+{
+	return [self initWithSVGSource:[theImage.source copy]];
 }
 
 - (BOOL)drawInRect:(NSRect)rect

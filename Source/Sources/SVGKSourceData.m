@@ -10,15 +10,28 @@
 
 @implementation SVGKSourceData
 
-+ (SVGKSource*)sourceFromData:(NSData*)data {
+- (id)copyWithZone:(NSZone *)zone
+{
+	return [[SVGKSourceData alloc] initFromData:self.data];
+}
+
+- (id)initFromData:(NSData*)data
+{
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];
 	} 
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
+	if (self = [super initWithInputSteam:stream]) {
+		self.data = data;
+	}
+
+	return self;
+}
+
++ (SVGKSource*)sourceFromData:(NSData*)data {
+	SVGKSourceData* s = [[SVGKSourceData alloc] initFromData:data];
 	
-	SVGKSourceData* s = [[SVGKSourceData alloc] initWithInputSteam:stream];
-	s.data = data;
 	return s;
 }
 

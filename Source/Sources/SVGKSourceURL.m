@@ -2,15 +2,25 @@
 
 @implementation SVGKSourceURL
 
-+ (SVGKSource*)sourceFromURL:(NSURL*)u {
+- (id)copyWithZone:(NSZone *)zone
+{
+	return [[SVGKSourceURL alloc] initFromURL:self.URL];
+}
+
+- (id)initFromURL:(NSURL*)u
+{
 	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
 	[stream open];
-	
-	SVGKSourceURL* s = [[SVGKSourceURL alloc] initWithInputSteam:stream];
-	s.URL = u;
+	if (self = [super initWithInputSteam:stream]) {
+		self.URL = u;
+	}
+	return self;
+}
+
++ (SVGKSource*)sourceFromURL:(NSURL*)u {
+	SVGKSourceURL* s = [[SVGKSourceURL alloc] initFromURL:u];
 	
 	return s;
 }
-
 
 @end
