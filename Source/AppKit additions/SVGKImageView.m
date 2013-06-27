@@ -7,7 +7,7 @@
 
 - (id)init
 {
-	if( [self class] == [SVGKImageView class ])
+	if( [self isMemberOfClass:[SVGKImageView class]])
 	{
 		NSAssert(false, @"You cannot init this class directly. Instead, use a subclass e.g. SVGKFastImageView");
 		
@@ -19,18 +19,18 @@
 
 - (void)setImage:(SVGKImage*)image
 {
-	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+	NSAssert(NO, @"[%@] The function %s should be implemented by the subclass %@. You are currently using the function from %@, which is not good.", [self class], sel_getName(_cmd), [self class], [SVGKImageView class]);
 }
 
 - (SVGKImage *)image
 {
-	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+	NSAssert(NO, @"[%@] The function %s should be implemented by the subclass %@. You are currently using the function from %@, which is not good.", [self class], sel_getName(_cmd), [self class], [SVGKImageView class]);
 	return nil;
 }
 
 -(id)initWithFrame:(NSRect)frame
 {
-	if( [self class] == [SVGKImageView class ])
+	if( [self isMemberOfClass:[SVGKImageView class]])
 	{
 		NSAssert(false, @"You cannot init this class directly. Instead, use a subclass e.g. SVGKFastImageView");
 		
@@ -42,7 +42,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if( [self class] == [SVGKImageView class ])
+	if( [self isMemberOfClass:[SVGKImageView class]])
 	{
 		NSAssert(false, @"Xcode is trying to load this class from a StoryBoard or from a NIB/XIB files. You cannot init this class directly - in your Storyboard/NIB file, set the Class type to one of the subclasses, e.g. SVGKFastImageView");
 		

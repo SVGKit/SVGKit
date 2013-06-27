@@ -53,7 +53,7 @@
 
 -(void) addSAXError:(NSError*) saxError
 {
-	DDLogWarn(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
+	DDLogError(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
 	[self.errorsFatal addObject:saxError];
 }
 

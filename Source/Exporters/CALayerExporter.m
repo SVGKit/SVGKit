@@ -73,21 +73,17 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
 
 - (id)initWithView:(DWView*)v
 {
-    self = [super init];
-    if (self) {
-        self.rootView = v;
-        
-        propertyRegistry = [[NSMutableDictionary alloc] initWithCapacity:2];
-        
-        NSArray* CALayerProperties = @[@"name", @"bounds", @"frame"];
-        propertyRegistry[NSStringFromClass([CALayer class])] = CALayerProperties;
-        
-        NSArray* CAShapeLayerProperties = @[@"path", @"fillColor", @"fillRule", @"strokeColor", @"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern"];
-        propertyRegistry[NSStringFromClass([CAShapeLayer class])] = CAShapeLayerProperties;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.rootView = v;
+		
+		propertyRegistry = [[NSMutableDictionary alloc] initWithDictionary:
+							@{NSStringFromClass([CALayer class]): @[@"name", @"bounds", @"frame"],
+							NSStringFromClass([CAShapeLayer class]): @[@"path", @"fillColor", @"fillRule", @"strokeColor",
+							@"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern"]}];
+	}
+	return self;
 }
-
 
 - (void)startExport
 {
