@@ -21,6 +21,8 @@
 	NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
 	NSString *pname;
 	
+	_cacheEnabled = NO;
+	
 	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSBundle mainBundle] resourcePath]];
 	
 	while (pname = [dirEnum nextObject]) {
@@ -81,7 +83,8 @@
 		
 		theImageView.image = theImage;
 		theImageView.frameSize = theImage.size;
-	}else NSBeep();
+	}else
+		NSBeep();
 }
 
 - (IBAction)showLayeredWindow:(id)sender
@@ -100,10 +103,25 @@
 
 - (IBAction)clearSVGCache:(id)sender
 {
-	if ([[SVGKImage class] respondsToSelector:@selector(clearSVGImageCache)]) {
+	if ([SVGKImage isCacheEnabled]) {
 		[SVGKImage clearSVGImageCache];
 	} else {
-		NSLog(@"Cached images not implemented in SVGKit.");
+		NSLog(@"Cached images is not enabled at the moment.");
+	}
+}
+
+@synthesize cacheEnabled = _cacheEnabled;
+- (void)setCacheEnabled:(BOOL)cacheEnabled
+{
+	_cacheEnabled = cacheEnabled;
+	if (_cacheEnabled) {
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			NSRunInformationalAlertPanel(@"Image Caching", @"Image caching has been enabled. Note that there might be issues if you load the image to the fast image view, then load it to the layered image view.\n\nThis warning will only show once.", nil, nil, nil);
+		});
+		[SVGKImage enableCache];
+	} else {
+		[SVGKImage disableCache];
 	}
 }
 
