@@ -20,6 +20,7 @@
 @property (assign) IBOutlet NSWindow *quickWindow;
 @property (assign) IBOutlet SVGKFastImageView *fastView;
 @property (assign) IBOutlet NSTableView *fastTable;
+@property (nonatomic, getter = isCacheEnabled) BOOL cacheEnabled;
 
 - (IBAction)clearSVGCache:(id)sender;
 - (IBAction)showLayeredWindow:(id)sender;
