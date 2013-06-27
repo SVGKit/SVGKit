@@ -40,7 +40,7 @@ static SVGKCache *cacheObjectGenerator()
 			self.imageCache = [NSMutableDictionary dictionary];
 		}
 	} else if (self.imageCache != nil) {
-		DDLogVerbose(@"[%@] INFO: deleting image cache.", [SVGKImage class]);
+		DDLogVerbose(@"[%@] INFO: deleting image cache, %li images purged.", [SVGKImage class], [self count]);
 		self.imageCache = nil;
 	}
 }

@@ -84,7 +84,7 @@
 				return nil;
 			}break;
 		}
-
+		
 		self.childNodes = [[[NodeList alloc] init] autorelease];
     }
     return self;

@@ -555,7 +555,7 @@ static void	unparsedEntityDeclaration(void * ctx,
 									  const xmlChar * systemId,
 									  const xmlChar * notationName)
 {
-	DDLogCWarn(@"Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@", NSStringFromLibxmlString(name), NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId), NSStringFromLibxmlString(notationName));
+	DDLogCError(@"[%@] Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@", [((id)ctx) class], NSStringFromLibxmlString(name), NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId), NSStringFromLibxmlString(notationName));
 }
 
 static void structuredError		(void * userData,
@@ -570,9 +570,9 @@ static void structuredError		(void * userData,
 	
 	NSMutableDictionary* details = [NSMutableDictionary
 									dictionaryWithDictionary:@{
-									NSLocalizedDescriptionKey : @(error->message),
-									@"lineNumber" : @(error->line),
-									@"columnNumber" : @(error->int2)}];
+									NSLocalizedDescriptionKey: @(error->message),
+									@"lineNumber": @(error->line),
+									@"columnNumber": @(error->int2)}];
 	
 	if( error->str1 )
 		details[@"bonusInfo1"] = @(error->str1);
