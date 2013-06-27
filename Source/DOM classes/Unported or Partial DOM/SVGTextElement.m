@@ -11,6 +11,7 @@
 #import <AppKit/AppKit.h>
 
 #define CGBlackColor() CGColorGetConstantColor(kCGColorBlack)
+//TODO: OS X has better font management. Use it!
 
 #endif
 
