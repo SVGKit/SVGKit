@@ -107,7 +107,7 @@
 		if ([savePanel runModal] == NSOKButton) {
 			NSData *tiffData = nil;
 #if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
-			tiffData = [theImage TIFFRepresentation];
+			tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 #else
 			NSArray *imageRepArrays = [theImage representations];
 			SVGKitImageRep *promising = nil;
@@ -122,7 +122,7 @@
 				}
 			}
 			if (promising) {
-				tiffData = [promising TIFFRepresentation];
+				tiffData = [promising TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 			}
 #endif
 			if (tiffData) {
