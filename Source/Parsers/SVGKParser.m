@@ -519,11 +519,13 @@ static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
 }
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
-	va_list va;
 	char errcStr[2048] = {0};
-	va_start(va, msg);
-	vsprintf(errcStr, msg, va);
-	va_end(va);
+	{
+		va_list va;
+		va_start(va, msg);
+		vsprintf(errcStr, msg, va);
+		va_end(va);
+	}
 	
 	NSString *errStr = @(errcStr);
 	SVGKParser *NSctx = (__bridge SVGKParser*)(ctx);

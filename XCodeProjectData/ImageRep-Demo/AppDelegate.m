@@ -19,15 +19,13 @@
 #define DONTUSESVGIMAGEREPDIRECTLY 0
 #endif
 
-#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
-#else
+#if !DONTUSESVGIMAGEREPDIRECTLY
 #import "SVGKitImageRep.h"
 #endif
 
 @implementation AppDelegate
 
-#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
-#else
+#if !DONTUSESVGIMAGEREPDIRECTLY
 
 + (Class)imageRepClass
 {
@@ -65,7 +63,7 @@
 	if ([op runModal] != NSOKButton)
 		return;
 	NSURL *svgUrl = [op URLs][0];
-#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
+#if DONTUSESVGIMAGEREPDIRECTLY
 	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
 #else
 	NSImage *selectImage = [[NSImage alloc] init];
@@ -92,8 +90,8 @@
 		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {
 			NSData *tiffData = nil;
-#if defined(DONTUSESVGIMAGEREPDIRECTLY) && DONTUSESVGIMAGEREPDIRECTLY
-			tiffData = [theImage TIFFRepresentation];
+#if DONTUSESVGIMAGEREPDIRECTLY
+			tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 #else
 			NSArray *imageRepArrays = [theImage representations];
 			SVGKitImageRep *promising = nil;
@@ -108,7 +106,7 @@
 				}
 			}
 			if (promising) {
-				tiffData = [promising TIFFRepresentation];
+				tiffData = [promising TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 			}
 #endif
 			if (tiffData) {

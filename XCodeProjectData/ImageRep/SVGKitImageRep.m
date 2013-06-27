@@ -118,17 +118,17 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
+	return [self initWithSVGImage:[SVGKImage imageWithData:theData]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromURL:theURL]];
+	return [self initWithSVGImage:[SVGKImage imageWithContentsOfURL:theURL]];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromFilename:thePath]];
+	return [self initWithSVGImage:[SVGKImage imageWithContentsOfFile:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
@@ -208,7 +208,7 @@ static NSDateFormatter* debugDateFormatter()
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
 		//For when we're at the full size.
 		if (CGSizeEqualToSize(CGSizeMake(self.pixelsWide, self.pixelsHigh), scaledSize)) {
-			self.image.size = self.size;
+			return [super drawInRect:rect];
 		} else {
 			[self.image scaleToFitInside:scaledSize];
 		}
@@ -250,7 +250,7 @@ static NSDateFormatter* debugDateFormatter()
 	//Just in case someone resized the image rep.
 	NSSize scaledSize = self.size;
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
-		[self.image scaleToFitInside:scaledSize];
+		self.image.size = scaledSize;
 	}
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
