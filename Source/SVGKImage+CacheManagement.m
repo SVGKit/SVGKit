@@ -24,7 +24,6 @@ static SVGKCache* cacheObject()
 	return svgCacheObject;
 }
 
-
 #define svgCacheObject cacheObject()
 
 @implementation SVGKCache
@@ -34,11 +33,11 @@ static SVGKCache* cacheObject()
 	_caching = caching;
 	if (caching) {
 		if (!self.imageCache) {
-			DDLogVerbose(@"[%@] INFO: generating image cache.", [self class]);
+			DDLogVerbose(@"[%@] INFO: generating image cache.", [SVGKImage class]);
 			self.imageCache = [NSMutableDictionary dictionary];
 		}
 	} else if (self.imageCache != nil) {
-		DDLogVerbose(@"[%@] INFO: deleting image cache.", [self class]);
+		DDLogVerbose(@"[%@] INFO: deleting image cache.", [SVGKImage class]);
 		self.imageCache = nil;
 	}
 }
@@ -54,9 +53,9 @@ static SVGKCache* cacheObject()
 - (SVGKImage*)cachedImageForName:(NSString*)theName
 {
 	if (_caching) {
-		return [self.imageCache objectForKey:theName];
+		return (self.imageCache)[theName];
 	} else {
-		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [self class]);
+		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [SVGKImage class]);
 		return nil;
 	}
 }
@@ -66,7 +65,7 @@ static SVGKCache* cacheObject()
 	if (_caching) {
 		return [self.imageCache count];
 	} else {
-		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [self class]);
+		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [SVGKImage class]);
 		return 0;
 	}
 }
@@ -76,7 +75,7 @@ static SVGKCache* cacheObject()
 	if (_caching) {
 		[self.imageCache removeAllObjects];
 	} else {
-		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [self class]);
+		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [SVGKImage class]);
 	}
 }
 
@@ -85,16 +84,16 @@ static SVGKCache* cacheObject()
 	if (_caching) {
 		[self.imageCache removeObjectForKey:theName];
 	} else {
-		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [self class]);
+		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [SVGKImage class]);
 	}
 }
 
 - (void)addCachedObject:(SVGKImage*)theImage forName:(NSString*)theName
 {
 	if (_caching) {
-		[self.imageCache setObject:theImage forKey:theName];
+		(self.imageCache)[theName] = theImage;
 	} else {
-		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [self class]);
+		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [SVGKImage class]);
 	}
 }
 
@@ -103,7 +102,7 @@ static SVGKCache* cacheObject()
 	if (self.caching) {
 		return [self.imageCache allKeys];
 	} else {
-		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [self class]);
+		DDLogWarn(@"[%@] Caching is currently disabled: no action taken", [SVGKImage class]);
 		return @[];
 	}
 }
