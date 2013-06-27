@@ -68,7 +68,7 @@
 		} else {
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
 		}
-		SVGKImageView * theImageView;
+		SVGKImageView *theImageView = nil;
 		if (tmpView == self.fastTable) {
 			theImageView = self.fastView;
 		} else if (tmpView == self.layeredTable) {
@@ -106,7 +106,7 @@
 	if ([SVGKImage isCacheEnabled]) {
 		[SVGKImage clearSVGImageCache];
 	} else {
-		NSLog(@"Cached images is not enabled at the moment.");
+		NSRunAlertPanel(@"Cached Images", @"Cached images are not enabled at the moment.", nil, nil, nil);
 	}
 }
 
