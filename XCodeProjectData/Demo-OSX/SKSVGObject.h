@@ -24,7 +24,7 @@
 
 @interface SKSVGBundleObject : SKSVGObject <SKSVGObject>
 
-@property (retain, readonly) NSBundle *theBundle;
+@property (readonly, retain) NSBundle *theBundle;
 @property (readonly, copy) NSString* fullFileName;
 - (id)initWithName:(NSString *)theName;
 - (id)initWithName:(NSString *)theName bundle:(NSBundle*)aBundle;

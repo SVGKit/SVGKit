@@ -64,7 +64,7 @@ return nil
 
 @interface SKSVGBundleObject ()
 @property (readwrite, copy) NSString* fullFileName;
-@property (retain, readwrite) NSBundle *theBundle;
+@property (readwrite, retain) NSBundle *theBundle;
 @end
 
 @implementation SKSVGBundleObject
