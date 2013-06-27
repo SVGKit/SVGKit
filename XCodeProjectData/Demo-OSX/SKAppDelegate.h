@@ -9,18 +9,20 @@
 #import <Cocoa/Cocoa.h>
 #import "SVGKit.h"
 
-@interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate, NSWindowDelegate>
+@interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
 
-@property (weak) IBOutlet NSWindow *selectorWindow;
-@property (readwrite, strong, nonatomic) SVGKImage *svgImage;
 @property (readonly, strong) NSArray *svgArray;
 
 @property (weak) IBOutlet NSWindow *layeredWindow;
 @property (weak) IBOutlet SVGKLayeredImageView *layeredView;
+@property (weak) IBOutlet NSTableView *layeredTable;
 
 @property (weak) IBOutlet NSWindow *quickWindow;
 @property (weak) IBOutlet SVGKFastImageView *fastView;
+@property (weak) IBOutlet NSTableView *fastTable;
 
 - (IBAction)clearSVGCache:(id)sender;
+- (IBAction)showLayeredWindow:(id)sender;
+- (IBAction)showFastWindow:(id)sender;
 
 @end
