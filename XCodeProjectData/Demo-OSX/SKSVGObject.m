@@ -11,10 +11,10 @@
 @implementation SKSVGObject
 
 #define NotImplemented() \
-if ([self class] == [SKSVGObject class]) { \
-NSAssert(NO, @"This class is meant to be subclassed, and not accessed directly."); \
+if ([self isMemberOfClass:[SKSVGObject class]]) { \
+NSAssert(NO, @"The class %@ is meant to be subclassed, and not accessed directly.", [self class]); \
 } else { \
-NSAssert(NO, @"The subclass %@ should implement %s.", [self class],  sel_getName(_cmd)); \
+NSAssert(NO, @"The subclass %@ of class %@ should implement %s.", [self class], [SKSVGObject class], sel_getName(_cmd)); \
 } \
 return nil
 
