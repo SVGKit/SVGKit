@@ -543,12 +543,11 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 		va_end(va);
 	}
 	
-	NSString *errStr = [[NSString alloc] initWithUTF8String:errcStr];
+	NSString *errStr = @(errcStr);
 	SVGKParser *NSctx = ctx;
 	DDLogCWarn(@"[%@] WARNING: Error encountered during parse: %@", [NSctx class], errStr);
 	SVGKParseResult* parseResult = NSctx.currentParseRun;
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
-	[errStr release];
 }
 
 static void	unparsedEntityDeclaration(void * ctx,
