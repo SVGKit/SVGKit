@@ -10,6 +10,11 @@
 
 @implementation SVGKSourceData
 
+- (id)copyWithZone:(NSZone *)zone
+{
+	return [[SVGKSourceData sourceFromData:self.data] retain];
+}
+
 + (SVGKSource*)sourceFromData:(NSData*)data {
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];

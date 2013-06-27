@@ -8,7 +8,7 @@
 
 #import "SVGKSource.h"
 
-@interface SVGKSourceData : SVGKSource
+@interface SVGKSourceData : SVGKSource <NSCopying>
 
 @property (readwrite, retain, nonatomic) NSData *data;
 

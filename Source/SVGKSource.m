@@ -41,4 +41,11 @@
 	[super dealloc];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+	DDLogError(@"[%@] ERROR: %s should be in a subclass!", [self class], sel_getName(_cmd));
+	
+	return nil;
+}
+
 @end

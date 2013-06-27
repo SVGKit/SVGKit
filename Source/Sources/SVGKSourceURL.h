@@ -3,7 +3,7 @@
  */
 #import "SVGKSource.h"
 
-@interface SVGKSourceURL : SVGKSource
+@interface SVGKSourceURL : SVGKSource <NSCopying>
 
 @property (nonatomic, retain) NSURL* URL;
 

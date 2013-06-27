@@ -2,6 +2,11 @@
 
 @implementation SVGKSourceURL
 
+- (id)copyWithZone:(NSZone *)zone
+{
+	return [[SVGKSourceURL sourceFromURL:self.URL] retain];
+}
+
 + (SVGKSource*)sourceFromURL:(NSURL*)u {
 	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
 	[stream open];

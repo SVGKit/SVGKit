@@ -22,7 +22,7 @@
 
 @class SVGKSource;
 
-@interface SVGKSource : NSObject
+@interface SVGKSource : NSObject <NSCopying>
 + (SVGKSource*)sourceFromData:(NSData*)data;
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString;
 + (SVGKSource*)sourceFromFilename:(NSString*)p;
