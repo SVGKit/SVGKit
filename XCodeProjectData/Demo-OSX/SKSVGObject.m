@@ -12,10 +12,11 @@
 
 #define NotImplemented() \
 if ([self isMemberOfClass:[SKSVGObject class]]) { \
-NSAssert(NO, @"The class %@ is meant to be subclassed, and not accessed directly.", [self class]); \
+NSLog(@"The class %@ is meant to be subclassed, and not accessed directly.", [self class]); \
 } else { \
-NSAssert(NO, @"The subclass %@ of class %@ should implement %s.", [self class], [SKSVGObject class], sel_getName(_cmd)); \
+NSLog(@"The subclass %@ of class %@ should implement %s.", [self class], [SKSVGObject class], sel_getName(_cmd)); \
 } \
+[self doesNotRecognizeSelector:_cmd]; \
 return nil
 
 - (NSURL *)svgURL
