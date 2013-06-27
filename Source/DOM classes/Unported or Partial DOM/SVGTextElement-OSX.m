@@ -155,8 +155,7 @@
 	[tempString addAttribute:NSFontAttributeName
 					   value:font
 					   range:NSMakeRange(0, tempString.string.length)];
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
-	[tempString release];
+	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (__bridge CFMutableAttributedStringRef) tempString );
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
 	
@@ -168,7 +167,7 @@
     CATextLayer *label = [[CATextLayer alloc] init];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
 	
-    label.font = (CFTypeRef)font;
+    label.font = (__bridge CFTypeRef)font;
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
