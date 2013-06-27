@@ -1,28 +1,73 @@
 #import "SVGTextElement.h"
 
 #import <CoreText/CoreText.h>
-
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-
-#define CGBlackColor() [UIColor blackColor].CGColor
-
-#else
 #import <AppKit/AppKit.h>
-
-#define CGBlackColor() CGColorGetConstantColor(kCGColorBlack)
-
-#endif
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 #import "SVGHelperUtilities.h"
 
 #import "SVGKCGFloatAdditions.h"
+#import "SVGUtils.h"
 
 @implementation SVGTextElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
+
+- (void)getFontTrait:(out NSFontTraitMask*)traits weight:(out NSInteger*)weight
+{
+	NSParameterAssert(traits != NULL);
+	NSParameterAssert(weight != NULL);
+	
+	*traits = 0;
+	*weight = 0;
+	
+	//Parts of this code were taken from the SVGImageRep/libsvg project
+	NSInteger SVGWeight = 0;
+	
+	NSString *fontWeight = [self cascadedValueForStylableProperty:@"font-weight"];
+	NSString *fontStyle = [self cascadedValueForStylableProperty:@"font-style"];
+	if (!fontWeight) {
+		fontWeight = @"Normal";
+	}
+	if (!fontStyle) {
+		fontStyle = @"Normal";
+	}
+	
+	if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"Normal"]) {
+		SVGWeight = 400;
+	} else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bold"]){
+		SVGWeight = 700;
+	}
+#if 0
+	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"lighter"])
+		SVGWeight -= 100;
+    else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bolder"])
+		SVGWeight += 100;
+#endif
+	else {
+		SVGWeight = [fontWeight integerValue];
+	}
+	
+	if (SVGWeight < 100)
+		SVGWeight = 100;
+    if (SVGWeight > 900)
+		SVGWeight = 900;
+
+	if (SVGWeight >= 700) {
+		(*traits) |= NSBoldFontMask;
+	}
+	*weight = ceil(SVGWeight / 80.0);
+
+	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"Normal"]) {
+		//Do nothing
+	} else if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"italic"] || NSOrderedSame == [fontStyle caseInsensitiveCompare:@"oblique"]) {
+		(*traits) |= NSItalicFontMask;
+	} else {
+		DDLogError(@"[%@] ERROR: unknown SVG font style %@! Will set italics anyway.", [self class], fontStyle);
+		(*traits) |= NSItalicFontMask;
+	}
+}
 
 - (CALayer *) newLayer
 {
@@ -56,19 +101,41 @@
 	 But its the easiest way to get FULL control over size/position/rotation/etc in a CALayer
 	 */
 	NSString* actualSize = [self cascadedValueForStylableProperty:@"font-size"];
+	//FIXME: it seems that somewhere in SVGKit that spaces are removed. This is detrimental to font naming!
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
+	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
+	SVGColor col;
+	if (fillColorString) {
+		col = SVGColorFromString([fillColorString UTF8String]);
+	} else {
+		col = SVGColorFromString("black");
+	}
 	
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
 	//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 	
-	/** find a valid font reference, or Apple's APIs will break later */
-	/** undocumented Apple bug: CTFontCreateWithName cannot accept nil input*/
-	CTFontRef font = NULL;
-	if( actualFamily != nil)
-		font = CTFontCreateWithName( (__bridge CFStringRef)actualFamily, effectiveFontSize, NULL);
-	if( font == NULL )
-		font = CTFontCreateWithName( CFSTR("Verdana"), effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
+	NSFontManager *fm = [NSFontManager sharedFontManager];
+	
+	NSFontTraitMask traitMask = 0;
+	NSInteger fontWeightCG = 0;
+	
+	[self getFontTrait:&traitMask weight:&fontWeightCG];
+	
+	//Parts of this code were taken from the SVGImageRep project
+	if (NSOrderedSame == [actualFamily caseInsensitiveCompare:@"serif"])
+		actualFamily = @"Times";
+	else if ((NSOrderedSame == [actualFamily caseInsensitiveCompare:@"sans-serif"]) ||
+			 (NSOrderedSame == [actualFamily caseInsensitiveCompare:@"sans"]))
+		actualFamily = @"Helvetica";
+	else if (NSOrderedSame == [actualFamily caseInsensitiveCompare:@"monospace"])
+		actualFamily = @"Courier";
+
+	
+	NSFont *font = [fm fontWithFamily:actualFamily traits:traitMask weight:fontWeightCG size:effectiveFontSize];
+	if (!font) {
+		font = [fm fontWithFamily:@"Helvetica" traits:traitMask weight:fontWeightCG size:effectiveFontSize];
+	}
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
 	
@@ -85,10 +152,11 @@
 	 4. Use that to provide a layer.frame
 	 */
 	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
-	[tempString addAttribute:(NSString *)kCTFontAttributeName
-					   value:(__bridge id)font
+	[tempString addAttribute:NSFontAttributeName
+					   value:font
 					   range:NSMakeRange(0, tempString.string.length)];
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (__bridge CFMutableAttributedStringRef) tempString );
+	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+	[tempString release];
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
 	
@@ -100,8 +168,7 @@
     CATextLayer *label = [[CATextLayer alloc] init];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
 	
-    label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
-	CFRelease(font);
+    label.font = (CFTypeRef)font;
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
@@ -141,7 +208,7 @@
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
-    label.foregroundColor = CGBlackColor();
+    label.foregroundColor = CGColorWithSVGColor(col);
 	
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;

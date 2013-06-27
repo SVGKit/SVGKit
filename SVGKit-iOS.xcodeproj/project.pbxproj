@@ -174,7 +174,7 @@
 		66E863F81688C2780059C9C4 /* SVGSVGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863691688C2770059C9C4 /* SVGSVGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863F91688C2780059C9C4 /* SVGSVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8636A1688C2770059C9C4 /* SVGSVGElement.m */; };
 		66E863FA1688C2780059C9C4 /* SVGTextElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8636B1688C2770059C9C4 /* SVGTextElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66E863FB1688C2780059C9C4 /* SVGTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8636C1688C2770059C9C4 /* SVGTextElement.m */; };
+		66E863FB1688C2780059C9C4 /* SVGTextElement-iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8636C1688C2770059C9C4 /* SVGTextElement-iOS.m */; };
 		66E863FC1688C2780059C9C4 /* SVGTitleElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8636D1688C2770059C9C4 /* SVGTitleElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863FD1688C2780059C9C4 /* SVGTitleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8636E1688C2770059C9C4 /* SVGTitleElement.m */; };
 		66E863FE1688C2780059C9C4 /* CALayerExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863701688C2770059C9C4 /* CALayerExporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -416,7 +416,7 @@
 		66E863691688C2770059C9C4 /* SVGSVGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSVGElement.h; sourceTree = "<group>"; };
 		66E8636A1688C2770059C9C4 /* SVGSVGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGSVGElement.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66E8636B1688C2770059C9C4 /* SVGTextElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextElement.h; sourceTree = "<group>"; };
-		66E8636C1688C2770059C9C4 /* SVGTextElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextElement.m; sourceTree = "<group>"; };
+		66E8636C1688C2770059C9C4 /* SVGTextElement-iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGTextElement-iOS.m"; sourceTree = "<group>"; };
 		66E8636D1688C2770059C9C4 /* SVGTitleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTitleElement.h; sourceTree = "<group>"; };
 		66E8636E1688C2770059C9C4 /* SVGTitleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTitleElement.m; sourceTree = "<group>"; };
 		66E863701688C2770059C9C4 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
@@ -790,7 +790,7 @@
 				66E863691688C2770059C9C4 /* SVGSVGElement.h */,
 				66E8636A1688C2770059C9C4 /* SVGSVGElement.m */,
 				66E8636B1688C2770059C9C4 /* SVGTextElement.h */,
-				66E8636C1688C2770059C9C4 /* SVGTextElement.m */,
+				66E8636C1688C2770059C9C4 /* SVGTextElement-iOS.m */,
 				66E8636D1688C2770059C9C4 /* SVGTitleElement.h */,
 				66E8636E1688C2770059C9C4 /* SVGTitleElement.m */,
 			);
@@ -1120,7 +1120,7 @@
 				66E863F51688C2780059C9C4 /* SVGRectElement.m in Sources */,
 				66E863F71688C2780059C9C4 /* BaseClassForAllSVGBasicShapes.m in Sources */,
 				66E863F91688C2780059C9C4 /* SVGSVGElement.m in Sources */,
-				66E863FB1688C2780059C9C4 /* SVGTextElement.m in Sources */,
+				66E863FB1688C2780059C9C4 /* SVGTextElement-iOS.m in Sources */,
 				66E863FD1688C2780059C9C4 /* SVGTitleElement.m in Sources */,
 				66E863FF1688C2780059C9C4 /* CALayerExporter.m in Sources */,
 				66E864011688C2780059C9C4 /* SVGKParserDefsAndUse.m in Sources */,
