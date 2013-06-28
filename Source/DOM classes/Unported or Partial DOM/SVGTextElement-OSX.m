@@ -159,18 +159,18 @@
 					   range:NSMakeRange(0, tempString.string.length)];
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
 	[tempString release];
-    CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
-    CFRelease(framesetter);
+	CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
+	CFRelease(framesetter);
 	
 	CGRect unTransformedFinalBounds = CGRectMake( 0,
 												 0,
 												 suggestedUntransformedSize.width,
 												 suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
 	
-    CATextLayer *label = [[CATextLayer alloc] init];
-    [SVGHelperUtilities configureCALayer:label usingElement:self];
+	CATextLayer *label = [[CATextLayer alloc] init];
+	[SVGHelperUtilities configureCALayer:label usingElement:self];
 	
-    label.font = (CFTypeRef)font;
+	label.font = (CFTypeRef)font;
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
@@ -188,7 +188,7 @@
 	 v. BECAUSE SVG AND APPLE DEFINE ORIGIN DIFFERENTLY: subtract the "untransformed" height of the font ... BUT: pre-transformed ONLY BY the 'multiplying (non-translating)' part of the TRANSFORM.
 	 vi. set the bounds to be (whatever Apple's CoreText says is necessary to render TEXT at FONT SIZE, with NO TRANSFORMS)
 	 */
-    label.bounds = unTransformedFinalBounds;
+	label.bounds = unTransformedFinalBounds;
 	
 	/** NB: specific to Apple: the "origin" is the TOP LEFT corner of first line of text, whereas SVG uses the font's internal origin
 	 (which is BOTTOM LEFT CORNER OF A LETTER SUCH AS 'a' OR 'x' THAT SITS ON THE BASELINE ... so we have to make the FRAME start "font leading" higher up
@@ -208,9 +208,9 @@
 	label.anchorPoint = CGPointZero; // WARNING: SVG applies transforms around the top-left as origin, whereas Apple defaults to center as origin, so we tell Apple to work "like SVG" here.
 	label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
 	label.fontSize = effectiveFontSize;
-    label.string = effectiveText;
-    label.alignmentMode = kCAAlignmentLeft;
-    label.foregroundColor = CGColorWithSVGColor(col);
+	label.string = effectiveText;
+	label.alignmentMode = kCAAlignmentLeft;
+	label.foregroundColor = CGColorWithSVGColor(col);
 	
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
@@ -218,7 +218,7 @@
 	//DEBUG: DDLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
 	*/
 	
-    return label;
+	return label;
 }
 
 - (void)layoutLayer:(CALayer *)layer
