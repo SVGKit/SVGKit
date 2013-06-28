@@ -84,35 +84,39 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	return [self initWithSVGKImage:nil];
+	return [self initWithSVGKImage:nil frame:CGRectZero];
 }
 
 -(id)initWithFrame:(NSRect)frame
 {
-	self = [super initWithFrame:frame];
-	if( self )
-	{
-		
-	}
-	return self;
+	return [self initWithSVGKImage:nil frame:frame];
 }
 
 - (id)initWithSVGKImage:(SVGKImage*) im
 {
+	return [self initWithSVGKImage:im frame:CGRectZero];
+}
+
+- (id)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame
+{
 	if( im == nil )
 	{
-		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
+		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
 		DDLogInfo(@"[%@] Using default SVG: %@", [self class], SVGKsvgStringDefaultContents);
-		im = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
+		im = [SVGKImage defaultImage];
 	}
 	
-    self = [super init];
+	if (![im hasSize]) {
+		im.size = NSMakeSize(100.0, 100.0);
+	}
+	
+    self = [super initWithFrame:(!NSEqualRects(theFrame, CGRectZero) ? theFrame : (NSRect){CGPointZero, im.size})]; // NB: this may use the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
     if (self)
 	{
 		internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
 		
 		self.image = im;
-		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
+		//self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
 		self.tileRatio = CGSizeZero;
 		
 		/** other obeservers */
@@ -133,7 +137,7 @@
 			DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
 	}
 	
-	if( image.scale != 0.0f )
+	if( image.scale != 0.0 )
 		DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own transforms. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using scale: you SHOULD INSTEAD be scaling by setting .size on the image, and ensuring that the incoming SVG has either a viewbox or an explicit svg width or svg height)", [self class]);
 #endif
 	

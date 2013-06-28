@@ -5,6 +5,17 @@
 //@synthesize image = _image;
 @synthesize showBorder = _showBorder;
 
+
+- (id)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame
+{
+	if ([self isMemberOfClass:[SVGKImageView class]]) {
+		NSAssert(NO, @"[%@] The function %s is meant to be implemented from a subclass, but you called the %@ class directly. This is not a good thing.", [self class], sel_getName(_cmd), [SVGKImageView class]);
+	} else {
+		NSAssert(NO, @"[%@] The function %s should be implemented by the subclass %@. You are currently using the function from %@, which is not good.", [self class], sel_getName(_cmd), [self class], [SVGKImageView class]);
+	}
+	return nil;
+}
+
 - (id)init
 {
 	if( [self isMemberOfClass:[SVGKImageView class]])
