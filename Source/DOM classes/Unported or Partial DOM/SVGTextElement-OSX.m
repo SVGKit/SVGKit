@@ -28,13 +28,13 @@
 	NSString *fontWeight = [self cascadedValueForStylableProperty:@"font-weight"];
 	NSString *fontStyle = [self cascadedValueForStylableProperty:@"font-style"];
 	if (!fontWeight || fontWeight.length == 0) {
-		fontWeight = @"Normal";
+		fontWeight = @"normal";
 	}
 	if (!fontStyle || fontStyle.length == 0) {
-		fontStyle = @"Normal";
+		fontStyle = @"normal";
 	}
 	
-	if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"Normal"]) {
+	if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"normal"]) {
 		SVGWeight = 400;
 	} else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bold"]){
 		SVGWeight = 700;
@@ -59,12 +59,13 @@
 	}
 	*weight = ceil(SVGWeight / 80.0);
 	
-	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"Normal"]) {
+	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"normal"]) {
 		//Do nothing
 	} else if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"italic"] || NSOrderedSame == [fontStyle caseInsensitiveCompare:@"oblique"]) {
 		(*traits) |= NSItalicFontMask;
 	} else {
-		DDLogError(@"[%@] ERROR: unknown SVG font style %@! Will set italics anyway.", [self class], fontStyle);
+		DDLogError(@"[%@] ERROR: unknown SVG font style %@!", [self class], fontStyle);
+		DDLogInfo(@"[%@] INFO: Will set italics anyways.", [self class]);
 		(*traits) |= NSItalicFontMask;
 	}
 	DDLogVerbose(@"[%@] INFO: Italic trait: %@, bold trait: %@, SVG weight: %li, Cocoa Weight: %li.", [self class], (*traits) & NSItalicFontMask ? @"Yes" : @"No", (*traits) & NSBoldFontMask ? @"Yes" : @"No", (long)SVGWeight, (long)(*weight));
