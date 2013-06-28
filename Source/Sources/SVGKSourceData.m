@@ -10,9 +10,20 @@
 
 @implementation SVGKSourceData
 
+- (id)initFromDataNoMutableCheck:(NSData*)data
+{
+	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
+	[stream open];
+	if (self = [super initWithInputSteam:stream]) {
+		self.data = data;
+	}
+	return self;
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
-	return [[SVGKSourceData alloc] initFromData:self.data];
+	//Use initFromDataNoMutableCheck because the data should already be immutable
+	return [[SVGKSourceData alloc] initFromDataNoMutableCheck:self.data];
 }
 
 - (id)initFromData:(NSData*)data
@@ -22,11 +33,7 @@
 	} else {
 		[data retain];
 	}
-	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
-	[stream open];
-	if (self = [super initWithInputSteam:stream]) {
-		self.data = data;
-	}
+	self = [self initFromDataNoMutableCheck:data];
 	[data release];
 
 	return self;

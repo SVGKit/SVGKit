@@ -27,7 +27,7 @@ static SVGKCache *cacheObjectGenerator()
 
 #define svgCacheObject (cacheObject ? cacheObject : cacheObjectGenerator())
 
-#define isNotCached() DDLogError(@"[%@] ERROR: Caching is currently disabled: no action taken", [SVGKImage class])
+#define isNotCached() DDLogError(@"[%@] ERROR: Caching is currently disabled: no action taken.", [SVGKImage class])
 
 @implementation SVGKCache
 @synthesize caching = _caching;

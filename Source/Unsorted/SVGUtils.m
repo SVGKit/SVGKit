@@ -273,8 +273,11 @@ SVGColor SVGColorFromString (const char *string) {
 	bzero(&color, sizeof(color));
 	
 	color.a = 0xFF;
-	
-	if (!strncmp(string, "rgb(", 4)) {
+	if (!strncmp(string, "url", 4)) {
+		DDLogCWarn(@"%s: WARNING: Unable to get an SVG color from a url (most likely a pattern)", __FUNCTION__);
+		DDLogCInfo(@"%s: INFO: returning a black SVG color", __FUNCTION__);
+		color = SVGColorMake(0, 0, 0, 255);
+	} else if (!strncmp(string, "rgb(", 4)) {
 		size_t len = strlen(string);
 		
 		char accum[MAX_ACCUM];

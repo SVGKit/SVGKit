@@ -646,7 +646,7 @@ static inline NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	if( string == NULL ) // Yes, Apple requires we do this check!
 		return nil;
 	else
-		return [NSString stringWithUTF8String:(const char *) string];
+		return @((const char *) string);
 }
 #endif
 
