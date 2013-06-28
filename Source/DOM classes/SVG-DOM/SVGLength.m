@@ -32,6 +32,41 @@
     return nil;
 }
 
+- (NSString*)description
+{
+	NSString *unit = nil;
+#define UnitSwitch(name) case SVG_LENGTHTYPE_##name: \
+unit = [@( #name ) lowercaseString]; \
+break
+	
+	switch (self.unitType) {
+			UnitSwitch(CM);
+			UnitSwitch(EMS);
+			UnitSwitch(EXS);
+			UnitSwitch(IN);
+			UnitSwitch(MM);
+			UnitSwitch(PC);
+			UnitSwitch(PT);
+			UnitSwitch(PX);
+		case SVG_LENGTHTYPE_NUMBER:
+			unit = @" number";
+			break;
+			
+		case SVG_LENGTHTYPE_PERCENTAGE:
+			unit = @"%%";
+			break;
+
+			
+		default:
+		case SVG_LENGTHTYPE_UNKNOWN:
+			return [NSString stringWithFormat:@"%@: unknown type and length", [self class]];
+			break;
+	}
+	
+	return [NSString stringWithFormat:@"%@: %f%@", [self class], self.value, unit];
+#undef UnitSwitch
+}
+
 - (id)initWithCSSPrimitiveValue:(CSSPrimitiveValue*) pv
 {
     self = [super init];
