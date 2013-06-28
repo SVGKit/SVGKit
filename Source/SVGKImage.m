@@ -21,7 +21,6 @@
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
 #else
-#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
