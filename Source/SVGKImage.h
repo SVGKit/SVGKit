@@ -295,6 +295,7 @@
 + (void)clearSVGImageCache;
 + (void)removeSVGImageCacheNamed:(NSString*)theName;
 + (NSArray*)storedCacheNames;
++ (SVGKImage*)cachedImageForName:(NSString*)theName;
 
 + (BOOL)isCacheEnabled;
 + (void)enableCache;

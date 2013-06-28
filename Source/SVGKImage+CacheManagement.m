@@ -114,6 +114,7 @@ static SVGKCache *cacheObjectGenerator()
 
 @implementation SVGKImage (CacheManagement)
 @dynamic nameUsedToInstantiate;
+
 + (void)clearSVGImageCache
 {
 	if (svgCacheObject.caching) {
@@ -155,9 +156,6 @@ static SVGKCache *cacheObjectGenerator()
 	svgCacheObject.caching = NO;
 }
 
-@end
-
-@implementation SVGKImage (CacheManagementPrivate)
 + (SVGKImage*)cachedImageForName:(NSString*)theName
 {
 	if (svgCacheObject.caching) {
@@ -166,6 +164,10 @@ static SVGKCache *cacheObjectGenerator()
 		return nil;
 	}
 }
+
+@end
+
+@implementation SVGKImage (CacheManagementPrivate)
 
 + (void)storeImageCache:(SVGKImage*)theImage forName:(NSString*)theName
 {
