@@ -27,10 +27,10 @@
 	
 	NSString *fontWeight = [self cascadedValueForStylableProperty:@"font-weight"];
 	NSString *fontStyle = [self cascadedValueForStylableProperty:@"font-style"];
-	if (!fontWeight) {
+	if (!fontWeight || fontWeight.length == 0) {
 		fontWeight = @"Normal";
 	}
-	if (!fontStyle) {
+	if (!fontStyle || fontStyle.length == 0) {
 		fontStyle = @"Normal";
 	}
 	
