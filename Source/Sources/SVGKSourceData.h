@@ -10,7 +10,7 @@
 
 @interface SVGKSourceData : SVGKSource <NSCopying>
 
-@property (readwrite, retain, nonatomic) NSData *data;
+@property (readonly, retain, nonatomic) NSData *data;
 
 - (id)initFromData:(NSData*)data;
 + (SVGKSource*)sourceFromData:(NSData*)data;

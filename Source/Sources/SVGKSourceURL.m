@@ -1,5 +1,9 @@
 #import "SVGKSourceURL.h"
 
+@interface SVGKSourceURL ()
+@property (readwrite, nonatomic, retain) NSURL* URL;
+@end
+
 @implementation SVGKSourceURL
 
 - (id)copyWithZone:(NSZone *)zone

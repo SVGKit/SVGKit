@@ -29,7 +29,7 @@
 + (SVGKSource*)sourceFromURL:(NSURL*)u;
 
 @property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
-@property (nonatomic, retain) NSInputStream* stream;
+@property (readonly, nonatomic, retain) NSInputStream* stream;
 
 /**
  Subclasses convert their proprietary data into something that implements NSInputStream, which allows the

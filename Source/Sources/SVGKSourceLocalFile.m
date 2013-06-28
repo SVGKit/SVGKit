@@ -1,5 +1,9 @@
 #import "SVGKSourceLocalFile.h"
 
+@interface SVGKSourceLocalFile ()
+@property (readwrite, nonatomic, copy) NSString* filePath;
+@end
+
 @implementation SVGKSourceLocalFile
 
 - (id)copyWithZone:(NSZone *)zone
