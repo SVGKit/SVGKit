@@ -42,7 +42,7 @@
 #if 0
 	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"lighter"])
 		SVGWeight -= 100;
-    else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bolder"])
+	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bolder"])
 		SVGWeight += 100;
 #endif
 	else {
@@ -51,14 +51,14 @@
 	
 	if (SVGWeight < 100)
 		SVGWeight = 100;
-    if (SVGWeight > 900)
+	if (SVGWeight > 900)
 		SVGWeight = 900;
-
+	
 	if (SVGWeight >= 700) {
 		(*traits) |= NSBoldFontMask;
 	}
 	*weight = ceil(SVGWeight / 80.0);
-
+	
 	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"Normal"]) {
 		//Do nothing
 	} else if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"italic"] || NSOrderedSame == [fontStyle caseInsensitiveCompare:@"oblique"]) {
@@ -67,6 +67,7 @@
 		DDLogError(@"[%@] ERROR: unknown SVG font style %@! Will set italics anyway.", [self class], fontStyle);
 		(*traits) |= NSItalicFontMask;
 	}
+	DDLogVerbose(@"[%@] INFO: Italic Trait: %@, bold trait: %@, SVG weight: %li, Cocoa Weight: %li", [self class], (*traits) & NSItalicFontMask ? @"Yes" : @"No", (*traits) & NSBoldFontMask ? @"Yes" : @"NO", (long)SVGWeight, (long)(*weight));
 }
 
 - (CALayer *) newLayer
@@ -105,6 +106,7 @@
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
 	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
 	SVGColor col;
+	//We won't worry about the alpha value:The opacity set via the SVGHelperUtilities class will be sufficient.
 	if (fillColorString) {
 		col = SVGColorFromString([fillColorString UTF8String]);
 	} else {
