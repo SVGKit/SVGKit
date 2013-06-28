@@ -27,14 +27,14 @@
 	
 	NSString *fontWeight = [self cascadedValueForStylableProperty:@"font-weight"];
 	NSString *fontStyle = [self cascadedValueForStylableProperty:@"font-style"];
-	if (!fontWeight) {
-		fontWeight = @"Normal";
+	if (!fontWeight || fontWeight.length == 0) {
+		fontWeight = @"normal";
 	}
-	if (!fontStyle) {
-		fontStyle = @"Normal";
+	if (!fontStyle || fontStyle.length == 0) {
+		fontStyle = @"normal";
 	}
 	
-	if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"Normal"]) {
+	if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"normal"]) {
 		SVGWeight = 400;
 	} else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bold"]){
 		SVGWeight = 700;
@@ -42,7 +42,7 @@
 #if 0
 	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"lighter"])
 		SVGWeight -= 100;
-    else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bolder"])
+	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bolder"])
 		SVGWeight += 100;
 #endif
 	else {
@@ -51,22 +51,24 @@
 	
 	if (SVGWeight < 100)
 		SVGWeight = 100;
-    if (SVGWeight > 900)
+	if (SVGWeight > 900)
 		SVGWeight = 900;
-
+	
 	if (SVGWeight >= 700) {
 		(*traits) |= NSBoldFontMask;
 	}
 	*weight = ceil(SVGWeight / 80.0);
-
-	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"Normal"]) {
+	
+	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"normal"]) {
 		//Do nothing
 	} else if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"italic"] || NSOrderedSame == [fontStyle caseInsensitiveCompare:@"oblique"]) {
 		(*traits) |= NSItalicFontMask;
 	} else {
-		DDLogError(@"[%@] ERROR: unknown SVG font style %@! Will set italics anyway.", [self class], fontStyle);
+		DDLogError(@"[%@] ERROR: unknown SVG font style %@!", [self class], fontStyle);
+		DDLogInfo(@"[%@] INFO: Will set italics anyways.", [self class]);
 		(*traits) |= NSItalicFontMask;
 	}
+	DDLogVerbose(@"[%@] INFO: Italic trait: %@, bold trait: %@, SVG weight: %li, Cocoa Weight: %li.", [self class], (*traits) & NSItalicFontMask ? @"Yes" : @"No", (*traits) & NSBoldFontMask ? @"Yes" : @"No", (long)SVGWeight, (long)(*weight));
 }
 
 - (CALayer *) newLayer
@@ -105,13 +107,22 @@
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
 	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
 	SVGColor col;
+	//We won't worry about the alpha value: The opacity set via the SVGHelperUtilities class to the layer will be sufficient.
 	if (fillColorString) {
 		col = SVGColorFromString([fillColorString UTF8String]);
 	} else {
-		col = SVGColorFromString("black");
+		col = SVGColorMake(0, 0, 0, 255);
 	}
-	
+#if 1
+	CGFloat effectiveFontSize = 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+	if (actualSize.length > 0) {
+		SVGLength *sizeLen = [SVGLength svgLengthFromNSString:actualSize];
+		//[sizeLen convertToSpecifiedUnits:SVG_LENGTHTYPE_PX];
+		effectiveFontSize = [sizeLen pixelsValue];
+	}
+#else
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+#endif
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
 	//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 	
@@ -134,7 +145,8 @@
 	
 	NSFont *font = [fm fontWithFamily:actualFamily traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	if (!font) {
-		font = [fm fontWithFamily:@"Helvetica" traits:traitMask weight:fontWeightCG size:effectiveFontSize];
+		//Match the iOS side and use Verdana for when we can't find fonts.
+		font = [fm fontWithFamily:@"Verdana" traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	}
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
@@ -156,18 +168,15 @@
 					   value:font
 					   range:NSMakeRange(0, tempString.string.length)];
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (__bridge CFMutableAttributedStringRef) tempString );
-    CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
-    CFRelease(framesetter);
+	CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
+	CFRelease(framesetter);
 	
-	CGRect unTransformedFinalBounds = CGRectMake( 0,
-												 0,
-												 suggestedUntransformedSize.width,
-												 suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
+	CGRect unTransformedFinalBounds = { CGPointZero, suggestedUntransformedSize}; // everything's been pre-scaled by [self transformAbsolute]
 	
-    CATextLayer *label = [[CATextLayer alloc] init];
-    [SVGHelperUtilities configureCALayer:label usingElement:self];
+	CATextLayer *label = [[CATextLayer alloc] init];
+	[SVGHelperUtilities configureCALayer:label usingElement:self];
 	
-    label.font = (__bridge CFTypeRef)font;
+	label.font = (__bridge CFTypeRef)font;
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
@@ -185,7 +194,7 @@
 	 v. BECAUSE SVG AND APPLE DEFINE ORIGIN DIFFERENTLY: subtract the "untransformed" height of the font ... BUT: pre-transformed ONLY BY the 'multiplying (non-translating)' part of the TRANSFORM.
 	 vi. set the bounds to be (whatever Apple's CoreText says is necessary to render TEXT at FONT SIZE, with NO TRANSFORMS)
 	 */
-    label.bounds = unTransformedFinalBounds;
+	label.bounds = unTransformedFinalBounds;
 	
 	/** NB: specific to Apple: the "origin" is the TOP LEFT corner of first line of text, whereas SVG uses the font's internal origin
 	 (which is BOTTOM LEFT CORNER OF A LETTER SUCH AS 'a' OR 'x' THAT SITS ON THE BASELINE ... so we have to make the FRAME start "font leading" higher up
@@ -205,9 +214,9 @@
 	label.anchorPoint = CGPointZero; // WARNING: SVG applies transforms around the top-left as origin, whereas Apple defaults to center as origin, so we tell Apple to work "like SVG" here.
 	label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
 	label.fontSize = effectiveFontSize;
-    label.string = effectiveText;
-    label.alignmentMode = kCAAlignmentLeft;
-    label.foregroundColor = CGColorWithSVGColor(col);
+	label.string = effectiveText;
+	label.alignmentMode = kCAAlignmentLeft;
+	label.foregroundColor = CGColorWithSVGColor(col);
 	
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
@@ -215,7 +224,7 @@
 	//DEBUG: DDLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
 	*/
 	
-    return label;
+	return label;
 }
 
 - (void)layoutLayer:(CALayer *)layer

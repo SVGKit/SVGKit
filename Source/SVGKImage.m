@@ -625,7 +625,7 @@
 
 - (BOOL)hasCALayerTree
 {
-	return !!CALayerTree;
+	return (CALayerTree != nil);
 }
 
 - (void) addSVGLayerTree:(CALayer*) layer withIdentifier:(NSString*) layerID toDictionary:(NSMutableDictionary*) layersByID
