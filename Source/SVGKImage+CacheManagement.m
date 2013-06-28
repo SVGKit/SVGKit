@@ -26,7 +26,8 @@ static NSMutableDictionary *SVGCacheObject = nil;
 + (NSArray*)storedCacheNames
 {
 	if (SVGCacheObject) {
-		return [SVGCacheObject allKeys];
+		NSArray *allKeys = [SVGCacheObject allKeys];
+		return allKeys;
 	} else {
 		return @[];
 	}
@@ -34,7 +35,8 @@ static NSMutableDictionary *SVGCacheObject = nil;
 
 + (BOOL)isCacheEnabled
 {
-	return SVGCacheObject != nil;
+	BOOL isEnabled = (SVGCacheObject != nil);
+	return isEnabled;
 }
 
 + (void)enableCache
@@ -59,7 +61,8 @@ static NSMutableDictionary *SVGCacheObject = nil;
 + (SVGKImage*)cachedImageForName:(NSString*)theName
 {
 	if (SVGCacheObject) {
-		return SVGCacheObject[theName];
+		SVGKImage *retImage = SVGCacheObject[theName];
+		return retImage;
 	} else {
 		return nil;
 	}
