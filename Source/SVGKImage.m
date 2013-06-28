@@ -88,7 +88,6 @@
 	NSParameterAssert(bundle != nil);
     
 	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
-		
 		SVGKImage* cacheImage = [SVGKImage cachedImageForName:name];
 		if( cacheImage != nil )
 		{

@@ -25,7 +25,7 @@ static SVGKCache *cacheObjectGenerator()
 	return cacheObject;
 }
 
-#define svgCacheObject (cacheObject ? cacheObject : cacheObjectGenerator())
+#define CacheObjectCreateOnDemand (cacheObject ? cacheObject : cacheObjectGenerator())
 
 #define isNotCached() DDLogError(@"[%@] ERROR: Caching is currently disabled: no action taken.", [SVGKImage class])
 
@@ -104,7 +104,7 @@ static SVGKCache *cacheObjectGenerator()
 
 - (void)dealloc
 {
-	DDLogError(@"[%@] ERROR: how did dealloc get called!?", [self class]);
+	DDLogError(@"[%@] ERROR: How did dealloc get called!?", [self class]);
 	self.imageCache = nil;
 	
 	[super dealloc];
@@ -117,7 +117,7 @@ static SVGKCache *cacheObjectGenerator()
 
 + (void)clearSVGImageCache
 {
-	if (svgCacheObject.caching) {
+	if (CacheObjectCreateOnDemand.caching) {
 		DDLogInfo(@"[%@] Purging cache of %li SVGKImage's...", self, (long)[cacheObject count] );
 		[cacheObject removeAllCachedImages];
 	}else {
@@ -127,14 +127,14 @@ static SVGKCache *cacheObjectGenerator()
 
 + (void)removeSVGImageCacheNamed:(NSString*)theName
 {
-	if (svgCacheObject.caching) {
+	if (CacheObjectCreateOnDemand.caching) {
 		[cacheObject removeCachedObjectWithName:theName];
 	}
 }
 
 + (NSArray*)storedCacheNames
 {
-	if (svgCacheObject.caching) {
+	if (CacheObjectCreateOnDemand.caching) {
 		return [cacheObject allCachedImageNames];
 	} else {
 		return @[];
@@ -143,22 +143,22 @@ static SVGKCache *cacheObjectGenerator()
 
 + (BOOL)isCacheEnabled
 {
-	return svgCacheObject.caching;
+	return CacheObjectCreateOnDemand.caching;
 }
 
 + (void)enableCache
 {
-	svgCacheObject.caching = YES;
+	CacheObjectCreateOnDemand.caching = YES;
 }
 
 + (void)disableCache
 {
-	svgCacheObject.caching = NO;
+	CacheObjectCreateOnDemand.caching = NO;
 }
 
 + (SVGKImage*)cachedImageForName:(NSString*)theName
 {
-	if (svgCacheObject.caching) {
+	if (CacheObjectCreateOnDemand.caching) {
 		return [cacheObject cachedImageForName:theName];
 	} else {
 		return nil;
@@ -171,7 +171,7 @@ static SVGKCache *cacheObjectGenerator()
 
 + (void)storeImageCache:(SVGKImage*)theImage forName:(NSString*)theName
 {
-	if (svgCacheObject.caching) {
+	if (CacheObjectCreateOnDemand.caching) {
 		[cacheObject addCachedObject:theImage forName:theName];
 	}
 }
@@ -179,7 +179,7 @@ static SVGKCache *cacheObjectGenerator()
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 +(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
 {
-	if (svgCacheObject.caching) {
+	if (CacheObjectCreateOnDemand.caching) {
 		DDLogWarn(@"[%@] Low-mem; purging cache of %li SVGKImage's...", self, (long)[cacheObject count] );
 		
 		[cacheObject removeAllCachedImages]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
