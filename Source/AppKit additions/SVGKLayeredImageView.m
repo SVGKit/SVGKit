@@ -24,11 +24,9 @@
 	return [self initWithSVGKImage:nil frame:CGRectZero];
 }
 
-- (void)setUpLayer
-{
-	self.layer = [SVGKLayer layer];
-	self.wantsLayer = YES;
-}
+#define SetupLayer() \
+	self.layer = [SVGKLayer layer]; \
+	self.wantsLayer = YES
 
 -(id)initWithFrame:(NSRect)frame
 {
@@ -49,11 +47,11 @@
 		self = [super initWithFrame:(!NSEqualRects(theFrame, CGRectZero) ? theFrame : NSMakeRect(0, 0, 100, 100))]; // coincides with the inline SVG below!
 		if( self )
 		{
-			[self setUpLayer];
+			SetupLayer();
 			
 			DDLogInfo(@"About to make a blank image using the inlined SVG = %@", SVGKsvgStringDefaultContents);
 			
-			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
+			SVGKImage* defaultBlankImage = [SVGKImage defaultImage];
 			
 			((SVGKLayer*) self.layer).SVGImage = defaultBlankImage;
 		}
@@ -67,7 +65,7 @@
 		self = [super initWithFrame:(!NSEqualRects(theFrame, CGRectZero) ? theFrame : (NSRect){CGPointZero, im.CALayerTree.frame.size})]; // default: 0,0 to width x height of original image];
 		if (self)
 		{
-			[self setUpLayer];
+			SetupLayer();
 			
 			((SVGKLayer*) self.layer).SVGImage = im;
 			
