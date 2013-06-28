@@ -8,6 +8,10 @@
 
 #import "SVGKSourceData.h"
 
+@interface SVGKSourceData ()
+@property (readwrite, strong, nonatomic) NSData *data;
+@end
+
 @implementation SVGKSourceData
 
 - (id)initFromDataNoMutableCheck:(NSData*)data

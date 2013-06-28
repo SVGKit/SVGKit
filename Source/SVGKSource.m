@@ -3,6 +3,10 @@
 #import "SVGKSourceURL.h"
 #import "SVGKSourceData.h"
 
+@interface SVGKSource ()
+@property (readwrite, nonatomic, strong) NSInputStream* stream;
+@end
+
 @implementation SVGKSource
 
 @synthesize svgLanguageVersion;
