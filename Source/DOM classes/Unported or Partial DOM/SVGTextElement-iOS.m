@@ -13,6 +13,63 @@
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
+- (void)getFontTrait:(out uint32_t*)traits weight:(out NSInteger*)weight
+{
+	NSParameterAssert(traits != NULL);
+	NSParameterAssert(weight != NULL);
+	
+	*traits = 0;
+	*weight = 0;
+	
+	//Parts of this code were taken from the SVGImageRep/libsvg project
+	NSInteger SVGWeight = 0;
+	
+	NSString *fontWeight = [self cascadedValueForStylableProperty:@"font-weight"];
+	NSString *fontStyle = [self cascadedValueForStylableProperty:@"font-style"];
+	if (!fontWeight || fontWeight.length == 0) {
+		fontWeight = @"normal";
+	}
+	if (!fontStyle || fontStyle.length == 0) {
+		fontStyle = @"normal";
+	}
+	
+	if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"normal"]) {
+		SVGWeight = 400;
+	} else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bold"]){
+		SVGWeight = 700;
+	}
+#if 0
+	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"lighter"])
+		SVGWeight -= 100;
+	else if (NSOrderedSame == [fontWeight caseInsensitiveCompare:@"bolder"])
+		SVGWeight += 100;
+#endif
+	else {
+		SVGWeight = [fontWeight integerValue];
+	}
+	
+	if (SVGWeight < 100)
+		SVGWeight = 100;
+	if (SVGWeight > 900)
+		SVGWeight = 900;
+	
+	if (SVGWeight >= 700) {
+		(*traits) |= kCTFontBoldTrait;
+	}
+	*weight = ceil(SVGWeight / 80.0);
+	
+	if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"normal"]) {
+		//Do nothing
+	} else if (NSOrderedSame == [fontStyle caseInsensitiveCompare:@"italic"] || NSOrderedSame == [fontStyle caseInsensitiveCompare:@"oblique"]) {
+		(*traits) |= kCTFontItalicTrait;
+	} else {
+		DDLogError(@"[%@] ERROR: unknown SVG font style %@!", [self class], fontStyle);
+		DDLogInfo(@"[%@] INFO: Will set italics anyways.", [self class]);
+		(*traits) |= kCTFontItalicTrait;
+	}
+	DDLogVerbose(@"[%@] INFO: Italic trait: %@, bold trait: %@, SVG weight: %li, Cocoa Weight: %li.", [self class], ((*traits) & kCTFontItalicTrait) == kCTFontItalicTrait ? @"Yes" : @"No", ((*traits) & kCTFontBoldTrait) == kCTFontBoldTrait ? @"Yes" : @"No", (long)SVGWeight, (long)(*weight));
+}
+
 - (CALayer *) newLayer
 {
 	/**
@@ -48,6 +105,7 @@
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
 	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
 	SVGColor col;
+	//We won't worry about the alpha value: The opacity set via the SVGHelperUtilities class to the layer will be sufficient.
 	if (fillColorString) {
 		col = SVGColorFromString([fillColorString UTF8String]);
 	} else {
@@ -95,6 +153,7 @@
 					   range:NSMakeRange(0, tempString.string.length)];
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (__bridge CFMutableAttributedStringRef) tempString );
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
+	
     CFRelease(framesetter);
 	
 	CGRect unTransformedFinalBounds = { CGPointZero, suggestedUntransformedSize}; // everything's been pre-scaled by [self transformAbsolute]

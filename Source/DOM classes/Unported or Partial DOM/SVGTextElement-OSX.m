@@ -141,7 +141,6 @@
 		actualFamily = @"Helvetica";
 	else if (NSOrderedSame == [actualFamily caseInsensitiveCompare:@"monospace"])
 		actualFamily = @"Courier";
-
 	
 	NSFont *font = [fm fontWithFamily:actualFamily traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	if (!font) {

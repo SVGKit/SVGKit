@@ -27,7 +27,7 @@ static SVGKCache *cacheObjectGenerator()
 
 #define svgCacheObject (cacheObject ? cacheObject : cacheObjectGenerator())
 
-#define isNotCached() DDLogError(@"[%@] ERROR: Caching is currently disabled: no action taken", [SVGKImage class])
+#define isNotCached() DDLogError(@"[%@] ERROR: Caching is currently disabled: no action taken.", [SVGKImage class])
 
 @implementation SVGKCache
 @synthesize caching = _caching;
@@ -111,6 +111,7 @@ static SVGKCache *cacheObjectGenerator()
 
 @implementation SVGKImage (CacheManagement)
 @dynamic nameUsedToInstantiate;
+
 + (void)clearSVGImageCache
 {
 	if (svgCacheObject.caching) {
@@ -152,9 +153,6 @@ static SVGKCache *cacheObjectGenerator()
 	svgCacheObject.caching = NO;
 }
 
-@end
-
-@implementation SVGKImage (CacheManagementPrivate)
 + (SVGKImage*)cachedImageForName:(NSString*)theName
 {
 	if (svgCacheObject.caching) {
@@ -163,6 +161,10 @@ static SVGKCache *cacheObjectGenerator()
 		return nil;
 	}
 }
+
+@end
+
+@implementation SVGKImage (CacheManagementPrivate)
 
 + (void)storeImageCache:(SVGKImage*)theImage forName:(NSString*)theName
 {

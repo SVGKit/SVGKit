@@ -25,4 +25,8 @@
 
 - (id)initWithSVGKImage:(SVGKImage*) im;
 
+//Default initializer for subclasses. Will set the frame of the view and init with an image
+- (id)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame;
+
+
 @end
