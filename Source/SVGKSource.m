@@ -41,7 +41,12 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	DDLogError(@"[%@] ERROR: %s should be in a subclass!", [self class], sel_getName(_cmd));
+	if ([self isMemberOfClass:[SVGKSource class]]) {
+		DDLogError(@"[%@] ERROR: %@ does not implement %@. You will need to get the data to make a new SVGKSource object some other way.", [self class], [self class], NSStringFromSelector(_cmd));
+		[self doesNotRecognizeSelector:_cmd];
+	} else {
+		DDLogError(@"[%@] ERROR: %@ from class %@ should be in a subclass!", [self class], NSStringFromSelector(_cmd), [SVGKSource class]);
+	}
 	
 	return nil;
 }
