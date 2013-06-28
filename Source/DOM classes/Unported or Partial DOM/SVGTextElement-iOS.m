@@ -53,9 +53,17 @@
 	} else {
 		col = SVGColorFromString("black");
 	}
-
 	
+#if 1
+	CGFloat effectiveFontSize = 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+	if (actualSize.length > 0) {
+		SVGLength *sizeLen = [SVGLength svgLengthFromNSString:actualSize];
+		//[sizeLen convertToSpecifiedUnits:SVG_LENGTHTYPE_PX];
+		effectiveFontSize = [sizeLen pixelsValue];
+	}
+#else
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+#endif
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
 	//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 	
@@ -90,10 +98,8 @@
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
 	
-	CGRect unTransformedFinalBounds = CGRectMake( 0,
-												 0,
-												 suggestedUntransformedSize.width,
-												 suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
+	CGRect unTransformedFinalBounds = { CGPointZero, suggestedUntransformedSize}; // everything's been pre-scaled by [self transformAbsolute]
+
 	
     CATextLayer *label = [[CATextLayer alloc] init];
     [SVGHelperUtilities configureCALayer:label usingElement:self];

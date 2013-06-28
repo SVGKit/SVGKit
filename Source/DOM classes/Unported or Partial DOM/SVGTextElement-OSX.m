@@ -67,7 +67,7 @@
 		DDLogError(@"[%@] ERROR: unknown SVG font style %@! Will set italics anyway.", [self class], fontStyle);
 		(*traits) |= NSItalicFontMask;
 	}
-	DDLogVerbose(@"[%@] INFO: Italic Trait: %@, bold trait: %@, SVG weight: %li, Cocoa Weight: %li", [self class], (*traits) & NSItalicFontMask ? @"Yes" : @"No", (*traits) & NSBoldFontMask ? @"Yes" : @"NO", (long)SVGWeight, (long)(*weight));
+	DDLogVerbose(@"[%@] INFO: Italic trait: %@, bold trait: %@, SVG weight: %li, Cocoa Weight: %li.", [self class], (*traits) & NSItalicFontMask ? @"Yes" : @"No", (*traits) & NSBoldFontMask ? @"Yes" : @"No", (long)SVGWeight, (long)(*weight));
 }
 
 - (CALayer *) newLayer
@@ -106,14 +106,22 @@
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
 	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
 	SVGColor col;
-	//We won't worry about the alpha value:The opacity set via the SVGHelperUtilities class will be sufficient.
+	//We won't worry about the alpha value: The opacity set via the SVGHelperUtilities class to the layer will be sufficient.
 	if (fillColorString) {
 		col = SVGColorFromString([fillColorString UTF8String]);
 	} else {
-		col = SVGColorFromString("black");
+		col = SVGColorMake(0, 0, 0, 255);
 	}
-	
+#if 1
+	CGFloat effectiveFontSize = 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+	if (actualSize.length > 0) {
+		SVGLength *sizeLen = [SVGLength svgLengthFromNSString:actualSize];
+		//[sizeLen convertToSpecifiedUnits:SVG_LENGTHTYPE_PX];
+		effectiveFontSize = [sizeLen pixelsValue];
+	}
+#else
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize SVGKCGFloatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+#endif
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
 	//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 	
@@ -136,7 +144,8 @@
 	
 	NSFont *font = [fm fontWithFamily:actualFamily traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	if (!font) {
-		font = [fm fontWithFamily:@"Helvetica" traits:traitMask weight:fontWeightCG size:effectiveFontSize];
+		//Match the iOS side and use Verdana for when we can't find fonts.
+		font = [fm fontWithFamily:@"Verdana" traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	}
 	
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
@@ -162,10 +171,7 @@
 	CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
 	CFRelease(framesetter);
 	
-	CGRect unTransformedFinalBounds = CGRectMake( 0,
-												 0,
-												 suggestedUntransformedSize.width,
-												 suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
+	CGRect unTransformedFinalBounds = { CGPointZero, suggestedUntransformedSize}; // everything's been pre-scaled by [self transformAbsolute]
 	
 	CATextLayer *label = [[CATextLayer alloc] init];
 	[SVGHelperUtilities configureCALayer:label usingElement:self];
