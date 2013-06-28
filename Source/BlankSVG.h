@@ -8,4 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-NSString* const SVGKsvgStringDefaultContents;
+__private_extern__ NSString* const SVGKGetConstantStringDefaultContents();
+
+//Deprecated, do not use.
+#define SVGKsvgStringDefaultContents SVGKGetConstantStringDefaultContents()

@@ -8,11 +8,13 @@
 
 #import "BlankSVG.h"
 
+#undef SVGKsvgStringDefaultContents
+
 /**
  ************* NB: it is critical that the string we're about to create is NOT INDENTED - the tabs would break the parsing!
  */
 
-NSString* const SVGKsvgStringDefaultContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
+static NSString* const SVGKsvgStringDefaultContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
 \n\
 <svg \
 xmlns:svg=\"http://www.w3.org/2000/svg\" \
@@ -60,3 +62,9 @@ y=\"1030.2456\" \
 style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 </g> \
 </svg>";
+
+
+NSString* const SVGKGetConstantStringDefaultContents()
+{
+	return SVGKsvgStringDefaultContents;
+}
