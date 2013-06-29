@@ -158,8 +158,6 @@ static NSDateFormatter* debugDateFormatter()
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
 		
 		if (hasGrad || hasText) {
-			NSDateFormatter *formatter = debugDateFormatter();
-			
 			NSString *errstuff = nil;
 			
 			if (hasGrad) {
@@ -176,7 +174,7 @@ static NSDateFormatter* debugDateFormatter()
 				errstuff = @"";
 			}
 			
-			fprintf(stderr, "%s SVGKitImageRep: the image \"%s\" might have problems rendering correctly due to %s.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
+			fprintf(stderr, "%s SVGKitImageRep: the image \"%s\" might have problems rendering correctly due to %s.\n", [[debugDateFormatter() stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
 		}
 		
 		if (![self.image hasSize]) {
@@ -268,7 +266,7 @@ static NSDateFormatter* debugDateFormatter()
 		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
 		CGContextRestoreGState(layerCont);
 		
-		CGContextDrawLayerAtPoint(imRepCtx, NSZeroPoint, layerRef);
+		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
@@ -295,8 +293,8 @@ static NSDateFormatter* debugDateFormatter()
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-NSDateFormatter *formatter = debugDateFormatter(); \
-fprintf(stderr, "%s SVGKImageRep: -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.\n", [[formatter stringFromDate:[NSDate date]] UTF8String], sel_getName(_cmd), sel_getName(NewMethodSel)); \
+fprintf(stderr, "%s SVGKImageRep: -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.\n", \
+[[debugDateFormatter() stringFromDate:[NSDate date]] UTF8String], sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
 }
