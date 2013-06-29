@@ -89,6 +89,7 @@ _ColorValueWithName
 .objc_class_name_StyleSheetList
 .objc_class_name_Text
 .objc_class_name_SVGKSourceData
+.objc_class_name_SVGKImageRep
 _SVGColorFromString
 _SVGColorMake
 _SVGCurveEqualToCurve
