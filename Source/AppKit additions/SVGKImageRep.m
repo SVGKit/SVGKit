@@ -213,6 +213,7 @@
 
 - (id)initWithSVGImage:(SVGKImage*)theImage
 {
+	//Copy over the image, just in case
 	return [self initWithSVGSource:[[theImage.source copy] autorelease]];
 }
 
