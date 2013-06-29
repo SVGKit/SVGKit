@@ -78,9 +78,15 @@
 					}
 				}
 			}
+#if 1
 			if (promising) {
 				tiffData = [promising TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 			}
+#else
+			if (promising) {
+				tiffData = [promising.image.NSImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
+			}
+#endif
 #endif
 			if (tiffData) {
 				[tiffData writeToURL:[savePanel URL] atomically:YES];

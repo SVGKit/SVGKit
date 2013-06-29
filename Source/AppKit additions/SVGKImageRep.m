@@ -7,15 +7,19 @@
 //
 
 #import "SVGKit.h"
+#import "SVGKSourceData.h"
+#import "SVGKSourceLocalFile.h"
+#import "SVGKSourceURL.h"
 
 #import "SVGKImageRep.h"
+#import <Lumberjack/Lumberjack.h>
 
 @interface SVGKImage ()
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
 @end
 
 @interface SVGKImageRep ()
-@property (nonatomic, strong, readwrite) SVGKImage *image;
+@property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
 @end
 
 @implementation SVGKImageRep
@@ -70,7 +74,7 @@
 {
 	SVGKParseResult *parseResult = nil;
 	@autoreleasepool {
-		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[SVGKSource sourceFromData:d]];
+		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[SVGKSourceData sourceFromData:d]];
 	}
 	if (parseResult == nil) {
 		return NO;
@@ -113,32 +117,32 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromData:theData]];
+	return [self initWithSVGSource:[SVGKSourceData sourceFromData:theData]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromURL:theURL]];
+	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromFilename:thePath]];
+	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
 {
-	return [self initWithSVGSource:[SVGKSource sourceFromContentsOfString:theString]];
+	return [self initWithSVGSource:[SVGKSourceData sourceFromContentsOfString:theString]];
 }
 
-static NSDateFormatter* debugDateFormatter()
+- (void)setSize:(NSSize)aSize sizeImage:(BOOL)theSize
 {
-	static NSDateFormatter* theFormatter = nil;
-	if (theFormatter == nil) {
-		theFormatter = [[NSDateFormatter alloc] init];
-		[theFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:SSS"];
+	[super setSize:aSize];
+	[self setPixelsHigh:ceil(aSize.height)];
+	[self setPixelsWide:ceil(aSize.width)];
+	if (theSize) {
+		self.image.size = aSize;
 	}
-	return theFormatter;
 }
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
@@ -169,7 +173,7 @@ static NSDateFormatter* debugDateFormatter()
 				errstuff = @"";
 			}
 			
-			fprintf(stderr, "%s SVGKitImageRep: The image \"%s\" might have problems rendering correctly due to %s.\n", [[debugDateFormatter() stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
+			DDLogWarn(@"[%@] The image \"%@\" might have problems rendering correctly due to %@.", [self class], [self image], errstuff);
 		}
 		
 		if (![self.image hasSize]) {
@@ -182,12 +186,16 @@ static NSDateFormatter* debugDateFormatter()
 		[self setOpaque:NO];
 		{
 			NSSize renderSize = self.image.size;
-			[self setSize:renderSize];
-			[self setPixelsHigh:ceil(renderSize.height)];
-			[self setPixelsWide:ceil(renderSize.width)];
+			[self setSize:renderSize sizeImage:NO];
 		}
 	}
 	return self;
+}
+
+
+- (void)setSize:(NSSize)aSize
+{
+	[self setSize:aSize sizeImage:YES];
 }
 
 + (void)loadSVGKImageRep
@@ -202,6 +210,7 @@ static NSDateFormatter* debugDateFormatter()
 
 - (id)initWithSVGImage:(SVGKImage*)theImage
 {
+	//Copy over the image, just in case
 	return [self initWithSVGSource:[theImage.source copy]];
 }
 
@@ -310,8 +319,8 @@ static NSDateFormatter* debugDateFormatter()
 static BOOL HasBeenWarned = NO; \
 if (HasBeenWarned == NO) \
 { \
-fprintf(stderr, "%s SVGKImageRep: -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.\n", \
-[[debugDateFormatter() stringFromDate:[NSDate date]] UTF8String], sel_getName(_cmd), sel_getName(NewMethodSel)); \
+DDLogWarn(@"[%@] -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.", \
+[self class], sel_getName(_cmd), sel_getName(NewMethodSel)); \
 HasBeenWarned = YES; \
 } \
 }
