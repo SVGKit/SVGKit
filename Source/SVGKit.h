@@ -48,6 +48,9 @@
 #import "SVGKFastImageView.h"
 #import "SVGKLayeredImageView.h"
 #import "SVGKLayer.h"
+#if !TARGET_OS_IPHONE
+#import "SVGKImageRep.h"
+#endif
 
 typedef enum _SVGKLoggingLevel
 {

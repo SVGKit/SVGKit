@@ -274,4 +274,10 @@
 	}
 }
 
+- (void)setFrame:(NSRect)frame
+{
+	[super setFrame:frame];
+	self.image.size = frame.size;
+}
+
 @end

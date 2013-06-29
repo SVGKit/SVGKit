@@ -196,6 +196,12 @@
 	}
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    self.image.size = frame.size;
+}
+
 /**
  NB: this implementation is a bit tricky, because we're extending Apple's concept of a UIView to add "tiling"
  and "automatic rescaling"

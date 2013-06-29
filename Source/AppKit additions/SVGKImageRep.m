@@ -6,24 +6,19 @@
 //
 //
 
-//This will cause problems...
-#define Comment AIFFComment
-#include <CoreServices/CoreServices.h>
-#undef Comment
-
 #import "SVGKit.h"
 
-#import "SVGKitImageRep.h"
+#import "SVGKImageRep.h"
 
 @interface SVGKImage ()
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
 @end
 
-@interface SVGKitImageRep ()
+@interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite) SVGKImage *image;
 @end
 
-@implementation SVGKitImageRep
+@implementation SVGKImageRep
 
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
 {
@@ -113,7 +108,7 @@
 
 + (void)load
 {
-	[NSImageRep registerImageRepClass:[SVGKitImageRep class]];
+	[self loadSVGKImageRep];
 }
 
 - (id)initWithData:(NSData *)theData
@@ -195,6 +190,16 @@ static NSDateFormatter* debugDateFormatter()
 	return self;
 }
 
++ (void)loadSVGKImageRep
+{
+	[NSImageRep registerImageRepClass:[SVGKImageRep class]];
+}
+
++ (void)unloadSVGKImageRep
+{
+	[NSImageRep unregisterImageRepClass:[SVGKImageRep class]];
+}
+
 - (id)initWithSVGImage:(SVGKImage*)theImage
 {
 	return [self initWithSVGSource:[theImage.source copy]];
@@ -231,10 +236,16 @@ static NSDateFormatter* debugDateFormatter()
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
-		NSImage *tmpImage = self.image.NSImage;
+		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
 		if (!tmpImage) {
 			return NO;
 		}
+		
+		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
+		if (!bitRep) {
+			return NO;
+		}
+		[tmpImage addRepresentation:bitRep];
 		
 		NSRect imageRect;
 		imageRect.size = rect.size;
@@ -270,10 +281,16 @@ static NSDateFormatter* debugDateFormatter()
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
-		NSImage *tmpImage = self.image.NSImage;
+		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
 		if (!tmpImage) {
 			return NO;
 		}
+		
+		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
+		if (!bitRep) {
+			return NO;
+		}
+		[tmpImage addRepresentation:bitRep];
 		
 		NSRect imageRect;
 		imageRect.size = self.size;
@@ -287,7 +304,7 @@ static NSDateFormatter* debugDateFormatter()
 
 @end
 
-@implementation SVGKitImageRep (deprecated)
+@implementation SVGKImageRep (deprecated)
 
 #define DEPRECATE_WARN_ONCE(NewMethodSel) { \
 static BOOL HasBeenWarned = NO; \
