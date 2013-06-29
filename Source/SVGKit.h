@@ -49,8 +49,19 @@
 #import "SVGKLayeredImageView.h"
 #import "SVGKLayer.h"
 
+typedef enum _SVGKLoggingLevel
+{
+	SVGKLoggingOff = 0,
+	SVGKLoggingInfo,
+	SVGKLoggingWarning,
+	SVGKLoggingError,
+	SVGKLoggingVerbose
+	
+} SVGKLoggingLevel;
+
 @interface SVGKit : NSObject
 
 + (void) enableLogging;
++ (void) setLogLevel:(SVGKLoggingLevel)newLevel;
 
 @end

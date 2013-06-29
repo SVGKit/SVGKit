@@ -540,7 +540,7 @@ static void	unparsedEntityDeclaration(void * ctx,
 									  const xmlChar * systemId,
 									  const xmlChar * notationName)
 {
-	DDLogCError(@"[%@] Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@", [((__bridge id)(ctx)) class], NSStringFromLibxmlString(name), NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId), NSStringFromLibxmlString(notationName));
+	DDLogCWarn(@"[%@] Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@", [((__bridge id)(ctx)) class], NSStringFromLibxmlString(name), NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId), NSStringFromLibxmlString(notationName));
 }
 
 static void structuredError		(void * userData,

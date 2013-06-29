@@ -10,7 +10,40 @@
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
 
+int ddLogLevel =
+#if DEBUG
+LOG_LEVEL_VERBOSE;
+#else
+LOG_LEVEL_WARN;
+#endif
+
 @implementation SVGKit : NSObject
+
++ (void) setLogLevel:(SVGKLoggingLevel)newLevel
+{
+	switch (newLevel) {
+		case SVGKLoggingError:
+			ddLogLevel = LOG_LEVEL_ERROR;
+			break;
+			
+		case SVGKLoggingInfo:
+			ddLogLevel = LOG_LEVEL_INFO;
+			break;
+			
+		case SVGKLoggingVerbose:
+			ddLogLevel = LOG_LEVEL_VERBOSE;
+			break;
+			
+		case SVGKLoggingWarning:
+			ddLogLevel = LOG_LEVEL_WARN;
+			break;
+			
+		default:
+		case SVGKLoggingOff:
+			ddLogLevel = LOG_LEVEL_OFF;
+			break;
+	}
+}
 
 + (void) enableLogging {
     [DDLog addLogger:[DDASLLogger sharedInstance]];

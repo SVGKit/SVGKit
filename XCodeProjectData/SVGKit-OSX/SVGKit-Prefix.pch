@@ -30,9 +30,6 @@ static inline NSString *NSStringFromCGSize(CGSize theSize)
 	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
 #endif
 
-	#if DEBUG
-	static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-	#else
-	static const int ddLogLevel = LOG_LEVEL_WARN;
-	#endif
+	#define ddLogLevel svgInternalLogLevel
+	extern int svgInternalLogLevel;
 #endif
