@@ -106,6 +106,10 @@ or load an image and convert it to an NSImage or NSBitmapImageRep object
 
     NSImage *newImage = [SVGKImage imageNamed:@"mySVGfile"].NSImage;
     NSBitmapImageRep *newImageRep = [SVGKImage imageNamed:@"mySVGfile"].bitmapImageRep;
+    
+Or load the SVG using NSImage
+
+    NSImage *svgImage = [NSImage imageNamed:@"mySVGfile.svg"];
 
 Note that there is a naming conflict with one of OS X's headers, specifically a struct called *Comment* in the AIFF header. The following code __must be included in any source file that will include SVGKit headers, *before* any other header includes.__ A good place to put it would be in the prefix header.
 
@@ -116,7 +120,7 @@ Note that there is a naming conflict with one of OS X's headers, specifically a 
 ## Usage
 
 There are three ways to make SVGKit run on OS X:
-  1. Use SVGKImageRep. Load the bundle, then you can load an SVG using NSImage. Note that this has similar bugs as the SVGKFastImageView (see below), but it is fairly simple to use.
+  1. Use SVGKImageRep. Load the SVGKit framework via direct linking or NSBundle. You can then use NSImage to load SVGs like any other NSImage-capable file.
   1. SVGKLayeredImageView is the suggested way to display SVGs on OS X. Note that if you add the view subclass via Interface Builder, the framework will complain when the view is inited.
   1. SVGKFastImageView is another subclass of NSView that you can use. Note that there currently is a bug that text will be upside-down unless the CALayer was inited by SVGKLayeredImageView. Also, like the iOS version, scaling and gradients don't work.
 
@@ -132,7 +136,4 @@ There is a sample project you can examine which copies the SVGKit framework into
 
 ### SVGKImageRep
 
-There is a sample project you can examine which copies the SVGKImageRep into the PlugIns subdirectory inside the app. If you want to do something similar, to load SVGs using NSImage you need to load the bundle:
-
-    NSBundle *SVGImageRepBundle = [NSBundle bundleWithURL:[[[NSBundle mainBundle] builtInPlugInsURL] URLByAppendingPathComponent:@"SVGKImageRep.bundle"]];
-    BOOL loaded = [SVGImageRepBundle load];
+To use SVGKImageRep, either just link to SVGKit which will add the SVGKImageRep class to the SVGImageRep class lists, or load the SVGKit framework with NSBundle.
