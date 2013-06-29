@@ -91,7 +91,7 @@
 					}
 				}
 			}
-#if 0
+#if 1
 			if (promising) {
 				tiffData = [promising TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 			}
