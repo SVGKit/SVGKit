@@ -13,11 +13,12 @@
 
 - (id)initFromFilename:(NSString*)p
 {
-	NSInputStream* stream = [NSInputStream inputStreamWithFileAtPath:p];
+	NSInputStream* stream = [[NSInputStream alloc] initWithFileAtPath:p];
 	[stream open];
 	if (self = [super initWithInputSteam:stream]) {
 		self.filePath = p;
 	}
+	[stream release];
 	return self;
 }
 

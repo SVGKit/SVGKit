@@ -13,11 +13,12 @@
 
 - (id)initFromURL:(NSURL*)u
 {
-	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
+	NSInputStream* stream = [[NSInputStream alloc] initWithURL:u];
 	[stream open];
 	if (self = [super initWithInputSteam:stream]) {
 		self.URL = u;
 	}
+	[stream release];
 	return self;
 }
 
