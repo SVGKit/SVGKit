@@ -149,7 +149,7 @@ static NSDateFormatter* debugDateFormatter()
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
-		self.image = [SVGKImage imageWithSource:theSource];
+		self.image = [[SVGKImage alloc] initWithSource:theSource];
 		if (self.image == nil) {
 			return nil;
 		}
