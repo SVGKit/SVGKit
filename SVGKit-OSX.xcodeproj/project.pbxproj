@@ -193,7 +193,7 @@
 		5540E814173881BF004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 		5540E818173887BF004029EF /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E817173887BE004029EF /* Quartz.framework */; };
 		5540E819173887D9004029EF /* SVGTextElement-OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement-OSX.m */; };
-		55435575177F4F5D007E1FAD /* SVGKImageRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 55435573177F4F5D007E1FAD /* SVGKImageRep.h */; };
+		55435575177F4F5D007E1FAD /* SVGKImageRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 55435573177F4F5D007E1FAD /* SVGKImageRep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55435576177F4F5D007E1FAD /* SVGKImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 55435574177F4F5D007E1FAD /* SVGKImageRep.m */; };
 		5568CD30177B69B700047B7A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
 		5568CD36177B69B700047B7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5568CD34177B69B700047B7A /* InfoPlist.strings */; };
