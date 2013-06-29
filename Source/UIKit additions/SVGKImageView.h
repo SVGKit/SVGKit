@@ -20,7 +20,6 @@
 //@property(nonatomic,strong) SVGKImage* image;
 - (void)setImage:(SVGKImage*)image;
 - (SVGKImage *)image;
-
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 
 - (id)initWithSVGKImage:(SVGKImage*) im;
