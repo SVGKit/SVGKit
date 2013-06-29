@@ -51,7 +51,7 @@
 		{
 			self.backgroundColor = [UIColor clearColor];
 			
-			DDLogInfo(@"About to make a blank image using the inlined SVG = %@", SVGKsvgStringDefaultContents);
+			DDLogInfo(@"About to make a blank image using the inlined SVG = %@", SVGKGetDefaultImageStringContents());
 			
 			SVGKImage* defaultBlankImage = [SVGKImage defaultImage];
 			
