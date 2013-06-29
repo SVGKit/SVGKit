@@ -15,7 +15,7 @@
 @end
 
 @interface SVGKImageRep ()
-@property (nonatomic, retain, readwrite) SVGKImage *image;
+@property (nonatomic, retain, readwrite, setter = setTheSVG:) SVGKImage *image;
 @end
 
 @implementation SVGKImageRep
@@ -143,6 +143,16 @@ static NSDateFormatter* debugDateFormatter()
 	return theFormatter;
 }
 
+- (void)setSize:(NSSize)aSize sizeImage:(BOOL)theSize
+{
+	[super setSize:aSize];
+	[self setPixelsHigh:ceil(aSize.height)];
+	[self setPixelsWide:ceil(aSize.width)];
+	if (theSize) {
+		self.image.size = aSize;
+	}
+}
+
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
 	if (self = [super init]) {
@@ -185,12 +195,16 @@ static NSDateFormatter* debugDateFormatter()
 		[self setOpaque:NO];
 		{
 			NSSize renderSize = self.image.size;
-			[self setSize:renderSize];
-			[self setPixelsHigh:ceil(renderSize.height)];
-			[self setPixelsWide:ceil(renderSize.width)];
+			[self setSize:renderSize sizeImage:NO];
 		}
 	}
 	return self;
+}
+
+
+- (void)setSize:(NSSize)aSize
+{
+	[self setSize:aSize sizeImage:YES];
 }
 
 + (void)loadSVGKImageRep

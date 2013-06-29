@@ -48,6 +48,7 @@
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
@@ -386,13 +387,21 @@
 
 - (NSImage*)NSImage
 {
-	SVGKImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
-	if (!imRep) {
+	//Check if we have size
+	if ([self hasSize]) {
+		SVGKImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
+		if (!imRep) {
+			return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+		}
+		[imRep setSize:self.size];
+		NSImage *retImage = [[NSImage alloc] initWithSize:self.size];
+		[retImage addRepresentation:imRep];
+		[retImage setSize:self.size];
+		return [retImage autorelease];
+	} else {
+		//If we don't, pass it to a method that does show warnings about missing size.
 		return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 	}
-	NSImage *retImage = [[NSImage alloc] initWithSize:self.size];
-	[retImage addRepresentation:imRep];
-	return [retImage autorelease];
 }
 
 - (NSBitmapImageRep *)bitmapImageRep
@@ -814,13 +823,12 @@
 #else
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
 	if (!imRep) {
 		return nil;
 	}
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
-	DDLogVerbose(@"[%@] DEBUG: You should have got a similar message from the NSBitmapImageRep generator.", [self class]);
 	
 	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
 	return [result autorelease];
@@ -828,13 +836,12 @@
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality];
+	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
 	if (!imRep) {
 		return nil;
 	}
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating an NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
-	DDLogVerbose(@"[%@] DEBUG: You should have got a similar message from the NSBitmapImageRep generator.", [self class]);
 	
 	NSImage *retval = [[NSImage alloc] init];
 	[retval addRepresentation:imRep];
@@ -845,8 +852,15 @@
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
+	return [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:YES];
+}
+
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn
+{
 	if ([self hasSize]) {
-		DDLogVerbose(@"[%@] DEBUG: Generating an NSBitmapImageRep using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		if (warn) {
+			DDLogVerbose(@"[%@] DEBUG: Generating an NSBitmapImageRep using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		}
 
 		NSSize curSize = self.size;
 		NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:ceil(curSize.width) pixelsHigh:ceil(curSize.height) bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];

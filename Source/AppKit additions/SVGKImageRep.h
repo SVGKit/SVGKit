@@ -7,8 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SVGKImage.h"
 
 @interface SVGKImageRep : NSImageRep
+@property (nonatomic, retain, readonly) SVGKImage *image;
 
 //Function used by NSImageRep to init.
 + (id)imageRepWithData:(NSData *)d;
@@ -28,12 +30,10 @@
 + (void)loadSVGKImageRep;
 + (void)unloadSVGKImageRep;
 
-#ifdef SVGKIT_SVGKIMAGE_H
 - (id)initWithSVGSource:(SVGKSource*)theSource;
 - (id)initWithSVGImage:(SVGKImage*)theImage;
 + (id)imageRepWithSVGSource:(SVGKSource*)theSource;
 + (id)imageRepWithSVGImage:(SVGKImage*)theImage;
-#endif
 
 @end
 
