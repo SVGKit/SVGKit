@@ -3,12 +3,19 @@
 #import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
 
 #import "DOMGlobalSettings.h"
+#import "SVGKCGFloatAdditions.h"
 
-#define INCHES_PER_CENTIMETRE ( 0.393700787f )
+#ifdef CGFLOAT_IS_DOUBLE
+#define CGFCONST(theVal) theVal
+#else
+#define CGFCONST(theVal) theVal##f
+#endif
+
+#define INCHES_PER_CENTIMETRE ( CGFCONST(0.393700787) )
 
 @interface CSSPrimitiveValue()
 
-@property(nonatomic) float internalValue;
+@property(nonatomic) CGFloat internalValue;
 @property(nonatomic,retain) NSString* internalString;
 
 @end
@@ -31,12 +38,12 @@
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];
     if (self) {
-		self.pixelsPerInch = 1.0f; // this can be overridden by classes that import the CSSPrimitiveValue_ConfigurablePixelsPerInch.h header
+		self.pixelsPerInch = CGFCONST(1.0); // this can be overridden by classes that import the CSSPrimitiveValue_ConfigurablePixelsPerInch.h header
     }
     return self;
 }
 
--(void) setFloatValue:(CSSPrimitiveType) unitType floatValue:(float) floatValue
+-(void) setFloatValue:(CSSPrimitiveType) unitType floatValue:(CGFloat) floatValue
 {
 	self.primitiveType = unitType;
 	self.internalValue = floatValue;
@@ -44,7 +51,7 @@
 	self.internalString = nil;
 }
 
--(float) getFloatValue:(CSSPrimitiveType) unitType
+-(CGFloat) getFloatValue:(CSSPrimitiveType) unitType
 {
 	/** Easy case: you're asking for the same unit as the originally stored units */
 	if( unitType == self.primitiveType )
@@ -54,7 +61,7 @@
 	{
 		case CSS_UNKNOWN:
 		{
-			if( self.internalValue == 0.0f )
+			if( self.internalValue == CGFCONST(0.0) )
 				return self.internalValue;
 			else
 			{
@@ -77,15 +84,15 @@
 				}break;
 				case CSS_MM:
 				{
-					valueAsInches = self.internalValue * INCHES_PER_CENTIMETRE * 10.0f;
+					valueAsInches = self.internalValue * INCHES_PER_CENTIMETRE * CGFCONST(10.0);
 				}break;
 				case CSS_PT:
 				{
-					valueAsInches = self.internalValue / 72.0f;
+					valueAsInches = self.internalValue / CGFCONST(72.0);
 				}break;
 				case CSS_PC:
 				{
-					valueAsInches = self.internalValue * 12.0f / 72.0f;
+					valueAsInches = self.internalValue * CGFCONST(12.0) / CGFCONST(72.0);
 				}break;
 					
 				default:
@@ -102,15 +109,15 @@
 				}break;
 				case CSS_MM:
 				{
-					return valueAsInches / INCHES_PER_CENTIMETRE * 10.0f;
+					return valueAsInches / INCHES_PER_CENTIMETRE * CGFCONST(10.0);
 				}break;
 				case CSS_PT:
 				{
-					return valueAsInches * 72.0f;
+					return valueAsInches * CGFCONST(72.0);
 				}break;
 				case CSS_PC:
 				{
-					return valueAsInches / 12.0f * 72.0f;
+					return valueAsInches / CGFCONST(12.0) * CGFCONST(72.0);
 				}break;
 				case CSS_PX:
 				{
@@ -172,7 +179,7 @@
 		{
 			if( unitType == CSS_NUMBER )
 			{
-				return self.internalValue / 100.0f; // convert percentages to values from 0.0 - 1.0
+				return self.internalValue / CGFCONST(100.0); // convert percentages to values from 0.0 - 1.0
 			}
 			else
 				NSAssert( FALSE, @"Asked to convert a Percentage value to a different type (%i)", unitType );
@@ -184,7 +191,7 @@
 		}
 	}
 	
-	return 0.0f; // this will never happen. you should have Asserted by now, or else returned early with the correct value
+	return CGFCONST(0.0); // this will never happen. you should have Asserted by now, or else returned early with the correct value
 }
 
 -(void) setStringValue:(CSSPrimitiveType) stringType stringValue:(NSString*) stringValue
@@ -192,7 +199,7 @@
 	self.primitiveType = stringType;
 	self.internalString = stringValue;
 	
-	self.internalValue = 0.0f;
+	self.internalValue = CGFCONST(0.0);
 }
 
 -(NSString*) getStringValue
@@ -227,44 +234,50 @@
 	if( _cssText == nil
 	   || _cssText.length == 0 )
 	{
-		self.internalValue = 0.0f;
+		self.internalValue = CGFCONST(0.0);
 		self.internalString = @"";
 		self.primitiveType = CSS_UNKNOWN;
 	}
 	else if( [_cssText hasSuffix:@"%"])
-		[self setFloatValue:CSS_PERCENTAGE floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_PERCENTAGE floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"em"])
-		[self setFloatValue:CSS_EMS floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_EMS floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"ex"])
-		[self setFloatValue:CSS_EXS floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_EXS floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"px"])
-		[self setFloatValue:CSS_PX floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_PX floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"cm"])
-		[self setFloatValue:CSS_CM floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_CM floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"mm"])
-		[self setFloatValue:CSS_MM floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_MM floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"in"])
-		[self setFloatValue:CSS_IN floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_IN floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"pt"])
-		[self setFloatValue:CSS_PT floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_PT floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"pc"])
-		[self setFloatValue:CSS_PC floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_PC floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"deg"])
-		[self setFloatValue:CSS_DEG floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_DEG floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"rad"])
-		[self setFloatValue:CSS_RAD floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_RAD floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"grad"])
-		[self setFloatValue:CSS_GRAD floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_GRAD floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"ms"])
-		[self setFloatValue:CSS_MS floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_MS floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"s"])
-		[self setFloatValue:CSS_S floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_S floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"khz"]) // -----------NB: check this before checking HZ !
-		[self setFloatValue:CSS_KHZ floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_KHZ floatValue:[_cssText SVGKCGFloatValue]];
 	else if( [_cssText hasSuffix:@"hz"])
-		[self setFloatValue:CSS_HZ floatValue:[_cssText floatValue]];
+		[self setFloatValue:CSS_HZ floatValue:[_cssText SVGKCGFloatValue]];
 	else
 	{
+#if CGFLOAT_IS_DOUBLE
+#define SCANCGFLOAT(scanner, cgfloatVal) [scanner scanDouble:cgfloatVal]
+#else
+#define SCANCGFLOAT(scanner, cgfloatVal) [scanner scanFloat:cgfloatVal]
+#endif
+		
 		/**
 		 Three possible outcomes left:
 		 
@@ -276,8 +289,8 @@
 		/**
 		 NSScaner is an Apple class that SPECIFICALLY will refuse to return a number if there are any non-numberic characters in the string */
 		NSScanner *scanner = [NSScanner scannerWithString: _cssText];
-		float floatToHoldTheOutput;
-		if( [scanner scanFloat:&floatToHoldTheOutput])
+		CGFloat floatToHoldTheOutput;
+		if( SCANCGFLOAT(scanner, &floatToHoldTheOutput))
 		{
 			/* Option 1: it's a pure number */
 			[self setFloatValue:CSS_NUMBER floatValue:floatToHoldTheOutput];
@@ -291,6 +304,7 @@
 			[self setStringValue:CSS_STRING stringValue:_cssText]; // -------- NB: we allow any string-to-string conversion, so it's not a huge problem that we dont correctly detect "url" versus "other kind of string". I hate CSS Parsing...
 		}
 	}
+#undef SCANCGFLOAT
 }
 
 @end
