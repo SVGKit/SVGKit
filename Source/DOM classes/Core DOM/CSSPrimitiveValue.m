@@ -5,7 +5,7 @@
 #import "DOMGlobalSettings.h"
 #import "SVGKCGFloatAdditions.h"
 
-#ifdef CGFLOAT_IS_DOUBLE
+#if CGFLOAT_IS_DOUBLE
 #define CGFCONST(theVal) theVal
 #else
 #define CGFCONST(theVal) theVal##f

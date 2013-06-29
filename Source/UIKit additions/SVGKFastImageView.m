@@ -72,7 +72,7 @@
 	if( im == nil )
 	{
 		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
-		DDLogInfo(@"[%@] Using default SVG: %@", [self class], SVGKsvgStringDefaultContents);
+		DDLogInfo(@"[%@] Using default SVG: %@", [self class], SVGKGetDefaultImageStringContents());
 		im = [SVGKImage defaultImage];
 	}
 	
