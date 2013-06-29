@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 #else
 #import <AppKit/AppKit.h>
-#define NSStringFromCGRect(v) NSStringFromRect(v)
 #endif
 
 @interface SVGSVGElement()

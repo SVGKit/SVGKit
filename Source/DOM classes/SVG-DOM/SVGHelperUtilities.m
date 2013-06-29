@@ -10,10 +10,6 @@
 
 #import "SVGKCGFloatAdditions.h"
 
-#if !TARGET_OS_IPHONE
-#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
-#endif
-
 @implementation SVGHelperUtilities
 
 

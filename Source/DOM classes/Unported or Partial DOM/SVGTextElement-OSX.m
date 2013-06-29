@@ -144,6 +144,10 @@
 	
 	NSFont *font = [fm fontWithFamily:actualFamily traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	if (!font) {
+		//Maybe the "Font family" passed was a full font name. Check for that.
+		font = [NSFont fontWithName:actualFamily size:effectiveFontSize];
+	}
+	if (!font) {
 		//Match the iOS side and use Verdana for when we can't find fonts.
 		font = [fm fontWithFamily:@"Verdana" traits:traitMask weight:fontWeightCG size:effectiveFontSize];
 	}
@@ -177,6 +181,21 @@
 	
 	label.font = (__bridge CFTypeRef)font;
 	
+	NSString *alignmentMode = kCAAlignmentLeft;
+	NSString *alignment = [self cascadedValueForStylableProperty:@"text-align"];
+	if (alignment.length > 0) {
+		if (NSOrderedSame == [alignment caseInsensitiveCompare:@"middle"]) {
+			alignmentMode = kCAAlignmentCenter;
+		} else if (NSOrderedSame == [alignment caseInsensitiveCompare:@"start"]) {
+			//Do nothing, the default is already set
+			//alignmentMode = kCAAlignmentLeft;
+		} else if (NSOrderedSame == [alignment caseInsensitiveCompare:@"end"]) {
+			alignmentMode = kCAAlignmentRight;
+		} else {
+			DDLogWarn(@"[%@] WARNING: Unknown alignment %@, using default (start(left))", [self class], alignment);
+			//Do nothing, the default is already set
+		}
+	} 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
 	 Partly: Bugs in Apple's CoreText
@@ -214,13 +233,13 @@
 	label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
 	label.fontSize = effectiveFontSize;
 	label.string = effectiveText;
-	label.alignmentMode = kCAAlignmentLeft;
+	label.alignmentMode = alignmentMode;
 	label.foregroundColor = CGColorWithSVGColor(col);
 	
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
 	label.borderColor = [UIColor redColor].CGColor;
-	//DEBUG: DDLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
+	//DEBUG: DDLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromPoint(transformedOrigin), NSStringFromRect(label.frame));
 	*/
 	
 	return label;

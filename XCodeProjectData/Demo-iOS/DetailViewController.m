@@ -353,7 +353,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		else
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 		
-			if (!thisImageRequiresLayeredImageView) {
+			if (!thisImageRequiresLayeredImageView && document) {
 				thisImageRequiresLayeredImageView = ![SVGKFastImageView svgImageHasNoGradients:document];
 			}
 

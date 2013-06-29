@@ -21,7 +21,6 @@
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
 #else
-#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
 #define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
@@ -101,15 +100,15 @@
         extension = @"svg";
     }
 	
-	NSString *path = [bundle pathForResource:newName ofType:extension];
+	NSURL *url = [bundle URLForResource:newName withExtension:extension];
 	
-	if (!path)
+	if (!url)
 	{
 		DDLogError(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
 	}
 	
-	SVGKImage* result = [self imageWithContentsOfFile:path];
+	SVGKImage* result = [self imageWithContentsOfURL:url];
     
 	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
 		if( result != nil )
