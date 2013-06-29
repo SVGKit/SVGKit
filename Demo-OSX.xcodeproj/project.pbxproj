@@ -30,7 +30,6 @@
 		558018BE1771858D00F64989 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55CB786F176BE36F00BD97F1 /* Credits.rtf */; };
 		558018BF1771858D00F64989 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7871176BE36F00BD97F1 /* InfoPlist.strings */; };
 		558018C01771858D00F64989 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7873176BE36F00BD97F1 /* MainMenu.xib */; };
-		558018C21771858D00F64989 /* SVGKImageRep.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 55CB7885176BE3B300BD97F1 /* SVGKImageRep.bundle */; };
 		558018C41771858D00F64989 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 		55CB7856176BE32C00BD97F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
 		55CB7878176BE36F00BD97F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB786E176BE36F00BD97F1 /* AppDelegate.m */; };
@@ -39,7 +38,6 @@
 		55CB787B176BE36F00BD97F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7873176BE36F00BD97F1 /* MainMenu.xib */; };
 		55CB787C176BE36F00BD97F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB7875176BE36F00BD97F1 /* main.m */; };
 		55CB788A176BE43500BD97F1 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
-		55CB788C176BE44B00BD97F1 /* SVGKImageRep.bundle in Copy PlugIns */ = {isa = PBXBuildFile; fileRef = 55CB7885176BE3B300BD97F1 /* SVGKImageRep.bundle */; };
 		55CB788E176BE46900BD97F1 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 		55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
 		55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3017628A71009C25F1 /* InfoPlist.strings */; };
@@ -87,12 +85,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		558018B41771858D00F64989 /* PBXContainerItemProxy */ = {
+		55435571177F4CA2007E1FAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 55CB787F176BE3B200BD97F1 /* ImageRep.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 55B4D7AF173EDA7A00D2C676;
-			remoteInfo = SVGKImageRep;
+			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5568CD2F177B69B700047B7A;
+			remoteInfo = Lumberjack;
 		};
 		558018B61771858D00F64989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -107,20 +105,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 558018B21771858D00F64989;
 			remoteInfo = "ImageRepTest-NS";
-		};
-		55CB7884176BE3B300BD97F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55CB787F176BE3B200BD97F1 /* ImageRep.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55B4D7B0173EDA7A00D2C676;
-			remoteInfo = SVGKImageRep;
-		};
-		55CB7886176BE42900BD97F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55CB787F176BE3B200BD97F1 /* ImageRep.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 55B4D7AF173EDA7A00D2C676;
-			remoteInfo = SVGKImageRep;
 		};
 		55CB7888176BE42900BD97F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -166,7 +150,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				558018C21771858D00F64989 /* SVGKImageRep.bundle in Copy PlugIns */,
 			);
 			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,7 +171,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				55CB788C176BE44B00BD97F1 /* SVGKImageRep.bundle in Copy PlugIns */,
 			);
 			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,7 +210,6 @@
 		55CB7875176BE36F00BD97F1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55CB7876176BE36F00BD97F1 /* SVGKitImageRepTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGKitImageRepTest-Info.plist"; sourceTree = "<group>"; };
 		55CB7877176BE36F00BD97F1 /* SVGKitImageRepTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKitImageRepTest-Prefix.pch"; sourceTree = "<group>"; };
-		55CB787F176BE3B200BD97F1 /* ImageRep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = ImageRep.xcodeproj; sourceTree = "<group>"; };
 		55D8EE2417628A71009C25F1 /* Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D8EE2717628A71009C25F1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		55D8EE2A17628A71009C25F1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -339,19 +320,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		55CB7880176BE3B200BD97F1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				55CB7885176BE3B300BD97F1 /* SVGKImageRep.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		55D8EE1B17628A71009C25F1 = {
 			isa = PBXGroup;
 			children = (
 				55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */,
-				55CB787F176BE3B200BD97F1 /* ImageRep.xcodeproj */,
 				55D8EE2D17628A71009C25F1 /* Demo-OSX */,
 				55CB786C176BE36F00BD97F1 /* ImageRep-Demo */,
 				55D8EE2617628A71009C25F1 /* Frameworks */,
@@ -419,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				55D8EE4917628B57009C25F1 /* SVGKit.framework */,
+				55435572177F4CA2007E1FAD /* Lumberjack.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,7 +472,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				558018B31771858D00F64989 /* PBXTargetDependency */,
 				558018B51771858D00F64989 /* PBXTargetDependency */,
 			);
 			name = "ImageRepTest-NS";
@@ -520,7 +492,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				55CB7887176BE42900BD97F1 /* PBXTargetDependency */,
 				55CB7889176BE42900BD97F1 /* PBXTargetDependency */,
 			);
 			name = ImageRepTest;
@@ -569,10 +540,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 55CB7880176BE3B200BD97F1 /* Products */;
-					ProjectRef = 55CB787F176BE3B200BD97F1 /* ImageRep.xcodeproj */;
-				},
-				{
 					ProductGroup = 55D8EE4517628B56009C25F1 /* Products */;
 					ProjectRef = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
 				},
@@ -588,11 +555,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		55CB7885176BE3B300BD97F1 /* SVGKImageRep.bundle */ = {
+		55435572177F4CA2007E1FAD /* Lumberjack.framework */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SVGKImageRep.bundle;
-			remoteRef = 55CB7884176BE3B300BD97F1 /* PBXContainerItemProxy */;
+			fileType = wrapper.framework;
+			path = Lumberjack.framework;
+			remoteRef = 55435571177F4CA2007E1FAD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		55D8EE4917628B57009C25F1 /* SVGKit.framework */ = {
@@ -703,11 +670,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		558018B31771858D00F64989 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SVGKImageRep;
-			targetProxy = 558018B41771858D00F64989 /* PBXContainerItemProxy */;
-		};
 		558018B51771858D00F64989 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SVGKit;
@@ -717,11 +679,6 @@
 			isa = PBXTargetDependency;
 			target = 558018B21771858D00F64989 /* ImageRepTest-NS */;
 			targetProxy = 558018CB1771870200F64989 /* PBXContainerItemProxy */;
-		};
-		55CB7887176BE42900BD97F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SVGKImageRep;
-			targetProxy = 55CB7886176BE42900BD97F1 /* PBXContainerItemProxy */;
 		};
 		55CB7889176BE42900BD97F1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -805,6 +762,19 @@
 					"${inherited}",
 					"DONTUSESVGIMAGEREPDIRECTLY=1",
 				);
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -819,6 +789,19 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"${inherited}",
 					"DONTUSESVGIMAGEREPDIRECTLY=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
@@ -835,6 +818,19 @@
 					"${inherited}",
 					"DONTUSESVGIMAGEREPDIRECTLY=1",
 				);
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -846,7 +842,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = XCodeProjectData/ImageRep;
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -858,7 +866,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = XCodeProjectData/ImageRep;
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -921,7 +941,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				HEADER_SEARCH_PATHS = XCodeProjectData/ImageRep;
+				HEADER_SEARCH_PATHS = (
+					"Source/\"DOM classes\"/**",
+					Source/Exporters,
+					Source/Parsers,
+					"Source/\"QuartzCore additions\"/**",
+					"Source/\"Shared Additions\"",
+					"Source/Sources/**",
+					"Source/\"AppKit Additions\"",
+					"Source/Unsorted/**",
+					"Source/Vendor/**",
+					Source,
+					"calayer-exporter",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

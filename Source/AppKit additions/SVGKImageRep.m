@@ -6,24 +6,19 @@
 //
 //
 
-//This will cause problems...
-#define Comment AIFFComment
-#include <CoreServices/CoreServices.h>
-#undef Comment
-
 #import "SVGKit.h"
 
-#import "SVGKitImageRep.h"
+#import "SVGKImageRep.h"
 
 @interface SVGKImage ()
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
 @end
 
-@interface SVGKitImageRep ()
+@interface SVGKImageRep ()
 @property (nonatomic, retain, readwrite) SVGKImage *image;
 @end
 
-@implementation SVGKitImageRep
+@implementation SVGKImageRep
 
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
 {
@@ -115,7 +110,7 @@
 
 + (void)load
 {
-	[NSImageRep registerImageRepClass:[SVGKitImageRep class]];
+	[self loadSVGKImageRep];
 }
 
 - (id)initWithData:(NSData *)theData
@@ -196,6 +191,16 @@ static NSDateFormatter* debugDateFormatter()
 		}
 	}
 	return self;
+}
+
++ (void)loadSVGKImageRep
+{
+	[NSImageRep registerImageRepClass:[SVGKImageRep class]];
+}
+
++ (void)unloadSVGKImageRep
+{
+	[NSImageRep unregisterImageRepClass:[SVGKImageRep class]];
 }
 
 - (id)initWithSVGImage:(SVGKImage*)theImage
@@ -297,7 +302,7 @@ static NSDateFormatter* debugDateFormatter()
 
 @end
 
-@implementation SVGKitImageRep (deprecated)
+@implementation SVGKImageRep (deprecated)
 
 #define DEPRECATE_WARN_ONCE(NewMethodSel) { \
 static BOOL HasBeenWarned = NO; \

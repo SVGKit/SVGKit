@@ -6,38 +6,21 @@
 //  Copyright (c) 2012 C.W. Betts. All rights reserved.
 //
 
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
+
 #import "AppDelegate.h"
 
 //This is done so we don't have to include the entire SVGKit Headers.
-@interface SVGKit : NSObject
-
-+ (void) enableLogging;
-
-@end
+#import "SVGKit.h"
 
 #ifndef DONTUSESVGIMAGEREPDIRECTLY
 #define DONTUSESVGIMAGEREPDIRECTLY 0
 #endif
 
-#if !DONTUSESVGIMAGEREPDIRECTLY
-#import "SVGKitImageRep.h"
-#endif
-
 @implementation AppDelegate
-
-#if !DONTUSESVGIMAGEREPDIRECTLY
-
-+ (Class)imageRepClass
-{
-	static Class storedRep = nil;
-	if (storedRep == nil) {
-		storedRep = NSClassFromString(@"SVGKitImageRep");
-	}
-	return storedRep;
-}
-
-#endif
-
 
 - (void)dealloc
 {
@@ -47,14 +30,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[SVGKit enableLogging];
-	NSBundle *SVGImageRepBundle;
-	NSURL *bundlesURL = [[NSBundle mainBundle] builtInPlugInsURL];
-	SVGImageRepBundle = [NSBundle bundleWithURL:[bundlesURL URLByAppendingPathComponent:@"SVGKImageRep.bundle"]];
-	BOOL loaded = [SVGImageRepBundle load];
-	if (!loaded) {
-		NSLog(@"Bundle Not loaded!");
-		return;
-	}
 }
 
 - (IBAction)selectSVG:(id)sender
@@ -77,7 +52,7 @@
 	[op release];
 #else
 	NSImage *selectImage = [[NSImage alloc] init];
-	SVGKitImageRep *imRep = [(SVGKitImageRep*)[[[self class] imageRepClass] alloc] initWithContentsOfURL:svgUrl];
+	SVGKImageRep *imRep = [[SVGKImageRep alloc] initWithContentsOfURL:svgUrl];
 	[op release];
 	if (!imRep) {
 		[selectImage release];
@@ -108,11 +83,11 @@
 			tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 #else
 			NSArray *imageRepArrays = [theImage representations];
-			SVGKitImageRep *promising = nil;
+			SVGKImageRep *promising = nil;
 			NSSize oldSize = NSZeroSize;
 			for (id anObject in imageRepArrays) {
-				if ([anObject isKindOfClass:[[self class] imageRepClass]]) {
-					SVGKitImageRep *tmpRef = anObject;
+				if ([anObject isKindOfClass:[SVGKImageRep class]]) {
+					SVGKImageRep *tmpRef = anObject;
 					if (oldSize.height < tmpRef.size.height && oldSize.width < tmpRef.size.width) {
 						promising = tmpRef;
 						oldSize = tmpRef.size;

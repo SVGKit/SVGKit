@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SVGKitImageRep : NSImageRep
+@interface SVGKImageRep : NSImageRep
 
 //Function used by NSImageRep to init.
 + (id)imageRepWithData:(NSData *)d;
@@ -25,6 +25,9 @@
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize;
 
++ (void)loadSVGKImageRep;
++ (void)unloadSVGKImageRep;
+
 #ifdef SVGKIT_SVGKIMAGE_H
 - (id)initWithSVGSource:(SVGKSource*)theSource;
 - (id)initWithSVGImage:(SVGKImage*)theImage;
@@ -35,7 +38,7 @@
 @end
 
 //Deprecated functions: DO NOT USE
-@interface SVGKitImageRep (deprecated)
+@interface SVGKImageRep (deprecated)
 - (id)initWithPath:(NSString *)thePath DEPRECATED_ATTRIBUTE;
 - (id)initWithURL:(NSURL *)theURL DEPRECATED_ATTRIBUTE;
 @end
