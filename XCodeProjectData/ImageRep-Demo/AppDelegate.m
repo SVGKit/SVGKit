@@ -10,10 +10,7 @@
 #include <CoreServices/CoreServices.h>
 #undef Comment
 
-
 #import "AppDelegate.h"
-
-//This is done so we don't have to include the entire SVGKit Headers.
 #import "SVGKit.h"
 
 #ifndef DONTUSESVGIMAGEREPDIRECTLY
