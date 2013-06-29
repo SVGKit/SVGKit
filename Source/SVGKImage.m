@@ -15,6 +15,9 @@
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 #import "SVGKSourceData.h"
+#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#import "SVGKImageRep.h"
+#endif
 
 #import "BlankSVG.h"
 
@@ -383,7 +386,13 @@
 
 - (NSImage*)NSImage
 {
-	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+	SVGKImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
+	if (!imRep) {
+		return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+	}
+	NSImage *retImage = [[NSImage alloc] initWithSize:self.size];
+	[retImage addRepresentation:imRep];
+	return [retImage autorelease];
 }
 
 - (NSBitmapImageRep *)bitmapImageRep

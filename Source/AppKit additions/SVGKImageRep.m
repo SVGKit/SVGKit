@@ -246,16 +246,23 @@ static NSDateFormatter* debugDateFormatter()
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
-		NSImage *tmpImage = self.image.NSImage;
+		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
 		if (!tmpImage) {
 			return NO;
 		}
+		
+		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
+		if (!bitRep) {
+			return NO;
+		}
+		[tmpImage addRepresentation:bitRep];
 		
 		NSRect imageRect;
 		imageRect.size = rect.size;
 		imageRect.origin = NSZeroPoint;
 		
 		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeCopy fraction:1];
+		[tmpImage release];
 	}
 	
 	return YES;
@@ -285,16 +292,23 @@ static NSDateFormatter* debugDateFormatter()
 		CGLayerRelease(layerRef);
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
-		NSImage *tmpImage = self.image.NSImage;
+		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
 		if (!tmpImage) {
 			return NO;
 		}
+		
+		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
+		if (!bitRep) {
+			return NO;
+		}
+		[tmpImage addRepresentation:bitRep];
 		
 		NSRect imageRect;
 		imageRect.size = self.size;
 		imageRect.origin = NSZeroPoint;
 		
 		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
+		[tmpImage release];
 	}
 	
 	return YES;
