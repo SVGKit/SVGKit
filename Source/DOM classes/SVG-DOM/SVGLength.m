@@ -47,7 +47,14 @@ break
 			UnitSwitch(MM);
 			UnitSwitch(PC);
 			UnitSwitch(PT);
+#if 0
 			UnitSwitch(PX);
+#else
+		case SVG_LENGTHTYPE_PX:
+			unit = @" pixels";
+			break;
+#endif
+			
 		case SVG_LENGTHTYPE_NUMBER:
 			unit = @" number";
 			break;
@@ -59,7 +66,7 @@ break
 			
 		default:
 		case SVG_LENGTHTYPE_UNKNOWN:
-			return [NSString stringWithFormat:@"%@: unknown type and length", [self class]];
+			return [NSString stringWithFormat:@"%@: Unknown type and length", [self class]];
 			break;
 	}
 	
