@@ -169,7 +169,7 @@ static NSDateFormatter* debugDateFormatter()
 				errstuff = @"";
 			}
 			
-			fprintf(stderr, "%s SVGKitImageRep: the image \"%s\" might have problems rendering correctly due to %s.\n", [[debugDateFormatter() stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
+			fprintf(stderr, "%s SVGKitImageRep: The image \"%s\" might have problems rendering correctly due to %s.\n", [[debugDateFormatter() stringFromDate:[NSDate date]] UTF8String], [[self.image description] UTF8String], [errstuff UTF8String]);
 		}
 		
 		if (![self.image hasSize]) {

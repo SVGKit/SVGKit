@@ -64,7 +64,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 </svg>";
 
 
-NSString* const SVGKGetConstantStringDefaultContents()
+NSString* const SVGKGetDefaultImageStringContents()
 {
 	return SVGKsvgStringDefaultContents;
 }

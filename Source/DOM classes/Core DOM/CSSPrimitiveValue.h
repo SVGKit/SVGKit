@@ -85,9 +85,9 @@ typedef enum CSSPrimitiveType
 
 @property(nonatomic) CSSPrimitiveType primitiveType;
 
--(void) setFloatValue:(CSSPrimitiveType) unitType floatValue:(float) floatValue;
+-(void) setFloatValue:(CSSPrimitiveType) unitType floatValue:(CGFloat) floatValue;
 
--(float) getFloatValue:(CSSPrimitiveType) unitType;
+-(CGFloat) getFloatValue:(CSSPrimitiveType) unitType;
 
 -(void) setStringValue:(CSSPrimitiveType) stringType stringValue:(NSString*) stringValue;
 

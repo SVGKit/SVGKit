@@ -16,7 +16,7 @@
 
 - (id)initFromDataNoMutableCheck:(NSData*)data
 {
-	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
+	NSInputStream* stream = [[NSInputStream alloc] initWithData:data];
 	[stream open];
 	if (self = [super initWithInputSteam:stream]) {
 		self.data = data;
