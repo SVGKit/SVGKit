@@ -19,6 +19,16 @@ LOG_LEVEL_WARN;
 
 @implementation SVGKit : NSObject
 
++ (void) setRawLogLevel:(int)rawLevel
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSLog(@"[%@] WARN: Only set the raw level if you know what you're doing!", self);
+	});
+
+	ddLogLevel = rawLevel;
+}
+
 + (void) setLogLevel:(SVGKLoggingLevel)newLevel
 {
 	switch (newLevel) {
