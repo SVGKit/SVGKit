@@ -11,9 +11,24 @@
 	#import <QuartzCore/QuartzCore.h>
 	#import "SVGKit.h"
 	#import <Lumberjack/Lumberjack.h>
+#if 0
+static inline NSString *NSStringFromCGPoint(CGPoint thePoint)
+{
+	return NSStringFromPoint(thePoint);
+}
+static inline NSString *NSStringFromCGRect(CGRect theRect)
+{
+	return NSStringFromRect(theRect);
+}
+static inline NSString *NSStringFromCGSize(CGSize theSize)
+{
+	return NSStringFromSize(theSize);
+}
+#else
 	#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
 	#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
 	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
+#endif
 
 	#if DEBUG
 	static const int ddLogLevel = LOG_LEVEL_VERBOSE;
