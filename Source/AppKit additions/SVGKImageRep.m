@@ -164,9 +164,9 @@
 		SVGKImage *tmpImage = nil;
 		if (copyImag) {
 			tmpImage = [theImage copy];
-		}
-		if (tmpImage) {
-			theImage = tmpImage;
+			if (tmpImage) {
+				theImage = tmpImage;
+			}
 		}
 		
 		self.image = theImage;
@@ -207,8 +207,7 @@
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
 		{
-			NSSize renderSize = self.image.size;
-			[self setSize:renderSize sizeImage:NO];
+			[self setSize:self.image.size sizeImage:NO];
 		}
 	}
 	return self;
