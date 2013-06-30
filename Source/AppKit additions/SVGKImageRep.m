@@ -20,6 +20,8 @@
 
 @interface SVGKImageRep ()
 @property (nonatomic, retain, readwrite, setter = setTheSVG:) SVGKImage *image;
+
+- (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag;
 @end
 
 @implementation SVGKImageRep
@@ -149,11 +151,28 @@
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
+	return [self initWithSVGImage:[SVGKImage imageWithSource:theSource] copy:NO];
+}
+
+- (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag
+{
 	if (self = [super init]) {
-		self.image = [SVGKImage imageWithSource:theSource];
-		if (self.image == nil) {
+		if (theImage == nil) {
 			[self autorelease];
 			return nil;
+		}
+		SVGKImage *tmpImage = nil;
+		if (copyImag) {
+			tmpImage = [theImage copy];
+		}
+		if (tmpImage) {
+			theImage = tmpImage;
+		}
+		
+		self.image = theImage;
+		
+		if (copyImag) {
+			[tmpImage release];
 		}
 		
 		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
@@ -195,7 +214,6 @@
 	return self;
 }
 
-
 - (void)setSize:(NSSize)aSize
 {
 	[self setSize:aSize sizeImage:YES];
@@ -214,7 +232,7 @@
 - (id)initWithSVGImage:(SVGKImage*)theImage
 {
 	//Copy over the image, just in case
-	return [self initWithSVGSource:[[theImage.source copy] autorelease]];
+	return [self initWithSVGImage:theImage copy:YES];
 }
 
 - (void)dealloc
