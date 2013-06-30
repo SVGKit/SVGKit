@@ -12,7 +12,8 @@
 
 @property (readonly, retain, nonatomic) NSData *data;
 
-- (id)initFromData:(NSData*)data;
+- (id)initFromData:(NSData*)data DEPRECATED_ATTRIBUTE;
+- (id)initWithData:(NSData*)data;
 + (SVGKSource*)sourceFromData:(NSData*)data;
 
 @end

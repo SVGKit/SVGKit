@@ -8,10 +8,15 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	return [[SVGKSourceLocalFile alloc] initFromFilename:self.filePath];
+	return [[SVGKSourceLocalFile alloc] initWithFilename:self.filePath];
 }
 
 - (id)initFromFilename:(NSString*)p
+{
+	return [self initWithFilename:p];
+}
+
+- (id)initWithFilename:(NSString*)p
 {
 	NSInputStream* stream = [[NSInputStream alloc] initWithFileAtPath:p];
 	[stream open];
@@ -23,7 +28,7 @@
 }
 
 + (SVGKSource*)sourceFromFilename:(NSString*)p {
-	SVGKSourceLocalFile* s = [[[SVGKSourceLocalFile alloc] initFromFilename:p] autorelease];
+	SVGKSourceLocalFile* s = [[[SVGKSourceLocalFile alloc] initWithFilename:p] autorelease];
 		
 	return s;
 }
