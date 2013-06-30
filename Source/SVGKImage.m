@@ -399,6 +399,28 @@
 }
 #endif
 
+- (id)copyWithZone:(NSZone *)zone
+{
+	SVGKSource *copySource = nil;
+	if (!(copySource = [self.source copyWithZone:zone]))
+	{
+		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ %@", [self class], [self class], [self.source class], self.source);
+		return nil;
+	}
+	SVGKImage *copyImage = [[SVGKImage allocWithZone:zone] initWithSource:copySource];
+	if ([self hasSize]) {
+		copyImage.size = self.size;
+	}
+	copyImage.scale = self.scale;
+#if 0
+	if ([self hasCALayerTree]) {
+		copyImage.CALayerTree = [self newCALayerTree];
+	}
+#endif
+	
+	return copyImage;
+}
+
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
 - (void)drawAtPoint:(CGPoint)point                                                        // mode = kCGBlendModeNormal, alpha = 1.0

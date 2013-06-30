@@ -20,6 +20,8 @@
 
 @interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
+
+- (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag;
 @end
 
 @implementation SVGKImageRep
@@ -147,11 +149,24 @@
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
+	return [self initWithSVGImage:[SVGKImage imageWithSource:theSource] copy:NO];
+}
+
+- (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag
+{
 	if (self = [super init]) {
-		self.image = [[SVGKImage alloc] initWithSource:theSource];
-		if (self.image == nil) {
+		if (theImage == nil) {
 			return nil;
 		}
+		SVGKImage *tmpImage = nil;
+		if (copyImag) {
+			tmpImage = [theImage copy];
+		}
+		if (tmpImage) {
+			theImage = tmpImage;
+		}
+		
+		self.image = theImage;
 		
 		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
@@ -192,7 +207,6 @@
 	return self;
 }
 
-
 - (void)setSize:(NSSize)aSize
 {
 	[self setSize:aSize sizeImage:YES];
@@ -211,7 +225,7 @@
 - (id)initWithSVGImage:(SVGKImage*)theImage
 {
 	//Copy over the image, just in case
-	return [self initWithSVGSource:[theImage.source copy]];
+	return [self initWithSVGImage:theImage copy:YES];
 }
 
 - (BOOL)drawInRect:(NSRect)rect
