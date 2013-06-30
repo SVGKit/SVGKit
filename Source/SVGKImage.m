@@ -17,6 +17,7 @@
 #import "SVGKSourceData.h"
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #import "SVGKImageRep.h"
+#import "SVGKImageRep-private.h"
 #endif
 
 #import "BlankSVG.h"
@@ -389,21 +390,7 @@
 
 - (NSImage*)NSImage
 {
-	//Check if we have size
-	if ([self hasSize]) {
-		SVGKImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
-		if (!imRep) {
-			return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
-		}
-		[imRep setSize:self.size];
-		NSImage *retImage = [[NSImage alloc] initWithSize:self.size];
-		[retImage addRepresentation:imRep];
-		[retImage setSize:self.size];
-		return [retImage autorelease];
-	} else {
-		//If we don't, pass it to a method that does show warnings about missing size.
-		return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
-	}
+	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 }
 
 - (NSBitmapImageRep *)bitmapImageRep
@@ -417,12 +404,12 @@
 	SVGKSource *copySource = nil;
 	if (!(copySource = [self.source copyWithZone:zone]))
 	{
-		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ %@", [self class], [self class], [self.source class], self.source);
+		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ from %@", [self class], self , [self.source class], self.source);
 		return nil;
 	}
 	SVGKImage *copyImage = [[SVGKImage allocWithZone:zone] initWithSource:copySource];
 	[copySource release];
-	if ([self hasSize]) {
+	if (!CGSizeEqualToSize(self.internalSizeThatWasSetExplicitlyByUser, CGSizeZero)) {
 		copyImage.size = self.size;
 	}
 	copyImage.scale = self.scale;
@@ -861,18 +848,30 @@
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
-	if (!imRep) {
+	if ([self hasSize]) {
+		DDLogVerbose(@"[%@] DEBUG: Generating an NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		
+		NSImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
+		
+		if (!imRep) {
+			imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
+		} else {
+			((SVGKImageRep*)imRep).antiAlias = shouldAntialias;
+			((SVGKImageRep*)imRep).curveFlatness = multiplyFlatness;
+			((SVGKImageRep*)imRep).interpolationQuality = interpolationQuality;
+			[imRep setSize:self.size];
+		}
+	
+		NSImage *retval = [[NSImage alloc] init];
+		[retval addRepresentation:imRep];
+		[retval setSize:self.size];
+		
+		return [retval autorelease];
+	} else {
+		DDLogError(@"[%@] ERROR: You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance", [self class]);
+		
 		return nil;
 	}
-	
-	DDLogVerbose(@"[%@] DEBUG: Generating an NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
-	
-	NSImage *retval = [[NSImage alloc] init];
-	[retval addRepresentation:imRep];
-	[retval setSize:self.size];
-	
-	return [retval autorelease];
 }
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -894,7 +893,7 @@
 		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
 		return [imageRep autorelease];
 	} else {
-		NSAssert(FALSE, @"You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
+		DDLogError(@"[%@] ERROR: You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance", [self class]);
 		
 		return nil;
 	}
