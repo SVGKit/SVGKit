@@ -411,8 +411,9 @@
 	[copySource release];
 	if (!CGSizeEqualToSize(self.internalSizeThatWasSetExplicitlyByUser, CGSizeZero)) {
 		copyImage.size = self.size;
-	}
-	copyImage.scale = self.scale;
+	} /* else {
+	   copyImage.scale = self.scale;
+	} */
 #if 0
 	if ([self hasCALayerTree]) {
 		copyImage.CALayerTree = [self newCALayerTree];
