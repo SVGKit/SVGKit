@@ -19,11 +19,54 @@ LOG_LEVEL_WARN;
 
 @implementation SVGKit : NSObject
 
++ (SVGKLoggingLevel) logLevel
+{
+	SVGKLoggingLevel retVal;
+	switch (ddLogLevel) {
+		case LOG_LEVEL_ERROR:
+			retVal = SVGKLoggingError;
+			break;
+			
+		case LOG_LEVEL_INFO:
+			retVal = SVGKLoggingInfo;
+			break;
+			
+		case LOG_LEVEL_OFF:
+			retVal = SVGKLoggingOff;
+			break;
+			
+		case LOG_LEVEL_VERBOSE:
+			retVal = SVGKLoggingVerbose;
+			break;
+			
+		case LOG_LEVEL_WARN:
+			retVal = SVGKLoggingWarning;
+			break;
+			
+		default:
+			retVal = SVGKLoggingInvalid;
+			break;
+	}
+	return retVal;
+}
+
+static dispatch_once_t rawLogLevelToken;
+
+#define RAWLEVELWARNSTR @"[%@] WARN: Only set/get the raw log level if you know what you're doing!"
+
++ (int) rawLogLevel
+{
+	dispatch_once(&rawLogLevelToken, ^{
+		NSLog(RAWLEVELWARNSTR, self);
+	});
+	
+	return ddLogLevel;
+}
+
 + (void) setRawLogLevel:(int)rawLevel
 {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		NSLog(@"[%@] WARN: Only set the raw level if you know what you're doing!", self);
+	dispatch_once(&rawLogLevelToken, ^{
+		NSLog(RAWLEVELWARNSTR, self);
 	});
 
 	ddLogLevel = rawLevel;

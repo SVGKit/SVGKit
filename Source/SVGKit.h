@@ -54,6 +54,7 @@
 
 typedef enum _SVGKLoggingLevel
 {
+	SVGKLoggingInvalid = -1,
 	SVGKLoggingOff = 0,
 	SVGKLoggingInfo,
 	SVGKLoggingWarning,
@@ -66,6 +67,9 @@ typedef enum _SVGKLoggingLevel
 
 + (void) enableLogging;
 + (void) setLogLevel:(SVGKLoggingLevel)newLevel;
++ (SVGKLoggingLevel) logLevel;
+
 + (void) setRawLogLevel:(int)rawLevel;
++ (int) rawLogLevel;
 
 @end
