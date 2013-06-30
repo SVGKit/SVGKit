@@ -200,8 +200,7 @@
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
 		{
-			NSSize renderSize = self.image.size;
-			[self setSize:renderSize sizeImage:NO];
+			[self setSize:self.image.size sizeImage:NO];
 		}
 	}
 	return self;
