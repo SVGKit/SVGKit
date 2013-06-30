@@ -395,7 +395,7 @@
 
 - (NSBitmapImageRep *)bitmapImageRep
 {
-	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showWarning:YES];
 }
 #endif
 
