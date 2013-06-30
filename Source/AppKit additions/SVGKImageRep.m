@@ -252,7 +252,6 @@
 		
 		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
 		if (!bitRep) {
-			[tmpImage release];
 			return NO;
 		}
 		[tmpImage addRepresentation:bitRep];
@@ -298,7 +297,6 @@
 		
 		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
 		if (!bitRep) {
-			[tmpImage release];
 			return NO;
 		}
 		[tmpImage addRepresentation:bitRep];
