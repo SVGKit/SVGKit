@@ -76,7 +76,7 @@
 {
 	SVGKParseResult *parseResult = nil;
 	@autoreleasepool {
-		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[SVGKSourceData sourceFromData:d]];
+		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[[SVGKSourceData alloc] initFromData:d]];
 	}
 	if (parseResult == nil) {
 		return NO;
@@ -119,17 +119,17 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGSource:[SVGKSourceData sourceFromData:theData]];
+	return [self initWithSVGSource:[[SVGKSourceData alloc] initFromData:theData]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
+	return [self initWithSVGSource:[[SVGKSourceURL alloc] initFromURL:theURL]];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
+	return [self initWithSVGSource:[[SVGKSourceLocalFile alloc] initFromFilename:thePath]];
 }
 
 - (id)initWithSVGString:(NSString *)theString
@@ -149,7 +149,7 @@
 
 - (id)initWithSVGSource:(SVGKSource*)theSource
 {
-	return [self initWithSVGImage:[SVGKImage imageWithSource:theSource] copy:NO];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithSource:theSource] copy:NO];
 }
 
 - (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag
@@ -161,9 +161,9 @@
 		SVGKImage *tmpImage = nil;
 		if (copyImag) {
 			tmpImage = [theImage copy];
-		}
-		if (tmpImage) {
-			theImage = tmpImage;
+			if (tmpImage) {
+				theImage = tmpImage;
+			}
 		}
 		
 		self.image = theImage;
