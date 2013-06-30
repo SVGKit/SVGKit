@@ -33,4 +33,9 @@
 	[super dealloc];
 }
 
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, file path: %@", [self class], [self.stream description], [self.svgLanguageVersion description], self.filePath];
+}
+
 @end

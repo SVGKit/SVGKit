@@ -57,4 +57,13 @@
 	return nil;
 }
 
+- (NSString*)description
+{
+	BOOL isBaseClass = NO;
+	if ([self isMemberOfClass:[SVGKSource class]]) {
+		isBaseClass = YES;
+	}
+	return [NSString stringWithFormat:@"%@: %@Stream: %@, SVG Version: %@", [self class], isBaseClass ? @"" : @"(Not base class) ", [self.stream description], [self.svgLanguageVersion description]];
+}
+
 @end

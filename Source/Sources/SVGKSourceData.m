@@ -56,4 +56,14 @@
 	[super dealloc];
 }
 
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data length: %lu", [self class], [self.stream description], [self.svgLanguageVersion description], [self.data length]];
+}
+
+- (NSString*)debugDescription
+{
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data: %@", [self class], [self.stream description], [self.svgLanguageVersion description], [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]];
+}
+
 @end
