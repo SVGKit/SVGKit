@@ -8,10 +8,15 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	return [[SVGKSourceURL alloc] initFromURL:self.URL];
+	return [[SVGKSourceURL alloc] initWithURL:self.URL];
 }
 
 - (id)initFromURL:(NSURL*)u
+{
+	return [self initWithURL:u];
+}
+
+- (id)initWithURL:(NSURL*)u
 {
 	NSInputStream* stream = [[NSInputStream alloc] initWithURL:u];
 	[stream open];
@@ -22,7 +27,7 @@
 }
 
 + (SVGKSource*)sourceFromURL:(NSURL*)u {
-	SVGKSourceURL* s = [[SVGKSourceURL alloc] initFromURL:u];
+	SVGKSourceURL* s = [[SVGKSourceURL alloc] initWithURL:u];
 	
 	return s;
 }

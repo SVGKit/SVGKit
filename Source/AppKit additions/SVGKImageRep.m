@@ -12,10 +12,12 @@
 #import "SVGKSourceURL.h"
 
 #import "SVGKImageRep.h"
+#import "SVGKImageRep-private.h"
 #import <Lumberjack/Lumberjack.h>
 
 @interface SVGKImage ()
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn;
 @end
 
 @interface SVGKImageRep ()
@@ -25,6 +27,10 @@
 @end
 
 @implementation SVGKImageRep
+
+@synthesize curveFlatness = _curveFlatness;
+@synthesize antiAlias = _antiAlias;
+@synthesize interpolationQuality = _interpolQuality;
 
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
 {
@@ -76,7 +82,7 @@
 {
 	SVGKParseResult *parseResult = nil;
 	@autoreleasepool {
-		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[[SVGKSourceData alloc] initFromData:d]];
+		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[[SVGKSourceData alloc] initWithData:d]];
 	}
 	if (parseResult == nil) {
 		return NO;
@@ -119,17 +125,17 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGSource:[[SVGKSourceData alloc] initFromData:theData]];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithData:theData] copy:NO];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGSource:[[SVGKSourceURL alloc] initFromURL:theURL]];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfURL:theURL] copy:NO];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGSource:[[SVGKSourceLocalFile alloc] initFromFilename:thePath]];
+	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfFile:thePath] copy:NO];
 }
 
 - (id)initWithSVGString:(NSString *)theString
@@ -202,6 +208,9 @@
 		{
 			[self setSize:self.image.size sizeImage:NO];
 		}
+		self.interpolationQuality = kCGInterpolationDefault;
+		self.antiAlias = YES;
+		self.curveFlatness = 1.0;
 	}
 	return self;
 }
@@ -251,7 +260,7 @@
 		
 		CGContextRef layerCont = CGLayerGetContext(layerRef);
 		CGContextSaveGState(layerCont);
-		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		[self.image renderToContext:layerCont antiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality flipYaxis:YES];
 		CGContextRestoreGState(layerCont);
 		
 		CGContextDrawLayerInRect(imRepCtx, rect, layerRef);
@@ -263,7 +272,7 @@
 			return NO;
 		}
 		
-		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
+		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showWarning:NO];
 		if (!bitRep) {
 			return NO;
 		}
@@ -296,7 +305,7 @@
 		
 		CGContextRef layerCont = CGLayerGetContext(layerRef);
 		CGContextSaveGState(layerCont);
-		[self.image renderToContext:layerCont antiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault flipYaxis:YES];
+		[self.image renderToContext:layerCont antiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality flipYaxis:YES];
 		CGContextRestoreGState(layerCont);
 		
 		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
@@ -308,7 +317,7 @@
 			return NO;
 		}
 		
-		NSBitmapImageRep *bitRep = self.image.bitmapImageRep;
+		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showWarning:NO];
 		if (!bitRep) {
 			return NO;
 		}

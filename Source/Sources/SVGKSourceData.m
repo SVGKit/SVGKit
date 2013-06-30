@@ -14,7 +14,7 @@
 
 @implementation SVGKSourceData
 
-- (id)initFromDataNoMutableCheck:(NSData*)data
+- (id)initWithDataNoMutableCheck:(NSData*)data
 {
 	NSInputStream* stream = [[NSInputStream alloc] initWithData:data];
 	[stream open];
@@ -27,26 +27,33 @@
 - (id)copyWithZone:(NSZone *)zone
 {
 	//Use initFromDataNoMutableCheck because the data should already be immutable
-	return [[SVGKSourceData alloc] initFromDataNoMutableCheck:self.data];
+	return [[SVGKSourceData alloc] initWithDataNoMutableCheck:self.data];
 }
 
 - (id)initFromData:(NSData*)data
 {
+	return [self initWithData:data];
+}
+
+- (id)initWithData:(NSData*)data
+{
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];
 	}
-	return [self initFromDataNoMutableCheck:data];
+	self = [self initWithDataNoMutableCheck:data];
+
+	return self;
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
-	SVGKSourceData* s = [[SVGKSourceData alloc] initFromData:data];
+	SVGKSourceData* s = [[SVGKSourceData alloc] initWithData:data];
 	
 	return s;
 }
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data length: %lu", [self class], [self.stream description], [self.svgLanguageVersion description], [self.data length]];
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data length: %lu", [self class], [self.stream description], [self.svgLanguageVersion description], (unsigned long)[self.data length]];
 }
 
 - (NSString*)debugDescription
