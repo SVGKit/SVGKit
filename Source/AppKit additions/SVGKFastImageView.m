@@ -23,7 +23,6 @@
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
 
-#if (TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD || TEMPORARY_WARNING_FOR_FLIPPED_TEXT)
 + (BOOL)svgImage:(SVGKImage*)theImage hasNoClass:(Class)theClass
 {
 	return [self svgElementAndDescendents:theImage.DOMTree haveNoClass:theClass];
@@ -49,8 +48,8 @@
 	
 	return YES;
 }
-#endif
 
+#define CLASSTESTERS_DEPRECATED() DDLogWarn(@"[%@] the function %s is deprecated.", self, sel_getName(_cmd))
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL) svgImageHasNoGradients:(SVGKImage*) image
 {
@@ -59,7 +58,32 @@
 
 +(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
 {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		CLASSTESTERS_DEPRECATED();
+	});
 	return [self svgElementAndDescendents:element haveNoClass:[SVGGradientElement class]];
+}
+#else
+static dispatch_once_t gradOkayWarnOnce;
+#define GRADOKAYSTR @"[%@] %@ no longer has issues with gradients."
+
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&gradOkayWarnOnce, ^{
+		DDLogVerbose(GRADOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
+}
+
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&gradOkayWarnOnce, ^{
+		DDLogVerbose(GRADOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
 }
 #endif
 
@@ -71,15 +95,40 @@
 
 + (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element
 {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		CLASSTESTERS_DEPRECATED();
+	});
 	return [self svgElementAndDescendents:element haveNoClass:[SVGTextElement class]];
+}
+#else
+static dispatch_once_t textOkayWarnOnce;
+#define TEXTOKAYSTR @"[%@] %@ no longer has issues with text."
+
++ (BOOL)svgImageHasNoText:(SVGKImage*) image
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&textOkayWarnOnce, ^{
+		NSLog(TEXTOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
+}
+
++ (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&textOkayWarnOnce, ^{
+		NSLog(TEXTOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
 }
 #endif
 
 - (id)init
 {
 	NSAssert(false, @"init not supported, use initWithSVGKImage:");
-    
-    return nil;
+	
+	return nil;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -150,11 +199,11 @@
 	}
 #endif
 	
-    if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-    }
+	if (_image) {
+		[_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	}
 	_image = image;
-    
+	
 	[_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 }
 

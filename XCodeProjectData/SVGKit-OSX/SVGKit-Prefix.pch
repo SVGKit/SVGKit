@@ -11,18 +11,20 @@
 	#import <QuartzCore/QuartzCore.h>
 	#import <Lumberjack/Lumberjack.h>
 #if 0
-static inline NSString *NSStringFromCGPoint(CGPoint thePoint)
+#define ALWAYS_INLINE __attribute__((__always_inline__))
+static inline ALWAYS_INLINE NSString *NSStringFromCGPoint(CGPoint thePoint)
 {
 	return NSStringFromPoint(thePoint);
 }
-static inline NSString *NSStringFromCGRect(CGRect theRect)
+static inline ALWAYS_INLINE NSString *NSStringFromCGRect(CGRect theRect)
 {
 	return NSStringFromRect(theRect);
 }
-static inline NSString *NSStringFromCGSize(CGSize theSize)
+static inline ALWAYS_INLINE NSString *NSStringFromCGSize(CGSize theSize)
 {
 	return NSStringFromSize(theSize);
 }
+#undef ALWAYS_INLINE
 #else
 	#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
 	#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
