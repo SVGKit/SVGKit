@@ -21,6 +21,7 @@ inline SVGCurve SVGCurveMake(CGFloat cx1, CGFloat cy1, CGFloat cx2, CGFloat cy2,
     curve.p = CGPointMake(px, py);
     return curve;
 }
+
 inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 {
     return (
