@@ -59,7 +59,7 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data length: %lu", [self class], [self.stream description], [self.svgLanguageVersion description], [self.data length]];
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data length: %lu", [self class], [self.stream description], [self.svgLanguageVersion description], (unsigned long)[self.data length]];
 }
 
 - (NSString*)debugDescription
