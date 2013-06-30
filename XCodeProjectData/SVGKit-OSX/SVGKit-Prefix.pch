@@ -31,6 +31,6 @@ static inline ALWAYS_INLINE NSString *NSStringFromCGSize(CGSize theSize)
 	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
 #endif
 
-	#define ddLogLevel svgInternalLogLevel
-	extern int svgInternalLogLevel;
+__private_extern__ int SVGCurrentLogLevel();
+	#define ddLogLevel SVGCurrentLogLevel()
 #endif

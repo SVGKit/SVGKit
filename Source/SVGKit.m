@@ -10,10 +10,15 @@
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
 
-#if DEBUG
-int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
+#if TARGET_OS_IPHONE
 int ddLogLevel = LOG_LEVEL_WARN;
+#define ddLogLevelInternal ddLogLevel
+#else
+static int ddLogLevelInternal = LOG_LEVEL_WARN;
+int SVGCurrentLogLevel()
+{
+	return ddLogLevelInternal;
+}
 #endif
 
 @implementation SVGKit : NSObject
@@ -52,51 +57,73 @@ int ddLogLevel = LOG_LEVEL_WARN;
 static dispatch_once_t rawLogLevelToken;
 #define RAWLEVELWARNSTR @"[%@] WARN: Only set/get the raw log level if you know what you're doing!"
 
-+ (int) rawLogLevel
++ (int) rawLogLevelWithWarning:(BOOL)warn
 {
-	dispatch_once(&rawLogLevelToken, ^{
-		NSLog(RAWLEVELWARNSTR, self);
-	});
+	if (warn) {
+		dispatch_once(&rawLogLevelToken, ^{
+			NSLog(RAWLEVELWARNSTR, self);
+		});
+	}
 	
 	return ddLogLevel;
 }
 
++ (int) rawLogLevel
+{
+	return [self rawLogLevelWithWarning:YES];
+}
+
++ (void) setRawLogLevel:(int)rawLevel withWarning:(BOOL)warn
+{
+	if (warn) {
+		dispatch_once(&rawLogLevelToken, ^{
+			NSLog(RAWLEVELWARNSTR, self);
+		});
+	}
+	
+	if ((rawLevel & ~((int)LOG_LEVEL_VERBOSE)) != 0) {
+		NSLog(@"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i.", self, rawLevel, rawLevel &= ((int)LOG_LEVEL_VERBOSE));
+	}
+	
+	ddLogLevelInternal = rawLevel;
+}
+
 + (void) setRawLogLevel:(int)rawLevel
 {
-	dispatch_once(&rawLogLevelToken, ^{
-		NSLog(RAWLEVELWARNSTR, self);
-	});
-
-	ddLogLevel = rawLevel;
+	[self setRawLogLevel:rawLevel withWarning:YES];
 }
 
 + (void) setLogLevel:(SVGKLoggingLevel)newLevel
 {
 	switch (newLevel) {
 		case SVGKLoggingError:
-			ddLogLevel = LOG_LEVEL_ERROR;
+			ddLogLevelInternal = LOG_LEVEL_ERROR;
 			break;
 			
 		case SVGKLoggingInfo:
-			ddLogLevel = LOG_LEVEL_INFO;
+			ddLogLevelInternal = LOG_LEVEL_INFO;
 			break;
 			
 		case SVGKLoggingVerbose:
-			ddLogLevel = LOG_LEVEL_VERBOSE;
+			ddLogLevelInternal = LOG_LEVEL_VERBOSE;
 			break;
 			
 		case SVGKLoggingWarning:
-			ddLogLevel = LOG_LEVEL_WARN;
+			ddLogLevelInternal = LOG_LEVEL_WARN;
 			break;
 			
 		default:
 		case SVGKLoggingOff:
-			ddLogLevel = LOG_LEVEL_OFF;
+			ddLogLevelInternal = LOG_LEVEL_OFF;
 			break;
 	}
 }
 
 + (void) enableLogging {
+#if DEBUG
+	[self setLogLevel:SVGKLoggingVerbose];
+#endif
+
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 }
