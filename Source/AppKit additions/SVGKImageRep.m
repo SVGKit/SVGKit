@@ -121,17 +121,17 @@
 
 - (id)initWithData:(NSData *)theData
 {
-	return [self initWithSVGSource:[SVGKSourceData sourceFromData:theData]];
+	return [self initWithSVGImage:[SVGKImage imageWithData:theData] copy:NO];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGSource:[SVGKSourceURL sourceFromURL:theURL]];
+	return [self initWithSVGImage:[SVGKImage imageWithContentsOfURL:theURL] copy:NO];
 }
 
 - (id)initWithContentsOfFile:(NSString *)thePath
 {
-	return [self initWithSVGSource:[SVGKSourceLocalFile sourceFromFilename:thePath]];
+	return [self initWithSVGImage:[SVGKImage imageWithContentsOfFile:thePath] copy:NO];
 }
 
 - (id)initWithSVGString:(NSString *)theString
