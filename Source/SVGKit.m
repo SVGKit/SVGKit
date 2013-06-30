@@ -10,11 +10,10 @@
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
 
-int ddLogLevel =
 #if DEBUG
-LOG_LEVEL_VERBOSE;
+int ddLogLevel = LOG_LEVEL_VERBOSE;
 #else
-LOG_LEVEL_WARN;
+int ddLogLevel = LOG_LEVEL_WARN;
 #endif
 
 @implementation SVGKit : NSObject
@@ -51,7 +50,6 @@ LOG_LEVEL_WARN;
 }
 
 static dispatch_once_t rawLogLevelToken;
-
 #define RAWLEVELWARNSTR @"[%@] WARN: Only set/get the raw log level if you know what you're doing!"
 
 + (int) rawLogLevel
