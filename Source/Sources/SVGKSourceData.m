@@ -46,6 +46,7 @@
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
 	SVGKSourceData* s = [[[SVGKSourceData alloc] initFromData:data] autorelease];
+	
 	return s;
 }
 
