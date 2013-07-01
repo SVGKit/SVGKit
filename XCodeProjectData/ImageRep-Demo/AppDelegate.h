@@ -13,7 +13,7 @@
 	IBOutlet NSImageCell *svgSelected;
 }
 
-@property (weak) IBOutlet NSWindow *window;
+@property (unsafe_unretained) IBOutlet NSWindow *window;
 
 - (IBAction)selectSVG:(id)sender;
 - (IBAction)exportAsTIFF:(id)sender;

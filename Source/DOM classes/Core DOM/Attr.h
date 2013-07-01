@@ -16,9 +16,9 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
+#import <SVGKit/Node.h>
 @class Element;
-#import "Element.h"
+#import <SVGKit/Element.h>
 
 @interface Attr : Node
 

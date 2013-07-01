@@ -1,4 +1,4 @@
-#import "SVGKLayer.h"
+#import <SVGKit/SVGKLayer.h>
 
 //DW stands for Darwin
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
@@ -35,6 +35,7 @@
     }
     return self;
 }
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )

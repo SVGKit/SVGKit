@@ -5,20 +5,22 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
-#import "SVGElement_ForParser.h" //.h" // to solve insane Xcode circular dependencies
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/SVGElement_ForParser.h> //.h" // to solve insane Xcode circular dependencies
+#import <SVGKit/StyleSheetList+Mutable.h>
 
-#import "CSSStyleSheet.h"
-#import "CSSStyleRule.h"
-#import "CSSRuleList+Mutable.h"
+#import <SVGKit/CSSStyleSheet.h>
+#import <SVGKit/CSSStyleRule.h>
+#import <SVGKit/CSSRuleList+Mutable.h>
 
-#import "SVGGElement.h"
+#import <SVGKit/StyleSheet.h>
 
-#import "SVGRect.h"
+#import <SVGKit/SVGGElement.h>
 
-#import "SVGTransformable.h"
+#import <SVGKit/SVGRect.h>
+
+#import <SVGKit/SVGTransformable.h>
 
 #import "SVGKCGFloatAdditions.h"
 
@@ -222,6 +224,10 @@
                 value = [self getAttribute:@"gradientTransform"];
             }
 			
+			if (![NSRegularExpression class]) {
+				DDLogError(@"[%@] WARNING: the transform attribute requires OS X 10.7 or above (we need Regular Expressions! Apple was slow to add them :( ). Ignoring TRANSFORMs in SVG!", [self class] );
+			} else {
+			
 		NSError* error = nil;
 		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
 		
@@ -330,6 +336,7 @@
 		
 		//DEBUG: DDLogVerbose(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], selfTransformable.transform.a, selfTransformable.transform.b, selfTransformable.transform.c, selfTransformable.transform.d, selfTransformable.transform.tx, selfTransformable.transform.ty );
 		}
+	}
 	}
 	
 }

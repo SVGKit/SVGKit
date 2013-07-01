@@ -1,5 +1,5 @@
-#import "NodeList.h"
-#import "NodeList+Mutable.h"
+#import <SVGKit/NodeList.h>
+#import <SVGKit/NodeList+Mutable.h>
 
 @implementation NodeList
 

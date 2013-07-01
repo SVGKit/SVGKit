@@ -11,7 +11,7 @@
 #undef Comment
 
 #import "AppDelegate.h"
-#import "SVGKit.h"
+#import <SVGKit/SVGKit.h>
 
 #ifndef DONTUSESVGIMAGEREPDIRECTLY
 #define DONTUSESVGIMAGEREPDIRECTLY 0

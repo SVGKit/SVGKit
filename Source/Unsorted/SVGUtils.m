@@ -5,7 +5,7 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGUtils.h"
+#import <SVGKit/SVGUtils.h>
 
 #define MAX_ACCUM 64
 #define NUM_COLORS 147

@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SVGRect.h"
+#import <SVGKit/SVGRect.h>
 
 @protocol SVGFitToViewBox <NSObject>
 

@@ -1,4 +1,4 @@
-#import "SVGKSourceURL.h"
+#import <SVGKit/SVGKSourceURL.h>
 
 @interface SVGKSourceURL ()
 @property (readwrite, nonatomic, strong) NSURL* URL;

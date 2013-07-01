@@ -1,7 +1,6 @@
 #import <AppKit/AppKit.h>
 
-#import "SVGKImageView.h"
-#import "SVGKit.h"
+#import <SVGKit/SVGKImageView.h>
 
 /**
  * SVGKit's version of NSImageView - with some improvements over Apple's design

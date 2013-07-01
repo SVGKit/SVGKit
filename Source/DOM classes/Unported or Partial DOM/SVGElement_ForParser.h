@@ -1,6 +1,6 @@
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
-#import "SVGKParseResult.h"
+#import <SVGKit/SVGKParseResult.h>
 
 @interface SVGElement ()
 

@@ -8,7 +8,8 @@
 	#import <QuartzCore/QuartzCore.h>
     #import "DDLog.h"
 
-	extern int ddLogLevel;
+	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 1
+	#import "SVGKit_logging.pch"
 #endif
 #include <CoreGraphics/CoreGraphics.h>
 #include <CoreText/CoreText.h>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 C.W. Betts. All rights reserved.
 //
 
-#import "SVGKSource.h"
+#import <SVGKit/SVGKSource.h>
 
 @interface SVGKSourceData : SVGKSource <NSCopying>
 

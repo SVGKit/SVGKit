@@ -1,4 +1,4 @@
-#import "SVGKImage.h"
+#import <SVGKit/SVGKImage.h>
 #import "SVGKImage+CacheManagement.h"
 
 static NSMutableDictionary *SVGCacheObject = nil;

@@ -1,12 +1,13 @@
-#import "SVGTextElement.h"
+#import <SVGKit/SVGTextElement.h>
 
 #import <CoreText/CoreText.h>
 #import <UIKit/UIKit.h>
 
-#import "SVGUtils.h"
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGUtils.h>
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
+
 #import "SVGKCGFloatAdditions.h"
 
 @implementation SVGTextElement

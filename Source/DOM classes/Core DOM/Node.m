@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Node.h"
-#import "Node+Mutable.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Node+Mutable.h>
 
-#import "NodeList+Mutable.h"
-#import "NamedNodeMap.h"
+#import <SVGKit/NodeList+Mutable.h>
+#import <SVGKit/NamedNodeMap.h>
 
 @implementation Node
 

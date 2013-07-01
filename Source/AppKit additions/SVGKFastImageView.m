@@ -1,4 +1,4 @@
-#import "SVGKFastImageView.h"
+#import <SVGKit/SVGKFastImageView.h>
 #import "BlankSVG.h"
 
 #define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
@@ -7,11 +7,11 @@
 #endif
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-#import "SVGGradientElement.h"
+#import <SVGKit/SVGGradientElement.h>
 #endif
 
 #if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
-#import "SVGTextElement.h"
+#import <SVGKit/SVGTextElement.h>
 #endif
 
 

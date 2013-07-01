@@ -37,11 +37,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SVGKSource.h"
-#import "SVGKParserExtension.h"
-#import "SVGKParseResult.h"
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKParserExtension.h>
+#import <SVGKit/SVGKParseResult.h>
 
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
 
 

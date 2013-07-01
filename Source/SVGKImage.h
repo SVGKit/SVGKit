@@ -48,14 +48,14 @@
 #import <AppKit/AppKit.h>
 #endif
 
-#import "SVGLength.h"
-#import "SVGDocument.h"
-#import "SVGElement.h"
-#import "SVGSVGElement.h"
+#import <SVGKit/SVGLength.h>
+#import <SVGKit/SVGDocument.h>
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGSVGElement.h>
 
-#import "SVGKParser.h"
-#import "SVGKSource.h"
-#import "SVGKParseResult.h"
+#import <SVGKit/SVGKParser.h>
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKParseResult.h>
 
 @class SVGDefsElement;
 

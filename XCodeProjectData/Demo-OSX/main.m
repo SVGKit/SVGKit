@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SVGKit.h"
+#import <SVGKit/SVGKit.h>
 
 int main(int argc, char *argv[])
 {

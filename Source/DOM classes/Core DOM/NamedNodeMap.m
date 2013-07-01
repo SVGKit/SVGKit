@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "NamedNodeMap.h"
+#import <SVGKit/NamedNodeMap.h>
+#import <SVGKit/Node.h>
 
 @interface NamedNodeMap()
 @property(nonatomic,strong) NSMutableDictionary* internalDictionary;

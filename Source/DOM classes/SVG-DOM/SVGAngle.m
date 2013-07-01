@@ -1,4 +1,4 @@
-#import "SVGAngle.h"
+#import <SVGKit/SVGAngle.h>
 
 @implementation SVGAngle
 
