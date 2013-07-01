@@ -104,19 +104,19 @@ if (mutStr.length == 0) { \
 		LOG_OBJC_MAYBE(LOG_ASYNC_INFO, (ddLogLevelInternal | newLogLevel), LOG_FLAG_INFO, 0, @"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or with the following flags: %@.", self, rawLevel, newLogLevel, valString);
 		ddLogLevelInternal = newLogLevel;
 	}else {
-		@autoreleasepool {
-			NSMutableString *valStr = [NSMutableString string];
-			
-			LOGFLAGCHECK(LOG_FLAG_VERBOSE, valStr, rawLevel);
-			LOGFLAGCHECK(LOG_FLAG_INFO, valStr, rawLevel);
-			LOGFLAGCHECK(LOG_FLAG_WARN, valStr, rawLevel);
-			LOGFLAGCHECK(LOG_FLAG_ERROR, valStr, rawLevel);
-			if (valStr.length == 0) {
-				[valStr setString:@"LOG_LEVEL_OFF"];
-			}
-			
-			LOG_OBJC_MAYBE(LOG_ASYNC_VERBOSE, (ddLogLevelInternal | rawLevel), LOG_FLAG_VERBOSE, 0, @"[%@] DEBUG: Current raw debug level has been set at %i, or with the following flags: %@", self, rawLevel, valStr);
+		NSMutableString *valStr = [[NSMutableString alloc] init];
+		
+		LOGFLAGCHECK(LOG_FLAG_VERBOSE, valStr, rawLevel);
+		LOGFLAGCHECK(LOG_FLAG_INFO, valStr, rawLevel);
+		LOGFLAGCHECK(LOG_FLAG_WARN, valStr, rawLevel);
+		LOGFLAGCHECK(LOG_FLAG_ERROR, valStr, rawLevel);
+		if (valStr.length == 0) {
+			[valStr setString:@"LOG_LEVEL_OFF"];
 		}
+		
+		LOG_OBJC_MAYBE(LOG_ASYNC_VERBOSE, (ddLogLevelInternal | rawLevel), LOG_FLAG_VERBOSE, 0, @"[%@] DEBUG: Current raw debug level has been set at %i, or with the following flags: %@", self, rawLevel, valStr);
+		[valStr release];
+		
 		ddLogLevelInternal = rawLevel;
 	}
 #undef LOGFLAGCHECK
