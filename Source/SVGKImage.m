@@ -85,7 +85,7 @@
 
 + (SVGKImage *)defaultImage
 {
-	return [self imageWithSource:[SVGKSourceData sourceFromContentsOfString:SVGKsvgStringDefaultContents]];
+	return [self imageWithSource:[SVGKSourceData sourceFromContentsOfString:SVGKGetDefaultImageStringContents()]];
 }
 
 #pragma mark - Convenience initializers
