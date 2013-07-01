@@ -82,10 +82,37 @@ static dispatch_once_t rawLogLevelToken;
 	}
 	
 	if ((rawLevel & ~((int)LOG_LEVEL_VERBOSE)) != 0) {
-		NSLog(@"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i.", self, rawLevel, rawLevel &= ((int)LOG_LEVEL_VERBOSE));
+		int newLogLevel = rawLevel;
+		newLogLevel &= ((int)LOG_LEVEL_VERBOSE);
+		NSMutableString *valString = [[NSMutableString alloc] init];
+		@autoreleasepool {
+#define LOGFLAGCHECK(theFlag) \
+if ((newLogLevel & theFlag) == theFlag) { \
+NSString *tmpStr = @(#theFlag); \
+if (valString.length == 0) { \
+[valString setString:tmpStr]; \
+} else { \
+[valString appendFormat:@" %@", tmpStr]; \
+} \
+}
+			
+			LOGFLAGCHECK(LOG_FLAG_VERBOSE);
+			LOGFLAGCHECK(LOG_FLAG_INFO);
+			LOGFLAGCHECK(LOG_FLAG_WARN);
+			LOGFLAGCHECK(LOG_FLAG_ERROR);
+			
+#undef LOGFLAGCHECK
+		}
+		
+		if (valString.length == 0) {
+			[valString setString:@"LOG_LEVEL_OFF"];
+		}
+		NSLog(@"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or %@.", self, rawLevel, newLogLevel, valString);
+		[valString release];
+		ddLogLevelInternal = newLogLevel;
+	}else {
+		ddLogLevelInternal = rawLevel;
 	}
-	
-	ddLogLevelInternal = rawLevel;
 }
 
 + (void) setRawLogLevel:(int)rawLevel
