@@ -9,6 +9,10 @@
 
 #import <UIKit/UIKit.h>
 
+#else
+
+#import <AppKit/AppKit.h>
+
 #endif
 
 /*! From original SVGKit, but it seems to be "the opposite of translation" */
