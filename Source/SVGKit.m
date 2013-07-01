@@ -96,6 +96,31 @@ static dispatch_once_t rawLogLevelToken;
 + (void) setLogLevel:(SVGKLoggingLevel)newLevel
 {
 	switch (newLevel) {
+		case SVGKLoggingMixed:
+		{
+			NSString *logName = nil;
+#define ARG(theArg) case theArg: \
+logName = @(#theArg); \
+break
+			switch ([self logLevel]) {
+					ARG(SVGKLoggingOff);
+					ARG(SVGKLoggingError);
+					ARG(SVGKLoggingWarning);
+					ARG(SVGKLoggingInfo);
+					ARG(SVGKLoggingVerbose);
+				default:
+					ARG(SVGKLoggingMixed);
+			}
+			NSLog(@"[%@] WARN: SVGKLoggingMixed is an invalid value to set for the log level, staying at %@.", self, logName);
+			static dispatch_once_t rawOnceInfoToken;
+			dispatch_once(&rawOnceInfoToken, ^{
+				NSLog(@"[%@] INFO: If you want a different value than what is available via SVGKLoggingLevel, look into setRawLogLevel.", self);
+				NSLog(@"[%@] INFO: The raw log level values are based on the Lumberjack log levels. Look at their documentation for more info.", self);
+			});
+#undef ARG
+		}
+			break;
+			
 		case SVGKLoggingError:
 			ddLogLevelInternal = LOG_LEVEL_ERROR;
 			break;
