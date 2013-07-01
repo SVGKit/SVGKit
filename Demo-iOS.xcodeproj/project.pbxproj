@@ -565,7 +565,6 @@
 					"calayer-exporter",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/Demo-iOS/Demo-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
 				USER_HEADER_SEARCH_PATHS = "\"$(TARGET_BUILD_DIR)/usr/local/include/\"";
@@ -592,7 +591,6 @@
 					"calayer-exporter",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/Demo-iOS/Demo-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
 				USER_HEADER_SEARCH_PATHS = "\"$(TARGET_BUILD_DIR)/usr/local/include/\"";
