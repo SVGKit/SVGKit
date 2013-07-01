@@ -375,9 +375,9 @@
 				55CB786F176BE36F00BD97F1 /* Credits.rtf */,
 				55CB7871176BE36F00BD97F1 /* InfoPlist.strings */,
 				55CB7876176BE36F00BD97F1 /* SVGKitImageRepTest-Info.plist */,
+				558018CA1771858E00F64989 /* ImageRepTest-NS-Info.plist */,
 				55CB7877176BE36F00BD97F1 /* SVGKitImageRepTest-Prefix.pch */,
 				55CB7875176BE36F00BD97F1 /* main.m */,
-				558018CA1771858E00F64989 /* ImageRepTest-NS-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

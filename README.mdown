@@ -3,6 +3,7 @@
 SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
 
 Versions:
+
   - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0 as well as a lot of enhancements including OS X support and "modern" Objective-C syntax.
   - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct__: It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
   - arc - Branch that has the iOS and OS X project use Automatic Reference Counting.
@@ -66,7 +67,9 @@ There is a sample project you can examine which embeds the entire SVGKit project
 
   1. Include the SVGKit-iOS project in your Xcode project
   1. Import the SVGKit header:
+
     #import <SVGKit/SVGKit.h>
+
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
   8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
@@ -74,6 +77,7 @@ There is a sample project you can examine which embeds the entire SVGKit project
   10. (Optional but recommended): Add the library "libxml2.dylib"
   
 If you don't want to include the SVGKit-iOS project, you can get the headers and library thusly:
+
   1. Open the project "SVGKit-iOS"
   2. Select the target "SVGKit Library" from the dropdown build selector at top left
   3. Build
@@ -138,7 +142,7 @@ Note that you can build SVGKit as either a framework (which will include the Lum
 
 ### SVGKit
 
-There is a sample project you can examine which copies the SVGKit framework into the Frameworks subdirectory of the app and sets the runpath to @loader_path/../Frameworks to load the framework. To include an SVGKit header is the same as any other OS X framework, by including <SVGKit/HeaderName.h>.
+There is a sample project you can examine which copies the SVGKit framework into the Frameworks subdirectory of the app and sets the runpath to @loader_path/../Frameworks to load the framework. To include an SVGKit header is the same as any other OS X framework, by including &lt;SVGKit/HeaderName.h&gt;.
 
 ### SVGKImageRep
 
@@ -147,6 +151,7 @@ To use SVGKImageRep, either just link to SVGKit which will add the SVGKImageRep 
 ### libSVGKit
 
 To include libSVGKit in an OS X project, follow these steps:
+
   1. Open the project "SVGKit-OSX"
   2. Select the target "libSVGKit" from the dropdown build selector at top left
   3. Build
