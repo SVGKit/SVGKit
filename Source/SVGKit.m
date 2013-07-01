@@ -115,7 +115,6 @@ if (mutStr.length == 0) { \
 		}
 		
 		LOG_OBJC_MAYBE(LOG_ASYNC_VERBOSE, (ddLogLevelInternal | rawLevel), LOG_FLAG_VERBOSE, 0, @"[%@] DEBUG: Current raw debug level has been set at %i, or with the following flags: %@", self, rawLevel, valStr);
-		[valStr release];
 		
 		ddLogLevelInternal = rawLevel;
 	}
