@@ -451,6 +451,10 @@
 		55C361A5178212F800BA24FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C361A4178212F600BA24FA /* libxml2.dylib */; };
 		55C361A71782130900BA24FA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C361A4178212F600BA24FA /* libxml2.dylib */; };
 		55C361AA178214A300BA24FA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F3267B178156EF0064271D /* CoreFoundation.framework */; };
+		55C362CE178220E200BA24FA /* SVGKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74C17387F2B004029EF /* SVGKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55C362CF178220E200BA24FA /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
+		55C362D0178220E200BA24FA /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74E17387F2B004029EF /* SVGUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55C362D1178220E200BA24FA /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; };
 		55D274791779029C0068FD7C /* SVGKSourceData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D274771779029C0068FD7C /* SVGKSourceData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55D2747A1779029C0068FD7C /* SVGKSourceData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D274781779029C0068FD7C /* SVGKSourceData.m */; };
 		55F3267A178156770064271D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F32679178156770064271D /* QuartzCore.framework */; };
@@ -1463,6 +1467,8 @@
 				55C361901782075700BA24FA /* NSCharacterSet+SVGKExtensions.h in Headers */,
 				55C361921782075700BA24FA /* SVGKCGFloatAdditions.h in Headers */,
 				55C3619A1782094C00BA24FA /* CALayerExporter.h in Headers */,
+				55C362CE178220E200BA24FA /* SVGKPattern.h in Headers */,
+				55C362D0178220E200BA24FA /* SVGUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1784,6 +1790,8 @@
 				55C361971782075700BA24FA /* SVGKSourceURL.m in Sources */,
 				55C361991782075700BA24FA /* SVGKSourceData.m in Sources */,
 				55C3619B1782095300BA24FA /* CALayerExporter.m in Sources */,
+				55C362CF178220E200BA24FA /* SVGKPattern.m in Sources */,
+				55C362D1178220E200BA24FA /* SVGUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1844,7 +1852,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1870,7 +1878,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -2005,7 +2013,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				SDKROOT = macosx;
 			};
 			name = Inspect;
