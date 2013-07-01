@@ -27,7 +27,7 @@
 }
 
 @property (readwrite,nonatomic,strong) DWView* rootView;
-@property (readwrite,nonatomic,unsafe_unretained) id<CALayerExporterDelegate> delegate;
+@property (readwrite,nonatomic,weak) id<CALayerExporterDelegate> delegate;
 
 - (id) initWithView:(DWView*)v;
 - (void) startExport;

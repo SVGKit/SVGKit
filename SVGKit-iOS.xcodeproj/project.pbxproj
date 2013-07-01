@@ -453,12 +453,12 @@
 		66E863241688C2770059C9C4 /* EntityReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityReference.m; sourceTree = "<group>"; };
 		66E863251688C2770059C9C4 /* NamedNodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedNodeMap.h; sourceTree = "<group>"; };
 		66E863261688C2770059C9C4 /* NamedNodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NamedNodeMap.m; sourceTree = "<group>"; };
-		66E863271688C2770059C9C4 /* Node+Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Node+Mutable.h"; sourceTree = "<group>"; };
-		66E863281688C2770059C9C4 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		66E863271688C2770059C9C4 /* Node+Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Node+Mutable.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		66E863281688C2770059C9C4 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Node.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		66E863291688C2770059C9C4 /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Node.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66E8632A1688C2770059C9C4 /* NodeList+Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NodeList+Mutable.h"; sourceTree = "<group>"; };
 		66E8632B1688C2770059C9C4 /* NodeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeList.h; sourceTree = "<group>"; };
-		66E8632C1688C2770059C9C4 /* NodeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeList.m; sourceTree = "<group>"; };
+		66E8632C1688C2770059C9C4 /* NodeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NodeList.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66E8632D1688C2770059C9C4 /* ProcessingInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessingInstruction.h; sourceTree = "<group>"; };
 		66E8632E1688C2770059C9C4 /* ProcessingInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessingInstruction.m; sourceTree = "<group>"; };
 		66E8632F1688C2770059C9C4 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
@@ -495,7 +495,7 @@
 		66E863501688C2770059C9C4 /* SVGCircleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGCircleElement.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66E863511688C2770059C9C4 /* SVGDescriptionElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGDescriptionElement.h; sourceTree = "<group>"; };
 		66E863521688C2770059C9C4 /* SVGDescriptionElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGDescriptionElement.m; sourceTree = "<group>"; };
-		66E863531688C2770059C9C4 /* SVGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SVGElement.h; sourceTree = "<group>"; };
+		66E863531688C2770059C9C4 /* SVGElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SVGElement.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		66E863541688C2770059C9C4 /* SVGElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGElement.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66E863551688C2770059C9C4 /* SVGElement_ForParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGElement_ForParser.h; sourceTree = "<group>"; };
 		66E863561688C2770059C9C4 /* SVGEllipseElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGEllipseElement.h; sourceTree = "<group>"; };
@@ -522,7 +522,7 @@
 		66E8636C1688C2770059C9C4 /* SVGTextElement-iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGTextElement-iOS.m"; sourceTree = "<group>"; };
 		66E8636D1688C2770059C9C4 /* SVGTitleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTitleElement.h; sourceTree = "<group>"; };
 		66E8636E1688C2770059C9C4 /* SVGTitleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTitleElement.m; sourceTree = "<group>"; };
-		66E863701688C2770059C9C4 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerExporter.h; sourceTree = "<group>"; };
+		66E863701688C2770059C9C4 /* CALayerExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CALayerExporter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		66E863711688C2770059C9C4 /* CALayerExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerExporter.m; sourceTree = "<group>"; };
 		66E863741688C2770059C9C4 /* SVGKParserDefsAndUse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParserDefsAndUse.h; sourceTree = "<group>"; };
 		66E863751688C2770059C9C4 /* SVGKParserDefsAndUse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGKParserDefsAndUse.m; sourceTree = "<group>"; };
@@ -1161,7 +1161,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1182,7 +1182,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1197,7 +1197,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
 				SKIP_INSTALL = YES;
@@ -1213,7 +1212,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
 				SKIP_INSTALL = YES;

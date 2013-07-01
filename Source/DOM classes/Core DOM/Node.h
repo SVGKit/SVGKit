@@ -105,16 +105,16 @@ typedef enum DOMNodeType
 @property(nonatomic,copy,readonly) NSString* nodeValue;
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
-@property(nonatomic,unsafe_unretained,readonly) Node* parentNode;
+@property(nonatomic,weak,readonly) Node* parentNode;
 @property(nonatomic,strong,readonly) NodeList* childNodes;
-@property(nonatomic,unsafe_unretained,readonly) Node* firstChild;
-@property(nonatomic,unsafe_unretained,readonly) Node* lastChild;
-@property(nonatomic,unsafe_unretained,readonly) Node* previousSibling;
-@property(nonatomic,unsafe_unretained,readonly) Node* nextSibling;
+@property(nonatomic,weak,readonly) Node* firstChild;
+@property(nonatomic,weak,readonly) Node* lastChild;
+@property(nonatomic,weak,readonly) Node* previousSibling;
+@property(nonatomic,weak,readonly) Node* nextSibling;
 @property(nonatomic,strong,readonly) NamedNodeMap* attributes; /*< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
 
 // Modified in DOM Level 2:
-@property(nonatomic,unsafe_unretained,readonly) Document* ownerDocument;
+@property(nonatomic,weak,readonly) Document* ownerDocument;
 
 -(Node*) insertBefore:(Node*) newChild refChild:(Node*) refChild;
 
@@ -147,7 +147,7 @@ typedef enum DOMNodeType
 // DOM Level 3 that we *need*, partly because SVG Spec makes one brief reference to it: http://www.w3.org/TR/SVG/text.html#InterfaceSVGTextContentElement
 
 // Introduced in DOM Level 3: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#Node3-textContent
-@property(unsafe_unretained, nonatomic,readonly) NSString* textContent;
+@property(weak, nonatomic,readonly) NSString* textContent;
 
 #pragma mark - Objective-C init methods (not in SVG Spec - you're supposed to use SVGDocument's createXXX methods instead)
 /** Designated initializers - 2 pairs (one for DOM 1, no namespace, the other for DOM 2, with namespace) of 2 methods (one for nodes that REQUIRE a value, the other for nodes that MUST NOT have a value) */
