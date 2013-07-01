@@ -10,7 +10,7 @@
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
 
-#if TARGET_OS_IPHONE
+#if IS_ALSO_LUMBERJACK_LOG_LEVEL
 int ddLogLevel = LOG_LEVEL_WARN;
 #define ddLogLevelInternal ddLogLevel
 #else

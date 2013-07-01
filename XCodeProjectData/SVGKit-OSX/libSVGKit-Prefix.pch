@@ -10,7 +10,7 @@
 	#import <Foundation/Foundation.h>
 	#import <AppKit/AppKit.h>
 	#import <QuartzCore/QuartzCore.h>
-	#import <Lumberjack/Lumberjack.h>
+	#import "DDLog.h"
 	#if 0
 	NS_INLINE NSString *NSStringFromCGPoint(CGPoint thePoint)
 	{
@@ -30,6 +30,6 @@
 		#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
 	#endif
 
-	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 0
+	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 1
 	#import "SVGKit_logging.pch"
 #endif
