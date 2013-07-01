@@ -28,7 +28,7 @@
 		5540E75C17387F2B004029EF /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E69317387F2A004029EF /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E75D17387F2B004029EF /* CSSRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E69417387F2A004029EF /* CSSRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E75E17387F2B004029EF /* CSSRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E69517387F2A004029EF /* CSSRule.m */; };
-		5540E75F17387F2B004029EF /* CSSRuleList+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E69617387F2A004029EF /* CSSRuleList+Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5540E75F17387F2B004029EF /* CSSRuleList+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E69617387F2A004029EF /* CSSRuleList+Mutable.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5540E76017387F2B004029EF /* CSSRuleList.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E69717387F2A004029EF /* CSSRuleList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E76117387F2B004029EF /* CSSRuleList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E69817387F2A004029EF /* CSSRuleList.m */; };
 		5540E76217387F2B004029EF /* CSSStyleDeclaration.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E69917387F2B004029EF /* CSSStyleDeclaration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -62,7 +62,7 @@
 		5540E77E17387F2B004029EF /* MediaList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6B517387F2B004029EF /* MediaList.m */; };
 		5540E77F17387F2B004029EF /* NamedNodeMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B617387F2B004029EF /* NamedNodeMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E78017387F2B004029EF /* NamedNodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6B717387F2B004029EF /* NamedNodeMap.m */; };
-		5540E78117387F2B004029EF /* Node+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B817387F2B004029EF /* Node+Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5540E78117387F2B004029EF /* Node+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B817387F2B004029EF /* Node+Mutable.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5540E78217387F2B004029EF /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B917387F2B004029EF /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E78317387F2B004029EF /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6BA17387F2B004029EF /* Node.m */; };
 		5540E78417387F2B004029EF /* NodeList+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6BB17387F2B004029EF /* NodeList+Mutable.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -89,7 +89,7 @@
 		5540E79917387F2B004029EF /* SVGElementInstance_Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D117387F2B004029EF /* SVGElementInstance_Mutable.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5540E79A17387F2B004029EF /* SVGElementInstanceList.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D217387F2B004029EF /* SVGElementInstanceList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79B17387F2B004029EF /* SVGElementInstanceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6D317387F2B004029EF /* SVGElementInstanceList.m */; };
-		5540E79C17387F2B004029EF /* SVGElementInstanceList_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D417387F2B004029EF /* SVGElementInstanceList_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5540E79C17387F2B004029EF /* SVGElementInstanceList_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D417387F2B004029EF /* SVGElementInstanceList_Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5540E79D17387F2B004029EF /* SVGFitToViewBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D517387F2B004029EF /* SVGFitToViewBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79E17387F2B004029EF /* SVGGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6D617387F2B004029EF /* SVGGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E79F17387F2B004029EF /* SVGGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6D717387F2B004029EF /* SVGGElement.m */; };
@@ -985,7 +985,6 @@
 				5540E75A17387F2B004029EF /* CSSPrimitiveValue.h in Headers */,
 				5540E75C17387F2B004029EF /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h in Headers */,
 				5540E75D17387F2B004029EF /* CSSRule.h in Headers */,
-				5540E75F17387F2B004029EF /* CSSRuleList+Mutable.h in Headers */,
 				5540E76017387F2B004029EF /* CSSRuleList.h in Headers */,
 				5540E76217387F2B004029EF /* CSSStyleDeclaration.h in Headers */,
 				5540E76417387F2B004029EF /* CSSStyleRule.h in Headers */,
@@ -1004,7 +1003,6 @@
 				5540E77B17387F2B004029EF /* EntityReference.h in Headers */,
 				5540E77D17387F2B004029EF /* MediaList.h in Headers */,
 				5540E77F17387F2B004029EF /* NamedNodeMap.h in Headers */,
-				5540E78117387F2B004029EF /* Node+Mutable.h in Headers */,
 				5540E78217387F2B004029EF /* Node.h in Headers */,
 				5540E78517387F2B004029EF /* NodeList.h in Headers */,
 				5540E78717387F2B004029EF /* ProcessingInstruction.h in Headers */,
@@ -1016,7 +1014,6 @@
 				5540E79417387F2B004029EF /* SVGDocument.h in Headers */,
 				5540E79717387F2B004029EF /* SVGElementInstance.h in Headers */,
 				5540E79A17387F2B004029EF /* SVGElementInstanceList.h in Headers */,
-				5540E79C17387F2B004029EF /* SVGElementInstanceList_Internal.h in Headers */,
 				5540E79D17387F2B004029EF /* SVGFitToViewBox.h in Headers */,
 				5540E79E17387F2B004029EF /* SVGGElement.h in Headers */,
 				5540E7A017387F2B004029EF /* SVGHelperUtilities.h in Headers */,
@@ -1079,6 +1076,9 @@
 				55B4D7A5173EC58700D2C676 /* SVGKImageView.h in Headers */,
 				5540E78417387F2B004029EF /* NodeList+Mutable.h in Headers */,
 				5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */,
+				5540E75F17387F2B004029EF /* CSSRuleList+Mutable.h in Headers */,
+				5540E78117387F2B004029EF /* Node+Mutable.h in Headers */,
+				5540E79C17387F2B004029EF /* SVGElementInstanceList_Internal.h in Headers */,
 				5540E78B17387F2B004029EF /* StyleSheetList+Mutable.h in Headers */,
 				5540E79617387F2B004029EF /* SVGDocument_Mutable.h in Headers */,
 				5540E79917387F2B004029EF /* SVGElementInstance_Mutable.h in Headers */,
