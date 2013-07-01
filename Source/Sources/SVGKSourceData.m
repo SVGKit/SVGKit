@@ -56,7 +56,8 @@
 
 - (NSString*)debugDescription
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data: %@", [self class], [self.stream description], [self.svgLanguageVersion description], [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data: %@", [self class],
+			[self.stream description], [self.svgLanguageVersion description], self.data];
 }
 
 @end

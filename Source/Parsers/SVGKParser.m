@@ -637,7 +637,7 @@ static ALWAYS_INLINE inline NSString *NSStringFromLibxmlString (const xmlChar *s
 
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct)
 {
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:namespaces_ct];
 	
 	for (int i = 0; i < namespaces_ct * 2; i += 2)
 	{
@@ -655,7 +655,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **na
 
 
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct) {
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:attr_ct];
 	
 	for (int i = 0; i < attr_ct * 5; i += 5) {
 		const char *begin = (const char *) attrs[i + 3];
