@@ -55,14 +55,14 @@ int SVGCurrentLogLevel()
 }
 
 static dispatch_once_t rawLogLevelToken;
-#define RAWLEVELWARNSTR @"[%@] WARN: Only set/get the raw log level if you know what you're doing!"
+#define RawLevelWarn() dispatch_once(&rawLogLevelToken, ^{ \
+NSLog(@"[%@] WARN: Only set/get the raw log level if you know what you're doing!", self); \
+})
 
 + (int) rawLogLevelWithWarning:(BOOL)warn
 {
 	if (warn) {
-		dispatch_once(&rawLogLevelToken, ^{
-			NSLog(RAWLEVELWARNSTR, self);
-		});
+		RawLevelWarn();
 	}
 	
 	return ddLogLevel;
@@ -77,7 +77,7 @@ static dispatch_once_t rawLogLevelToken;
 {
 #define LOGFLAGCHECK(theFlag, mutStr, logVal) \
 if ((logVal & theFlag) == theFlag) { \
-NSString *tmpStr = @(#theFlag); \
+NSString *tmpStr = @#theFlag; \
 if (mutStr.length == 0) { \
 [mutStr setString:tmpStr]; \
 } else { \
@@ -86,23 +86,20 @@ if (mutStr.length == 0) { \
 }
 	
 	if (warn) {
-		dispatch_once(&rawLogLevelToken, ^{
-			NSLog(RAWLEVELWARNSTR, self);
-		});
+		RawLevelWarn();
 	}
 	
 	if ((rawLevel & ~((int)LOG_LEVEL_VERBOSE)) != 0) {
 		int newLogLevel = rawLevel;
 		newLogLevel &= ((int)LOG_LEVEL_VERBOSE);
 		NSMutableString *valString = [[NSMutableString alloc] init];
-		@autoreleasepool {
-			LOGFLAGCHECK(LOG_FLAG_VERBOSE, valString, newLogLevel);
-			LOGFLAGCHECK(LOG_FLAG_INFO, valString, newLogLevel);
-			LOGFLAGCHECK(LOG_FLAG_WARN, valString, newLogLevel);
-			LOGFLAGCHECK(LOG_FLAG_ERROR, valString, newLogLevel);
-			if (valString.length == 0) {
-				[valString setString:@"LOG_LEVEL_OFF"];
-			}
+		
+		LOGFLAGCHECK(LOG_FLAG_VERBOSE, valString, newLogLevel);
+		LOGFLAGCHECK(LOG_FLAG_INFO, valString, newLogLevel);
+		LOGFLAGCHECK(LOG_FLAG_WARN, valString, newLogLevel);
+		LOGFLAGCHECK(LOG_FLAG_ERROR, valString, newLogLevel);
+		if (valString.length == 0) {
+			[valString setString:@"LOG_LEVEL_OFF"];
 		}
 		LOG_OBJC_MAYBE(LOG_ASYNC_INFO, (ddLogLevelInternal | newLogLevel), LOG_FLAG_INFO, 0, @"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or %@.", self, rawLevel, newLogLevel, valString);
 		[valString release];
@@ -138,7 +135,7 @@ if (mutStr.length == 0) { \
 		{
 			NSString *logName = nil;
 #define ARG(theArg) case theArg: \
-logName = @(#theArg); \
+logName = @#theArg; \
 break
 			switch ([self logLevel]) {
 					ARG(SVGKLoggingOff);
