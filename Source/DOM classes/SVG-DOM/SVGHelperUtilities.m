@@ -1,18 +1,14 @@
 #import <SVGKit/SVGHelperUtilities.h>
 
-#import "CAShapeLayerWithHitTest.h"
+#import <SVGKit/CAShapeLayerWithHitTest.h>
 #import <SVGKit/SVGUtils.h>
 #import <SVGKit/SVGGradientElement.h>
-#import "CGPathAdditions.h"
+#import <SVGKit/CGPathAdditions.h>
 
 #import <SVGKit/SVGTransformable.h>
 #import <SVGKit/SVGSVGElement.h>
 
 #import "SVGKCGFloatAdditions.h"
-
-#if !TARGET_OS_IPHONE
-#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
-#endif
 
 @implementation SVGHelperUtilities
 
@@ -34,7 +30,7 @@
 	
 	CGAffineTransform currentRelativeTransform;
 	CGAffineTransform optionalViewportTransform;
-		
+	
 	/**
 	 Current relative transform: for an incoming "SVGTransformable" it's .transform, for everything else its identity
 	 */
@@ -59,7 +55,7 @@
 		/**
 		 Calculate the "implicit" viewport->viewbox transform (caused by the <SVG> tag's possible "viewBox" attribute)
 		 Also calculate the "implicit" realViewport -> svgDefaultViewport transform (caused by the user changing the external
-		    size of the rendered SVG)
+		 size of the rendered SVG)
 		 */
 		SVGRect frameViewBox = svgSVGElement.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
 		SVGRect frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
@@ -77,7 +73,7 @@
 		{
 			CGAffineTransform transformRealViewportToSVGViewport;
 			CGAffineTransform transformSVGViewportToSVGViewBox;
-		
+			
 			/** Transform part 1: from REAL viewport to EXPECTED viewport */
 			SVGRect viewportForViewBoxToRelateTo;
 			if( SVGRectIsInitialized( frameRequestedViewport ))
@@ -121,8 +117,8 @@
  Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform.
  
  Can take ONLY TWO kinds of element:
-  - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
-  - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
+ - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
+ - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
  */
 +(CGAffineTransform) transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:(SVGElement*) transformableOrSVGSVGElement
 {
@@ -155,13 +151,13 @@
 			break;
 		}
 	}
-		
+	
 	/**
 	 TOTAL absolute based on the parent transform with relative (and possible viewport) transforms
 	 */
 	CGAffineTransform result = CGAffineTransformConcat( [self transformRelativeIncludingViewportForTransformableOrViewportEstablishingElement:transformableOrSVGSVGElement], parentAbsoluteTransform );
 	
-	//DEBUG: NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
+	//DEBUG: DDLogCWarn( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
 	
 	return result;
 }
@@ -174,7 +170,7 @@
 #if FORCE_RASTERIZE_LAYERS
 	if ([layer respondsToSelector:@selector(setShouldRasterize:)]) {
 		[layer performSelector:@selector(setShouldRasterize:)
-						  withObject:[NSNumber numberWithBool:YES]];
+					withObject:[NSNumber numberWithBool:YES]];
 	}
 	
 	/** If you're going to rasterize, Apple's code is dumb, and needs to be "told" if its using a Retina display */
@@ -193,7 +189,7 @@
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
-	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
+	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest alloc] init];
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
@@ -206,7 +202,7 @@
     //BIZARRE: Apple sometimes gives a different value for this even when transformAbsolute == identity! : CGRect localPathBB = CGPathGetPathBoundingBox( _pathRelative );
 	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
 	CGRect transformedPathBB = CGPathGetBoundingBox( pathToPlaceInLayer );
-
+	
 #if IMPROVE_PERFORMANCE_BY_WORKING_AROUND_APPLE_FRAME_ALIGNMENT_BUG
 	transformedPathBB = CGRectIntegral( transformedPathBB ); // ridiculous but improves performance of apple's code by up to 50% !
 #endif
@@ -316,7 +312,7 @@
 		{
 			CAGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
 			
-			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
+			DDLogWarn(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;
 			[_shapeLayer release]; // because it was created with a +1 retain count
 			

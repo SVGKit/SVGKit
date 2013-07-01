@@ -53,13 +53,6 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -75,7 +68,7 @@
 				self.nodeName = n;
 				self.nodeValue = v;
 			}break;
-			
+				
 				
 			case DOMNodeType_DOCUMENT_NODE:
 			case DOMNodeType_DOCUMENT_TYPE_NODE:
@@ -87,14 +80,12 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
-				self = nil;
+				[self autorelease];
+				return nil;
 			}break;
 		}
-		{
-			NodeList *tmpList = [[NodeList alloc] init];
-			self.childNodes = tmpList;
-			[tmpList release];
-		}
+		
+		self.childNodes = [[[NodeList alloc] init] autorelease];
     }
     return self;
 }
@@ -115,7 +106,8 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
-				self = nil;
+				[self autorelease];
+				return nil;
 			}break;
 				
 				
@@ -133,18 +125,12 @@
 			{
 				
 				self.nodeName = n;
-				{
-					NamedNodeMap *tmpMap = [[NamedNodeMap alloc] init];
-					self.attributes = tmpMap;
-					[tmpMap release];
-				}
+
+				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
 			}break;
 		}
-		{
-			NodeList *tmpList = [[NodeList alloc] init];
-			self.childNodes = tmpList;
-			[tmpList release];
-		}
+
+		self.childNodes = [[[NodeList alloc] init] autorelease];
     }
     return self;
 }
@@ -156,8 +142,8 @@
 	NSArray* nameSpaceParts = [self.nodeName componentsSeparatedByString:@":"];
 	self.localName = [nameSpaceParts lastObject];
 	if( [nameSpaceParts count] > 1 )
-		self.prefix = [nameSpaceParts objectAtIndex:0];
-		
+		self.prefix = nameSpaceParts[0];
+	
 	self.namespaceURI = nsURI;
 }
 
@@ -175,13 +161,6 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
 	self = [self initType:nt name:n value:v];
 	
 	if( self )
@@ -234,7 +213,7 @@
 	}
 	else
 	{
-		[self.childNodes.internalArray replaceObjectAtIndex:[self.childNodes.internalArray indexOfObject:oldChild] withObject:newChild];
+		(self.childNodes.internalArray)[[self.childNodes.internalArray indexOfObject:oldChild]] = newChild;
 		
 		newChild.parentNode = self;
 		oldChild.parentNode = nil;
@@ -302,7 +281,7 @@
 
 #pragma mark - SPECIAL CASE: DOM level 3 method
 
-/** 
+/**
  
  Note that the DOM 3 spec defines this as RECURSIVE:
  
@@ -329,9 +308,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			NSString *tmpStr = [NSString stringWithString:stringAccumulator];
-			[stringAccumulator release];
-			return tmpStr;
+			return [NSString stringWithString:[stringAccumulator autorelease]];
 		}
 			
 		case DOMNodeType_TEXT_NODE:

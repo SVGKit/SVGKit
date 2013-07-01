@@ -60,10 +60,8 @@
 
 -(void)viewDidLoad
 {
-	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease],
-											   nil];
+	self.navigationItem.rightBarButtonItems = @[[[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
+											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease]];
 }
 
 CALayer* lastTappedLayer;
@@ -367,6 +365,10 @@ CATextLayer *textLayerForLastTappedLayer;
 		else
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 		
+			if (!thisImageRequiresLayeredImageView && document) {
+				thisImageRequiresLayeredImageView = ![SVGKFastImageView svgImageHasNoGradients:document];
+			}
+
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
 		if( shouldScaleTimesTwo )
 			document.scale = 2.0;
@@ -403,7 +405,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			}
 			else
 			{
-				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 				newContentView = nil; // signals to the rest of this method: the load failed
 			}
 		}
@@ -479,8 +481,8 @@ CATextLayer *textLayerForLastTappedLayer;
 	animation.duration = 0.25f;
 	animation.autoreverses = YES;
 	animation.repeatCount = 100000;
-	animation.fromValue = [NSNumber numberWithFloat:0.1f];
-	animation.toValue = [NSNumber numberWithFloat:-0.1f];
+	animation.fromValue = @0.1f;
+	animation.toValue = @-0.1f;
 	
 	[layer addAnimation:animation forKey:@"shakingHead"];
 }

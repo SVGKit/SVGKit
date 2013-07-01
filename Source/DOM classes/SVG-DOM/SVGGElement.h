@@ -18,10 +18,10 @@
 #import <SVGKit/SVGElement.h>
 #import <SVGKit/SVGElement_ForParser.h>
 
-#import <SVGKit/SVGLayeredElement.h>
+#import <SVGKit/ConverterSVGToCALayer.h>
 #import <SVGKit/SVGTransformable.h>
 
 
-@interface SVGGElement : SVGElement <SVGTransformable, SVGStylable, SVGLayeredElement >
+@interface SVGGElement : SVGElement <SVGTransformable, SVGStylable, ConverterSVGToCALayer >
 
 @end

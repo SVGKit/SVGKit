@@ -20,8 +20,7 @@
 /** Apple requires this to be implemented by CALayer subclasses */
 +(id)layer
 {
-	SVGKLayer* layer = [[[SVGKLayer alloc] init] autorelease];
-	return layer;
+	return [[[SVGKLayer alloc] init] autorelease];
 }
 
 - (id)init

@@ -23,7 +23,7 @@
 		
 		for( NSString* attributeName in attributes.allKeys )
 		{
-			[self setAttribute:attributeName value:[attributes objectForKey:attributeName]];
+			[self setAttribute:attributeName value:attributes[attributeName]];
 		}
     }
     return self;
@@ -102,10 +102,10 @@
 
 -(NodeList*) getElementsByTagName:(NSString*) name
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:name inNamespace:nil childrenOfElement:self addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
@@ -152,10 +152,10 @@
 // Introduced in DOM Level 2:
 -(NodeList*) getElementsByTagNameNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:

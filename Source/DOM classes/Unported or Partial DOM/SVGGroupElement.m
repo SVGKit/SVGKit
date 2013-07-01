@@ -10,7 +10,7 @@
  */
 #import <SVGKit/SVGGroupElement.h>
 
-#import "CALayerWithChildHitTest.h"
+#import <SVGKit/CALayerWithChildHitTest.h>
 
 #import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 #import <SVGKit/Node.h>
@@ -21,34 +21,24 @@
 
 @synthesize opacity = _opacity;
 
-/*
- * We don't have any extra data to release
-- (void)dealloc {
-	
-    [super dealloc];
-}
-
 - (void)loadDefaults {
 	_opacity = 1.0f;
 }
- */
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"opacity"] length] > 0 )
-	_opacity = [[self getAttribute:@"opacity"] SVGKCGFloatValue];
+		_opacity = [[self getAttribute:@"opacity"] SVGKCGFloatValue];
 }
 
 - (CALayer *) newLayer
 {
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
-		
-		_layer.name = self.identifier;
-		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
-		_layer.opacity = _opacity;
-		
+	_layer.name = self.identifier;
+	[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
+	_layer.opacity = _opacity;
 	
 	return _layer;
 }

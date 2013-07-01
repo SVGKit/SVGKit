@@ -1,10 +1,19 @@
 #import <SVGKit/SVGKFastImageView.h>
+#import "BlankSVG.h"
 
 #define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
+#ifndef TEMPORARY_WARNING_FOR_FLIPPED_TEXT
+#define TEMPORARY_WARNING_FOR_FLIPPED_TEXT 1 // ONLY needed until we know how to fix the text.
+#endif
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 #import <SVGKit/SVGGradientElement.h>
 #endif
+
+#if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
+#import <SVGKit/SVGTextElement.h>
+#endif
+
 
 @implementation SVGKFastImageView
 {
@@ -13,83 +22,154 @@
 
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
-@synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-+(BOOL) svgImageHasNoGradients:(SVGKImage*) image
++ (BOOL)svgImage:(SVGKImage*)theImage hasNoClass:(Class)theClass
 {
-	return [self svgElementAndDescendentsHaveNoGradients:image.DOMTree];
+	return [self svgElementAndDescendents:theImage.DOMTree haveNoClass:theClass];
 }
 
-+(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
++ (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
 {
-	if( [element isKindOfClass:[SVGGradientElement class]])
-		return FALSE;
+	if( [element isKindOfClass:theClass])
+		return NO;
 	else
 	{
 		for( Node* n in element.childNodes )
 		{
 			if( [n isKindOfClass:[SVGElement class]])
 			{
-				if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
+				if( [self svgElementAndDescendents:(SVGElement*)n haveNoClass:theClass])
 					;
 				else
-					return FALSE;
+					return NO;
 			}
-				
 		}
 	}
 	
-	return TRUE;
+	return YES;
+}
+
+#define CLASSTESTERS_DEPRECATED() DDLogWarn(@"[%@] the function %s is deprecated.", self, sel_getName(_cmd))
+#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
+{
+	return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGGradientElement class]];
+}
+
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		CLASSTESTERS_DEPRECATED();
+	});
+	return [self svgElementAndDescendents:element haveNoClass:[SVGGradientElement class]];
+}
+#else
+static dispatch_once_t gradOkayWarnOnce;
+#define GRADOKAYSTR @"[%@] %@ no longer has issues with gradients."
+
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&gradOkayWarnOnce, ^{
+		DDLogVerbose(GRADOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
+}
+
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&gradOkayWarnOnce, ^{
+		DDLogVerbose(GRADOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
+}
+#endif
+
+#if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
++ (BOOL)svgImageHasNoText:(SVGKImage*)image
+{
+	return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGTextElement class]];
+}
+
++ (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		CLASSTESTERS_DEPRECATED();
+	});
+	return [self svgElementAndDescendents:element haveNoClass:[SVGTextElement class]];
+}
+#else
+static dispatch_once_t textOkayWarnOnce;
+#define TEXTOKAYSTR @"[%@] %@ no longer has issues with text."
+
++ (BOOL)svgImageHasNoText:(SVGKImage*) image
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&textOkayWarnOnce, ^{
+		NSLog(TEXTOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
+}
+
++ (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element
+{
+	CLASSTESTERS_DEPRECATED();
+	dispatch_once(&textOkayWarnOnce, ^{
+		NSLog(TEXTOKAYSTR, self, [SVGKFastImageView class]);
+	});
+	return YES;
 }
 #endif
 
 - (id)init
 {
 	NSAssert(false, @"init not supported, use initWithSVGKImage:");
-    
-    return nil;
+	
+	return nil;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	return [self initWithSVGKImage:nil];
+	return [self initWithSVGKImage:nil frame:CGRectZero];
 }
 
 -(id)initWithFrame:(NSRect)frame
 {
-	self = [super initWithFrame:frame];
-	if( self )
-	{
-		//self.backgroundColor = [UIColor clearColor];
-	}
-	return self;
+	return [self initWithSVGKImage:nil frame:frame];
 }
 
 - (id)initWithSVGKImage:(SVGKImage*) im
 {
+	return [self initWithSVGKImage:im frame:CGRectZero];
+}
+
+- (id)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame
+{
 	if( im == nil )
 	{
-		NSLog(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
+		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
+		DDLogInfo(@"[%@] Using default SVG: %@", [self class], SVGKGetDefaultImageStringContents());
+		im = [SVGKImage defaultImage];
 	}
 	
-    self = [super init];
+	if (![im hasSize]) {
+		im.size = NSMakeSize(100.0, 100.0);
+	}
+	
+    self = [super initWithFrame:(!NSEqualRects(theFrame, CGRectZero) ? theFrame : (NSRect){CGPointZero, im.size})]; // NB: this may use the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
     if (self)
 	{
 		internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
 		
 		self.image = im;
-		self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
+		//self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
 		self.tileRatio = CGSizeZero;
-		//self.backgroundColor = [UIColor clearColor];
-		
-		/** redraw-observers */
-		if( self.disableAutoRedrawAtHighestResolution )
-			;
-		else
-			[self addInternalRedrawOnResizeObservers];
 		
 		/** other obeservers */
+		//[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 		[self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
@@ -100,85 +180,44 @@
 - (void)setImage:(SVGKImage *)image {
 	
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-	BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:image];
-	if( !imageIsGradientFree )
-		NSLog(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
+	{
+		BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:image];
+		if( !imageIsGradientFree )
+			DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
+	}
 	
-	if( image.scale != 0.0f )
-		NSLog(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own transforms. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using scale: you SHOULD INSTEAD be scaling by setting .size on the image, and ensuring that the incoming SVG has either a viewbox or an explicit svg width or svg height)", [self class]);
+	if( image.scale != 0.0 )
+		DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own transforms. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using scale: you SHOULD INSTEAD be scaling by setting .size on the image, and ensuring that the incoming SVG has either a viewbox or an explicit svg width or svg height)", [self class]);
 #endif
 	
-    if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
-    }
-    [_image release];
-    _image = [image retain];
-    
-    if( self.disableAutoRedrawAtHighestResolution )
-        ;
-    else
-        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-}
-
--(void) addInternalRedrawOnResizeObservers
-{
-	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-	//[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-}
-
--(void) removeInternalRedrawOnResizeObservers
-{
-	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
-	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
-	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
-}
-
--(void)setDisableAutoRedrawAtHighestResolution:(BOOL)newValue
-{
-	if( newValue == _disableAutoRedrawAtHighestResolution )
-		return;
-	
-	_disableAutoRedrawAtHighestResolution = newValue;
-	
-	if( self.disableAutoRedrawAtHighestResolution ) // disabled, so we have to remove the observers
+#if TEMPORARY_WARNING_FOR_FLIPPED_TEXT
 	{
-		[self removeInternalRedrawOnResizeObservers];
+		BOOL imageIsTextFree = [SVGKFastImageView svgImageHasNoText:image];
+		if (!imageIsTextFree) {
+			DDLogWarn(@"[%@] WARNING: There is currently a bug that makes text generated via newCALayerTree on the drawRect: method to be upside-down.", [self class]);
+		}
 	}
-	else // newly-enabled ... must add the observers
-	{
-		[self addInternalRedrawOnResizeObservers];
+#endif
+	
+	if (_image) {
+		[_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
 	}
+	[_image release];
+	_image = [image retain];
+	
+	[_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 - (void)dealloc
 {
-	if( self.disableAutoRedrawAtHighestResolution )
-		;
-	else
-		[self removeInternalRedrawOnResizeObservers];
-	
+	//[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
-    
+	
 	self.image = nil;
 	
-    [super dealloc];
-}
-
-- (void)finalize
-{
-	if( self.disableAutoRedrawAtHighestResolution )
-		;
-	else
-		[self removeInternalRedrawOnResizeObservers];
-	
-	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
-	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
-	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
-	
-	[super finalize];
+	[super dealloc];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
@@ -193,13 +232,7 @@
 	}
 	else
 	{
-		
-		if( self.disableAutoRedrawAtHighestResolution )
-			;
-		else
-		{
-			[self setNeedsDisplay:YES];
-		}
+		[self setNeedsDisplay:YES];
 	}
 }
 
@@ -263,7 +296,7 @@
 		tileSize = CGSizeMake( self.bounds.size.width / self.tileRatio.width, self.bounds.size.height / self.tileRatio.height );
 	}
 	
-	//DEBUG: NSLog(@"cols, rows: %i, %i ... scaleConvert: %@ ... tilesize: %@", cols, rows, NSStringFromCGSize(scaleConvertImageToView), NSStringFromCGSize(tileSize) );
+	//DEBUG: NSLog(@"cols, rows: %i, %i ... scaleConvert: %@ ... tilesize: %@", cols, rows, NSStringFromSize(scaleConvertImageToView), NSStringFromSize(tileSize) );
 	/** To support tiling, and to allow internal shrinking, we use renderInContext */
 	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 	for( int k=0; k<rows; k++ )
@@ -273,6 +306,11 @@
 			
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
+			
+			CGAffineTransform textTrans = CGContextGetTextMatrix(context);
+			//textTrans = CGAffineTransformTranslate(textTrans, 0, tileSize.height);
+			textTrans = CGAffineTransformScale(textTrans, 1.0, -1.0);
+			CGContextSetTextMatrix(context, textTrans);
 			
 			[self.image.CALayerTree renderInContext:context];
 			
@@ -287,5 +325,10 @@
 	}
 }
 
+- (void)setFrame:(NSRect)frame
+{
+	[super setFrame:frame];
+	self.image.size = frame.size;
+}
 
 @end

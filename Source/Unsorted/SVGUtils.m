@@ -273,8 +273,11 @@ SVGColor SVGColorFromString (const char *string) {
 	bzero(&color, sizeof(color));
 	
 	color.a = 0xFF;
-	
-	if (!strncmp(string, "rgb(", 4)) {
+	if (!strncmp(string, "url", 4)) {
+		DDLogCWarn(@"%s: WARNING: Unable to get an SVG color from a url (most likely a pattern)", __FUNCTION__);
+		DDLogCInfo(@"%s: INFO: returning a black SVG color", __FUNCTION__);
+		color = SVGColorMake(0, 0, 0, 255);
+	} else if (!strncmp(string, "rgb(", 4)) {
 		size_t len = strlen(string);
 		
 		char accum[MAX_ACCUM];
@@ -376,7 +379,7 @@ CGFloat SVGPercentageFromString (const char *string) {
 	size_t len = strlen(string);
 	
 	if (string[len-1] != '%') {
-		NSLog(@"Invalid percentage: %s", string);
+		DDLogCWarn(@"Invalid percentage: %s", string);
 		return -1;
 	}
 	
@@ -444,14 +447,14 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 							   alpha:RGB_N(color.a)].CGColor;
 #else
 	if ([NSColor instancesRespondToSelector:@selector(CGColor)]) {
-		outColor = [[NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
-											  blue:RGB_N(color.b) alpha:RGB_N(color.a)] CGColor];
+		outColor = [NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
+											   blue:RGB_N(color.b) alpha:RGB_N(color.a)].CGColor;
 	} else {
 		//THIS IS DICEY CODE!
 		//I am unsure how well this will preform: something could break it
 		CGColorRef tmpoutColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
 		
-		outColor = (CGColorRef)[NSMakeCollectable(tmpoutColor) autorelease];
+		outColor = (CGColorRef)[(id)tmpoutColor autorelease];
 	}
 #endif
 	

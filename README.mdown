@@ -3,8 +3,12 @@
 SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
 
 Versions:
-  - v1.0 - 2013, approximately 90% coverage of the SVG spec. Stable and quite fast - https://github.com/SVGKit/SVGKit/tree/v1.0
-  - v1.1.0 - Current branch in development; all pull-requests should be issued against this branch - https://github.com/SVGKit/SVGKit/tree/1.1.0
+  - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0
+  - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. NOW DEFUNCT! It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
+  - arc - Branch that has the iOS and OS X project use Automatic Reference Counting as well as "modern" (as of Xcode 4.6) Objective-C syntax.
+  - namespace - Branch that has the SVGKit headers better designed to work with OS X. Not actively maintained
+  - toSVGKit - Branch that contains staged changes to put back into SVGKit's 1.1.0 branch.
+  - patterns - Branch for working on pattern support. based off of SVGKit's 1.1.0 branch as opposed to my master. Parts have been merged back to master.
 
 ## Xcode Projects Included
 
@@ -17,9 +21,32 @@ Because so much has changed, Adam wrote a series of blog posts to explain how to
      - additiona: How to scale an SVG image on screen: http://t-machine.org/index.php/2013/04/14/svgkit-scaling-svg-images/
   - CONTRIBUTING to the project, CORE ARCHITECTURE: http://t-machine.org/index.php/2012/12/31/svgkit-2013-development/
  
+### Combined getting started info
 
+WARNING: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
 
-### Ultra-quick 'getting started' (iPhone/iPad)
+Key methods / properties you might find useful:
+
+  1. SVGKImage - all the magic happens here
+  1. SVGKImage.DOMTree - a complete DOM tree of the "parsed" SVG/XML document, with ALL TAGS (even if unsupported by current SVGKit - they will be parsed anyway!)
+  1. SVGKImage.CALayerTree - a complete, renderable, tree of Apple CALayer objects (only contains layers for features currently supported - if you find something missing, please submit a fix!)
+  
+## Advanced Features (this branch/fork only!)
+
+There are many new features in this version (2013) of SVGKit. Read the blog posts above for more detail, but briefly:
+
+  - use an SVG just like it's a normal PNG file: use SVGKFastImageView like it's UIImageView/NSImageView:
+  - load an SVG from web, or from disk
+  - search an SVG file for particular tags / nodes / elements:
+  - automatic scaling of your SVG to fit their on-screen size (often reduces the memory required)
+  - Access to the DOM Document Object Model
+  - Retrieve any part of your SVG document positioned correctly in space
+  - detailed information on whether and WHY parsing failed:
+
+iPhone/iPad (iOS) Info
+===
+
+### Ultra-quick 'getting started'
 -----
 
 Open the project "Demo-iOS", select your preferred simulator (or device, if it's plugged in), build and run. Try the sample SVG's packaged with SVGKit.
@@ -31,36 +58,6 @@ To use SVGKit, either CREATE AND DISPLAY AN IMAGE ON SCREEN:
 or LOAD AN IMAGE AND CONVERT TO A UIIMAGE OBJECT:
 
     UIImage* newImage = [SVGKImage imageNamed:@"mySVGfile"].UIImage;
-
-WARNING: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
-
-Key methods / properties you might find useful:
-
-  1. SVGKImage - all the magic happens here
-  1. SVGKImage.DOMTree - a complete DOM tree of the "parsed" SVG/XML document, with ALL TAGS (even if unsupported by current SVGKit - they will be parsed anyway!)
-  1. SVGKImage.CALayerTree - a complete, renderable, tree of Apple CALayer objects (only contains layers for features currently supported - if you find something missing, please submit a fix!)
-
-
-## Advanced Features (this branch/fork only!) (iPhone/iPad)
-
-There are many new features in this version (2013) of SVGKit. Read the blog posts above for more detail, but briefly:
-
-  - use an SVG just like it's a normal PNG file: use SVGKFastImageView like it's UIImageView:
-  - load an SVG from web, or from disk
-  - search an SVG file for particular tags / nodes / elements:
-  - automatic scaling of your SVG to fit their on-screen size (often reduces the memory required)
-  - Access to the DOM Document Object Model
-  - Retrieve any part of your SVG document positioned correctly in space
-  - detailed information on whether and WHY parsing failed:
-
-## Usage - OS X
-
-UNSUPPORTED: the code exists, but none of the maintainers have used it recently, so we're not even sure if the OS X build still works!
-
-OS X: ...this needs updating; some minor code changes are needed to "fix" this project. The OS X framework currently DOES NOT BUILD because iOS classes are being referenced in a couple of places.
-
-Feel free to report any issues or suggest improvements in the issue tracker
-
 
 ## Installation
 
@@ -80,7 +77,7 @@ Alternatively, most people like to compile an embeddable library:
 
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "/usr/include/libxml2"
   10. (Optional but recommended): Add the framework "libxml2.dylib"
-
+  
 ### REQUIRED APPLE FRAMEWORKS
 
 You must add the following frameworks for SVGKit to compile - unless you are embedding the whole project file (in which case Apple does it automatically)
@@ -92,3 +89,51 @@ You must add the following frameworks for SVGKit to compile - unless you are emb
   - UIKit
 
 (only the first two are unusual - the rest you probably have by default in your iOS project template)
+
+OS X Info
+===
+
+### Ultra-quick 'getting started'
+-----
+
+Open the project "Demo-OSX", select either Demo-OSX or ImageRepTest, build and run.
+
+To use SVGKit, either create and display the image on screen:
+
+    [view addSubview: [[SVGKLayeredImageView alloc] initWithSVGKImage: [SVGKImage imageNamed@"mySVGfile.svg"]]];
+    
+or load an image and convert it to an NSImage or NSBitmapImageRep object
+
+    NSImage *newImage = [SVGKImage imageNamed:@"mySVGfile"].NSImage;
+    NSBitmapImageRep *newImageRep = [SVGKImage imageNamed:@"mySVGfile"].bitmapImageRep;
+    
+Or load the SVG using NSImage
+
+    NSImage *svgImage = [NSImage imageNamed:@"mySVGfile.svg"];
+
+Note that there is a naming conflict with one of OS X's headers, specifically a struct called *Comment* in the AIFF header. The following code __must be included in any source file that will include SVGKit headers, *before* any other header includes.__ A good place to put it would be in the prefix header.
+
+    #define Comment AIFFComment
+    #include <CoreServices/CoreServices.h>
+    #undef Comment
+
+## Usage
+
+There are three ways to make SVGKit run on OS X:
+  1. Use SVGKImageRep. Load the SVGKit framework via direct linking or NSBundle. You can then use NSImage to load SVGs like any other NSImage-capable file.
+  1. SVGKLayeredImageView is the suggested way to display SVGs on OS X. Note that if you add the view subclass via Interface Builder, the framework will complain when the view is inited.
+  1. SVGKFastImageView is another subclass of NSView that you can use. Note that there currently is a bug that text will be upside-down unless the CALayer was inited by SVGKLayeredImageView. Also, like the iOS version, scaling and gradients don't work.
+
+## Installation
+
+Note that due to the different way SVGKit is built iOS and OS X means that you do *not* need to link to any framework except SVGKit and those that your app explicitly uses. 
+
+If you use the SVGKImageRep bundle, you won't even need to link to SVGKit (you still can, though), but you will need to dynamically load the bundle using NSBundle. Note that SVGKImageRep copies the SVGKit framework inside itself.
+
+### SVGKit
+
+There is a sample project you can examine which copies the SVGKit framework into the Frameworks subdirectory of the app and sets the runpath to @loader_path/../Frameworks to load the framework. Note that you will need to set the header search path to search inside the framework's headers, as importing <SVGKit/SVGKit.h> won't work due to the headers' include structure.
+
+### SVGKImageRep
+
+To use SVGKImageRep, either just link to SVGKit which will add the SVGKImageRep class to the SVGImageRep class lists, or load the SVGKit framework with NSBundle.

@@ -22,7 +22,7 @@
 
 typedef SVGImage *SVGImageRef;
 
-CGImageRef SVGImageCGImage(SVGImageRef img)
+static CGImageRef SVGImageCGImage(SVGImageRef img)
 {
 #if TARGET_OS_IPHONE
     return img.CGImage;
@@ -50,27 +50,27 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 
 - (void)dealloc {
     [_href release], _href = nil;
-
+	
     [super dealloc];
 }
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
-
+	
 	if( [[self getAttribute:@"x"] length] > 0 )
-	_x = [[self getAttribute:@"x"] SVGKCGFloatValue];
-
+		_x = [[self getAttribute:@"x"] SVGKCGFloatValue];
+	
 	if( [[self getAttribute:@"y"] length] > 0 )
-	_y = [[self getAttribute:@"y"] SVGKCGFloatValue];
-
+		_y = [[self getAttribute:@"y"] SVGKCGFloatValue];
+	
 	if( [[self getAttribute:@"width"] length] > 0 )
-	_width = [[self getAttribute:@"width"] SVGKCGFloatValue];
-
+		_width = [[self getAttribute:@"width"] SVGKCGFloatValue];
+	
 	if( [[self getAttribute:@"height"] length] > 0 )
-	_height = [[self getAttribute:@"height"] SVGKCGFloatValue];
-
+		_height = [[self getAttribute:@"height"] SVGKCGFloatValue];
+	
 	if( [[self getAttribute:@"href"] length] > 0 )
-	self.href = [self getAttribute:@"href"];
+		self.href = [self getAttribute:@"href"];
 }
 
 
@@ -85,14 +85,15 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
 	newLayer.frame = frame;
 	
-	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
-	SVGImageRef image = [SVGImage imageWithData:imageData];
-	
-	newLayer.contents = (id)SVGImageCGImage(image);
+	@autoreleasepool {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+		SVGImageRef image = [SVGImage imageWithData:imageData];
 		
+		newLayer.contents = (id)SVGImageCGImage(image);
+	}
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];
-
+	
 	layer.name = self.identifier;
 	[layer setValue:self.identifier forKey:kSVGElementIdentifier];
 	
@@ -107,12 +108,12 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
         //    _href = @"http://b.dryicons.com/images/icon_sets/coquette_part_4_icons_set/png/128x128/png_file.png";
         //    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
         //    UIImage *image = [UIImage imageWithData:imageData];
-
+		
         dispatch_async(dispatch_get_main_queue(), ^{
             layer.contents = (id)SVGImageCGImage(image);
         });
     });
-
+	
     return layer;
 #endif
 	

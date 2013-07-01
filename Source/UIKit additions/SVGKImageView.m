@@ -2,8 +2,19 @@
 
 @implementation SVGKImageView
 
-@synthesize image = _image;
+//@synthesize image = _image;
 @synthesize showBorder = _showBorder;
+
+- (void)setImage:(SVGKImage*)image
+{
+	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+}
+
+- (SVGKImage *)image
+{
+	NSAssert(NO, @"[%@] The function %s should be implemented by a subclass!", [self class], sel_getName(_cmd));
+	return nil;
+}
 
 - (id)init
 {
@@ -46,11 +57,6 @@
 	NSAssert(false, @"Your subclass implementation is broken, it should be calling [super init] not [super initWithSVGKImage:]. Instead, use a subclass e.g. SVGKFastImageView");
     
     return nil;
-}
-
-- (void)dealloc
-{
-	[super dealloc];
 }
 
 @end

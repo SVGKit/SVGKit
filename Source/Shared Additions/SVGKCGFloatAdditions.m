@@ -8,27 +8,10 @@
 
 #import "SVGKCGFloatAdditions.h"
 
-@interface NSString (possibleFutureCode)
-
-- (CGFloat)CGFloatValue;
-
-@end
-
-@interface NSNumber (possibleFutureCode)
-
-- (CGFloat)CGFloatValue;
-
-@end
-
-
 @implementation NSString (SVGKCGFloatAdditions)
 
 - (CGFloat)SVGKCGFloatValue
 {
-	if ([self respondsToSelector:@selector(CGFloatValue)]) {
-		return [self CGFloatValue];
-	}
-	
 #if CGFLOAT_IS_DOUBLE
 	return [self doubleValue];
 #else
@@ -42,10 +25,6 @@
 
 - (CGFloat)SVGKCGFloatValue
 {
-	if ([self respondsToSelector:@selector(CGFloatValue)]) {
-		return [self CGFloatValue];
-	}
-
 #if CGFLOAT_IS_DOUBLE
 	return [self doubleValue];
 #else

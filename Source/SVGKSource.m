@@ -1,5 +1,11 @@
 #import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKSourceLocalFile.h>
+#import <SVGKit/SVGKSourceURL.h>
+#import <SVGKit/SVGKSourceData.h>
 
+@interface SVGKSource ()
+@property (readwrite, nonatomic, retain) NSInputStream* stream;
+@end
 
 @implementation SVGKSource
 
@@ -15,18 +21,49 @@
 	return self;
 }
 
++ (SVGKSource*)sourceFromFilename:(NSString*)p
+{
+	return [SVGKSourceLocalFile sourceFromFilename:p];
+}
+
++ (SVGKSource*)sourceFromURL:(NSURL*)u
+{
+	return [SVGKSourceURL sourceFromURL:u];
+}
+
 + (SVGKSource*)sourceFromData:(NSData*)data {
-	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
-	[stream open];
-	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
-	return s;
+	return [SVGKSourceData sourceFromData:data];
+}
+
++ (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
+	return [self sourceFromData:[rawString dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (void)dealloc {
 	self.svgLanguageVersion = nil;
 	self.stream = nil;
 	[super dealloc];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	if ([self isMemberOfClass:[SVGKSource class]]) {
+		DDLogError(@"[%@] ERROR: %@ does not implement %@. You will need to get the data to make a new SVGKSource object some other way.", [self class], [self class], NSStringFromSelector(_cmd));
+		[self doesNotRecognizeSelector:_cmd];
+	} else {
+		DDLogError(@"[%@] ERROR: %@ from class %@ should be in a subclass!", [self class], NSStringFromSelector(_cmd), [SVGKSource class]);
+	}
+	
+	return nil;
+}
+
+- (NSString*)description
+{
+	BOOL isBaseClass = NO;
+	if ([self isMemberOfClass:[SVGKSource class]]) {
+		isBaseClass = YES;
+	}
+	return [NSString stringWithFormat:@"%@: %@Stream: %@, SVG Version: %@", [self class], isBaseClass ? @"" : @"(Not base class) ", [self.stream description], [self.svgLanguageVersion description]];
 }
 
 @end

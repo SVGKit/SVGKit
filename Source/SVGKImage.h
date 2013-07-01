@@ -1,3 +1,5 @@
+#ifndef SVGKIT_SVGKIMAGE_H
+#define SVGKIT_SVGKIMAGE_H
 /*
  SVGKImage
  
@@ -55,15 +57,11 @@
 #import <SVGKit/SVGKSource.h>
 #import <SVGKit/SVGKParseResult.h>
 
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
-
 @class SVGDefsElement;
 
-@interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
+@interface SVGKImage : NSObject <NSCopying> // doesn't extend UIImage because Apple made UIImage immutable
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    BOOL cameFromGlobalCache;
-#endif
+	BOOL cameFromGlobalCache;
 }
 
 /** Generates an image on the fly
@@ -75,6 +73,7 @@
 #else
 @property (nonatomic, readonly) CIImage *CIImage;
 @property (nonatomic, readonly) NSImage *NSImage;
+@property (nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;
@@ -83,18 +82,18 @@
 @property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readonly) CALayer* CALayerTree;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
-#endif
 
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
-+ (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
-#if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
-+ (SVGKImage *)imageWithData:(NSData *)data;
+#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
++ (SVGKImage *)imageNamed:(NSString*)name fromBundle:(NSBundle*)bundle;
 #endif
++ (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
++ (SVGKImage *)imageWithData:(NSData *)data;
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
++ (SVGKImage*) defaultImage; //For a simple default image
 
+- (id)initWithContentsOfURL:(NSURL *)url;
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithData:(NSData *)data;
 
@@ -213,6 +212,8 @@
  */
 - (CALayer *)newCALayerTree;
 
+- (BOOL)hasCALayerTree;
+
 /*! uses the current .CALayerTree property to find the layer, recursing down the tree (or creates a new
  CALayerTree on demand, and caches it)
  
@@ -268,6 +269,7 @@
 #else
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #endif
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
@@ -286,3 +288,18 @@
 -(void) scaleToFitInside:(CGSize) maxSize;
 
 @end
+
+@interface SVGKImage (CacheManagement)
+@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+
++ (void)clearSVGImageCache;
++ (void)removeSVGImageCacheNamed:(NSString*)theName;
++ (NSArray*)storedCacheNames;
++ (SVGKImage*)cachedImageForName:(NSString*)theName;
+
++ (BOOL)isCacheEnabled;
++ (void)enableCache;
++ (void)disableCache;
+@end
+
+#endif

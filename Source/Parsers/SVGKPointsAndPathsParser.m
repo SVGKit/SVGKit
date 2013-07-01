@@ -21,6 +21,7 @@ inline SVGCurve SVGCurveMake(CGFloat cx1, CGFloat cy1, CGFloat cx2, CGFloat cy2,
     curve.p = CGPointMake(px, py);
     return curve;
 }
+
 inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 {
     return (
@@ -103,7 +104,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  ( "Q" | "q" ) wsp* quadratic-bezier-curveto-argument-sequence
  quadratic-bezier-curveto-argument-sequence:
  quadratic-bezier-curveto-argument
- | quadratic-bezier-curveto-argument comma-wsp? 
+ | quadratic-bezier-curveto-argument comma-wsp?
  quadratic-bezier-curveto-argument-sequence
  quadratic-bezier-curveto-argument:
  coordinate-pair comma-wsp? coordinate-pair
@@ -118,7 +119,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  elliptical-arc-argument
  | elliptical-arc-argument comma-wsp? elliptical-arc-argument-sequence
  elliptical-arc-argument:
- nonnegative-number comma-wsp? nonnegative-number comma-wsp? 
+ nonnegative-number comma-wsp? nonnegative-number comma-wsp?
  number comma-wsp flag comma-wsp? flag comma-wsp? coordinate-pair
  coordinate-pair:
  coordinate comma-wsp? coordinate
@@ -282,7 +283,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     CGPoint coord = CGPointMake(p.x+origin.x, p.y+origin.y);
     CGPathMoveToPoint(path, NULL, coord.x, coord.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: MOVED to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
+	DDLogWarn(@"[%@] PATH: MOVED to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
 #endif
     
     [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
@@ -318,7 +319,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     return f;
 }
 
-/** 
+/**
  lineto:
  ( "L" | "l" ) wsp* lineto-argument-sequence
  */
@@ -337,7 +338,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     return lastCoordinate;
 }
 
-/** 
+/**
  lineto-argument-sequence:
  coordinate-pair
  | coordinate-pair comma-wsp? lineto-argument-sequence
@@ -348,7 +349,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     CGPoint coord = CGPointMake(p.x+origin.x, p.y+origin.y);
     CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: LINE to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
+	DDLogWarn(@"[%@] PATH: LINE to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
 #endif
 	
     [SVGKPointsAndPathsParser readWhitespace:scanner];
@@ -362,7 +363,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 /**
  quadratic-bezier-curveto:
  ( "Q" | "q" ) wsp* quadratic-bezier-curveto-argument-sequence
-*/
+ */
 + (SVGCurve) readQuadraticCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     NSString* cmd = nil;
@@ -381,7 +382,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  quadratic-bezier-curveto-argument-sequence:
  quadratic-bezier-curveto-argument
  | quadratic-bezier-curveto-argument comma-wsp? quadratic-bezier-curveto-argument-sequence
-*/
+ */
 + (SVGCurve) readQuadraticCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     SVGCurve curve = [SVGKPointsAndPathsParser readQuadraticCurvetoArgument:scanner path:path relativeTo:origin];
@@ -409,12 +410,12 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     
     CGPathAddQuadCurveToPoint(path, NULL, coord1.x, coord1.y, coord2.x, coord2.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: QUADRATIC CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord1.x, coord1.y, coord2.x, coord2.y );
+	DDLogWarn(@"[%@] PATH: QUADRATIC CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord1.x, coord1.y, coord2.x, coord2.y );
 #endif
     
     return SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, coord2.x, coord2.y);
 }
- 
+
 /**
  curveto:
  ( "C" | "c" ) wsp* curveto-argument-sequence
@@ -469,7 +470,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     
     CGPathAddCurveToPoint(path, NULL, coord1.x, coord1.y, coord2.x, coord2.y, coord3.x, coord3.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord1.x, coord1.y, coord2.x, coord2.y, coord3.x, coord3.y );
+	DDLogWarn(@"[%@] PATH: CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord1.x, coord1.y, coord2.x, coord2.y, coord3.x, coord3.y );
 #endif
     
     return SVGCurveMake(coord1.x, coord1.y, coord2.x, coord2.y, coord3.x, coord3.y);
@@ -537,7 +538,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     
     CGPathAddCurveToPoint(path, NULL, thisCurve.c1.x, thisCurve.c1.y, thisCurve.c2.x, thisCurve.c2.y, thisCurve.p.x, thisCurve.p.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: SMOOTH CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], thisCurve.c1.x, thisCurve.c1.y, thisCurve.c2.x, thisCurve.c2.y, thisCurve.p.x, thisCurve.p.y );
+	DDLogWarn(@"[%@] PATH: SMOOTH CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], thisCurve.c1.x, thisCurve.c1.y, thisCurve.c2.x, thisCurve.c2.y, thisCurve.p.x, thisCurve.p.y );
 #endif
 	
     return thisCurve;
@@ -556,7 +557,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     CGPoint coord = CGPointMake(currentPoint.x, currentPoint.y+(vertCoord.y-currentPoint.y));
     CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: VERTICAL LINE to (%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord.x, coord.y );
+	DDLogWarn(@"[%@] PATH: VERTICAL LINE to (%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord.x, coord.y );
 #endif
     return coord;
 }
@@ -593,7 +594,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     CGPoint coord = CGPointMake(currentPoint.x+(horizCoord.x-currentPoint.x), currentPoint.y);
     CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: HORIZONTAL LINE to (%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord.x, coord.y );
+	DDLogWarn(@"[%@] PATH: HORIZONTAL LINE to (%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], coord.x, coord.y );
 #endif
     return coord;
 }
@@ -628,7 +629,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	
     CGPathCloseSubpath(path);
 #if DEBUG_PATH_CREATION
-	NSLog(@"[%@] PATH: finished path", [SVGKPointsAndPathsParser class] );
+	DDLogWarn(@"[%@] PATH: finished path", [SVGKPointsAndPathsParser class] );
 #endif
     
     return origin;

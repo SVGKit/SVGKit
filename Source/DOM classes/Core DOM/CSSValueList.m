@@ -12,15 +12,15 @@
 @synthesize internalArray;
 
 - (void)dealloc {
-  self.internalArray = nil;
-  [super dealloc];
+	self.internalArray = nil;
+	[super dealloc];
 }
 
 - (id)init
 {
     self = [super initWithUnitType:CSS_VALUE_LIST];
     if (self) {
-        self.internalArray = [NSArray array];
+        self.internalArray = @[];
     }
     return self;
 }
@@ -32,7 +32,7 @@
 
 -(CSSValue*) item:(unsigned long) index
 {
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 #pragma mark - non DOM spec methods needed to implement Objective-C code for this class
@@ -44,7 +44,7 @@
 	[_cssText retain];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
-	NSLog(@"[%@] received new CSS Text, need to split this and save as CSSValue instances: %@", [self class], _cssText);
+	DDLogVerbose(@"[%@] received new CSS Text, need to split this and save as CSSValue instances: %@", [self class], _cssText);
 	
 	self.internalArray = [_cssText componentsSeparatedByString:@" "];
 }

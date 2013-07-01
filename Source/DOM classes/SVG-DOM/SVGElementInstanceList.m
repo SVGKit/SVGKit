@@ -5,8 +5,8 @@
 @synthesize internalArray;
 
 - (void)dealloc {
-  self.internalArray = nil;
-  [super dealloc];
+	self.internalArray = nil;
+	[super dealloc];
 }
 
 - (id)init
@@ -28,7 +28,7 @@
 	if( index >= [self.internalArray count] )
 		return nil;
 	
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 @end

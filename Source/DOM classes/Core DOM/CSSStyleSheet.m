@@ -17,7 +17,7 @@
 
 /**
  Used to insert a new rule into the style sheet. The new rule now becomes part of the cascade.
-
+ 
  Parameters
  
  rule of type DOMString
@@ -37,12 +37,12 @@
 	NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	rule = [rule stringByTrimmingCharactersInSet:whitespaceSet];
 	
-	//             NSLog(@"A substringie %@", idStyleString);
+	//             DDLogVerbose(@"A substringie %@", idStyleString);
 	
 	NSArray* stringSplitContainer = [rule componentsSeparatedByString:@"{"];
 	if( [stringSplitContainer count] >= 2 ) //not necessary unless using shitty svgs
 	{
-		CSSStyleRule* newRule = [[[CSSStyleRule alloc] initWithSelectorText:[[stringSplitContainer objectAtIndex:0] substringFromIndex:1] styleText:[stringSplitContainer objectAtIndex:1]] autorelease];
+		CSSStyleRule* newRule = [[[CSSStyleRule alloc] initWithSelectorText:[stringSplitContainer[0] substringFromIndex:1] styleText:stringSplitContainer[1]] autorelease];
 		
 		[self.cssRules.internalArray insertObject:newRule atIndex:index-1]; // CSS says you insert "BEFORE" the index, which is the opposite of most C-based programming languages
 		
@@ -89,7 +89,7 @@
 				
 			}
 		}
-	
+		
     }
     return self;
 }

@@ -22,7 +22,6 @@
  */
 
 #import <SVGKit/SVGElement.h>
-//#import <SVGKit/SVGLayeredElement.h>
 
 #import <SVGKit/SVGRect.h>
 @class SVGGradientStop;

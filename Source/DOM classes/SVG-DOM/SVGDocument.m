@@ -22,12 +22,12 @@
 
 
 - (void)dealloc {
-  [title release];
-  [referrer release];
-  [domain release];
-  [URL release];
-  [_rootElement release];
-  [super dealloc];
+	[title release];
+	[referrer release];
+	[domain release];
+	[URL release];
+	[_rootElement release];
+	[super dealloc];
 }
 
 - (id)init

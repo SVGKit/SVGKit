@@ -11,12 +11,12 @@
 #import <SVGKit/Node+Mutable.h>
 
 @interface Attr()
- @property(nonatomic,retain,readwrite) NSString* name;
- @property(nonatomic,readwrite) BOOL specified;
- @property(nonatomic,retain,readwrite) NSString* value;
- 
- // Introduced in DOM Level 2:
- @property(nonatomic,retain,readwrite) Element* ownerElement;
+@property(nonatomic,retain,readwrite) NSString* name;
+@property(nonatomic,readwrite) BOOL specified;
+@property(nonatomic,retain,readwrite) NSString* value;
+
+// Introduced in DOM Level 2:
+@property(nonatomic,retain,readwrite) Element* ownerElement;
 @end
 
 @implementation Attr
@@ -48,6 +48,11 @@
 		self.value = v;
     }
     return self;
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"%@:%@, owner: %@, specified %@", self.name, self.value, self.ownerElement, self.specified ? @"Yes" : @"No"];
 }
 
 - (void)dealloc {

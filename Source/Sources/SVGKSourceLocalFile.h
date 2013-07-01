@@ -3,10 +3,12 @@
  */
 #import <SVGKit/SVGKSource.h>
 
-@interface SVGKSourceLocalFile : SVGKSource
+@interface SVGKSourceLocalFile : SVGKSource <NSCopying>
 
-@property (nonatomic, retain) NSString* filePath;
+@property (readonly, nonatomic, copy) NSString* filePath;
 
+- (id)initFromFilename:(NSString*)p DEPRECATED_ATTRIBUTE;
+- (id)initWithFilename:(NSString*)p;
 + (SVGKSource*)sourceFromFilename:(NSString*)p;
 
 @end

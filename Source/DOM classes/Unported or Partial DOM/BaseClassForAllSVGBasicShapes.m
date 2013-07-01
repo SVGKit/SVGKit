@@ -1,10 +1,10 @@
 #import <SVGKit/BaseClassForAllSVGBasicShapes.h>
 #import <SVGKit/BaseClassForAllSVGBasicShapes_ForSubclasses.h>
 
-#import "CGPathAdditions.h"
+#import <SVGKit/CGPathAdditions.h>
 #import <SVGKit/SVGDefsElement.h>
 #import <SVGKit/SVGKPattern.h>
-#import "CAShapeLayerWithHitTest.h"
+#import <SVGKit/CAShapeLayerWithHitTest.h>
 
 #import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
@@ -25,11 +25,6 @@
     return self;
 }
 
-- (void)finalize {
-	CGPathRelease(_pathForShapeInRelativeCoords);
-	[super finalize];
-}
-
 - (void)dealloc {
 	CGPathRelease(_pathForShapeInRelativeCoords);
     
@@ -44,14 +39,6 @@
 	CGPathRelease( _pathForShapeInRelativeCoords ); // Apple says NULL is fine as argument
 	_pathForShapeInRelativeCoords = pathForShapeInRelativeCoords;
 	CGPathRetain( _pathForShapeInRelativeCoords );
-}
-
-- (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
-{
-	[super postProcessAttributesAddingErrorsTo:parseResult];
-	
-	if( [[self getAttribute:@"class"] length] > 0 )
-		_styleClass = [self getAttribute:@"class"];
 }
 
 - (CALayer *) newLayer

@@ -7,6 +7,29 @@
 #undef Comment
 
 #ifdef __OBJC__
-	#import <Cocoa/Cocoa.h>
-	#include <SVGKit/SVGKit.h>
+	#import <Foundation/Foundation.h>
+	#import <AppKit/AppKit.h>
+	#import <QuartzCore/QuartzCore.h>
+	#import <Lumberjack/Lumberjack.h>
+#if 0
+NS_INLINE NSString *NSStringFromCGPoint(CGPoint thePoint)
+{
+	return NSStringFromPoint(thePoint);
+}
+NS_INLINE NSString *NSStringFromCGRect(CGRect theRect)
+{
+	return NSStringFromRect(theRect);
+}
+NS_INLINE NSString *NSStringFromCGSize(CGSize theSize)
+{
+	return NSStringFromSize(theSize);
+}
+#else
+	#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
+	#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
+	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
+#endif
+
+	__private_extern__ int SVGCurrentLogLevel();
+	#define ddLogLevel SVGCurrentLogLevel()
 #endif

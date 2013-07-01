@@ -31,16 +31,16 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"cx"] length] > 0 )
-	self.cx = [[self getAttribute:@"cx"] SVGKCGFloatValue];
+		self.cx = [[self getAttribute:@"cx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"cy"] length] > 0 )
-	self.cy = [[self getAttribute:@"cy"] SVGKCGFloatValue];
+		self.cy = [[self getAttribute:@"cy"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	self.rx = [[self getAttribute:@"rx"] SVGKCGFloatValue];
+		self.rx = [[self getAttribute:@"rx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	self.ry = [[self getAttribute:@"ry"] SVGKCGFloatValue];
+		self.ry = [[self getAttribute:@"ry"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
 		self.ry = self.rx = [[self getAttribute:@"r"] SVGKCGFloatValue];

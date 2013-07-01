@@ -24,30 +24,20 @@
 
 @implementation SVGKParserPatternsAndGradients
 
-/*
- * We don't have any extra data to release
-- (void)dealloc {
-	
-	[super dealloc];
-}
- */
-
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			@"http://www.w3.org/2000/svg",
-			nil];
+	return @[@"http://www.w3.org/2000/svg"];
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
 -(NSArray*) supportedTags
 {
-	return [NSMutableArray arrayWithObjects:@"pattern", nil];
+	return [NSMutableArray arrayWithObject:@"pattern"];
 }
 
 - (Node*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(Node*) parentNode
 {
-		
+	
 	NSAssert( FALSE, @"Patterns are not supported by SVGKit yet - no-one has implemented them" );
 	
 	return nil;

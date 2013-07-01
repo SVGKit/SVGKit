@@ -32,6 +32,48 @@
     return nil;
 }
 
+- (NSString*)description
+{
+	NSString *unit = nil;
+#define UnitSwitch(name) case SVG_LENGTHTYPE_##name: \
+unit = [@#name lowercaseString]; \
+break
+	
+	switch (self.unitType) {
+			UnitSwitch(CM);
+			UnitSwitch(EMS);
+			UnitSwitch(EXS);
+			UnitSwitch(IN);
+			UnitSwitch(MM);
+			UnitSwitch(PC);
+			UnitSwitch(PT);
+#if 0
+			UnitSwitch(PX);
+#else
+		case SVG_LENGTHTYPE_PX:
+			unit = @" pixels";
+			break;
+#endif
+			
+		case SVG_LENGTHTYPE_NUMBER:
+			unit = @" number";
+			break;
+			
+		case SVG_LENGTHTYPE_PERCENTAGE:
+			unit = @"%%";
+			break;
+
+			
+		default:
+		case SVG_LENGTHTYPE_UNKNOWN:
+			return [NSString stringWithFormat:@"%@: Unknown type and length.", [self class]];
+			break;
+	}
+	
+	return [[NSString alloc] initWithFormat:@"%@: %f%@.", [self class], self.value, unit];
+#undef UnitSwitch
+}
+
 - (id)initWithCSSPrimitiveValue:(CSSPrimitiveValue*) pv
 {
     self = [super init];
@@ -41,7 +83,7 @@
     return self;
 }
 
--(float)value
+-(CGFloat)value
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:self.internalCSSPrimitiveValue.primitiveType];
 }
@@ -76,7 +118,7 @@
 	}
 }
 
--(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(float) valueInSpecifiedUnits
+-(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(CGFloat) valueInSpecifiedUnits
 {
 	NSAssert(FALSE, @"Not supported yet");
 }
@@ -94,12 +136,11 @@
 
 +(SVGLength*) svgLengthZero
 {
-	SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:nil] autorelease];
-	
-	return result;
+	SVGLength *zeroLength = [[SVGLength alloc] initWithCSSPrimitiveValue:nil];
+	return [zeroLength autorelease];
 }
 
-static float cachedDevicePixelsPerInch;
+static CGFloat cachedDevicePixelsPerInch;
 +(SVGLength*) svgLengthFromNSString:(NSString*) s
 {
 	CSSPrimitiveValue* pv = [[CSSPrimitiveValue alloc] init];
@@ -107,46 +148,46 @@ static float cachedDevicePixelsPerInch;
 	pv.pixelsPerInch = cachedDevicePixelsPerInch;
 	pv.cssText = s;
 	
-	SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:pv] autorelease];
+	SVGLength* result = [[SVGLength alloc] initWithCSSPrimitiveValue:pv];
 	
 	[pv release];
 	
-	return result;
+	return [result autorelease];
 }
 
--(float) pixelsValue
+-(CGFloat) pixelsValue
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:CSS_PX];
 }
 
--(float) numberValue
+-(CGFloat) numberValue
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:CSS_NUMBER];
 }
 
 #pragma mark - secret methods needed to provide an implementation on ObjectiveC
 
-+(float) pixelsPerInchForCurrentDevice
++(CGFloat) pixelsPerInchForCurrentDevice
 {
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 	
 	/** Using this as reference: http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
 	 */
-
+	
 	size_t size;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
 	char *machine = malloc(size);
 	sysctlbyname("hw.machine", machine, &size, NULL, 0);
-	NSString *platform = [NSString stringWithUTF8String:machine];
+	NSString *platform = @(machine);
 	free(machine);
 	
 	if( [platform hasPrefix:@"iPhone1"]
-	|| [platform hasPrefix:@"iPhone2"]
-	|| [platform hasPrefix:@"iPhone3"])
+	   || [platform hasPrefix:@"iPhone2"]
+	   || [platform hasPrefix:@"iPhone3"])
 		return 163.0f;
 	
 	if( [platform hasPrefix:@"iPhone4"]
-	|| [platform hasPrefix:@"iPhone5"])
+	   || [platform hasPrefix:@"iPhone5"])
 		return 326.0f;
 	
 	if( [platform hasPrefix:@"iPhone"]) // catch-all for higher-end devices not yet existing
@@ -171,10 +212,10 @@ static float cachedDevicePixelsPerInch;
 	}
 	
 	if( [platform hasPrefix:@"iPad1"]
-	|| [platform hasPrefix:@"iPad2"])
+	   || [platform hasPrefix:@"iPad2"])
 		return 132.0f;
 	if( [platform hasPrefix:@"iPad3"]
-	|| [platform hasPrefix:@"iPad4"])
+	   || [platform hasPrefix:@"iPad4"])
 		return 264.0f;
 	if( [platform hasPrefix:@"iPad"]) // catch-all for higher-end devices not yet existing
 	{
@@ -184,7 +225,7 @@ static float cachedDevicePixelsPerInch;
 	
 	if( [platform hasPrefix:@"x86_64"])
 	{
-		NSLog(@"[%@] WARNING: you are running on the simulator; it's impossible for us to calculate centimeter/millimeter/inches units correctly", [self class]);
+		DDLogWarn(@"[%@] WARNING: you are running on the simulator; it's impossible for us to calculate centimeter/millimeter/inches units correctly", [self class]);
 		return 132.0f; // Simulator, running on desktop machine
 	}
 	
