@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 C.W. Betts. All rights reserved.
 //
 
-#import "SVGKSourceData.h"
+#import <SVGKit/SVGKSourceData.h>
 
 @interface SVGKSourceData ()
 @property (readwrite, retain, nonatomic) NSData *data;

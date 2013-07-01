@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "StyleSheetList.h"
+@class StyleSheetList;
 
 @protocol DocumentStyle <NSObject>
 

@@ -7,13 +7,13 @@
 //
 
 
-#import "SVGGradientStop.h"
-#import "SVGElement_ForParser.h"
+#import <SVGKit/SVGGradientStop.h>
+#import <SVGKit/SVGElement_ForParser.h>
 
-#import "SVGUtils.h"
-#import "SVGKParser.h"
+#import <SVGKit/SVGUtils.h>
+#import <SVGKit/SVGKParser.h>
 
-#import "SVGLength.h"
+#import <SVGKit/SVGLength.h>
 
 #import "SVGKCGFloatAdditions.h"
 

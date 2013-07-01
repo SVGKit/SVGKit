@@ -13,7 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Node.h"
+/** objc won't allow this: @class Node;*/
+#import <SVGKit/Node.h>
 
 @interface ProcessingInstruction : Node
 @property(nonatomic,retain,readonly) NSString* target;

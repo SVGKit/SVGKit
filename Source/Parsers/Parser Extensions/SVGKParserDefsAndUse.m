@@ -1,16 +1,16 @@
-#import "SVGKParserDefsAndUse.h"
+#import <SVGKit/SVGKParserDefsAndUse.h>
 
-#import "Node.h"
-#import "SVGKSource.h"
-#import "SVGKParseResult.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKParseResult.h>
 
-#import "SVGDefsElement.h"
-#import "SVGUseElement.h"
-#import "SVGUseElement_Mutable.h"
-#import "SVGElementInstance.h"
-#import "SVGElementInstance_Mutable.h"
-#import "SVGElementInstanceList.h"
-#import "SVGElement_ForParser.h"
+#import <SVGKit/SVGDefsElement.h>
+#import <SVGKit/SVGUseElement.h>
+#import <SVGKit/SVGUseElement_Mutable.h>
+#import <SVGKit/SVGElementInstance.h>
+#import <SVGKit/SVGElementInstance_Mutable.h>
+#import <SVGKit/SVGElementInstanceList.h>
+#import <SVGKit/SVGElement_ForParser.h>
 
 @implementation SVGKParserDefsAndUse
 

@@ -5,7 +5,7 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "BaseClassForAllSVGBasicShapes.h"
+#import <SVGKit/BaseClassForAllSVGBasicShapes.h>
 
 @interface SVGEllipseElement : BaseClassForAllSVGBasicShapes { }
 

@@ -1,7 +1,7 @@
-#import "Element.h"
+#import <SVGKit/Element.h>
 
-#import "NamedNodeMap.h"
-#import "DOMHelperUtilities.h"
+#import <SVGKit/NamedNodeMap.h>
+#import <SVGKit/DOMHelperUtilities.h>
 
 @interface Element()
 @property(nonatomic,retain,readwrite) NSString* tagName;

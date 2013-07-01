@@ -6,12 +6,12 @@
 //
 //
 
-#import "SVGKit.h"
-#import "SVGKSourceData.h"
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
+#import <SVGKit/SVGKit.h>
+#import <SVGKit/SVGKSourceData.h>
+#import <SVGKit/SVGKSourceLocalFile.h>
+#import <SVGKit/SVGKSourceURL.h>
 
-#import "SVGKImageRep.h"
+#import <SVGKit/SVGKImageRep.h>
 #import "SVGKImageRep-private.h"
 #import <Lumberjack/Lumberjack.h>
 

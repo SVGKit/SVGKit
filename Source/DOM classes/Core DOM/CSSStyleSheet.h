@@ -12,8 +12,8 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "CSSRule.h"
-#import "CSSRuleList.h"
+#import <SVGKit/CSSRule.h>
+#import <SVGKit/CSSRuleList.h>
 
 @interface CSSStyleSheet : NSObject
 

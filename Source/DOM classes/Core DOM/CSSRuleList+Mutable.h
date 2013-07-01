@@ -1,4 +1,4 @@
-#import "CSSRuleList.h"
+#import <SVGKit/CSSRuleList.h>
 
 @interface CSSRuleList ()
 

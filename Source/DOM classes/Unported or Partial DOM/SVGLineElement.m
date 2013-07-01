@@ -5,11 +5,12 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGLineElement.h"
+#import <SVGKit/SVGLineElement.h>
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
+
 #import "SVGKCGFloatAdditions.h"
 
 @implementation SVGLineElement

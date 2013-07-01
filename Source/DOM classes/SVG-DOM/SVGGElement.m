@@ -1,8 +1,8 @@
-#import "SVGGElement.h"
+#import <SVGKit/SVGGElement.h>
 
-#import "CALayerWithChildHitTest.h"
+#import <SVGKit/CALayerWithChildHitTest.h>
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
 
 @implementation SVGGElement
 

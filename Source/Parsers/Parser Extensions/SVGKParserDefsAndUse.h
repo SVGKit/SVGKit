@@ -4,7 +4,7 @@
  NB: relies upon other parsers to parse the actual CONTENTS of a "defs" or "use" tag
  */
 #import <Foundation/Foundation.h>
-#import "SVGKParserExtension.h"
+#import <SVGKit/SVGKParserExtension.h>
 
 @interface SVGKParserDefsAndUse : NSObject <SVGKParserExtension>
 

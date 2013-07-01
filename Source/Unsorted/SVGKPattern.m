@@ -1,4 +1,4 @@
-#import "SVGKPattern.h"
+#import <SVGKit/SVGKPattern.h>
 
 //Code taken from TBColor from https://github.com/zrxq/TBColor
 static void ImagePatternCallback (void *imagePtr, CGContextRef ctx) {

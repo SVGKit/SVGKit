@@ -1,10 +1,10 @@
 /* FIXME: very different from SVG Spec */
 
-#import "SVGGradientElement.h"
-#import "SVGGradientStop.h"
-#import "SVGElement_ForParser.h"
+#import <SVGKit/SVGGradientElement.h>
+#import <SVGKit/SVGGradientStop.h>
+#import <SVGKit/SVGElement_ForParser.h>
 
-#import "SVGGElement.h"
+#import <SVGKit/SVGGElement.h>
 
 @implementation SVGGradientElement
 

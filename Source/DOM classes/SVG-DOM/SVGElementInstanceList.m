@@ -1,5 +1,5 @@
-#import "SVGElementInstanceList.h"
-#import "SVGElementInstanceList_Internal.h"
+#import <SVGKit/SVGElementInstanceList.h>
+#import <SVGKit/SVGElementInstanceList_Internal.h>
 
 @implementation SVGElementInstanceList
 @synthesize internalArray;

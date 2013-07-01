@@ -1,7 +1,7 @@
-#import "SVGKSource.h"
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
-#import "SVGKSourceData.h"
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKSourceLocalFile.h>
+#import <SVGKit/SVGKSourceURL.h>
+#import <SVGKit/SVGKSourceData.h>
 
 @interface SVGKSource ()
 @property (readwrite, nonatomic, retain) NSInputStream* stream;

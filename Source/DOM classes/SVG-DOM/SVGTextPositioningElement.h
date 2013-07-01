@@ -14,8 +14,9 @@
 #import <AppKit/AppKit.h>
 #endif
 
-#import "SVGTextContentElement.h"
-#import "SVGLength.h"
+#import <SVGKit/SVGTextContentElement.h>
+@class SVGLength;
+//#import <SVGKit/SVGLength.h>
 
 @interface SVGTextPositioningElement : SVGTextContentElement
 

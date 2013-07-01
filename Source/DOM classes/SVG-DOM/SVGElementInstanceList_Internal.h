@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 na. All rights reserved.
 //
 
-#import "SVGElementInstanceList.h"
+#import <SVGKit/SVGElementInstanceList.h>
 
 @interface SVGElementInstanceList ()
 

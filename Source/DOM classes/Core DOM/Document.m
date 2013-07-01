@@ -1,9 +1,9 @@
-#import "Document.h"
-#import "Document+Mutable.h"
+#import <SVGKit/Document.h>
+#import <SVGKit/Document+Mutable.h>
 
-#import "DOMHelperUtilities.h"
+#import <SVGKit/DOMHelperUtilities.h>
 
-#import "NodeList+Mutable.h" // needed for access to underlying array, because SVG doesnt specify how lists are made mutable
+#import <SVGKit/NodeList+Mutable.h> // needed for access to underlying array, because SVG doesnt specify how lists are made mutable
 
 @implementation Document
 

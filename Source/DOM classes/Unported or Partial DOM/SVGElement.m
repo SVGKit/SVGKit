@@ -5,20 +5,20 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
-#import "SVGElement_ForParser.h" //.h" // to solve insane Xcode circular dependencies
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/SVGElement_ForParser.h> //.h" // to solve insane Xcode circular dependencies
+#import <SVGKit/StyleSheetList+Mutable.h>
 
-#import "CSSStyleSheet.h"
-#import "CSSStyleRule.h"
-#import "CSSRuleList+Mutable.h"
+#import <SVGKit/CSSStyleSheet.h>
+#import <SVGKit/CSSStyleRule.h>
+#import <SVGKit/CSSRuleList+Mutable.h>
 
-#import "SVGGElement.h"
+#import <SVGKit/SVGGElement.h>
 
-#import "SVGRect.h"
+#import <SVGKit/SVGRect.h>
 
-#import "SVGTransformable.h"
+#import <SVGKit/SVGTransformable.h>
 
 #import "SVGKCGFloatAdditions.h"
 

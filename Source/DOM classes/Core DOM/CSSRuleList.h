@@ -7,7 +7,7 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "CSSRule.h"
+#import <SVGKit/CSSRule.h>
 
 @interface CSSRuleList : NSObject
 

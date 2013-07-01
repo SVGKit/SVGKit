@@ -1,6 +1,6 @@
-#import "SVGImageElement.h"
+#import <SVGKit/SVGImageElement.h>
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
 
 #if TARGET_OS_IPHONE
 

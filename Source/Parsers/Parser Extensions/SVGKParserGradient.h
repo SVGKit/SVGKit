@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SVGKParserSVG.h"
+#import <SVGKit/SVGKParserSVG.h>
 
 
 @class SVGGradientElement;
