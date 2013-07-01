@@ -81,7 +81,7 @@
 		55D8EE9817629224009C25F1 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE7417629224009C25F1 /* Text.svg */; };
 		55D8EE9917629224009C25F1 /* uk-only.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE7517629224009C25F1 /* uk-only.svg */; };
 		55D8EE9A17629224009C25F1 /* voies.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE7617629224009C25F1 /* voies.svg */; };
-		55D8EEA2176296FF009C25F1 /* SVGKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
+		55D8EEA2176296FF009C25F1 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,16 +144,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		558018C11771858D00F64989 /* Copy PlugIns */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Copy PlugIns";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		558018C31771858D00F64989 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,16 +153,6 @@
 				558018C41771858D00F64989 /* SVGKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		55CB788B176BE44000BD97F1 /* Copy PlugIns */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Copy PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		55CB788D176BE45500BD97F1 /* Copy Frameworks */ = {
@@ -186,14 +166,15 @@
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		55D8EEA1176296F3009C25F1 /* CopyFiles */ = {
+		55D8EEA1176296F3009C25F1 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55D8EEA2176296FF009C25F1 /* SVGKit.framework in CopyFiles */,
+				55D8EEA2176296FF009C25F1 /* SVGKit.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -466,7 +447,6 @@
 				558018B71771858D00F64989 /* Sources */,
 				558018BA1771858D00F64989 /* Frameworks */,
 				558018BD1771858D00F64989 /* Resources */,
-				558018C11771858D00F64989 /* Copy PlugIns */,
 				558018C31771858D00F64989 /* Copy Frameworks */,
 			);
 			buildRules = (
@@ -486,7 +466,6 @@
 				55CB7851176BE32C00BD97F1 /* Sources */,
 				55CB7852176BE32C00BD97F1 /* Frameworks */,
 				55CB7853176BE32C00BD97F1 /* Resources */,
-				55CB788B176BE44000BD97F1 /* Copy PlugIns */,
 				55CB788D176BE45500BD97F1 /* Copy Frameworks */,
 			);
 			buildRules = (
@@ -506,7 +485,7 @@
 				55D8EE2017628A71009C25F1 /* Sources */,
 				55D8EE2117628A71009C25F1 /* Frameworks */,
 				55D8EE2217628A71009C25F1 /* Resources */,
-				55D8EEA1176296F3009C25F1 /* CopyFiles */,
+				55D8EEA1176296F3009C25F1 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
