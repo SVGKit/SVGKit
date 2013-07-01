@@ -73,7 +73,7 @@ There is a sample project you can examine which embeds the entire SVGKit project
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
   10. (Optional but recommended): Add the library "libxml2.dylib"
   
-If you don't want to include the 
+If you don't want to include the SVGKit-iOS project, you can get the headers and library thusly:
   1. Open the project "SVGKit-iOS"
   2. Select the target "SVGKit Library" from the dropdown build selector at top left
   3. Build
