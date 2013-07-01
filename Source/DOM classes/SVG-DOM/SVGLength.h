@@ -46,11 +46,11 @@ typedef enum SVG_LENGTH_TYPE
 @interface SVGLength : NSObject
 
 @property(nonatomic,readonly) SVG_LENGTH_TYPE unitType;
-@property(nonatomic) float value;
-@property(nonatomic) float valueInSpecifiedUnits;
+@property(nonatomic) CGFloat value;
+@property(nonatomic) CGFloat valueInSpecifiedUnits;
 @property(nonatomic,strong) NSString* valueAsString;
 	
--(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(float) valueInSpecifiedUnits;
+-(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(CGFloat) valueInSpecifiedUnits;
 -(void) convertToSpecifiedUnits:(SVG_LENGTH_TYPE) unitType;
 
 #pragma mark - things outside the spec but needed to make it usable in Objective C
@@ -60,10 +60,10 @@ typedef enum SVG_LENGTH_TYPE
 
 /** returns this SVGLength as if it had been converted to pixels, using [self convertToSpecifiedUnits:SVG_LENGTHTYPE_PX]
  */
--(float) pixelsValue;
+-(CGFloat) pixelsValue;
 /** returns this SVGLength as if it had been converted to a raw number (USE pixelsValue instead, UNLESS you are dealing with something that you expect to be a percentage or
  similar non-pixel value), using [self convertToSpecifiedUnits:SVG_LENGTHTYPE_NUMBER]
  */
--(float) numberValue;
+-(CGFloat) numberValue;
 
 @end

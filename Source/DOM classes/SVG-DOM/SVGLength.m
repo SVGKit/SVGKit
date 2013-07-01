@@ -30,7 +30,7 @@
 {
 	NSString *unit = nil;
 #define UnitSwitch(name) case SVG_LENGTHTYPE_##name: \
-unit = [@( #name ) lowercaseString]; \
+unit = [@#name lowercaseString]; \
 break
 	
 	switch (self.unitType) {
@@ -60,11 +60,11 @@ break
 			
 		default:
 		case SVG_LENGTHTYPE_UNKNOWN:
-			return [NSString stringWithFormat:@"%@: Unknown type and length", [self class]];
+			return [NSString stringWithFormat:@"%@: Unknown type and length.", [self class]];
 			break;
 	}
 	
-	return [NSString stringWithFormat:@"%@: %f%@", [self class], self.value, unit];
+	return [[NSString alloc] initWithFormat:@"%@: %f%@.", [self class], self.value, unit];
 #undef UnitSwitch
 }
 
@@ -77,7 +77,7 @@ break
     return self;
 }
 
--(float)value
+-(CGFloat)value
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:self.internalCSSPrimitiveValue.primitiveType];
 }
@@ -112,7 +112,7 @@ break
 	}
 }
 
--(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(float) valueInSpecifiedUnits
+-(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(CGFloat) valueInSpecifiedUnits
 {
 	NSAssert(FALSE, @"Not supported yet");
 }
@@ -134,7 +134,7 @@ break
 	return zeroLength;
 }
 
-static float cachedDevicePixelsPerInch;
+static CGFloat cachedDevicePixelsPerInch;
 +(SVGLength*) svgLengthFromNSString:(NSString*) s
 {
 	CSSPrimitiveValue* pv = [[CSSPrimitiveValue alloc] init];
@@ -147,19 +147,19 @@ static float cachedDevicePixelsPerInch;
 	return result;
 }
 
--(float) pixelsValue
+-(CGFloat) pixelsValue
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:CSS_PX];
 }
 
--(float) numberValue
+-(CGFloat) numberValue
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:CSS_NUMBER];
 }
 
 #pragma mark - secret methods needed to provide an implementation on ObjectiveC
 
-+(float) pixelsPerInchForCurrentDevice
++(CGFloat) pixelsPerInchForCurrentDevice
 {
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 	
