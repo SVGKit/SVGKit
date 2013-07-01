@@ -40,9 +40,7 @@
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];
 	}
-	self = [self initWithDataNoMutableCheck:data];
-
-	return self;
+	return [self initWithDataNoMutableCheck:data];
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
