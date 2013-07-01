@@ -54,13 +54,12 @@
 
 typedef enum _SVGKLoggingLevel
 {
-	SVGKLoggingInvalid = -1,
+	SVGKLoggingMixed = -1,
 	SVGKLoggingOff = 0,
 	SVGKLoggingInfo,
 	SVGKLoggingWarning,
 	SVGKLoggingError,
 	SVGKLoggingVerbose
-	
 } SVGKLoggingLevel;
 
 @interface SVGKit : NSObject

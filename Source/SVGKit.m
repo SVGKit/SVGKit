@@ -48,7 +48,7 @@ int SVGCurrentLogLevel()
 			break;
 			
 		default:
-			retVal = SVGKLoggingInvalid;
+			retVal = SVGKLoggingMixed;
 			break;
 	}
 	return retVal;
