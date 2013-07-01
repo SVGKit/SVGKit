@@ -7,7 +7,8 @@
 #undef Comment
 
 #ifdef __OBJC__
-	#import <Cocoa/Cocoa.h>
+	#import <Foundation/Foundation.h>
+	#import <AppKit/AppKit.h>
 	#import <QuartzCore/QuartzCore.h>
 	#import <Lumberjack/Lumberjack.h>
 #if 0

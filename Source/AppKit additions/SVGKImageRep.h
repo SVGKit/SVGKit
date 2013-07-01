@@ -6,7 +6,7 @@
 //
 //
 
-#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 @class SVGKImage;
 
 @interface SVGKImageRep : NSImageRep

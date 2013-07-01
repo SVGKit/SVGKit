@@ -3,7 +3,8 @@
 //
 
 #ifdef __OBJC__
-	#import <Cocoa/Cocoa.h>
+	#import <Foundation/Foundation.h>
+	#import <AppKit/AppKit.h>
 	#import "DDLog.h"
 
 	#if DEBUG
