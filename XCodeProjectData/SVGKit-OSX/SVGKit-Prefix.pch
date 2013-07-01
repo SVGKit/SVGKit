@@ -11,26 +11,24 @@
 	#import <QuartzCore/QuartzCore.h>
 	#import <Lumberjack/Lumberjack.h>
 #if 0
-#define ALWAYS_INLINE __attribute__((__always_inline__))
-static inline ALWAYS_INLINE NSString *NSStringFromCGPoint(CGPoint thePoint)
+NS_INLINE NSString *NSStringFromCGPoint(CGPoint thePoint)
 {
 	return NSStringFromPoint(thePoint);
 }
-static inline ALWAYS_INLINE NSString *NSStringFromCGRect(CGRect theRect)
+NS_INLINE NSString *NSStringFromCGRect(CGRect theRect)
 {
 	return NSStringFromRect(theRect);
 }
-static inline ALWAYS_INLINE NSString *NSStringFromCGSize(CGSize theSize)
+NS_INLINE NSString *NSStringFromCGSize(CGSize theSize)
 {
 	return NSStringFromSize(theSize);
 }
-#undef ALWAYS_INLINE
 #else
 	#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
 	#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
 	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
 #endif
 
-__private_extern__ int SVGCurrentLogLevel();
+	__private_extern__ int SVGCurrentLogLevel();
 	#define ddLogLevel SVGCurrentLogLevel()
 #endif
