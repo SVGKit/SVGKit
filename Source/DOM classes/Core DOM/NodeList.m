@@ -14,7 +14,6 @@
     return self;
 }
 
-
 -(Node*) item:(int) index
 {
 	return (self.internalArray)[index];

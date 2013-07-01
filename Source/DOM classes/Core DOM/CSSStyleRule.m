@@ -6,7 +6,6 @@
 @synthesize selectorText;
 @synthesize style;
 
-
 - (id)init
 {
 	NSAssert(FALSE, @"Can't be init'd, use the right method, idiot");

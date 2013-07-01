@@ -27,7 +27,6 @@
     return self;
 }
 
-
 -(Node*) getNamedItem:(NSString*) name
 {
 	Node* simpleResult = (self.internalDictionary)[name];

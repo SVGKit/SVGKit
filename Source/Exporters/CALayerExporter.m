@@ -9,8 +9,8 @@
 #import "CALayerExporter.h"
 
 @interface ExportPathCommandsContext : NSObject
-@property (readwrite, strong) NSString *pathName;
-@property (readwrite, strong) NSMutableString* pathCommands;
+@property (nonatomic, strong) NSString *pathName;
+@property (nonatomic, strong) NSMutableString* pathCommands;
 @end
 
 @implementation ExportPathCommandsContext
@@ -19,7 +19,7 @@
 
 static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
-    ExportPathCommandsContext* ctx = (__bridge ExportPathCommandsContext*) exportPathCommandsConextPtr;
+    ExportPathCommandsContext* ctx = (__bridge ExportPathCommandsContext *)(exportPathCommandsConextPtr);
     NSMutableString* pathCommands = ctx.pathCommands;
     NSString* pathName = ctx.pathName;
     CGPoint* pathPoints = element->points;
@@ -237,7 +237,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
                             exportPathContext.pathName = pathName;
                             exportPathContext.pathCommands = pathCommands;
                             
-                            CGPathApply(path, (__bridge void*)exportPathContext, exportPathCommands);
+                            CGPathApply(path, (__bridge void *)(exportPathContext), exportPathCommands);
                             [self.delegate layerExporter:self
                                            didParseLayer:currentLayer
                                            withStatement:pathCommands];

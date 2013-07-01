@@ -11,7 +11,6 @@
 
 @synthesize tagName;
 
-
 - (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
     self = [super initType:DOMNodeType_ELEMENT_NODE name:n];
     if (self) {

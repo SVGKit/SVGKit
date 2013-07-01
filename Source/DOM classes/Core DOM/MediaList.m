@@ -5,7 +5,6 @@
 @synthesize mediaText;
 @synthesize length;
 
-
 -(NSString*) item:(unsigned long) index
 {
 	NSAssert( FALSE, @"Not implemented yet");

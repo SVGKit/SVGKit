@@ -20,7 +20,8 @@
 /** Apple requires this to be implemented by CALayer subclasses */
 +(id)layer
 {
-	return [[SVGKLayer alloc] init];
+	SVGKLayer* layer = [[SVGKLayer alloc] init];
+	return layer;
 }
 
 - (id)init
@@ -57,10 +58,9 @@
 
 - (void)dealloc
 {
-	//FIXME: Apple crashes on this line, even though BY DEFINITION Apple should not be crashing: [self removeObserver:self forKeyPath:@"showBorder"];
+	[self removeObserver:self forKeyPath:@"showBorder"];
 	
 	self.SVGImage = nil;
-	
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */

@@ -44,8 +44,6 @@
 
 - (void)dealloc {
 	self.detailItem = nil;
-	
-	
 }
 
 -(void)viewDidLoad
@@ -426,10 +424,6 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 		[self.contentView addGestureRecognizer:self.tapGestureRecognizer];
 		
-		if (_name) {
-			_name = nil;
-		}
-		
 		_name = [name copy];
 		
 		[self.scrollViewForSVG addSubview:self.contentView];
@@ -555,17 +549,14 @@ CATextLayer *textLayerForLastTappedLayer;
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
 {
-    _exportText = nil;
-    
-    _layerExporter = nil;
-    
+	_exportText = nil;
+	
+	_layerExporter = nil;
 }
 
 
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
-
-
 
 @end

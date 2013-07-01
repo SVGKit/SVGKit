@@ -29,7 +29,6 @@
 
 @synthesize primitiveType;
 
-
 - (id)init
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];

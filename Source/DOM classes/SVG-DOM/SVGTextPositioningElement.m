@@ -7,7 +7,6 @@
 
 @synthesize x,y,dx,dy,rotate;
 
-
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
 {
 	[super postProcessAttributesAddingErrorsTo:parseResult];

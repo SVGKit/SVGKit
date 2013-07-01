@@ -26,6 +26,12 @@
     }
 }
 
+- (id)init {
+    self = [super init];
+    [self setupFunctions];
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,6 +40,7 @@
     }
     return self;
 }
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	self = [super initWithCoder:aDecoder];
 	if (self) {
@@ -41,7 +48,6 @@
 	}
 	return self;
 }
-
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

@@ -33,7 +33,6 @@
 
 @synthesize localName;
 
-
 - (id)init
 {
     NSAssert( FALSE, @"This class has no init method - it MUST NOT be init'd via init - you MUST use one of the multi-argument constructors instead" );

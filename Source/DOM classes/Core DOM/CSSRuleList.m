@@ -5,7 +5,6 @@
 
 @synthesize internalArray;
 
-
 - (id)init
 {
     self = [super init];

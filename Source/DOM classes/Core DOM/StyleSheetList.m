@@ -14,7 +14,6 @@
     return self;
 }
 
-
 -(unsigned long)length
 {
 	return self.internalArray.count;
