@@ -12,7 +12,6 @@
 		55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */; };
 		55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B20173DB63B00531BBC /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B21173DB63B00531BBC /* SVGKSourceURL.m */; };
-		5540E67017387C9F004029EF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
 		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5540E75117387F2B004029EF /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
 		5540E75217387F2B004029EF /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68917387F2A004029EF /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -446,6 +445,14 @@
 		55C361991782075700BA24FA /* SVGKSourceData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D274781779029C0068FD7C /* SVGKSourceData.m */; };
 		55C3619A1782094C00BA24FA /* CALayerExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E71B17387F2B004029EF /* CALayerExporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55C3619B1782095300BA24FA /* CALayerExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71C17387F2B004029EF /* CALayerExporter.m */; };
+		55C3619C17820FAC00BA24FA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F32679178156770064271D /* QuartzCore.framework */; };
+		55C3619D17820FAC00BA24FA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E67217387C9F004029EF /* AppKit.framework */; };
+		55C3619E17820FAC00BA24FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E67417387C9F004029EF /* Foundation.framework */; };
+		55C3619F17820FBC00BA24FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E67417387C9F004029EF /* Foundation.framework */; };
+		55C361A01782101100BA24FA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E67217387C9F004029EF /* AppKit.framework */; };
+		55C361A11782102900BA24FA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
+		55C361A21782102900BA24FA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
+		55C361A31782102A00BA24FA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5540E66F17387C9F004029EF /* Cocoa.framework */; };
 		55D274791779029C0068FD7C /* SVGKSourceData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D274771779029C0068FD7C /* SVGKSourceData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55D2747A1779029C0068FD7C /* SVGKSourceData.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D274781779029C0068FD7C /* SVGKSourceData.m */; };
 		55F3267A178156770064271D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F32679178156770064271D /* QuartzCore.framework */; };
@@ -674,7 +681,6 @@
 		5540E74E17387F2B004029EF /* SVGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SVGUtils.h; sourceTree = "<group>"; };
 		5540E74F17387F2B004029EF /* SVGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGUtils.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5540E815173881BF004029EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5540E817173887BE004029EF /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		55435573177F4F5D007E1FAD /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
 		55435574177F4F5D007E1FAD /* SVGKImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageRep.m; sourceTree = "<group>"; };
 		5568CD2F177B69B700047B7A /* Lumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Lumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -734,7 +740,9 @@
 				55F3267C178156EF0064271D /* CoreFoundation.framework in Frameworks */,
 				55F3267A178156770064271D /* QuartzCore.framework in Frameworks */,
 				5568CD4C177B6B2000047B7A /* Lumberjack.framework in Frameworks */,
-				5540E67017387C9F004029EF /* Cocoa.framework in Frameworks */,
+				55C3619F17820FBC00BA24FA /* Foundation.framework in Frameworks */,
+				55C361A01782101100BA24FA /* AppKit.framework in Frameworks */,
+				55C361A11782102900BA24FA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +753,7 @@
 				55F3267D178159890064271D /* CoreFoundation.framework in Frameworks */,
 				55F3267E178159960064271D /* Foundation.framework in Frameworks */,
 				55F32680178159BA0064271D /* AppKit.framework in Frameworks */,
+				55C361A21782102900BA24FA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +761,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C3619C17820FAC00BA24FA /* QuartzCore.framework in Frameworks */,
+				55C3619D17820FAC00BA24FA /* AppKit.framework in Frameworks */,
+				55C3619E17820FAC00BA24FA /* Foundation.framework in Frameworks */,
+				55C361A31782102A00BA24FA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,7 +809,6 @@
 			isa = PBXGroup;
 			children = (
 				55F3267B178156EF0064271D /* CoreFoundation.framework */,
-				5540E817173887BE004029EF /* Quartz.framework */,
 				55F32679178156770064271D /* QuartzCore.framework */,
 				5540E66F17387C9F004029EF /* Cocoa.framework */,
 				5540E67117387C9F004029EF /* Other Frameworks */,
