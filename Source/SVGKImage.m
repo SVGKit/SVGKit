@@ -404,7 +404,7 @@
 	SVGKSource *copySource = nil;
 	if (!(copySource = [self.source copyWithZone:zone]))
 	{
-		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ from %@", [self class], self , [self.source class], self.source);
+		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ from %@", [self class], self, [self.source class], self.source);
 		return nil;
 	}
 	SVGKImage *copyImage = [[SVGKImage allocWithZone:zone] initWithSource:copySource];
