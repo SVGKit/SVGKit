@@ -1949,7 +1949,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 				PRODUCT_NAME = SVGKit;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 			};
 			name = Debug;
 		};
@@ -1960,7 +1962,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 				PRODUCT_NAME = SVGKit;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 			};
 			name = Release;
 		};
@@ -1971,7 +1975,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 				PRODUCT_NAME = SVGKit;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 			};
 			name = Inspect;
 		};
