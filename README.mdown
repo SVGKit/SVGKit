@@ -68,7 +68,7 @@ There is a sample project you can examine which embeds the entire SVGKit project
   1. Include the SVGKit-iOS project in your Xcode project
   1. Import the SVGKit header:
     #import <SVGKit/SVGKit.h>
-  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
+  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
   8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
@@ -81,7 +81,7 @@ If you don't want to include the
   4a. (open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder". THEN GO UP ONE DIRECTORY! You MUST NOT USE the Product that Xcode shows you - it IS WRONG, it is a BUG IN APPLE'S XCODE)
   4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator
   5. Drag/drop the library file, and the headers folder (should be in the directory called "include", named "SVGKit") into your iPhone/iPad project.
-  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
+  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
   8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
@@ -153,9 +153,9 @@ To include libSVGKit in an OS X project, follow these steps:
   3. Build
   4a. (open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder".)
   5. Drag/drop the library file, and the headers folder SVGKit (should be in "usr/local/include") into your OS X project.
-  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler ?.?"
+  7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
+  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
   8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
-
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
   10. (Optional but recommended): Add the library "libxml2.dylib"
 
