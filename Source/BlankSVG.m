@@ -8,8 +8,6 @@
 
 #import "BlankSVG.h"
 
-#undef SVGKsvgStringDefaultContents
-
 /**
  ************* NB: it is critical that the string we're about to create is NOT INDENTED - the tabs would break the parsing!
  */
