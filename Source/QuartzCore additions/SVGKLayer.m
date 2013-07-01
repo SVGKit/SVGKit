@@ -34,6 +34,7 @@
     }
     return self;
 }
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )
@@ -59,11 +60,11 @@
 
 - (void)dealloc
 {
-	//FIXME: Apple crashes on this line, even though BY DEFINITION Apple should not be crashing: [self removeObserver:self forKeyPath:@"showBorder"];
+	[self removeObserver:self forKeyPath:@"showBorder"];
 	
 	self.SVGImage = nil;
 	
-    [super dealloc];
+	[super dealloc];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
