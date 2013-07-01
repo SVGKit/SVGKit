@@ -101,7 +101,7 @@ if (mutStr.length == 0) { \
 		if (valString.length == 0) {
 			[valString setString:@"LOG_LEVEL_OFF"];
 		}
-		LOG_OBJC_MAYBE(LOG_ASYNC_INFO, (ddLogLevelInternal | newLogLevel), LOG_FLAG_INFO, 0, @"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or %@.", self, rawLevel, newLogLevel, valString);
+		LOG_OBJC_MAYBE(LOG_ASYNC_INFO, (ddLogLevelInternal | newLogLevel), LOG_FLAG_INFO, 0, @"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or with the following flags: %@.", self, rawLevel, newLogLevel, valString);
 		[valString release];
 		ddLogLevelInternal = newLogLevel;
 	}else {
@@ -116,7 +116,7 @@ if (mutStr.length == 0) { \
 				[valStr setString:@"LOG_LEVEL_OFF"];
 			}
 			
-			LOG_OBJC_MAYBE(LOG_ASYNC_VERBOSE, (ddLogLevelInternal | rawLevel), LOG_FLAG_VERBOSE, 0, @"[%@] DEBUG: Current raw debug level has been set at %i, or %@", self, rawLevel, valStr);
+			LOG_OBJC_MAYBE(LOG_ASYNC_VERBOSE, (ddLogLevelInternal | rawLevel), LOG_FLAG_VERBOSE, 0, @"[%@] DEBUG: Current raw debug level has been set at %i, or with the following flags: %@", self, rawLevel, valStr);
 		}
 		ddLogLevelInternal = rawLevel;
 	}
