@@ -105,7 +105,6 @@ if (mutStr.length == 0) { \
 			}
 		}
 		LOG_OBJC_MAYBE(LOG_ASYNC_INFO, (ddLogLevelInternal | newLogLevel), LOG_FLAG_INFO, 0, @"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or %@.", self, rawLevel, newLogLevel, valString);
-		[valString release];
 		ddLogLevelInternal = newLogLevel;
 	}else {
 		@autoreleasepool {
