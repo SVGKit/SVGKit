@@ -1,7 +1,7 @@
 #import <SVGKit/SVGLength.h>
 
 #import <SVGKit/CSSPrimitiveValue.h>
-#import <SVGKit/CSSPrimitiveValue_ConfigurablePixelsPerInch.h>
+#import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
 
 #import <SVGKit/SVGUtils.h>
 

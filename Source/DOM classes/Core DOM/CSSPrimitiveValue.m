@@ -1,6 +1,6 @@
 #import <SVGKit/CSSPrimitiveValue.h>
 #import <SVGKit/CSSValue_ForSubclasses.h>
-#import <SVGKit/CSSPrimitiveValue_ConfigurablePixelsPerInch.h>
+#import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
 
 #import <SVGKit/DOMGlobalSettings.h>
 #import "SVGKCGFloatAdditions.h"
