@@ -13,8 +13,8 @@
 			buildPhases = (
 			);
 			dependencies = (
-				55C362D3178221CE00BA24FA /* PBXTargetDependency */,
 				55CB78AA176BF56D00BD97F1 /* PBXTargetDependency */,
+				55C362D3178221CE00BA24FA /* PBXTargetDependency */,
 				55CB78AC176BF56D00BD97F1 /* PBXTargetDependency */,
 				558018CC1771870200F64989 /* PBXTargetDependency */,
 			);
@@ -24,14 +24,15 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		551BDEBA17824EBC00229F03 /* libSVGKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C362C617821F6400BA24FA /* libSVGKit.a */; };
+		551BDEBB17824EC800229F03 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C362CC178220C900BA24FA /* libxml2.dylib */; };
+		551BDEBC17824ECB00229F03 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C362CA1782208700BA24FA /* QuartzCore.framework */; };
 		558018B81771858D00F64989 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB786E176BE36F00BD97F1 /* AppDelegate.m */; };
 		558018B91771858D00F64989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB7875176BE36F00BD97F1 /* main.m */; };
 		558018BB1771858D00F64989 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
-		558018BC1771858D00F64989 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 		558018BE1771858D00F64989 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55CB786F176BE36F00BD97F1 /* Credits.rtf */; };
 		558018BF1771858D00F64989 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7871176BE36F00BD97F1 /* InfoPlist.strings */; };
 		558018C01771858D00F64989 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7873176BE36F00BD97F1 /* MainMenu.xib */; };
-		558018C41771858D00F64989 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE4917628B57009C25F1 /* SVGKit.framework */; };
 		55C3628F17821F6300BA24FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3317628A71009C25F1 /* main.m */; };
 		55C3629017821F6300BA24FA /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */; };
 		55C3629117821F6300BA24FA /* SKSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */; };
@@ -130,19 +131,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		551BDEB817824EB500229F03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 55C360BF178201C100BA24FA;
+			remoteInfo = libSVGKit;
+		};
 		55435571177F4CA2007E1FAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5568CD2F177B69B700047B7A;
 			remoteInfo = Lumberjack;
-		};
-		558018B61771858D00F64989 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit-OSX.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5540E66B17387C9F004029EF;
-			remoteInfo = SVGKit;
 		};
 		558018CB1771870200F64989 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -210,17 +211,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		558018C31771858D00F64989 /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				558018C41771858D00F64989 /* SVGKit.framework in Copy Frameworks */,
-			);
-			name = "Copy Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		55CB788D176BE45500BD97F1 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -246,7 +236,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		558018C91771858D00F64989 /* ImageRepTest-NS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageRepTest-NS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		558018C91771858D00F64989 /* ImageRepTest-inline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageRepTest-inline.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558018CA1771858E00F64989 /* ImageRepTest-NS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ImageRepTest-NS-Info.plist"; sourceTree = "<group>"; };
 		55C362C117821F6300BA24FA /* Demo-OSX-inline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX-inline.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C362C217821F6400BA24FA /* Demo-OSX-inline-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-OSX-inline-Info.plist"; sourceTree = "<group>"; };
@@ -320,8 +310,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551BDEBA17824EBC00229F03 /* libSVGKit.a in Frameworks */,
 				558018BB1771858D00F64989 /* Cocoa.framework in Frameworks */,
-				558018BC1771858D00F64989 /* SVGKit.framework in Frameworks */,
+				551BDEBC17824ECB00229F03 /* QuartzCore.framework in Frameworks */,
+				551BDEBB17824EC800229F03 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +390,7 @@
 			children = (
 				55D8EE2417628A71009C25F1 /* Demo-OSX.app */,
 				55CB7855176BE32C00BD97F1 /* ImageRepTest.app */,
-				558018C91771858D00F64989 /* ImageRepTest-NS.app */,
+				558018C91771858D00F64989 /* ImageRepTest-inline.app */,
 				55C362C117821F6300BA24FA /* Demo-OSX-inline.app */,
 			);
 			name = Products;
@@ -526,23 +518,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		558018B21771858D00F64989 /* ImageRepTest-NS */ = {
+		558018B21771858D00F64989 /* ImageRepTest-inline */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 558018C51771858D00F64989 /* Build configuration list for PBXNativeTarget "ImageRepTest-NS" */;
+			buildConfigurationList = 558018C51771858D00F64989 /* Build configuration list for PBXNativeTarget "ImageRepTest-inline" */;
 			buildPhases = (
 				558018B71771858D00F64989 /* Sources */,
 				558018BA1771858D00F64989 /* Frameworks */,
 				558018BD1771858D00F64989 /* Resources */,
-				558018C31771858D00F64989 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				558018B51771858D00F64989 /* PBXTargetDependency */,
+				551BDEB917824EB500229F03 /* PBXTargetDependency */,
 			);
-			name = "ImageRepTest-NS";
+			name = "ImageRepTest-inline";
 			productName = ImageRepTest;
-			productReference = 558018C91771858D00F64989 /* ImageRepTest-NS.app */;
+			productReference = 558018C91771858D00F64989 /* ImageRepTest-inline.app */;
 			productType = "com.apple.product-type.application";
 		};
 		55C3628B17821F6300BA24FA /* Demo-OSX-inline */ = {
@@ -632,7 +623,7 @@
 				55D8EE2317628A71009C25F1 /* Demo-OSX */,
 				55C3628B17821F6300BA24FA /* Demo-OSX-inline */,
 				55CB7854176BE32C00BD97F1 /* ImageRepTest */,
-				558018B21771858D00F64989 /* ImageRepTest-NS */,
+				558018B21771858D00F64989 /* ImageRepTest-inline */,
 				55CB78A4176BF56500BD97F1 /* All Mac Demos */,
 			);
 		};
@@ -815,14 +806,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		558018B51771858D00F64989 /* PBXTargetDependency */ = {
+		551BDEB917824EB500229F03 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = SVGKit;
-			targetProxy = 558018B61771858D00F64989 /* PBXContainerItemProxy */;
+			name = libSVGKit;
+			targetProxy = 551BDEB817824EB500229F03 /* PBXContainerItemProxy */;
 		};
 		558018CC1771870200F64989 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 558018B21771858D00F64989 /* ImageRepTest-NS */;
+			target = 558018B21771858D00F64989 /* ImageRepTest-inline */;
 			targetProxy = 558018CB1771870200F64989 /* PBXContainerItemProxy */;
 		};
 		55C362C817821F7D00BA24FA /* PBXTargetDependency */ = {
@@ -913,12 +904,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"${inherited}",
-					"DONTUSESVGIMAGEREPDIRECTLY=1",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -928,12 +915,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"${inherited}",
-					"DONTUSESVGIMAGEREPDIRECTLY=1",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -943,12 +926,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"${inherited}",
-					"DONTUSESVGIMAGEREPDIRECTLY=1",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/ImageRepTest-NS-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1171,7 +1150,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		558018C51771858D00F64989 /* Build configuration list for PBXNativeTarget "ImageRepTest-NS" */ = {
+		558018C51771858D00F64989 /* Build configuration list for PBXNativeTarget "ImageRepTest-inline" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				558018C61771858D00F64989 /* Debug */,
