@@ -55,7 +55,7 @@
 	/** 3: add new */
 	if( _SVGImage != nil )
 	{
-		if (_SVGImage.CALayerTree) {
+		if ([_SVGImage hasCALayerTree] || _SVGImage.CALayerTree) {
 			[self addSublayer:_SVGImage.CALayerTree];
 		}
 	}

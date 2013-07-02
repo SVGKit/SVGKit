@@ -53,14 +53,14 @@
 	
 	//[tmpArray addObject:[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
 	
-	[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
-		@autoreleasepool {
+	@autoreleasepool {
+		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 			NSString *rhsString = [rhs fileName];
 			NSString *lhsString = [lhs fileName];
 			NSComparisonResult result = [rhsString localizedStandardCompare:lhsString];
 			return result;
-		}
-	}];
+		}];
+	}
 	
 	self.svgArray = [[NSArray alloc] initWithArray:tmpArray];
 }
@@ -88,7 +88,7 @@
 			RoseReturnFunc *theFunc = [RoseReturnFunc new];
 			theFunc.theView = theImageView;
 			theFunc.imagePath = tmpObj;
-			NSBeginAlertSheet(@"Complex SVG", @"No", @"Yes", nil, imageWindow, self, @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)CFBridgingRetain(theFunc), @"The image \"%@\" has rendering issues on SVGKit. If you want to load the image, it will probably crash the app or, more likely, cause the view to become unresponsive\n\nAre you sure you want to load the image?", [tmpObj.fileName stringByDeletingPathExtension]);
+			NSBeginAlertSheet(@"Complex SVG", @"No", @"Yes", nil, imageWindow, self, @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)CFBridgingRetain(theFunc), @"The image \"%@\" has rendering issues on SVGKit. If you want to load the image, it will probably crash the app or, more likely, cause the view to become unresponsive.\n\nAre you sure you want to load the image?", tmpObj.fileName);
 				return;
 		}
 		
@@ -109,6 +109,18 @@
 		NSBeep();
 }
 
+static inline NSString *exceptionInfo(NSException *e)
+{
+	NSString *debugStr = nil;
+#if 0
+	debugStr = [NSString stringWithFormat:@", call stack: { %@ }", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
+#else
+	debugStr = [NSString stringWithFormat:@", call stack symbols: {%@}",e.callStackSymbols];
+#endif
+	
+	return [NSString stringWithFormat:@"Exception name: \"%@\" reason: %@%@", e.name, e.reason, DEBUG ? debugStr : @""];
+}
+
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
 {
 	CFTypeRef CFCtx = contextInfo;
@@ -120,7 +132,7 @@
 			tmpImage = [SVGKImage imageWithContentsOfURL:theFunc.imagePath.svgURL];
 		}
 		@catch (NSException *e) {
-			NSLog(@"EXCEPTION while loading %@: %@", theFunc.imagePath.fileName, e);
+			NSLog(@"EXCEPTION while loading %@: %@", theFunc.imagePath.fileName, exceptionInfo(e));
 			return;
 		}
 		if (![tmpImage hasSize]) {
@@ -132,7 +144,9 @@
 			theFunc.theView.frameSize = tmpImage.size;
 		}
 		@catch (NSException *e) {
-			NSLog(@"EXCEPTION while setting image %@ %@: %@", tmpImage, theFunc.imagePath.fileName, e);
+			theFunc.theView.image = nil;
+			theFunc.theView.frameSize = NSMakeSize(100, 100);
+			NSLog(@"EXCEPTION while setting image %@ %@: %@", tmpImage, theFunc.imagePath.fileName, exceptionInfo(e));
 		}
 	}
 }
