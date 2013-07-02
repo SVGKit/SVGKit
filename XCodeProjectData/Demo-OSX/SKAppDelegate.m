@@ -15,8 +15,8 @@
 
 @interface RoseReturnFunc : NSObject
 
-@property (assign) SVGKImageView *theView;
-@property (retain) NSObject<SKSVGObject> *imagePath;
+@property (weak) SVGKImageView *theView;
+@property (strong) NSObject<SKSVGObject> *imagePath;
 
 @end
 
