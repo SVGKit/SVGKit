@@ -60,11 +60,11 @@ break
 			
 		default:
 		case SVG_LENGTHTYPE_UNKNOWN:
-			return [NSString stringWithFormat:@"%@: Unknown type and length.", [self class]];
+			return [[NSString alloc] initWithFormat:@"%@: Unknown type and length.", [self class]];
 			break;
 	}
 	
-	return [NSString stringWithFormat:@"%@: %f%@.", [self class], self.value, unit];
+	return [[NSString alloc] initWithFormat:@"%@: %f%@.", [self class], self.value, unit];
 #undef UnitSwitch
 }
 
