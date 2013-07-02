@@ -115,7 +115,7 @@
 		return nil;
 	}
 	
-	SVGKImage* result = [self imageWithContentsOfURL:url];
+	SVGKImage* result = [[self alloc] initWithContentsOfURL:url];
     
 	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
 		if( result != nil )
@@ -221,13 +221,13 @@
 - (id)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
-	return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
+	return [self initWithSource:[[SVGKSourceLocalFile alloc] initWithFilename:aPath]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
-	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
+	return [self initWithSource:[[SVGKSourceURL alloc] initWithURL:url]];
 }
 
 - (void)dealloc
@@ -250,7 +250,7 @@
 {
 	NSParameterAssert(data != nil);
 	
-	return [self initWithSource:[SVGKSourceData sourceFromData:data]];
+	return [self initWithSource:[[SVGKSourceData alloc] initWithData:data]];
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
