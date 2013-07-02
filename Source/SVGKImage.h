@@ -1,5 +1,3 @@
-#ifndef SVGKIT_SVGKIMAGE_H
-#define SVGKIT_SVGKIMAGE_H
 /*
  SVGKImage
  
@@ -301,5 +299,3 @@
 + (void)enableCache;
 + (void)disableCache;
 @end
-
-#endif
