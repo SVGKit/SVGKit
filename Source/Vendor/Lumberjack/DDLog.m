@@ -108,6 +108,29 @@ static unsigned int numProcessors;
  *
  * This method may also be called directly (assumably by accident), hence the safety mechanism.
 **/
+
+#ifndef IS_ALSO_LUMBERJACK_LOG_LEVEL
+#define IS_ALSO_LUMBERJACK_LOG_LEVEL 0
+#endif
+
+#if !IS_ALSO_LUMBERJACK_LOG_LEVEL
+#if DEBUG
+int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+int ddLogLevel = LOG_LEVEL_WARN;
+#endif
+#endif
+
++ (int)internalLogLevel
+{
+	return ddLogLevel;
+}
+
++ (void)setInternalLogLevel:(int)newLogLevel
+{
+	ddLogLevel = (newLogLevel & LOG_LEVEL_VERBOSE);
+}
+
 + (void)initialize
 {
 	static BOOL initialized = NO;

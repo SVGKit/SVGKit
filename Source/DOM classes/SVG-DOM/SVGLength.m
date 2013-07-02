@@ -64,7 +64,7 @@ break
 			break;
 	}
 	
-	return [[NSString alloc] initWithFormat:@"%@: %f%@.", [self class], self.value, unit];
+	return [NSString stringWithFormat:@"%@: %f%@.", [self class], self.value, unit];
 #undef UnitSwitch
 }
 

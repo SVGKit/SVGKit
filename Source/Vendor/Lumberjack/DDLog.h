@@ -267,6 +267,9 @@ NSString *DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
 
 @interface DDLog : NSObject
 
++ (int)internalLogLevel;
++ (void)setInternalLogLevel:(int)newLogLevel;
+
 /**
  * Provides access to the underlying logging queue.
  * This may be helpful to Logger classes for things like thread synchronization.

@@ -9,6 +9,10 @@
 #import "SKAppDelegate.h"
 #import "SKSVGObject.h"
 
+#ifndef DEBUG
+#define DEBUG 0
+#endif
+
 @interface RoseReturnFunc : NSObject
 
 @property (assign) SVGKImageView *theView;
