@@ -9,6 +9,17 @@
 #import "SKAppDelegate.h"
 #import "SKSVGObject.h"
 
+@interface RoseReturnFunc : NSObject
+
+@property (assign) SVGKImageView *theView;
+@property (retain) id<SKSVGObject> imagePath;
+
+@end
+
+@implementation RoseReturnFunc
+
+@end
+
 @interface SKAppDelegate ()
 @property (readwrite, strong) NSArray *svgArray;
 @end
@@ -61,29 +72,69 @@
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
 		SVGKImage *theImage = nil;
+		SVGKImageView *theImageView = nil;
+		NSWindow *imageWindow = nil;
+		if (tmpView == self.fastTable) {
+			imageWindow = self.quickWindow;
+			theImageView = self.fastView;
+		} else if (tmpView == self.layeredTable) {
+			imageWindow = self.layeredWindow;
+			theImageView = self.layeredView;
+		} else {
+			NSLog(@"This shouldn't happen...");
+			return;
+		}
+		if ([tmpObj.fullFileName hasPrefix:@"Reinel_compass_rose"]) {
+			RoseReturnFunc *theFunc = [RoseReturnFunc new];
+			theFunc.theView = theImageView;
+			theFunc.imagePath = tmpObj;
+			NSBeginAlertSheet(@"Complex SVG", @"No", @"Yes", nil, imageWindow, self, @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)CFBridgingRetain(theFunc), @"The image \"%@\" has rendering issues on SVGKit. If you want to load the image, it will probably crash the app or, more likely, cause the view to become unresponsive\n\nAre you sure you want to load the image?", [tmpObj.fileName stringByDeletingPathExtension]);
+				return;
+		}
+		
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
 			theImage = [SVGKImage imageNamed:tmpObj.fullFileName fromBundle:((SKSVGBundleObject*)tmpObj).theBundle];
 		} else {
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
 		}
-		SVGKImageView *theImageView = nil;
-		if (tmpView == self.fastTable) {
-			theImageView = self.fastView;
-		} else if (tmpView == self.layeredTable) {
-			theImageView = self.layeredView;
-		} else {
-			NSLog(@"This shouldn't happen...");
-			return;
-		}
+		
 		if (![theImage hasSize]) {
 			theImage.size = NSMakeSize(32, 32);
 		}
 		
-		theImageView.image = theImage;
 		theImageView.frameSize = theImage.size;
+		theImageView.image = theImage;
 	}else
 		NSBeep();
+}
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
+{
+	CFTypeRef CFCtx = contextInfo;
+	RoseReturnFunc *theFunc = CFBridgingRelease(CFCtx);
+	
+	if (returnCode != NSAlertDefaultReturn) {
+		SVGKImage *tmpImage = nil;
+		@try {
+			tmpImage = [SVGKImage imageWithContentsOfURL:theFunc.imagePath.svgURL];
+		}
+		@catch (NSException *e) {
+			NSLog(@"EXCEPTION while loading %@: %@", theFunc.imagePath.fileName, e);
+			return;
+		}
+		if (![tmpImage hasSize]) {
+			tmpImage.size = NSMakeSize(32, 32);
+		}
+		
+		@try {
+			theFunc.theView.image = tmpImage;
+			theFunc.theView.frameSize = tmpImage.size;
+		}
+		@catch (NSException *e) {
+			NSLog(@"EXCEPTION while setting image %@ %@: %@", tmpImage, theFunc.imagePath.fileName, e);
+		}
+	}
 }
 
 - (IBAction)showLayeredWindow:(id)sender
