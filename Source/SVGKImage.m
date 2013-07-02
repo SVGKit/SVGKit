@@ -209,6 +209,7 @@
 
 - (id)initWithSource:(SVGKSource *)newSource {
 	NSAssert( newSource != nil, @"Attempted to init an SVGKImage using a nil SVGKSource");
+	
 	@autoreleasepool {
 		self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
 	}
@@ -221,17 +222,13 @@
 - (id)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
-	@autoreleasepool {
-		return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
-	}
+	return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
-	@autoreleasepool {
-		return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
-	}
+	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
 }
 
 - (void)dealloc
@@ -263,9 +260,8 @@
 - (id)initWithData:(NSData *)data
 {
 	NSParameterAssert(data != nil);
-	@autoreleasepool {
-		return [self initWithSource:[SVGKSourceData sourceFromData:data]];
-	}
+	
+	return [self initWithSource:[SVGKSourceData sourceFromData:data]];
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
