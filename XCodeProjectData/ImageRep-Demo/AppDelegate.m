@@ -13,14 +13,12 @@
 #import "AppDelegate.h"
 #import <SVGKit/SVGKit.h>
 
-#ifndef DONTUSESVGIMAGEREPDIRECTLY
-#define DONTUSESVGIMAGEREPDIRECTLY 0
-#endif
-
 @implementation AppDelegate
+@synthesize useRepDirectly;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+	self.useRepDirectly = NO;
 	[SVGKit enableLogging];
 }
 
@@ -36,16 +34,19 @@
 	if ([op runModal] != NSOKButton)
 		return;
 	NSURL *svgUrl = [op URLs][0];
-#if DONTUSESVGIMAGEREPDIRECTLY
-	NSImage *selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
-#else
-	NSImage *selectImage = [[NSImage alloc] init];
-	SVGKImageRep *imRep = [[SVGKImageRep alloc] initWithContentsOfURL:svgUrl];
-	if (!imRep) {
-		return;
+	NSImage *selectImage = nil;
+	if (!self.useRepDirectly) {
+		selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
+		op = nil;
+	} else {
+		selectImage = [[NSImage alloc] init];
+		SVGKImageRep *imRep = [[SVGKImageRep alloc] initWithContentsOfURL:svgUrl];
+		op = nil;
+		if (!imRep) {
+			return;
+		}
+		[selectImage addRepresentation:imRep];
 	}
-	[selectImage addRepresentation:imRep];
-#endif
 	[svgSelected setImage:selectImage];
 }
 
@@ -63,31 +64,25 @@
 		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {
 			NSData *tiffData = nil;
-#if DONTUSESVGIMAGEREPDIRECTLY
-			tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
-#else
-			NSArray *imageRepArrays = [theImage representations];
-			SVGKImageRep *promising = nil;
-			NSSize oldSize = NSZeroSize;
-			for (id anObject in imageRepArrays) {
-				if ([anObject isKindOfClass:[SVGKImageRep class]]) {
-					SVGKImageRep *tmpRef = anObject;
-					if (oldSize.height < tmpRef.size.height && oldSize.width < tmpRef.size.width) {
-						promising = tmpRef;
-						oldSize = tmpRef.size;
+			if (!self.useRepDirectly)
+				tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
+			else {
+				NSArray *imageRepArrays = [theImage representations];
+				SVGKImageRep *promising = nil;
+				NSSize oldSize = NSZeroSize;
+				for (id anObject in imageRepArrays) {
+					if ([anObject isKindOfClass:[SVGKImageRep class]]) {
+						SVGKImageRep *tmpRef = anObject;
+						if (oldSize.height < tmpRef.size.height && oldSize.width < tmpRef.size.width) {
+							promising = tmpRef;
+							oldSize = tmpRef.size;
+						}
 					}
 				}
+				if (promising) {
+					tiffData = [promising TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
+				}
 			}
-#if 1
-			if (promising) {
-				tiffData = [promising TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
-			}
-#else
-			if (promising) {
-				tiffData = [promising.image.NSImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
-			}
-#endif
-#endif
 			if (tiffData) {
 				[tiffData writeToURL:[savePanel URL] atomically:YES];
 			} else {
