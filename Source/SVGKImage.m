@@ -731,8 +731,8 @@
 	else
 		DDLogInfo(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
 	
-	if (CALayerTree == nil) {
-		DDLogWarn(@"[%@] WARN: Unable to generate CALayerTree, stopping render.", [self class]);
+	if (self.renderingIssue) {
+		DDLogWarn(@"[%@] WARN: Rendering issue detected when making CALayerTree, stopping render.", [self class]);
 		return;
 	}
 	
