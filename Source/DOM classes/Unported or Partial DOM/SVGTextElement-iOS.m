@@ -107,7 +107,7 @@
 	NSString *fillColorString = [self cascadedValueForStylableProperty:@"fill"];
 	SVGColor col;
 	//We won't worry about the alpha value: The opacity set via the SVGHelperUtilities class to the layer will be sufficient.
-	if (fillColorString) {
+	if (fillColorString.length > 0) {
 		col = SVGColorFromString([fillColorString UTF8String]);
 	} else {
 		col = SVGColorFromString("black");
