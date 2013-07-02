@@ -68,14 +68,14 @@
 	
 	//[tmpArray addObject:[[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]] autorelease]];
 	
-	[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
-		@autoreleasepool {
+	@autoreleasepool {
+		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
 			NSString *rhsString = [rhs fileName];
 			NSString *lhsString = [lhs fileName];
 			NSComparisonResult result = [rhsString localizedStandardCompare:lhsString];
 			return result;
-		}
-	}];
+		}];
+	}
 	
 	self.svgArray = [NSArray arrayWithArray:tmpArray];
 	[tmpArray release];
@@ -104,7 +104,7 @@
 			RoseReturnFunc *theFunc = [RoseReturnFunc new];
 			theFunc.theView = theImageView;
 			theFunc.imagePath = tmpObj;
-			NSBeginAlertSheet(@"Complex SVG", @"No", @"Yes", nil, imageWindow, self, @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)(CFTypeRef)theFunc, @"The image \"%@\" has rendering issues on SVGKit. If you want to load the image, it will probably crash the app or, more likely, cause the view to become unresponsive\n\nAre you sure you want to load the image?", [tmpObj.fileName stringByDeletingPathExtension]);
+			NSBeginAlertSheet(@"Complex SVG", @"No", @"Yes", nil, imageWindow, self, @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)(CFTypeRef)theFunc, @"The image \"%@\" has rendering issues on SVGKit. If you want to load the image, it will probably crash the app or, more likely, cause the view to become unresponsive.\n\nAre you sure you want to load the image?", tmpObj.fileName);
 				return;
 		}
 		
