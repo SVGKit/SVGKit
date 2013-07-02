@@ -40,6 +40,7 @@
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, getter = hasRenderingIssue) BOOL renderingIssue;
 
 /**
  Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
@@ -651,10 +652,20 @@
 
 -(CALayer *)CALayerTree
 {
-	if( CALayerTree == nil )
+	if( CALayerTree == nil && !self.renderingIssue )
 	{
 		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		self.CALayerTree = [[self newCALayerTree] autorelease];
+		@try {
+			self.CALayerTree = [[self newCALayerTree] autorelease];
+		}
+		@catch (NSException *exception) {
+			DDLogError(@"[%@] Error generating CALayerTree: %@", [self class], exception);
+			self.CALayerTree = nil;
+			self.renderingIssue = YES;
+		}
+		@finally {
+			return CALayerTree;
+		}
 	}
 	
 	return CALayerTree;
@@ -719,6 +730,11 @@
 	}
 	else
 		DDLogInfo(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
+	
+	if (CALayerTree == nil) {
+		DDLogWarn(@"[%@] WARN: Unable to generate CALayerTree, stopping render.", [self class]);
+		return;
+	}
 	
 	startTime = [NSDate date];
 	

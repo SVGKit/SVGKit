@@ -43,7 +43,9 @@
 	/** 1: remove old */
 	if( _SVGImage != nil )
 	{
-		[_SVGImage.CALayerTree removeFromSuperlayer];
+		if ([_SVGImage hasCALayerTree]) {
+			[_SVGImage.CALayerTree removeFromSuperlayer];
+		}
 		[_SVGImage release];
 	}
 	
@@ -54,7 +56,9 @@
 	if( _SVGImage != nil )
 	{
 		[_SVGImage retain];
-		[self addSublayer:_SVGImage.CALayerTree];
+		if (_SVGImage.CALayerTree) {
+			[self addSublayer:_SVGImage.CALayerTree];
+		}
 	}
 }
 
