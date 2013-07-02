@@ -14,6 +14,7 @@
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property BOOL useRepDirectly;
 
 - (IBAction)selectSVG:(id)sender;
 - (IBAction)exportAsTIFF:(id)sender;
