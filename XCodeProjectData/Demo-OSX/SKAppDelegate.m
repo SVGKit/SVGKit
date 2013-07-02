@@ -156,6 +156,8 @@
 			[theFunc release];
 		}
 	}
+	
+	[theFunc release];
 }
 
 - (IBAction)showLayeredWindow:(id)sender
