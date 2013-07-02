@@ -10,16 +10,24 @@
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
 
+#if DEBUG
+#define DEFAULT_LOG_LEVEL LOG_LEVEL_VERBOSE;
+#else
+#define DEFAULT_LOG_LEVEL LOG_LEVEL_WARN;
+#endif
+
 #if IS_ALSO_LUMBERJACK_LOG_LEVEL
-int ddLogLevel = LOG_LEVEL_WARN;
+int ddLogLevel = DEFAULT_LOG_LEVEL;
 #define ddLogLevelInternal ddLogLevel
 #else
-static int ddLogLevelInternal = LOG_LEVEL_WARN;
+static int ddLogLevelInternal = DEFAULT_LOG_LEVEL;
 int SVGCurrentLogLevel()
 {
 	return ddLogLevelInternal;
 }
 #endif
+
+#undef DEFAULT_LOG_LEVEL
 
 @implementation SVGKit : NSObject
 
@@ -180,9 +188,6 @@ break
 }
 
 + (void) enableLogging {
-#if DEBUG
-	[self setLogLevel:SVGKLoggingVerbose];
-#endif
 
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
