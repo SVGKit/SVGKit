@@ -126,6 +126,18 @@
 		NSBeep();
 }
 
+static inline NSString *exceptionInfo(NSException *e)
+{
+	NSString *debugStr = nil;
+#if 0
+	debugStr = [NSString stringWithFormat:@", call stack: { %@ }", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
+#else
+	debugStr = [NSString stringWithFormat:@", call stack symbols: {%@}",e.callStackSymbols];
+#endif
+	
+	return [NSString stringWithFormat:@"Exception name: \"%@\" reason: %@%@", e.name, e.reason, DEBUG ? debugStr : @""];
+}
+
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
 {
 	CFTypeRef CFCtx = contextInfo;
@@ -137,7 +149,7 @@
 			tmpImage = [SVGKImage imageWithContentsOfURL:theFunc.imagePath.svgURL];
 		}
 		@catch (NSException *e) {
-			NSLog(@"EXCEPTION while loading %@: %@", theFunc.imagePath.fileName, e);
+			NSLog(@"EXCEPTION while loading %@: %@", theFunc.imagePath.fileName, exceptionInfo(e));
 			[theFunc release];
 			return;
 		}
@@ -150,7 +162,9 @@
 			theFunc.theView.frameSize = tmpImage.size;
 		}
 		@catch (NSException *e) {
-			NSLog(@"EXCEPTION while setting image %@ %@: %@", tmpImage, theFunc.imagePath.fileName, e);
+			theFunc.theView.image = nil;
+			theFunc.theView.frameSize = NSMakeSize(100, 100);
+			NSLog(@"EXCEPTION while setting image %@ %@: %@", tmpImage, theFunc.imagePath.fileName, exceptionInfo(e));
 		}
 		@finally {
 			[theFunc release];

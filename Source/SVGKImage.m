@@ -650,16 +650,28 @@
 	}
 }
 
+static inline NSString *exceptionInfo(NSException *e)
+{
+	NSString *debugStr = nil;
+#if 0
+	debugStr = [NSString stringWithFormat:@", call stack: %@", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
+#else
+	debugStr = [NSString stringWithFormat:@", call stack symbols: %@",e.callStackSymbols];
+#endif
+	
+	return [NSString stringWithFormat:@"Exception name: \"%@\" reason: %@%@", e.name, e.reason, (ddLogLevel & LOG_FLAG_INFO) == LOG_FLAG_INFO ? debugStr : @""];
+}
+
 -(CALayer *)CALayerTree
 {
 	if( CALayerTree == nil && !self.renderingIssue )
 	{
-		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
+		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated).", [self class] );
 		@try {
 			self.CALayerTree = [[self newCALayerTree] autorelease];
 		}
 		@catch (NSException *exception) {
-			DDLogError(@"[%@] Error generating CALayerTree: %@", [self class], exception);
+			DDLogError(@"[%@] Error generating CALayerTree: %@", [self class], exceptionInfo(exception));
 			self.CALayerTree = nil;
 			self.renderingIssue = YES;
 		}
