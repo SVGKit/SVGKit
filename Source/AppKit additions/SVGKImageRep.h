@@ -8,6 +8,7 @@
 
 #import <AppKit/AppKit.h>
 @class SVGKImage;
+@class SVGKSource;
 
 @interface SVGKImageRep : NSImageRep
 @property (nonatomic, strong, readonly) SVGKImage *image;
@@ -17,12 +18,14 @@
 + (id)imageRepWithContentsOfFile:(NSString *)filename;
 + (id)imageRepWithContentsOfURL:(NSURL *)url;
 + (id)imageRepWithSVGImage:(SVGKImage*)theImage;
++ (id)imageRepWithSVGSource:(SVGKSource*)theSource;
 
 - (id)initWithData:(NSData *)theData;
 - (id)initWithContentsOfURL:(NSURL *)theURL;
 - (id)initWithContentsOfFile:(NSString *)thePath;
 - (id)initWithSVGString:(NSString *)theString;
 - (id)initWithSVGImage:(SVGKImage*)theImage;
+- (id)initWithSVGSource:(SVGKSource*)theSource;
 
 - (NSData *)TIFFRepresentation;
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize;
@@ -31,11 +34,6 @@
 
 + (void)loadSVGKImageRep;
 + (void)unloadSVGKImageRep;
-
-#ifdef SVGKIT_SVGKIMAGE_H
-- (id)initWithSVGSource:(SVGKSource*)theSource;
-+ (id)imageRepWithSVGSource:(SVGKSource*)theSource;
-#endif
 
 @end
 

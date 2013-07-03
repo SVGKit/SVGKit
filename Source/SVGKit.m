@@ -186,7 +186,6 @@ break
 }
 
 + (void) enableLogging {
-
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 }

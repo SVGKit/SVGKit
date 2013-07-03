@@ -28,10 +28,15 @@
 @property(nonatomic,strong, readwrite) SVGKSource* source;
 @property(nonatomic,strong, readwrite) SVGKParseResult* currentParseRun;
 @property(nonatomic,strong) NSString* defaultXMLNamespaceForThisParseRun;
+@property(nonatomic,readwrite) BOOL isParsed;
+//For parseSynchronously calls being called during an asynchronous parse
+@property(nonatomic) BOOL isBeingParsed;
 @end
 
 @implementation SVGKParser
 
+@synthesize isParsed;
+@synthesize delegate;
 @synthesize source;
 @synthesize currentParseRun;
 @synthesize defaultXMLNamespaceForThisParseRun;
@@ -64,6 +69,22 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	return result;
 }
 
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source delegate:(NSObject<SVGKParserDelegate>*)newDelegate asynchronously:(BOOL)async
+{
+	NSParameterAssert(newDelegate != nil);
+	
+	SVGKParser *parser = [[SVGKParser alloc] initWithSource:source];
+	[parser addDefaultSVGParserExtensions];
+	parser.delegate = newDelegate;
+	
+	if (async) {
+		[parser parseAsynchronously];
+		return nil;
+	} else {
+		return [parser parseSynchronously];
+	}
+}
+
 
 #define READ_CHUNK_SZ 1024*10
 
@@ -89,7 +110,7 @@ clazz *parser = [[clazz alloc] init]; \
 {
 	AddParser(SVGKParserSVG);
 	AddParser(SVGKParserGradient);
-	AddParser(SVGKParserPatternsAndGradients); // FIXME: this is a "not implemente yet" parser; now that we have gradients, it should be deleted / renamed!
+	AddParser(SVGKParserPatternsAndGradients); // FIXME: this is a "not implemented yet" parser; now that we have gradients, it should be renamed!
 	AddParser(SVGKParserStyles);
 	AddParser(SVGKParserDefsAndUse);
 	AddParser(SVGKParserDOM);
@@ -140,8 +161,25 @@ readPacket(char *mem, int size) {
     return(res);
 }
 
+#define ParseInProgressLogError() DDLogError(@"[%@] ERROR: A parse is in progress! Not doing any parsing.", [self class])
+
 - (SVGKParseResult*) parseSynchronously
 {
+	if (self.isBeingParsed) {
+		ParseInProgressLogError();
+		return nil;
+	}
+	
+	if (self.isParsed) {
+		DDLogVerbose(@"[%@] INFO: SVGKParser %@ is already parsed.", [self class], self);
+		if (delegate) {
+			[delegate parser:self DidFinishParsingWithResult:self.currentParseRun];
+		}
+		return currentParseRun;
+	}
+	
+	//We are NOT going to set isBeingParsed because the thread that is parsing should be blocked,
+	//And we should NOT be calling this on a seperate thread.
 	self.currentParseRun = [SVGKParseResult new];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
@@ -217,8 +255,88 @@ readPacket(char *mem, int size) {
 	
 	xmlFreeParserCtxt(ctx);
 	
+	self.isParsed = YES;
+	if (delegate) {
+		[delegate parser:self DidFinishParsingWithResult:currentParseRun];
+	}
 	// 4. return result
 	return currentParseRun;
+}
+
+- (void)parseAsynchronously
+{
+	if (self.isBeingParsed) {
+		ParseInProgressLogError();
+		return;
+	}
+	
+	if (!delegate)
+		DDLogWarn(@"[%@] WARN: %@ was called without a delegate!", [self class], NSStringFromSelector(_cmd));
+	
+	if (self.isParsed) {
+		DDLogVerbose(@"[%@] INFO: SVGKParser %@ is already parsed.", [self class], self);
+		if (delegate) {
+			[delegate parser:self DidFinishParsingWithResult:self.currentParseRun];
+		}
+		return;
+	}
+	
+	dispatch_queue_t curCue = dispatch_get_current_queue();
+	self.isBeingParsed = YES;
+	dispatch_async(dispatch_get_global_queue(0, 0), ^{
+		//Hack: create a new block, then parse synchronously with a new object in the new thread.
+		SVGKSource *newSource = nil;
+		SVGKParser *otherParser = nil;
+		if (!(newSource = [self.source copy])) {
+			DDLogWarn(@"[%@] WARN: Can't copy source to make a new parser.", [self class]);
+			DDLogInfo(@"[%@] INFO: Will use current parser, which may cause errors with threading!.", [self class]);
+			otherParser = self;
+		} else {
+			otherParser = [[SVGKParser alloc] initWithSource:newSource];
+			newSource = nil;
+		}
+		SVGKParseResult *theResult = nil;
+		if (otherParser == self) {
+			//Just in case
+			@synchronized(otherParser) {
+				//Ssh, this is needed so it works.
+				self.isBeingParsed = NO;
+				theResult = [otherParser parseSynchronously];
+				self.isBeingParsed = YES;
+			}
+		} else {
+#if 0
+			@synchronized(self.parserExtensions) {
+				for (NSObject<SVGKParserExtension> *anExt in self.parserExtensions) {
+					[otherParser addParserExtension:anExt];
+				}
+			}
+#else
+			@synchronized(self.parserExtensions) {
+				otherParser.parserExtensions = [self.parserExtensions mutableCopy];
+			}
+#endif
+			
+			theResult = [otherParser parseSynchronously];
+		}
+		
+		dispatch_async(curCue, ^{
+			self.currentParseRun = theResult;
+			if (delegate) {
+				[delegate parser:self DidFinishParsingWithResult:self.currentParseRun];
+			}
+			self.isBeingParsed = NO;
+			self.isParsed = YES;
+		});
+	});
+}
+
+- (void)parseAsynchronouslyWithDelegate:(NSObject<SVGKParserDelegate>*)newDelegate
+{
+	NSParameterAssert(newDelegate != nil);
+	
+	self.delegate = newDelegate;
+	[self parseAsynchronously];
 }
 
 /** ADAM: use this for a higher-performance, *non-blocking* parse
