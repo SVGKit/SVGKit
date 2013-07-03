@@ -102,7 +102,7 @@ clazz *parser = [[clazz alloc] init]; \
 {
 	AddParser(SVGKParserSVG);
 	AddParser(SVGKParserGradient);
-	AddParser(SVGKParserPatternsAndGradients); // FIXME: this is a "not implemente yet" parser; now that we have gradients, it should be deleted / renamed!
+	AddParser(SVGKParserPatternsAndGradients); // FIXME: this is a "not implemented yet" parser; now that we have gradients, it should be renamed!
 	AddParser(SVGKParserStyles);
 	AddParser(SVGKParserDefsAndUse);
 	AddParser(SVGKParserDOM);
