@@ -36,16 +36,17 @@ int main(int argc, char *argv[])
 	}
 	
 #if TESTSVGKPARSERASYNCHRONOUS
-	//SVGKParser
+	//SVGKParser parseAsynchronously tester
 	@autoreleasepool {
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"CurvedDiamond" ofType:@"svg"];
 		SVGKSource *theSource = [SVGKSource sourceFromFilename:path];
 		SVGKParser *theParser = [[[SVGKParser alloc] initWithSource:theSource] retain];
 		[theParser addDefaultSVGParserExtensions];
 		[theParser parseAsynchronously];
+		TestDelegate *theTest = [TestDelegate new];
+		[theParser parseAsynchronouslyWithDelegate:theTest];
 		dispatch_async(dispatch_get_global_queue(0, 0), ^{
-			TestDelegate *theTest = [TestDelegate new];
-			sleep(100);
+			sleep(20);
 			dispatch_sync(dispatch_get_main_queue(), ^{
 				[theParser parseAsynchronouslyWithDelegate:theTest];
 

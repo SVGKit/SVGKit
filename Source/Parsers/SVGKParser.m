@@ -44,6 +44,15 @@
 }
 
 @synthesize delegate;
+- (void)setDelegate:(NSObject<SVGKParserDelegate> *)adelegate
+{
+	if (self.isBeingParsed) {
+		DDLogError(@"[%@] ERROR: Cannot set a delegate while a parse is running!", [self class]);
+	} else {
+		delegate = adelegate;
+	}
+}
+
 @synthesize source;
 @synthesize currentParseRun;
 @synthesize defaultXMLNamespaceForThisParseRun;
