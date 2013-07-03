@@ -28,7 +28,7 @@
 @property(nonatomic,retain, readwrite) SVGKSource* source;
 @property(nonatomic,retain, readwrite) SVGKParseResult* currentParseRun;
 @property(nonatomic,retain) NSString* defaultXMLNamespaceForThisParseRun;
-@property(nonatomic,readwrite) BOOL isParsed;
+@property(nonatomic,readwrite, setter = setParsed:) BOOL isParsed;
 //For parseSynchronously calls being called during an asynchronous parse
 @property(nonatomic) BOOL isBeingParsed;
 @end
@@ -36,6 +36,13 @@
 @implementation SVGKParser
 
 @synthesize isParsed;
+- (void)setParsed:(BOOL)theParsed
+{
+	[self willChangeValueForKey:@"isParsed"];
+	isParsed = theParsed;
+	[self didChangeValueForKey:@"isParsed"];
+}
+
 @synthesize delegate;
 @synthesize source;
 @synthesize currentParseRun;
