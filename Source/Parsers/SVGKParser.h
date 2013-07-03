@@ -52,17 +52,21 @@
 #define DEBUG_VERBOSE_LOG_EVERY_TAG 0
 #define DEBUG_XML_PARSER 0
 
+@protocol SVGKParserDelegate;
+
 @interface SVGKParser : NSObject {
   @private
 	NSMutableString *_storedChars;
 	//NSMutableArray *_elementStack;
 	NSMutableArray * _stackOfParserExtensions;
 	Node * _parentOfCurrentNode;
+	BOOL isParsed;
 }
 
 @property(nonatomic,retain,readonly) SVGKSource* source;
 @property(nonatomic,retain,readonly) SVGKParseResult* currentParseRun;
-
+@property(nonatomic,assign,readwrite) id<SVGKParserDelegate> delegate;
+@property(nonatomic,readonly) BOOL isParsed;
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
 @property(nonatomic,retain) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
@@ -70,12 +74,17 @@
 #pragma mark - NEW
 
 + (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
+
+// Will return nil if parsing asynchronously. You WILL neeed a delegate.
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source delegate:(id<SVGKParserDelegate>)newDelegate asynchronously:(BOOL)async;
+
 - (SVGKParseResult*) parseSynchronously;
 
+//Having a delegate set for this functions is HIGHLY RECOMMENDED!
+- (void)parseAsynchronously;
+- (void)parseAsynchronouslyWithDelegate:(id<SVGKParserDelegate>)newDelegate;
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute;
-
-
 
 #pragma mark - OLD - POTENTIALLY DELETE THESE ONCE THEY'VE ALL BEEN CHECKED AND CONVERTED
 
@@ -83,10 +92,14 @@
 
 /*! Adds the default SVG-tag parsers (everything in the SVG namespace); you should always use these, unless you
  are massively customizing SVGKit's parser! */
--(void) addDefaultSVGParserExtensions;
+- (void) addDefaultSVGParserExtensions;
 /*! NB: you ALMOST ALWAYS want to first call "addDefaultSVGParserExtensions" */
 - (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension;
 
+@end
 
+@protocol SVGKParserDelegate <NSObject>
+
+- (void)parser:(SVGKParser*)parserPassed DidFinishParsingWithResult:(SVGKParseResult*)result;
 
 @end
