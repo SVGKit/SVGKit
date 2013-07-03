@@ -65,7 +65,7 @@
 
 @property(nonatomic,retain,readonly) SVGKSource* source;
 @property(nonatomic,retain,readonly) SVGKParseResult* currentParseRun;
-@property(nonatomic,assign,readwrite) id<SVGKParserDelegate> delegate;
+@property(nonatomic,assign,readwrite) NSObject<SVGKParserDelegate> *delegate;
 @property(nonatomic,readonly) BOOL isParsed;
 
 @property(nonatomic,retain) NSMutableArray* parserExtensions;
@@ -76,13 +76,13 @@
 + (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
 
 // Will return nil if parsing asynchronously. You WILL neeed a delegate.
-+ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source delegate:(id<SVGKParserDelegate>)newDelegate asynchronously:(BOOL)async;
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source delegate:(NSObject<SVGKParserDelegate>*)newDelegate asynchronously:(BOOL)async;
 
 - (SVGKParseResult*) parseSynchronously;
 
 //Having a delegate set for this functions is HIGHLY RECOMMENDED!
 - (void)parseAsynchronously;
-- (void)parseAsynchronouslyWithDelegate:(id<SVGKParserDelegate>)newDelegate;
+- (void)parseAsynchronouslyWithDelegate:(NSObject<SVGKParserDelegate>*)newDelegate;
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute;
 

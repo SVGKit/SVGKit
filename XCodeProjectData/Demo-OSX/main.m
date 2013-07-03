@@ -39,11 +39,18 @@ int main(int argc, char *argv[])
 	//SVGKParser
 	@autoreleasepool {
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"CurvedDiamond" ofType:@"svg"];
-		TestDelegate *theTest = [TestDelegate new];
 		SVGKSource *theSource = [SVGKSource sourceFromFilename:path];
 		SVGKParser *theParser = [[[SVGKParser alloc] initWithSource:theSource] retain];
 		[theParser addDefaultSVGParserExtensions];
-		[theParser parseAsynchronouslyWithDelegate:theTest];
+		[theParser parseAsynchronously];
+		dispatch_async(dispatch_get_global_queue(0, 0), ^{
+			TestDelegate *theTest = [TestDelegate new];
+			sleep(100);
+			dispatch_sync(dispatch_get_main_queue(), ^{
+				[theParser parseAsynchronouslyWithDelegate:theTest];
+
+			});
+		});
 	}
 #endif
 	

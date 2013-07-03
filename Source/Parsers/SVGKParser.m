@@ -69,7 +69,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	return [result autorelease];
 }
 
-+ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source delegate:(id<SVGKParserDelegate>)newDelegate asynchronously:(BOOL)async
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source delegate:(NSObject<SVGKParserDelegate>*)newDelegate asynchronously:(BOOL)async
 {
 	NSParameterAssert(newDelegate != nil);
 	
@@ -321,7 +321,7 @@ readPacket(char *mem, int size) {
 		} else {
 #if 0
 			@synchronized(self.parserExtensions) {
-				for (id<SVGKParserExtension> anExt in self.parserExtensions) {
+				for (NSObject<SVGKParserExtension> *anExt in self.parserExtensions) {
 					[otherParser addParserExtension:anExt];
 				}
 			}
@@ -346,7 +346,7 @@ readPacket(char *mem, int size) {
 	});
 }
 
-- (void)parseAsynchronouslyWithDelegate:(id<SVGKParserDelegate>)newDelegate
+- (void)parseAsynchronouslyWithDelegate:(NSObject<SVGKParserDelegate>*)newDelegate
 {
 	NSParameterAssert(newDelegate != nil);
 	
