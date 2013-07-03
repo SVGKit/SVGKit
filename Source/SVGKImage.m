@@ -178,6 +178,7 @@
 	self = [super init];
 	if (self)
 	{
+
 		_internalSizeThatWasSetExplicitlyByUser = CGSizeZero; // mark it explicitly as "uninitialized" = this is important for the getSize method!
 		_scale = 0.0; // flags it as uninitialized (this is important to know later, when outputting rendered layers)
 		
@@ -194,16 +195,18 @@
 			self.DOMTree = nil;
 		}
 		
+		//This is to make dealloc happy
+		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
+		[self addObserver:self forKeyPath:@"scale" options:NSKeyValueObservingOptionOld context:nil];
+		//[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
+
 		if ( self.DOMDocument == nil )
 		{
-			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
+			DDLogError(@"[%@] ERROR: failed to init SVGKImage with parse result = %@, returning nil from init methods", [self class], parseResult );
 			[self autorelease];
 			return nil;
 		}
 		
-		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
-		[self addObserver:self forKeyPath:@"scale" options:NSKeyValueObservingOptionOld context:nil];
-		//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
 }
