@@ -28,7 +28,7 @@
 @property(nonatomic,strong, readwrite) SVGKSource* source;
 @property(nonatomic,strong, readwrite) SVGKParseResult* currentParseRun;
 @property(nonatomic,strong) NSString* defaultXMLNamespaceForThisParseRun;
-@property(nonatomic,readwrite) BOOL isParsed;
+@property(nonatomic,readwrite, setter = setParsed:) BOOL isParsed;
 //For parseSynchronously calls being called during an asynchronous parse
 @property(nonatomic) BOOL isBeingParsed;
 @end
@@ -36,7 +36,23 @@
 @implementation SVGKParser
 
 @synthesize isParsed;
+- (void)setParsed:(BOOL)theParsed
+{
+	[self willChangeValueForKey:@"isParsed"];
+	isParsed = theParsed;
+	[self didChangeValueForKey:@"isParsed"];
+}
+
 @synthesize delegate;
+- (void)setDelegate:(NSObject<SVGKParserDelegate> *)adelegate
+{
+	if (self.isBeingParsed) {
+		DDLogError(@"[%@] ERROR: Cannot set a delegate while a parse is running!", [self class]);
+	} else {
+		delegate = adelegate;
+	}
+}
+
 @synthesize source;
 @synthesize currentParseRun;
 @synthesize defaultXMLNamespaceForThisParseRun;
