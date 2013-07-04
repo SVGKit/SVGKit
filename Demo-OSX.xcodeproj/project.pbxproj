@@ -33,6 +33,8 @@
 		558018BE1771858D00F64989 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55CB786F176BE36F00BD97F1 /* Credits.rtf */; };
 		558018BF1771858D00F64989 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7871176BE36F00BD97F1 /* InfoPlist.strings */; };
 		558018C01771858D00F64989 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7873176BE36F00BD97F1 /* MainMenu.xib */; };
+		5586008217851FA700CB3D85 /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5586008117851FA700CB3D85 /* Sample Licenses.txt */; };
+		5586008317851FA700CB3D85 /* Sample Licenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5586008117851FA700CB3D85 /* Sample Licenses.txt */; };
 		55C3628F17821F6300BA24FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3317628A71009C25F1 /* main.m */; };
 		55C3629017821F6300BA24FA /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */; };
 		55C3629117821F6300BA24FA /* SKSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */; };
@@ -238,6 +240,7 @@
 /* Begin PBXFileReference section */
 		558018C91771858D00F64989 /* ImageRepTest-inline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageRepTest-inline.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558018CA1771858E00F64989 /* ImageRepTest-NS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ImageRepTest-NS-Info.plist"; sourceTree = "<group>"; };
+		5586008117851FA700CB3D85 /* Sample Licenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Sample Licenses.txt"; path = "Demo-Samples/Sample Licenses.txt"; sourceTree = SOURCE_ROOT; };
 		55C362C117821F6300BA24FA /* Demo-OSX-inline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX-inline.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C362C217821F6400BA24FA /* Demo-OSX-inline-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-OSX-inline-Info.plist"; sourceTree = "<group>"; };
 		55C362CA1782208700BA24FA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -310,9 +313,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				551BDEBA17824EBC00229F03 /* libSVGKit.a in Frameworks */,
 				558018BB1771858D00F64989 /* Cocoa.framework in Frameworks */,
 				551BDEBC17824ECB00229F03 /* QuartzCore.framework in Frameworks */,
+				551BDEBA17824EBC00229F03 /* libSVGKit.a in Frameworks */,
 				551BDEBB17824EC800229F03 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,10 +324,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C3629417821F6300BA24FA /* Cocoa.framework in Frameworks */,
 				55C362CD178220CA00BA24FA /* libxml2.dylib in Frameworks */,
 				55C362CB1782208700BA24FA /* QuartzCore.framework in Frameworks */,
 				55C362C917821F8800BA24FA /* libSVGKit.a in Frameworks */,
-				55C3629417821F6300BA24FA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,8 +344,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D8EE4C17628B7C009C25F1 /* SVGKit.framework in Frameworks */,
 				55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */,
+				55D8EE4C17628B7C009C25F1 /* SVGKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +438,7 @@
 		55D8EE2E17628A71009C25F1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5586008117851FA700CB3D85 /* Sample Licenses.txt */,
 				55D8EE2F17628A71009C25F1 /* Demo-OSX-Info.plist */,
 				55C362C217821F6400BA24FA /* Demo-OSX-inline-Info.plist */,
 				55D8EE3017628A71009C25F1 /* InfoPlist.strings */,
@@ -705,6 +709,7 @@
 				55C362B817821F6300BA24FA /* Text.svg in Resources */,
 				55C362B917821F6300BA24FA /* uk-only.svg in Resources */,
 				55C362BA17821F6300BA24FA /* voies.svg in Resources */,
+				5586008317851FA700CB3D85 /* Sample Licenses.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,6 +764,7 @@
 				55D8EE9817629224009C25F1 /* Text.svg in Resources */,
 				55D8EE9917629224009C25F1 /* uk-only.svg in Resources */,
 				55D8EE9A17629224009C25F1 /* voies.svg in Resources */,
+				5586008217851FA700CB3D85 /* Sample Licenses.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
