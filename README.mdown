@@ -7,6 +7,7 @@ Versions:
   - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0 as well as a lot of enhancements including OS X support and "modern" Objective-C syntax.
   - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct__: It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
   - arc - Branch that has the iOS and OS X project use Automatic Reference Counting.
+  - namespaces - Branch that has the SVGKit headers better designed to work with OS X. __Now defunct__: it has been merged back to master
   - toSVGKit - Branch that contains staged changes to put back into SVGKit's 1.1.0 branch.
   - patterns - Branch for working on pattern support. based off of SVGKit's 1.1.0 branch as opposed to my master. Parts have been merged back to master.
   - noAsserts - Most of the NSAsserts are changed into DDLogErrors.
@@ -25,7 +26,9 @@ Because so much has changed, Adam wrote a series of blog posts to explain how to
  
 ### Combined getting started info
 
-WARNING: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
+__WARNING__: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
+
+If you wish to help with CoreAnimation bugs, file a bug report for apple at http://bugreport.apple.com: the more people report on an issue, the more likely Apple will fix it.
 
 Key methods / properties you might find useful:
 
@@ -53,11 +56,11 @@ iPhone/iPad (iOS) Info
 
 Open the project "Demo-iOS", select your preferred simulator (or device, if it's plugged in), build and run. Try the sample SVG's packaged with SVGKit.
 
-To use SVGKit, either CREATE AND DISPLAY AN IMAGE ON SCREEN:
+To use SVGKit, either *create and display an image on screen:*
 
     [self.view addSubview: [[SVGKFastImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"mySVGfile.svg"]]];
 
-or LOAD AN IMAGE AND CONVERT TO A UIIMAGE OBJECT:
+or *load an image and convert to a UIImage object:*
 
     UIImage* newImage = [SVGKImage imageNamed:@"mySVGfile"].UIImage;
 
@@ -81,7 +84,7 @@ If you don't want to include the SVGKit-iOS project, you can get the headers and
   1. Open the project "SVGKit-iOS"
   2. Select the target "SVGKit Library" from the dropdown build selector at top left
   3. Build
-  3. (open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder". THEN GO UP ONE DIRECTORY! You MUST NOT USE the Product that Xcode shows you - it IS WRONG, it is a BUG IN APPLE'S XCODE)
+  3. Open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder". __then go up one directory!__ You __must not use__ the Product that Xcode shows you - it *is wrong*, it is a __*bug in Apple's Xcode!*__
   4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator
   5. Drag/drop the library file, and the headers folder (should be in the directory called "include", named "SVGKit") into your iPhone/iPad project.
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
@@ -155,7 +158,7 @@ To include libSVGKit in an OS X project, follow these steps:
   1. Open the project "SVGKit-OSX"
   2. Select the target "libSVGKit" from the dropdown build selector at top left
   3. Build
-  4. (open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder".)
+  4. Open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder".
   5. Drag/drop the library file, and the headers folder SVGKit (should be in "usr/local/include") into your OS X project.
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
