@@ -552,19 +552,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-iOS/Demo-iOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"Source/\"DOM classes\"/**",
-					Source/Exporters,
-					Source/Parsers,
-					"Source/\"QuartzCore additions\"/**",
-					"Source/\"Shared Additions\"",
-					"Source/Sources/**",
-					"Source/\"UIKit additions\"",
-					"Source/Unsorted/**",
-					"Source/Vendor/**",
-					Source,
-					"calayer-exporter",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/Demo-iOS/Demo-iOS-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
@@ -579,19 +566,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-iOS/Demo-iOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"Source/\"DOM classes\"/**",
-					Source/Exporters,
-					Source/Parsers,
-					"Source/\"QuartzCore additions\"/**",
-					"Source/\"Shared Additions\"",
-					"Source/Sources/**",
-					"Source/\"UIKit additions\"",
-					"Source/Unsorted/**",
-					"Source/Vendor/**",
-					Source,
-					"calayer-exporter",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/Demo-iOS/Demo-iOS-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
