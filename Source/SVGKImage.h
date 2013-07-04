@@ -66,10 +66,11 @@
  
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
+
+@property (nonatomic, readonly) CIImage *CIImage;
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 @property (nonatomic, readonly) UIImage* UIImage;
 #else
-@property (nonatomic, readonly) CIImage *CIImage;
 @property (nonatomic, readonly) NSImage *NSImage;
 @property (nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
@@ -262,10 +263,11 @@
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
+
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 - (UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #else
-- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #endif

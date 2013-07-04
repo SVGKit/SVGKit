@@ -50,7 +50,9 @@
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
-#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+-(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)theWarn;
+#else
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn;
 #endif
 
@@ -377,17 +379,17 @@
 	//self.CALayerTree = nil; // invalidate the cached copy
 }
 
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-- (UIImage *)UIImage
-{
-	return [self exportUIImageAntiAliased:YES curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
-}
-#else
 - (CIImage*)CIImage
 {
 	return [self exportCIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
 }
 
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+- (UIImage *)UIImage
+{
+	return [self exportUIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showWarning:YES]; // Apple defaults
+}
+#else
 - (NSImage*)NSImage
 {
 	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
@@ -838,9 +840,16 @@ static inline NSString *exceptionInfo(NSException *e)
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
+	return [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:YES];
+}
+
+-(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)theWarn
+{
 	if( [self hasSize] )
 	{
-		DDLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		if (theWarn) {
+			DDLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		}
 		
 		UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
 		CGContextRef context = UIGraphicsGetCurrentContext();
@@ -859,6 +868,27 @@ static inline NSString *exceptionInfo(NSException *e)
 		
 		return nil;
 	}
+}
+
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	UIImage *imRep = [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
+	if (!imRep) {
+		return nil;
+	}
+	
+	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	CIImage *result = nil;
+	CGImageRef theRef = [imRep CGImage];
+	if (theRef) {
+		result = [CIImage imageWithCGImage:theRef];
+	} else {
+		DDLogVerbose(@"[%@] It seems that the image %@ has a CIImage backing. Using it's CIImage backing.", [self class], imRep);
+		result = [imRep CIImage];
+	}
+	
+	return result;
 }
 #else
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
