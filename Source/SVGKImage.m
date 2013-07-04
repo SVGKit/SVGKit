@@ -884,7 +884,7 @@ static inline NSString *exceptionInfo(NSException *e)
 	if (theRef) {
 		result = [CIImage imageWithCGImage:theRef];
 	} else {
-		DDLogVerbose(@"[%@] It seems that the image %@ has a CIImage backing. Using it's CIImage backing.", [self class], imRep);
+		DDLogVerbose(@"[%@] It seems that the image %@ has a CIImage backing. Using its CIImage backing.", [self class], imRep);
 		result = [imRep CIImage];
 	}
 	
