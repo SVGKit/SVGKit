@@ -717,11 +717,19 @@ static inline NSString *exceptionInfo(NSException *e)
     return layersByElementId;
 }
 
+#define StopOnRendIssue() \
+if (self.renderingIssue) { \
+DDLogWarn(@"[%@] WARN: Rendering issue detected when making CALayerTree, stopping render.", [self class]); \
+return; \
+}
+
 /**
  Shared between multiple different "export..." methods
  */
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
+	StopOnRendIssue();
+	
 	NSAssert( [self hasSize], @"Cannot scale this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
 	NSDate* startTime;
@@ -735,10 +743,7 @@ static inline NSString *exceptionInfo(NSException *e)
 	else
 		DDLogInfo(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
 	
-	if (self.renderingIssue) {
-		DDLogWarn(@"[%@] WARN: Rendering issue detected when making CALayerTree, stopping render.", [self class]);
-		return;
-	}
+	StopOnRendIssue();
 	
 	startTime = [NSDate date];
 	
@@ -871,7 +876,7 @@ static inline NSString *exceptionInfo(NSException *e)
 	if (theRef) {
 		result = [CIImage imageWithCGImage:theRef];
 	} else {
-		DDLogVerbose(@"[%@] It seems that the image %@ has a CIImage backing. Using it's CIImage backing.", [self class], imRep);
+		DDLogVerbose(@"[%@] It seems that the image %@ has a CIImage backing. Using its CIImage backing.", [self class], imRep);
 		result = [imRep CIImage];
 	}
 	
