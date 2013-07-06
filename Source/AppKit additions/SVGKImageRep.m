@@ -358,31 +358,3 @@
 }
 
 @end
-
-@implementation SVGKImageRep (deprecated)
-
-#define DEPRECATE_WARN_ONCE(NewMethodSel) { \
-static BOOL HasBeenWarned = NO; \
-if (HasBeenWarned == NO) \
-{ \
-DDLogWarn(@"[%@] -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.", \
-[self class], sel_getName(_cmd), sel_getName(NewMethodSel)); \
-HasBeenWarned = YES; \
-} \
-}
-
-- (id)initWithPath:(NSString *)thePath
-{
-	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfPath:));
-	return [self initWithContentsOfFile:thePath];
-}
-
-- (id)initWithURL:(NSURL *)theURL
-{
-	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfURL:));
-	return [self initWithContentsOfURL:theURL];
-}
-
-#undef DEPRECATE_WARN_ONCE
-
-@end

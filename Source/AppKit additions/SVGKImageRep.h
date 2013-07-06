@@ -36,9 +36,3 @@
 + (void)unloadSVGKImageRep;
 
 @end
-
-//Deprecated functions: DO NOT USE
-@interface SVGKImageRep (deprecated)
-- (id)initWithPath:(NSString *)thePath DEPRECATED_ATTRIBUTE;
-- (id)initWithURL:(NSURL *)theURL DEPRECATED_ATTRIBUTE;
-@end
