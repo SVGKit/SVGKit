@@ -13,12 +13,8 @@
 
 #import <SVGKit/SVGKImageRep.h>
 #import "SVGKImageRep-private.h"
+#import "SVGKImage-private.h"
 #import <Lumberjack/Lumberjack.h>
-
-@interface SVGKImage ()
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
-- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn;
-@end
 
 @interface SVGKImageRep ()
 @property (nonatomic, retain, readwrite, setter = setTheSVG:) SVGKImage *image;
@@ -286,7 +282,7 @@
 			return NO;
 		}
 		
-		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showWarning:NO];
+		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showInfo:NO];
 		if (!bitRep) {
 			[tmpImage release];
 			return NO;
@@ -333,7 +329,7 @@
 			return NO;
 		}
 		
-		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showWarning:NO];
+		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showInfo:NO];
 		if (!bitRep) {
 			[tmpImage release];
 			return NO;
