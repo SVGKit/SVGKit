@@ -16,6 +16,10 @@
 #import "SVGKImage-private.h"
 #import <Lumberjack/Lumberjack.h>
 
+#ifndef CHECKFORRENDERINCONTEXT
+#define CHECKFORRENDERINCONTEXT 0
+#endif
+
 @interface SVGKImageRep ()
 @property (nonatomic, retain, readwrite, setter = setTheSVG:) SVGKImage *image;
 
@@ -208,9 +212,7 @@
 		[self setAlpha:YES];
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
-		{
-			[self setSize:self.image.size sizeImage:NO];
-		}
+		[self setSize:self.image.size sizeImage:NO];
 		self.interpolationQuality = kCGInterpolationDefault;
 		self.antiAlias = YES;
 		self.curveFlatness = 1.0;
@@ -260,7 +262,9 @@
 			   CGSizeEqualToSize(self.image.size, CGSizeMake(self.pixelsWide, self.pixelsHigh))) {
 		return [super drawInRect:rect];
 	}
+#if CHECKFORRENDERINCONTEXT
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
+#endif
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
 		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
 		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, rect.size, NULL);
@@ -275,6 +279,7 @@
 		
 		CGContextDrawLayerInRect(imRepCtx, rect, layerRef);
 		CGLayerRelease(layerRef);
+#if CHECKFORRENDERINCONTEXT
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
@@ -296,6 +301,7 @@
 		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeCopy fraction:1];
 		[tmpImage release];
 	}
+#endif
 	
 	return YES;
 }
@@ -307,7 +313,9 @@
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
 		self.image.size = scaledSize;
 	}
+#if CHECKFORRENDERINCONTEXT
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
+#endif
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
 		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
 		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, scaledSize, NULL);
@@ -322,6 +330,7 @@
 		
 		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
 		CGLayerRelease(layerRef);
+#if CHECKFORRENDERINCONTEXT
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
@@ -343,6 +352,7 @@
 		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
 		[tmpImage release];
 	}
+#endif
 	
 	return YES;
 }
