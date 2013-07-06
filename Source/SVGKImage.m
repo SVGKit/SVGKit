@@ -20,6 +20,7 @@
 #import "SVGKImageRep-private.h"
 #endif
 
+#import "SVGKImage-private.h"
 #import "BlankSVG.h"
 
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
@@ -41,20 +42,6 @@
 @property (nonatomic, strong, readwrite) CALayer* CALayerTree;
 @property (nonatomic, strong, readwrite) NSString* nameUsedToInstantiate;
 @property (nonatomic, getter = hasRenderingIssue) BOOL renderingIssue;
-
-/**
- Lowest-level code used by all the "export" methods and by the ".UIImage", ".CIImage", and ".NSImage" property
- 
- @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
- @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
- @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
- */
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
-#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
--(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)theWarn;
-#else
-- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn;
-#endif
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
@@ -376,7 +363,7 @@
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 - (UIImage *)UIImage
 {
-	return [self exportUIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showWarning:YES]; // Apple defaults
+	return [self exportUIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showInfo:YES]; // Apple defaults
 }
 #else
 - (NSImage*)NSImage
@@ -386,7 +373,7 @@
 
 - (NSBitmapImageRep *)bitmapImageRep
 {
-	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showWarning:YES];
+	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showInfo:YES];
 }
 #endif
 
@@ -832,10 +819,10 @@ return; \
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	return [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:YES];
+	return [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:YES];
 }
 
--(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)theWarn
+-(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showInfo:(BOOL)theWarn
 {
 	if( [self hasSize] )
 	{
@@ -864,7 +851,7 @@ return; \
 
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	UIImage *imRep = [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
+	UIImage *imRep = [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
 	if (!imRep) {
 		return nil;
 	}
@@ -876,7 +863,7 @@ return; \
 	if (theRef) {
 		result = [CIImage imageWithCGImage:theRef];
 	} else {
-		DDLogVerbose(@"[%@] It seems that the image %@ has a CIImage backing. Using its CIImage backing.", [self class], imRep);
+		DDLogVerbose(@"[%@] It seems that the image %@ does not have a CGImage backing. Attempting to use its CIImage backing.", [self class], imRep);
 		result = [imRep CIImage];
 	}
 	
@@ -885,7 +872,7 @@ return; \
 #else
 - (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
+	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
 	if (!imRep) {
 		return nil;
 	}
@@ -904,7 +891,7 @@ return; \
 		NSImageRep *imRep = [[SVGKImageRep alloc] initWithSVGImage:self];
 		
 		if (!imRep) {
-			imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:NO];
+			imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
 		} else {
 			((SVGKImageRep*)imRep).antiAlias = shouldAntialias;
 			((SVGKImageRep*)imRep).curveFlatness = multiplyFlatness;
@@ -926,10 +913,10 @@ return; \
 
 - (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
 {
-	return [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showWarning:YES];
+	return [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:YES];
 }
 
-- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showInfo:(BOOL)warn
 {
 	if ([self hasSize]) {
 		if (warn) {

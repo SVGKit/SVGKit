@@ -13,12 +13,12 @@
 
 #import <SVGKit/SVGKImageRep.h>
 #import "SVGKImageRep-private.h"
+#import "SVGKImage-private.h"
 #import <Lumberjack/Lumberjack.h>
 
-@interface SVGKImage ()
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
-- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showWarning:(BOOL)warn;
-@end
+#ifndef CHECKFORRENDERINCONTEXT
+#define CHECKFORRENDERINCONTEXT 0
+#endif
 
 @interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
@@ -205,9 +205,7 @@
 		[self setAlpha:YES];
 		[self setBitsPerSample:0];
 		[self setOpaque:NO];
-		{
-			[self setSize:self.image.size sizeImage:NO];
-		}
+		[self setSize:self.image.size sizeImage:NO];
 		self.interpolationQuality = kCGInterpolationDefault;
 		self.antiAlias = YES;
 		self.curveFlatness = 1.0;
@@ -250,7 +248,9 @@
 			   CGSizeEqualToSize(self.image.size, CGSizeMake(self.pixelsWide, self.pixelsHigh))) {
 		return [super drawInRect:rect];
 	}
+#if CHECKFORRENDERINCONTEXT
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
+#endif
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
 		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
 		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, rect.size, NULL);
@@ -265,6 +265,7 @@
 		
 		CGContextDrawLayerInRect(imRepCtx, rect, layerRef);
 		CGLayerRelease(layerRef);
+#if CHECKFORRENDERINCONTEXT
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
@@ -272,7 +273,7 @@
 			return NO;
 		}
 		
-		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showWarning:NO];
+		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showInfo:NO];
 		if (!bitRep) {
 			return NO;
 		}
@@ -284,6 +285,7 @@
 		
 		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeCopy fraction:1];
 	}
+#endif
 	
 	return YES;
 }
@@ -295,7 +297,9 @@
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
 		self.image.size = scaledSize;
 	}
+#if CHECKFORRENDERINCONTEXT
 	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
+#endif
 		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
 		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
 		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, scaledSize, NULL);
@@ -310,6 +314,7 @@
 		
 		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
 		CGLayerRelease(layerRef);
+#if CHECKFORRENDERINCONTEXT
 	} else {
 		//...But should the method be removed in a future version, fall back to the old method
 		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
@@ -317,7 +322,7 @@
 			return NO;
 		}
 		
-		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showWarning:NO];
+		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showInfo:NO];
 		if (!bitRep) {
 			return NO;
 		}
@@ -329,36 +334,9 @@
 		
 		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
 	}
+#endif
 	
 	return YES;
 }
-
-@end
-
-@implementation SVGKImageRep (deprecated)
-
-#define DEPRECATE_WARN_ONCE(NewMethodSel) { \
-static BOOL HasBeenWarned = NO; \
-if (HasBeenWarned == NO) \
-{ \
-DDLogWarn(@"[%@] -[SVGKitImageRep %s] has been deprecated, use -[SVGKitImageRep %s] instead.", \
-[self class], sel_getName(_cmd), sel_getName(NewMethodSel)); \
-HasBeenWarned = YES; \
-} \
-}
-
-- (id)initWithPath:(NSString *)thePath
-{
-	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfPath:));
-	return [self initWithContentsOfFile:thePath];
-}
-
-- (id)initWithURL:(NSURL *)theURL
-{
-	DEPRECATE_WARN_ONCE(@selector(initWithContentsOfURL:));
-	return [self initWithContentsOfURL:theURL];
-}
-
-#undef DEPRECATE_WARN_ONCE
 
 @end
