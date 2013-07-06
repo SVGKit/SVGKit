@@ -362,6 +362,7 @@
 		00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		00E86D621741586600F0FA0A /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		00E86D7317415AA000F0FA0A /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKit.m; sourceTree = "<group>"; };
+		5574ADAC17889E3400EA4281 /* SVGKSource-private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKSource-private.h"; sourceTree = "<group>"; };
 		5578877B178893660021D775 /* SVGKImage-private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKImage-private.h"; sourceTree = "<group>"; };
 		557E69D517401644006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
 		557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
@@ -711,6 +712,7 @@
 				55C360CE178204CD00BA24FA /* SVGKit_logging.pch */,
 				66E8638F1688C2780059C9C4 /* SVGKSource.h */,
 				66E863901688C2780059C9C4 /* SVGKSource.m */,
+				5574ADAC17889E3400EA4281 /* SVGKSource-private.h */,
 				55801827176E4F9300F64989 /* BlankSVG.h */,
 				55801828176E4F9300F64989 /* BlankSVG.m */,
 				55A5AD3F175FEAE3009F2FDD /* Sources */,

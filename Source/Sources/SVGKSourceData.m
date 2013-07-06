@@ -7,6 +7,7 @@
 //
 
 #import <SVGKit/SVGKSourceData.h>
+#import "SVGKSource-private.h"
 
 @interface SVGKSourceData ()
 @property (readwrite, retain, nonatomic) NSData *data;
@@ -64,13 +65,12 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data length: %lu", [self class], [self.stream description], [self.svgLanguageVersion description], (unsigned long)[self.data length]];
+	return [NSString stringWithFormat:@"%@, data length: %lu", [self baseDescription], (unsigned long)[self.data length]];
 }
 
 - (NSString*)debugDescription
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, data: %@", [self class],
-			[self.stream description], [self.svgLanguageVersion description], self.data];
+	return [NSString stringWithFormat:@"%@, data: %@", [self baseDescription], self.data];
 }
 
 @end
