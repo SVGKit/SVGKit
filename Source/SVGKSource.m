@@ -2,6 +2,7 @@
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import <SVGKit/SVGKSourceURL.h>
 #import <SVGKit/SVGKSourceData.h>
+#import "SVGKSource-private.h"
 
 @interface SVGKSource ()
 @property (readwrite, nonatomic, strong) NSInputStream* stream;
@@ -49,6 +50,11 @@
 	}
 	
 	return nil;
+}
+
+- (NSString*)baseDescription
+{
+	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@", [self class], [self.stream description], [self.svgLanguageVersion description]];
 }
 
 - (NSString*)description

@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 C.W. Betts. All rights reserved.
 //
 
-#define Comment AIFFComment
-#include <CoreServices/CoreServices.h>
-#undef Comment
-
 #import "AppDelegate.h"
-#import <SVGKit/SVGKit.h>
+#import <SVGKit/SVGKImageRep.h>
+
+@interface SVGKit : NSObject
++ (void) enableLogging;
+@end
 
 @implementation AppDelegate
 @synthesize useRepDirectly;

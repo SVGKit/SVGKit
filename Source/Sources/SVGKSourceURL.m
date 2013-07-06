@@ -1,4 +1,5 @@
 #import <SVGKit/SVGKSourceURL.h>
+#import "SVGKSource-private.h"
 
 @interface SVGKSourceURL ()
 @property (readwrite, nonatomic, strong) NSURL* URL;
@@ -34,7 +35,7 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, URL: %@", [self class], [self.stream description], [self.svgLanguageVersion description], self.URL];
+	return [NSString stringWithFormat:@"%@, URL: %@", [self baseDescription], self.URL];
 }
 
 @end

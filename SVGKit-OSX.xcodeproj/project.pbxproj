@@ -211,6 +211,8 @@
 		5568CD4C177B6B2000047B7A /* Lumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5568CD2F177B69B700047B7A /* Lumberjack.framework */; };
 		5568CD50177B6B3A00047B7A /* Lumberjack.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5568CD2F177B69B700047B7A /* Lumberjack.framework */; };
 		5568CD5C177B701900047B7A /* Lumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 5568CD5B177B701900047B7A /* Lumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5574ADAA17889CA000EA4281 /* SVGKSource-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574ADA917889CA000EA4281 /* SVGKSource-private.h */; };
+		5574ADAB17889CA000EA4281 /* SVGKSource-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574ADA917889CA000EA4281 /* SVGKSource-private.h */; };
 		55788779178892D30021D775 /* SVGKImage-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 55788778178892D30021D775 /* SVGKImage-private.h */; };
 		5578877A178892D30021D775 /* SVGKImage-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 55788778178892D30021D775 /* SVGKImage-private.h */; };
 		557E69D3174014E4006B0029 /* SVGKCGFloatAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */; };
@@ -692,6 +694,7 @@
 		5568CD35177B69B700047B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5568CD37177B69B700047B7A /* Lumberjack-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lumberjack-Prefix.pch"; sourceTree = "<group>"; };
 		5568CD5B177B701900047B7A /* Lumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lumberjack.h; sourceTree = "<group>"; };
+		5574ADA917889CA000EA4281 /* SVGKSource-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SVGKSource-private.h"; path = "Source/SVGKSource-private.h"; sourceTree = SOURCE_ROOT; };
 		55788778178892D30021D775 /* SVGKImage-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SVGKImage-private.h"; path = "Source/SVGKImage-private.h"; sourceTree = SOURCE_ROOT; };
 		557E69D1174014E4006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
 		557E69D2174014E4006B0029 /* SVGKCGFloatAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKCGFloatAdditions.m; sourceTree = "<group>"; };
@@ -874,6 +877,7 @@
 				55C360CD178203C500BA24FA /* SVGKit_logging.pch */,
 				5540E73E17387F2B004029EF /* SVGKSource.h */,
 				5540E73F17387F2B004029EF /* SVGKSource.m */,
+				5574ADA917889CA000EA4281 /* SVGKSource-private.h */,
 				55801823176E4D7800F64989 /* BlankSVG.h */,
 				55801824176E4D7800F64989 /* BlankSVG.m */,
 				5540E74917387F2B004029EF /* Unsorted */,
@@ -1349,6 +1353,7 @@
 				558100D41780A11C00B2BB87 /* SVGKImageRep-private.h in Headers */,
 				55C360AF1781E8DD00BA24FA /* SVGKFastImageView.h in Headers */,
 				55788779178892D30021D775 /* SVGKImage-private.h in Headers */,
+				5574ADAA17889CA000EA4281 /* SVGKSource-private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1490,6 +1495,7 @@
 				55C362CE178220E200BA24FA /* SVGKPattern.h in Headers */,
 				55C362D0178220E200BA24FA /* SVGUtils.h in Headers */,
 				5578877A178892D30021D775 /* SVGKImage-private.h in Headers */,
+				5574ADAB17889CA000EA4281 /* SVGKSource-private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

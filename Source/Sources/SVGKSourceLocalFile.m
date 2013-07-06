@@ -1,4 +1,5 @@
 #import <SVGKit/SVGKSourceLocalFile.h>
+#import "SVGKSource-private.h"
 
 @interface SVGKSourceLocalFile ()
 @property (readwrite, nonatomic, copy) NSString* filePath;
@@ -34,7 +35,7 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"%@: Stream: %@, SVG Version: %@, file path: %@", [self class], [self.stream description], [self.svgLanguageVersion description], self.filePath];
+	return [NSString stringWithFormat:@"%@, file path: %@", [self debugDescription], self.filePath];
 }
 
 @end
