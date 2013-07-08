@@ -27,8 +27,7 @@
  */
 #import <SVGKit/SVGElement.h>
 #import <SVGKit/SVGStylable.h>
-@class SVGLength;
-//#import <SVGKit/SVGLength.h>
+#import <SVGKit/SVGLength.h>
 
 typedef enum SVGLengthAdjust
 {

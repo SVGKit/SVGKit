@@ -24,8 +24,7 @@
  
 #import <Foundation/Foundation.h>
 
-//#import <SVGKit/SVGMatrix.h>
-@class SVGMatrix;
+#import <SVGKit/SVGMatrix.h>
 
 @interface SVGTransform : NSObject
 

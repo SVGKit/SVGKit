@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import <QuartzCore/QuartzCore.h>
-@class SVGElement;
-//#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGElement.h>
 #import <SVGKit/SVGTransformable.h>
 
 #define FORCE_RASTERIZE_LAYERS 0 // If True, all CALayers will be told to rasterize themselves. This MIGHT increase performance (or might not), but leads to blurriness whenever a layer is scaled / zoomed in
