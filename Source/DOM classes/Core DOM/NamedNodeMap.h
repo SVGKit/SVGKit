@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 
 @class Node;
-//#import <SVGKit/Node.h"
+#import <SVGKit/Node.h>
 
 @interface NamedNodeMap : NSObject
 

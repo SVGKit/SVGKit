@@ -24,8 +24,7 @@
 #import <SVGKit/SVGElement.h>
 
 #import <SVGKit/SVGRect.h>
-@class SVGGradientStop;
-//#import <SVGKit/SVGGradientStop.h>
+#import <SVGKit/SVGGradientStop.h>
 #import <SVGKit/SVGTransformable.h>
 
 @interface SVGGradientElement : SVGElement <SVGTransformable> /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */

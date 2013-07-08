@@ -17,8 +17,7 @@
  };
  
  */
-//#import <SVGKit/SVGLength.h>
-@class SVGLength;
+#import <SVGKit/SVGLength.h>
 #import <SVGKit/SVGElement.h>
 
 #import <SVGKit/SVGElementInstance.h>

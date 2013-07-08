@@ -283,7 +283,7 @@
 		imageRect.size = rect.size;
 		imageRect.origin = NSZeroPoint;
 		
-		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeCopy fraction:1];
+		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
 	}
 #endif
 	
@@ -332,7 +332,7 @@
 		imageRect.size = self.size;
 		imageRect.origin = NSZeroPoint;
 		
-		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeCopy fraction:1];
+		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
 	}
 #endif
 	

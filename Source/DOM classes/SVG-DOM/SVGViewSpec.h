@@ -13,8 +13,7 @@
  */
 #import <Foundation/Foundation.h>
 
-@class SVGElement;
-//#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGElement.h>
 
 @interface SVGViewSpec : NSObject
 
