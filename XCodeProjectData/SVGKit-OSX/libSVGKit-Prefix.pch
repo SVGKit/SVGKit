@@ -12,22 +12,22 @@
 	#import <QuartzCore/QuartzCore.h>
 	#import "DDLog.h"
 	#if 0
-	NS_INLINE NSString *NSStringFromCGPoint(CGPoint thePoint)
+	static inline NSString *NSStringFromCGPoint(CGPoint thePoint)
 	{
 		return NSStringFromPoint(thePoint);
 	}
-	NS_INLINE NSString *NSStringFromCGRect(CGRect theRect)
+	static inline NSString *NSStringFromCGRect(CGRect theRect)
 	{
 		return NSStringFromRect(theRect);
 	}
-	NS_INLINE NSString *NSStringFromCGSize(CGSize theSize)
+	static inline NSString *NSStringFromCGSize(CGSize theSize)
 	{
 		return NSStringFromSize(theSize);
 	}
 	#else
-		#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
-		#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
-		#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
+	#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
+	#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
+	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
 	#endif
 
 	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 1
