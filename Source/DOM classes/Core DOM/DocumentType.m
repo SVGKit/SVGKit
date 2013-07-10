@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DocumentType.h"
+#import <SVGKit/DocumentType.h>
 
 /*
  in case we need to redeclare them readwrite:
@@ -22,7 +22,7 @@
  
  // Introduced in DOM Level 2:
  @property(nonatomic,retain,readonly) NSString* internalSubset;
-
+ 
  */
 
 @implementation DocumentType

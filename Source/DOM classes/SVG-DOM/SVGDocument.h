@@ -15,16 +15,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Document.h"
-#import "SVGSVGElement.h"
+#import <SVGKit/Document.h>
+#import <SVGKit/SVGSVGElement.h>
 
 @interface SVGDocument : Document
 
-@property (nonatomic, retain, readonly) NSString* title;
-@property (nonatomic, retain, readonly) NSString* referrer;
-@property (nonatomic, retain, readonly) NSString* domain;
-@property (nonatomic, retain, readonly) NSString* URL;
-@property (nonatomic, retain, readonly) SVGSVGElement* rootElement;
+@property (nonatomic, strong, readonly) NSString* title;
+@property (nonatomic, strong, readonly) NSString* referrer;
+@property (nonatomic, strong, readonly) NSString* domain;
+@property (nonatomic, strong, readonly) NSString* URL;
+@property (nonatomic, strong, readonly) SVGSVGElement* rootElement;
 
 #pragma mark - Objective-C init methods (not part of DOM spec, but necessary!)
 

@@ -8,10 +8,10 @@
  the required CALayer on the fly, using that CGPath
  */
 
-#import "SVGElement.h"
-#import "ConverterSVGToCALayer.h"
-#import "SVGUtils.h"
-#import "SVGTransformable.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/ConverterSVGToCALayer.h>
+#import <SVGKit/SVGUtils.h>
+#import <SVGKit/SVGTransformable.h>
 
 @class SVGGradientElement;
 @class SVGKPattern;

@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
-#import "SVGKImageView.h"
-#import "SVGKit.h"
+#import <SVGKit/SVGKImageView.h>
+#import <SVGKit/SVGKit.h>
 
 /**
  * SVGKit's ADVANCED version of UIImageView - for most cases, you want to use the simple version instead (SVGKImageView)

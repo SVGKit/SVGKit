@@ -19,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [SVGKit enableLogging];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -45,7 +48,7 @@
 		
 	    self.splitViewController = [[UISplitViewController alloc] init];
 	    self.splitViewController.delegate = detailViewController;
-	    self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
+	    self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
 	    
 		self.window.rootViewController = self.splitViewController;
 	}

@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SVGKit.h"
-#import "CALayerExporter.h"
-#import "SVGKImage.h"
+#import <SVGKit/SVGKit.h>
+#import <SVGKit/CALayerExporter.h>
+#import <SVGKit/SVGKImage.h>
 
 #define ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE 1 // demonstrates using the "SVGKImage.scale" property to scale an SVG *before it generates output image data*
 
@@ -20,18 +20,18 @@
 
 @interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) UITextView* exportText;
-@property (nonatomic, retain) NSMutableString* exportLog;
-@property (nonatomic, retain) CALayerExporter* layerExporter;
-@property (nonatomic, retain) UITapGestureRecognizer* tapGestureRecognizer;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) UITextView* exportText;
+@property (nonatomic, strong) NSMutableString* exportLog;
+@property (nonatomic, strong) CALayerExporter* layerExporter;
+@property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
 
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollViewForSVG;
-@property (nonatomic, retain) IBOutlet SVGKImageView *contentView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
+@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollViewForSVG;
+@property (nonatomic, strong) IBOutlet SVGKImageView *contentView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
 
-@property (nonatomic, retain) id detailItem;
+@property (nonatomic, strong) id detailItem;
 
 
 - (IBAction)animate:(id)sender;

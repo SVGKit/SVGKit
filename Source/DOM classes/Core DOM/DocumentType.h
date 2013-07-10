@@ -17,23 +17,23 @@
 */
 #import <Foundation/Foundation.h>
 
-#import "Node.h"
-#import "NamedNodeMap.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/NamedNodeMap.h>
 
 @interface DocumentType : Node
 
-@property(nonatomic,retain,readonly) NSString* name;
-@property(nonatomic,retain,readonly) NamedNodeMap* entities;
-@property(nonatomic,retain,readonly) NamedNodeMap* notations;
+@property(nonatomic,strong,readonly) NSString* name;
+@property(nonatomic,strong,readonly) NamedNodeMap* entities;
+@property(nonatomic,strong,readonly) NamedNodeMap* notations;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* publicId;
+@property(nonatomic,strong,readonly) NSString* publicId;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* systemId;
+@property(nonatomic,strong,readonly) NSString* systemId;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* internalSubset;
+@property(nonatomic,strong,readonly) NSString* internalSubset;
 
 
 @end

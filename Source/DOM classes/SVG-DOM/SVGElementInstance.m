@@ -1,7 +1,7 @@
-#import "SVGElementInstance.h"
-#import "SVGElementInstance_Mutable.h"
+#import <SVGKit/SVGElementInstance.h>
+#import <SVGKit/SVGElementInstance_Mutable.h>
 
-#import "SVGElementInstanceList_Internal.h"
+#import <SVGKit/SVGElementInstanceList_Internal.h>
 
 @implementation SVGElementInstance
 
@@ -9,6 +9,10 @@
 @synthesize correspondingUseElement;
 @synthesize parentNode;
 @synthesize childNodes;
+
+- (void)dealloc {
+    self.parentNode = nil;
+}
 
 -(void)setParentNode:(SVGElementInstance *)newParentNode
 {
@@ -18,6 +22,7 @@
 		{
 			/* additionally remove self from parent's childNodes */
 			[self.parentNode.childNodes.internalArray removeObject:self];
+			
 			parentNode = newParentNode;
 		}
 		else
@@ -54,7 +59,7 @@
 		return nil;
 	else
 	{
-		int indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
+		NSInteger indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
 		
 		if( indexInParent < 1 )
 			return nil;
@@ -69,7 +74,7 @@
 		return nil;
 	else
 	{
-		int indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
+		NSInteger indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
 		
 		if( indexInParent >= [self.parentNode.childNodes length] )
 			return nil;

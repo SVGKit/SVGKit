@@ -2,12 +2,12 @@
  Makes the writable properties all package-private, effectively
  */
 
-#import "SVGDocument.h"
+#import <SVGKit/SVGDocument.h>
 
 @interface SVGDocument ()
-@property (nonatomic, retain, readwrite) NSString* title;
-@property (nonatomic, retain, readwrite) NSString* referrer;
-@property (nonatomic, retain, readwrite) NSString* domain;
-@property (nonatomic, retain, readwrite) NSString* URL;
-@property (nonatomic, retain, readwrite) SVGSVGElement* rootElement;
+@property (nonatomic, strong, readwrite) NSString* title;
+@property (nonatomic, strong, readwrite) NSString* referrer;
+@property (nonatomic, strong, readwrite) NSString* domain;
+@property (nonatomic, strong, readwrite) NSString* URL;
+@property (nonatomic, strong, readwrite) SVGSVGElement* rootElement;
 @end

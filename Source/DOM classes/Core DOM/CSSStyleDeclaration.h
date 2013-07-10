@@ -20,8 +20,8 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "CSSValue.h"
-#import "CSSRule.h"
+#import <SVGKit/CSSValue.h>
+#import <SVGKit/CSSRule.h>
 
 @interface CSSStyleDeclaration : NSObject
 
@@ -31,7 +31,7 @@
  
  "The parsable textual representation of the declaration block (excluding the surrounding curly braces). Setting this attribute will result in the parsing of the new value and resetting of all the properties in the declaration block including the removal or addition of properties."
  */
-@property(nonatomic,retain) NSString* cssText;
+@property(nonatomic,strong) NSString* cssText;
 
 -(NSString*) getPropertyValue:(NSString*) propertyName;
 -(CSSValue*) getPropertyCSSValue:(NSString*) propertyName;
@@ -44,6 +44,6 @@
 
 -(NSString*) item:(long) index;
 
-@property(nonatomic,retain) CSSRule* parentRule;
+@property(nonatomic,strong) CSSRule* parentRule;
 
 @end

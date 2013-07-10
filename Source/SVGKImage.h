@@ -35,52 +35,64 @@
  
  */
 
+//Both OS X and iOS have this header
+//Include it so the Target OS preprocessor is defined.
+//Probably could have included AvailabilityMacros.h, but meh.
+#import <Foundation/Foundation.h>
+
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#endif
 
-#import "SVGLength.h"
-#import "SVGDocument.h"
-#import "SVGElement.h"
-#import "SVGSVGElement.h"
+#import <SVGKit/SVGLength.h>
+#import <SVGKit/SVGDocument.h>
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGSVGElement.h>
 
-#import "SVGKParser.h"
-#import "SVGKSource.h"
-#import "SVGKParseResult.h"
-
-#define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#import <SVGKit/SVGKParser.h>
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKParseResult.h>
 
 @class SVGDefsElement;
 
-@interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
+@interface SVGKImage : NSObject <NSCopying> // doesn't extend UIImage because Apple made UIImage immutable
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    BOOL cameFromGlobalCache;
-#endif
+	BOOL cameFromGlobalCache;
 }
 
 /** Generates an image on the fly
  
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
-@property (nonatomic, readonly) UIImage* UIImage;
 
-@property (nonatomic, retain, readonly) SVGKSource* source;
-@property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
-
-@property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readonly) CALayer* CALayerTree;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+@property (unsafe_unretained, nonatomic, readonly) CIImage *CIImage;
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+@property (unsafe_unretained, nonatomic, readonly) UIImage* UIImage;
+#else
+@property (unsafe_unretained, nonatomic, readonly) NSImage *NSImage;
+@property (unsafe_unretained, nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
+
+@property (nonatomic, strong, readonly) SVGKSource* source;
+@property (nonatomic, strong, readonly) SVGKParseResult* parseErrorsAndWarnings;
+
+@property (nonatomic, strong, readonly) SVGDocument* DOMDocument;
+@property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, strong, readonly) CALayer* CALayerTree;
 
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
-+ (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
-#if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
-+ (SVGKImage *)imageWithData:(NSData *)data;
+#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
++ (SVGKImage *)imageNamed:(NSString*)name fromBundle:(NSBundle*)bundle;
 #endif
++ (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
++ (SVGKImage *)imageWithData:(NSData *)data;
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
++ (SVGKImage*) defaultImage; //For a simple default image
 
+- (id)initWithContentsOfURL:(NSURL *)url;
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithData:(NSData *)data;
 
@@ -197,7 +209,9 @@
  For all other use-cases, you should probably use the .CALayerTree property, which is automatically cached between
  calls - but MUST NOT be altered!
  */
--(CALayer *)newCALayerTree;
+- (CALayer *)newCALayerTree;
+
+- (BOOL)hasCALayerTree;
 
 /*! uses the current .CALayerTree property to find the layer, recursing down the tree (or creates a new
  CALayerTree on demand, and caches it)
@@ -227,7 +241,7 @@
  docs that have many 'anonymous' nodes, you'll need to get actual pointer refs to the layers you need to work with, and use the
  alternate version of this method.
  */
--(CALayer*) newCopyPositionedAbsoluteLayerWithIdentifier:(NSString *)identifier;
+- (CALayer*) newCopyPositionedAbsoluteLayerWithIdentifier:(NSString *)identifier;
 
 /*! As for layerWithIdentifier: but works out the absolute position of the layer,
  effectively pulling it out of the layer-tree (the newly created layer has NO SUPERLAYER,
@@ -235,7 +249,7 @@
  
  Useful for extracting individual features from an SVG
  */
--(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
+- (CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
 
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
@@ -249,7 +263,14 @@
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
--(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+- (UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#else
+- (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#endif
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
  
@@ -266,4 +287,17 @@
 /** alters the SVG image's size directly (by changing the viewport) so that it will fit inside the specifed area without stretching or deforming */
 -(void) scaleToFitInside:(CGSize) maxSize;
 
+@end
+
+@interface SVGKImage (CacheManagement)
+@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+
++ (void)clearSVGImageCache;
++ (void)removeSVGImageCacheNamed:(NSString*)theName;
++ (NSArray*)storedCacheNames;
++ (SVGKImage*)cachedImageForName:(NSString*)theName;
+
++ (BOOL)isCacheEnabled;
++ (void)enableCache;
++ (void)disableCache;
 @end

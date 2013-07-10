@@ -1,5 +1,5 @@
-#import "StyleSheetList.h"
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/StyleSheetList.h>
+#import <SVGKit/StyleSheetList+Mutable.h>
 
 @implementation StyleSheetList
 
@@ -9,7 +9,7 @@
 {
     self = [super init];
     if (self) {
-        self.internalArray = [NSMutableArray array];
+        self.internalArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -21,7 +21,7 @@
 
 -(StyleSheet*) item:(unsigned long) index
 {
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 @end

@@ -5,11 +5,13 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGEllipseElement.h"
+#import <SVGKit/SVGEllipseElement.h>
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
+
+#import "SVGKCGFloatAdditions.h"
 
 @interface SVGEllipseElement()
 @property (nonatomic, readwrite) CGFloat cx;
@@ -29,19 +31,19 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"cx"] length] > 0 )
-	self.cx = [[self getAttribute:@"cx"] floatValue];
+		self.cx = [[self getAttribute:@"cx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"cy"] length] > 0 )
-	self.cy = [[self getAttribute:@"cy"] floatValue];
+		self.cy = [[self getAttribute:@"cy"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	self.rx = [[self getAttribute:@"rx"] floatValue];
+		self.rx = [[self getAttribute:@"rx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	self.ry = [[self getAttribute:@"ry"] floatValue];
+		self.ry = [[self getAttribute:@"ry"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
-		self.ry = self.rx = [[self getAttribute:@"r"] floatValue];
+		self.ry = self.rx = [[self getAttribute:@"r"] SVGKCGFloatValue];
 	}
 }
 

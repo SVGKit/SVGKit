@@ -4,21 +4,21 @@
 #import <Foundation/Foundation.h>
 
 @class SVGSVGElement, SVGDocument;
-#import "SVGSVGElement.h"
-#import "SVGDocument.h"
+#import <SVGKit/SVGSVGElement.h>
+#import <SVGKit/SVGDocument.h>
 
 @protocol SVGKParserExtension;
-#import "SVGKParserExtension.h"
+#import <SVGKit/SVGKParserExtension.h>
 
 @interface SVGKParseResult : NSObject
 
-@property(nonatomic, retain) NSMutableArray* warnings, * errorsRecoverable, * errorsFatal;
+@property(nonatomic, strong) NSMutableArray* warnings, * errorsRecoverable, * errorsFatal;
 @property(nonatomic) BOOL libXMLFailed;
 
-@property(nonatomic,retain) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
-@property(nonatomic,retain) SVGDocument* parsedDocument; /*< both are needed, see spec */
+@property(nonatomic,strong) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
+@property(nonatomic,strong) SVGDocument* parsedDocument; /*< both are needed, see spec */
 
-@property(nonatomic,retain) NSMutableDictionary* namespacesEncountered; /**< maps "prefix" to "uri" */
+@property(nonatomic,strong) NSMutableDictionary* namespacesEncountered; /**< maps "prefix" to "uri" */
 
 -(void) addSourceError:(NSError*) fatalError;
 -(void) addParseWarning:(NSError*) warning;

@@ -25,9 +25,9 @@
  long getCharNumAtPosition(in SVGPoint point);
  void selectSubString(in unsigned long charnum, in unsigned long nchars) raises(DOMException);
  */
-#import "SVGElement.h"
-#import "SVGStylable.h"
-#import "SVGLength.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGStylable.h>
+#import <SVGKit/SVGLength.h>
 
 typedef enum SVGLengthAdjust
 {
@@ -39,7 +39,7 @@ typedef enum SVGLengthAdjust
 
 @interface SVGTextContentElement : SVGElement <SVGStylable>
 	
-@property(nonatomic,readonly) SVGLength* /* FIXMED: should be SVGAnimatedLength*/ textLength;
+@property(unsafe_unretained, nonatomic,readonly) SVGLength* /* FIXME: should be SVGAnimatedLength*/ textLength;
 /**FIXME: missing:	readonly attribute SVGAnimatedEnumeration lengthAdjust;*/
 
 /**FIXME: missing:	

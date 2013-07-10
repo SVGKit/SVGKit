@@ -6,10 +6,10 @@
  http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGDocument
  */
 
-#import "Document+Mutable.h"
-
-#import "SVGDocument.h"
-#import "SVGDocument_Mutable.h"
+#import <SVGKit/Document+Mutable.h>
+#import <SVGKit/SVGSVGElement.h>
+#import <SVGKit/SVGDocument.h>
+#import <SVGKit/SVGDocument_Mutable.h>
 
 @implementation SVGDocument
 
@@ -19,7 +19,6 @@
 @synthesize domain;
 @synthesize URL;
 @synthesize rootElement=_rootElement;
-
 
 - (id)init
 {

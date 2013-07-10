@@ -9,8 +9,8 @@
 
 @interface MasterViewController : UITableViewController <UIAlertViewDelegate>
 
-@property(nonatomic,retain) NSMutableArray *sampleNames;
+@property(nonatomic,strong) NSMutableArray *sampleNames;
 
-@property (nonatomic, retain) IBOutlet DetailViewController *detailViewController;
+@property (nonatomic, strong) IBOutlet DetailViewController *detailViewController;
 
 @end

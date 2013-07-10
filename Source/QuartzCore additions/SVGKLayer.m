@@ -1,4 +1,11 @@
-#import "SVGKLayer.h"
+#import <SVGKit/SVGKLayer.h>
+
+//DW stands for Darwin
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define DWBlackColor() [UIColor blackColor].CGColor
+#else
+#define DWBlackColor() CGColorGetConstantColor(kCGColorBlack)
+#endif
 
 @implementation SVGKLayer
 {
@@ -22,12 +29,13 @@
     self = [super init];
     if (self)
 	{
-    	self.borderColor = [UIColor blackColor].CGColor;
+    	self.borderColor = DWBlackColor();
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )
@@ -36,7 +44,9 @@
 	/** 1: remove old */
 	if( _SVGImage != nil )
 	{
-		[_SVGImage.CALayerTree removeFromSuperlayer];
+		if ([_SVGImage hasCALayerTree]) {
+			[_SVGImage.CALayerTree removeFromSuperlayer];
+		}
 	}
 	
 	/** 2: update pointer */
@@ -45,8 +55,17 @@
 	/** 3: add new */
 	if( _SVGImage != nil )
 	{
-		[self addSublayer:_SVGImage.CALayerTree];
+		if ([_SVGImage hasCALayerTree] || _SVGImage.CALayerTree) {
+			[self addSublayer:_SVGImage.CALayerTree];
+		}
 	}
+}
+
+- (void)dealloc
+{
+	[self removeObserver:self forKeyPath:@"showBorder"];
+	
+	self.SVGImage = nil;
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */

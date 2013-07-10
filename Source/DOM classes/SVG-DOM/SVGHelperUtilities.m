@@ -1,12 +1,14 @@
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
 
-#import "CAShapeLayerWithHitTest.h"
-#import "SVGUtils.h"
-#import "SVGGradientElement.h"
-#import "CGPathAdditions.h"
+#import <SVGKit/CAShapeLayerWithHitTest.h>
+#import <SVGKit/SVGUtils.h>
+#import <SVGKit/SVGGradientElement.h>
+#import <SVGKit/CGPathAdditions.h>
 
-#import "SVGTransformable.h"
-#import "SVGSVGElement.h"
+#import <SVGKit/SVGTransformable.h>
+#import <SVGKit/SVGSVGElement.h>
+
+#import "SVGKCGFloatAdditions.h"
 
 @implementation SVGHelperUtilities
 
@@ -28,7 +30,7 @@
 	
 	CGAffineTransform currentRelativeTransform;
 	CGAffineTransform optionalViewportTransform;
-		
+	
 	/**
 	 Current relative transform: for an incoming "SVGTransformable" it's .transform, for everything else its identity
 	 */
@@ -53,7 +55,7 @@
 		/**
 		 Calculate the "implicit" viewport->viewbox transform (caused by the <SVG> tag's possible "viewBox" attribute)
 		 Also calculate the "implicit" realViewport -> svgDefaultViewport transform (caused by the user changing the external
-		    size of the rendered SVG)
+		 size of the rendered SVG)
 		 */
 		SVGRect frameViewBox = svgSVGElement.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
 		SVGRect frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
@@ -71,7 +73,7 @@
 		{
 			CGAffineTransform transformRealViewportToSVGViewport;
 			CGAffineTransform transformSVGViewportToSVGViewBox;
-		
+			
 			/** Transform part 1: from REAL viewport to EXPECTED viewport */
 			SVGRect viewportForViewBoxToRelateTo;
 			if( SVGRectIsInitialized( frameRequestedViewport ))
@@ -115,8 +117,8 @@
  Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform.
  
  Can take ONLY TWO kinds of element:
-  - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
-  - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
+ - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
+ - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
  */
 +(CGAffineTransform) transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:(SVGElement*) transformableOrSVGSVGElement
 {
@@ -149,13 +151,13 @@
 			break;
 		}
 	}
-		
+	
 	/**
 	 TOTAL absolute based on the parent transform with relative (and possible viewport) transforms
 	 */
 	CGAffineTransform result = CGAffineTransformConcat( [self transformRelativeIncludingViewportForTransformableOrViewportEstablishingElement:transformableOrSVGSVGElement], parentAbsoluteTransform );
 	
-	//DEBUG: NSLog( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
+	//DEBUG: DDLogCWarn( @"[%@] self.transformAbsolute: returning: affine( (%2.2f %2.2f %2.2f %2.2f), (%2.2f %2.2f)", [self class], result.a, result.b, result.c, result.d, result.tx, result.ty);
 	
 	return result;
 }
@@ -168,7 +170,7 @@
 #if FORCE_RASTERIZE_LAYERS
 	if ([layer respondsToSelector:@selector(setShouldRasterize:)]) {
 		[layer performSelector:@selector(setShouldRasterize:)
-						  withObject:[NSNumber numberWithBool:YES]];
+					withObject:[NSNumber numberWithBool:YES]];
 	}
 	
 	/** If you're going to rasterize, Apple's code is dumb, and needs to be "told" if its using a Retina display */
@@ -181,13 +183,13 @@
 		SVGElement<SVGStylable>* stylableElement = (SVGElement<SVGStylable>*) nonStylableElement;
 		
 		NSString* actualOpacity = [stylableElement cascadedValueForStylableProperty:@"opacity"];
-		layer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1.0f; // svg's "opacity" defaults to 1!
+		layer.opacity = actualOpacity.length > 0 ? [actualOpacity SVGKCGFloatValue] : 1.0f; // svg's "opacity" defaults to 1!
 	}
 }
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
-	CAShapeLayer* _shapeLayer = [CAShapeLayerWithHitTest layer];
+	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest alloc] init];
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
@@ -200,7 +202,7 @@
     //BIZARRE: Apple sometimes gives a different value for this even when transformAbsolute == identity! : CGRect localPathBB = CGPathGetPathBoundingBox( _pathRelative );
 	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
 	CGRect transformedPathBB = CGPathGetBoundingBox( pathToPlaceInLayer );
-
+	
 #if IMPROVE_PERFORMANCE_BY_WORKING_AROUND_APPLE_FRAME_ALIGNMENT_BUG
 	transformedPathBB = CGRectIntegral( transformedPathBB ); // ridiculous but improves performance of apple's code by up to 50% !
 #endif
@@ -230,7 +232,7 @@
 	if( actualStroke.length > 0
 	   && (! [@"none" isEqualToString:actualStroke]) )
 	{
-		CGFloat strokeWidth = actualStrokeWidth.length > 0 ? [actualStrokeWidth floatValue] : 1.0f;
+		CGFloat strokeWidth = actualStrokeWidth.length > 0 ? [actualStrokeWidth SVGKCGFloatValue] : 1.0f;
 		
 		/*
 		 We have to apply any scale-factor part of the affine transform to the stroke itself (this is bizarre and horrible, yes, but that's the spec for you!)
@@ -242,7 +244,7 @@
 		SVGColor strokeColorAsSVGColor = SVGColorFromString([actualStroke UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
 		if( actualStrokeOpacity.length > 0 )
-			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
+			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity SVGKCGFloatValue] * 0xFF);
 		
 		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
 		
@@ -272,7 +274,7 @@
 		}
 		if( actualMiterLimit.length > 0 )
 		{
-			_shapeLayer.miterLimit = [actualMiterLimit floatValue];
+			_shapeLayer.miterLimit = [actualMiterLimit SVGKCGFloatValue];
 		}
 	}
 	else
@@ -310,7 +312,7 @@
 		{
 			CAGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
 			
-			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
+			DDLogWarn(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;
 			
 			return gradientLayer;
@@ -321,7 +323,7 @@
 		SVGColor fillColorAsSVGColor = SVGColorFromString([actualFill UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
 		if( actualFillOpacity.length > 0 )
-			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
+			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity SVGKCGFloatValue] * 0xFF);
 		
 		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
@@ -331,7 +333,7 @@
 	}
     
 	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity"];
-	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
+	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity SVGKCGFloatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
 	
 	return _shapeLayer;
 }

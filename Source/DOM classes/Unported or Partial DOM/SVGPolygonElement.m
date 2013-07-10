@@ -5,11 +5,11 @@
 //  Copyright Matt Rajca 2011. All rights reserved.
 //
 
-#import "SVGPolygonElement.h"
+#import <SVGKit/SVGPolygonElement.h>
 
-#import "SVGKPointsAndPathsParser.h"
+#import <SVGKit/SVGKPointsAndPathsParser.h>
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 @interface SVGPolygonElement()
 
@@ -41,21 +41,21 @@
 	
 	NSString* cmdArgs = nil;
 	[dataScanner scanUpToCharactersFromSet:knownCommands
-													   intoString:&cmdArgs];
+								intoString:&cmdArgs];
 	
 	NSString* commandWithParameters = [@"M" stringByAppendingString:cmdArgs];
 	NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
 	
 	
 	lastCoordinate = [SVGKPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
-													path:path
-											  relativeTo:CGPointZero
-											  isRelative:FALSE];
+																		path:path
+																  relativeTo:CGPointZero
+																  isRelative:FALSE];
 	
     
 	[SVGKPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
-									   path:path
-								 relativeTo:lastCoordinate];
+										  path:path
+									relativeTo:lastCoordinate];
 	
 	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);

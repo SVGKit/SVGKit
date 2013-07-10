@@ -1,4 +1,4 @@
-#import "CSSRule.h"
+#import <SVGKit/CSSRule.h>
 
 @implementation CSSRule
 

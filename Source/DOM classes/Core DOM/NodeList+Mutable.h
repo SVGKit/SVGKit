@@ -2,10 +2,10 @@
  Makes the writable properties all package-private, effectively
  */
 
-#import "NodeList.h"
+#import <SVGKit/NodeList.h>
 
 @interface NodeList()
 
-@property(nonatomic,retain) NSMutableArray* internalArray;
+@property(nonatomic,strong) NSMutableArray* internalArray;
 
 @end

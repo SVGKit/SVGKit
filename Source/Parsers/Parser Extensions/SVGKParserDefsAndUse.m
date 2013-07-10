@@ -1,24 +1,22 @@
-#import "SVGKParserDefsAndUse.h"
+#import <SVGKit/SVGKParserDefsAndUse.h>
 
-#import "Node.h"
-#import "SVGKSource.h"
-#import "SVGKParseResult.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKParseResult.h>
 
-#import "SVGDefsElement.h"
-#import "SVGUseElement.h"
-#import "SVGUseElement_Mutable.h"
-#import "SVGElementInstance.h"
-#import "SVGElementInstance_Mutable.h"
-#import "SVGElementInstanceList.h"
-#import "SVGElement_ForParser.h"
+#import <SVGKit/SVGDefsElement.h>
+#import <SVGKit/SVGUseElement.h>
+#import <SVGKit/SVGUseElement_Mutable.h>
+#import <SVGKit/SVGElementInstance.h>
+#import <SVGKit/SVGElementInstance_Mutable.h>
+#import <SVGKit/SVGElementInstanceList.h>
+#import <SVGKit/SVGElement_ForParser.h>
 
 @implementation SVGKParserDefsAndUse
 
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			@"http://www.w3.org/2000/svg",
-			nil];
+	return @[@"http://www.w3.org/2000/svg"];
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
@@ -51,18 +49,18 @@
 - (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
-	{	
+	{
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		
 		if( [name isEqualToString:@"defs"])
-		{	
+		{
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 			SVGDefsElement *element = [[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			
 			return element;
 		}
 		else if( [name isEqualToString:@"use"])
-		{	
+		{
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 			SVGUseElement *useElement = [[SVGUseElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			

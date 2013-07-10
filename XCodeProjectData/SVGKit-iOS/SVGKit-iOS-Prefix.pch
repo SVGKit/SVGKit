@@ -4,4 +4,12 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+	#import <QuartzCore/QuartzCore.h>
+    #import "DDLog.h"
+
+	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 1
+	#import "SVGKit_logging.pch"
 #endif
+#include <CoreGraphics/CoreGraphics.h>
+#include <CoreText/CoreText.h>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "EntityReference.h"
+#import <SVGKit/EntityReference.h>
 
 @implementation EntityReference
 

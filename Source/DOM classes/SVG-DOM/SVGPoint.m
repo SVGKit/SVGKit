@@ -1,5 +1,5 @@
 
-#import "SVGPoint.h"
+#import <SVGKit/SVGPoint.h>
 
 @implementation SVGPoint
 

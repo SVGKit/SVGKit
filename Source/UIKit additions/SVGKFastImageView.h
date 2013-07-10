@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
-#import "SVGKImageView.h"
-#import "SVGKit.h"
+#import <SVGKit/SVGKImageView.h>
+#import <SVGKit/SVGKit.h>
 
 /**
  * SVGKit's version of UIImageView - with some improvements over Apple's design
@@ -31,6 +31,7 @@
  */
 @interface SVGKFastImageView : SVGKImageView
 
+@property(nonatomic,strong) SVGKImage* image;
 @property(nonatomic) CGSize tileRatio;
 @property(nonatomic) BOOL disableAutoRedrawAtHighestResolution;
 

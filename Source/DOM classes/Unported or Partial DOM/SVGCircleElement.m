@@ -5,7 +5,7 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGCircleElement.h"
+#import <SVGKit/SVGCircleElement.h>
 
 @implementation SVGCircleElement
 
@@ -13,7 +13,7 @@
 
 - (CGFloat)r {
 	if (self.rx != self.ry) {
-		NSLog(@"Undefined radius of circle");
+		DDLogVerbose(@"Undefined radius of circle");
 		return 0.0f;
 	}
 	

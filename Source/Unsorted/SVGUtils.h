@@ -11,9 +11,17 @@
 
 #import <UIKit/UIKit.h>
 
+#else
+
+#import <AppKit/AppKit.h>
+
 #endif
 
+#if CGFLOAT_IS_DOUBLE
+#define RGB_N(v) (v) / 255.0
+#else
 #define RGB_N(v) (v) / 255.0f
+#endif
 
 typedef struct {
 	uint8_t r;

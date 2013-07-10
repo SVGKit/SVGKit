@@ -1,10 +1,10 @@
-#import "Element.h"
+#import <SVGKit/Element.h>
 
-#import "NamedNodeMap.h"
-#import "DOMHelperUtilities.h"
+#import <SVGKit/NamedNodeMap.h>
+#import <SVGKit/DOMHelperUtilities.h>
 
 @interface Element()
-@property(nonatomic,retain,readwrite) NSString* tagName;
+@property(nonatomic,strong,readwrite) NSString* tagName;
 @end
 
 @implementation Element
@@ -18,7 +18,7 @@
 		
 		for( NSString* attributeName in attributes.allKeys )
 		{
-			[self setAttribute:attributeName value:[attributes objectForKey:attributeName]];
+			[self setAttribute:attributeName value:attributes[attributeName]];
 		}
     }
     return self;
