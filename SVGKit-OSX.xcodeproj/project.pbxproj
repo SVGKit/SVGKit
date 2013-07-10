@@ -503,7 +503,7 @@
 		5540E67317387C9F004029EF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5540E67417387C9F004029EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5540E67717387C9F004029EF /* SVGKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SVGKit-Info.plist"; sourceTree = "<group>"; };
-		5540E67B17387C9F004029EF /* SVGKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKit-Prefix.pch"; sourceTree = "<group>"; };
+		5540E67B17387C9F004029EF /* SVGKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "SVGKit-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleSucksDOMImplementation.h; sourceTree = "<group>"; };
 		5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppleSucksDOMImplementation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5540E68917387F2A004029EF /* Attr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attr.h; sourceTree = "<group>"; };
@@ -663,7 +663,7 @@
 		5540E72917387F2B004029EF /* SVGKParserSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParserSVG.h; sourceTree = "<group>"; };
 		5540E72A17387F2B004029EF /* SVGKParserSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGKParserSVG.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5540E72B17387F2B004029EF /* SVGKParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParser.h; sourceTree = "<group>"; };
-		5540E72C17387F2B004029EF /* SVGKParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKParser.m; sourceTree = "<group>"; };
+		5540E72C17387F2B004029EF /* SVGKParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGKParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5540E72D17387F2B004029EF /* SVGKParseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParseResult.h; sourceTree = "<group>"; };
 		5540E72E17387F2B004029EF /* SVGKParseResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKParseResult.m; sourceTree = "<group>"; };
 		5540E72F17387F2B004029EF /* SVGKParserExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKParserExtension.h; sourceTree = "<group>"; };
@@ -734,7 +734,7 @@
 		55B4D7A1173EC58700D2C676 /* SVGKLayeredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKLayeredImageView.h; sourceTree = "<group>"; };
 		55B4D7A2173EC58700D2C676 /* SVGKLayeredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGKLayeredImageView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		55C360C0178201C100BA24FA /* libSVGKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVGKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		55C360CC1782029F00BA24FA /* libSVGKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "libSVGKit-Prefix.pch"; path = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		55C360CC1782029F00BA24FA /* libSVGKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "libSVGKit-Prefix.pch"; path = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		55C360CD178203C500BA24FA /* SVGKit_logging.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SVGKit_logging.pch; path = Source/SVGKit_logging.pch; sourceTree = SOURCE_ROOT; };
 		55C361A4178212F600BA24FA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		55D274771779029C0068FD7C /* SVGKSourceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceData.h; sourceTree = "<group>"; };

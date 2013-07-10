@@ -1598,6 +1598,10 @@
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">3</int>
+							<object class="NSMutableDictionary" key="NSHoldingPriorities">
+								<integer value="0" key="NS.key.0"/>
+								<real value="400" key="NS.object.0"/>
+							</object>
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 270}</string>
@@ -1638,7 +1642,7 @@
 												<object class="NSTableView" id="1032088060">
 													<reference key="NSNextResponder" ref="69168457"/>
 													<int key="NSvFlags">256</int>
-													<string key="NSFrameSize">{235, 268}</string>
+													<string key="NSFrameSize">{233, 268}</string>
 													<reference key="NSSuperview" ref="69168457"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="1067733918"/>
@@ -1655,7 +1659,7 @@
 													</object>
 													<array class="NSMutableArray" key="NSTableColumns">
 														<object class="NSTableColumn" id="1043281783">
-															<double key="NSWidth">232</double>
+															<double key="NSWidth">230</double>
 															<double key="NSMinWidth">40</double>
 															<double key="NSMaxWidth">1000</double>
 															<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -1701,7 +1705,7 @@
 													<int key="NSTableViewGroupRowStyle">1</int>
 												</object>
 											</array>
-											<string key="NSFrame">{{1, 1}, {235, 268}}</string>
+											<string key="NSFrame">{{1, 1}, {233, 268}}</string>
 											<reference key="NSSuperview" ref="998210127"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="1032088060"/>
@@ -1738,7 +1742,7 @@
 											<double key="NSPercent">0.99792099792099798</double>
 										</object>
 									</array>
-									<string key="NSFrameSize">{237, 270}</string>
+									<string key="NSFrameSize">{235, 270}</string>
 									<reference key="NSSuperview" ref="960692496"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="69168457"/>
@@ -1763,14 +1767,14 @@
 												<object class="NSView" id="427398179">
 													<reference key="NSNextResponder" ref="355816529"/>
 													<int key="NSvFlags">274</int>
-													<string key="NSFrameSize">{231, 268}</string>
+													<string key="NSFrameSize">{233, 268}</string>
 													<reference key="NSSuperview" ref="355816529"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="331482811"/>
 													<string key="NSReuseIdentifierKey">_NS:13</string>
 												</object>
 											</array>
-											<string key="NSFrame">{{1, 1}, {231, 268}}</string>
+											<string key="NSFrame">{{1, 1}, {233, 268}}</string>
 											<reference key="NSSuperview" ref="200596080"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="427398179"/>
@@ -1782,7 +1786,7 @@
 										<object class="NSScroller" id="421291664">
 											<reference key="NSNextResponder" ref="200596080"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{216, 1}, {16, 268}}</string>
+											<string key="NSFrame">{{218, 1}, {16, 268}}</string>
 											<reference key="NSSuperview" ref="200596080"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView"/>
@@ -1796,7 +1800,7 @@
 										<object class="NSScroller" id="331482811">
 											<reference key="NSNextResponder" ref="200596080"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrame">{{1, 253}, {231, 16}}</string>
+											<string key="NSFrame">{{1, 253}, {233, 16}}</string>
 											<reference key="NSSuperview" ref="200596080"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="421291664"/>
@@ -1808,7 +1812,7 @@
 											<double key="NSPercent">0.50602412223815918</double>
 										</object>
 									</array>
-									<string key="NSFrame">{{247, 0}, {233, 270}}</string>
+									<string key="NSFrame">{{245, 0}, {235, 270}}</string>
 									<reference key="NSSuperview" ref="960692496"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="355816529"/>
@@ -1829,6 +1833,10 @@
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">3</int>
+							<object class="NSMutableDictionary" key="NSHoldingPriorities">
+								<integer value="0" key="NS.key.0"/>
+								<real value="400" key="NS.object.0"/>
+							</object>
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 270}</string>
@@ -4258,7 +4266,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">692</int>
+			<int key="maxID">693</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4275,22 +4283,12 @@
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="clearSVGCache:">id</string>
-						<string key="disableCaching:">id</string>
-						<string key="enableCaching:">id</string>
 						<string key="showFastWindow:">id</string>
 						<string key="showLayeredWindow:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="clearSVGCache:">
 							<string key="name">clearSVGCache:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="disableCaching:">
-							<string key="name">disableCaching:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="enableCaching:">
-							<string key="name">enableCaching:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showFastWindow:">

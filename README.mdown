@@ -5,13 +5,13 @@ SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powe
 Versions:
 
   - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0 as well as a lot of enhancements including OS X support and "modern" Objective-C syntax.
-  - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct__: It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
+  - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct:__ It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
   - arc - Branch that has the iOS and OS X project use Automatic Reference Counting.
-  - namespaces - Branch that has the SVGKit headers better designed to work with OS X. __Now defunct__: it has been merged back to master
+  - namespaces - Branch that has the SVGKit headers better designed to work with OS X. __Now defunct:__ it has been merged back to master.
   - toSVGKit - Branch that contains staged changes to put back into SVGKit's 1.1.0 branch.
   - patterns - Branch for working on pattern support. based off of SVGKit's 1.1.0 branch as opposed to my master. Parts have been merged back to master.
   - noAsserts - Most of the NSAsserts are changed into DDLogErrors.
-  - colorFlags - The SVGColor struct has a flag for the status of the color.
+  - colorFlags - The SVGColor struct has a flag for the status of the creation of the color struct.
 
 ## Xcode Projects Included
 
@@ -28,7 +28,7 @@ Because so much has changed, Adam wrote a series of blog posts to explain how to
 
 __WARNING__: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
 
-If you wish to help with CoreAnimation bugs, file a bug report for apple at http://bugreport.apple.com: the more people report on an issue, the more likely Apple will fix it.
+If you wish to help with CoreAnimation bugs, file a bug report for Apple at http://bugreport.apple.com: the more people report on an issue, the more likely Apple will fix it.
 
 Key methods / properties you might find useful:
 
@@ -42,7 +42,7 @@ There are many new features in this version (2013) of SVGKit. Read the blog post
 
   - use an SVG just like it's a normal PNG file: use SVGKFastImageView like it's UIImageView/NSImageView:
   - load an SVG from web, or from disk
-  - search an SVG file for particular tags / nodes / elements:
+  - search an SVG file for particular tags / nodes / elements
   - automatic scaling of your SVG to fit their on-screen size (often reduces the memory required)
   - Access to the DOM Document Object Model
   - Retrieve any part of your SVG document positioned correctly in space
@@ -68,30 +68,28 @@ or *load an image and convert to a UIImage object:*
 
 There is a sample project you can examine which embeds the entire SVGKit project into an application project. Many people like working this way.
 
-  1. Include the SVGKit-iOS project in your Xcode project
-  1. Import the SVGKit header:
-
-    #import <SVGKit/SVGKit.h>
-
+  1. Include the SVGKit-iOS project in your Xcode project.
+  1. Set the SVGKit-iOS library as a build dependancy of your app and link to it.
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
-  8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
-  9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
-  10. (Optional but recommended): Add the library "libxml2.dylib"
+  8. Add all the __required Apple Frameworks__ (see below).
+  10. Add the library "libxml2.dylib"
+  1. Import the SVGKit header in your app: #import &lt;SVGKit/SVGKit.h&gt;
   
 If you don't want to include the SVGKit-iOS project, you can get the headers and library thusly:
 
   1. Open the project "SVGKit-iOS"
-  2. Select the target "SVGKit Library" from the dropdown build selector at top left
-  3. Build
+  2. Select the target "SVGKit Library" from the dropdown build selector at top left.
+  3. Build.
   3. Open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder". __then go up one directory!__ You __must not use__ the Product that Xcode shows you - it *is wrong*, it is a __*bug in Apple's Xcode!*__
-  4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator
+  4. Look in your output directory for a folder named "debug-universal" - this contains a library + headers for: iPhone, iPad, iOS Simulator.
   5. Drag/drop the library file, and the headers folder (should be in the directory called "include", named "SVGKit") into your iPhone/iPad project.
+  1. Import the SVGKit header in your app: #import &lt;SVGKit/SVGKit.h&gt;
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
-  8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
+  8. Add all the __required Apple Frameworks__ (see below).
+  10. Add the framework "libxml2.dylib"
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
-  10. (Optional but recommended): Add the framework "libxml2.dylib"
   
 ### REQUIRED APPLE FRAMEWORKS
 
@@ -117,12 +115,12 @@ To use SVGKit, either create and display the image on screen:
 
     [view addSubview: [[SVGKLayeredImageView alloc] initWithSVGKImage: [SVGKImage imageNamed@"mySVGfile.svg"]]];
     
-or load an image and convert it to an NSImage or NSBitmapImageRep object
+or load an image and convert it to an NSImage or NSBitmapImageRep object:
 
     NSImage *newImage = [SVGKImage imageNamed:@"mySVGfile"].NSImage;
     NSBitmapImageRep *newImageRep = [SVGKImage imageNamed:@"mySVGfile"].bitmapImageRep;
     
-Or load the SVG using NSImage
+Or load the SVG using NSImage:
 
     NSImage *svgImage = [NSImage imageNamed:@"mySVGfile.svg"];
 
@@ -149,22 +147,25 @@ There is a sample project you can examine which copies the SVGKit framework into
 
 ### SVGKImageRep
 
-To use SVGKImageRep, either just link to SVGKit which will add the SVGKImageRep class to the SVGImageRep class lists, or load the SVGKit framework with NSBundle.
+To use SVGKImageRep, either just link to SVGKit, or load the SVGKit framework with NSBundle. Both methods will add the SVGKImageRep class to the NSImageRep classes list.
 
 ### libSVGKit
 
 To include libSVGKit in an OS X project, follow these steps:
 
   1. Open the project "SVGKit-OSX"
-  2. Select the target "libSVGKit" from the dropdown build selector at top left
-  3. Build
+  2. Select the target "libSVGKit" from the dropdown build selector at top left.
+  3. Build.
   4. Open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder".
   5. Drag/drop the library file, and the headers folder SVGKit (should be in "usr/local/include") into your OS X project.
   7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
   6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
-  8. Add all the REQUIRED APPLE FRAMEWORKS (see below)
+  8. Add all the __required Apple Frameworks__ (see below).
+  10. Add the library "libxml2.dylib"
   9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
-  10. (Optional but recommended): Add the library "libxml2.dylib"
+  1. Import the SVGKit header in your app: #import &lt;SVGKit/SVGKit.h&gt;
+
+Note that you can also include the Xcode project in a similar way as iOS.
 
 #### REQUIRED APPLE FRAMEWORKS
 

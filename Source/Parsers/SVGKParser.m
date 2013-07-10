@@ -68,7 +68,7 @@ static void	charactersFoundSAX(void * ctx, const xmlChar * ch, int len);
 static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 
 #if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
-NS_INLINE NSString *NSStringFromLibxmlString (const xmlChar *string);
+static inline NSString *NSStringFromLibxmlString (const xmlChar *string);
 #else
 #define NSStringFromLibxmlString(string) (string ? @((const char*)string) : nil)
 #endif
@@ -755,7 +755,7 @@ static xmlSAXHandler SAXHandler = {
 #pragma mark Utility
 
 #if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
-NS_INLINE NSString *NSStringFromLibxmlString (const xmlChar *string) {
+static inline NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	if( string == NULL ) // Yes, Apple requires we do this check!
 		return nil;
 	else
