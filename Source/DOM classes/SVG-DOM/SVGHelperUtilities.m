@@ -7,6 +7,7 @@
 
 #import "SVGTransformable.h"
 #import "SVGSVGElement.h"
+#import "SVGGradientLayer.h"
 
 @implementation SVGHelperUtilities
 
@@ -176,7 +177,7 @@
 	
 	_shapeLayer.path = finalPath;
 	CGPathRelease(finalPath);
-	CGPathRelease(pathToPlaceInLayer);
+	//CGPathRelease(pathToPlaceInLayer);
 	
 	/**
 	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
@@ -270,10 +271,12 @@
 		
 		//if( _shapeLayer != nil && svgGradient != nil ) //this nil check here is distrubing but blocking
 		{
-			CAGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
+			SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
 			
 			NSLog(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
 			gradientLayer.mask =_shapeLayer;
+            gradientLayer.maskPath = pathToPlaceInLayer;
+            CGPathRelease(pathToPlaceInLayer);
 			[_shapeLayer release]; // because it was created with a +1 retain count
 			
 			return gradientLayer;
@@ -295,7 +298,7 @@
     
 	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity"];
 	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
-	
+	CGPathRelease(pathToPlaceInLayer);
 	return _shapeLayer;
 }
 

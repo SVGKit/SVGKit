@@ -12,6 +12,7 @@
 #import "NodeList+Mutable.h"
 
 #import "SVGKFastImageView.h"
+#import "SVGKLayeredImageView.h"
 
 @interface DetailViewController ()
 
@@ -345,7 +346,7 @@ CATextLayer *textLayerForLastTappedLayer;
 				 
 				 */
 				
-				self.contentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
+				self.contentView = [[[SVGKFastImageView alloc] initWithSVGKImage:document] autorelease];
 			}
 			else
 			{
@@ -353,7 +354,7 @@ CATextLayer *textLayerForLastTappedLayer;
 				
 				NSLog(@"[%@] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this", [self class]);
 				
-				((SVGKFastImageView*)self.contentView).disableAutoRedrawAtHighestResolution = TRUE;
+				//((SVGKFastImageView*)self.contentView).disableAutoRedrawAtHighestResolution = TRUE;
 			}
 			self.contentView.showBorder = FALSE;
 			[self.contentView addGestureRecognizer:self.tapGestureRecognizer];
