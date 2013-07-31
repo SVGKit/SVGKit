@@ -84,9 +84,9 @@
 	return CGPointMake( xNormalized, yNormalized );
 }
 
--(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect
+-(SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect)viewportRect
 {
-    CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+    SVGGradientLayer *gradientLayer = [[SVGGradientLayer alloc] init];
 	
 	CGRect rectForRelativeUnits;
 	NSString* gradientUnits = [self getAttributeInheritedIfNil:@"gradientUnits"];
@@ -98,29 +98,53 @@
     
 	gradientLayer.frame = rectForRelativeUnits;
 	
-	SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
-	SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
-	
-	CGPoint startPoint = CGPointMake(svgX1.value, svgY1.value);
-    startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
-    startPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",startPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",startPoint.y]] rectToFill:rectForRelativeUnits];
-	
-	SVGLength* svgX2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x2"]];
-	SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y2"]];
-	
-	CGPoint endPoint = CGPointMake(svgX2.value, svgY2.value);
-    endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
-    endPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.y]] rectToFill:rectForRelativeUnits];
-    
+	if ([self.tagName isEqualToString:@"radialGradient"]) {
+        SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"cx"]];
+        SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"cy"]];
+        CGPoint startPoint = CGPointMake(svgX1.value, svgY1.value);
+        startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
+        gradientLayer.transform = CGAffineTransformMake(self.transform.a, self.transform.b, self.transform.c, self.transform.d, 0, 0);
+        
+        SVGLength* svgX2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"r"]];
+        SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"r"]];
+        
+        CGPoint endPoint = [self normalizeGradientCoordinate:svgX2 y:svgY2 rectToFill:rectForRelativeUnits];
+        
 #ifdef SVG_DEBUG_GRADIENTS
     DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
     
     DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
-
-//    return gradientLayer;
-    gradientLayer.startPoint = startPoint;
-    gradientLayer.endPoint = endPoint;
+        
+        //    return gradientLayer;
+        gradientLayer.startPoint = startPoint;
+        gradientLayer.endPoint = endPoint;
+        gradientLayer.type = kExt_CAGradientLayerRadial;
+    } else {
+        SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
+        SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
+        CGPoint startPoint = CGPointMake(svgX1.value, svgY1.value);
+        startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
+        startPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",startPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",startPoint.y]] rectToFill:rectForRelativeUnits];
+        
+        SVGLength* svgX2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x2"]];
+        SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y2"]];
+        
+        CGPoint endPoint = CGPointMake(svgX2.value, svgY2.value);
+        endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
+        endPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.y]] rectToFill:rectForRelativeUnits];
+        
+#ifdef SVG_DEBUG_GRADIENTS
+        NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+        
+        NSLog(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+#endif
+        
+        //    return gradientLayer;
+        gradientLayer.startPoint = startPoint;
+        gradientLayer.endPoint = endPoint;
+        gradientLayer.type = kCAGradientLayerAxial;
+    }
     
     if( colors == nil ) //these can't be determined until parsing is complete, need to update SVGGradientParser and do this on end element
     {
