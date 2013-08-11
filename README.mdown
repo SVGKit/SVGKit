@@ -174,7 +174,7 @@ You must add the following frameworks for libSVGKit to link - unless you are emb
   - QuartzCore
   - Cocoa
 
-(You will most likely need to import QuartzCore into your project. Note that unlike iOS, OS X uses a concept of umbrella frameworks so that a lot of frameworks' are automatically loaded either and link time or runtime.)
+(You will most likely need to import QuartzCore into your project. Note that unlike iOS, OS X uses the concept of umbrella frameworks more-so than iOS.)
 
 Here is a list of all the frameworks that libSVGKit uses and can be linked against:
 
