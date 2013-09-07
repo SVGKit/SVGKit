@@ -441,14 +441,33 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (SVGCurve) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
-    SVGCurve curve = [SVGKPointsAndPathsParser readCurvetoArgument:scanner path:path relativeTo:origin];
+    SVGCurve curve;
     
-    if (![scanner isAtEnd]) {
-        curve = [SVGKPointsAndPathsParser readCurvetoArgumentSequence:scanner path:path relativeTo:(isRelative ? curve.p : origin) isRelative:isRelative];
-    }
-    
+	[self readCurvetoArgumentSequence:scanner path:path relativeTo:origin isRelative:isRelative overwritingCurve:&curve];
+	
     return curve;
 }
+
+/**
+ Recursive method that does the work of:
+ 
+ readCurvetoArgumentSequence:path:relativeTo:isRelative:
+ 
+ ...with constant memory (avoids allocating a new struct on the stack).
+ 
+ Large SVG files recurse very deep, and the tiny struct was reaching multiple-megabytes in size, when multipled by 100's of recursions
+ */
++ (void) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative overwritingCurve:(SVGCurve*) curvePointer
+{
+    *curvePointer = [SVGKPointsAndPathsParser readCurvetoArgument:scanner path:path relativeTo:origin];
+    
+    if (![scanner isAtEnd])
+	{
+		CGPoint newOrigin = isRelative ? curvePointer->p : origin; /** FIXME: this could accidentally get corrupted, add an extra pre-allocation for it before the recursion starts */
+        [SVGKPointsAndPathsParser readCurvetoArgumentSequence:scanner path:path relativeTo:newOrigin isRelative:isRelative overwritingCurve:curvePointer];
+    }
+}
+
 /**
  curveto-argument:
  coordinate-pair comma-wsp? coordinate-pair comma-wsp? coordinate-pair
