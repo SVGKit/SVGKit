@@ -2,6 +2,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "SVGKSourceString.h"
 #import "SVGKLayer.h"
 
 @interface SVGKLayeredImageView()
@@ -104,7 +105,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 			
 			NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
 			
-			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSource sourceFromContentsOfString:svgStringDefaultContents]];
+			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
 			
 			self.backgroundColor = [UIColor cyanColor];
 			

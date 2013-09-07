@@ -53,6 +53,7 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
+	this method MUST NOT allow MutableString to be passed in. strings in DOM nodes are immutable unless explicitly changed via setters.
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -170,6 +171,7 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
+	this method MUST NOT allow MutableString to be passed in. strings in DOM nodes are immutable unless explicitly changed via setters.
 	self = [self initType:nt name:n value:v];
 	
 	if( self )

@@ -190,6 +190,7 @@ readPacket(char *mem, int size) {
 	xmlParserCtxtPtr ctx;
 	ctx = xmlCreatePushParserCtxt(&SAXHandler, NULL, NULL, 0, NULL); // NEVER pass anything except NULL in second arg - libxml has a massive bug internally
 	
+	you broke the formatting. Please don't do this
 	/* 
 	 DDLogVerbose(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
 	 xmlSubstituteEntitiesDefault(1);
@@ -244,6 +245,7 @@ readPacket(char *mem, int size) {
 	return currentParseRun;
 }
 
+you broke the formatting. Please don't do this
 /** ADAM: use this for a higher-performance, *non-blocking* parse
  (when someone upgrades this class and the interface to support non-blocking parse)
  // Called when a chunk of data has been downloaded.
@@ -313,7 +315,7 @@ readPacket(char *mem, int size) {
 		 Now we know it's a specific parser, check if it handles this particular node
 		 */
 		if( [[subParser supportedNamespaces] containsObject:XMLNSURI]
-		   && [[subParser supportedTags] containsObject:name] )
+		&& [[subParser supportedTags] containsObject:name] )
 		{
 			[_stackOfParserExtensions addObject:subParser];
 			

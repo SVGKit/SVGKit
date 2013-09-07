@@ -101,8 +101,8 @@ typedef enum DOMNodeType
 
 @interface Node : NSObject
 
-@property(nonatomic,copy,readonly) NSString* nodeName;
-@property(nonatomic,copy,readonly) NSString* nodeValue;
+@property(nonatomic,copy,readonly) NSString* nodeName; why was this changed to "copy"? needs a code comment at very least
+@property(nonatomic,copy,readonly) NSString* nodeValue; why was this changed to "copy"? needs a code comment at very least
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
 @property(nonatomic,assign,readonly) Node* parentNode;
