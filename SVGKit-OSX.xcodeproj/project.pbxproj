@@ -222,6 +222,10 @@
 		558100D41780A11C00B2BB87 /* SVGKImageRep-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 558100D31780A11C00B2BB87 /* SVGKImageRep-private.h */; };
 		5586007F17851F8A00CB3D85 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5586007D17851F8A00CB3D85 /* LICENSE */; };
 		5586008017851F8A00CB3D85 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 5586007E17851F8A00CB3D85 /* README.mdown */; };
+		55886F5E17DD79FA00021A82 /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 55886F5C17DD79FA00021A82 /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55886F5F17DD79FA00021A82 /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 55886F5C17DD79FA00021A82 /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55886F6017DD79FA00021A82 /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55886F5D17DD79FA00021A82 /* SVGGradientLayer.m */; };
+		55886F6117DD79FA00021A82 /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55886F5D17DD79FA00021A82 /* SVGGradientLayer.m */; };
 		558BE71A177B98FE00DC9516 /* SVGKImage+CacheManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 558BE719177B98FE00DC9516 /* SVGKImage+CacheManagement.m */; };
 		558BE71C177B9D3F00DC9516 /* SVGKImage+CacheManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 558BE71B177B9D3F00DC9516 /* SVGKImage+CacheManagement.h */; };
 		55A5AD49175FEB94009F2FDD /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD48175FEB94009F2FDD /* SVGKit.m */; };
@@ -704,6 +708,8 @@
 		558100D31780A11C00B2BB87 /* SVGKImageRep-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKImageRep-private.h"; sourceTree = "<group>"; };
 		5586007D17851F8A00CB3D85 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		5586007E17851F8A00CB3D85 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = SOURCE_ROOT; };
+		55886F5C17DD79FA00021A82 /* SVGGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientLayer.h; sourceTree = "<group>"; };
+		55886F5D17DD79FA00021A82 /* SVGGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientLayer.m; sourceTree = "<group>"; };
 		558BE719177B98FE00DC9516 /* SVGKImage+CacheManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SVGKImage+CacheManagement.m"; path = "Source/SVGKImage+CacheManagement.m"; sourceTree = SOURCE_ROOT; };
 		558BE71B177B9D3F00DC9516 /* SVGKImage+CacheManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SVGKImage+CacheManagement.h"; path = "Source/SVGKImage+CacheManagement.h"; sourceTree = SOURCE_ROOT; };
 		55A5AD48175FEB94009F2FDD /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGKit.m; path = Source/SVGKit.m; sourceTree = SOURCE_ROOT; };
@@ -1118,6 +1124,8 @@
 				5540E73617387F2B004029EF /* CAShapeLayerWithHitTest.m */,
 				5540E73717387F2B004029EF /* CGPathAdditions.h */,
 				5540E73817387F2B004029EF /* CGPathAdditions.m */,
+				55886F5C17DD79FA00021A82 /* SVGGradientLayer.h */,
+				55886F5D17DD79FA00021A82 /* SVGGradientLayer.m */,
 				5540E73917387F2B004029EF /* SVGKLayer.h */,
 				5540E73A17387F2B004029EF /* SVGKLayer.m */,
 			);
@@ -1354,6 +1362,7 @@
 				55C360AF1781E8DD00BA24FA /* SVGKFastImageView.h in Headers */,
 				55788779178892D30021D775 /* SVGKImage-private.h in Headers */,
 				5574ADAA17889CA000EA4281 /* SVGKSource-private.h in Headers */,
+				55886F5E17DD79FA00021A82 /* SVGGradientLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1496,6 +1505,7 @@
 				55C362D0178220E200BA24FA /* SVGUtils.h in Headers */,
 				5578877A178892D30021D775 /* SVGKImage-private.h in Headers */,
 				5574ADAB17889CA000EA4281 /* SVGKSource-private.h in Headers */,
+				55886F5F17DD79FA00021A82 /* SVGGradientLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1702,6 +1712,7 @@
 				55D2747A1779029C0068FD7C /* SVGKSourceData.m in Sources */,
 				558BE71A177B98FE00DC9516 /* SVGKImage+CacheManagement.m in Sources */,
 				55435576177F4F5D007E1FAD /* SVGKImageRep.m in Sources */,
+				55886F6017DD79FA00021A82 /* SVGGradientLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1821,6 +1832,7 @@
 				55C3619B1782095300BA24FA /* CALayerExporter.m in Sources */,
 				55C362CF178220E200BA24FA /* SVGKPattern.m in Sources */,
 				55C362D1178220E200BA24FA /* SVGUtils.m in Sources */,
+				55886F6117DD79FA00021A82 /* SVGGradientLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
