@@ -12,6 +12,7 @@
 #import <SVGKit/NodeList+Mutable.h>
 
 #import <SVGKit/SVGKFastImageView.h>
+#import <SVGKit/SVGKLayeredImageView.h>
 
 @interface DetailViewController ()
 
@@ -389,7 +390,7 @@ CATextLayer *textLayerForLastTappedLayer;
 				 SVG Viewport. SVGKit automagically does this for you if you ever set a value to image.scale */
 				if( ! CGSizeEqualToSize( CGSizeZero, customSizeForImage ) )
 					document.size = customSizeForImage; // preferred way to scale an SVG! (standards compliant!)
-				
+
 				if( thisImageRequiresLayeredImageView )
 				{
 					newContentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
@@ -407,6 +408,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			{
 				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 				newContentView = nil; // signals to the rest of this method: the load failed
+
 			}
 		}
 	}
