@@ -116,7 +116,7 @@
 		5587F2E5173FFFAC00DC0EC1 /* SVGUtils.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 66E8639D1688C2780059C9C4 /* SVGUtils.h */; };
 		5587F2E61740003000DC0EC1 /* AppleSucksDOMImplementation.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */; };
 		55886F5A17DD771600021A82 /* SVGGradientLayer.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; };
-		55886F6417DD8D3500021A82 /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
+		55886F6717DD8DED00021A82 /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 		558BE720177BA2C300DC9516 /* SVGKImage+CacheManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 558BE71E177BA2C300DC9516 /* SVGKImage+CacheManagement.m */; };
 		55A5AD45175FEAE4009F2FDD /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD41175FEAE4009F2FDD /* SVGKSourceLocalFile.m */; };
 		55A5AD47175FEAE4009F2FDD /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD43175FEAE4009F2FDD /* SVGKSourceURL.m */; };
@@ -1147,7 +1147,7 @@
 				55C360B81781ECA300BA24FA /* DDTTYLogger.m in Sources */,
 				55C360B91781ECA300BA24FA /* ContextFilterLogFormatter.m in Sources */,
 				55C360BA1781ECA300BA24FA /* DispatchQueueLogFormatter.m in Sources */,
-				55886F6417DD8D3500021A82 /* SVGGradientLayer.m in Sources */,
+				55886F6717DD8DED00021A82 /* SVGGradientLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
