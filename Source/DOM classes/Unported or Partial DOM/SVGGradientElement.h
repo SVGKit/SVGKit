@@ -26,6 +26,7 @@
 #import "SVGRect.h"
 #import "SVGGradientStop.h"
 #import "SVGTransformable.h"
+#import "SVGGradientLayer.h"
 
 @interface SVGGradientElement : SVGElement <SVGTransformable> /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
 {
@@ -43,6 +44,7 @@
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 
--(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect;
+
+-(SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect;
 
 @end
