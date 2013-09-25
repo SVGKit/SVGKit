@@ -42,6 +42,8 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -148,6 +150,8 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
 	self = [self initType:nt name:n value:v];
 	
 	if( self )

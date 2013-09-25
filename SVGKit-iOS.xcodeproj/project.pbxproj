@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		553F327017F2A34100221391 /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 553F326F17F2A34100221391 /* SVGKSourceString.m */; };
+		553F327117F2A38200221391 /* SVGKSourceString.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 553F326E17F2A34100221391 /* SVGKSourceString.h */; };
 		557E69D817401644006B0029 /* SVGKCGFloatAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 557E69D617401644006B0029 /* SVGKCGFloatAdditions.m */; };
 		5580182A176E4F9300F64989 /* BlankSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 55801828176E4F9300F64989 /* BlankSVG.m */; };
 		5587F277173FFF2500DC0EC1 /* SVGKImage.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 66E8638C1688C2780059C9C4 /* SVGKImage.h */; };
@@ -230,6 +232,7 @@
 			dstPath = include/SVGKit;
 			dstSubfolderSpec = 16;
 			files = (
+				5587F2DB173FFFAC00DC0EC1 /* SVGKPointsAndPathsParser.h in Copy Headers */,
 				5587F2B8173FFFAC00DC0EC1 /* SVGGradientElement.h in Copy Headers */,
 				5587F2E61740003000DC0EC1 /* AppleSucksDOMImplementation.h in Copy Headers */,
 				5587F27A173FFFAC00DC0EC1 /* Attr.h in Copy Headers */,
@@ -328,7 +331,6 @@
 				5587F2D8173FFFAC00DC0EC1 /* SVGKParser.h in Copy Headers */,
 				5587F2D9173FFFAC00DC0EC1 /* SVGKParseResult.h in Copy Headers */,
 				5587F2DA173FFFAC00DC0EC1 /* SVGKParserExtension.h in Copy Headers */,
-				5587F2DB173FFFAC00DC0EC1 /* SVGKPointsAndPathsParser.h in Copy Headers */,
 				5587F2DC173FFFAC00DC0EC1 /* CALayerWithChildHitTest.h in Copy Headers */,
 				5587F2DD173FFFAC00DC0EC1 /* CAShapeLayerWithHitTest.h in Copy Headers */,
 				5587F2DE173FFFAC00DC0EC1 /* CGPathAdditions.h in Copy Headers */,
@@ -338,6 +340,7 @@
 				5587F2E2173FFFAC00DC0EC1 /* SVGKLayeredImageView.h in Copy Headers */,
 				5587F2E4173FFFAC00DC0EC1 /* SVGKPattern.h in Copy Headers */,
 				5587F2E5173FFFAC00DC0EC1 /* SVGUtils.h in Copy Headers */,
+				553F327117F2A38200221391 /* SVGKSourceString.h in Copy Headers */,
 				5587F277173FFF2500DC0EC1 /* SVGKImage.h in Copy Headers */,
 				5587F278173FFF2500DC0EC1 /* SVGKit.h in Copy Headers */,
 				5587F279173FFF2500DC0EC1 /* SVGKSource.h in Copy Headers */,
@@ -365,6 +368,8 @@
 		00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		00E86D621741586600F0FA0A /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		00E86D7317415AA000F0FA0A /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKit.m; sourceTree = "<group>"; };
+		553F326E17F2A34100221391 /* SVGKSourceString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceString.h; sourceTree = "<group>"; };
+		553F326F17F2A34100221391 /* SVGKSourceString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceString.m; sourceTree = "<group>"; };
 		5574ADAC17889E3400EA4281 /* SVGKSource-private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKSource-private.h"; sourceTree = "<group>"; };
 		5578877B178893660021D775 /* SVGKImage-private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKImage-private.h"; sourceTree = "<group>"; };
 		557E69D517401644006B0029 /* SVGKCGFloatAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKCGFloatAdditions.h; sourceTree = "<group>"; };
@@ -641,6 +646,8 @@
 		55A5AD3F175FEAE3009F2FDD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				553F326E17F2A34100221391 /* SVGKSourceString.h */,
+				553F326F17F2A34100221391 /* SVGKSourceString.m */,
 				55A5AD40175FEAE4009F2FDD /* SVGKSourceLocalFile.h */,
 				55A5AD41175FEAE4009F2FDD /* SVGKSourceLocalFile.m */,
 				55A5AD42175FEAE4009F2FDD /* SVGKSourceURL.h */,
@@ -1026,7 +1033,7 @@
 		6639618516145D0400E58CCA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = na;
 			};
 			buildConfigurationList = 6639618816145D0400E58CCA /* Build configuration list for PBXProject "SVGKit-iOS" */;
@@ -1107,6 +1114,7 @@
 				66E864181688C2780059C9C4 /* SVGKImage.m in Sources */,
 				66E8641B1688C2780059C9C4 /* SVGKSource.m in Sources */,
 				66E8641D1688C2780059C9C4 /* SVGKFastImageView.m in Sources */,
+				553F327017F2A34100221391 /* SVGKSourceString.m in Sources */,
 				66E8641F1688C2780059C9C4 /* SVGKImageView.m in Sources */,
 				66E864211688C2780059C9C4 /* SVGKLayeredImageView.m in Sources */,
 				66E864251688C2780059C9C4 /* SVGKPattern.m in Sources */,
@@ -1158,9 +1166,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1174,10 +1183,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1186,17 +1199,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;

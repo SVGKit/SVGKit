@@ -12,6 +12,10 @@
 		55247B23173DB63B00531BBC /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */; };
 		55247B26173DB63C00531BBC /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 55247B20173DB63B00531BBC /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B21173DB63B00531BBC /* SVGKSourceURL.m */; };
+		553F327517F2A8ED00221391 /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 553F327317F2A8ED00221391 /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		553F327617F2A8ED00221391 /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 553F327317F2A8ED00221391 /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		553F327717F2A8ED00221391 /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 553F327417F2A8ED00221391 /* SVGKSourceString.m */; };
+		553F327817F2A8ED00221391 /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 553F327417F2A8ED00221391 /* SVGKSourceString.m */; };
 		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5540E75117387F2B004029EF /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
 		5540E75217387F2B004029EF /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68917387F2A004029EF /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -501,6 +505,8 @@
 		55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceLocalFile.m; sourceTree = "<group>"; };
 		55247B20173DB63B00531BBC /* SVGKSourceURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceURL.h; sourceTree = "<group>"; };
 		55247B21173DB63B00531BBC /* SVGKSourceURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceURL.m; sourceTree = "<group>"; };
+		553F327317F2A8ED00221391 /* SVGKSourceString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceString.h; sourceTree = "<group>"; };
+		553F327417F2A8ED00221391 /* SVGKSourceString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceString.m; sourceTree = "<group>"; };
 		5540E66C17387C9F004029EF /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5540E66F17387C9F004029EF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		5540E67217387C9F004029EF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -787,6 +793,8 @@
 		55247B1B173DB63A00531BBC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				553F327317F2A8ED00221391 /* SVGKSourceString.h */,
+				553F327417F2A8ED00221391 /* SVGKSourceString.m */,
 				55247B1C173DB63B00531BBC /* SVGKSourceLocalFile.h */,
 				55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */,
 				55247B20173DB63B00531BBC /* SVGKSourceURL.h */,
@@ -1353,6 +1361,7 @@
 				5540E76D17387F2B004029EF /* Document+Mutable.h in Headers */,
 				55B4D7A7173EC58700D2C676 /* SVGKLayeredImageView.h in Headers */,
 				55B4D7AB173ECEC200D2C676 /* CALayerExporter.h in Headers */,
+				553F327517F2A8ED00221391 /* SVGKSourceString.h in Headers */,
 				557E69D3174014E4006B0029 /* SVGKCGFloatAdditions.h in Headers */,
 				55A5AD6C175FEBF4009F2FDD /* ConverterSVGToCALayer.h in Headers */,
 				55801825176E4D7800F64989 /* BlankSVG.h in Headers */,
@@ -1496,6 +1505,7 @@
 				55C360E21782062E00BA24FA /* AppleSucksDOMImplementation.h in Headers */,
 				55C360DC1782057300BA24FA /* SVGKImageRep-private.h in Headers */,
 				55C360DE1782057300BA24FA /* SVGKImageView.h in Headers */,
+				553F327617F2A8ED00221391 /* SVGKSourceString.h in Headers */,
 				55C360E01782057300BA24FA /* SVGKLayeredImageView.h in Headers */,
 				55C360EE1782062E00BA24FA /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h in Headers */,
 				55C361901782075700BA24FA /* NSCharacterSet+SVGKExtensions.h in Headers */,
@@ -1573,7 +1583,7 @@
 		5540E66317387C9E004029EF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "C.W. Betts";
 			};
 			buildConfigurationList = 5540E66617387C9E004029EF /* Build configuration list for PBXProject "SVGKit-OSX" */;
@@ -1634,6 +1644,7 @@
 				5540E76717387F2B004029EF /* CSSStyleSheet.m in Sources */,
 				5540E76917387F2B004029EF /* CSSValue.m in Sources */,
 				5540E76C17387F2B004029EF /* CSSValueList.m in Sources */,
+				553F327717F2A8ED00221391 /* SVGKSourceString.m in Sources */,
 				5540E76F17387F2B004029EF /* Document.m in Sources */,
 				5540E77217387F2B004029EF /* DocumentFragment.m in Sources */,
 				5540E77517387F2B004029EF /* DocumentType.m in Sources */,
@@ -1806,6 +1817,7 @@
 				55C36165178206A500BA24FA /* SVGPolygonElement.m in Sources */,
 				55C36167178206A500BA24FA /* SVGPolylineElement.m in Sources */,
 				55C36169178206A500BA24FA /* SVGRectElement.m in Sources */,
+				553F327817F2A8ED00221391 /* SVGKSourceString.m in Sources */,
 				55C3616C178206A500BA24FA /* SVGStyleElement.m in Sources */,
 				55C3616E178206A500BA24FA /* SVGSVGElement.m in Sources */,
 				55C36170178206A500BA24FA /* SVGTextElement-OSX.m in Sources */,
@@ -1871,7 +1883,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1904,7 +1915,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -2003,6 +2013,7 @@
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch";
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				KEEP_PRIVATE_EXTERNS = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 				PRODUCT_NAME = SVGKit;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
@@ -2017,6 +2028,7 @@
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch";
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 				PRODUCT_NAME = SVGKit;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
@@ -2031,6 +2043,7 @@
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/libSVGKit-Prefix.pch";
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
+				KEEP_PRIVATE_EXTERNS = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
 				PRODUCT_NAME = SVGKit;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/SVGKit;
@@ -2041,7 +2054,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
