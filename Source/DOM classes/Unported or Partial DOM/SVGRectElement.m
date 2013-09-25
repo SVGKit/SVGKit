@@ -6,7 +6,8 @@
 
 @interface SVGRectElement ()
 
-static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
+//This fixes a conflict with a similarly-named iOS 7 function
+static void CGPathAddRoundedRectPre7 (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
 
 @end
 
@@ -24,7 +25,7 @@ static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat ra
 
 // adapted from http://www.cocoanetics.com/2010/02/drawing-rounded-rectangles/
 
-static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY) {
+static void CGPathAddRoundedRectPre7 (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY) {
 	CGRect innerRect = CGRectInset(rect, radiusX, radiusY);
 	
 	CGFloat innerRight = innerRect.origin.x + innerRect.size.width;
@@ -104,7 +105,7 @@ static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat ra
 		else if( radiusXPixels == 0 && radiusYPixels > 0 ) // if RX unspecified, make it equal to RY
 			radiusXPixels = radiusYPixels;
 		
-		CGPathAddRoundedRect(path, rect, radiusXPixels, radiusYPixels);
+		CGPathAddRoundedRectPre7(path, rect, radiusXPixels, radiusYPixels);
 	}
 	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);
