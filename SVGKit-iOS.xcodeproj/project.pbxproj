@@ -230,6 +230,7 @@
 			dstPath = include/SVGKit;
 			dstSubfolderSpec = 16;
 			files = (
+				5587F2DB173FFFAC00DC0EC1 /* SVGKPointsAndPathsParser.h in Copy Headers */,
 				5587F2B8173FFFAC00DC0EC1 /* SVGGradientElement.h in Copy Headers */,
 				5587F2E61740003000DC0EC1 /* AppleSucksDOMImplementation.h in Copy Headers */,
 				5587F27A173FFFAC00DC0EC1 /* Attr.h in Copy Headers */,
@@ -328,7 +329,6 @@
 				5587F2D8173FFFAC00DC0EC1 /* SVGKParser.h in Copy Headers */,
 				5587F2D9173FFFAC00DC0EC1 /* SVGKParseResult.h in Copy Headers */,
 				5587F2DA173FFFAC00DC0EC1 /* SVGKParserExtension.h in Copy Headers */,
-				5587F2DB173FFFAC00DC0EC1 /* SVGKPointsAndPathsParser.h in Copy Headers */,
 				5587F2DC173FFFAC00DC0EC1 /* CALayerWithChildHitTest.h in Copy Headers */,
 				5587F2DD173FFFAC00DC0EC1 /* CAShapeLayerWithHitTest.h in Copy Headers */,
 				5587F2DE173FFFAC00DC0EC1 /* CGPathAdditions.h in Copy Headers */,
