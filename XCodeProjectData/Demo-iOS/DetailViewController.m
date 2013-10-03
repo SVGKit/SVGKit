@@ -230,7 +230,7 @@ CATextLayer *textLayerForLastTappedLayer;
 
 #pragma mark - CRITICAL: this method makes Apple render SVGs in sharp focus
 
--(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)finalScale
+-(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)finalScale
 {
 	/** NB: very important! The "finalScale" paramter to this method is SLIGHTLY DIFFERENT from the scale that Apple reports in the other delegate methods
 	 
@@ -406,7 +406,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			}
 			else
 			{
-				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%lu fatal errors, %lu warnings. First fatal = %@",(unsigned long)[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 				newContentView = nil; // signals to the rest of this method: the load failed
 
 			}
