@@ -1,0 +1,35 @@
+//
+// Prefix header for all source files of the 'SVGKit' target in the 'SVGKit' project
+//
+
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <AppKit/AppKit.h>
+	#import <QuartzCore/QuartzCore.h>
+	#import "DDLog.h"
+	#if 0
+	static inline NSString *NSStringFromCGPoint(CGPoint thePoint)
+	{
+		return NSStringFromPoint(thePoint);
+	}
+	static inline NSString *NSStringFromCGRect(CGRect theRect)
+	{
+		return NSStringFromRect(theRect);
+	}
+	static inline NSString *NSStringFromCGSize(CGSize theSize)
+	{
+		return NSStringFromSize(theSize);
+	}
+	#else
+	#define NSStringFromCGPoint(thePoint) NSStringFromPoint(thePoint)
+	#define NSStringFromCGRect(theRect) NSStringFromRect(theRect)
+	#define NSStringFromCGSize(theSize) NSStringFromSize(theSize)
+	#endif
+
+	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 1
+	#import "SVGKit_logging.pch"
+#endif

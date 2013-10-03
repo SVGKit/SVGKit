@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "NamedNodeMap.h"
+#import <SVGKit/NamedNodeMap.h>
+#import <SVGKit/Node.h>
 
 @interface NamedNodeMap()
 @property(nonatomic,retain) NSMutableDictionary* internalDictionary;
@@ -36,7 +37,7 @@
 
 -(Node*) getNamedItem:(NSString*) name
 {
-	Node* simpleResult = [self.internalDictionary objectForKey:name];
+	Node* simpleResult = (self.internalDictionary)[name];
 	
 	if( simpleResult == nil )
 	{
@@ -45,7 +46,7 @@
 		 
 		 NB: according to spec, this behaviour is:
 		 
-		    "The result depends on the implementation"
+		 "The result depends on the implementation"
 		 
 		 I've chosen to implement it the most user-friendly way possible. It is NOT the best
 		 solution IMHO - the spec authors should have defined the outcome!
@@ -66,9 +67,9 @@
 {
 	NSAssert( [[self.internalDictionaryOfNamespaces allKeys] count] < 1, @"WARNING: you are using namespaced attributes in parallel with non-namespaced. According to the DOM Spec, this leads to UNDEFINED behaviour. This is insane - you do NOT want to be doing this! Crashing deliberately...." );
 	
-	Node* oldNode = [self.internalDictionary objectForKey:arg.localName];
+	Node* oldNode = (self.internalDictionary)[arg.localName];
 	
-	[self.internalDictionary setObject:arg forKey:arg.localName];
+	(self.internalDictionary)[arg.localName] = arg;
 	
 	return oldNode;
 }
@@ -77,7 +78,7 @@
 {
 	NSAssert( [[self.internalDictionaryOfNamespaces allKeys] count] < 1, @"WARNING: you are using namespaced attributes in parallel with non-namespaced. According to the DOM Spec, this leads to UNDEFINED behaviour. This is insane - you do NOT want to be doing this! Crashing deliberately...." );
 	
-	Node* oldNode = [self.internalDictionary objectForKey:name];
+	Node* oldNode = (self.internalDictionary)[name];
 	
 	[self.internalDictionary removeObjectForKey:name];
 	
@@ -86,7 +87,7 @@
 
 -(unsigned long)length
 {
-	int count = [self.internalDictionary count];
+	NSUInteger count = [self.internalDictionary count];
 	
 	for( NSDictionary* namespaceDict in self.internalDictionaryOfNamespaces )
 	{
@@ -99,7 +100,7 @@
 -(Node*) item:(unsigned long) index
 {
 	if( index < [self.internalDictionary count] )
-		return [self.internalDictionary.allValues objectAtIndex:index];
+		return (self.internalDictionary.allValues)[index];
 	else
 	{
 		index -= self.internalDictionary.count;
@@ -107,7 +108,7 @@
 		for( NSDictionary* namespaceDict in self.internalDictionaryOfNamespaces )
 		{
 			if( index < [namespaceDict count] )
-				return [namespaceDict.allValues objectAtIndex:index];
+				return (namespaceDict.allValues)[index];
 			else
 				index -= [namespaceDict count];
 		}
@@ -119,9 +120,9 @@
 // Introduced in DOM Level 2:
 -(Node*) getNamedItemNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NSMutableDictionary* namespaceDict = [self.internalDictionaryOfNamespaces objectForKey:namespaceURI];
+	NSMutableDictionary* namespaceDict = (self.internalDictionaryOfNamespaces)[namespaceURI];
 	
-	return [namespaceDict objectForKey:localName];
+	return namespaceDict[localName];
 }
 
 // Introduced in DOM Level 2:
@@ -133,8 +134,8 @@
 // Introduced in DOM Level 2:
 -(Node*) removeNamedItemNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NSMutableDictionary* namespaceDict = [self.internalDictionaryOfNamespaces objectForKey:namespaceURI];
-	Node* oldNode = [namespaceDict objectForKey:localName];
+	NSMutableDictionary* namespaceDict = (self.internalDictionaryOfNamespaces)[namespaceURI];
+	Node* oldNode = namespaceDict[localName];
 	
 	[namespaceDict removeObjectForKey:localName];
 	
@@ -151,15 +152,15 @@
 		return [self setNamedItem:arg]; // this should never happen, but there's a lot of malformed SVG files out in the wild
 	}
 	
-	NSMutableDictionary* namespaceDict = [self.internalDictionaryOfNamespaces objectForKey:effectiveNamespace];
+	NSMutableDictionary* namespaceDict = (self.internalDictionaryOfNamespaces)[effectiveNamespace];
 	if( namespaceDict == nil )
 	{
 		namespaceDict = [NSMutableDictionary dictionary];
-		[self.internalDictionaryOfNamespaces setObject:namespaceDict forKey:effectiveNamespace];
+		(self.internalDictionaryOfNamespaces)[effectiveNamespace] = namespaceDict;
 	}
-	Node* oldNode = [namespaceDict objectForKey:arg.localName];
+	Node* oldNode = namespaceDict[arg.localName];
 	
-	[namespaceDict setObject:arg forKey:arg.localName];
+	namespaceDict[arg.localName] = arg;
 	
 	return oldNode;
 }

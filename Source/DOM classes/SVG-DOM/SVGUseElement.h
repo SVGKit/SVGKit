@@ -17,14 +17,13 @@
  };
  
  */
-#import "SVGLength.h"
-#import "SVGElement.h"
+#import <SVGKit/SVGLength.h>
+#import <SVGKit/SVGElement.h>
 
-@class SVGElementInstance;
-#import "SVGElementInstance.h"
+#import <SVGKit/SVGElementInstance.h>
 
-#import "ConverterSVGToCALayer.h"
-#import "SVGTransformable.h"
+#import <SVGKit/ConverterSVGToCALayer.h>
+#import <SVGKit/SVGTransformable.h>
 
 @interface SVGUseElement : SVGElement < SVGTransformable /*FIXME: delete this rubbish:*/, ConverterSVGToCALayer>
 

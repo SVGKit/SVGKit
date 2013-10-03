@@ -1,18 +1,52 @@
 #import "SVGKSourceString.h"
+#import "SVGKSource-private.h"
+
+@interface SVGKSourceString ()
+@property (nonatomic, retain, readwrite) NSString* rawString;
+@end
 
 @implementation SVGKSourceString
 
-+ (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
-	NSInputStream* stream = [NSInputStream inputStreamWithData:[rawString dataUsingEncoding:NSUTF8StringEncoding]];
+- (id)initWithString:(NSString*)theStr
+{
+	NSString *tmpStr = [[NSString alloc] initWithString:theStr];
+	NSInputStream* stream = [[NSInputStream alloc] initWithData:[tmpStr dataUsingEncoding:NSUTF8StringEncoding]];
 	[stream open];
-	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
-	
-	return s;
+	if (self = [super initWithInputSteam:stream]) {
+		self.rawString = tmpStr;
+	}
+	[theStr release];
+	[stream release];
+	return self;
 }
 
-- (void)dealloc {
++ (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString
+{
+	SVGKSourceString *s = [[self alloc] initWithString:rawString];
+	
+	return [s autorelease];
+}
+
+- (void)dealloc
+{
 	self.rawString = nil;
+	
 	[super dealloc];
 }
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	return [[[self class] alloc] initWithString:self.rawString];
+}
+
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"%@, string length: %lu", [self baseDescription], (unsigned long)[self.rawString length]];
+}
+
+- (NSString*)debugDescription
+{
+	return [NSString stringWithFormat:@"%@, string: %@", [self baseDescription], self.rawString];
+}
+
 @end

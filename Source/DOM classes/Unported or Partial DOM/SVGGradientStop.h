@@ -6,8 +6,8 @@
  readonly attribute SVGAnimatedNumber offset;
  */
 
-#import "SVGElement.h"
-#import "SVGUtils.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGUtils.h>
 
 
 @interface SVGGradientStop : SVGElement

@@ -9,10 +9,10 @@
 
 #import "MasterViewController.h"
 
-#import "NodeList+Mutable.h"
+#import <SVGKit/NodeList+Mutable.h>
 
-#import "SVGKFastImageView.h"
-#import "SVGKLayeredImageView.h"
+#import <SVGKit/SVGKFastImageView.h>
+#import <SVGKit/SVGKLayeredImageView.h>
 
 @interface DetailViewController ()
 
@@ -61,10 +61,8 @@
 
 -(void)viewDidLoad
 {
-	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease],
-											   nil];
+	self.navigationItem.rightBarButtonItems = @[[[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
+											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease]];
 }
 
 CALayer* lastTappedLayer;
@@ -232,7 +230,7 @@ CATextLayer *textLayerForLastTappedLayer;
 
 #pragma mark - CRITICAL: this method makes Apple render SVGs in sharp focus
 
--(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)finalScale
+-(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)finalScale
 {
 	/** NB: very important! The "finalScale" paramter to this method is SLIGHTLY DIFFERENT from the scale that Apple reports in the other delegate methods
 	 
@@ -368,6 +366,10 @@ CATextLayer *textLayerForLastTappedLayer;
 		else
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 		
+			if (!thisImageRequiresLayeredImageView && document) {
+				thisImageRequiresLayeredImageView = ![SVGKFastImageView svgImageHasNoGradients:document];
+			}
+
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
 		if( shouldScaleTimesTwo )
 			document.scale = 2.0;
@@ -404,7 +406,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			}
 			else
 			{
-				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+				[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%lu fatal errors, %lu warnings. First fatal = %@",(unsigned long)[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 				newContentView = nil; // signals to the rest of this method: the load failed
 
 			}
@@ -481,8 +483,8 @@ CATextLayer *textLayerForLastTappedLayer;
 	animation.duration = 0.25f;
 	animation.autoreverses = YES;
 	animation.repeatCount = 100000;
-	animation.fromValue = [NSNumber numberWithFloat:0.1f];
-	animation.toValue = [NSNumber numberWithFloat:-0.1f];
+	animation.fromValue = @0.1f;
+	animation.toValue = @-0.1f;
 	
 	[layer addAnimation:animation forKey:@"shakingHead"];
 }

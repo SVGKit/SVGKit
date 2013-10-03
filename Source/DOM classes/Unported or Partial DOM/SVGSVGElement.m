@@ -1,14 +1,17 @@
-#import "SVGSVGElement.h"
+#import <SVGKit/SVGSVGElement.h>
 
-#import "SVGSVGElement_Mutable.h"
+#import <SVGKit/SVGSVGElement_Mutable.h>
 #import "CALayerWithChildHitTest.h"
-#import "DOMHelperUtilities.h"
-#import "SVGHelperUtilities.h"
+#import <SVGKit/DOMHelperUtilities.h>
+#import <SVGKit/SVGHelperUtilities.h>
+#import "StyleSheetList.h"
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
 #endif
 
 @interface SVGSVGElement()
@@ -50,7 +53,7 @@
     self.currentView = nil;
     self.currentTranslate = nil;
     self.styleSheets = nil;
-	[super dealloc];	
+	[super dealloc];
 }
 
 #pragma mark - CSS Spec methods (via the DocumentCSS protocol)
@@ -163,21 +166,15 @@
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
-		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		_viewBox = SVGRectMake([boxElements[0] floatValue], [boxElements[1] floatValue], [boxElements[2] floatValue], [boxElements[3] floatValue]);
 	}
 	else
 	{
-		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
+		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !
 	}
-		DDLogVerbose(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
-        //osx logging
-#if TARGET_OS_IPHONE        
-        DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
-#else
-        //mac logging
-     DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
-#endif   
-	
+	DDLogVerbose(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
+	//osx logging
+	DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
 }
 
 - (SVGElement *)findFirstElementOfClass:(Class)class {
@@ -193,7 +190,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
@@ -207,7 +204,7 @@
 - (void)layoutLayer:(CALayer *)layer {
  	
 	/**
-	According to the SVG spec ... what this method originaly did is illegal. I've deleted all of it, and now a few more SVG's render correctly, that
+	 According to the SVG spec ... what this method originaly did is illegal. I've deleted all of it, and now a few more SVG's render correctly, that
 	 previously were rendering with strange offsets at the top level
 	 */
 }

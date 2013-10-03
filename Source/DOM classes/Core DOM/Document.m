@@ -1,9 +1,9 @@
-#import "Document.h"
-#import "Document+Mutable.h"
+#import <SVGKit/Document.h>
+#import <SVGKit/Document+Mutable.h>
 
-#import "DOMHelperUtilities.h"
+#import <SVGKit/DOMHelperUtilities.h>
 
-#import "NodeList+Mutable.h" // needed for access to underlying array, because SVG doesnt specify how lists are made mutable
+#import <SVGKit/NodeList+Mutable.h> // needed for access to underlying array, because SVG doesnt specify how lists are made mutable
 
 @implementation Document
 
@@ -11,12 +11,11 @@
 @synthesize implementation;
 @synthesize documentElement;
 
-
 - (void)dealloc {
-  [doctype release];
-  [implementation release];
-  [documentElement release];
-  [super dealloc];
+	[doctype release];
+	[implementation release];
+	[documentElement release];
+	[super dealloc];
 }
 
 -(Element*) createElement:(NSString*) tagName
@@ -66,10 +65,10 @@
 
 -(NodeList*) getElementsByTagName:(NSString*) data
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:data inNamespace:nil childrenOfElement:self.documentElement addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
@@ -100,10 +99,10 @@
 // Introduced in DOM Level 2:
 -(NodeList*) getElementsByTagNameNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self.documentElement addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:

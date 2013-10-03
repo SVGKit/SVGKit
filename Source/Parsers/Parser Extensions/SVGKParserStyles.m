@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SVGKParserStyles.h"
+#import <SVGKit/SVGKParserStyles.h>
 
-#import "CSSStyleSheet.h"
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/CSSStyleSheet.h>
+#import <SVGKit/StyleSheetList+Mutable.h>
 
 @implementation SVGKParserStyles
 
@@ -19,8 +19,8 @@ static NSSet *_svgParserStylesSupportedNamespaces = nil;
 {
     if( _svgParserStylesSupportedNamespaces == nil )
         _svgParserStylesSupportedNamespaces = [[NSSet alloc] initWithObjects:
-        @"http://www.w3.org/2000/svg",
-        nil];
+											   @"http://www.w3.org/2000/svg",
+											   nil];
 	return _svgParserStylesSupportedNamespaces;
 }
 
@@ -60,23 +60,17 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 -(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	/** This is where the magic happens ... */
-		NSString* c = [newNode.textContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString* c = [newNode.textContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	
+	if( c.length > 0 )
+	{
+		CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:c];
 		
-		if( c.length > 0 )
-		{
-			CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:c] autorelease];
-			
-			[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
-		}
-
-}
-
--(void) dealloc
-{
-//    [_tags release];
-//    [_namespaces release];
-    
-    [super dealloc];
+		[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+		
+		[parsedStylesheet release];
+	}
+	
 }
 
 +(void)trim

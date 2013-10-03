@@ -101,8 +101,11 @@ typedef enum DOMNodeType
 
 @interface Node : NSObject
 
-@property(nonatomic,retain,readonly) NSString* nodeName;
-@property(nonatomic,retain,readonly) NSString* nodeValue;
+//The reason why this is a copy is because
+//the copy catches mutable objects and copies them as immutable
+//The copy just retains immutable objects because, well, they're not about to change, are they?
+@property(nonatomic,copy,readonly) NSString* nodeName;
+@property(nonatomic,copy,readonly) NSString* nodeValue;
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
 @property(nonatomic,assign,readonly) Node* parentNode;

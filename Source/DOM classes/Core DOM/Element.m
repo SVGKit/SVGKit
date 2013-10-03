@@ -1,7 +1,7 @@
-#import "Element.h"
+#import <SVGKit/Element.h>
 
-#import "NamedNodeMap.h"
-#import "DOMHelperUtilities.h"
+#import <SVGKit/NamedNodeMap.h>
+#import <SVGKit/DOMHelperUtilities.h>
 
 @interface Element()
 @property(nonatomic,retain,readwrite) NSString* tagName;
@@ -23,7 +23,7 @@
 		
 		for( NSString* attributeName in attributes.allKeys )
 		{
-			[self setAttribute:attributeName value:[attributes objectForKey:attributeName]];
+			[self setAttribute:attributeName value:attributes[attributeName]];
 		}
     }
     return self;
@@ -64,9 +64,10 @@
 
 -(void) setAttribute:(NSString*) name value:(NSString*) value
 {
-	Attr* att = [[[Attr alloc] initWithName:name value:value] autorelease];
+	Attr* att = [[Attr alloc] initWithName:name value:value];
 	
 	[self.attributes setNamedItem:att];
+	[att release];
 }
 
 -(void) removeAttribute:(NSString*) name
@@ -101,10 +102,10 @@
 
 -(NodeList*) getElementsByTagName:(NSString*) name
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:name inNamespace:nil childrenOfElement:self addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:
@@ -121,9 +122,10 @@
 // Introduced in DOM Level 2:
 -(void) setAttributeNS:(NSString*) namespaceURI qualifiedName:(NSString*) qualifiedName value:(NSString*) value
 {
-	Attr* att = [[[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value] autorelease];
+	Attr* att = [[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value];
 	
 	[self.attributes setNamedItemNS:att];
+	[att release];
 }
 
 // Introduced in DOM Level 2:
@@ -150,10 +152,10 @@
 // Introduced in DOM Level 2:
 -(NodeList*) getElementsByTagNameNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self addToList:accumulator];
 	
-	return accumulator;
+	return [accumulator autorelease];
 }
 
 // Introduced in DOM Level 2:

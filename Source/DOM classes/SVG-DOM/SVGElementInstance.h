@@ -12,11 +12,13 @@
  readonly attribute SVGElementInstance nextSibling;
  */
 
-#import "SVGElement.h"
-#import "SVGElementInstanceList.h"
+#import <SVGKit/SVGElement.h>
+#import <SVGKit/SVGElementInstanceList.h>
+
+@class SVGElement, SVGElementInstanceList;
 
 @class SVGUseElement;
-#import "SVGUseElement.h"
+#import <SVGKit/SVGUseElement.h>
 
 
 @interface SVGElementInstance : NSObject

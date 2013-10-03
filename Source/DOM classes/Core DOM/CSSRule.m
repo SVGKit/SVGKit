@@ -1,4 +1,4 @@
-#import "CSSRule.h"
+#import <SVGKit/CSSRule.h>
 
 @implementation CSSRule
 
@@ -9,10 +9,10 @@
 @synthesize parentRule;
 
 - (void)dealloc {
-  self.cssText = nil;
-  self.parentRule = nil;
-  self.parentStyleSheet = nil;
-  [super dealloc];
+	self.cssText = nil;
+	self.parentRule = nil;
+	self.parentStyleSheet = nil;
+	[super dealloc];
 }
 
 @end

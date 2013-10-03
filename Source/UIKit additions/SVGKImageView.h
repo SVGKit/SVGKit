@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #import <UIKit/UIKit.h>
-#import "SVGKImage.h" // cannot import "SVGKit.h" because that would cause ciruclar imports
+#import <SVGKit/SVGKImage.h> // cannot import "SVGKit.h" because that would cause ciruclar imports
 
 /**
  * SVGKit's version of UIImageView - with some improvements over Apple's design. There are multiple versions of this class, for different use cases.
@@ -17,7 +17,9 @@
  */
 @interface SVGKImageView : UIView
 
-@property(nonatomic,retain) SVGKImage* image;
+//@property(nonatomic,retain) SVGKImage* image;
+- (void)setImage:(SVGKImage*)image;
+- (SVGKImage *)image;
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 
 - (id)initWithSVGKImage:(SVGKImage*) im;

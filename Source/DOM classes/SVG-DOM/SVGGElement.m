@@ -1,17 +1,17 @@
-#import "SVGGElement.h"
+#import <SVGKit/SVGGElement.h>
 
-#import "CALayerWithChildHitTest.h"
+#import <SVGKit/CALayerWithChildHitTest.h>
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
 
-@implementation SVGGElement 
+@implementation SVGGElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
@@ -24,7 +24,7 @@
 	
 	/** we don't want the rect to be union'd with 0,0, so we need to initialize it to one of the subrects */
 	if( layer.sublayers.count > 0 )
-		mainRect = ((CALayer*)[layer.sublayers objectAtIndex:0]).frame;
+		mainRect = ((CALayer*)(layer.sublayers)[0]).frame;
 	
 	/** make mainrect the UNION of all sublayer's frames (i.e. their individual "bounds" inside THIS layer's space) */
 	for ( CALayer *currentLayer in [layer sublayers] )
@@ -39,7 +39,7 @@
 	 AND: bottom-right-corner of this layer will be "the bottom-right corner of the convex-hull rect of all sublayers"
 	 */
 	layer.frame = mainRect;
-
+	
 	/** Changing THIS layer's frame now means all DIRECT sublayers are offset by too much (because when we change the offset
 	 of the parent frame (this.frame), Apple *does not* shift the sublayers around to keep them in same place.
 	 

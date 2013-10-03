@@ -5,7 +5,7 @@
 //  Copyright Matt Rajca 2010. All rights reserved.
 //
 
-#import "SVGDescriptionElement.h"
+#import <SVGKit/SVGDescriptionElement.h>
 
 @implementation SVGDescriptionElement
 

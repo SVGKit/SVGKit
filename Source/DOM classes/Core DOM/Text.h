@@ -11,8 +11,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class CharacterData;
-#import "CharacterData.h"
+//@class CharacterData;
+#import <SVGKit/CharacterData.h>
 
 @interface Text : CharacterData
 

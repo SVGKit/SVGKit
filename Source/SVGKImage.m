@@ -1,28 +1,32 @@
-#import "SVGKImage.h"
+#import <SVGKit/SVGKImage.h>
+#import "SVGKImage+CacheManagement.h"
 
-#import "SVGDefsElement.h"
-#import "SVGDescriptionElement.h"
-#import "SVGKParser.h"
-#import "SVGTitleElement.h"
-#import "SVGPathElement.h"
-#import "SVGUseElement.h"
+#import <SVGKit/SVGDefsElement.h>
+#import <SVGKit/SVGDescriptionElement.h>
+#import <SVGKit/SVGKParser.h>
+#import <SVGKit/SVGTitleElement.h>
+#import <SVGKit/SVGPathElement.h>
+#import <SVGKit/SVGUseElement.h>
 
-#import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
+#import <SVGKit/SVGSVGElement_Mutable.h> // so that changing .size can change the SVG's .viewport
 
-#import "SVGKParserSVG.h"
+#import <SVGKit/SVGKParserSVG.h>
 
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
+#import <SVGKit/SVGKSourceLocalFile.h>
+#import <SVGKit/SVGKSourceURL.h>
+#import <SVGKit/SVGKSourceData.h>
+#if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#import <SVGKit/SVGKImageRep.h>
+#import "SVGKImageRep-private.h"
+#endif
 
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@interface SVGKImageCacheLine : NSObject
-@property(nonatomic) int numberOfInstances;
-@property(nonatomic,retain) SVGKImage* mainInstance;
-@end
-@implementation SVGKImageCacheLine
-@synthesize numberOfInstances;
-@synthesize mainInstance;
-@end
+#import "SVGKImage-private.h"
+#import "BlankSVG.h"
+
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
+#else
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #endif
 
 @interface SVGKImage ()
@@ -36,18 +40,8 @@
 @property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
-#endif
-
-/**
- Lowest-level code used by all the "export" methods and by the ".UIImage" property
- 
- @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
- @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
- @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
- */
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
+@property (nonatomic, getter = hasRenderingIssue) BOOL renderingIssue;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
@@ -64,95 +58,88 @@
 @synthesize parseErrorsAndWarnings;
 @synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-static NSMutableDictionary* globalSVGKImageCache;
-
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
 +(void) initialize
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
 	{
+		//iOS only
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+		[self enableCache];
+#else
+		[self disableCache];
+#endif
 	}
 }
 
-+(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
++ (SVGKImage *)defaultImage
 {
-	DDLogCWarn(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
-	
-	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+	return [self imageWithSource:[SVGKSourceData sourceFromContentsOfString:SVGKGetDefaultImageStringContents()]];
 }
-#endif
 
 #pragma mark - Convenience initializers
-+ (SVGKImage *)imageNamed:(NSString *)name {
++ (SVGKImage *)imageNamed:(NSString *)name fromBundle:(NSBundle*)bundle {
 	NSParameterAssert(name != nil);
+	NSParameterAssert(bundle != nil);
     
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( globalSVGKImageCache == nil )
-    {
-        globalSVGKImageCache = [NSMutableDictionary new];
-    }
-    
-    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
-    if( cacheLine != nil )
-    {
-        cacheLine.numberOfInstances ++;
-        return cacheLine.mainInstance;
-    }
-#endif
-	
-	NSBundle *bundle = [NSBundle mainBundle];
-	
-	if (!bundle)
-		return nil;
-	
+	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
+		SVGKImage* cacheImage = [SVGKImage cachedImageForName:name];
+		if( cacheImage != nil )
+		{
+			return cacheImage;
+		}
+	}
+		
 	NSString *newName = [name stringByDeletingPathExtension];
 	NSString *extension = [name pathExtension];
     if ([@"" isEqualToString:extension]) {
         extension = @"svg";
     }
 	
-	NSString *path = [bundle pathForResource:newName ofType:extension];
+	NSURL *url = [bundle URLForResource:newName withExtension:extension];
 	
-	if (!path)
+	if (!url)
 	{
-		DDLogCWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
+		DDLogError(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
 	}
 	
-	SVGKImage* result = [self imageWithContentsOfFile:path];
+	SVGKImage* result = [self imageWithContentsOfURL:url];
     
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-	if( result != nil )
-	{
-    result->cameFromGlobalCache = TRUE;
-    result.nameUsedToInstantiate = name;
-    
-    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
-    newCacheLine.mainInstance = result;
-    
-    [globalSVGKImageCache setValue:newCacheLine forKey:name];
+	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
+		if( result != nil )
+		{
+			result->cameFromGlobalCache = YES;
+			result.nameUsedToInstantiate = name;
+			
+			[SVGKImage storeImageCache:result forName:name];
+		}
+		else
+		{
+			DDLogError(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+		}
 	}
-	else
-	{
-		NSLog(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
-	}
-#endif
     
     return result;
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name {
+	NSParameterAssert(name != nil);
+	return [self imageNamed:name fromBundle:[NSBundle mainBundle]];
 }
 
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+		return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
+	NSParameterAssert(aPath != nil);
     @synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+		return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
     }
 }
 
@@ -160,15 +147,17 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+		return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
     }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	/** Remove and release (if appropriate) all cached render-output */
-	DDLogVerbose(@"[%@] source data changed; de-caching cached data", [self class] );
-	self.CALayerTree = nil;
+	if ([keyPath isEqualToString:@"DOMTree.viewport"] || [keyPath isEqualToString:@"scale"]) {
+		/** Remove and release (if appropriate) all cached render-output */
+		DDLogVerbose(@"[%@] source data changed; de-caching cached data", [self class] );
+		self.CALayerTree = nil;
+	}
 }
 
 /**
@@ -178,6 +167,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	self = [super init];
 	if (self)
 	{
+
 		_internalSizeThatWasSetExplicitlyByUser = CGSizeZero; // mark it explicitly as "uninitialized" = this is important for the getSize method!
 		_scale = 0.0; // flags it as uninitialized (this is important to know later, when outputting rendered layers)
 		
@@ -194,14 +184,18 @@ static NSMutableDictionary* globalSVGKImageCache;
 			self.DOMTree = nil;
 		}
 		
+		//This is to make dealloc happy
+		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
+		[self addObserver:self forKeyPath:@"scale" options:NSKeyValueObservingOptionOld context:nil];
+		//[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
+
 		if ( self.DOMDocument == nil )
 		{
-			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
-			self = nil;
+			DDLogError(@"[%@] ERROR: failed to init SVGKImage with parse result = %@, returning nil from init methods", [self class], parseResult );
+			[self autorelease];
+			return nil;
 		}
 		
-		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
-		//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
 }
@@ -209,7 +203,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithSource:(SVGKSource *)newSource {
 	NSAssert( newSource != nil, @"Attempted to init an SVGKImage using a nil SVGKSource");
 	
-	self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
+	@autoreleasepool {
+		self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
+	}
 	if (self) {
 		self.source = newSource;
 	}
@@ -230,48 +226,35 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)dealloc
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( self->cameFromGlobalCache )
-    {
-        SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
-        cacheLine.numberOfInstances --;
-        
-        if( cacheLine.numberOfInstances < 1 )
-        {
-            [globalSVGKImageCache removeObjectForKey:self.nameUsedToInstantiate];
-        }
-    }
-#endif
+	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	[self removeObserver:self forKeyPath:@"scale"];
 	
-//SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	self.source = nil;
+	self.parseErrorsAndWarnings = nil;
 	
-    self.source = nil;
-    self.parseErrorsAndWarnings = nil;
-    
-    self.DOMDocument = nil;
+	self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    self.nameUsedToInstantiate = nil;
-#endif
+	self.nameUsedToInstantiate = nil;
 	
 	[super dealloc];
 }
 
 //TODO mac alternatives to UIKit functions
 
-#if TARGET_OS_IPHONE
-+ (UIImage *)imageWithData:(NSData *)data
++ (SVGKImage *)imageWithData:(NSData *)data
 {
-	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
-	return nil;
+	NSParameterAssert(data != nil);
+	@synchronized(self){
+		return [[(SVGKImage*)[[self class] alloc] initWithData:data] autorelease];
+	}
 }
-#endif
 
 - (id)initWithData:(NSData *)data
 {
-	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
-	return nil;
+	NSParameterAssert(data != nil);
+	
+	return [self initWithSource:[SVGKSourceData sourceFromData:data]];
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
@@ -313,10 +296,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		return CGSizeFromSVGRect( self.DOMTree.viewport );
 	}
-
+	
 	/* Calculate a viewbox, either the explicit one from 3. above, or the implicit one from 4. above
-	*/
-	SVGRect effectiveViewbox; 
+	 */
+	SVGRect effectiveViewbox;
 	if( ! SVGRectIsInitialized( self.DOMTree.viewBox ) )
 	{
 		/**
@@ -334,8 +317,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 	else
 		effectiveViewbox = self.DOMTree.viewBox;
-		
-	/* COMBINED TOGETHER: 
+	
+	/* COMBINED TOGETHER:
 	 
 	 3. otherwise ... spec is UNDEFINED. If we have a viewbox, we return that (SVG spec defaults to 1 unit of viewbox = 1 pixel on screen)
 	 4. otherwise ... spec is UNDEFINED. We have no viewbox, so we assume viewbox is "the bounding box of the entire SVG content, in SVG units", and use 3. above
@@ -345,11 +328,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(void)setSize:(CGSize)newSize
 {
+	if (CGSizeEqualToSize(self.internalSizeThatWasSetExplicitlyByUser, newSize)) {
+		return;
+	}
+	
 	self.internalSizeThatWasSetExplicitlyByUser = newSize;
 	
 	if( ! SVGRectIsInitialized(self.DOMTree.viewBox) && !SVGRectIsInitialized( self.DOMTree.viewport ) )
 	{
-		NSLog(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no explicit width or height AND no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file, or add an explicit svg width and height -- or: use the .scale method on this class (SVGKImage) instead to scale by desired amount", [self class]);
+		DDLogWarn(@"[%@] WARNING: you have set an explicit image size, but your SVG file has no explicit width or height AND no viewBox. This means the image will NOT BE SCALED - either add a viewBox to your SVG source file, or add an explicit svg width and height -- or: use the .scale method on this class (SVGKImage) instead to scale by desired amount", [self class]);
 	}
 	
 	/** "size" is part of SVGKImage, not the SVG spec; we need to update the SVG spec size too (aka the ViewPort)
@@ -362,7 +349,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	self.DOMTree.viewport = SVGRectMake(0,0,newSize.width,newSize.height); // implicitly resizes all the internal rendering of the SVG
 	
 	/** invalidate all cached data that's dependent upon SVG's size */
-	self.CALayerTree = nil; // invalidate the cached copy
+	/** The KVO observer will do this for us */
+	//self.CALayerTree = nil; // invalidate the cached copy
 }
 
 -(void)setScale:(CGFloat)newScale
@@ -374,12 +362,54 @@ static NSMutableDictionary* globalSVGKImageCache;
 	_scale = newScale;
 	
 	/** invalidate all cached data that's dependent upon SVG's size */
-	self.CALayerTree = nil; // invalidate the cached copy
+	/** The KVO observer will do this for us */
+	//self.CALayerTree = nil; // invalidate the cached copy
 }
 
--(UIImage *)UIImage
+- (CIImage*)CIImage
 {
-	return [self exportUIImageAntiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
+	return [self exportCIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+}
+
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+- (UIImage *)UIImage
+{
+	return [self exportUIImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showInfo:YES]; // Apple defaults
+}
+#else
+- (NSImage*)NSImage
+{
+	return [self exportNSImageAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault];
+}
+
+- (NSBitmapImageRep *)bitmapImageRep
+{
+	return [self exportBitmapImageRepAntiAliased:YES curveFlatnessFactor:1.0 interpolationQuality:kCGInterpolationDefault showInfo:YES];
+}
+#endif
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	SVGKSource *copySource = nil;
+	if (!(copySource = [self.source copyWithZone:zone]))
+	{
+		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ from %@", [self class], self, [self.source class], self.source);
+		return nil;
+	}
+	SVGKImage *copyImage = [[SVGKImage allocWithZone:zone] initWithSource:copySource];
+	[copySource release];
+	if (!CGSizeEqualToSize(self.internalSizeThatWasSetExplicitlyByUser, CGSizeZero)) {
+		copyImage.size = self.size;
+	} /* else {
+	   copyImage.scale = self.scale;
+	} */
+#if 0
+	if ([self hasCALayerTree]) {
+		copyImage.CALayerTree = [self newCALayerTree];
+	}
+#endif
+	
+	return copyImage;
 }
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
@@ -394,10 +424,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
+
 - (void)drawInRect:(CGRect)rect                                                           // mode = kCGBlendModeNormal, alpha = 1.0
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
+
 - (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
@@ -415,11 +447,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
 }
+
 + (UIImage *)animatedResizableImageNamed:(NSString *)name capInsets:(UIEdgeInsets)capInsets duration:(NSTimeInterval)duration // squence of files
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 	return nil;
 }
+
 + (UIImage *)animatedImageWithImages:(NSArray *)images duration:(NSTimeInterval)duration
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
@@ -483,7 +517,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( clonedLayer == nil )
 		return nil;
 	else
-	{		
+	{
 		CGRect lFrame = clonedLayer.frame;
 		CGFloat xOffset = 0.0;
 		CGFloat yOffset = 0.0;
@@ -542,13 +576,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child] autorelease];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child];
 			
 			if (!sublayer) {
 				continue;
             }
 			
 			[layer addSublayer:sublayer];
+			[sublayer release];
 		}
 	}
 	
@@ -592,7 +627,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		if( 0.0f != self.scale )
 		{
-			NSLog(@"[%@] WARNING: because you specified an image.scale (you SHOULD be using SVG viewbox or <svg width> instead!), we are changing the .anchorPoint and the .affineTransform of the returned CALayerTree. Apple's own libraries are EXTREMELY BUGGY if you hand them layers that have these variables changed (some of Apple's libraries completely ignore them, this is a major Known Bug that Apple hasn't fixed in many years). Proceed at your own risk, and warned!", [self class] );
+			DDLogWarn(@"[%@] WARNING: because you specified an image.scale (you SHOULD be using SVG viewbox or <svg width> instead!), we are changing the .anchorPoint and the .affineTransform of the returned CALayerTree. Apple's own libraries are EXTREMELY BUGGY if you hand them layers that have these variables changed (some of Apple's libraries completely ignore them, this is a major Known Bug that Apple hasn't fixed in many years). Proceed at your own risk, and warned!", [self class] );
 			
 			/** Apple's bugs in CALayer are legion, and some have been around for almost 10 years...
 			 
@@ -607,17 +642,43 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
+static inline NSString *exceptionInfo(NSException *e)
+{
+	NSString *debugStr = nil;
+#if 0
+	debugStr = [NSString stringWithFormat:@", call stack: %@", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
+#else
+	debugStr = [NSString stringWithFormat:@", call stack symbols: %@",e.callStackSymbols];
+#endif
+	
+	return [NSString stringWithFormat:@"Exception name: \"%@\" reason: %@%@", e.name, e.reason, (ddLogLevel & LOG_FLAG_INFO) == LOG_FLAG_INFO ? debugStr : @""];
+}
+
 -(CALayer *)CALayerTree
 {
-	if( CALayerTree == nil )
+	if( CALayerTree == nil && !self.renderingIssue )
 	{
-		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
-		self.CALayerTree = [[self newCALayerTree] autorelease];
+		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated).", [self class] );
+		@try {
+			self.CALayerTree = [[self newCALayerTree] autorelease];
+		}
+		@catch (NSException *exception) {
+			DDLogError(@"[%@] Error generating CALayerTree: %@", [self class], exceptionInfo(exception));
+			self.CALayerTree = nil;
+			self.renderingIssue = YES;
+		}
+		@finally {
+			return CALayerTree;
+		}
 	}
 	
 	return CALayerTree;
 }
 
+- (BOOL)hasCALayerTree
+{
+	return (CALayerTree != nil);
+}
 
 - (void) addSVGLayerTree:(CALayer*) layer withIdentifier:(NSString*) layerID toDictionary:(NSMutableDictionary*) layersByID
 {
@@ -638,7 +699,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 			DDLogVerbose(@"[%@] element id: %@ => layer: %@", [self class], subLayerID, subLayer);
 			
 			[self addSVGLayerTree:subLayer withIdentifier:subLayerID toDictionary:layersByID];
-			
 		}
 	}
 }
@@ -657,11 +717,19 @@ static NSMutableDictionary* globalSVGKImageCache;
     return layersByElementId;
 }
 
+#define StopOnRendIssue() \
+if (self.renderingIssue) { \
+DDLogWarn(@"[%@] WARN: Rendering issue detected when making CALayerTree, stopping render.", [self class]); \
+return; \
+}
+
 /**
  Shared between multiple different "export..." methods
  */
 -(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
+	StopOnRendIssue();
+	
 	NSAssert( [self hasSize], @"Cannot scale this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
 	NSDate* startTime;
@@ -674,6 +742,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 	else
 		DDLogInfo(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
+	
+	StopOnRendIssue();
 	
 	startTime = [NSDate date];
 	
@@ -720,7 +790,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	[self.CALayerTree renderInContext:context];
 	
 	NSMutableString* perfImprovements = [NSMutableString string];
-	if( shouldAntialias )
+	if( !shouldAntialias )
 		[perfImprovements appendString:@" NO-ANTI-ALIAS"];
 	if( perfImprovements.length < 1 )
 		[perfImprovements appendString:@"NONE"];
@@ -730,32 +800,48 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis
 {
+#if CGFLOAT_IS_DOUBLE
+#define ceilCG(val) ceil(val)
+#else
+#define ceilCG(val) ceilf(val)
+#endif
+	
 	NSAssert( [self hasSize], @"Cannot export this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
+	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
+	CGFloat ceilWidth = ceilCG(self.size.width);
+	CGFloat ceilHeight = ceilCG(self.size.height);
+	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, ceilWidth, ceilHeight, 8, 4 * ceilWidth, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
 	[self renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis: flipYaxis];
 	
 	void* resultAsVoidStar = CGBitmapContextGetData(context);
 	
-	size_t dataSize = 4 * self.size.width * self.size.height; // RGBA = 4 8-bit components
+	size_t dataSize = 4 * ceilWidth * ceilHeight; // RGBA = 4 8-bit components
     NSData* result = [NSData dataWithBytes:resultAsVoidStar length:dataSize];
 	
 	CGContextRelease(context);
 	
 	return result;
+#undef ceilCG
 }
 
-
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	return [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:YES];
+}
+
+-(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showInfo:(BOOL)theWarn
 {
 	if( [self hasSize] )
 	{
-		DDLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		if (theWarn) {
+			DDLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		}
 		
 		UIGraphicsBeginImageContextWithOptions( self.size, FALSE, [UIScreen mainScreen].scale );
 		CGContextRef context = UIGraphicsGetCurrentContext();
@@ -776,16 +862,104 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	UIImage *imRep = [self exportUIImageAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
+	if (!imRep) {
+		return nil;
+	}
+	
+	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	CIImage *result = nil;
+	CGImageRef theRef = [imRep CGImage];
+	if (theRef) {
+		result = [CIImage imageWithCGImage:theRef];
+	} else {
+		DDLogVerbose(@"[%@] It seems that the image %@ does not have a CGImage backing. Attempting to use its CIImage backing.", [self class], imRep);
+		result = [imRep CIImage];
+	}
+	
+	return result;
+}
+#else
+- (CIImage *)exportCIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	NSBitmapImageRep *imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
+	if (!imRep) {
+		return nil;
+	}
+	
+	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+	
+	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
+	return [result autorelease];
+}
+
+- (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	if ([self hasSize]) {
+		DDLogVerbose(@"[%@] DEBUG: Generating an NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		
+		NSImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
+		
+		if (!imRep) {
+			imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
+		} else {
+			((SVGKImageRep*)imRep).antiAlias = shouldAntialias;
+			((SVGKImageRep*)imRep).curveFlatness = multiplyFlatness;
+			((SVGKImageRep*)imRep).interpolationQuality = interpolationQuality;
+			[imRep setSize:self.size];
+		}
+	
+		NSImage *retval = [[NSImage alloc] init];
+		[retval addRepresentation:imRep];
+		[retval setSize:self.size];
+		
+		return [retval autorelease];
+	} else {
+		DDLogError(@"[%@] ERROR: You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance", [self class]);
+		
+		return nil;
+	}
+}
+
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
+{
+	return [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:YES];
+}
+
+- (NSBitmapImageRep *)exportBitmapImageRepAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showInfo:(BOOL)warn
+{
+	if ([self hasSize]) {
+		if (warn) {
+			DDLogVerbose(@"[%@] DEBUG: Generating an NSBitmapImageRep using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
+		}
+
+		NSSize curSize = self.size;
+		NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:ceil(curSize.width) pixelsHigh:ceil(curSize.height) bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+		CGContextRef ctx = [NSctx graphicsPort];
+		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
+		return [imageRep autorelease];
+	} else {
+		DDLogError(@"[%@] ERROR: You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance", [self class]);
+		
+		return nil;
+	}
+}
+#endif
+
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
 
 -(void) scaleToFitInside:(CGSize) maxSize
 {
 	NSAssert( [self hasSize], @"Cannot scale this image because the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance");
 	
-	float wScale = maxSize.width / self.size.width;
-	float hScale = maxSize.height / self.size.height;
+	CGFloat wScale = maxSize.width / self.size.width;
+	CGFloat hScale = maxSize.height / self.size.height;
 	
-	float smallestScaleUp = MIN( wScale, hScale );
+	CGFloat smallestScaleUp = MIN( wScale, hScale );
 	
 	if( smallestScaleUp < 1.0f )
 		smallestScaleUp = MAX( wScale, hScale ); // instead of scaling-up the smallest, scale-down the largest
@@ -794,4 +968,3 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 @end
-

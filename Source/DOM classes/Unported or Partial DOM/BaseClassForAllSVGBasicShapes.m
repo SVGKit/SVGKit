@@ -1,14 +1,14 @@
-#import "BaseClassForAllSVGBasicShapes.h"
-#import "BaseClassForAllSVGBasicShapes_ForSubclasses.h"
+#import <SVGKit/BaseClassForAllSVGBasicShapes.h>
+#import <SVGKit/BaseClassForAllSVGBasicShapes_ForSubclasses.h>
 
-#import "CGPathAdditions.h"
-#import "SVGDefsElement.h"
-#import "SVGKPattern.h"
-#import "CAShapeLayerWithHitTest.h"
+#import <SVGKit/CGPathAdditions.h>
+#import <SVGKit/SVGDefsElement.h>
+#import <SVGKit/SVGKPattern.h>
+#import <SVGKit/CAShapeLayerWithHitTest.h>
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
 
 @implementation BaseClassForAllSVGBasicShapes
 
@@ -23,11 +23,6 @@
         self.pathForShapeInRelativeCoords = NULL;
     }
     return self;
-}
-
-- (void)finalize {
-	CGPathRelease(_pathForShapeInRelativeCoords);
-	[super finalize];
 }
 
 - (void)dealloc {

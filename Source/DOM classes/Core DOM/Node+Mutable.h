@@ -1,11 +1,11 @@
 /**
  Makes the writable properties all package-private, effectively
  */
-#import "Node.h"
+#import <SVGKit/Node.h>
 
 @interface Node()
-@property(nonatomic,retain,readwrite) NSString* nodeName;
-@property(nonatomic,retain,readwrite) NSString* nodeValue;
+@property(nonatomic,copy,readwrite) NSString* nodeName;
+@property(nonatomic,copy,readwrite) NSString* nodeValue;
 
 @property(nonatomic,readwrite) DOMNodeType nodeType;
 @property(nonatomic,assign,readwrite) Node* parentNode;

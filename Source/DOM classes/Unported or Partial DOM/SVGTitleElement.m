@@ -5,7 +5,7 @@
 //  Copyright Matt Rajca 2010. All rights reserved.
 //
 
-#import "SVGTitleElement.h"
+#import <SVGKit/SVGTitleElement.h>
 
 @implementation SVGTitleElement
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "StyleSheet.h"
+#import <SVGKit/StyleSheet.h>
 
 @interface StyleSheetList : NSObject
 

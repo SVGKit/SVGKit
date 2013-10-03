@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Node.h"
-#import "Node+Mutable.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Node+Mutable.h>
 
-#import "NodeList+Mutable.h"
-#import "NamedNodeMap.h"
+#import <SVGKit/NodeList+Mutable.h>
+#import <SVGKit/NamedNodeMap.h>
 
 @implementation Node
 
@@ -53,13 +53,8 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -75,7 +70,7 @@
 				self.nodeName = n;
 				self.nodeValue = v;
 			}break;
-			
+				
 				
 			case DOMNodeType_DOCUMENT_NODE:
 			case DOMNodeType_DOCUMENT_TYPE_NODE:
@@ -87,7 +82,8 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
-				self = nil;
+				[self autorelease];
+				return nil;
 			}break;
 		}
 		
@@ -112,7 +108,8 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
-				self = nil;
+				[self autorelease];
+				return nil;
 			}break;
 				
 				
@@ -130,11 +127,11 @@
 			{
 				
 				self.nodeName = n;
-				
+
 				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
 			}break;
 		}
-		
+
 		self.childNodes = [[[NodeList alloc] init] autorelease];
     }
     return self;
@@ -147,8 +144,8 @@
 	NSArray* nameSpaceParts = [self.nodeName componentsSeparatedByString:@":"];
 	self.localName = [nameSpaceParts lastObject];
 	if( [nameSpaceParts count] > 1 )
-		self.prefix = [nameSpaceParts objectAtIndex:0];
-		
+		self.prefix = nameSpaceParts[0];
+	
 	self.namespaceURI = nsURI;
 }
 
@@ -166,13 +163,8 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
 	self = [self initType:nt name:n value:v];
 	
 	if( self )
@@ -209,7 +201,7 @@
 		 "If newChild is a DocumentFragment object, oldChild is replaced by all of the DocumentFragment children, which are inserted in the same order. If the newChild is already in the tree, it is first removed."
 		 */
 		
-		int oldIndex = [self.childNodes.internalArray indexOfObject:oldChild];
+		NSInteger oldIndex = [self.childNodes.internalArray indexOfObject:oldChild];
 		
 		NSAssert( FALSE, @"We should be recursing down the tree to find 'newChild' at any location, and removing it - required by spec - but we have no convenience method for that search, yet" );
 		
@@ -225,7 +217,7 @@
 	}
 	else
 	{
-		[self.childNodes.internalArray replaceObjectAtIndex:[self.childNodes.internalArray indexOfObject:oldChild] withObject:newChild];
+		(self.childNodes.internalArray)[[self.childNodes.internalArray indexOfObject:oldChild]] = newChild;
 		
 		newChild.parentNode = self;
 		oldChild.parentNode = nil;
@@ -293,7 +285,7 @@
 
 #pragma mark - SPECIAL CASE: DOM level 3 method
 
-/** 
+/**
  
  Note that the DOM 3 spec defines this as RECURSIVE:
  
@@ -312,7 +304,7 @@
 			/** DOM 3 Spec:
 			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
 			 */
-			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			NSMutableString* stringAccumulator = [[NSMutableString alloc] init];
 			for( Node* subNode in self.childNodes.internalArray )
 			{
 				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!
@@ -320,7 +312,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:stringAccumulator];
+			return [NSString stringWithString:[stringAccumulator autorelease]];
 		}
 			
 		case DOMNodeType_TEXT_NODE:

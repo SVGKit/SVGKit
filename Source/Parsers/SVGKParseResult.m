@@ -1,4 +1,4 @@
-#import "SVGKParseResult.h"
+#import <SVGKit/SVGKParseResult.h>
 
 @implementation SVGKParseResult
 
@@ -31,7 +31,7 @@
 		
 		self.namespacesEncountered = [NSMutableDictionary dictionary];
 		
-		#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
+#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
 		self.extensionsData = [NSMutableDictionary dictionary];
 #endif
     }
@@ -63,7 +63,7 @@
 
 -(void) addSAXError:(NSError*) saxError
 {
-	DDLogWarn(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
+	DDLogError(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
 	[self.errorsFatal addObject:saxError];
 }
 

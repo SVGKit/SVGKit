@@ -1,20 +1,48 @@
-#import "SVGKSourceURL.h"
+#import <SVGKit/SVGKSourceURL.h>
+#import "SVGKSource-private.h"
+
+@interface SVGKSourceURL ()
+@property (readwrite, nonatomic, retain) NSURL* URL;
+@end
 
 @implementation SVGKSourceURL
 
-+ (SVGKSource*)sourceFromURL:(NSURL*)u {
-	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
+- (id)copyWithZone:(NSZone *)zone
+{
+	return [[SVGKSourceURL alloc] initWithURL:self.URL];
+}
+
+- (id)initFromURL:(NSURL*)u
+{
+	return [self initWithURL:u];
+}
+
+- (id)initWithURL:(NSURL*)u
+{
+	NSInputStream* stream = [[NSInputStream alloc] initWithURL:u];
 	[stream open];
-	
-	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithInputSteam:stream] autorelease];
-	s.URL = u;
+	if (self = [super initWithInputSteam:stream]) {
+		self.URL = u;
+	}
+	[stream release];
+	return self;
+}
+
++ (SVGKSource*)sourceFromURL:(NSURL*)u {
+	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithURL:u] autorelease];
 	
 	return s;
 }
 
 - (void)dealloc {
 	self.URL = nil;
+	
 	[super dealloc];
+}
+
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"%@, URL: %@", [self baseDescription], self.URL];
 }
 
 @end

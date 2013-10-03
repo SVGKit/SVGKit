@@ -1,4 +1,5 @@
-#import "SVGTransform.h"
+#import <SVGKit/SVGTransform.h>
+#import <SVGKit/SVGMatrix.h>
 
 @implementation SVGTransform
 
@@ -7,8 +8,8 @@
 @synthesize angle;
 
 - (void)dealloc {
-  [matrix release];
-  [super dealloc];
+	[matrix release];
+	[super dealloc];
 }
 
 -(void) setMatrix:(SVGMatrix*) matrix { NSAssert( FALSE, @"Not implemented yet" ); }

@@ -1,4 +1,11 @@
-#import "SVGKLayer.h"
+#import <SVGKit/SVGKLayer.h>
+
+//DW stands for Darwin
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define DWBlackColor() [UIColor blackColor].CGColor
+#else
+#define DWBlackColor() CGColorGetConstantColor(kCGColorBlack)
+#endif
 
 @implementation SVGKLayer
 {
@@ -13,8 +20,7 @@
 /** Apple requires this to be implemented by CALayer subclasses */
 +(id)layer
 {
-	SVGKLayer* layer = [[[SVGKLayer alloc] init] autorelease];
-	return layer;
+	return [[[SVGKLayer alloc] init] autorelease];
 }
 
 - (id)init
@@ -22,12 +28,13 @@
     self = [super init];
     if (self)
 	{
-    	self.borderColor = [UIColor blackColor].CGColor;
+    	self.borderColor = DWBlackColor();
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )
@@ -36,7 +43,9 @@
 	/** 1: remove old */
 	if( _SVGImage != nil )
 	{
-		[_SVGImage.CALayerTree removeFromSuperlayer];
+		if ([_SVGImage hasCALayerTree]) {
+			[_SVGImage.CALayerTree removeFromSuperlayer];
+		}
 		[_SVGImage release];
 	}
 	
@@ -47,17 +56,19 @@
 	if( _SVGImage != nil )
 	{
 		[_SVGImage retain];
-		[self addSublayer:_SVGImage.CALayerTree];
+		if ([_SVGImage hasCALayerTree] || _SVGImage.CALayerTree) {
+			[self addSublayer:_SVGImage.CALayerTree];
+		}
 	}
 }
 
 - (void)dealloc
 {
-	//FIXME: Apple crashes on this line, even though BY DEFINITION Apple should not be crashing: [self removeObserver:self forKeyPath:@"showBorder"];
+	[self removeObserver:self forKeyPath:@"showBorder"];
 	
 	self.SVGImage = nil;
 	
-    [super dealloc];
+	[super dealloc];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */

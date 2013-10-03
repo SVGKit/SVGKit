@@ -7,15 +7,15 @@
  */
 #import <QuartzCore/QuartzCore.h>
 
-#import "Element.h"
-#import "Node+Mutable.h"
-#import "SVGStylable.h"
-#import "SVGLength.h"
+#import <SVGKit/Element.h>
+#import <SVGKit/Node+Mutable.h>
+#import <SVGKit/SVGStylable.h>
+#import <SVGKit/SVGLength.h>
 
 #define DEBUG_SVG_ELEMENT_PARSING 0
 
 @class SVGSVGElement;
-//obj-c's compiler sucks, and doesn't allow this line: #import "SVGSVGElement.h"
+//obj-c's compiler sucks, and doesn't allow this line: #import <SVGKit/SVGSVGElement.h"
 
 @interface SVGElement : Element <SVGStylable>
 
