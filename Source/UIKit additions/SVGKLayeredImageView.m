@@ -14,6 +14,15 @@
 	return NSClassFromString(@"SVGKLayer");
 }
 
+- (void)populateFromImage:(SVGKImage*) im
+{
+    if (im)
+        self.frame = CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height ); // default: 0,0 to width x height of original image
+    self.backgroundColor = [UIColor clearColor];
+    
+    ((SVGKLayer*) self.layer).SVGImage = im;
+}
+
 - (id)init
 {
 	NSAssert(false, @"init not supported, use initWithSVGKImage:");
@@ -23,7 +32,12 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	return [self initWithSVGKImage:nil];
+    self = [super initWithCoder:aDecoder];
+    if( self )
+    {
+        [self populateFromImage:nil];
+    }
+	return self;
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -46,11 +60,7 @@
     self = [super init];
     if (self)
 	{
-		self.frame = CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height ); // default: 0,0 to width x height of original image
-		self.backgroundColor = [UIColor clearColor];
-		
-		((SVGKLayer*) self.layer).SVGImage = im;
-		
+        [self populateFromImage:im];
     }
     return self;
 }
