@@ -251,6 +251,45 @@ readPacket(char *mem, int size) {
  */
 
 
+- (NSString *)loadCSSFrom:(NSString *)href
+{
+    NSString *cssText = nil;
+    if( [href hasPrefix:@"http"] )
+    {
+        NSURL *url = [NSURL URLWithString:href];
+        cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    }
+    else if( self.source.URL != nil )
+    {
+        NSURL *url = [[self.source.URL URLByDeletingLastPathComponent] URLByAppendingPathComponent:href];
+        cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    }
+    else if( self.source.filePath != nil )
+    {
+        NSString *path = [[self.source.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:href];
+        cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    }
+    else
+    {
+        NSString *path = [[NSBundle mainBundle] pathForResource:href ofType:nil];
+        cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        
+        if( cssText == nil )
+        {
+            NSURL *url = [NSURL fileURLWithPath:href];
+            cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+            
+            if( cssText == nil )
+            {
+                url = [NSURL URLWithString:href];
+                cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+            }
+        }
+    }
+    
+    return cssText;
+}
+
 - (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data
 {
     if( [@"xml-stylesheet" isEqualToString:target] && ( [data rangeOfString:@"type=\"text/css\""].location != NSNotFound || [data rangeOfString:@"type="].location == NSNotFound ) )
@@ -263,19 +302,7 @@ readPacket(char *mem, int size) {
             if( startHref.location != NSNotFound )
             {
                 NSString *href = [data substringWithRange:NSMakeRange(startIndex, endHref.location - startIndex)];
-                
-                NSString *path = [[NSBundle mainBundle] pathForResource:href ofType:nil];
-                NSString *cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-                if( cssText == nil )
-                {
-                    NSURL *url = [NSURL fileURLWithPath:href];
-                    cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-                    if( cssText == nil )
-                    {
-                        url = [NSURL URLWithString:href];
-                        cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-                    }
-                }
+                NSString* cssText = [self loadCSSFrom:href];
                 
                 if( cssText != nil )
                 {
