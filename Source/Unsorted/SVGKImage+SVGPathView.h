@@ -9,6 +9,7 @@
  */
 
 #import "SVGLayeredElement.h"
+#import "SVGElement.h"
 
 #if NS_BLOCKS_AVAILABLE
 typedef void (^SVGElementAggregationBlock)(SVGElement < SVGLayeredElement > * layeredElement);
