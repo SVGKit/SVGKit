@@ -1,4 +1,5 @@
 #import "SVGKImage+SVGPathView.h"
+#import "SVGSVGElement.h"
 
 @implementation SVGKImage (SVGPathView)
 

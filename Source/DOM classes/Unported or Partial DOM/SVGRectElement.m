@@ -6,6 +6,9 @@
 
 @interface SVGRectElement ()
 
+#ifndef __IPHONE_7_0
+#define __IPHONE_7_0     70000
+#endif
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
 void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
 #endif
