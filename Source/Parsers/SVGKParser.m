@@ -269,7 +269,8 @@ readPacket(char *mem, int size) {
         NSString *path = [[self.source.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:href];
         cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
-    else
+    
+    if( cssText == nil )
     {
         NSString *path = [[NSBundle mainBundle] pathForResource:href ofType:nil];
         cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -280,6 +281,11 @@ readPacket(char *mem, int size) {
             NSString *documentsDirectory = [paths objectAtIndex:0];
             NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
             cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        }
+        
+        if( cssText == nil )
+        {
+            NSLog(@"[%@] WARN: unable to find external CSS file '%@'", [self class], href );
         }
     }
     
