@@ -109,7 +109,7 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, 
 			radiusXPixels = radiusYPixels;
 		
 		CGPathAddRoundedRect(path,
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >- __IPHONE_7_0 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0 
 							 nil,
 #endif
 							 rect, radiusXPixels, radiusYPixels);
