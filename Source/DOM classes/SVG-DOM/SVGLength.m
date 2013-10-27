@@ -18,6 +18,7 @@
 @synthesize value;
 @synthesize valueInSpecifiedUnits;
 @synthesize valueAsString;
+@synthesize internalCSSPrimitiveValue;
 
 - (void)dealloc {
     self.valueAsString = nil;
@@ -179,7 +180,7 @@ static float cachedDevicePixelsPerInch;
 	
 	if( [platform hasPrefix:@"x86_64"])
 	{
-		NSLog(@"[%@] WARNING: you are running on the simulator; it's impossible for us to calculate centimeter/millimeter/inches units correctly", [self class]);
+		DDLogCWarn(@"[%@] WARNING: you are running on the simulator; it's impossible for us to calculate centimeter/millimeter/inches units correctly", [self class]);
 		return 132.0f; // Simulator, running on desktop machine
 	}
 	

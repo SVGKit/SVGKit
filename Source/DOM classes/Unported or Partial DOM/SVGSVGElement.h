@@ -64,9 +64,9 @@
 #import "Element.h"
 #import "NodeList.h"
 
-#import "SVGLayeredElement.h"
+#import "ConverterSVGToCALayer.h"
 
-@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ SVGLayeredElement >
+@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
 
 
 
@@ -76,6 +76,10 @@
 @property (nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
 @property (nonatomic, retain, readonly) NSString* contentScriptType;
 @property (nonatomic, retain, readonly) NSString* contentStyleType;
+
+/**
+ "The position and size of the viewport (implicit or explicit) that corresponds to this ‘svg’ element. When the user agent is actually rendering the content, then the position and size values represent the actual values when rendering. The position and size values are unitless values in the coordinate system of the parent element. If no parent element exists (i.e., ‘svg’ element represents the root of the document tree), if this SVG document is embedded as part of another document (e.g., via the HTML ‘object’ element), then the position and size are unitless values in the coordinate system of the parent document. (If the parent uses CSS or XSL layout, then unitless values represent pixel units for the current CSS or XSL viewport, as described in the CSS2 specification.) If the parent element does not have a coordinate system, then the user agent should provide reasonable default values for this attribute."
+ */
 @property (nonatomic, readonly) SVGRect viewport;
 @property (nonatomic, readonly) float pixelUnitToMillimeterX;
 @property (nonatomic, readonly) float pixelUnitToMillimeterY;
@@ -113,5 +117,9 @@
 #pragma mark - below here VIOLATES THE STANDARD, but needs to be CAREFULLY merged with spec
 
 - (SVGElement *)findFirstElementOfClass:(Class)class; /*< temporary convenience method until SVGDocument support is complete */
+
+#pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
+
+@property(nonatomic,readonly) SVGRect requestedViewport;
 
 @end

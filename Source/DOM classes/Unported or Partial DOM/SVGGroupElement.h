@@ -6,9 +6,9 @@
 //
 
 #import "SVGElement.h"
-#import "SVGLayeredElement.h"
+#import "ConverterSVGToCALayer.h"
 
-@interface SVGGroupElement : SVGElement < SVGLayeredElement > { }
+@interface SVGGroupElement : SVGElement < ConverterSVGToCALayer > { }
 
 @property (nonatomic, readonly) CGFloat opacity;
 

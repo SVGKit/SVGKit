@@ -10,8 +10,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "SVGRect.h"
+
 @protocol SVGFitToViewBox <NSObject>
 
-@property (nonatomic) /* SVGAnimatedRect */ CGRect viewBox;
+@property (nonatomic) /* SVGAnimatedRect */ SVGRect viewBox;
 
 @end
