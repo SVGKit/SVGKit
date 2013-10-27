@@ -23,6 +23,7 @@
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
+		667CA17C181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */; };
 		66A09CA616CFE67B003CD5CD /* lingrad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA016CFE67B003CD5CD /* lingrad01.svg */; };
 		66A09CA716CFE67B003CD5CD /* opacity01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA116CFE67B003CD5CD /* opacity01.svg */; };
 		66A09CA816CFE67B003CD5CD /* PreserveAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */; };
@@ -100,6 +101,7 @@
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
 		6661A77C1698BBE20061E349 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BlankMap-World6-Equirectangular.svg"; sourceTree = "<group>"; };
 		66A09CA016CFE67B003CD5CD /* lingrad01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lingrad01.svg; sourceTree = "<group>"; };
 		66A09CA116CFE67B003CD5CD /* opacity01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opacity01.svg; sourceTree = "<group>"; };
 		66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PreserveAspectRatio.svg; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */,
 				66E8627C1688BA510059C9C4 /* australia_states_blank.svg */,
 				66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */,
+				667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */,
 				66E8627E1688BA510059C9C4 /* breaking-1.svg */,
 				9ED79A20179D83580048AA5B /* radialGradientTest.svg */,
 				66E8627F1688BA510059C9C4 /* CurvedDiamond.svg */,
@@ -383,6 +386,7 @@
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
 				66E862731688BA0B0059C9C4 /* MasterViewController_iPhone.xib in Resources */,
 				66E8628E1688BA510059C9C4 /* Monkey.png in Resources */,
+				667CA17C181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg in Resources */,
 				66E8628F1688BA510059C9C4 /* Note.png in Resources */,
 				66E862911688BA510059C9C4 /* australia_states_blank.svg in Resources */,
 				66E862921688BA510059C9C4 /* Blank_Map-Africa.svg in Resources */,
