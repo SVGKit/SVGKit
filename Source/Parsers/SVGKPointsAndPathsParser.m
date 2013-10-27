@@ -222,25 +222,20 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (CGPoint) readMovetoDrawtoCommandGroups:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
-    CGPoint lastCoord = [SVGKPointsAndPathsParser readMovetoDrawtoCommandGroup:scanner path:path relativeTo:origin isRelative:isRelative];
-    return lastCoord;
-}
-
-/**
- moveto-drawto-command-group:
- moveto wsp* drawto-commands?
- */
-+ (CGPoint) readMovetoDrawtoCommandGroup:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
-{
     CGPoint lastCoord = [SVGKPointsAndPathsParser readMovetoDrawto:scanner path:path relativeTo:origin isRelative:isRelative];
     [SVGKPointsAndPathsParser readWhitespace:scanner];
     
-    if (![scanner isAtEnd]) {
+    while (![scanner isAtEnd])
+	{
         [SVGKPointsAndPathsParser readWhitespace:scanner];
-        lastCoord = [SVGKPointsAndPathsParser readMovetoDrawtoCommandGroup:scanner path:path relativeTo:origin isRelative:isRelative];
+		/** FIXME: wasn't originally, but maybe should be:
+		 
+		 origin = isRelative ? lastCoord : origin;
+		 */
+        lastCoord = [SVGKPointsAndPathsParser readMovetoDrawto:scanner path:path relativeTo:origin isRelative:isRelative];
     }
-    
-    return lastCoord;
+	
+	return lastCoord;
 }
 
 /** moveto-drawto-command-group:
@@ -352,9 +347,19 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #endif
 	
     [SVGKPointsAndPathsParser readWhitespace:scanner];
-    if (![scanner isAtEnd]) {
-        coord = [SVGKPointsAndPathsParser readLinetoArgumentSequence:scanner path:path relativeTo:(isRelative)?coord:origin isRelative:isRelative];
-    }
+	
+	while( ![scanner isAtEnd])
+	{
+		origin = (isRelative)?coord:origin;
+		p = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
+		coord = CGPointMake(p.x+origin.x, p.y+origin.y);
+		CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
+#if DEBUG_PATH_CREATION
+		DDLogCWarn(@"[%@] PATH: LINE to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
+#endif
+		
+		[SVGKPointsAndPathsParser readWhitespace:scanner];
+	}
     
     return coord;
 }
@@ -362,7 +367,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 /**
  quadratic-bezier-curveto:
  ( "Q" | "q" ) wsp* quadratic-bezier-curveto-argument-sequence
-*/
+ */
 + (SVGCurve) readQuadraticCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     NSString* cmd = nil;
@@ -381,7 +386,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  quadratic-bezier-curveto-argument-sequence:
  quadratic-bezier-curveto-argument
  | quadratic-bezier-curveto-argument comma-wsp? quadratic-bezier-curveto-argument-sequence
-*/
+ */
 + (SVGCurve) readQuadraticCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     SVGCurve curve = [SVGKPointsAndPathsParser readQuadraticCurvetoArgument:scanner path:path relativeTo:origin];
@@ -414,7 +419,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     
     return SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, coord2.x, coord2.y);
 }
- 
+
 /**
  curveto:
  ( "C" | "c" ) wsp* curveto-argument-sequence
@@ -441,31 +446,16 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (SVGCurve) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
-    SVGCurve curve;
+	SVGCurve curve = [SVGKPointsAndPathsParser readCurvetoArgument:scanner path:path relativeTo:origin];
     
-	[self readCurvetoArgumentSequence:scanner path:path relativeTo:origin isRelative:isRelative overwritingCurve:&curve];
+	while( ![scanner isAtEnd])
+	{
+		CGPoint newOrigin = isRelative ? curve.p : origin;
+		
+        curve = [SVGKPointsAndPathsParser readCurvetoArgument:scanner path:path relativeTo:newOrigin];
+    }
 	
     return curve;
-}
-
-/**
- Recursive method that does the work of:
- 
- readCurvetoArgumentSequence:path:relativeTo:isRelative:
- 
- ...with constant memory (avoids allocating a new struct on the stack).
- 
- Large SVG files recurse very deep, and the tiny struct was reaching multiple-megabytes in size, when multipled by 100's of recursions
- */
-+ (void) readCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative overwritingCurve:(SVGCurve*) curvePointer
-{
-    *curvePointer = [SVGKPointsAndPathsParser readCurvetoArgument:scanner path:path relativeTo:origin];
-    
-    if (![scanner isAtEnd])
-	{
-		CGPoint newOrigin = isRelative ? curvePointer->p : origin; /** FIXME: this could accidentally get corrupted, add an extra pre-allocation for it before the recursion starts */
-        [SVGKPointsAndPathsParser readCurvetoArgumentSequence:scanner path:path relativeTo:newOrigin isRelative:isRelative overwritingCurve:curvePointer];
-    }
 }
 
 /**
