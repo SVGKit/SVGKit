@@ -391,8 +391,9 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 {
     SVGCurve curve = [SVGKPointsAndPathsParser readQuadraticCurvetoArgument:scanner path:path relativeTo:origin];
     
-    if (![scanner isAtEnd]) {
-        curve = [SVGKPointsAndPathsParser readQuadraticCurvetoArgumentSequence:scanner path:path relativeTo:(isRelative ? curve.p : origin) isRelative:isRelative];
+	while(![scanner isAtEnd])
+	{
+		curve = [SVGKPointsAndPathsParser readQuadraticCurvetoArgument:scanner path:path relativeTo:(isRelative ? curve.p : origin)];
     }
     
     return curve;
@@ -418,6 +419,72 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #endif
     
     return SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, coord2.x, coord2.y);
+}
+
+/**
+ smooth-quadratic-bezier-curveto:
+ ( "T" | "t" ) wsp* smooth-quadratic-bezier-curveto-argument-sequence
+ */
++ (SVGCurve) readSmoothQuadraticCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
+{
+	NSString* cmd = nil;
+    NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Tt"];
+    BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
+    
+    NSAssert(ok, @"failed to scan smooth quadratic curve to command");
+    if (!ok) return SVGCurveZero;
+	
+    [SVGKPointsAndPathsParser readWhitespace:scanner];
+    
+    SVGCurve lastCurve = [SVGKPointsAndPathsParser readSmoothQuadraticCurvetoArgumentSequence:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
+    return lastCurve;
+}
+
+
+/**
+ smooth-quadratic-bezier-curveto-argument-sequence:
+ smooth-quadratic-bezier-curveto-argument
+ | smooth-quadratic-bezier-curveto-argument comma-wsp? smooth-quadratic-bezier-curveto-argument-sequence
+ */
++ (SVGCurve) readSmoothQuadraticCurvetoArgumentSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
+{
+    SVGCurve curve = [SVGKPointsAndPathsParser readSmoothQuadraticCurvetoArgument:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
+    
+    if (![scanner isAtEnd]) {
+        curve = [SVGKPointsAndPathsParser readSmoothQuadraticCurvetoArgumentSequence:scanner path:path relativeTo:origin withPrevCurve:prevCurve];
+    }
+    
+    return curve;
+}
+
+/**
+ smooth-quadratic-bezier-curveto-argument:
+ coordinate-pair comma-wsp? coordinate-pair
+ */
++ (SVGCurve) readSmoothQuadraticCurvetoArgument:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
+{
+    CGPoint p1 = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
+    CGPoint coord1 = CGPointMake(p1.x+origin.x, p1.y+origin.y);
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
+    
+    SVGCurve thisCurve;
+    if (SVGCurveEqualToCurve(SVGCurveZero, prevCurve)) {
+        // assume control point is coincident with the current point
+        thisCurve = SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, thisCurve.p.x, thisCurve.p.y);
+    } else {
+        // calculate the mirror of the previous control point
+        CGPoint currentPoint = prevCurve.p;
+        CGPoint controlPoint = prevCurve.c1;
+        CGPoint mirrorCoord = CGPointMake(currentPoint.x+(currentPoint.x-controlPoint.x), currentPoint.y+(currentPoint.y-controlPoint.y));
+        thisCurve = SVGCurveMake(mirrorCoord.x, mirrorCoord.y, 0.0f, 0.0f, coord1.x, coord1.y);
+    }
+    
+    CGPathAddQuadCurveToPoint(path, NULL, thisCurve.c1.x, thisCurve.c1.y, thisCurve.p.x, thisCurve.p.y );
+#if DEBUG_PATH_CREATION
+	DDLogCWarn(@"[%@] PATH: SMOOTH QUADRATIC CURVE to (%2.2f, %2.2f)..(%2.2f, %2.2f)", [SVGKPointsAndPathsParser class], thisCurve.c1.x, thisCurve.c1.y, thisCurve.p.x, thisCurve.p.y );
+#endif
+	
+    return thisCurve;
 }
 
 /**
