@@ -42,7 +42,7 @@
 	NSArray* stringSplitContainer = [rule componentsSeparatedByString:@"{"];
 	if( [stringSplitContainer count] >= 2 ) //not necessary unless using shitty svgs
 	{
-		CSSStyleRule* newRule = [[[CSSStyleRule alloc] initWithSelectorText:[[stringSplitContainer objectAtIndex:0] substringFromIndex:1] styleText:[stringSplitContainer objectAtIndex:1]] autorelease];
+		CSSStyleRule* newRule = [[[CSSStyleRule alloc] initWithSelectorText:[stringSplitContainer objectAtIndex:0] styleText:[stringSplitContainer objectAtIndex:1]] autorelease];
 		
 		[self.cssRules.internalArray insertObject:newRule atIndex:index-1]; // CSS says you insert "BEFORE" the index, which is the opposite of most C-based programming languages
 		
@@ -92,6 +92,28 @@
 	
     }
     return self;
+}
+
++ (NSString *)stringFromSource:(SVGKSource *) source
+{
+    static uint8_t byteBuffer[4096];
+    NSInteger bytesRead;
+    NSString *result = nil;
+    do
+    {
+        bytesRead = [source.stream read:byteBuffer maxLength:4096];
+        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+        if( result )
+            result = [result stringByAppendingString:read];
+        else
+            result = read;
+    } while (bytesRead > 0);
+    return result;
+}
+
+- (id)initWithSource:(SVGKSource*) source
+{
+    return [self initWithString:[CSSStyleSheet stringFromSource:source]];
 }
 
 @end

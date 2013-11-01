@@ -11,6 +11,7 @@
 
 #import "CSSRule.h"
 #import "CSSStyleDeclaration.h"
+#import "SVGElement.h"
 
 @interface CSSStyleRule : CSSRule
 
@@ -20,5 +21,6 @@
 #pragma mark - methods needed for ObjectiveC implementation
 
 - (id)initWithSelectorText:(NSString*) selector styleText:(NSString*) styleText;
+- (BOOL)appliesTo:(SVGElement *) element;
 
 @end

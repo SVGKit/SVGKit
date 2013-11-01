@@ -12,4 +12,8 @@
 - (CALayer *) newLayer;
 - (void)layoutLayer:(CALayer *)layer;
 
+// TODO: maybe another method filterLayer to implement CIFilters on the layer. On OSX this can be done with layer.filters;
+// on iOS this would need to be done via something like http://stackoverflow.com/questions/9701358/applying-a-cifilter-to-a-calayer
+// see also https://developer.apple.com/library/ios/documentation/graphicsimaging/Conceptual/CoreImaging/ci_tasks/ci_tasks.html#//apple_ref/doc/uid/TP30001185-CH3-SW3
+
 @end

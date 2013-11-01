@@ -14,6 +14,7 @@
 
 #import "CSSRule.h"
 #import "CSSRuleList.h"
+#import "SVGKSource.h"
 
 @interface CSSStyleSheet : NSObject
 
@@ -27,5 +28,6 @@
 #pragma mark - methods needed for ObjectiveC implementation
 
 - (id)initWithString:(NSString*) styleSheetBody;
+- (id)initWithSource:(SVGKSource*) source;
 
 @end

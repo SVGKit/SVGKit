@@ -12,6 +12,11 @@
 	return s;
 }
 
+- (SVGKSource *)sourceFromRelativePath:(NSString *)path {
+    NSURL *url = [[self.URL URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
+    return [SVGKSourceURL sourceFromURL:url];
+}
+
 - (void)dealloc {
 	self.URL = nil;
 	[super dealloc];
