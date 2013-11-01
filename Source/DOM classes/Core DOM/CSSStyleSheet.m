@@ -37,7 +37,7 @@
 	NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	rule = [rule stringByTrimmingCharactersInSet:whitespaceSet];
 	
-	//             NSLog(@"A substringie %@", idStyleString);
+	//             DDLogVerbose(@"A substringie %@", idStyleString);
 	
 	NSArray* stringSplitContainer = [rule componentsSeparatedByString:@"{"];
 	if( [stringSplitContainer count] >= 2 ) //not necessary unless using shitty svgs
@@ -92,6 +92,28 @@
 	
     }
     return self;
+}
+
++ (NSString *)stringFromSource:(SVGKSource *) source
+{
+    static uint8_t byteBuffer[4096];
+    NSInteger bytesRead;
+    NSString *result = nil;
+    do
+    {
+        bytesRead = [source.stream read:byteBuffer maxLength:4096];
+        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+        if( result )
+            result = [result stringByAppendingString:read];
+        else
+            result = read;
+    } while (bytesRead > 0);
+    return result;
+}
+
+- (id)initWithSource:(SVGKSource*) source
+{
+    return [self initWithString:[CSSStyleSheet stringFromSource:source]];
 }
 
 @end

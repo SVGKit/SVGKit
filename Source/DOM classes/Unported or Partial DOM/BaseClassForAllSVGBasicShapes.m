@@ -46,14 +46,6 @@
 	CGPathRetain( _pathForShapeInRelativeCoords );
 }
 
-- (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
-{
-	[super postProcessAttributesAddingErrorsTo:parseResult];
-	
-	if( [[self getAttribute:@"class"] length] > 0 )
-		_styleClass = [self getAttribute:@"class"];
-}
-
 - (CALayer *) newLayer
 {
 	NSAssert(self.pathForShapeInRelativeCoords != NULL, @"Requested a CALayer for SVG shape that never initialized its own .pathForShapeInRelativeCoords property. Shape class = %@. Shape instance = %@", [self class], self );

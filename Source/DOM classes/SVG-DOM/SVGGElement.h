@@ -14,10 +14,10 @@
 #import "SVGElement.h"
 #import "SVGElement_ForParser.h"
 
-#import "SVGLayeredElement.h"
+#import "ConverterSVGToCALayer.h"
 #import "SVGTransformable.h"
 
 
-@interface SVGGElement : SVGElement <SVGTransformable, SVGStylable, SVGLayeredElement >
+@interface SVGGElement : SVGElement <SVGTransformable, SVGStylable, ConverterSVGToCALayer >
 
 @end

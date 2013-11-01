@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/Quartzcore.h>
 
-@protocol SVGLayeredElement < NSObject >
+@protocol ConverterSVGToCALayer < NSObject >
 
 /*!
  NB: the returned layer has - as its "name" property - the "identifier" property of the SVGElement that created it;

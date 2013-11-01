@@ -145,7 +145,7 @@
                                                                       isRelative:FALSE];
                         lastCoordinate = lastCurve.p;
                     } else {
-                        NSLog(@"unsupported command %@", command);
+                        DDLogWarn(@"unsupported command %@", command);
                     }
                 }
             }
