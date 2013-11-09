@@ -4,6 +4,8 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
 #endif
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
@@ -135,8 +137,11 @@
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
+#if TARGET_OS_IPHONE
     label.foregroundColor = [UIColor blackColor].CGColor;
-
+#else
+    label.foregroundColor = CGColorGetConstantColor(kCGColorBlack);
+#endif
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
 	label.borderColor = [UIColor redColor].CGColor;

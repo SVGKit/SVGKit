@@ -34,8 +34,11 @@
  - rootElement: the SVGSVGElement instance that is the root of the parse SVG tree. Use this to access the full SVG document
  
  */
-
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
 
 #import "SVGLength.h"
 #import "SVGDocument.h"
@@ -61,7 +64,12 @@
  
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
+#if TARGET_OS_IPHONE
 @property (nonatomic, readonly) UIImage* UIImage;
+#else
+@property (nonatomic, readonly) NSImage* NSImage;
+@property (nonatomic, readonly) NSBitmapImageRep *imageRep;
+#endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;
 @property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
@@ -76,9 +84,7 @@
 #pragma mark - methods to quick load an SVG as an image
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
-#if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
 + (SVGKImage *)imageWithData:(NSData *)data;
-#endif
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
 
 - (id)initWithContentsOfFile:(NSString *)path;
@@ -240,6 +246,7 @@
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
 
+#if TARGET_OS_IPHONE
 /**
  Higher-performance version of .UIImage property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
  
@@ -250,6 +257,11 @@
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#else
+-(NSImage *) exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+-(NSBitmapImageRep *) exportNSBitmapImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#endif
+
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
  

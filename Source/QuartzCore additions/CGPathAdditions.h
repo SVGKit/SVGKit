@@ -6,9 +6,9 @@
 //
 
 #if TARGET_OS_IPHONE
-
 #import <UIKit/UIKit.h>
-
+#else
+#import <Cocoa/Cocoa.h>
 #endif
 
 /*! From original SVGKit, but it seems to be "the opposite of translation" */

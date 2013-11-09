@@ -9,6 +9,10 @@
 #import "SVGSVGElement.h"
 #import "SVGGradientLayer.h"
 
+#if !TARGET_OS_IPHONE
+#define NSStringFromCGRect NSStringFromRect
+#endif
+
 @implementation SVGHelperUtilities
 
 

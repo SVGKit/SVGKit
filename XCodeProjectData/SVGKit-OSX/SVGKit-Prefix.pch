@@ -4,6 +4,17 @@
 //  The contents of this file are implicitly included at the beginning of every source file.
 //
 
+#define Comment AIFFComment
+#include <CoreServices/CoreServices.h>
+#undef Comment
+
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    #import "DDLog.h"
+
+    #if DEBUG
+    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+    #else
+    static const int ddLogLevel = LOG_LEVEL_WARN;
+    #endif
 #endif

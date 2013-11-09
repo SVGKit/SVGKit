@@ -204,20 +204,21 @@
 		557C88FA182EB14300D536F0 /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C881C182EB14300D536F0 /* SVGUtils.h */; };
 		557C88FB182EB14300D536F0 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C881D182EB14300D536F0 /* SVGUtils.m */; };
 		557C88FC182EB14300D536F0 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8820182EB14300D536F0 /* DDAbstractDatabaseLogger.h */; };
-		557C88FD182EB14300D536F0 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8821182EB14300D536F0 /* DDAbstractDatabaseLogger.m */; };
 		557C88FE182EB14300D536F0 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8822182EB14300D536F0 /* DDASLLogger.h */; };
-		557C88FF182EB14300D536F0 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8823182EB14300D536F0 /* DDASLLogger.m */; };
 		557C8900182EB14300D536F0 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8824182EB14300D536F0 /* DDFileLogger.h */; };
-		557C8901182EB14300D536F0 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8825182EB14300D536F0 /* DDFileLogger.m */; };
 		557C8902182EB14300D536F0 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8826182EB14300D536F0 /* DDLog.h */; };
-		557C8903182EB14300D536F0 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8827182EB14300D536F0 /* DDLog.m */; };
 		557C8904182EB14300D536F0 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8828182EB14300D536F0 /* DDTTYLogger.h */; };
-		557C8905182EB14300D536F0 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8829182EB14300D536F0 /* DDTTYLogger.m */; };
 		557C8906182EB14300D536F0 /* ContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C882B182EB14300D536F0 /* ContextFilterLogFormatter.h */; };
-		557C8907182EB14300D536F0 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C882C182EB14300D536F0 /* ContextFilterLogFormatter.m */; };
 		557C8908182EB14300D536F0 /* DispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C882D182EB14300D536F0 /* DispatchQueueLogFormatter.h */; };
-		557C8909182EB14300D536F0 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C882E182EB14300D536F0 /* DispatchQueueLogFormatter.m */; };
-		557C890A182EB14300D536F0 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 557C882F182EB14300D536F0 /* README.txt */; };
+		557C890B182EB3C500D536F0 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8821182EB14300D536F0 /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C890C182EB3C500D536F0 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8823182EB14300D536F0 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C890D182EB3C500D536F0 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8825182EB14300D536F0 /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C890E182EB3C500D536F0 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8827182EB14300D536F0 /* DDLog.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C890F182EB3C500D536F0 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8829182EB14300D536F0 /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C8910182EB3C500D536F0 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C882C182EB14300D536F0 /* ContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C8911182EB3C500D536F0 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C882E182EB14300D536F0 /* DispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		557C8914182EBE3600D536F0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 557C8913182EBE3600D536F0 /* libxml2.dylib */; };
+		557C8916182EBE5800D536F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557C8915182EBE5800D536F0 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -439,6 +440,8 @@
 		557C882D182EB14300D536F0 /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		557C882E182EB14300D536F0 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		557C882F182EB14300D536F0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		557C8913182EBE3600D536F0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		557C8915182EBE5800D536F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +449,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557C8914182EBE3600D536F0 /* libxml2.dylib in Frameworks */,
+				557C8916182EBE5800D536F0 /* QuartzCore.framework in Frameworks */,
 				557C871C182EB02200D536F0 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +478,8 @@
 		557C871A182EB02200D536F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				557C8915182EBE5800D536F0 /* QuartzCore.framework */,
+				557C8913182EBE3600D536F0 /* libxml2.dylib */,
 				557C871B182EB02200D536F0 /* Cocoa.framework */,
 				557C8730182EB02200D536F0 /* XCTest.framework */,
 				557C871D182EB02200D536F0 /* Other Frameworks */,
@@ -1009,7 +1016,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557C890A182EB14300D536F0 /* README.txt in Resources */,
 				557C8726182EB02200D536F0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1021,8 +1027,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557C8911182EB3C500D536F0 /* DispatchQueueLogFormatter.m in Sources */,
+				557C890D182EB3C500D536F0 /* DDFileLogger.m in Sources */,
+				557C890C182EB3C500D536F0 /* DDASLLogger.m in Sources */,
+				557C890B182EB3C500D536F0 /* DDAbstractDatabaseLogger.m in Sources */,
+				557C890F182EB3C500D536F0 /* DDTTYLogger.m in Sources */,
+				557C890E182EB3C500D536F0 /* DDLog.m in Sources */,
 				557C8871182EB14300D536F0 /* SVGAngle.m in Sources */,
-				557C8909182EB14300D536F0 /* DispatchQueueLogFormatter.m in Sources */,
 				557C88BA182EB14300D536F0 /* SVGStyleElement.m in Sources */,
 				557C88B1182EB14300D536F0 /* SVGPathElement.m in Sources */,
 				557C88EB182EB14300D536F0 /* SVGKit.m in Sources */,
@@ -1036,11 +1047,9 @@
 				557C8845182EB14300D536F0 /* CSSStyleRule.m in Sources */,
 				557C88AD182EB14300D536F0 /* SVGImageElement.m in Sources */,
 				557C8852182EB14300D536F0 /* DocumentFragment.m in Sources */,
-				557C88FD182EB14300D536F0 /* DDAbstractDatabaseLogger.m in Sources */,
 				557C8888182EB14300D536F0 /* SVGPoint.m in Sources */,
 				557C88DB182EB14300D536F0 /* CAShapeLayerWithHitTest.m in Sources */,
 				557C8866182EB14300D536F0 /* NodeList.m in Sources */,
-				557C8903182EB14300D536F0 /* DDLog.m in Sources */,
 				557C88A9182EB14300D536F0 /* SVGGradientStop.m in Sources */,
 				557C8896182EB14300D536F0 /* SVGUseElement.m in Sources */,
 				557C8833182EB14300D536F0 /* Attr.m in Sources */,
@@ -1048,7 +1057,6 @@
 				557C8849182EB14300D536F0 /* CSSValue.m in Sources */,
 				557C886A182EB14300D536F0 /* StyleSheet.m in Sources */,
 				557C88A0182EB14300D536F0 /* SVGDescriptionElement.m in Sources */,
-				557C8901182EB14300D536F0 /* DDFileLogger.m in Sources */,
 				557C88D7182EB14300D536F0 /* CALayer+RecursiveClone.m in Sources */,
 				557C8847182EB14300D536F0 /* CSSStyleSheet.m in Sources */,
 				557C888A182EB14300D536F0 /* SVGRect.m in Sources */,
@@ -1075,6 +1083,7 @@
 				557C88D0182EB14300D536F0 /* SVGKParser.m in Sources */,
 				557C8835182EB14300D536F0 /* CDATASection.m in Sources */,
 				557C88D9182EB14300D536F0 /* CALayerWithChildHitTest.m in Sources */,
+				557C8910182EB3C500D536F0 /* ContextFilterLogFormatter.m in Sources */,
 				557C888E182EB14300D536F0 /* SVGTextContentElement.m in Sources */,
 				557C88BC182EB14300D536F0 /* SVGSVGElement.m in Sources */,
 				557C88AF182EB14300D536F0 /* SVGLineElement.m in Sources */,
@@ -1093,13 +1102,10 @@
 				557C889E182EB14300D536F0 /* SVGCircleElement.m in Sources */,
 				557C885A182EB14300D536F0 /* Element.m in Sources */,
 				557C8890182EB14300D536F0 /* SVGTextPositioningElement.m in Sources */,
-				557C8905182EB14300D536F0 /* DDTTYLogger.m in Sources */,
 				557C88A7182EB14300D536F0 /* SVGGradientElement.m in Sources */,
 				557C884F182EB14300D536F0 /* Document.m in Sources */,
 				557C8873182EB14300D536F0 /* SVGDefsElement.m in Sources */,
 				557C8858182EB14300D536F0 /* DOMHelperUtilities.m in Sources */,
-				557C8907182EB14300D536F0 /* ContextFilterLogFormatter.m in Sources */,
-				557C88FF182EB14300D536F0 /* DDASLLogger.m in Sources */,
 				557C88DD182EB14300D536F0 /* CGPathAdditions.m in Sources */,
 				557C8831182EB14300D536F0 /* AppleSucksDOMImplementation.m in Sources */,
 				557C883B182EB14300D536F0 /* CSSPrimitiveValue.m in Sources */,
@@ -1135,7 +1141,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1173,7 +1179,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1207,6 +1213,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"${SDK_DIR}/usr/include/libxml2",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
@@ -1222,6 +1232,10 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-OSX/SVGKit-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"${SDK_DIR}/usr/include/libxml2",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;

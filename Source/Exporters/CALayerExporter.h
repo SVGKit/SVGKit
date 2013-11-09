@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#define SVGKNativeView UIView
+#else
+#import <Cocoa/Cocoa.h>
+#define SVGKNativeView NSView
+#endif
 #import <QuartzCore/QuartzCore.h>
 
 @protocol CALayerExporterDelegate;
@@ -18,10 +24,10 @@
     NSMutableDictionary* propertyRegistry;
 }
 
-@property (readwrite,nonatomic,retain) UIView* rootView;
+@property (readwrite,nonatomic,retain) SVGKNativeView* rootView;
 @property (readwrite,nonatomic,assign) id<CALayerExporterDelegate> delegate;
 
-- (CALayerExporter*) initWithView:(UIView*)v;
+- (CALayerExporter*) initWithView:(SVGKNativeView*)v;
 - (void) startExport;
 
 @end
