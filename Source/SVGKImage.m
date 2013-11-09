@@ -128,13 +128,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil )
 	{
-    result->cameFromGlobalCache = TRUE;
-    result.nameUsedToInstantiate = name;
-    
-    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
-    newCacheLine.mainInstance = result;
-    
-    [globalSVGKImageCache setValue:newCacheLine forKey:name];
+        result->cameFromGlobalCache = TRUE;
+        result.nameUsedToInstantiate = name;
+        
+        SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
+        newCacheLine.mainInstance = result;
+        
+        [globalSVGKImageCache setValue:newCacheLine forKey:name];
 	}
 	else
 	{
@@ -195,14 +195,16 @@ static NSMutableDictionary* globalSVGKImageCache;
 			self.DOMDocument = nil;
 			self.DOMTree = nil;
 		}
-		
+        
+		//This is to make dealloc happy
+        [self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
+
 		if ( self.DOMDocument == nil )
 		{
 			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
 			self = nil;
 		}
 		
-		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
 		//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
@@ -245,7 +247,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-//SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+    [self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
@@ -546,13 +548,14 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child] autorelease];
+			CALayer *sublayer = [self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child];
 			
 			if (!sublayer) {
 				continue;
             }
 			
 			[layer addSublayer:sublayer];
+            [sublayer release];
 		}
 	}
 	

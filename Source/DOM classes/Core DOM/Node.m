@@ -312,7 +312,7 @@
 			/** DOM 3 Spec:
 			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
 			 */
-			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			NSMutableString* stringAccumulator = [[NSMutableString alloc] init];
 			for( Node* subNode in self.childNodes.internalArray )
 			{
 				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!
@@ -320,7 +320,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:stringAccumulator];
+			return [NSString stringWithString:[stringAccumulator autorelease]];
 		}
 			
 		case DOMNodeType_TEXT_NODE:

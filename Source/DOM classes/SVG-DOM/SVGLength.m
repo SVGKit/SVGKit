@@ -102,13 +102,13 @@
 static float cachedDevicePixelsPerInch;
 +(SVGLength*) svgLengthFromNSString:(NSString*) s
 {
-	CSSPrimitiveValue* pv = [[[CSSPrimitiveValue alloc] init] autorelease];
+	CSSPrimitiveValue* pv = [[CSSPrimitiveValue alloc] init];
 	
 	pv.pixelsPerInch = cachedDevicePixelsPerInch;
 	pv.cssText = s;
 	
 	SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:pv] autorelease];
-	
+	[pv release];
 	return result;
 }
 
