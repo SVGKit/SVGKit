@@ -229,9 +229,6 @@
                 value = [self getAttribute:@"gradientTransform"];
             }
 		
-#if !(TARGET_OS_IPHONE) && ( !defined( __MAC_10_7 ) || __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_6_7 )
-		DDLogVerbose(@"[%@] WARNING: the transform attribute requires OS X 10.7 or above (we need Regular Expressions! Apple was slow to add them :( ). Ignoring TRANSFORMs in SVG!", [self class] );
-#else
 		NSError* error = nil;
 		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
 		
@@ -345,7 +342,6 @@
 		}];
 		
 		//DEBUG: DDLogVerbose(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], selfTransformable.transform.a, selfTransformable.transform.b, selfTransformable.transform.c, selfTransformable.transform.d, selfTransformable.transform.tx, selfTransformable.transform.ty );
-#endif
 		}
 	}
 
