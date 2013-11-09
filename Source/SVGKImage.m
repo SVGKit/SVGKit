@@ -16,7 +16,10 @@
 
 #import "CALayer+RecursiveClone.h"
 
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateDeviceRGB()
+#else
+#define SVGKCreateSystemDefaultSpace() CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
 #define NSStringFromCGRect NSStringFromRect
 #endif
 
@@ -755,7 +758,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating an NSData* raw bytes image using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
-	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGColorSpaceRef colorSpace = SVGKCreateSystemDefaultSpace();
 	CGContextRef context = CGBitmapContextCreate( NULL/*malloc( self.size.width * self.size.height * 4 )*/, self.size.width, self.size.height, 8, 4 * self.size.width, colorSpace, kCGImageAlphaNoneSkipLast );
 	CGColorSpaceRelease( colorSpace );
 	
@@ -828,9 +831,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		return nil;
 	}
-
 }
-
 #endif
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
