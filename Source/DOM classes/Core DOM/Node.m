@@ -147,7 +147,7 @@
 	NSArray* nameSpaceParts = [self.nodeName componentsSeparatedByString:@":"];
 	self.localName = [nameSpaceParts lastObject];
 	if( [nameSpaceParts count] > 1 )
-		self.prefix = [nameSpaceParts objectAtIndex:0];
+		self.prefix = nameSpaceParts[0];
 		
 	self.namespaceURI = nsURI;
 }
@@ -225,7 +225,7 @@
 	}
 	else
 	{
-		[self.childNodes.internalArray replaceObjectAtIndex:[self.childNodes.internalArray indexOfObject:oldChild] withObject:newChild];
+		(self.childNodes.internalArray)[[self.childNodes.internalArray indexOfObject:oldChild]] = newChild;
 		
 		newChild.parentNode = self;
 		oldChild.parentNode = nil;

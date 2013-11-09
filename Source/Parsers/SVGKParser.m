@@ -136,11 +136,11 @@ clazz *parser = [[clazz alloc] init]; \
 	}
 	for( NSString* parserNamespace in extension.supportedNamespaces )
 	{
-		NSMutableArray* extensionsForNamespace = [self.parserKnownNamespaces objectForKey:parserNamespace];
+		NSMutableArray* extensionsForNamespace = (self.parserKnownNamespaces)[parserNamespace];
 		if( extensionsForNamespace == nil )
 		{
 			extensionsForNamespace = [NSMutableArray array];
-			[self.parserKnownNamespaces setObject:extensionsForNamespace forKey:parserNamespace];
+			(self.parserKnownNamespaces)[parserNamespace] = extensionsForNamespace;
 		}
 		
 		[extensionsForNamespace addObject:extension];
@@ -421,9 +421,9 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 */
 	for( NSString* prefix in namespacesByPrefix )
 	{
-		NSString* uri = [namespacesByPrefix objectForKey:prefix];
+		NSString* uri = namespacesByPrefix[prefix];
 		
-        [self.currentParseRun.namespacesEncountered setObject:uri forKey: prefix ? prefix : [NSNull null]];
+        (self.currentParseRun.namespacesEncountered)[prefix ? prefix : [NSNull null]] = uri;
 	}
 	
 #if DEBUG_XML_PARSER
@@ -542,9 +542,7 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	SVGKParseResult* parseResult = self.currentParseRun;
     
     DDLogCWarn(@"Error encountered during parse: %@", errStr);
-	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  errStr, NSLocalizedDescriptionKey,
-																				nil]]];
+	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
     [errStr release];
 }
 
@@ -568,19 +566,19 @@ static void structuredError		(void * userData,
 	xmlErrorLevel errorLevel = error->level;
 	
 	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
-									[NSNumber numberWithInt:error->line], @"lineNumber",
-									[NSNumber numberWithInt:error->int2], @"columnNumber",
+									@(error->message), NSLocalizedDescriptionKey,
+									@(error->line), @"lineNumber",
+									@(error->int2), @"columnNumber",
 									nil];
 	
 	if( error->str1 )
-		[details setValue:[NSString stringWithCString:error->str1 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo1"];
+		[details setValue:@(error->str1) forKey:@"bonusInfo1"];
 	if( error->str2 )
-		[details setValue:[NSString stringWithCString:error->str2 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo2"];
+		[details setValue:@(error->str2) forKey:@"bonusInfo2"];
 	if( error->str3 )
-		[details setValue:[NSString stringWithCString:error->str3 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo3"];
+		[details setValue:@(error->str3) forKey:@"bonusInfo3"];
 	
-	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
+	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
 	SVGKParser *self = parserThatWasMostRecentlyStarted;
 	SVGKParseResult* parseResult = self.currentParseRun;
@@ -665,8 +663,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **na
 		if( prefix == nil )
 			prefix = @""; // Special case: Apple dictionaries can't handle null keys
 		
-		[dict setObject:uri
-				 forKey:prefix];
+		dict[prefix] = uri;
 	}
 	
 	return [dict autorelease];
@@ -690,8 +687,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		
 		Attr* newAttribute = [[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value];
 		
-		[dict setObject:newAttribute
-				 forKey:qname];
+		dict[qname] = newAttribute;
         [newAttribute release];
         [value release];
 	}
@@ -707,7 +703,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	if( styleAttribute == nil )
 	{
 		DDLogCWarn(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
-		return [NSDictionary dictionary];
+		return @{};
 	}
 	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -742,10 +738,9 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		else if (c == ';' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]];
+			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:@(name) value:@(accum)];
 			
-			[dict setObject:newAttribute
-					 forKey:newAttribute.localName];
+			dict[newAttribute.localName] = newAttribute;
 			[newAttribute release];
             
 			bzero(name, MAX_NAME);

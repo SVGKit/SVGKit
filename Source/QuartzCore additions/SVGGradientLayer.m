@@ -42,7 +42,7 @@
         CGContextConcatCTM(ctx, CGAffineTransformMake(1, 0, 0, 1, -self.startPoint.x, -self.startPoint.y));
         
         if (self.colors.count) {
-            CGColorRef colorRef = (CGColorRef)[self.colors objectAtIndex:0];
+            CGColorRef colorRef = (CGColorRef)(self.colors)[0];
             numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
         }
@@ -51,8 +51,8 @@
         float *components = calloc(num_locations, numbOfComponents * sizeof(float));
         
         for (int x = 0; x < num_locations; x++) {
-            locations[x] = [[self.locations objectAtIndex:x] floatValue];
-            const CGFloat *comps = CGColorGetComponents((CGColorRef)[self.colors objectAtIndex:x]);
+            locations[x] = [(self.locations)[x] floatValue];
+            const CGFloat *comps = CGColorGetComponents((CGColorRef)(self.colors)[x]);
             for (int y = 0; y < numbOfComponents; y++) {
                 int shift = numbOfComponents * x;
                 components[shift + y] = comps[y];
@@ -79,14 +79,13 @@
     for (NSString *key in stopIdentifiers) {
         if ([key isEqualToString:identifier]) {
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self.colors];
-            const CGFloat *colors = CGColorGetComponents((CGColorRef)[arr objectAtIndex:i]);
+            const CGFloat *colors = CGColorGetComponents((CGColorRef)arr[i]);
             float a = colors[3];
             const CGFloat *colors2 = CGColorGetComponents(color.CGColor);
             float r = colors2[0];
             float g = colors2[1];
             float b = colors2[2];
-            [arr removeObjectAtIndex:i];
-            [arr insertObject:(id)[UIColor colorWithRed:r green:g blue:b alpha:a].CGColor atIndex:i];
+            [arr replaceObjectAtIndex:i withObject:(id)[UIColor colorWithRed:r green:g blue:b alpha:a].CGColor];
             [self setColors:[NSArray arrayWithArray:arr]];
             return;
         }
