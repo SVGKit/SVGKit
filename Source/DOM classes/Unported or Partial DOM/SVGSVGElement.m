@@ -180,10 +180,10 @@
 	
 }
 
-- (SVGElement *)findFirstElementOfClass:(Class)class {
+- (SVGElement *)findFirstElementOfClass:(Class)classParameter {
 	for (SVGElement *element in self.childNodes)
 	{
-		if ([element isKindOfClass:class])
+		if ([element isKindOfClass:classParameter])
 			return element;
 	}
 	

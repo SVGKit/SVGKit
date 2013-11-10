@@ -234,8 +234,20 @@
  because it no longer needs one)
  
  Useful for extracting individual features from an SVG
+ 
+ Note that this ONLY clones the layer, does NOT include its sublayers. If you want to get a copy that includes
+ the sublayers, use [self newCopyPositionedAbsoluteOfLayer:withSubLayers:TRUE]
  */
 -(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
+
+/**
+ As for newCopyPositionedAbsoluteOfLayer:, but allows you to choose between 1 layer only (default)
+ or a recursive copy which includes all sublayers.
+ 
+ Only the root/parent layer will be positioned absolute - all the sublayers will still be relatively-positioned
+ within their parents.
+ */
+-(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer withSubLayers:(BOOL) recursive;
 
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;

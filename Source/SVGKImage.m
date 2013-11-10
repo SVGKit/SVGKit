@@ -469,6 +469,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer
 {
+	return [self newCopyPositionedAbsoluteOfLayer:originalLayer withSubLayers:FALSE];
+}
+
+-(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer withSubLayers:(BOOL) recursive
+{
 	
 	/*CALayer* clonedLayer = [[[originalLayer class] alloc] init];
 	
@@ -482,7 +487,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		((CAShapeLayer*)clonedLayer).fillColor = ((CAShapeLayer*)originalLayer).fillColor;
 	}*/
 	
-	CALayer* clonedLayer = [originalLayer cloneShallow];
+	CALayer* clonedLayer = recursive ? [originalLayer cloneRecursively] : [originalLayer cloneShallow];
 	
 	if( clonedLayer == nil )
 		return nil;
