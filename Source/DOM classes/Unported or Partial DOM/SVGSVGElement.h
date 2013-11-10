@@ -122,4 +122,9 @@
 
 @property(nonatomic,readonly) SVGRect requestedViewport;
 
+/** Required by the spec whenever someone specifies a width and height that disagree with the viewbox they also specified */
+@property(readonly) double aspectRatioFromWidthPerHeight;
+/** Required by the spec whenever someone specifies a width and height that disagree with the viewbox they also specified */
+@property(readonly) double aspectRatioFromViewBox;
+
 @end

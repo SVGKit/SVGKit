@@ -34,7 +34,8 @@
 @synthesize currentScale;
 @synthesize currentTranslate;
 
-@synthesize viewBox = _viewBox;
+@synthesize viewBox = _viewBox; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
+@synthesize preserveAspectRatio; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 #pragma mark - NON SPEC, violating, properties
 
@@ -169,8 +170,51 @@
 	{
 		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
 	}
-		DDLogVerbose(@"[%@] WARNING: SVG spec says we should calculate the 'intrinsic aspect ratio'. Some badly-made SVG files work better if you do this and then post-multiply onto the specified viewBox attribute ... BUT they ALSO require that you 're-center' them inside the newly-created viewBox; and the SVG Spec DOES NOT SAY you should do that. All examples so far were authored in Inkscape, I think, so ... I think it's a serious bug in Inkscape that has tricked people into making incorrect SVG files. For example, c.f. http://en.wikipedia.org/wiki/File:BlankMap-World6-Equirectangular.svg", [self class]);
-        //osx logging
+	
+	self.preserveAspectRatio = [[SVGAnimatedPreserveAspectRatio new] autorelease]; // automatically sets defaults
+	
+	NSString* stringPreserveAspectRatio = [self getAttribute:@"preserveAspectRatio"];
+	NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
+	
+	for( NSString* aspectRatioCommand in aspectRatioCommands )
+	{
+		if( [aspectRatioCommand isEqualToString:@"meet"]) /** NB this is default anyway. Dont technically need to set it */
+			self.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_MEET;
+		else if( [aspectRatioCommand isEqualToString:@"slice"])
+			self.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_SLICE;
+		
+		else if( [aspectRatioCommand isEqualToString:@"xMinYMin"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMIN;
+		else if( [aspectRatioCommand isEqualToString:@"xMinYMid"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMID;
+		else if( [aspectRatioCommand isEqualToString:@"xMinYMax"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMAX;
+		
+		else if( [aspectRatioCommand isEqualToString:@"xMidYMin"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMIN;
+		else if( [aspectRatioCommand isEqualToString:@"xMidYMid"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMID;
+		else if( [aspectRatioCommand isEqualToString:@"xMidYMax"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMAX;
+		
+		else if( [aspectRatioCommand isEqualToString:@"xMaxYMin"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMIN;
+		else if( [aspectRatioCommand isEqualToString:@"xMaxYMid"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMID;
+		else if( [aspectRatioCommand isEqualToString:@"xMaxYMax"])
+			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMAX;
+		
+		else
+		{
+			DDLogWarn(@"Found unexpected preserve-aspect-ratio command inside element's 'preserveAspectRatio' attribute. Command = '%@'", aspectRatioCommand );
+		}
+	}
+
+	if( stringWidth == nil || stringWidth.length < 1 )
+		self.width = nil; // i.e. undefined
+	else
+		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
+	    //osx logging
 #if TARGET_OS_IPHONE        
         DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
 #else
@@ -211,5 +255,18 @@
 	 previously were rendering with strange offsets at the top level
 	 */
 }
+
+#pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
+
+-(double)aspectRatioFromWidthPerHeight
+{
+	return [self.height pixelsValue] == 0 ? 0 : [self.width pixelsValue] / [self.height pixelsValue];
+}
+
+-(double)aspectRatioFromViewBox
+{	
+	return  self.viewBox.height == 0 ? 0 : self.viewBox.width / self.viewBox.height;
+}
+
 
 @end
