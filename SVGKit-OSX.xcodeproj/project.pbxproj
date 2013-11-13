@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		554703D01833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 554703CE1833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.h */; };
+		554703D11833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 554703CF1833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.m */; };
+		554703D41833F700008E5B9B /* SVGPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 554703D21833F700008E5B9B /* SVGPreserveAspectRatio.h */; };
+		554703D51833F700008E5B9B /* SVGPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 554703D31833F700008E5B9B /* SVGPreserveAspectRatio.m */; };
 		557C871C182EB02200D536F0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557C871B182EB02200D536F0 /* Cocoa.framework */; };
 		557C8726182EB02200D536F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 557C8724182EB02200D536F0 /* InfoPlist.strings */; };
 		557C8830182EB14300D536F0 /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8749182EB14300D536F0 /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -219,8 +223,6 @@
 		557C8911182EB3C500D536F0 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C882E182EB14300D536F0 /* DispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		557C8914182EBE3600D536F0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 557C8913182EBE3600D536F0 /* libxml2.dylib */; };
 		557C8916182EBE5800D536F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557C8915182EBE5800D536F0 /* QuartzCore.framework */; };
-		557C891D182EC20300D536F0 /* CALayer+RecursiveClone.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8919182EC20300D536F0 /* CALayer+RecursiveClone.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		557C891E182EC20300D536F0 /* CALayer+RecursiveClone.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C891A182EC20300D536F0 /* CALayer+RecursiveClone.m */; };
 		557C891F182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C891B182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.h */; };
 		557C8920182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C891C182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.m */; };
 		557C8928182EC23200D536F0 /* SVGKFastImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8922182EC23200D536F0 /* SVGKFastImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -232,6 +234,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		554703CE1833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAnimatedPreserveAspectRatio.h; sourceTree = "<group>"; };
+		554703CF1833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAnimatedPreserveAspectRatio.m; sourceTree = "<group>"; };
+		554703D21833F700008E5B9B /* SVGPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPreserveAspectRatio.h; sourceTree = "<group>"; };
+		554703D31833F700008E5B9B /* SVGPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPreserveAspectRatio.m; sourceTree = "<group>"; };
 		557C8718182EB02200D536F0 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		557C871B182EB02200D536F0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		557C871E182EB02200D536F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -452,8 +458,6 @@
 		557C882F182EB14300D536F0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		557C8913182EBE3600D536F0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		557C8915182EBE5800D536F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		557C8919182EC20300D536F0 /* CALayer+RecursiveClone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RecursiveClone.h"; sourceTree = "<group>"; };
-		557C891A182EC20300D536F0 /* CALayer+RecursiveClone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+RecursiveClone.m"; sourceTree = "<group>"; };
 		557C891B182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		557C891C182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
 		557C8922182EC23200D536F0 /* SVGKFastImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKFastImageView.h; sourceTree = "<group>"; };
@@ -645,6 +649,8 @@
 			children = (
 				557C878A182EB14300D536F0 /* SVGAngle.h */,
 				557C878B182EB14300D536F0 /* SVGAngle.m */,
+				554703CE1833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.h */,
+				554703CF1833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.m */,
 				557C878C182EB14300D536F0 /* SVGDefsElement.h */,
 				557C878D182EB14300D536F0 /* SVGDefsElement.m */,
 				557C878E182EB14300D536F0 /* SVGDocument.h */,
@@ -668,6 +674,8 @@
 				557C87A0182EB14300D536F0 /* SVGNumber.h */,
 				557C87A1182EB14300D536F0 /* SVGPoint.h */,
 				557C87A2182EB14300D536F0 /* SVGPoint.m */,
+				554703D21833F700008E5B9B /* SVGPreserveAspectRatio.h */,
+				554703D31833F700008E5B9B /* SVGPreserveAspectRatio.m */,
 				557C87A3182EB14300D536F0 /* SVGRect.h */,
 				557C87A4182EB14300D536F0 /* SVGRect.m */,
 				557C87A5182EB14300D536F0 /* SVGStylable.h */,
@@ -862,8 +870,6 @@
 		557C8918182EC20300D536F0 /* Shared additions */ = {
 			isa = PBXGroup;
 			children = (
-				557C8919182EC20300D536F0 /* CALayer+RecursiveClone.h */,
-				557C891A182EC20300D536F0 /* CALayer+RecursiveClone.m */,
 				557C891B182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.h */,
 				557C891C182EC20300D536F0 /* NSCharacterSet+SVGKExtensions.m */,
 			);
@@ -924,7 +930,6 @@
 				557C8887182EB14300D536F0 /* SVGPoint.h in Headers */,
 				557C88E0182EB14300D536F0 /* SVGKLayer.h in Headers */,
 				557C8869182EB14300D536F0 /* StyleSheet.h in Headers */,
-				557C891D182EC20300D536F0 /* CALayer+RecursiveClone.h in Headers */,
 				557C88B6182EB14300D536F0 /* SVGRectElement.h in Headers */,
 				557C88BB182EB14300D536F0 /* SVGSVGElement.h in Headers */,
 				557C8882182EB14300D536F0 /* SVGLength.h in Headers */,
@@ -939,6 +944,7 @@
 				557C8899182EB14300D536F0 /* BaseClassForAllSVGBasicShapes.h in Headers */,
 				557C8853182EB14300D536F0 /* DocumentStyle.h in Headers */,
 				557C8850182EB14300D536F0 /* DocumentCSS.h in Headers */,
+				554703D41833F700008E5B9B /* SVGPreserveAspectRatio.h in Headers */,
 				557C8846182EB14300D536F0 /* CSSStyleSheet.h in Headers */,
 				557C884B182EB14300D536F0 /* CSSValueList.h in Headers */,
 				557C88CB182EB14300D536F0 /* SVGKParserStyles.h in Headers */,
@@ -958,6 +964,7 @@
 				557C88D1182EB14300D536F0 /* SVGKParseResult.h in Headers */,
 				557C8884182EB14300D536F0 /* SVGMatrix.h in Headers */,
 				557C88F8182EB14300D536F0 /* SVGKPattern.h in Headers */,
+				554703D01833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.h in Headers */,
 				557C88B9182EB14300D536F0 /* SVGStyleElement.h in Headers */,
 				557C892C182EC23200D536F0 /* SVGKLayeredImageView.h in Headers */,
 				557C88A1182EB14300D536F0 /* SVGElement.h in Headers */,
@@ -1107,7 +1114,6 @@
 				557C8833182EB14300D536F0 /* Attr.m in Sources */,
 				557C8860182EB14300D536F0 /* NamedNodeMap.m in Sources */,
 				557C8849182EB14300D536F0 /* CSSValue.m in Sources */,
-				557C891E182EC20300D536F0 /* CALayer+RecursiveClone.m in Sources */,
 				557C886A182EB14300D536F0 /* StyleSheet.m in Sources */,
 				557C88A0182EB14300D536F0 /* SVGDescriptionElement.m in Sources */,
 				557C88D7182EB14300D536F0 /* CALayer+RecursiveClone.m in Sources */,
@@ -1128,6 +1134,7 @@
 				557C886D182EB14300D536F0 /* StyleSheetList.m in Sources */,
 				557C8885182EB14300D536F0 /* SVGMatrix.m in Sources */,
 				557C885C182EB14300D536F0 /* EntityReference.m in Sources */,
+				554703D51833F700008E5B9B /* SVGPreserveAspectRatio.m in Sources */,
 				557C88ED182EB14300D536F0 /* SVGKSource.m in Sources */,
 				557C889A182EB14300D536F0 /* BaseClassForAllSVGBasicShapes.m in Sources */,
 				557C88E7182EB14300D536F0 /* SVGKSourceURL.m in Sources */,
@@ -1153,6 +1160,7 @@
 				557C88DF182EB14300D536F0 /* SVGGradientLayer.m in Sources */,
 				557C887F182EB14300D536F0 /* SVGGElement.m in Sources */,
 				557C8839182EB14300D536F0 /* Comment.m in Sources */,
+				554703D11833F6E4008E5B9B /* SVGAnimatedPreserveAspectRatio.m in Sources */,
 				557C8855182EB14300D536F0 /* DocumentType.m in Sources */,
 				557C8841182EB14300D536F0 /* CSSRuleList.m in Sources */,
 				557C889E182EB14300D536F0 /* SVGCircleElement.m in Sources */,
@@ -1255,6 +1263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
