@@ -34,6 +34,10 @@ imageWithASinglePointPath.svg
 Lion.svg
      -- ??? Unknown, probably Public Domain. Same file as this one on Mozilla.org: http://www-archive.mozilla.org/projects/svg/lion.svg
 	 
+map-alaska-onlysimple.svg
+     -- Public Domain, author: Adam Martin (http://t-machine.org)
+	 -- Created by: Taking BlankMap-World6-Equirectangular.svg, removing every territory except Alaska, and using "simplify" repeatedly, then manually stripping all style info until we have the smallest-possible file that exhibits the UNIQUE viewbox/layout/non-zero-zero-origin problem from the original BlankMap-World6-Equirectangular.svg file
+	 
 test-wave-1.svg
      -- Public Domain, author: Adam Martin (http://t-machine.org)
      -- Created by: Inkscape

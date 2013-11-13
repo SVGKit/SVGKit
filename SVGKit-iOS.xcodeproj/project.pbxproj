@@ -225,7 +225,11 @@
 		66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE85D1688CB37002E2658 /* SVGStyleCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 66EEE85E1688CB37002E2658 /* SVGStyleElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66EEE8661688CB37002E2658 /* SVGStyleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEE85F1688CB37002E2658 /* SVGStyleElement.m */; };
-		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; };
+		66F33DD0182FE1C4004464AC /* SVGPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 66F33DCE182FE1C4004464AC /* SVGPreserveAspectRatio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66F33DD1182FE1C4004464AC /* SVGPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DCF182FE1C4004464AC /* SVGPreserveAspectRatio.m */; };
+		66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
+		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 /* End PBXBuildFile section */
 
@@ -465,6 +469,10 @@
 		66EEE85D1688CB37002E2658 /* SVGStyleCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleCatcher.h; sourceTree = "<group>"; };
 		66EEE85E1688CB37002E2658 /* SVGStyleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyleElement.h; sourceTree = "<group>"; };
 		66EEE85F1688CB37002E2658 /* SVGStyleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyleElement.m; sourceTree = "<group>"; };
+		66F33DCE182FE1C4004464AC /* SVGPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPreserveAspectRatio.h; sourceTree = "<group>"; };
+		66F33DCF182FE1C4004464AC /* SVGPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPreserveAspectRatio.m; sourceTree = "<group>"; };
+		66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAnimatedPreserveAspectRatio.h; sourceTree = "<group>"; };
+		66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAnimatedPreserveAspectRatio.m; sourceTree = "<group>"; };
 		9ED79A22179D87790048AA5B /* SVGGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientLayer.h; sourceTree = "<group>"; };
 		9ED79A23179D87790048AA5B /* SVGGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -700,6 +708,8 @@
 			children = (
 				66E863321688C2770059C9C4 /* SVGAngle.h */,
 				66E863331688C2770059C9C4 /* SVGAngle.m */,
+				66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */,
+				66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */,
 				66E863341688C2770059C9C4 /* SVGDefsElement.h */,
 				66E863351688C2770059C9C4 /* SVGDefsElement.m */,
 				66E863361688C2770059C9C4 /* SVGDocument.h */,
@@ -721,6 +731,8 @@
 				66E863431688C2770059C9C4 /* SVGNumber.h */,
 				66E863441688C2770059C9C4 /* SVGPoint.h */,
 				66E863451688C2770059C9C4 /* SVGPoint.m */,
+				66F33DCE182FE1C4004464AC /* SVGPreserveAspectRatio.h */,
+				66F33DCF182FE1C4004464AC /* SVGPreserveAspectRatio.m */,
 				66E863461688C2770059C9C4 /* SVGRect.h */,
 				66372F5916960D4E008C6C56 /* SVGRect.m */,
 				66E863471688C2770059C9C4 /* SVGSVGElement_Mutable.h */,
@@ -997,6 +1009,9 @@
 				6636CD8A175F54680072AAEF /* CALayer+RecursiveClone.h in Headers */,
 				00E86D631741586600F0FA0A /* DDAbstractDatabaseLogger.h in Headers */,
 				00E86D651741586600F0FA0A /* DDASLLogger.h in Headers */,
+				66F33DD0182FE1C4004464AC /* SVGPreserveAspectRatio.h in Headers */,
+				66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */,
+				9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */,
 				00E86D671741586600F0FA0A /* DDFileLogger.h in Headers */,
 				00E86D691741586600F0FA0A /* DDLog.h in Headers */,
 				00E86D6B1741586600F0FA0A /* DDTTYLogger.h in Headers */,
@@ -1006,7 +1021,6 @@
 				6636CD80175F542A0072AAEF /* SVGKSourceString.h in Headers */,
 				6636CD82175F542A0072AAEF /* SVGKSourceURL.h in Headers */,
 				6636CD8A175F54680072AAEF /* CALayer+RecursiveClone.h in Headers */,
-				9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,6 +1141,7 @@
 				66E864031688C2780059C9C4 /* SVGKParserDOM.m in Sources */,
 				66E864051688C2780059C9C4 /* SVGKParserPatternsAndGradients.m in Sources */,
 				66E864071688C2780059C9C4 /* SVGKParserSVG.m in Sources */,
+				66F33DD1182FE1C4004464AC /* SVGPreserveAspectRatio.m in Sources */,
 				66E864091688C2780059C9C4 /* SVGKParser.m in Sources */,
 				66E8640B1688C2780059C9C4 /* SVGKParseResult.m in Sources */,
 				66E8640E1688C2780059C9C4 /* SVGKPointsAndPathsParser.m in Sources */,
@@ -1155,6 +1170,7 @@
 				66988DCC168A0A2300EC93C7 /* CSSPrimitiveValue.m in Sources */,
 				66988DD0168A129500EC93C7 /* CSSValueList.m in Sources */,
 				666674BB168A511400486B68 /* CSSStyleRule.m in Sources */,
+				66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */,
 				666674C2168A556300486B68 /* StyleSheetList.m in Sources */,
 				666674C6168A55AF00486B68 /* StyleSheet.m in Sources */,
 				557C8934182EC4DE00D536F0 /* CALayer+RecursiveClone.m in Sources */,
