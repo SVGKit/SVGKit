@@ -13,6 +13,8 @@
 
 @class Node, NodeList, Element; // avoiding #import here, to avoid C header loop problems.
 
+#define DEBUG_DOM_MATCH_ELEMENTS_IDS_AND_NAMES 0 // For debugging SVGKit: causes debug output on getElementById etc
+
 @interface DOMHelperUtilities : NSObject
 
 /*! This useful method provides both the DOM level 1 and the DOM level 2 implementations of searching the tree for a node - because THEY ARE DIFFERENT

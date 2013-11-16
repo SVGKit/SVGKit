@@ -51,7 +51,7 @@
 		 solution IMHO - the spec authors should have defined the outcome!
 		 */
 		
-		for( NSString* key in [self.internalDictionaryOfNamespaces allKeys] )
+		for( NSString* key in self.internalDictionaryOfNamespaces )
 		{
 			simpleResult = [self getNamedItemNS:key localName:name];
 			if( simpleResult != nil )
@@ -88,7 +88,7 @@
 {
 	int count = [self.internalDictionary count];
 	
-	for( NSDictionary* namespaceDict in self.internalDictionaryOfNamespaces )
+	for( NSDictionary* namespaceDict in [self.internalDictionaryOfNamespaces allValues] )
 	{
 		count += [namespaceDict count];
 	}
@@ -98,13 +98,15 @@
 
 -(Node*) item:(unsigned long) index
 {
+	NSAssert(FALSE, @"This method is broken; Apple does not consistently return ordered values in dictionary.allValues. Apple DOES NOT SUPPORT ordered Maps/Hashes/Tables/Hashtables - we have to re-implement this wheel from scratch");
+	
 	if( index < [self.internalDictionary count] )
 		return [self.internalDictionary.allValues objectAtIndex:index];
 	else
 	{
 		index -= self.internalDictionary.count;
 		
-		for( NSDictionary* namespaceDict in self.internalDictionaryOfNamespaces )
+		for( NSDictionary* namespaceDict in [self.internalDictionaryOfNamespaces allValues] )
 		{
 			if( index < [namespaceDict count] )
 				return [namespaceDict.allValues objectAtIndex:index];
