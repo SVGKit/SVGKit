@@ -1283,6 +1283,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
+				INSTALL_PATH = "@rpath";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1302,6 +1303,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "XCodeProjectData/SVGKit-OSX/SVGKit-Info.plist";
+				INSTALL_PATH = "@rpath";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
