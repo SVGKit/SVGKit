@@ -7,6 +7,6 @@
 
 @property (nonatomic, retain) NSString* filePath;
 
-+ (SVGKSource*)sourceFromFilename:(NSString*)p;
++ (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p;
 
 @end

@@ -30,7 +30,7 @@
 @class Node;
 #import "Node.h"
 
-@interface NamedNodeMap : NSObject
+@interface NamedNodeMap : NSObject </** needed so we can output SVG text in the [Node appendToXML:..] methods */ NSCopying>
 
 -(Node*) getNamedItem:(NSString*) name;
 -(Node*) setNamedItem:(Node*) arg;

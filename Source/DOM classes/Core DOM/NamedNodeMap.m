@@ -7,6 +7,7 @@
 //
 
 #import "NamedNodeMap.h"
+#import "NamedNodeMap_Iterable.h"
 
 @interface NamedNodeMap()
 @property(nonatomic,retain) NSMutableDictionary* internalDictionary;
@@ -178,5 +179,31 @@
 	return [NSString stringWithFormat:@"NamedNodeMap: %@%@%@", dom1, dom1 != nil && dom2 != nil ? @"\n" : @"", dom2  ];
 }
 
+#pragma mark - Implementation of category: NamedNodeMap_Iterable
+
+-(NSArray*) allNodesUnsortedDOM1
+{
+	/** Using DOM1 - no namespace support */
+	
+	return self.internalDictionary.allValues;
+}
+
+-(NSDictionary*) allNodesUnsortedDOM2
+{
+	/** Using DOM2 - every item has a namespace*/
+	
+	return self.internalDictionaryOfNamespaces;
+}
+
+#pragma mark - Needed to implement XML DOM effectively: ability to shallow-Clone an instance
+
+-(id)copyWithZone:(NSZone *)zone
+{
+	NamedNodeMap* clone = [[NamedNodeMap allocWithZone:zone] init];
+	clone.internalDictionary = [self.internalDictionary copyWithZone:zone];
+	clone.internalDictionaryOfNamespaces = [self.internalDictionaryOfNamespaces copyWithZone:zone];
+	
+	return clone;
+}
 
 @end

@@ -12,6 +12,8 @@
 #import "NodeList+Mutable.h"
 #import "NamedNodeMap.h"
 
+#import "NamedNodeMap_Iterable.h" // Needed for the optional (non-SVG spec) "recursive toXML" method
+
 @implementation Node
 
 @synthesize nodeName;
@@ -388,6 +390,221 @@
 			nodeTypeName = @"N/A (DATA IS MISSING FROM NODE INSTANCE)";
 	}
 	return [NSString stringWithFormat:@"Node: %@ (%@) value:[%@] @@%ld attributes + %ld x children", self.nodeName, nodeTypeName, [self.nodeValue length]<11 ? self.nodeValue : [NSString stringWithFormat:@"%@...",[self.nodeValue substringToIndex:10]], self.attributes.length, self.childNodes.length];
+}
+
+#pragma mark - Objective-C serialization method to serialize a DOM tree back to XML (used heavily in SVGKit's output/conversion features)
+
+/** EXPERIMENTAL: not fully implemented or tested - this correctly outputs most SVG files, but is missing esoteric
+ features such as EntityReferences, currently they are simply ignored
+ 
+ This method should be used hand-in-hand with the proprietary SVGDocument method "allNamespaces" and the SVGSVGElement method "
+ 
+ @param outputString an empty MUTABLE string we can accumulate with output (NB: this method uses a lot of memory, needs to accumulate data)
+ 
+ @param prefixesByKNOWNNamespace (required): a dictionary mapping "XML namespace URI" to "prefix to use inside the xml-tags", e.g. "http://w3.org/2000/svg" usually is mapped to "svg" (or to "", signifying it's the default namespace). This MUST include ALL NAMESPACES FOUND IN THE DOCUMENT (it's recommended you use SVGDocument's "allPrefixesByNamespace" method, and some post-processing, to get an accurate input here)
+ 
+ @param prefixesByACTIVENamespace (required): a mutable dictionary listing which elements of the other dictionary are active in-scope - i.e. which namespaces have been output by this node or a higher node in the tree. You pass-in an empty dictionary to the root SVG node and it fills it in as required.
+ */
+-(void) appendXMLToString:(NSMutableString*) outputString availableNamespaces:(NSDictionary*) prefixesByKNOWNNamespace activeNamespaces:(NSMutableDictionary*) prefixesByACTIVENamespace
+{
+//	NSAssert(namespaceShortnames != nil, @"Must supply an empty dictionary for me to fill with encountered namespaces, and the shortnames I invented for them!");
+	
+	/** Opening */
+	switch( self.nodeType )
+	{
+		case DOMNodeType_ATTRIBUTE_NODE:
+		{
+			// ?
+		}break;
+			
+		case DOMNodeType_CDATA_SECTION_NODE:
+		{
+			[outputString appendFormat:@"<!--"];
+		}break;
+			
+		case DOMNodeType_COMMENT_NODE:
+		{
+			[outputString appendFormat:@"<![CDATA["];
+		}break;
+			
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_ELEMENT_NODE:
+		{
+			[outputString appendFormat:@"<%@", self.nodeName];
+		}break;
+			
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_NOTATION_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_TEXT_NODE:
+		{
+			// ?
+		}break;
+	}
+	
+	/** ATTRIBUTES on the node (generally only applies to things of type "DOMNodeType_ELEMENT_NODE") */
+	NSDictionary* nodeMapsByNamespace = [self.attributes allNodesUnsortedDOM2];
+	NSMutableDictionary* newlyActivatedPrefixesByNamespace = [NSMutableDictionary dictionary];
+	/**
+	 First, find all the attributes that declare a new Namespace at this point */
+	NSString* xmlnsNamespace = @"http://www.w3.org/2000/xmlns/";
+	NSDictionary* xmlnsNodemap = [nodeMapsByNamespace objectForKey:xmlnsNamespace];
+	/** ... output them, making them 'active' in the output tree */
+	for( NSString* xmlnsNodeName in xmlnsNodemap )
+	{
+		Node* attribute = [xmlnsNodemap objectForKey:xmlnsNodeName];
+		
+		if( [prefixesByACTIVENamespace objectForKey:xmlnsNodeName] == nil )
+		{
+			[newlyActivatedPrefixesByNamespace setObject:xmlnsNodeName forKey:attribute.nodeValue];
+			if( xmlnsNodeName.length == 0 ) // special case: the "default" namespace we encode elsewhere in SVGKit as a namespace of ""
+				[outputString appendFormat:@" xmlns=\"%@\"", attribute.nodeValue];
+			else
+				[outputString appendFormat:@" xmlns:%@=\"%@\"", xmlnsNodeName, attribute.nodeValue];
+		}
+	}
+	
+	/**
+	 Second, process "all" attributes, by namespace. Any time we find an attribute that "needs" a new
+	 namespace, we ACTIVATE it, and store it in the set of newly-activated namespaces.
+	 
+	 We will later replace our current "active" set with this new "active" set before we recurse to our
+	 child nodes
+	 */
+	for( NSString* namespace in nodeMapsByNamespace )
+	{
+		if( [namespace isEqualToString:xmlnsNamespace] )
+			continue; // we had to handle this FIRST, so we've already done it
+		
+		NSString* localPrefix = [prefixesByACTIVENamespace objectForKey:namespace];
+		if( localPrefix == nil )
+		{
+			/** check if it's one of our freshly-activated ones */
+			localPrefix = [newlyActivatedPrefixesByNamespace objectForKey:namespace];
+		}
+		
+		if( localPrefix == nil )
+		{
+			/** If it STILL isn't active, (no parent Node has output it yet), we must activate it */
+			
+			localPrefix = [prefixesByKNOWNNamespace objectForKey:namespace];
+			
+			NSAssert( localPrefix != nil, @"Found a namespace (%@) in node (%@) which wasn't listed in the KNOWN namespaces you provided (%@); you MUST provide a COMPLETE list of known-namespaces to this method", namespace, self.nodeName, prefixesByKNOWNNamespace );
+			
+			[newlyActivatedPrefixesByNamespace setObject:localPrefix forKey:namespace];
+			[outputString appendFormat:@" xmlns:%@=\"%@\"", localPrefix, namespace];
+		}
+		
+		/** Finally: output the plain-old-attributes, overwriting their prefixes where necessary */
+		NSDictionary* nodeMap = [nodeMapsByNamespace objectForKey:namespace];
+		for( NSString* nodeNameFromMap in nodeMap )
+		{
+			Node* attribute = [nodeMap objectForKey:nodeNameFromMap];
+			
+			attribute.prefix = localPrefix; /** Overrides any default pre-existing value */
+			
+			[outputString appendFormat:@" %@=\"%@\"", attribute.nodeName, attribute.nodeValue];
+		}
+	}
+	/** Post-processing: after ATTRIBUTES, we need to modify the "ACTIVE" set of namespaces we're passing-down
+	 to our child nodes
+	 
+	 Create a NEW dictionary to pass to our descendents, so that our ancestors don't get to see it
+	 */
+	prefixesByACTIVENamespace = [NSMutableDictionary dictionaryWithDictionary:prefixesByACTIVENamespace];
+	[prefixesByACTIVENamespace addEntriesFromDictionary:newlyActivatedPrefixesByNamespace];
+	switch( self.nodeType )
+	{
+		case DOMNodeType_ATTRIBUTE_NODE:
+		case DOMNodeType_CDATA_SECTION_NODE:
+		case DOMNodeType_COMMENT_NODE:
+		{
+			// nothing
+		}break;
+			
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_ELEMENT_NODE:
+		{
+			[outputString appendString:@">\n"];
+		}break;
+			
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_NOTATION_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_TEXT_NODE:
+		{
+			// nothing
+		}break;
+	}
+	
+	/** Middle: include child nodes (only applies to some nodes - others will have values, others will have simply "zero children") */
+	switch( self.nodeType )
+	{
+		case DOMNodeType_ATTRIBUTE_NODE:
+		case DOMNodeType_CDATA_SECTION_NODE:
+		case DOMNodeType_COMMENT_NODE:
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_NOTATION_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_TEXT_NODE:
+		{
+			[outputString appendString:self.nodeValue];
+		}break;
+			
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_ELEMENT_NODE:
+		{
+			for( Node* child in self.childNodes )
+			{
+				[child appendXMLToString:outputString availableNamespaces:prefixesByKNOWNNamespace activeNamespaces:prefixesByACTIVENamespace];
+			}
+		}break;
+	}
+	
+	/** End: close any nodes that opened an XML tag, or an XML comment or CDATA, during Opening */
+	switch( self.nodeType )
+	{
+		case DOMNodeType_ATTRIBUTE_NODE:
+		{
+			// nothing
+		}break;
+		
+		case DOMNodeType_CDATA_SECTION_NODE:
+		{
+			[outputString appendFormat:@"-->"];
+		}break;
+			
+		case DOMNodeType_COMMENT_NODE:
+		{
+			[outputString appendFormat:@"]]>"];
+		}break;
+		
+		case DOMNodeType_DOCUMENT_FRAGMENT_NODE:
+		case DOMNodeType_DOCUMENT_NODE:
+		case DOMNodeType_ELEMENT_NODE:
+		{
+			[outputString appendFormat:@"</%@>\n", self.nodeName];
+		}break;
+			
+		case DOMNodeType_DOCUMENT_TYPE_NODE:
+		case DOMNodeType_ENTITY_NODE:
+		case DOMNodeType_ENTITY_REFERENCE_NODE:
+		case DOMNodeType_NOTATION_NODE:
+		case DOMNodeType_PROCESSING_INSTRUCTION_NODE:
+		case DOMNodeType_TEXT_NODE:
+		{
+			// nothing
+		}break;
+	}
 }
 
 @end
