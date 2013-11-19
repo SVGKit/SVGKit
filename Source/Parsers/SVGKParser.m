@@ -277,14 +277,10 @@ readPacket(char *mem, int size) {
         
         if( cssText == nil )
         {
-            NSURL *url = [NSURL fileURLWithPath:href];
-            cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-            
-            if( cssText == nil )
-            {
-                url = [NSURL URLWithString:href];
-                cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-            }
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
+            cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         }
     }
     

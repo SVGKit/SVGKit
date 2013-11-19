@@ -434,33 +434,30 @@
 			return localStyleValue;
 		else
 		{
-			if( self.className != nil )
-			{
-				/** we have a locally declared CSS class; let's go hunt for it in the document's stylesheets */
-				
-				@autoreleasepool /** DOM / CSS is insanely verbose, so this is likely to generate a lot of crud objects */
-				{
-					for( StyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
-					{
-						if( [genericSheet isKindOfClass:[CSSStyleSheet class]])
-						{
-							CSSStyleSheet* cssSheet = (CSSStyleSheet*) genericSheet;
-							
-							for( CSSRule* genericRule in cssSheet.cssRules.internalArray)
-							{
-								if( [genericRule isKindOfClass:[CSSStyleRule class]])
-								{
-									CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
-									
-									if( [styleRule.selectorText isEqualToString:self.className] )
-									{
-										return [styleRule.style getPropertyValue:stylableProperty];
-									}
-								}
-							}
-						}
-					}
-				}
+            /** we have a locally declared CSS class; let's go hunt for it in the document's stylesheets */
+            
+            @autoreleasepool /** DOM / CSS is insanely verbose, so this is likely to generate a lot of crud objects */
+            {
+                for( StyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
+                {
+                    if( [genericSheet isKindOfClass:[CSSStyleSheet class]])
+                    {
+                        CSSStyleSheet* cssSheet = (CSSStyleSheet*) genericSheet;
+                        
+                        for( CSSRule* genericRule in cssSheet.cssRules.internalArray)
+                        {
+                            if( [genericRule isKindOfClass:[CSSStyleRule class]])
+                            {
+                                CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
+                                
+                                if( [styleRule appliesTo:self] )
+                                {
+                                    return [styleRule.style getPropertyValue:stylableProperty];
+                                }
+                            }
+                        }
+                    }
+                }
 			}
 			
 			/** either there's no class *OR* it found no match for the class in the stylesheets */
