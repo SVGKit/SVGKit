@@ -80,6 +80,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 +(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
 {
+	if ([globalSVGKImageCache count] == 0) return;
+	
 	DDLogCWarn(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
