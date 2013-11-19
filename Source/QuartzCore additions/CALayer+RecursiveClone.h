@@ -13,4 +13,7 @@
 /** Since Apple decided not to expose this common and essential method ... */
 -(CALayer*) cloneRecursively;
 
+/** Clones ONLY this layer - none of the sublayers - but uses identical code to cloneRecursively */
+-(CALayer*) cloneShallow;
+
 @end

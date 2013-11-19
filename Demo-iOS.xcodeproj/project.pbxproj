@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6610D719181D5475004F4C11 /* BlankMap-World6-Equirectangular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6610D718181D5475004F4C11 /* BlankMap-World6-Equirectangular.svg */; };
 		661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
 		661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
 		661A0DD3161727CF008D5FBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD2161727CF008D5FBE /* CoreGraphics.framework */; };
@@ -83,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6610D718181D5475004F4C11 /* BlankMap-World6-Equirectangular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BlankMap-World6-Equirectangular.svg"; sourceTree = "<group>"; };
 		661A0DCA161727CF008D5FBE /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		661A0DD0161727CF008D5FBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -284,6 +286,7 @@
 				661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */,
 				66E8627C1688BA510059C9C4 /* australia_states_blank.svg */,
 				66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */,
+				6610D718181D5475004F4C11 /* BlankMap-World6-Equirectangular.svg */,
 				66E8627E1688BA510059C9C4 /* breaking-1.svg */,
 				9ED79A20179D83580048AA5B /* radialGradientTest.svg */,
 				66E8627F1688BA510059C9C4 /* CurvedDiamond.svg */,
@@ -383,6 +386,7 @@
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
 				66E862731688BA0B0059C9C4 /* MasterViewController_iPhone.xib in Resources */,
 				66E8628E1688BA510059C9C4 /* Monkey.png in Resources */,
+				6610D719181D5475004F4C11 /* BlankMap-World6-Equirectangular.svg in Resources */,
 				66E8628F1688BA510059C9C4 /* Note.png in Resources */,
 				66E862911688BA510059C9C4 /* australia_states_blank.svg in Resources */,
 				66E862921688BA510059C9C4 /* Blank_Map-Africa.svg in Resources */,

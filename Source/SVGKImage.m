@@ -14,6 +14,8 @@
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 
+#import "CALayer+RecursiveClone.h"
+
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
@@ -470,7 +472,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 -(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer
 {
 	
-	CALayer* clonedLayer = [[[originalLayer class] alloc] init];
+	/*CALayer* clonedLayer = [[[originalLayer class] alloc] init];
 	
 	clonedLayer.frame = originalLayer.frame;
 	if( [originalLayer isKindOfClass:[CAShapeLayer class]] )
@@ -480,7 +482,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 		((CAShapeLayer*)clonedLayer).lineWidth = ((CAShapeLayer*)originalLayer).lineWidth;
 		((CAShapeLayer*)clonedLayer).strokeColor = ((CAShapeLayer*)originalLayer).strokeColor;
 		((CAShapeLayer*)clonedLayer).fillColor = ((CAShapeLayer*)originalLayer).fillColor;
-	}
+	}*/
+	
+	CALayer* clonedLayer = [originalLayer cloneShallow];
 	
 	if( clonedLayer == nil )
 		return nil;
