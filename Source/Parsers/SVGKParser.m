@@ -25,6 +25,8 @@
 
 #import "Node.h"
 
+#import "SVGKSourceString.h"
+#import "SVGKSourceURL.h"
 #import "CSSStyleSheet.h"
 #import "StyleSheetList+Mutable.h"
 
@@ -252,39 +254,54 @@ readPacket(char *mem, int size) {
  */
 
 
-- (NSString *)loadCSSFrom:(NSString *)href
+- (SVGKSource *)loadCSSFrom:(NSString *)href
 {
-    NSString *cssText = nil;
+    SVGKSource *cssSource = nil;
     if( [href hasPrefix:@"http"] )
     {
         NSURL *url = [NSURL URLWithString:href];
-        cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    }
-    else if( self.source.URL != nil )
-    {
-        NSURL *url = [[self.source.URL URLByDeletingLastPathComponent] URLByAppendingPathComponent:href];
-        cssText = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    }
-    else if( self.source.filePath != nil )
-    {
-        NSString *path = [[self.source.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:href];
-        cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        cssSource = [SVGKSourceURL sourceFromURL:url];
     }
     else
     {
-        NSString *path = [[NSBundle mainBundle] pathForResource:href ofType:nil];
-        cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        cssSource = [self.source sourceFromRelativePath:href];
+    }
+    
+    if( cssSource == nil )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
+        NSString *cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         
         if( cssText == nil )
         {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
-            cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+            DDLogWarn(@"[%@] Unable to find external CSS file '%@'", [self class], href );
+        }
+        else
+        {
+            cssSource = [SVGKSourceString sourceFromContentsOfString:cssText];
         }
     }
     
-    return cssText;
+    return cssSource;
+}
+
+- (NSString *)stringFromSource:(SVGKSource *) src
+{
+    static uint8_t byteBuffer[4096];
+    NSInteger bytesRead;
+    NSString *result = nil;
+    do
+    {
+        bytesRead = [src.stream read:byteBuffer maxLength:4096];
+        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+        if( result )
+            result = [result stringByAppendingString:read];
+        else
+            result = read;
+    } while (bytesRead > 0);
+    return result;
 }
 
 - (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data
@@ -299,10 +316,11 @@ readPacket(char *mem, int size) {
             if( startHref.location != NSNotFound )
             {
                 NSString *href = [data substringWithRange:NSMakeRange(startIndex, endHref.location - startIndex)];
-                NSString* cssText = [self loadCSSFrom:href];
+                SVGKSource* cssSource = [self loadCSSFrom:href];
                 
-                if( cssText != nil )
+                if( cssSource != nil )
                 {
+                    NSString *cssText = [self stringFromSource:cssSource];
                     CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:cssText] autorelease];
                     
                     if( currentParseRun.parsedDocument.rootElement == nil )

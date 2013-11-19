@@ -408,6 +408,69 @@
 	return self;
 }
 
+- (NSArray *)selectorsFromText:(NSString *) text
+{
+    NSMutableArray* result = [[[NSMutableArray alloc] init] autorelease];
+    
+    NSCharacterSet *alphaNum = [NSCharacterSet alphanumericCharacterSet];
+	NSCharacterSet *selectorStart = [NSCharacterSet characterSetWithCharactersInString:@"#."];
+    
+    NSInteger start = -1;
+    NSUInteger end = 0;
+    for( NSUInteger i = 0; i < text.length; i++ )
+    {
+        unichar c = [text characterAtIndex:i];
+        if( [selectorStart characterIsMember:c] )
+        {
+            start = i;
+        }
+        else if( [alphaNum characterIsMember:c] )
+        {
+            if( start == -1 )
+                start = i;
+            end = i;
+        }
+        else
+        {
+            // add the latest selector to the list
+            if( start != -1 )
+            {
+                [result addObject:[text substringWithRange:NSMakeRange(start, end + 1 - start)]];
+                start = -1;
+            }
+        }
+    }
+    
+    if( start != -1 )
+        [result addObject:[text substringWithRange:NSMakeRange(start, end + 1 - start)]];
+    
+    return result;
+}
+
+- (BOOL) selector:(NSString *)selector appliesTo:(SVGElement *) element
+{
+    if( [selector characterAtIndex:0] == '.' )
+        return element.className != nil && [element.className isEqualToString:[selector substringFromIndex:1]];
+    else if( [selector characterAtIndex:0] == '#' )
+        return element.identifier != nil && [element.identifier isEqualToString:[selector substringFromIndex:1]];
+    else
+        return element.nodeName != nil && [element.nodeName isEqualToString:selector];
+}
+
+- (BOOL) styleRule:(CSSStyleRule *) styleRule appliesTo:(SVGElement *) element
+{
+    NSArray *selectors = [self selectorsFromText:styleRule.selectorText];
+    if( selectors.count == 0 )
+        return NO;
+    
+    for( NSString *selector in selectors )
+    {
+        if( ![self selector:selector appliesTo:element] )
+            return NO;
+    }
+    return YES;
+}
+
 #pragma mark - CSS cascading special attributes
 -(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty
 {
@@ -450,7 +513,7 @@
                             {
                                 CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
                                 
-                                if( [styleRule appliesTo:self] )
+                                if( [self styleRule:styleRule appliesTo:self] )
                                 {
                                     return [styleRule.style getPropertyValue:stylableProperty];
                                 }
