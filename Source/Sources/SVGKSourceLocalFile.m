@@ -12,6 +12,13 @@
 	return s;
 }
 
+- (SVGKSource *)sourceFromRelativePath:(NSString *)relative {
+    NSString *absolute = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:relative];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:absolute])
+        return [SVGKSourceLocalFile sourceFromFilename:absolute];
+    return nil;
+}
+
 - (void)dealloc {
 	self.filePath = nil;
 	[super dealloc];

@@ -26,7 +26,12 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	return [self initWithSVGKImage:nil];
+    self = [super initWithCoder:aDecoder];
+    if( self )
+    {
+        self.backgroundColor = [UIColor clearColor];
+    }
+	return self;
 }
 
 -(id)initWithFrame:(CGRect)frame
