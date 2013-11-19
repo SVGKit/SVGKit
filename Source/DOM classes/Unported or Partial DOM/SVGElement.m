@@ -408,18 +408,16 @@
 	return self;
 }
 
-- (NSArray *)selectorsFromText:(NSString *) text
+- (NSRange) nextSelectorRangeFromText:(NSString *) selectorText startFrom:(NSRange) previous
 {
-    NSMutableArray* result = [[[NSMutableArray alloc] init] autorelease];
-    
     NSCharacterSet *alphaNum = [NSCharacterSet alphanumericCharacterSet];
 	NSCharacterSet *selectorStart = [NSCharacterSet characterSetWithCharactersInString:@"#."];
     
     NSInteger start = -1;
     NSUInteger end = 0;
-    for( NSUInteger i = 0; i < text.length; i++ )
+    for( NSUInteger i = previous.location + previous.length; i < selectorText.length; i++ )
     {
-        unichar c = [text characterAtIndex:i];
+        unichar c = [selectorText characterAtIndex:i];
         if( [selectorStart characterIsMember:c] )
         {
             start = i;
@@ -430,21 +428,16 @@
                 start = i;
             end = i;
         }
-        else
+        else if( start != -1 )
         {
-            // add the latest selector to the list
-            if( start != -1 )
-            {
-                [result addObject:[text substringWithRange:NSMakeRange(start, end + 1 - start)]];
-                start = -1;
-            }
+            break;
         }
     }
     
     if( start != -1 )
-        [result addObject:[text substringWithRange:NSMakeRange(start, end + 1 - start)]];
-    
-    return result;
+        return NSMakeRange(start, end + 1 - start);
+    else
+        return NSMakeRange(NSNotFound, -1);
 }
 
 - (BOOL) selector:(NSString *)selector appliesTo:(SVGElement *) element
@@ -459,14 +452,16 @@
 
 - (BOOL) styleRule:(CSSStyleRule *) styleRule appliesTo:(SVGElement *) element
 {
-    NSArray *selectors = [self selectorsFromText:styleRule.selectorText];
-    if( selectors.count == 0 )
+    NSRange nextRule = [self nextSelectorRangeFromText:styleRule.selectorText startFrom:NSMakeRange(0, 0)];
+    if( nextRule.location == NSNotFound )
         return NO;
     
-    for( NSString *selector in selectors )
+    while( nextRule.location != NSNotFound )
     {
-        if( ![self selector:selector appliesTo:element] )
+        if( ![self selector:[styleRule.selectorText substringWithRange:nextRule] appliesTo:element] )
             return NO;
+        
+        nextRule = [self nextSelectorRangeFromText:styleRule.selectorText startFrom:nextRule];
     }
     return YES;
 }
