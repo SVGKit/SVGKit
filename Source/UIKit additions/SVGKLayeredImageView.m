@@ -26,10 +26,17 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithCoder:aDecoder];
+    if( aDecoder == nil )
+	{
+		self = [super initWithFrame:CGRectMake(0,0,100,100)]; // coincides with the inline SVG in populateFromImage!
+	}
+	else
+	{
+		self = [super initWithCoder:aDecoder];
+	}
     if( self )
     {
-        self.backgroundColor = [UIColor clearColor];
+        [self populateFromImage:nil];
     }
 	return self;
 }
@@ -48,17 +55,32 @@
 {
 	if( im == nil )
 	{
+		self = [super initWithFrame:CGRectMake(0,0,100,100)]; // coincides with the inline SVG in populateFromImage!
+	}
+	else
+	{
+		self = [super initWithFrame:CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height )]; // default: 0,0 to width x height of original image];
+	}
+    
+    if (self)
+    {
+        [self populateFromImage:im];
+    }
+    return self;
+}
+
+- (void)populateFromImage:(SVGKImage*) im
+{
+	if( im == nil )
+	{
 		DDLogWarn(@"[%@] WARNING: you have initialized an [%@] with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class], [self class]);
 		
-		self = [super initWithFrame:CGRectMake(0,0,100,100)]; // coincides with the inline SVG below!
-		if( self )
-		{
-			self.backgroundColor = [UIColor clearColor];
-			
+		self.backgroundColor = [UIColor clearColor];
+        
 /**
  ************* NB: it is critical that the string we're about to create is NOT INDENTED - the tabs would break the parsing!
  */
-			NSString* svgStringDefaultContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
+		NSString* svgStringDefaultContents = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\
 \n\
 <svg \
 xmlns:svg=\"http://www.w3.org/2000/svg\" \
@@ -106,29 +128,21 @@ y=\"1030.2456\" \
 style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 </g> \
 </svg>";
-			
-			NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
-			
-			SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
-			
-			self.backgroundColor = [UIColor cyanColor];
-			
-			((SVGKLayer*) self.layer).SVGImage = defaultBlankImage;
-		}
+        
+		NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
+		
+		SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
+		
+		self.backgroundColor = [UIColor cyanColor];
+		
+		((SVGKLayer*) self.layer).SVGImage = defaultBlankImage;
 	}
 	else
 	{
-		self = [super initWithFrame:CGRectMake( 0,0, im.CALayerTree.frame.size.width, im.CALayerTree.frame.size.height )]; // default: 0,0 to width x height of original image];
-		if (self)
-		{
-			self.backgroundColor = [UIColor clearColor];
-			
-			((SVGKLayer*) self.layer).SVGImage = im;
-			
-		}
+		self.backgroundColor = [UIColor clearColor];
+		
+		((SVGKLayer*) self.layer).SVGImage = im;
 	}
-	
-    return self;
 }
 
 /** Delegate the call to the internal layer that's coded to handle this stuff automatically */
