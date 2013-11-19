@@ -414,6 +414,7 @@
 	
 	
 	NSString* actualFill = [svgElement cascadedValueForStylableProperty:@"fill"];
+	NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
 	if ( [actualFill hasPrefix:@"none"])
 	{
 		_shapeLayer.fillColor = nil;
@@ -443,14 +444,16 @@
 			return gradientLayer;
 		}
 	}
-	else if( actualFill.length > 0 )
+	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
 	{
-		SVGColor fillColorAsSVGColor = SVGColorFromString([actualFill UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
-		NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
-		if( actualFillOpacity.length > 0 )
-			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
+		SVGColor fillColorAsSVGColor = ( actualFill.length > 0 ) ?
+		SVGColorFromString([actualFill UTF8String]) // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
+		: SVGColorMake(0, 0, 0, 0);
 		
-		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
+        if( actualFillOpacity.length > 0 )
+            fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
+		
+        _shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
 	{

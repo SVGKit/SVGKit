@@ -82,7 +82,20 @@
 #endif
 
 #pragma mark - methods to quick load an SVG as an image
-+ (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
+/**
+ This is the preferred method for loading SVG files.
+ 
+ Like Apple's [UIImage imageNamed:] method, it has a global cache of loaded SVG files to greatly
+ increase performance. Unlike UIImage, SVGKImage's tend to be light in memory usage, but if needed,
+ you can disable this at compile-time by setting ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED to 0.
+ 
+ As of SVGKit 1.2.0, this method:
+ 
+ - Finds the SVG file (adding .svg extension if missing) in the App's sandboxed Documents folder
+ - If that's missing, it finds the same file in the App's Bundle (i.e. the files stored at compile-time by Xcode, and shipped as the app)
+ - Creates an SVGKSource so that you can later inspect exactly where it found the file
+ */
++ (SVGKImage *)imageNamed:(NSString *)name;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
 + (SVGKImage *)imageWithData:(NSData *)data;
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use

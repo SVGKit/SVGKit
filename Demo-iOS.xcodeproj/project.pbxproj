@@ -33,6 +33,7 @@
 		66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA416CFE67B003CD5CD /* text01.svg */; };
 		66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA516CFE67B003CD5CD /* tspan01.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
+		66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */; };
 		66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */; };
 		66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */; };
 		66E8626B1688BA0B0059C9C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862581688BA0B0059C9C4 /* AppDelegate.m */; };
@@ -113,6 +114,7 @@
 		66A09CA416CFE67B003CD5CD /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
 		66A09CA516CFE67B003CD5CD /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
+		66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sakamura-default-fill-opacity-test.svg"; sourceTree = "<group>"; };
 		66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width.svg"; sourceTree = "<group>"; };
 		66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width-large.svg"; sourceTree = "<group>"; };
 		66E862571688BA0B0059C9C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
 				66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */,
 				66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */,
+				66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */,
 				66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */,
 				66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
@@ -433,6 +436,7 @@
 				66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */,
 				66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */,
 				9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */,
+				66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

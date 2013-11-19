@@ -137,19 +137,38 @@
 					currentAncestor = currentAncestor.parentNode;
 			}
 			
-			NSAssert( firstAncestorThatIsAnyKindOfSVGElement != nil, @"This node has no valid SVG tags as ancestor, but it's not an <svg> tag, so this is an impossible SVG file" );
-			
-			
-			if( [firstAncestorThatIsAnyKindOfSVGElement isKindOfClass:[SVGSVGElement class]] )
-				self.rootOfCurrentDocumentFragment = (SVGSVGElement*) firstAncestorThatIsAnyKindOfSVGElement;
+			if( newParent == nil )
+			{
+				/** We've set the parent to nil, thereby "orphaning" this Node and the tree underneath it.
+				 
+				 This usually happens when you remove a Node from its parent.
+				 
+				 I'm not sure what the spec expects at that point - you have a valid DOM tree, but *not* a valid SVG fragment;
+				 or maybe it is valid, for some special-case kind of SVG fragment definition?
+				 
+				 TODO: this may also relate to SVG <use> nodes and instancing: if you're fixing that code, check this comment to see if you can improve it.
+				 
+				 For now: we simply "do nothing but set everything to nil"
+				 */
+				DDLogWarn( @"SVGElement has had its parent set to nil; this makes the element and tree beneath it no-longer-valid SVG data; this may require fix-up if you try to re-add that SVGElement or any of its children back to an existing/new SVG tree");
+				self.rootOfCurrentDocumentFragment = nil;
+			}
 			else
-				self.rootOfCurrentDocumentFragment = firstAncestorThatIsAnyKindOfSVGElement.rootOfCurrentDocumentFragment;
-			
-			[self reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:firstAncestorThatIsAnyKindOfSVGElement];
-			
+			{
+				NSAssert( firstAncestorThatIsAnyKindOfSVGElement != nil, @"This node has no valid SVG tags as ancestor, but it's not an <svg> tag, so this is an impossible SVG file" );
+				
+				
+				if( [firstAncestorThatIsAnyKindOfSVGElement isKindOfClass:[SVGSVGElement class]] )
+					self.rootOfCurrentDocumentFragment = (SVGSVGElement*) firstAncestorThatIsAnyKindOfSVGElement;
+				else
+					self.rootOfCurrentDocumentFragment = firstAncestorThatIsAnyKindOfSVGElement.rootOfCurrentDocumentFragment;
+				
+				[self reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:firstAncestorThatIsAnyKindOfSVGElement];
+				
 #if DEBUG_SVG_ELEMENT_PARSING
-			DDLogVerbose(@"viewport Element = %@ ... for node/element = %@", self.viewportElement, self.tagName);
+				DDLogVerbose(@"viewport Element = %@ ... for node/element = %@", self.viewportElement, self.tagName);
 #endif
+			}
 		}
 	}
 }

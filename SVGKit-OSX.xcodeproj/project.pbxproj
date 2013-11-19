@@ -231,6 +231,7 @@
 		557C892B182EC23200D536F0 /* SVGKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8925182EC23200D536F0 /* SVGKImageView.m */; };
 		557C892C182EC23200D536F0 /* SVGKLayeredImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C8926182EC23200D536F0 /* SVGKLayeredImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		557C892D182EC23200D536F0 /* SVGKLayeredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C8927182EC23200D536F0 /* SVGKLayeredImageView.m */; };
+		55EF9DB7183C051D002C01F6 /* NamedNodeMap_Iterable.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EF9DB6183C051D002C01F6 /* NamedNodeMap_Iterable.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -466,6 +467,7 @@
 		557C8925182EC23200D536F0 /* SVGKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageView.m; sourceTree = "<group>"; };
 		557C8926182EC23200D536F0 /* SVGKLayeredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKLayeredImageView.h; sourceTree = "<group>"; };
 		557C8927182EC23200D536F0 /* SVGKLayeredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKLayeredImageView.m; sourceTree = "<group>"; };
+		55EF9DB6183C051D002C01F6 /* NamedNodeMap_Iterable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedNodeMap_Iterable.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,6 +625,7 @@
 				557C8775182EB14300D536F0 /* EntityReference.m */,
 				557C8776182EB14300D536F0 /* MediaList.h */,
 				557C8777182EB14300D536F0 /* MediaList.m */,
+				55EF9DB6183C051D002C01F6 /* NamedNodeMap_Iterable.h */,
 				557C8778182EB14300D536F0 /* NamedNodeMap.h */,
 				557C8779182EB14300D536F0 /* NamedNodeMap.m */,
 				557C877A182EB14300D536F0 /* Node+Mutable.h */,
@@ -901,6 +904,7 @@
 				557C887A182EB14300D536F0 /* SVGElementInstanceList.h in Headers */,
 				557C88A6182EB14300D536F0 /* SVGGradientElement.h in Headers */,
 				557C88CF182EB14300D536F0 /* SVGKParser.h in Headers */,
+				55EF9DB7183C051D002C01F6 /* NamedNodeMap_Iterable.h in Headers */,
 				557C88FA182EB14300D536F0 /* SVGUtils.h in Headers */,
 				557C88E2182EB14300D536F0 /* SVGKSourceLocalFile.h in Headers */,
 				557C88C5182EB14300D536F0 /* SVGKParserDOM.h in Headers */,
