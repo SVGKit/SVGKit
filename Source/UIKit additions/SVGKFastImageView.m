@@ -13,7 +13,6 @@
 
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
-@synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL) svgImageHasNoGradients:(SVGKImage*) image
@@ -51,31 +50,8 @@
     return nil;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (void)populateFromImage:(SVGKImage*) im
 {
-	return [self initWithSVGKImage:nil];
-}
-
--(id)initWithFrame:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	if( self )
-	{
-		self.backgroundColor = [UIColor clearColor];
-	}
-	return self;
-}
-
-- (id)initWithSVGKImage:(SVGKImage*) im
-{
-	if( im == nil )
-	{
-		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
-	}
-	
-    self = [super init];
-    if (self)
-	{
 		internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
 	
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
@@ -99,6 +75,39 @@
 		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 		[self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+    if( self )
+    {
+        [self populateFromImage:nil];
+    }
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)frame
+{
+	self = [super initWithFrame:frame];
+	if( self )
+	{
+		self.backgroundColor = [UIColor clearColor];
+	}
+	return self;
+}
+
+- (id)initWithSVGKImage:(SVGKImage*) im
+{
+	if( im == nil )
+	{
+		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
+	}
+	
+    self = [super init];
+    if (self)
+	{
+        [self populateFromImage:im];
     }
     return self;
 }
