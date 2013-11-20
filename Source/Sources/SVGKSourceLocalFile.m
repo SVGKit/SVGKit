@@ -2,7 +2,7 @@
 
 @implementation SVGKSourceLocalFile
 
-+ (SVGKSource*)sourceFromFilename:(NSString*)p {
++ (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p {
 	NSInputStream* stream = [NSInputStream inputStreamWithFileAtPath:p];
 	[stream open];
 	

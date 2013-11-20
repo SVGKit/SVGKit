@@ -380,7 +380,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
-	NSMutableDictionary *namespacesByPrefix = NSDictionaryFromLibxmlNamespaces(namespaces, nb_namespaces); // TODO: need to do something with this; this is the ONLY point at which we discover the "xml:ns" definitions in the SVG doc! See below for a temp fix
+	NSMutableDictionary *namespacesByPrefix = NSDictionaryFromLibxmlNamespaces(namespaces, nb_namespaces); // TODO: need to do something with this; this is the ONLY point at which we discover the "xmlns:" definitions in the SVG doc! See below for a temp fix
 	NSMutableDictionary *attributeObjects = NSDictionaryFromLibxmlAttributes(attributes, nb_attributes);
 	NSString *stringURI = NSStringFromLibxmlString(URI);
 	
@@ -416,6 +416,37 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	}
 	
 	/**
+	 This appears to be a major bug in libxml: "xmlns:blah="blah"" is treated as a namespace declaration - but libxml
+	 FAILS to report it as an attribute (according to the XML spec, it appears to be "both" of those things?)
+	 
+	 ...but I could be wrong. The XML definition of Namespaces is badly written and missing several key bits of info
+	 (I have inferred the "both" status from the definition of XML's Node class, which raises an error on setting
+	 Node.prefix "if the node is an attribute, and it's in the xmlns namespace ... and ... and" -- which implies to me
+	 that attributes can be xmlns="blah" definitions)
+	 
+	 ... UPDATE: I have found confirming evidence in the "http://www.w3.org/2000/xmlns/" namespace itself. Visit that URL! It has docs...
+	 
+	 
+	 NB: this bug / issue was irrelevant until we started trying to export SVG documents from memory back to XML strings,
+	 at which point: we need this info! Or else we end up substantially changing the incoming SVG :(.
+	 
+	 So:
+	 
+	 Add any namespace declarations to the attributes dictionary:
+	 */
+	for( NSString* prefix in namespacesByPrefix )
+	{
+		NSString* namespace = [namespacesByPrefix objectForKey:prefix];
+		
+		/** NB this happens *AFTER* setting default namespaces for all attributes - the xmlns: attributes are required by the XML
+		 spec to all live in a special magical namespace AND to all use the same prefix of "xmlns" - no other is allowed!
+		 */
+		Attr* newAttributeFromNamespaceDeclaration = [[[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace] autorelease];
+		
+		[attributeObjects setObject:newAttributeFromNamespaceDeclaration forKey:newAttributeFromNamespaceDeclaration.nodeName];
+	}
+	
+	/**
 	 TODO: temporary workaround to PRETEND that all namespaces are always defined;
 	 this is INCORRECT: namespaces should be UNdefined once you close the parent tag that defined them (I think?)
 	 */
@@ -423,7 +454,8 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		NSString* uri = namespacesByPrefix[prefix];
 		
-        (self.currentParseRun.namespacesEncountered)[prefix ? prefix : [NSNull null]] = uri;
+        // special string we put in earlier to indicate zero-length / "default" prefix
+        (self.currentParseRun.namespacesEncountered)[[prefix isEqualToString:@""] ? [NSNull null] : prefix] = uri;
 	}
 	
 #if DEBUG_XML_PARSER

@@ -116,10 +116,15 @@
 
 #pragma mark - below here VIOLATES THE STANDARD, but needs to be CAREFULLY merged with spec
 
-- (SVGElement *)findFirstElementOfClass:(Class)class; /*< temporary convenience method until SVGDocument support is complete */
+- (SVGElement *)findFirstElementOfClass:(Class)classParameter; /*< temporary convenience method until SVGDocument support is complete */
 
 #pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
 
 @property(nonatomic,readonly) SVGRect requestedViewport;
+
+/** Required by the spec whenever someone specifies a width and height that disagree with the viewbox they also specified */
+@property(readonly) double aspectRatioFromWidthPerHeight;
+/** Required by the spec whenever someone specifies a width and height that disagree with the viewbox they also specified */
+@property(readonly) double aspectRatioFromViewBox;
 
 @end

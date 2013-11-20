@@ -104,26 +104,52 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-	NSBundle *bundle = [NSBundle mainBundle];
-	
-	if (!bundle)
-		return nil;
-	
+	/** Apple's File APIs are very very bad and require you to strip the extension HALF the time.
+	 
+	 The other HALF the time, they fail unless you KEEP the extension.
+	 
+	 It's a mess!
+	 */
 	NSString *newName = [name stringByDeletingPathExtension];
 	NSString *extension = [name pathExtension];
     if ([@"" isEqualToString:extension]) {
         extension = @"svg";
     }
 	
-	NSString *path = [bundle pathForResource:newName ofType:extension];
-	
-	if (!path)
+	/** First, try to find it in the project BUNDLE (this was HARD CODED at compile time; can never be changed!) */
+	NSString *pathToFileInBundle = nil;
+	NSBundle *bundle = [NSBundle mainBundle];
+	if( bundle != nil )
 	{
-		DDLogCWarn(@"[%@] MISSING FILE, COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
+		pathToFileInBundle = [bundle pathForResource:newName ofType:extension];
+	}
+	
+	/** Second, try to find it in the Documents folder (this is where Apple expects you to store custom files at runtime) */
+	NSString* pathToFileInDocumentsFolder = nil;
+	NSString* pathToDocumentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+	if( pathToDocumentsFolder != nil )
+	{
+		pathToFileInDocumentsFolder = [[pathToDocumentsFolder stringByAppendingPathComponent:newName] stringByAppendingPathExtension:extension];
+		if( [[NSFileManager defaultManager] fileExistsAtPath:pathToFileInDocumentsFolder])
+			;
+		else
+			pathToFileInDocumentsFolder = nil; // couldn't find a file there
+	}
+	
+	if( pathToFileInBundle == nil
+	&& pathToFileInDocumentsFolder == nil )
+	{
+		DDLogCWarn(@"[%@] MISSING FILE (not found in App-bundle, not found in Documents folder), COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
 	}
 	
-	SVGKImage* result = [self imageWithContentsOfFile:path];
+	/** Prefer the Documents-folder version over the Bundle version (allows you to have a default, and override at runtime) */
+	SVGKSourceLocalFile* source = [SVGKSourceLocalFile sourceFromFilename: pathToFileInDocumentsFolder == nil ? pathToFileInBundle : pathToFileInDocumentsFolder];
+	
+	/**
+	 Key moment: init and parse the SVGKImage
+	 */
+	SVGKImage* result = [self imageWithSource:source];
     
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil )
@@ -471,6 +497,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer
 {
+	return [self newCopyPositionedAbsoluteOfLayer:originalLayer withSubLayers:FALSE];
+}
+
+-(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer withSubLayers:(BOOL) recursive
+{
 	
 	/*CALayer* clonedLayer = [[[originalLayer class] alloc] init];
 	
@@ -484,7 +515,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		((CAShapeLayer*)clonedLayer).fillColor = ((CAShapeLayer*)originalLayer).fillColor;
 	}*/
 	
-	CALayer* clonedLayer = [originalLayer cloneShallow];
+	CALayer* clonedLayer = recursive ? [originalLayer cloneRecursively] : [originalLayer cloneShallow];
 	
 	if( clonedLayer == nil )
 		return nil;

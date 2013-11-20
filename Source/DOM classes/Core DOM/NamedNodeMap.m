@@ -7,6 +7,7 @@
 //
 
 #import "NamedNodeMap.h"
+#import "NamedNodeMap_Iterable.h"
 
 @interface NamedNodeMap()
 @property(nonatomic,retain) NSMutableDictionary* internalDictionary;
@@ -51,7 +52,7 @@
 		 solution IMHO - the spec authors should have defined the outcome!
 		 */
 		
-		for( NSString* key in [self.internalDictionaryOfNamespaces allKeys] )
+		for( NSString* key in self.internalDictionaryOfNamespaces )
 		{
 			simpleResult = [self getNamedItemNS:key localName:name];
 			if( simpleResult != nil )
@@ -88,7 +89,7 @@
 {
 	int count = [self.internalDictionary count];
 	
-	for( NSDictionary* namespaceDict in self.internalDictionaryOfNamespaces )
+	for( NSDictionary* namespaceDict in [self.internalDictionaryOfNamespaces allValues] )
 	{
 		count += [namespaceDict count];
 	}
@@ -98,13 +99,15 @@
 
 -(Node*) item:(unsigned long) index
 {
+	NSAssert(FALSE, @"This method is broken; Apple does not consistently return ordered values in dictionary.allValues. Apple DOES NOT SUPPORT ordered Maps/Hashes/Tables/Hashtables - we have to re-implement this wheel from scratch");
+	
 	if( index < [self.internalDictionary count] )
 		return (self.internalDictionary.allValues)[index];
 	else
 	{
 		index -= self.internalDictionary.count;
 		
-		for( NSDictionary* namespaceDict in self.internalDictionaryOfNamespaces )
+		for( NSDictionary* namespaceDict in [self.internalDictionaryOfNamespaces allValues] )
 		{
 			if( index < [namespaceDict count] )
 				return (namespaceDict.allValues)[index];
@@ -176,5 +179,31 @@
 	return [NSString stringWithFormat:@"NamedNodeMap: %@%@%@", dom1, dom1 != nil && dom2 != nil ? @"\n" : @"", dom2  ];
 }
 
+#pragma mark - Implementation of category: NamedNodeMap_Iterable
+
+-(NSArray*) allNodesUnsortedDOM1
+{
+	/** Using DOM1 - no namespace support */
+	
+	return self.internalDictionary.allValues;
+}
+
+-(NSDictionary*) allNodesUnsortedDOM2
+{
+	/** Using DOM2 - every item has a namespace*/
+	
+	return self.internalDictionaryOfNamespaces;
+}
+
+#pragma mark - Needed to implement XML DOM effectively: ability to shallow-Clone an instance
+
+-(id)copyWithZone:(NSZone *)zone
+{
+	NamedNodeMap* clone = [[NamedNodeMap allocWithZone:zone] init];
+	clone.internalDictionary = [self.internalDictionary copyWithZone:zone];
+	clone.internalDictionaryOfNamespaces = [self.internalDictionaryOfNamespaces copyWithZone:zone];
+	
+	return clone;
+}
 
 @end
