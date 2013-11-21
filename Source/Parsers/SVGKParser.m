@@ -300,7 +300,7 @@ readPacket(char *mem, int size) {
     do
     {
         bytesRead = [src.stream read:byteBuffer maxLength:4096];
-        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+        NSString *read = [[[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
         if( result )
             result = [result stringByAppendingString:read];
         else
@@ -331,7 +331,7 @@ readPacket(char *mem, int size) {
                     if( currentParseRun.parsedDocument.rootElement == nil )
                     {
                         if( self.externalStylesheets == nil )
-                            self.externalStylesheets = [[NSMutableArray alloc] init];
+                            self.externalStylesheets = [[[NSMutableArray alloc] init] autorelease];
                         [self.externalStylesheets addObject:parsedStylesheet];
                     }
                     else
@@ -349,7 +349,6 @@ readPacket(char *mem, int size) {
     if( self.externalStylesheets != nil )
     {
         [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObjectsFromArray:self.externalStylesheets];
-        [self.externalStylesheets release];
         self.externalStylesheets = nil;
     }
 }
