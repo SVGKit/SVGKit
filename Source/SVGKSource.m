@@ -15,6 +15,10 @@
 	return self;
 }
 
+- (SVGKSource *)sourceFromRelativePath:(NSString *)path {
+    return nil;
+}
+
 + (SVGKSource*)sourceFromData:(NSData*)data {
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];

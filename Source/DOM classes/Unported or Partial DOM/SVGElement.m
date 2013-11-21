@@ -404,6 +404,64 @@
 	return self;
 }
 
+- (NSRange) nextSelectorRangeFromText:(NSString *) selectorText startFrom:(NSRange) previous
+{
+    NSCharacterSet *alphaNum = [NSCharacterSet alphanumericCharacterSet];
+	NSCharacterSet *selectorStart = [NSCharacterSet characterSetWithCharactersInString:@"#."];
+    
+    NSInteger start = -1;
+    NSUInteger end = 0;
+    for( NSUInteger i = previous.location + previous.length; i < selectorText.length; i++ )
+    {
+        unichar c = [selectorText characterAtIndex:i];
+        if( [selectorStart characterIsMember:c] )
+        {
+            start = i;
+        }
+        else if( [alphaNum characterIsMember:c] )
+        {
+            if( start == -1 )
+                start = i;
+            end = i;
+        }
+        else if( start != -1 )
+        {
+            break;
+        }
+    }
+    
+    if( start != -1 )
+        return NSMakeRange(start, end + 1 - start);
+    else
+        return NSMakeRange(NSNotFound, -1);
+}
+
+- (BOOL) selector:(NSString *)selector appliesTo:(SVGElement *) element
+{
+    if( [selector characterAtIndex:0] == '.' )
+        return element.className != nil && [element.className isEqualToString:[selector substringFromIndex:1]];
+    else if( [selector characterAtIndex:0] == '#' )
+        return element.identifier != nil && [element.identifier isEqualToString:[selector substringFromIndex:1]];
+    else
+        return element.nodeName != nil && [element.nodeName isEqualToString:selector];
+}
+
+- (BOOL) styleRule:(CSSStyleRule *) styleRule appliesTo:(SVGElement *) element
+{
+    NSRange nextRule = [self nextSelectorRangeFromText:styleRule.selectorText startFrom:NSMakeRange(0, 0)];
+    if( nextRule.location == NSNotFound )
+        return NO;
+    
+    while( nextRule.location != NSNotFound )
+    {
+        if( ![self selector:[styleRule.selectorText substringWithRange:nextRule] appliesTo:element] )
+            return NO;
+        
+        nextRule = [self nextSelectorRangeFromText:styleRule.selectorText startFrom:nextRule];
+    }
+    return YES;
+}
+
 #pragma mark - CSS cascading special attributes
 -(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty
 {
@@ -430,33 +488,30 @@
 			return localStyleValue;
 		else
 		{
-			if( self.className != nil )
-			{
-				/** we have a locally declared CSS class; let's go hunt for it in the document's stylesheets */
-				
-				@autoreleasepool /** DOM / CSS is insanely verbose, so this is likely to generate a lot of crud objects */
-				{
-					for( StyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
-					{
-						if( [genericSheet isKindOfClass:[CSSStyleSheet class]])
-						{
-							CSSStyleSheet* cssSheet = (CSSStyleSheet*) genericSheet;
-							
-							for( CSSRule* genericRule in cssSheet.cssRules.internalArray)
-							{
-								if( [genericRule isKindOfClass:[CSSStyleRule class]])
-								{
-									CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
-									
-									if( [styleRule.selectorText isEqualToString:self.className] )
-									{
-										return [styleRule.style getPropertyValue:stylableProperty];
-									}
-								}
-							}
-						}
-					}
-				}
+            /** we have a locally declared CSS class; let's go hunt for it in the document's stylesheets */
+            
+            @autoreleasepool /** DOM / CSS is insanely verbose, so this is likely to generate a lot of crud objects */
+            {
+                for( StyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
+                {
+                    if( [genericSheet isKindOfClass:[CSSStyleSheet class]])
+                    {
+                        CSSStyleSheet* cssSheet = (CSSStyleSheet*) genericSheet;
+                        
+                        for( CSSRule* genericRule in cssSheet.cssRules.internalArray)
+                        {
+                            if( [genericRule isKindOfClass:[CSSStyleRule class]])
+                            {
+                                CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
+                                
+                                if( [self styleRule:styleRule appliesTo:self] )
+                                {
+                                    return [styleRule.style getPropertyValue:stylableProperty];
+                                }
+                            }
+                        }
+                    }
+                }
 			}
 			
 			/** either there's no class *OR* it found no match for the class in the stylesheets */
