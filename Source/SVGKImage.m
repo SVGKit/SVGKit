@@ -74,13 +74,16 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
 	{
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningOrBackgroundNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningOrBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	}
 }
 
-+(void) didReceiveMemoryWarningNotification:(NSNotification*) notification
++(void) didReceiveMemoryWarningOrBackgroundNotification:(NSNotification*) notification
 {
-	DDLogCWarn(@"[%@] Low-mem; purging cache of %i SVGKImage's...", self, [globalSVGKImageCache count] );
+	if ([globalSVGKImageCache count] == 0) return;
+	
+	DDLogCWarn(@"[%@] Low-mem or background; purging cache of %i SVGKImages...", self, [globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }

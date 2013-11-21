@@ -25,8 +25,14 @@
 
 #import "Node.h"
 
+#import "SVGKSourceString.h"
+#import "SVGKSourceURL.h"
+#import "CSSStyleSheet.h"
+#import "StyleSheetList+Mutable.h"
+
 @interface SVGKParser()
 @property(nonatomic,retain, readwrite) SVGKSource* source;
+@property(nonatomic,retain, readwrite) NSMutableArray* externalStylesheets;
 @property(nonatomic,retain, readwrite) SVGKParseResult* currentParseRun;
 @property(nonatomic,retain) NSString* defaultXMLNamespaceForThisParseRun;
 @end
@@ -34,6 +40,7 @@
 @implementation SVGKParser
 
 @synthesize source;
+@synthesize externalStylesheets;
 @synthesize currentParseRun;
 @synthesize defaultXMLNamespaceForThisParseRun;
 
@@ -76,6 +83,7 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 		self.parserExtensions = [NSMutableArray array];
 		
 		self.source = s;
+        self.externalStylesheets = nil;
 		
 		_storedChars = [NSMutableString new];
 		_stackOfParserExtensions = [NSMutableArray new];
@@ -86,6 +94,7 @@ static SVGKParser *parserThatWasMostRecentlyStarted;
 - (void)dealloc {
 	self.currentParseRun = nil;
 	self.source = nil;
+    self.externalStylesheets = nil;
 	[_storedChars release];
 	[_stackOfParserExtensions release];
    // [_parentOfCurrentNode release];
@@ -250,6 +259,113 @@ readPacket(char *mem, int size) {
  */
 
 
+- (SVGKSource *)loadCSSFrom:(NSString *)href
+{
+    SVGKSource *cssSource = nil;
+    if( [href hasPrefix:@"http"] )
+    {
+        NSURL *url = [NSURL URLWithString:href];
+        cssSource = [SVGKSourceURL sourceFromURL:url];
+    }
+    else
+    {
+        cssSource = [self.source sourceFromRelativePath:href];
+    }
+    
+    if( cssSource == nil )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
+        NSString *cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        
+        if( cssText == nil )
+        {
+            DDLogWarn(@"[%@] Unable to find external CSS file '%@'", [self class], href );
+        }
+        else
+        {
+            cssSource = [SVGKSourceString sourceFromContentsOfString:cssText];
+        }
+    }
+    
+    return cssSource;
+}
+
+- (NSString *)stringFromSource:(SVGKSource *) src
+{
+    static uint8_t byteBuffer[4096];
+    NSInteger bytesRead;
+    NSString *result = nil;
+    do
+    {
+        bytesRead = [src.stream read:byteBuffer maxLength:4096];
+        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+        if( result )
+            result = [result stringByAppendingString:read];
+        else
+            result = read;
+    } while (bytesRead > 0);
+    return result;
+}
+
+- (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data
+{
+    if( [@"xml-stylesheet" isEqualToString:target] && ( [data rangeOfString:@"type=\"text/css\""].location != NSNotFound || [data rangeOfString:@"type="].location == NSNotFound ) )
+    {
+        NSRange startHref = [data rangeOfString:@"href=\""];
+        if( startHref.location != NSNotFound )
+        {
+            NSUInteger startIndex = startHref.location + startHref.length;
+            NSRange endHref = [data rangeOfString:@"\"" options:0 range:NSMakeRange(startIndex, data.length - startIndex)];
+            if( startHref.location != NSNotFound )
+            {
+                NSString *href = [data substringWithRange:NSMakeRange(startIndex, endHref.location - startIndex)];
+                SVGKSource* cssSource = [self loadCSSFrom:href];
+                
+                if( cssSource != nil )
+                {
+                    NSString *cssText = [self stringFromSource:cssSource];
+                    CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:cssText] autorelease];
+                    
+                    if( currentParseRun.parsedDocument.rootElement == nil )
+                    {
+                        if( self.externalStylesheets == nil )
+                            self.externalStylesheets = [[NSMutableArray alloc] init];
+                        [self.externalStylesheets addObject:parsedStylesheet];
+                    }
+                    else
+                    {
+                        [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void)addExternalStylesheetsToRootElement {
+    
+    if( self.externalStylesheets != nil )
+    {
+        [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObjectsFromArray:self.externalStylesheets];
+        [self.externalStylesheets release];
+        self.externalStylesheets = nil;
+    }
+}
+
+static void processingInstructionSAX (void * ctx,
+                                         const xmlChar * target,
+                                         const xmlChar * data)
+{
+    SVGKParser *self = parserThatWasMostRecentlyStarted;
+    
+    NSString *stringTarget = NSStringFromLibxmlString(target);
+	NSString *stringData = NSStringFromLibxmlString(data);
+    
+    [self handleProcessingInstruction:stringTarget withData:stringData];
+}
+
 - (void)handleStartElement:(NSString *)name namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributeObjects:(NSMutableDictionary *) attributeObjects
 {
 	BOOL parsingRootTag = FALSE;
@@ -328,6 +444,7 @@ readPacket(char *mem, int size) {
 			if( parsingRootTag )
 			{
 				currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
+                [self addExternalStylesheetsToRootElement];
 			}
 			
 			return;
@@ -366,6 +483,7 @@ readPacket(char *mem, int size) {
 	if( parsingRootTag )
 	{
 		currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
+        [self addExternalStylesheetsToRootElement];
 	}
 	
 	return;
@@ -656,7 +774,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* reference */
     charactersFoundSAX,         /* characters */
     NULL,                       /* ignorableWhitespace */
-    NULL,                       /* processingInstruction */
+    processingInstructionSAX,   /* processingInstruction */
     NULL,                       /* comment */
     NULL,                       /* warning */
     errorEncounteredSAX,        /* error */

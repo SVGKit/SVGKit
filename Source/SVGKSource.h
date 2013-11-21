@@ -30,5 +30,6 @@
  base class to handle everything else
  */
 - (id)initWithInputSteam:(NSInputStream*)stream;
+- (SVGKSource *)sourceFromRelativePath:(NSString *)path;
 
 @end
