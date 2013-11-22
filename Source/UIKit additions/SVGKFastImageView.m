@@ -6,6 +6,11 @@
 #import "SVGGradientElement.h" 
 #endif
 
+@interface SVGKFastImageView ()
+@property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
+@property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+@end
+
 @implementation SVGKFastImageView
 {
 	NSString* internalContextPointerBecauseApplesDemandsIt;
@@ -14,6 +19,7 @@
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
+@synthesize timeIntervalForLastReRenderOfSVGFromMemory = _timeIntervalForLastReRenderOfSVGFromMemory;
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL) svgImageHasNoGradients:(SVGKImage*) image
@@ -212,6 +218,8 @@
  */
 -(void)drawRect:(CGRect)rect
 {
+	self.startRenderTime = self.endRenderTime = [NSDate date];
+	
 	/**
 	 view.bounds == width and height of the view
 	 imageBounds == natural width and height of the SVGKImage
@@ -287,7 +295,9 @@
 		[[UIColor blackColor] set];
 		CGContextStrokeRect(context, rect);
 	}
+	
+	self.endRenderTime = [NSDate date];
+	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
-
 
 @end

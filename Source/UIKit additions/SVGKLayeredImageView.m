@@ -167,6 +167,11 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 	((SVGKLayer*)self.layer).showBorder = showBorder;
 }
 
+-(NSTimeInterval)timeIntervalForLastReRenderOfSVGFromMemory
+{
+	return[((SVGKLayer*)self.layer).endRenderTime timeIntervalSinceDate:((SVGKLayer*)self.layer).startRenderTime];
+}
+
 - (void)dealloc
 {
 	
