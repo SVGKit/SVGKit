@@ -20,6 +20,21 @@
 #import <QuartzCore/QuartzCore.h>
 #endif
 
+/**
+ * Partially spammy; not as spammy as DEBUG_PATH_CREATION
+ */
+#define VERBOSE_PARSE_SVG_COMMAND_STRINGS 0
+
+/*! Very useful for debugging the parser - this will output one line of logging
+ * for every CGPath command that's actually done; you can then compare these lines
+ * to the input source file, and manually check what's being sent to the renderer
+ * versus what was expected
+ *
+ * this is MORE SPAMMY than VERBOSE_PARSE_SVG_COMMAND_STRINGS
+ */
+#define DEBUG_PATH_CREATION 0
+
+
 typedef struct SVGCurve
 {
     CGPoint c1;
@@ -37,7 +52,7 @@ BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2);
 + (void) readWhitespace:(NSScanner*)scanner;
 + (void) readCommaAndWhitespace:(NSScanner*)scanner;
 
-+ (CGFloat) readCoordinate:(NSScanner*)scanner;
++ (void) readCoordinate:(NSScanner*)scanner intoFloat:(CGFloat*) floatPointer;
 + (CGPoint) readCoordinatePair:(NSScanner*)scanner;
 
 + (CGPoint) readMovetoDrawtoCommandGroups:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative;

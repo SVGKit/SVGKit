@@ -40,14 +40,10 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-#import "SVGLength.h"
-#import "SVGDocument.h"
-#import "SVGElement.h"
-#import "SVGSVGElement.h"
-
-#import "SVGKParser.h"
-#import "SVGKSource.h"
-#import "SVGKParseResult.h"
+@class SVGDocument;
+@class SVGSVGElement;
+@class SVGKSource;
+@class SVGKParseResult;
 
 #define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
 
