@@ -200,8 +200,8 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	NamedNodeMap* clone = [[NamedNodeMap allocWithZone:zone] init];
-	clone.internalDictionary = [self.internalDictionary copyWithZone:zone];
-	clone.internalDictionaryOfNamespaces = [self.internalDictionaryOfNamespaces copyWithZone:zone];
+	clone.internalDictionary = [[self.internalDictionary copyWithZone:zone] autorelease];
+	clone.internalDictionaryOfNamespaces = [[self.internalDictionaryOfNamespaces copyWithZone:zone] autorelease];
 	
 	return clone;
 }
