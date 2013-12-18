@@ -64,9 +64,11 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 		
 		if( c.length > 0 )
 		{
-			CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:c] autorelease];
+			CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:c];
 			
 			[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+            
+            [parsedStylesheet release];
 		}
 
 }

@@ -9,6 +9,9 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#define NSStringFromCGRect NSStringFromRect
 #endif
 
 @interface SVGSVGElement()
@@ -164,7 +167,7 @@
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
-		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		_viewBox = SVGRectMake([boxElements[0] floatValue], [boxElements[1] floatValue], [boxElements[2] floatValue], [boxElements[3] floatValue]);
 	}
 	else
 	{
@@ -215,12 +218,7 @@
 	else
 		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
 	    //osx logging
-#if TARGET_OS_IPHONE        
         DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
-#else
-        //mac logging
-     DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
-#endif   
 	
 }
 

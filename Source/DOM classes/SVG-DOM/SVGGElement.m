@@ -24,7 +24,7 @@
 	
 	/** we don't want the rect to be union'd with 0,0, so we need to initialize it to one of the subrects */
 	if( layer.sublayers.count > 0 )
-		mainRect = ((CALayer*)[layer.sublayers objectAtIndex:0]).frame;
+		mainRect = ((CALayer*)(layer.sublayers)[0]).frame;
 	
 	/** make mainrect the UNION of all sublayer's frames (i.e. their individual "bounds" inside THIS layer's space) */
 	for ( CALayer *currentLayer in [layer sublayers] )

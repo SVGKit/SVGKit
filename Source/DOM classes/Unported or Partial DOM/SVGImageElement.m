@@ -3,10 +3,9 @@
 #import "SVGHelperUtilities.h"
 
 #if TARGET_OS_IPHONE
-
 #import <UIKit/UIKit.h>
-
 #else
+#import <Cocoa/Cocoa.h>
 #endif
 
 #if TARGET_OS_IPHONE

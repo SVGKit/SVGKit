@@ -34,15 +34,22 @@
  - rootElement: the SVGSVGElement instance that is the root of the parse SVG tree. Use this to access the full SVG document
  
  */
-
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
 
 @class SVGDocument;
 @class SVGSVGElement;
 @class SVGKSource;
 @class SVGKParseResult;
 
+#if TARGET_OS_IPHONE
 #define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#else
+#undef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#endif
 
 @class SVGDefsElement;
 
@@ -57,7 +64,12 @@
  
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
+#if TARGET_OS_IPHONE
 @property (nonatomic, readonly) UIImage* UIImage;
+#else
+@property (nonatomic, readonly) NSImage* NSImage;
+@property (nonatomic, readonly) NSBitmapImageRep *imageRep;
+#endif
 
 @property (nonatomic, retain, readonly) SVGKSource* source;
 @property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
@@ -85,9 +97,7 @@
  */
 + (SVGKImage *)imageNamed:(NSString *)name;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
-#if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
 + (SVGKImage *)imageWithData:(NSData *)data;
-#endif
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
 
 - (id)initWithContentsOfFile:(NSString *)path;
@@ -261,6 +271,7 @@
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
 
+#if TARGET_OS_IPHONE
 /**
  Higher-performance version of .UIImage property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
  
@@ -271,6 +282,32 @@
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#else
+/**
+ Higher-performance version of .NSImage property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
+ 
+ NB: you can get BETTER performance using the exportNSDataAntiAliased: version of this method, becuase you bypass Apple's slow code for making NSBitmapImageRep and NSImage objects
+ 
+ @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
+ @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
+ @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
+ */
+-(NSImage *) exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+
+/**
+ Higher-performance version of .imageRep property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
+ 
+ The -exportNSImageAntiAliased:curveFlatnessFactor:interpolationQuality: also uses this function right now.
+ 
+ NB: you can get BETTER performance using the exportNSDataAntiAliased: version of this method, becuase you bypass Apple's slow code for making NSBitmapImageRep objects
+ 
+ @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
+ @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
+ @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
+ */
+-(NSBitmapImageRep *) exportNSBitmapImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+#endif
+
 /**
  Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
  

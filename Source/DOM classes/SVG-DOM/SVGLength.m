@@ -102,13 +102,13 @@
 static float cachedDevicePixelsPerInch;
 +(SVGLength*) svgLengthFromNSString:(NSString*) s
 {
-	CSSPrimitiveValue* pv = [[[CSSPrimitiveValue alloc] init] autorelease];
+	CSSPrimitiveValue* pv = [[CSSPrimitiveValue alloc] init];
 	
 	pv.pixelsPerInch = cachedDevicePixelsPerInch;
 	pv.cssText = s;
 	
 	SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:pv] autorelease];
-	
+	[pv release];
 	return result;
 }
 
@@ -133,7 +133,7 @@ static float cachedDevicePixelsPerInch;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
 	char *machine = malloc(size);
 	sysctlbyname("hw.machine", machine, &size, NULL, 0);
-	NSString *platform = [NSString stringWithUTF8String:machine];
+	NSString *platform = @(machine);
 	free(machine);
 	
 	if( [platform hasPrefix:@"iPhone1"]

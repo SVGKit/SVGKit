@@ -443,7 +443,19 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 								blue:RGB_N(color.b)
 							   alpha:RGB_N(color.a)].CGColor;
 #else
-	outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
+    if ([NSColor instancesRespondToSelector:@selector(CGColor)]) {
+        outColor = [NSColor colorWithCalibratedRed:RGB_N(color.r)
+                                             green:RGB_N(color.g)
+                                              blue:RGB_N(color.b)
+                                             alpha:RGB_N(color.a)].CGColor;
+    } else {
+        //If/when this project moves to ARC, this bit of code will need to be excluded,
+        //or it WILL break.
+        CGColorRef tmpoutColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
+        
+        //The autorelease here is needed to keep its retain type the same as iOS/OS X 10.8 and later.
+        outColor = (CGColorRef)[(id)tmpoutColor autorelease];
+    }
 #endif
 	
 	return outColor;

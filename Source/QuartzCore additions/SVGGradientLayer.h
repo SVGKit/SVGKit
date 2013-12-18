@@ -7,7 +7,11 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
 #import "SVGTransformable.h"
 
 static NSString * const kExt_CAGradientLayerRadial = @"radialGradient";
@@ -17,6 +21,9 @@ static NSString * const kExt_CAGradientLayerRadial = @"radialGradient";
 @property (nonatomic, readwrite) CGPathRef maskPath;
 @property (nonatomic, readwrite, retain) NSArray *stopIdentifiers;
 
+#if TARGET_OS_IPHONE
 - (void)setStopColor:(UIColor *)color forIdentifier:(NSString *)identifier;
-
+#else
+- (void)setStopColor:(NSColor *)color forIdentifier:(NSString *)identifier;
+#endif
 @end

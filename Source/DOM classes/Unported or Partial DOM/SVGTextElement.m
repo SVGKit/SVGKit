@@ -4,6 +4,8 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
 #endif
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
@@ -78,13 +80,14 @@
 	 3. Ask apple how big the final thing should be
 	 4. Use that to provide a layer.frame
 	 */
-	NSMutableAttributedString* tempString = [[[NSMutableAttributedString alloc] initWithString:effectiveText] autorelease];
+	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
 	[tempString addAttribute:(NSString *)kCTFontAttributeName
 					  value:(id)font
 					  range:NSMakeRange(0, tempString.string.length)];
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
+    [tempString release];
 	
 	CGRect unTransformedFinalBounds = CGRectMake( 0,
 											  0,
@@ -95,7 +98,7 @@
     [SVGHelperUtilities configureCALayer:label usingElement:self];
 	
     label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
-  CFRelease(font);
+    CFRelease(font);
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
@@ -135,8 +138,11 @@
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
     label.alignmentMode = kCAAlignmentLeft;
+#if TARGET_OS_IPHONE
     label.foregroundColor = [UIColor blackColor].CGColor;
-
+#else
+    label.foregroundColor = CGColorGetConstantColor(kCGColorBlack);
+#endif
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
 	label.borderColor = [UIColor redColor].CGColor;
