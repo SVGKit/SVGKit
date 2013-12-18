@@ -45,7 +45,11 @@
 @class SVGKSource;
 @class SVGKParseResult;
 
+#if TARGET_OS_IPHONE
 #define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
+#else
+#undef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#endif
 
 @class SVGDefsElement;
 
@@ -279,7 +283,28 @@
  */
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #else
+/**
+ Higher-performance version of .NSImage property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
+ 
+ NB: you can get BETTER performance using the exportNSDataAntiAliased: version of this method, becuase you bypass Apple's slow code for making NSBitmapImageRep and NSImage objects
+ 
+ @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
+ @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
+ @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
+ */
 -(NSImage *) exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
+
+/**
+ Higher-performance version of .imageRep property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
+ 
+ The -exportNSImageAntiAliased:curveFlatnessFactor:interpolationQuality: also uses this function right now.
+ 
+ NB: you can get BETTER performance using the exportNSDataAntiAliased: version of this method, becuase you bypass Apple's slow code for making NSBitmapImageRep objects
+ 
+ @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
+ @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
+ @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
+ */
 -(NSBitmapImageRep *) exportNSBitmapImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
 #endif
 
