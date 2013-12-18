@@ -6,8 +6,8 @@
 
 @interface SVGRectElement ()
 
-#if (!TARGET_OS_IPHONE || __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0)
-static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
+#if (!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
+void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
 #endif
 
 @end
@@ -24,7 +24,7 @@ static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat ra
 @synthesize rx = _rx;
 @synthesize ry = _ry;
 
-#if (!TARGET_OS_IPHONE || __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0)
+#if (!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
 // adapted from http://www.cocoanetics.com/2010/02/drawing-rounded-rectangles/
 
 static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY) {
@@ -109,10 +109,10 @@ static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat ra
 			radiusXPixels = radiusYPixels;
 		
 		CGPathAddRoundedRect(path,
-#if (TARGET_OS_IPHONE && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0))
-                             nil,
+#if !(!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
+							 nil,
 #endif
-                             rect, radiusXPixels, radiusYPixels);
+							 rect, radiusXPixels, radiusYPixels);
 	}
 	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);

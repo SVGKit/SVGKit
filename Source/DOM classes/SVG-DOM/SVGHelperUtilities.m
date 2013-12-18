@@ -93,6 +93,125 @@
 			{
 				CGAffineTransform translateToViewBox = CGAffineTransformMakeTranslation( -frameViewBox.x, -frameViewBox.y );
 				CGAffineTransform scaleToViewBox = CGAffineTransformMakeScale( viewportForViewBoxToRelateTo.width / frameViewBox.width, viewportForViewBoxToRelateTo.height / frameViewBox.height);
+				
+				/** This is hard to find in the spec, but: if you have NO implementation of PreserveAspectRatio, you still need to
+				 read the spec on PreserveAspectRatio - because it defines a default behaviour for files that DO NOT specify it,
+				 which is different from the mathemetic default of co-ordinate systems.
+				 
+				 In short, you MUST implement "<svg preserveAspectRatio=xMidYMid ... />", even if you're not supporting that attribute.
+				 */
+				if( svgSVGElement.preserveAspectRatio.baseVal.meetOrSlice == SVG_MEETORSLICE_MEET ) // ALWAYS TRUE in current implementation
+				{
+					if( ABS( svgSVGElement.aspectRatioFromWidthPerHeight - svgSVGElement.aspectRatioFromViewBox) > 0.00001 )
+					{
+						/** The aspect ratios for viewport and viewbox differ; Spec requires us to
+						 insert an extra transform that causes aspect ratio for internal data to be
+						 
+						 ... MEET:  == KEPT CONSTANT
+						 
+						 and to "aspect-scale to fit" (i.e. leaving letterboxes at topbottom / leftright as required)
+						 
+						 c.f.: http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute (read carefully)
+						 */
+						
+						double ratioOfRatios = svgSVGElement.aspectRatioFromWidthPerHeight / svgSVGElement.aspectRatioFromViewBox;
+						
+						DDLogWarn(@"rationOfRatios = %.2f", ratioOfRatios );
+						DDLogWarn(@"Experimental: auto-scaling viewbox transform to fulfil SVG spec's default MEET settings, because your SVG file has different aspect-ratios for viewBox and for svg.width,svg.height");
+						
+						/**
+						 For MEET, we have to SHRINK the viewbox's contents if they aren't as wide:high as the viewport:
+						 */
+						CGAffineTransform catRestoreAspectRatio;
+						if( ratioOfRatios > 1 )
+							catRestoreAspectRatio = CGAffineTransformMakeScale( 1.0 / ratioOfRatios, 1.0 );
+						else
+							catRestoreAspectRatio = CGAffineTransformMakeScale( 1.0, 1.0 * ratioOfRatios );
+						
+						double xTranslationRequired;
+						double yTranslationRequired;
+						if( ratioOfRatios > 1.0 ) // if we're going to have space to either side
+						{
+							switch( svgSVGElement.preserveAspectRatio.baseVal.align )
+							{
+								case SVG_PRESERVEASPECTRATIO_XMINYMIN:
+								case SVG_PRESERVEASPECTRATIO_XMINYMID:
+								case SVG_PRESERVEASPECTRATIO_XMINYMAX:
+								{
+									xTranslationRequired = 0.0;
+								}break;
+									
+								case SVG_PRESERVEASPECTRATIO_XMIDYMIN:
+								case SVG_PRESERVEASPECTRATIO_XMIDYMID:
+								case SVG_PRESERVEASPECTRATIO_XMIDYMAX:
+								{
+									xTranslationRequired = ((ratioOfRatios-1.0)/2.0) * frameViewBox.width;
+								}break;
+									
+								case SVG_PRESERVEASPECTRATIO_XMAXYMIN:
+								case SVG_PRESERVEASPECTRATIO_XMAXYMID:
+								case SVG_PRESERVEASPECTRATIO_XMAXYMAX:
+								{
+									xTranslationRequired = ((ratioOfRatios-1.0) * frameViewBox.width);
+								}break;
+									
+								case SVG_PRESERVEASPECTRATIO_NONE:
+								case SVG_PRESERVEASPECTRATIO_UNKNOWN:
+								{
+									xTranslationRequired = 0;
+								}break;
+							}
+						}
+						else
+							xTranslationRequired = 0;
+						
+						if( ratioOfRatios < 1.0 ) // if we're going to have space above and below
+						{
+							switch( svgSVGElement.preserveAspectRatio.baseVal.align )
+							{
+								case SVG_PRESERVEASPECTRATIO_XMINYMIN:
+								case SVG_PRESERVEASPECTRATIO_XMIDYMIN:
+								case SVG_PRESERVEASPECTRATIO_XMAXYMIN:
+								{
+									yTranslationRequired = 0.0;
+								}break;
+									
+								case SVG_PRESERVEASPECTRATIO_XMINYMID:
+								case SVG_PRESERVEASPECTRATIO_XMIDYMID:
+								case SVG_PRESERVEASPECTRATIO_XMAXYMID:
+								{
+									yTranslationRequired = ((1.0-ratioOfRatios)/2.0 * [svgSVGElement.height pixelsValue]);
+								}break;
+									
+								case SVG_PRESERVEASPECTRATIO_XMINYMAX:
+								case SVG_PRESERVEASPECTRATIO_XMIDYMAX:
+								case SVG_PRESERVEASPECTRATIO_XMAXYMAX:
+								{
+									yTranslationRequired = ((1.0-ratioOfRatios) * [svgSVGElement.height pixelsValue]);
+								}break;
+									
+								case SVG_PRESERVEASPECTRATIO_NONE:
+								case SVG_PRESERVEASPECTRATIO_UNKNOWN:
+								{
+									yTranslationRequired = 0.0;
+								}break;
+							}
+						}
+						else
+							yTranslationRequired = 0.0;
+						/**
+						 For xMidYMid, we have to RE-CENTER the viewbox's contents if they aren't as wide:high as the viewport:
+						 */
+						CGAffineTransform catRecenterNewAspectRatio = CGAffineTransformMakeTranslation( xTranslationRequired, yTranslationRequired );
+						
+						CGAffineTransform transformsThatHonourAspectRatioRequirements = CGAffineTransformConcat(catRecenterNewAspectRatio, catRestoreAspectRatio);
+						
+						scaleToViewBox = CGAffineTransformConcat( transformsThatHonourAspectRatioRequirements, scaleToViewBox );
+					}
+				}	
+				else
+					DDLogWarn( @"Unsupported: preserveAspectRatio set to SLICE. Code to handle this doesn't exist yet.");
+				
 				transformSVGViewportToSVGViewBox = CGAffineTransformConcat( translateToViewBox, scaleToViewBox );
 			}
 			else
@@ -293,6 +412,7 @@
 	
 	
 	NSString* actualFill = [svgElement cascadedValueForStylableProperty:@"fill"];
+	NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
 	if ( [actualFill hasPrefix:@"none"])
 	{
 		_shapeLayer.fillColor = nil;
@@ -322,14 +442,16 @@
 			return gradientLayer;
 		}
 	}
-	else if( actualFill.length > 0 )
+	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
 	{
-		SVGColor fillColorAsSVGColor = SVGColorFromString([actualFill UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
-		NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
-		if( actualFillOpacity.length > 0 )
-			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity SVGKCGFloatValue] * 0xFF);
+		SVGColor fillColorAsSVGColor = ( actualFill.length > 0 ) ?
+		SVGColorFromString([actualFill UTF8String]) // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
+		: SVGColorMake(0, 0, 0, 0);
 		
-		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
+        if( actualFillOpacity.length > 0 )
+            fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
+		
+        _shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
 	{

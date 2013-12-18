@@ -32,6 +32,9 @@
 {
 	return [SVGKSourceURL sourceFromURL:u];
 }
+- (SVGKSource *)sourceFromRelativePath:(NSString *)path {
+    return nil;
+}
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
 	return [SVGKSourceData sourceFromData:data];

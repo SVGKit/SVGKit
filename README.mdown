@@ -2,9 +2,11 @@
 
 SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
 
+<<<<<<< HEAD
 Versions:
 
   - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0 as well as a lot of enhancements including OS X support and "modern" Objective-C syntax.
+  - v1.x = current "in development" branch with latest changes, fixes, features
   - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct:__ It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
   - arc - Branch that has the iOS and OS X project use Automatic Reference Counting.
   - namespaces - Branch that has the SVGKit headers better designed to work with OS X. __Now defunct:__ it has been merged back to master.
@@ -23,7 +25,8 @@ Because so much has changed, Adam wrote a series of blog posts to explain how to
   - QUICK RECIPES for common uses:  http://t-machine.org/index.php/2013/01/02/svgkit-2013-recipes/
      - additiona: How to scale an SVG image on screen: http://t-machine.org/index.php/2013/04/14/svgkit-scaling-svg-images/
   - CONTRIBUTING to the project, CORE ARCHITECTURE: http://t-machine.org/index.php/2012/12/31/svgkit-2013-development/
- 
+  - (November 2013): New (experimental) feature - writing SVG's out to disk, preserving any changes you made programmatically: http://t-machine.org/index.php/2013/11/17/svgkit-programmatic-editing-of-svg-files-on-ios/
+
 ### Combined getting started info
 
 __WARNING__: Due to some bugs in Apple's renderer, SVGKFastImageView doesn't render gradient-fills for anything except rectangles, and cannot use CoreAnimation. For higher accuracy (but slightly worse performance), use SVGKLayeredImageView instead.
@@ -35,7 +38,18 @@ Key methods / properties you might find useful:
   1. SVGKImage - all the magic happens here
   1. SVGKImage.DOMTree - a complete DOM tree of the "parsed" SVG/XML document, with ALL TAGS (even if unsupported by current SVGKit - they will be parsed anyway!)
   1. SVGKImage.CALayerTree - a complete, renderable, tree of Apple CALayer objects (only contains layers for features currently supported - if you find something missing, please submit a fix!)
-  
+
+### I get a crash with "unrecognized selector" ?
+
+If you get this error:
+
+"+[NSCharacterSet SVGWhitespaceCharacterSet]: unrecognized selector sent to class "
+
+... you're probably building the Static Library, but forgot to do Step 7 below:
+
+"Edit your build settings and add "Other Linker Flags" = "-ObjC""
+
+
 ## Advanced Features (this branch/fork only!)
 
 There are many new features in this version (2013) of SVGKit. Read the blog posts above for more detail, but briefly:
@@ -97,6 +111,7 @@ You must add the following frameworks for SVGKit to compile - unless you are emb
 
   - CoreText
   - CoreImage
+  - libxml2.dylib
   - QuartzCore
   - CoreGraphics
   - UIKit

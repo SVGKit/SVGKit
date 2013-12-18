@@ -31,6 +31,8 @@
 @property (nonatomic, retain) IBOutlet SVGKImageView *contentView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
 
+@property(nonatomic,retain) IBOutlet UILabel* labelParseTime;
+
 @property (nonatomic, retain) id detailItem;
 
 

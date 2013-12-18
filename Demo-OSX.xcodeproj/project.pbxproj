@@ -56,7 +56,6 @@
 		55C362A417821F6300BA24FA /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5F17629224009C25F1 /* Lion.svg */; };
 		55C362A517821F6300BA24FA /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6017629224009C25F1 /* Location_European_nation_states.svg */; };
 		55C362A617821F6300BA24FA /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6117629224009C25F1 /* Map.svg */; };
-		55C362A717821F6300BA24FA /* MathCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6217629224009C25F1 /* MathCurve.svg */; };
 		55C362A817821F6300BA24FA /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6317629224009C25F1 /* Monkey.svg */; };
 		55C362A917821F6300BA24FA /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6417629224009C25F1 /* Note.svg */; };
 		55C362AA17821F6300BA24FA /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6517629224009C25F1 /* RainbowWing.svg */; };
@@ -109,7 +108,6 @@
 		55D8EE8417629224009C25F1 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE5F17629224009C25F1 /* Lion.svg */; };
 		55D8EE8517629224009C25F1 /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6017629224009C25F1 /* Location_European_nation_states.svg */; };
 		55D8EE8617629224009C25F1 /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6117629224009C25F1 /* Map.svg */; };
-		55D8EE8717629224009C25F1 /* MathCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6217629224009C25F1 /* MathCurve.svg */; };
 		55D8EE8817629224009C25F1 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6317629224009C25F1 /* Monkey.svg */; };
 		55D8EE8917629224009C25F1 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6417629224009C25F1 /* Note.svg */; };
 		55D8EE8A17629224009C25F1 /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE6517629224009C25F1 /* RainbowWing.svg */; };
@@ -286,7 +284,6 @@
 		55D8EE5F17629224009C25F1 /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Lion.svg; sourceTree = "<group>"; };
 		55D8EE6017629224009C25F1 /* Location_European_nation_states.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location_European_nation_states.svg; sourceTree = "<group>"; };
 		55D8EE6117629224009C25F1 /* Map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map.svg; sourceTree = "<group>"; };
-		55D8EE6217629224009C25F1 /* MathCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MathCurve.svg; sourceTree = "<group>"; };
 		55D8EE6317629224009C25F1 /* Monkey.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Monkey.svg; sourceTree = "<group>"; };
 		55D8EE6417629224009C25F1 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
 		55D8EE6517629224009C25F1 /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
@@ -474,7 +471,6 @@
 				55D8EE5F17629224009C25F1 /* Lion.svg */,
 				55D8EE6017629224009C25F1 /* Location_European_nation_states.svg */,
 				55D8EE6117629224009C25F1 /* Map.svg */,
-				55D8EE6217629224009C25F1 /* MathCurve.svg */,
 				55D8EE6317629224009C25F1 /* Monkey.svg */,
 				55D8EE6417629224009C25F1 /* Note.svg */,
 				55D8EE6517629224009C25F1 /* RainbowWing.svg */,
@@ -689,7 +685,6 @@
 				55C362A417821F6300BA24FA /* Lion.svg in Resources */,
 				55C362A517821F6300BA24FA /* Location_European_nation_states.svg in Resources */,
 				55C362A617821F6300BA24FA /* Map.svg in Resources */,
-				55C362A717821F6300BA24FA /* MathCurve.svg in Resources */,
 				55C362A817821F6300BA24FA /* Monkey.svg in Resources */,
 				55C362A917821F6300BA24FA /* Note.svg in Resources */,
 				55C362AA17821F6300BA24FA /* RainbowWing.svg in Resources */,
@@ -744,7 +739,6 @@
 				55D8EE8417629224009C25F1 /* Lion.svg in Resources */,
 				55D8EE8517629224009C25F1 /* Location_European_nation_states.svg in Resources */,
 				55D8EE8617629224009C25F1 /* Map.svg in Resources */,
-				55D8EE8717629224009C25F1 /* MathCurve.svg in Resources */,
 				55D8EE8817629224009C25F1 /* Monkey.svg in Resources */,
 				55D8EE8917629224009C25F1 /* Note.svg in Resources */,
 				55D8EE8A17629224009C25F1 /* RainbowWing.svg in Resources */,

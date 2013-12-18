@@ -9,6 +9,6 @@
 
 - (id)initFromFilename:(NSString*)p DEPRECATED_ATTRIBUTE;
 - (id)initWithFilename:(NSString*)p;
-+ (SVGKSource*)sourceFromFilename:(NSString*)p;
++ (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p;
 
 @end
