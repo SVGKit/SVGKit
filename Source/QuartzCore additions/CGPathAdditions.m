@@ -7,7 +7,7 @@
 
 #import "CGPathAdditions.h"
 
-void applier (void *info, const CGPathElement *element);
+static void applier (void *info, const CGPathElement *element);
 
 typedef struct {
 	CGMutablePathRef path;
@@ -15,7 +15,7 @@ typedef struct {
 	CGFloat offY;
 } PathInfo;
 
-void applier (void *info, const CGPathElement *element) {
+static void applier (void *info, const CGPathElement *element) {
 	PathInfo *pathInfo = (PathInfo *) info;
 	
 	CGMutablePathRef path = pathInfo->path;
@@ -60,7 +60,7 @@ CGPathRef CGPathCreateByOffsettingPath (CGPathRef aPath, CGFloat x, CGFloat y) {
 	return path;
 }
 
-void applyPathTranslation (void *info, const CGPathElement *element) {
+static void applyPathTranslation (void *info, const CGPathElement *element) {
 	PathInfo *pathInfo = (PathInfo *) info;
 	
 	CGMutablePathRef path = pathInfo->path;

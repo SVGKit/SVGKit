@@ -23,7 +23,7 @@
 		
 		for( NSString* attributeName in attributes.allKeys )
 		{
-			[self setAttribute:attributeName value:[attributes objectForKey:attributeName]];
+			[self setAttribute:attributeName value:attributes[attributeName]];
 		}
     }
     return self;
@@ -64,9 +64,10 @@
 
 -(void) setAttribute:(NSString*) name value:(NSString*) value
 {
-	Attr* att = [[[Attr alloc] initWithName:name value:value] autorelease];
+	Attr* att = [[Attr alloc] initWithName:name value:value];
 	
 	[self.attributes setNamedItem:att];
+    [att release];
 }
 
 -(void) removeAttribute:(NSString*) name
@@ -121,9 +122,10 @@
 // Introduced in DOM Level 2:
 -(void) setAttributeNS:(NSString*) namespaceURI qualifiedName:(NSString*) qualifiedName value:(NSString*) value
 {
-	Attr* att = [[[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value] autorelease];
+	Attr* att = [[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value];
 	
 	[self.attributes setNamedItemNS:att];
+    [att release];
 }
 
 // Introduced in DOM Level 2:

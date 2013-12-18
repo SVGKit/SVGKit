@@ -167,7 +167,7 @@
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		
-		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+		_viewBox = SVGRectMake([boxElements[0] floatValue], [boxElements[1] floatValue], [boxElements[2] floatValue], [boxElements[3] floatValue]);
 	}
 	else
 	{

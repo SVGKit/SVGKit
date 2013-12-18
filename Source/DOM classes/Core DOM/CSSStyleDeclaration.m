@@ -90,24 +90,24 @@
                 accum[accumIdx] = '\0';
                 
                 NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
-				NSString *cssValueString = [NSString stringWithUTF8String:accum];
+				NSString *cssValueString = @(accum);
 				
-				NSMutableCharacterSet* trimmingSetForKey = [[[NSMutableCharacterSet alloc] init] autorelease];
+				NSMutableCharacterSet* trimmingSetForKey = [[NSMutableCharacterSet alloc] init];
 				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
-				[keyString autorelease]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
-				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
-				
+				keyString = [[keyString autorelease] stringByTrimmingCharactersInSet:trimmingSetForKey];
+				[trimmingSetForKey release];
+                
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
-					cssValue = [[[CSSValueList alloc] init] autorelease];
+					cssValue = [[CSSValueList alloc] init];
 				else
-					cssValue = [[[CSSPrimitiveValue alloc] init] autorelease];
+					cssValue = [[CSSPrimitiveValue alloc] init];
 				cssValue.cssText = cssValueString; // has the side-effect of parsing, if required
 				
-                [dict setObject:cssValue
-                         forKey:keyString];
+                dict[keyString] = cssValue;
+                [cssValue release];
                 
                 bzero(name, MAX_NAME);
                 
@@ -136,7 +136,7 @@
 
 -(CSSValue*) getPropertyCSSValue:(NSString*) propertyName
 {
-	return [self.internalDictionaryOfStylesByCSSClass objectForKey:propertyName];
+	return (self.internalDictionaryOfStylesByCSSClass)[propertyName];
 }
 
 -(NSString*) removeProperty:(NSString*) propertyName
@@ -162,7 +162,7 @@
 {
 	/** this is stupid slow, but until Apple *can be bothered* to add a "stable-order" dictionary to their libraries, this is the only sensibly easy way of implementing this method */
 	NSArray* sortedKeys = [[self.internalDictionaryOfStylesByCSSClass allKeys] sortedArrayUsingSelector:@selector(compare:)];
-	CSSValue* v = [sortedKeys objectAtIndex:index];
+	CSSValue* v = sortedKeys[index];
 	return v.cssText;
 }
 

@@ -16,9 +16,7 @@
 
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			@"http://www.w3.org/2000/svg",
-			nil];
+	return @[@"http://www.w3.org/2000/svg"];
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
@@ -29,7 +27,7 @@
 
 -(SVGElementInstance*) convertSVGElementToElementInstanceTree:(SVGElement*) original outermostUseElement:(SVGUseElement*) outermostUseElement
 {
-	SVGElementInstance* instance = [[[SVGElementInstance alloc] init] autorelease];
+	SVGElementInstance* instance = [[SVGElementInstance alloc] init];
 	instance.correspondingElement = original;
 	instance.correspondingUseElement = outermostUseElement;
 	
@@ -45,7 +43,7 @@
 		}
 	}
 	
-	return instance;
+	return [instance autorelease];
 }
 
 - (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
@@ -57,14 +55,14 @@
 		if( [name isEqualToString:@"defs"])
 		{	
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-			SVGDefsElement *element = [[[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+			SVGDefsElement *element = [[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			
-			return element;
+			return [element autorelease];
 		}
 		else if( [name isEqualToString:@"use"])
 		{	
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-			SVGUseElement *useElement = [[[SVGUseElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+			SVGUseElement *useElement = [[SVGUseElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 			
 			[useElement postProcessAttributesAddingErrorsTo:parseResult]; // handles "transform" and "style"
 			
@@ -97,7 +95,7 @@
 				useElement.instanceRoot = [self convertSVGElementToElementInstanceTree:linkedElement outermostUseElement:useElement];
 			}
 			
-			return useElement;
+			return [useElement autorelease];
 		}
 	}
 	

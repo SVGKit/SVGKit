@@ -27,21 +27,19 @@ static NSDictionary *elementMap;
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGSVGElement class], @"svg",
-                          [SVGCircleElement class], @"circle",
-                          [SVGDescriptionElement class], @"description",
-                          [SVGEllipseElement class], @"ellipse",
-                          [SVGGElement class], @"g",
-                          [SVGImageElement class], @"image",
-                          [SVGLineElement class], @"line",
-                          [SVGPathElement class], @"path",
-                          [SVGPolygonElement class], @"polygon",
-                          [SVGPolylineElement class], @"polyline",
-                          [SVGRectElement class], @"rect",
-                          [SVGTitleElement class], @"title",
-						   [SVGTextElement class], @"text",
-						   nil] retain];
+			elementMap = [@{@"svg": [SVGSVGElement class],
+                          @"circle": [SVGCircleElement class],
+                          @"description": [SVGDescriptionElement class],
+                          @"ellipse": [SVGEllipseElement class],
+                          @"g": [SVGGElement class],
+                          @"image": [SVGImageElement class],
+                          @"line": [SVGLineElement class],
+                          @"path": [SVGPathElement class],
+                          @"polygon": [SVGPolygonElement class],
+                          @"polyline": [SVGPolylineElement class],
+                          @"rect": [SVGRectElement class],
+                          @"title": [SVGTitleElement class],
+						   @"text": [SVGTextElement class]} retain];
 		}
 	}
 	return self;
@@ -54,9 +52,7 @@ static NSDictionary *elementMap;
 
 -(NSArray*) supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			 @"http://www.w3.org/2000/svg",
-			nil];
+	return @[@"http://www.w3.org/2000/svg"];
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
@@ -69,7 +65,7 @@ static NSDictionary *elementMap;
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
 	{
-		Class elementClass = [elementMap objectForKey:name];
+		Class elementClass = elementMap[name];
 		
 		if (!elementClass) {
 			elementClass = [SVGElement class];
@@ -89,7 +85,7 @@ static NSDictionary *elementMap;
 		
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-		SVGElement *element = [[[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+		SVGElement *element = [[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 		
 		/** NB: all the interesting handling of shared / generic attributes - e.g. the whole of CSS styling etc - takes place in this method: */
 		[element postProcessAttributesAddingErrorsTo:parseResult];
@@ -152,7 +148,7 @@ static NSDictionary *elementMap;
 				
 				/** Post-processing of the ROOT SVG ONLY (doesn't apply to embedded SVG's )
 				 */
-				if ((svgVersion = [attributes objectForKey:@"version"])) {
+				if ((svgVersion = attributes[@"version"])) {
 					SVGKSource.svgLanguageVersion = svgVersion;
 				}
 			}
@@ -160,7 +156,7 @@ static NSDictionary *elementMap;
 			{
 				NSAssert( [element isKindOfClass:[SVGSVGElement class]], @"Trying to create a new internal SVGDocument from a Node that is NOT of type SVGSVGElement (tag: svg). Node was of type: %@", NSStringFromClass([element class]));
 				
-				SVGDocument* newDocument = [[[SVGDocument alloc] init] autorelease];
+				SVGDocument* newDocument = [[SVGDocument alloc] init];
 				newDocument.rootElement = (SVGSVGElement*) element;
 				
 				if( overwriteRootSVGDocument )
@@ -171,12 +167,13 @@ static NSDictionary *elementMap;
 				{
 					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
+                [newDocument release];
 			}
 			
 		}
 		
 		
-		return element;
+		return [element autorelease];
 	}
 	
 	return nil;

@@ -149,7 +149,7 @@
 	NSArray* nameSpaceParts = [self.nodeName componentsSeparatedByString:@":"];
 	self.localName = [nameSpaceParts lastObject];
 	if( [nameSpaceParts count] > 1 )
-		self.prefix = [nameSpaceParts objectAtIndex:0];
+		self.prefix = nameSpaceParts[0];
 		
 	self.namespaceURI = nsURI;
 }
@@ -211,7 +211,7 @@
 		 "If newChild is a DocumentFragment object, oldChild is replaced by all of the DocumentFragment children, which are inserted in the same order. If the newChild is already in the tree, it is first removed."
 		 */
 		
-		NSUInteger oldIndex = [self.childNodes.internalArray indexOfObject:oldChild];
+		NSInteger oldIndex = [self.childNodes.internalArray indexOfObject:oldChild];
 		
 		NSAssert( FALSE, @"We should be recursing down the tree to find 'newChild' at any location, and removing it - required by spec - but we have no convenience method for that search, yet" );
 		
@@ -227,7 +227,7 @@
 	}
 	else
 	{
-		[self.childNodes.internalArray replaceObjectAtIndex:[self.childNodes.internalArray indexOfObject:oldChild] withObject:newChild];
+		(self.childNodes.internalArray)[[self.childNodes.internalArray indexOfObject:oldChild]] = newChild;
 		
 		newChild.parentNode = self;
 		oldChild.parentNode = nil;
@@ -314,7 +314,7 @@
 			/** DOM 3 Spec:
 			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
 			 */
-			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			NSMutableString* stringAccumulator = [[NSMutableString alloc] init];
 			for( Node* subNode in self.childNodes.internalArray )
 			{
 				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!
@@ -322,7 +322,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:stringAccumulator];
+			return [NSString stringWithString:[stringAccumulator autorelease]];
 		}
 			
 		case DOMNodeType_TEXT_NODE:
