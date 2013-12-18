@@ -69,7 +69,7 @@
 		specificClone.shadowRadius = selfSpecific.shadowRadius;
 		specificClone.shadowPath = selfSpecific.shadowPath;
 		specificClone.name = selfSpecific.name;
-		specificClone.style = [selfSpecific.style copy];
+		specificClone.style = [[selfSpecific.style copy] autorelease];
 	}
 	
 	if( [clone isKindOfClass:[CAGradientLayer class]])
