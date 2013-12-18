@@ -211,7 +211,7 @@
 		 "If newChild is a DocumentFragment object, oldChild is replaced by all of the DocumentFragment children, which are inserted in the same order. If the newChild is already in the tree, it is first removed."
 		 */
 		
-		int oldIndex = [self.childNodes.internalArray indexOfObject:oldChild];
+		NSInteger oldIndex = [self.childNodes.internalArray indexOfObject:oldChild];
 		
 		NSAssert( FALSE, @"We should be recursing down the tree to find 'newChild' at any location, and removing it - required by spec - but we have no convenience method for that search, yet" );
 		

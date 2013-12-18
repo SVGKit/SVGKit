@@ -83,7 +83,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if ([globalSVGKImageCache count] == 0) return;
 	
-	DDLogCWarn(@"[%@] Low-mem or background; purging cache of %i SVGKImages...", self, [globalSVGKImageCache count] );
+	DDLogCWarn(@"[%@] Low-mem or background; purging cache of %lu SVGKImages...", self, (unsigned long)[globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }

@@ -87,7 +87,7 @@
 
 -(unsigned long)length
 {
-	int count = [self.internalDictionary count];
+	NSUInteger count = [self.internalDictionary count];
 	
 	for( NSDictionary* namespaceDict in [self.internalDictionaryOfNamespaces allValues] )
 	{

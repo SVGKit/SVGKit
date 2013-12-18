@@ -210,7 +210,7 @@ readPacket(char *mem, int size) {
 		NSInteger bytesRead = [stream read:(uint8_t*)&buff maxLength:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
-			int libXmlParserParseError = xmlParseChunk(ctx, buff, bytesRead, 0);
+			int libXmlParserParseError = xmlParseChunk(ctx, buff, (int)bytesRead, 0);
 			
 			if( [currentParseRun.errorsFatal count] > 0 )
 			{
@@ -825,7 +825,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	for (int i = 0; i < attr_ct * 5; i += 5) {
 		const char *begin = (const char *) attrs[i + 3];
 		const char *end = (const char *) attrs[i + 4];
-		int vlen = strlen(begin) - strlen(end);
+		size_t vlen = strlen(begin) - strlen(end);
 				
 		NSString* localName = NSStringFromLibxmlString(attrs[i]);
 		NSString* prefix = NSStringFromLibxmlString(attrs[i+1]);

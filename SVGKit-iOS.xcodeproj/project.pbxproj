@@ -31,13 +31,9 @@
 		661ADBFC16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBFB16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661AE44916D13DA8005E69D9 /* SVGTransformable.h in Headers */ = {isa = PBXBuildFile; fileRef = 663FD01716CAF05900CCBFB3 /* SVGTransformable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661AE44A16D13DAD005E69D9 /* SVGFitToViewBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 66A09CB016CFF494003CD5CD /* SVGFitToViewBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6636CD7E175F542A0072AAEF /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD78175F542A0072AAEF /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6636CD7F175F542A0072AAEF /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD79175F542A0072AAEF /* SVGKSourceLocalFile.m */; };
-		6636CD80175F542A0072AAEF /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD7A175F542A0072AAEF /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6636CD81175F542A0072AAEF /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD7B175F542A0072AAEF /* SVGKSourceString.m */; };
-		6636CD82175F542A0072AAEF /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD7C175F542A0072AAEF /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6636CD83175F542A0072AAEF /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD7D175F542A0072AAEF /* SVGKSourceURL.m */; };
-		6636CD8A175F54680072AAEF /* CALayer+RecursiveClone.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD88175F54680072AAEF /* CALayer+RecursiveClone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6636CD8B175F54680072AAEF /* CALayer+RecursiveClone.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD89175F54680072AAEF /* CALayer+RecursiveClone.m */; };
 		6636CD8D175F54970072AAEF /* ConverterSVGToCALayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD8C175F54970072AAEF /* ConverterSVGToCALayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66372EEE1695F16A008C6C56 /* DocumentCSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 666674BD168A536C00486B68 /* DocumentCSS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -992,10 +988,6 @@
 				661AE44A16D13DAD005E69D9 /* SVGFitToViewBox.h in Headers */,
 				036A524C16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h in Headers */,
 				6636CD8D175F54970072AAEF /* ConverterSVGToCALayer.h in Headers */,
-				6636CD7E175F542A0072AAEF /* SVGKSourceLocalFile.h in Headers */,
-				6636CD80175F542A0072AAEF /* SVGKSourceString.h in Headers */,
-				6636CD82175F542A0072AAEF /* SVGKSourceURL.h in Headers */,
-				6636CD8A175F54680072AAEF /* CALayer+RecursiveClone.h in Headers */,
 				66F33DD0182FE1C4004464AC /* SVGPreserveAspectRatio.h in Headers */,
 				66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */,
 				9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */,
@@ -1006,10 +998,6 @@
 				00E86D6B1741586600F0FA0A /* DDTTYLogger.h in Headers */,
 				00E86D6D1741586600F0FA0A /* ContextFilterLogFormatter.h in Headers */,
 				00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */,
-				6636CD7E175F542A0072AAEF /* SVGKSourceLocalFile.h in Headers */,
-				6636CD80175F542A0072AAEF /* SVGKSourceString.h in Headers */,
-				6636CD82175F542A0072AAEF /* SVGKSourceURL.h in Headers */,
-				6636CD8A175F54680072AAEF /* CALayer+RecursiveClone.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
