@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) UIPopoverController *popoverController;
 
+@property (nonatomic, retain) NSDate* startParseTime, * endParseTime;
+
 - (void)loadResource:(NSString *)name;
 - (void)shakeHead;
 
@@ -278,6 +280,7 @@ CATextLayer *textLayerForLastTappedLayer;
 {
 	[self.viewActivityIndicator startAnimating];
 	[[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; // makes the animation appear
+	self.startParseTime = self.endParseTime = [NSDate date]; // reset them
 	
 	SVGKImageView* newContentView = nil;
 	BOOL thisImageRequiresLayeredImageView = false;
@@ -345,12 +348,15 @@ CATextLayer *textLayerForLastTappedLayer;
 		SVGKImage *document = nil;
 		
 		/** Detect URL vs file */
+		self.startParseTime = [NSDate date];
 		if( [name hasPrefix:@"http://"])
 		{
 			document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
 		}
 		else
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
+		self.endParseTime = [NSDate date];
+		
 		
 			if (!thisImageRequiresLayeredImageView && document) {
 				thisImageRequiresLayeredImageView = ![SVGKFastImageView svgImageHasNoGradients:document];
@@ -376,7 +382,7 @@ CATextLayer *textLayerForLastTappedLayer;
 				 SVG Viewport. SVGKit automagically does this for you if you ever set a value to image.scale */
 				if( ! CGSizeEqualToSize( CGSizeZero, customSizeForImage ) )
 					document.size = customSizeForImage; // preferred way to scale an SVG! (standards compliant!)
-
+				
 				if( thisImageRequiresLayeredImageView )
 				{
 					newContentView = [[SVGKLayeredImageView alloc] initWithSVGKImage:document];
@@ -392,7 +398,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			}
 			else
 			{
-				[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%lu fatal errors, %lu warnings. First fatal = %@",(unsigned long)[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+				[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%lu fatal errors, %lu warnings. First fatal = %@",(unsigned long)[document.parseErrorsAndWarnings.errorsFatal count],(unsigned long)[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)(document.parseErrorsAndWarnings.errorsFatal)[0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 				newContentView = nil; // signals to the rest of this method: the load failed
 
 			}
@@ -410,11 +416,22 @@ CATextLayer *textLayerForLastTappedLayer;
 		   && self.tapGestureRecognizer != nil )
 			[self.contentView removeGestureRecognizer:self.tapGestureRecognizer];
 		
+		[self.labelParseTime removeFromSuperview]; // we'll re-add to the new one
 		[self.contentView removeFromSuperview];
 		
 		/******* swap the new contentview in ************/
 		self.contentView = newContentView;
 		
+		if( self.labelParseTime == nil )
+		{
+			self.labelParseTime = [[UILabel alloc] init];
+			self.labelParseTime.frame = CGRectMake( 0, 0, self.view.bounds.size.width, 20.0 );
+			self.labelParseTime.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+			self.labelParseTime.textColor = [UIColor blackColor];
+			self.labelParseTime.text = @"(parsing)";
+		}
+		
+		[self.contentView addSubview:self.labelParseTime];
 	
 		/** set the border for new item */
 		self.contentView.showBorder = FALSE;
@@ -436,6 +453,12 @@ CATextLayer *textLayerForLastTappedLayer;
 		self.scrollViewForSVG.minimumZoomScale = MIN( 1, screenToDocumentSizeRatio );
 		self.scrollViewForSVG.maximumZoomScale = MAX( 1, screenToDocumentSizeRatio );
 		
+		self.title = self.name;
+		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.name, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
+		
+		/** Fast image view renders asynchronously, so we have to wait for a callback that its finished a render... */
+		[self.contentView addObserver:self forKeyPath:@"timeIntervalForLastReRenderOfSVGFromMemory" options:0 context:nil];
+		
 		/**
 		 EXAMPLE:
 		 
@@ -448,6 +471,17 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 	
 	[self.viewActivityIndicator stopAnimating];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	
+	if( [keyPath isEqualToString:@"timeIntervalForLastReRenderOfSVGFromMemory" ] )
+	{
+		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.name, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
+		
+		[self.contentView removeObserver:self forKeyPath:@"timeIntervalForLastReRenderOfSVGFromMemory"];
+	}
 }
 
 - (IBAction)animate:(id)sender {

@@ -27,10 +27,17 @@
 	return self;
 }
 
-+ (SVGKSource*)sourceFromFilename:(NSString*)p {
++ (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p {
 	SVGKSourceLocalFile* s = [[SVGKSourceLocalFile alloc] initWithFilename:p];
 		
 	return s;
+}
+
+- (SVGKSourceLocalFile *)sourceFromRelativePath:(NSString *)relative {
+    NSString *absolute = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:relative];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:absolute])
+        return [SVGKSourceLocalFile sourceFromFilename:absolute];
+    return nil;
 }
 
 - (NSString*)description

@@ -12,6 +12,16 @@
 
 -(CALayer*) cloneRecursively
 {
+	return [self cloneOptionallRecurse:TRUE];
+}
+
+-(CALayer*) cloneShallow
+{
+	return [self cloneOptionallRecurse:FALSE];
+}
+
+-(CALayer*) cloneOptionallRecurse:(BOOL) shouldRecurse
+{
 	CALayer* clone = [[self class] layer]; // Apple official method for duplicating a layer correctly but leaving all properties empty
 	
 	if( [clone isKindOfClass:[CALayer class]])
@@ -100,9 +110,12 @@
 		specificClone.alignmentMode = selfSpecific.alignmentMode;
 	}
 	
+	if( shouldRecurse )
+	{
 	for( CALayer* subLayer in self.sublayers )
 	{
 		[clone addSublayer:[subLayer cloneRecursively]];
+	}
 	}
 	
 	return clone;

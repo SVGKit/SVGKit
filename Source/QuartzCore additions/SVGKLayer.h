@@ -32,4 +32,6 @@
 @property(nonatomic,strong) SVGKImage* SVGImage;
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 
+@property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+
 @end

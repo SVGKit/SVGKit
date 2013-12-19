@@ -64,6 +64,7 @@
 }
 
 @property(nonatomic,strong,readonly) SVGKSource* source;
+@property(nonatomic,retain,readonly) NSMutableArray* externalStylesheets;
 @property(nonatomic,strong,readonly) SVGKParseResult* currentParseRun;
 @property(nonatomic,weak,readwrite) NSObject<SVGKParserDelegate> *delegate;
 @property(nonatomic,readonly) BOOL isParsed;

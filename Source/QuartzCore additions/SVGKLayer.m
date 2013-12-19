@@ -41,6 +41,8 @@
 	if( newImage == _SVGImage )
 		return;
 	
+	self.startRenderTime = self.endRenderTime = nil; // set to nil, so that watchers know it hasn't loaded yet
+	
 	/** 1: remove old */
 	if( _SVGImage != nil )
 	{
@@ -56,7 +58,9 @@
 	if( _SVGImage != nil )
 	{
 		if ([_SVGImage hasCALayerTree] || _SVGImage.CALayerTree) {
+			self.startRenderTime = [NSDate date];
 			[self addSublayer:_SVGImage.CALayerTree];
+			self.endRenderTime = [NSDate date];
 		}
 	}
 }

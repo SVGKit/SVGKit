@@ -21,6 +21,9 @@ australia_states_blank.svg
 Blank_Map-Africa.svg
      -- Public Domain, c.f. - http://en.wikipedia.org/wiki/File:Blank_Map-Africa.svg
 	 
+BlankMap-World6-Equirectangular.svg
+     -- Public Domain, c.f. - http://commons.wikimedia.org/wiki/File:BlankMap-World6-Equirectangular.svg
+
 CurvedDiamond.svg
      -- Public Domain, author: Adam Martin (http://t-machine.org)
      -- Created by: Inkscape
@@ -30,6 +33,10 @@ imageWithASinglePointPath.svg
 	 
 Lion.svg
      -- ??? Unknown, probably Public Domain. Same file as this one on Mozilla.org: http://www-archive.mozilla.org/projects/svg/lion.svg
+	 
+map-alaska-onlysimple.svg
+     -- Public Domain, author: Adam Martin (http://t-machine.org)
+	 -- Created by: Taking BlankMap-World6-Equirectangular.svg, removing every territory except Alaska, and using "simplify" repeatedly, then manually stripping all style info until we have the smallest-possible file that exhibits the UNIQUE viewbox/layout/non-zero-zero-origin problem from the original BlankMap-World6-Equirectangular.svg file
 	 
 test-wave-1.svg
      -- Public Domain, author: Adam Martin (http://t-machine.org)
@@ -49,6 +56,10 @@ Reinel_compass_rose.svg
 
 FILES TAKEN DIRECT FROM THE OFFICIAL SVG SPEC:
 -----------
+
+cubic01.svg
+     -- http://www.w3.org/TR/SVG/images/paths/cubic01.svg
+	 
 lingrad01.svg
 	 -- http://www.w3.org/TR/SVG/images/pservers/lingrad01.svg
 	 
@@ -57,7 +68,10 @@ StyleAttribute
 
 PreserveAspectRatio
 	 -- http://www.w3.org/TR/SVG11/images/coords/PreserveAspectRatio.svg
-	 
+
+quad01.svg
+     -- http://www.w3.org/TR/SVG/images/paths/quad01.svg
+	 	 
 text01.svg
      -- http://www.w3.org/TR/SVG/images/text/text01.svg
 	 

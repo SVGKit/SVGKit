@@ -197,6 +197,16 @@
 		5540E819173887D9004029EF /* SVGTextElement-OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement-OSX.m */; };
 		55435575177F4F5D007E1FAD /* SVGKImageRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 55435573177F4F5D007E1FAD /* SVGKImageRep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55435576177F4F5D007E1FAD /* SVGKImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 55435574177F4F5D007E1FAD /* SVGKImageRep.m */; };
+		555866B018626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 555866AC18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		555866B118626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 555866AC18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h */; };
+		555866B218626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 555866AD18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m */; };
+		555866B318626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 555866AD18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m */; };
+		555866B418626C0C005ACAE9 /* SVGPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 555866AE18626C0C005ACAE9 /* SVGPreserveAspectRatio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		555866B518626C0C005ACAE9 /* SVGPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 555866AE18626C0C005ACAE9 /* SVGPreserveAspectRatio.h */; };
+		555866B618626C0C005ACAE9 /* SVGPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 555866AF18626C0C005ACAE9 /* SVGPreserveAspectRatio.m */; };
+		555866B718626C0C005ACAE9 /* SVGPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 555866AF18626C0C005ACAE9 /* SVGPreserveAspectRatio.m */; };
+		555866B918626C4D005ACAE9 /* NamedNodeMap_Iterable.h in Headers */ = {isa = PBXBuildFile; fileRef = 555866B818626C4D005ACAE9 /* NamedNodeMap_Iterable.h */; };
+		555866BA18626C4D005ACAE9 /* NamedNodeMap_Iterable.h in Headers */ = {isa = PBXBuildFile; fileRef = 555866B818626C4D005ACAE9 /* NamedNodeMap_Iterable.h */; };
 		5568CD36177B69B700047B7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5568CD34177B69B700047B7A /* InfoPlist.strings */; };
 		5568CD3E177B6A7900047B7A /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD4C175FEBB0009F2FDD /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5568CD3F177B6A7900047B7A /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD4D175FEBB0009F2FDD /* DDAbstractDatabaseLogger.m */; };
@@ -699,6 +709,11 @@
 		5540E815173881BF004029EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55435573177F4F5D007E1FAD /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
 		55435574177F4F5D007E1FAD /* SVGKImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageRep.m; sourceTree = "<group>"; };
+		555866AC18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAnimatedPreserveAspectRatio.h; sourceTree = "<group>"; };
+		555866AD18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAnimatedPreserveAspectRatio.m; sourceTree = "<group>"; };
+		555866AE18626C0C005ACAE9 /* SVGPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPreserveAspectRatio.h; sourceTree = "<group>"; };
+		555866AF18626C0C005ACAE9 /* SVGPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPreserveAspectRatio.m; sourceTree = "<group>"; };
+		555866B818626C4D005ACAE9 /* NamedNodeMap_Iterable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedNodeMap_Iterable.h; sourceTree = "<group>"; };
 		5568CD2F177B69B700047B7A /* Lumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Lumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5568CD33177B69B700047B7A /* Lumberjack-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Lumberjack-Info.plist"; sourceTree = "<group>"; };
 		5568CD35177B69B700047B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -984,6 +999,11 @@
 		5540E6C717387F2B004029EF /* SVG-DOM */ = {
 			isa = PBXGroup;
 			children = (
+				555866B818626C4D005ACAE9 /* NamedNodeMap_Iterable.h */,
+				555866AC18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h */,
+				555866AD18626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m */,
+				555866AE18626C0C005ACAE9 /* SVGPreserveAspectRatio.h */,
+				555866AF18626C0C005ACAE9 /* SVGPreserveAspectRatio.m */,
 				5540E6C817387F2B004029EF /* SVGAngle.h */,
 				5540E6C917387F2B004029EF /* SVGAngle.m */,
 				5540E6CA17387F2B004029EF /* SVGDefsElement.h */,
@@ -1299,6 +1319,7 @@
 				5540E7AD17387F2B004029EF /* SVGTextContentElement.h in Headers */,
 				5540E7AF17387F2B004029EF /* SVGTextPositioningElement.h in Headers */,
 				5540E7B217387F2B004029EF /* SVGTransform.h in Headers */,
+				555866B418626C0C005ACAE9 /* SVGPreserveAspectRatio.h in Headers */,
 				5540E7B417387F2B004029EF /* SVGTransformable.h in Headers */,
 				5540E7B517387F2B004029EF /* SVGUseElement.h in Headers */,
 				5540E7B717387F2B004029EF /* SVGUseElement_Mutable.h in Headers */,
@@ -1318,6 +1339,7 @@
 				5540E7D217387F2B004029EF /* SVGPolygonElement.h in Headers */,
 				5540E7D417387F2B004029EF /* SVGPolylineElement.h in Headers */,
 				5540E7D617387F2B004029EF /* SVGRectElement.h in Headers */,
+				555866B018626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h in Headers */,
 				5540E7D817387F2B004029EF /* SVGStyleCatcher.h in Headers */,
 				5540E7D917387F2B004029EF /* SVGStyleElement.h in Headers */,
 				5540E7DB17387F2B004029EF /* SVGSVGElement.h in Headers */,
@@ -1333,6 +1355,7 @@
 				5540E7EB17387F2B004029EF /* SVGKParserStyles.h in Headers */,
 				5540E7ED17387F2B004029EF /* SVGKParserSVG.h in Headers */,
 				5540E7F617387F2B004029EF /* CALayerWithChildHitTest.h in Headers */,
+				555866B918626C4D005ACAE9 /* NamedNodeMap_Iterable.h in Headers */,
 				5540E7F817387F2B004029EF /* CAShapeLayerWithHitTest.h in Headers */,
 				5540E7FC17387F2B004029EF /* SVGKLayer.h in Headers */,
 				5540E7FE17387F2B004029EF /* SVGKImage.h in Headers */,
@@ -1443,6 +1466,7 @@
 				55C3614D178206A500BA24FA /* BaseClassForAllSVGBasicShapes_ForSubclasses.h in Headers */,
 				55C3614E178206A500BA24FA /* SVGCircleElement.h in Headers */,
 				55C36150178206A500BA24FA /* SVGDescriptionElement.h in Headers */,
+				555866B518626C0C005ACAE9 /* SVGPreserveAspectRatio.h in Headers */,
 				55C36152178206A500BA24FA /* SVGElement.h in Headers */,
 				55C36155178206A500BA24FA /* SVGEllipseElement.h in Headers */,
 				55C36157178206A500BA24FA /* SVGGradientElement.h in Headers */,
@@ -1462,6 +1486,7 @@
 				55C36171178206A500BA24FA /* SVGTitleElement.h in Headers */,
 				55C36173178206FB00BA24FA /* SVGKParserDefsAndUse.h in Headers */,
 				55C36175178206FB00BA24FA /* SVGKParserDOM.h in Headers */,
+				555866B118626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.h in Headers */,
 				55C36177178206FB00BA24FA /* SVGKParserGradient.h in Headers */,
 				55C36179178206FB00BA24FA /* SVGKParserPatternsAndGradients.h in Headers */,
 				55C3617B178206FB00BA24FA /* SVGKParserStyles.h in Headers */,
@@ -1477,6 +1502,7 @@
 				55C361941782075700BA24FA /* SVGKSourceLocalFile.h in Headers */,
 				55C361961782075700BA24FA /* SVGKSourceURL.h in Headers */,
 				55C361981782075700BA24FA /* SVGKSourceData.h in Headers */,
+				555866BA18626C4D005ACAE9 /* NamedNodeMap_Iterable.h in Headers */,
 				55C360E41782062E00BA24FA /* Attr.h in Headers */,
 				55C360E61782062E00BA24FA /* CDATASection.h in Headers */,
 				55C360E81782062E00BA24FA /* CharacterData.h in Headers */,
@@ -1678,6 +1704,7 @@
 				5540E7BD17387F2B004029EF /* SVGCircleElement.m in Sources */,
 				5540E7BF17387F2B004029EF /* SVGDescriptionElement.m in Sources */,
 				5540E7C117387F2B004029EF /* SVGElement.m in Sources */,
+				555866B618626C0C005ACAE9 /* SVGPreserveAspectRatio.m in Sources */,
 				5540E7C417387F2B004029EF /* SVGEllipseElement.m in Sources */,
 				5540E7C617387F2B004029EF /* SVGGradientElement.m in Sources */,
 				5540E7C817387F2B004029EF /* SVGGradientStop.m in Sources */,
@@ -1699,6 +1726,7 @@
 				5540E7EE17387F2B004029EF /* SVGKParserSVG.m in Sources */,
 				5540E7F017387F2B004029EF /* SVGKParser.m in Sources */,
 				5540E7F217387F2B004029EF /* SVGKParseResult.m in Sources */,
+				555866B218626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m in Sources */,
 				5540E7F517387F2B004029EF /* SVGKPointsAndPathsParser.m in Sources */,
 				5540E7F717387F2B004029EF /* CALayerWithChildHitTest.m in Sources */,
 				5540E7F917387F2B004029EF /* CAShapeLayerWithHitTest.m in Sources */,
@@ -1809,6 +1837,7 @@
 				55C36153178206A500BA24FA /* SVGElement.m in Sources */,
 				55C36156178206A500BA24FA /* SVGEllipseElement.m in Sources */,
 				55C36158178206A500BA24FA /* SVGGradientElement.m in Sources */,
+				555866B718626C0C005ACAE9 /* SVGPreserveAspectRatio.m in Sources */,
 				55C3615A178206A500BA24FA /* SVGGradientStop.m in Sources */,
 				55C3615C178206A500BA24FA /* SVGGroupElement.m in Sources */,
 				55C3615E178206A500BA24FA /* SVGImageElement.m in Sources */,
@@ -1825,6 +1854,7 @@
 				55C36174178206FB00BA24FA /* SVGKParserDefsAndUse.m in Sources */,
 				55C36176178206FB00BA24FA /* SVGKParserDOM.m in Sources */,
 				55C36178178206FB00BA24FA /* SVGKParserGradient.m in Sources */,
+				555866B318626C0C005ACAE9 /* SVGAnimatedPreserveAspectRatio.m in Sources */,
 				55C3617A178206FB00BA24FA /* SVGKParserPatternsAndGradients.m in Sources */,
 				55C3617C178206FB00BA24FA /* SVGKParserStyles.m in Sources */,
 				55C3617E178206FB00BA24FA /* SVGKParserSVG.m in Sources */,

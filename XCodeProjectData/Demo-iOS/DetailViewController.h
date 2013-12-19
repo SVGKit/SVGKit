@@ -20,18 +20,20 @@
 
 @interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) UITextView* exportText;
-@property (nonatomic, strong) NSMutableString* exportLog;
-@property (nonatomic, strong) CALayerExporter* layerExporter;
-@property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) UITextView* exportText;
+@property (nonatomic, retain) NSMutableString* exportLog;
+@property (nonatomic, retain) CALayerExporter* layerExporter;
+@property (nonatomic, retain) UITapGestureRecognizer* tapGestureRecognizer;
 
-@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollViewForSVG;
-@property (nonatomic, strong) IBOutlet SVGKImageView *contentView;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
+@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollViewForSVG;
+@property (nonatomic, retain) IBOutlet SVGKImageView *contentView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
 
-@property (nonatomic, strong) id detailItem;
+@property(nonatomic,retain) IBOutlet UILabel* labelParseTime;
+
+@property (nonatomic, retain) id detailItem;
 
 
 - (IBAction)animate:(id)sender;

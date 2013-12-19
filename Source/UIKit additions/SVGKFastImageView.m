@@ -7,6 +7,11 @@
 #import <SVGKit/SVGGradientElement.h>
 #endif
 
+@interface SVGKFastImageView ()
+@property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
+@property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+@end
+
 @implementation SVGKFastImageView
 {
 	NSString* internalContextPointerBecauseApplesDemandsIt;
@@ -15,6 +20,7 @@
 @synthesize image = _image;
 @synthesize tileRatio = _tileRatio;
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
+@synthesize timeIntervalForLastReRenderOfSVGFromMemory = _timeIntervalForLastReRenderOfSVGFromMemory;
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL) svgImageHasNoGradients:(SVGKImage*) image
@@ -54,7 +60,12 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	return [self initWithSVGKImage:nil];
+	self = [super initWithCoder:aDecoder];
+    if( self )
+    {
+        [self populateFromImage:nil];
+    }
+    return self;
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -69,22 +80,29 @@
 
 - (id)initWithSVGKImage:(SVGKImage*) im
 {
+    self = [super init];
+    if (self)
+	{
+        [self populateFromImage:im];
+    }
+    return self;
+}
+
+- (void)populateFromImage:(SVGKImage*) im
+{
 	if( im == nil )
 	{
 		DDLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
 		DDLogInfo(@"[%@] Using default SVG: %@", [self class], SVGKGetDefaultImageStringContents());
 		im = [SVGKImage defaultImage];
 	}
-	
-    self = [super init];
-    if (self)
-	{
-		internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
-	
+    
+    internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
+    
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-		BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:im];
-		if( !imageIsGradientFree )
-			DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
+    BOOL imageIsGradientFree = [SVGKFastImageView svgImageHasNoGradients:im];
+    if( !imageIsGradientFree )
+        DDLogWarn(@"[%@] WARNING: Apple's rendering DOES NOT ALLOW US to render this image correctly using SVGKFastImageView, because Apple's renderInContext method - according to Apple's docs - ignores Apple's own masking layers. Until Apple fixes this bug, you should use SVGKLayeredImageView for this particular SVG file (or avoid using gradients)", [self class]);
 #endif
 		
 		self.image = im;
@@ -102,8 +120,6 @@
 		[self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 		[self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
-    }
-    return self;
 }
 
 - (void)setImage:(SVGKImage *)image {
@@ -208,6 +224,8 @@
  */
 -(void)drawRect:(CGRect)rect
 {
+	self.startRenderTime = self.endRenderTime = [NSDate date];
+	
 	/**
 	 view.bounds == width and height of the view
 	 imageBounds == natural width and height of the SVGKImage
@@ -283,7 +301,9 @@
 		[[UIColor blackColor] set];
 		CGContextStrokeRect(context, rect);
 	}
+	
+	self.endRenderTime = [NSDate date];
+	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
-
 
 @end

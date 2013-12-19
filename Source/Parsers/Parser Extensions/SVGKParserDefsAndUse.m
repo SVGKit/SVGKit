@@ -89,7 +89,7 @@
 				/** have to find the node in the DOM tree with id = xlink:href's value */
 				SVGElement* linkedElement = (SVGElement*) [parseResult.parsedDocument getElementById:linkHref];
 				
-				NSAssert( linkedElement != nil, @"Found an SVG <use> tag that points to a non-existent element. Missing element: id = ", linkHref );
+				NSAssert( linkedElement != nil, @"Found an SVG <use> tag that points to a non-existent element. Missing element: id = %@", linkHref );
 				
 				
 				useElement.instanceRoot = [self convertSVGElementToElementInstanceTree:linkedElement outermostUseElement:useElement];

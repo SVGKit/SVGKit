@@ -24,8 +24,14 @@
 #define USENSSTRINGFROMLIBXMLSTRINGFUNCTION 0
 #endif
 
+#import "SVGKSourceString.h"
+#import "SVGKSourceURL.h"
+#import "CSSStyleSheet.h"
+#import "StyleSheetList+Mutable.h"
+
 @interface SVGKParser()
 @property(nonatomic,strong, readwrite) SVGKSource* source;
+@property(nonatomic,retain, readwrite) NSMutableArray* externalStylesheets;
 @property(nonatomic,strong, readwrite) SVGKParseResult* currentParseRun;
 @property(nonatomic,strong) NSString* defaultXMLNamespaceForThisParseRun;
 @property(nonatomic,readwrite, setter = setParsed:) BOOL isParsed;
@@ -54,6 +60,7 @@
 }
 
 @synthesize source;
+@synthesize externalStylesheets;
 @synthesize currentParseRun;
 @synthesize defaultXMLNamespaceForThisParseRun;
 
@@ -110,6 +117,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		self.parserExtensions = [[NSMutableArray alloc] init];
 		
 		self.source = s;
+        self.externalStylesheets = nil;
 		
 		_storedChars = [[NSMutableString alloc] init];
 		_stackOfParserExtensions = [[NSMutableArray alloc] init];
@@ -367,6 +375,112 @@ readPacket(char *mem, int size) {
  */
 
 
+- (SVGKSource *)loadCSSFrom:(NSString *)href
+{
+    SVGKSource *cssSource = nil;
+    if( [href hasPrefix:@"http"] )
+    {
+        NSURL *url = [NSURL URLWithString:href];
+        cssSource = [SVGKSourceURL sourceFromURL:url];
+    }
+    else
+    {
+        cssSource = [self.source sourceFromRelativePath:href];
+    }
+    
+    if( cssSource == nil )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
+        NSString *cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        
+        if( cssText == nil )
+        {
+            DDLogWarn(@"[%@] Unable to find external CSS file '%@'", [self class], href );
+        }
+        else
+        {
+            cssSource = [SVGKSourceString sourceFromContentsOfString:cssText];
+        }
+    }
+    
+    return cssSource;
+}
+
+- (NSString *)stringFromSource:(SVGKSource *) src
+{
+    static uint8_t byteBuffer[4096];
+    NSInteger bytesRead;
+    NSString *result = nil;
+    do
+    {
+        bytesRead = [src.stream read:byteBuffer maxLength:4096];
+        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+        if( result )
+            result = [result stringByAppendingString:read];
+        else
+            result = read;
+    } while (bytesRead > 0);
+    return result;
+}
+
+- (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data
+{
+    if( [@"xml-stylesheet" isEqualToString:target] && ( [data rangeOfString:@"type=\"text/css\""].location != NSNotFound || [data rangeOfString:@"type="].location == NSNotFound ) )
+    {
+        NSRange startHref = [data rangeOfString:@"href=\""];
+        if( startHref.location != NSNotFound )
+        {
+            NSUInteger startIndex = startHref.location + startHref.length;
+            NSRange endHref = [data rangeOfString:@"\"" options:0 range:NSMakeRange(startIndex, data.length - startIndex)];
+            if( startHref.location != NSNotFound )
+            {
+                NSString *href = [data substringWithRange:NSMakeRange(startIndex, endHref.location - startIndex)];
+                SVGKSource* cssSource = [self loadCSSFrom:href];
+                
+                if( cssSource != nil )
+                {
+                    NSString *cssText = [self stringFromSource:cssSource];
+                    CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:cssText];
+                    
+                    if( currentParseRun.parsedDocument.rootElement == nil )
+                    {
+                        if( self.externalStylesheets == nil )
+                            self.externalStylesheets = [[NSMutableArray alloc] init];
+                        [self.externalStylesheets addObject:parsedStylesheet];
+                    }
+                    else
+                    {
+                        [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void)addExternalStylesheetsToRootElement {
+    
+    if( self.externalStylesheets != nil )
+    {
+        [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObjectsFromArray:self.externalStylesheets];
+        self.externalStylesheets = nil;
+    }
+}
+
+static void processingInstructionSAX (void * ctx,
+                                         const xmlChar * target,
+                                         const xmlChar * data)
+{
+    SVGKParser *self = (__bridge SVGKParser *)(ctx);
+    
+    NSString *stringTarget = NSStringFromLibxmlString(target);
+	NSString *stringData = NSStringFromLibxmlString(data);
+    
+    [self handleProcessingInstruction:stringTarget withData:stringData];
+}
+
 - (void)handleStartElement:(NSString *)name namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributeObjects:(NSMutableDictionary *) attributeObjects
 {
 	BOOL parsingRootTag = NO;
@@ -445,6 +559,7 @@ readPacket(char *mem, int size) {
 			if( parsingRootTag )
 			{
 				currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
+                [self addExternalStylesheetsToRootElement];
 			}
 			
 			return;
@@ -483,6 +598,7 @@ readPacket(char *mem, int size) {
 	if( parsingRootTag )
 	{
 		currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
+        [self addExternalStylesheetsToRootElement];
 	}
 	
 	return;
@@ -497,7 +613,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
-	NSMutableDictionary *namespacesByPrefix = NSDictionaryFromLibxmlNamespaces(namespaces, nb_namespaces); // TODO: need to do something with this; this is the ONLY point at which we discover the "xml:ns" definitions in the SVG doc! See below for a temp fix
+	NSMutableDictionary *namespacesByPrefix = NSDictionaryFromLibxmlNamespaces(namespaces, nb_namespaces); // TODO: need to do something with this; this is the ONLY point at which we discover the "xmlns:" definitions in the SVG doc! See below for a temp fix
 	NSMutableDictionary *attributeObjects = NSDictionaryFromLibxmlAttributes(attributes, nb_attributes);
 	NSString *stringURI = NSStringFromLibxmlString(URI);
 	
@@ -533,6 +649,37 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	}
 	
 	/**
+	 This appears to be a major bug in libxml: "xmlns:blah="blah"" is treated as a namespace declaration - but libxml
+	 FAILS to report it as an attribute (according to the XML spec, it appears to be "both" of those things?)
+	 
+	 ...but I could be wrong. The XML definition of Namespaces is badly written and missing several key bits of info
+	 (I have inferred the "both" status from the definition of XML's Node class, which raises an error on setting
+	 Node.prefix "if the node is an attribute, and it's in the xmlns namespace ... and ... and" -- which implies to me
+	 that attributes can be xmlns="blah" definitions)
+	 
+	 ... UPDATE: I have found confirming evidence in the "http://www.w3.org/2000/xmlns/" namespace itself. Visit that URL! It has docs...
+	 
+	 
+	 NB: this bug / issue was irrelevant until we started trying to export SVG documents from memory back to XML strings,
+	 at which point: we need this info! Or else we end up substantially changing the incoming SVG :(.
+	 
+	 So:
+	 
+	 Add any namespace declarations to the attributes dictionary:
+	 */
+	for( NSString* prefix in namespacesByPrefix )
+	{
+		NSString* namespace = [namespacesByPrefix objectForKey:prefix];
+		
+		/** NB this happens *AFTER* setting default namespaces for all attributes - the xmlns: attributes are required by the XML
+		 spec to all live in a special magical namespace AND to all use the same prefix of "xmlns" - no other is allowed!
+		 */
+		Attr* newAttributeFromNamespaceDeclaration = [[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace];
+		
+		[attributeObjects setObject:newAttributeFromNamespaceDeclaration forKey:newAttributeFromNamespaceDeclaration.nodeName];
+	}
+	
+	/**
 	 TODO: temporary workaround to PRETEND that all namespaces are always defined;
 	 this is INCORRECT: namespaces should be UNdefined once you close the parent tag that defined them (I think?)
 	 */
@@ -540,7 +687,10 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		NSString* uri = namespacesByPrefix[prefix];
 		
-		(NSctx.currentParseRun.namespacesEncountered)[prefix ? prefix : [NSNull null]] = uri;
+		if( [prefix isEqualToString:@""] ) // special string we put in earlier to indicate zero-length / "default" prefix
+			[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
+		else
+			[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
 	}
 	
 #if DEBUG_XML_PARSER
@@ -727,6 +877,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* notationDecl */
     NULL,                       /* attributeDecl */
     NULL,                       /* elementDecl */
+    //unparsedEntityDeclaration,  /* unparsedEntityDecl */
     NULL,                       /* unparsedEntityDecl */
     NULL,                       /* setDocumentLocator */
     NULL,                       /* startDocument */
@@ -736,7 +887,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* reference */
     charactersFoundSAX,         /* characters */
     NULL,                       /* ignorableWhitespace */
-    NULL,                       /* processingInstruction */
+    processingInstructionSAX,   /* processingInstruction */
     NULL,                       /* comment */
     NULL,                       /* warning */
     errorEncounteredSAX,        /* error */

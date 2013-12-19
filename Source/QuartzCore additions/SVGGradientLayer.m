@@ -55,17 +55,17 @@
                 size_t shift = numbOfComponents * x;
                 components[shift + y] = comps[y];
             }
+            
+            CGPoint position = self.startPoint;
+            CGFloat radius = floorf(self.endPoint.x * self.bounds.size.width);
+            CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, num_locations);
+            
+            CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);
+            
+            free(locations);
+            free(components);
+            CGGradientRelease(gradient);
         }
-        
-        CGPoint position = self.startPoint;
-        CGFloat radius = floorf(self.endPoint.x * self.bounds.size.width);
-        CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, num_locations);
-        
-        CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);
-        
-        free(locations);
-        free(components);
-        CGGradientRelease(gradient);
     } else {
         [super renderInContext:ctx];
     }

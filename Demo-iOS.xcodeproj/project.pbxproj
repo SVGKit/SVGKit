@@ -20,10 +20,13 @@
 		663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
 		663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
-		6649E10D1617577000AFE92A /* libSVGKit-iOS.1.1.0pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.1.1.0pre.a */; };
+		6649E10D1617577000AFE92A /* libSVGKit-iOS.1.2.0pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
+		667CA17C181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */; };
+		667CA180181D590300E49B68 /* quad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA17F181D590300E49B68 /* quad01.svg */; };
+		667CA182181D598F00E49B68 /* cubic01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA181181D598F00E49B68 /* cubic01.svg */; };
 		66A09CA616CFE67B003CD5CD /* lingrad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA016CFE67B003CD5CD /* lingrad01.svg */; };
 		66A09CA716CFE67B003CD5CD /* opacity01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA116CFE67B003CD5CD /* opacity01.svg */; };
 		66A09CA816CFE67B003CD5CD /* PreserveAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */; };
@@ -31,6 +34,7 @@
 		66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA416CFE67B003CD5CD /* text01.svg */; };
 		66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA516CFE67B003CD5CD /* tspan01.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
+		66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */; };
 		66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */; };
 		66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */; };
 		66E8626B1688BA0B0059C9C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862581688BA0B0059C9C4 /* AppDelegate.m */; };
@@ -54,7 +58,6 @@
 		66E862971688BA510059C9C4 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862821688BA510059C9C4 /* Lion.svg */; };
 		66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862831688BA510059C9C4 /* Location_European_nation_states.svg */; };
 		66E862991688BA510059C9C4 /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862841688BA510059C9C4 /* Map.svg */; };
-		66E8629A1688BA510059C9C4 /* MathCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862851688BA510059C9C4 /* MathCurve.svg */; };
 		66E8629B1688BA510059C9C4 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862861688BA510059C9C4 /* Monkey.svg */; };
 		66E8629C1688BA510059C9C4 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862871688BA510059C9C4 /* Note.svg */; };
 		66E8629D1688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */; };
@@ -63,6 +66,7 @@
 		66E862A01688BA510059C9C4 /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628B1688BA510059C9C4 /* Text.svg */; };
 		66E862A11688BA510059C9C4 /* uk-only.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628C1688BA510059C9C4 /* uk-only.svg */; };
 		66E862A21688BA510059C9C4 /* voies.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628D1688BA510059C9C4 /* voies.svg */; };
+		66F33DCD182FDE50004464AC /* map-alaska-onlysimple.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */; };
 		9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9ED79A20179D83580048AA5B /* radialGradientTest.svg */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +106,9 @@
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
 		6661A77C1698BBE20061E349 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BlankMap-World6-Equirectangular.svg"; sourceTree = "<group>"; };
+		667CA17F181D590300E49B68 /* quad01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = quad01.svg; sourceTree = "<group>"; };
+		667CA181181D598F00E49B68 /* cubic01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cubic01.svg; sourceTree = "<group>"; };
 		66A09CA016CFE67B003CD5CD /* lingrad01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lingrad01.svg; sourceTree = "<group>"; };
 		66A09CA116CFE67B003CD5CD /* opacity01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = opacity01.svg; sourceTree = "<group>"; };
 		66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PreserveAspectRatio.svg; sourceTree = "<group>"; };
@@ -109,6 +116,7 @@
 		66A09CA416CFE67B003CD5CD /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
 		66A09CA516CFE67B003CD5CD /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
+		66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sakamura-default-fill-opacity-test.svg"; sourceTree = "<group>"; };
 		66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width.svg"; sourceTree = "<group>"; };
 		66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width-large.svg"; sourceTree = "<group>"; };
 		66E862571688BA0B0059C9C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -138,7 +146,6 @@
 		66E862821688BA510059C9C4 /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Lion.svg; sourceTree = "<group>"; };
 		66E862831688BA510059C9C4 /* Location_European_nation_states.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location_European_nation_states.svg; sourceTree = "<group>"; };
 		66E862841688BA510059C9C4 /* Map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Map.svg; sourceTree = "<group>"; };
-		66E862851688BA510059C9C4 /* MathCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MathCurve.svg; sourceTree = "<group>"; };
 		66E862861688BA510059C9C4 /* Monkey.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Monkey.svg; sourceTree = "<group>"; };
 		66E862871688BA510059C9C4 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Note.svg; sourceTree = "<group>"; };
 		66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Reinel_compass_rose-simplified-for-testing.svg"; sourceTree = "<group>"; };
@@ -147,6 +154,7 @@
 		66E8628B1688BA510059C9C4 /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
 		66E8628C1688BA510059C9C4 /* uk-only.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "uk-only.svg"; sourceTree = "<group>"; };
 		66E8628D1688BA510059C9C4 /* voies.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = voies.svg; sourceTree = "<group>"; };
+		66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "map-alaska-onlysimple.svg"; sourceTree = "<group>"; };
 		9ED79A20179D83580048AA5B /* radialGradientTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = radialGradientTest.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,7 +166,7 @@
 				55DAA99E1785331900032E72 /* CoreImage.framework in Frameworks */,
 				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
-				6649E10D1617577000AFE92A /* libSVGKit-iOS.1.1.0pre.a in Frameworks */,
+				6649E10D1617577000AFE92A /* libSVGKit-iOS.1.2.0pre.a in Frameworks */,
 				6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */,
 				661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */,
 				661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */,
@@ -217,7 +225,7 @@
 		6649E1031617574600AFE92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.1.0pre.a */,
+				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,9 +233,11 @@
 		66A09C9F16CFE67B003CD5CD /* svg spec examples */ = {
 			isa = PBXGroup;
 			children = (
+				667CA181181D598F00E49B68 /* cubic01.svg */,
 				66A09CA016CFE67B003CD5CD /* lingrad01.svg */,
 				66A09CA116CFE67B003CD5CD /* opacity01.svg */,
 				66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */,
+				667CA17F181D590300E49B68 /* quad01.svg */,
 				66A09CA316CFE67B003CD5CD /* StyleAttribute.svg */,
 				66A09CA416CFE67B003CD5CD /* text01.svg */,
 				66A09CA516CFE67B003CD5CD /* tspan01.svg */,
@@ -288,6 +298,7 @@
 				661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */,
 				66E8627C1688BA510059C9C4 /* australia_states_blank.svg */,
 				66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */,
+				667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */,
 				66E8627E1688BA510059C9C4 /* breaking-1.svg */,
 				9ED79A20179D83580048AA5B /* radialGradientTest.svg */,
 				66E8627F1688BA510059C9C4 /* CurvedDiamond.svg */,
@@ -296,12 +307,13 @@
 				66E862821688BA510059C9C4 /* Lion.svg */,
 				66E862831688BA510059C9C4 /* Location_European_nation_states.svg */,
 				66E862841688BA510059C9C4 /* Map.svg */,
-				66E862851688BA510059C9C4 /* MathCurve.svg */,
+				66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */,
 				66E862861688BA510059C9C4 /* Monkey.svg */,
 				66E862871688BA510059C9C4 /* Note.svg */,
 				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
 				66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */,
 				66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */,
+				66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */,
 				66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */,
 				66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
@@ -366,10 +378,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.1.0pre.a */ = {
+		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libSVGKit-iOS.1.1.0pre.a";
+			path = "libSVGKit-iOS.1.2.0pre.a";
 			remoteRef = 6649E1091617574700AFE92A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -382,11 +394,14 @@
 			files = (
 				66E8626C1688BA0B0059C9C4 /* Default-568h@2x.png in Resources */,
 				66E8626F1688BA0B0059C9C4 /* InfoPlist.strings in Resources */,
+				667CA182181D598F00E49B68 /* cubic01.svg in Resources */,
 				66E862701688BA0B0059C9C4 /* iPadDetailViewController.xib in Resources */,
 				66E862711688BA0B0059C9C4 /* iPhoneDetailViewController.xib in Resources */,
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
 				66E862731688BA0B0059C9C4 /* MasterViewController_iPhone.xib in Resources */,
 				66E8628E1688BA510059C9C4 /* Monkey.png in Resources */,
+				66F33DCD182FDE50004464AC /* map-alaska-onlysimple.svg in Resources */,
+				667CA17C181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg in Resources */,
 				66E8628F1688BA510059C9C4 /* Note.png in Resources */,
 				66E862911688BA510059C9C4 /* australia_states_blank.svg in Resources */,
 				66E862921688BA510059C9C4 /* Blank_Map-Africa.svg in Resources */,
@@ -397,11 +412,11 @@
 				66E862971688BA510059C9C4 /* Lion.svg in Resources */,
 				66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */,
 				66E862991688BA510059C9C4 /* Map.svg in Resources */,
-				66E8629A1688BA510059C9C4 /* MathCurve.svg in Resources */,
 				66E8629B1688BA510059C9C4 /* Monkey.svg in Resources */,
 				66E8629C1688BA510059C9C4 /* Note.svg in Resources */,
 				66E8629D1688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg in Resources */,
 				66E8629E1688BA510059C9C4 /* Reinel_compass_rose.svg in Resources */,
+				667CA180181D590300E49B68 /* quad01.svg in Resources */,
 				66E8629F1688BA510059C9C4 /* test-wave-1.svg in Resources */,
 				66E862A01688BA510059C9C4 /* Text.svg in Resources */,
 				66E862A11688BA510059C9C4 /* uk-only.svg in Resources */,
@@ -425,6 +440,7 @@
 				66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */,
 				66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */,
 				9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */,
+				66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

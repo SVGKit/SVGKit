@@ -46,10 +46,10 @@
 #import <AppKit/AppKit.h>
 #endif
 
-#import <SVGKit/SVGLength.h>
-#import <SVGKit/SVGDocument.h>
-#import <SVGKit/SVGElement.h>
-#import <SVGKit/SVGSVGElement.h>
+@class SVGDocument;
+@class SVGSVGElement;
+@class SVGKSource;
+@class SVGKParseResult;
 
 #import <SVGKit/SVGKParser.h>
 #import <SVGKit/SVGKSource.h>
@@ -83,6 +83,19 @@
 @property (nonatomic, strong, readonly) CALayer* CALayerTree;
 
 #pragma mark - methods to quick load an SVG as an image
+/**
+ This is the preferred method for loading SVG files.
+ 
+ Like Apple's [UIImage imageNamed:] method, it has a global cache of loaded SVG files to greatly
+ increase performance. Unlike UIImage, SVGKImage's tend to be light in memory usage, but if needed,
+ you can disable this at compile-time by setting ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED to 0.
+ 
+ As of SVGKit 1.2.0, this method:
+ 
+ - Finds the SVG file (adding .svg extension if missing) in the App's sandboxed Documents folder
+ - If that's missing, it finds the same file in the App's Bundle (i.e. the files stored at compile-time by Xcode, and shipped as the app)
+ - Creates an SVGKSource so that you can later inspect exactly where it found the file
+ */
 + (SVGKImage *)imageNamed:(NSString *)name;      // load from main bundle
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 + (SVGKImage *)imageNamed:(NSString*)name fromBundle:(NSBundle*)bundle;
@@ -248,8 +261,20 @@
  because it no longer needs one)
  
  Useful for extracting individual features from an SVG
+ 
+ Note that this ONLY clones the layer, does NOT include its sublayers. If you want to get a copy that includes
+ the sublayers, use [self newCopyPositionedAbsoluteOfLayer:withSubLayers:TRUE]
  */
 - (CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer;
+
+/**
+ As for newCopyPositionedAbsoluteOfLayer:, but allows you to choose between 1 layer only (default)
+ or a recursive copy which includes all sublayers.
+ 
+ Only the root/parent layer will be positioned absolute - all the sublayers will still be relatively-positioned
+ within their parents.
+ */
+-(CALayer*) newCopyPositionedAbsoluteOfLayer:(CALayer *)originalLayer withSubLayers:(BOOL) recursive;
 
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;

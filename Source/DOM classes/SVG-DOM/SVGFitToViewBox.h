@@ -11,9 +11,12 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import <SVGKit/SVGRect.h>
+#import <SVGKit/SVGAnimatedPreserveAspectRatio.h>
 
 @protocol SVGFitToViewBox <NSObject>
 
 @property (nonatomic) /* SVGAnimatedRect */ SVGRect viewBox;
+
+@property(nonatomic,retain) SVGAnimatedPreserveAspectRatio* preserveAspectRatio;
 
 @end

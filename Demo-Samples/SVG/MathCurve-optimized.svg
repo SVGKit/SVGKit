@@ -3,7 +3,8 @@
 xmlns:xlink="http://www.w3.org/1999/xlink">
   
 
-  <path d="M200,300 Q400,50 600,300 Q800,550 1000,300"
+<!-- Modified from SVG spec example to have a multi-stage/recursive Q part -->
+  <path d="M200,300 Q400,50 600,300 800,550 1000,300"
         fill="none" stroke="red" stroke-width="5"  />
     <circle cx="200" cy="300" r="10" fill="black" />
     <circle cx="600" cy="300" r="10" fill="black" />
