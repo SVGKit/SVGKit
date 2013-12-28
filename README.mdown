@@ -14,6 +14,12 @@ SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powe
   - [Unofficial ARC fork](https://github.com/MaddTheSane/SVGKit/tree/arc) (MaddTheSane) - this closely tracks the 1.x dev branch, so it's usually very similar, but contains unique differences and so IS NOT SUPPORTED (if you have bugs, reproduce them in 1.x branch before reporting them)
   - [OS X fork](https://github.com/MaddTheSane/SVGKit/tree/master) (MaddTheSane) - this fork adds a complete working build of SVGKit for Mac OS X, and a (very) large number of tweaks (over 10k lines of code). We need help integrating + checking these changes against master / 1.x - please get in touch (create an issue, or email adam.m.s.martin at gmail) if you can help.
 
+# Apps that use SVGKit
+
+New for 2014 - we have a wiki page listing known apps that use SVGKit, and how they're using it:
+
+* https://github.com/SVGKit/SVGKit/wiki/Apps-using-SVGKit
+
 # Getting Started
 
 ## Run the Demo
