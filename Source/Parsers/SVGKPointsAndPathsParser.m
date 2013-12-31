@@ -305,8 +305,13 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 
 + (void) readCoordinate:(NSScanner*)scanner intoFloat:(CGFloat*) floatPointer
 {
+#if CGFLOAT_IS_DOUBLE
+	if( ! [scanner scanDouble:floatPointer] )
+		NSAssert(FALSE, @"invalid coord");
+#else
 	if( ! [scanner scanFloat:floatPointer] )
 		NSAssert(FALSE, @"invalid coord");
+#endif
 }
 
 /** 
