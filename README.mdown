@@ -128,7 +128,7 @@ Open the project "Demo-OSX", select either Demo-OSX, ImageRepTest, or ImageRepTe
 
 To use SVGKit, either create and display the image on screen:
 
-    [view addSubview: [[SVGKLayeredImageView alloc] initWithSVGKImage: [SVGKImage imageNamed@"mySVGfile.svg"]]];
+    [view addSubview: [[SVGKLayeredImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"mySVGfile.svg"]]];
     
 or load an image and convert it to an NSImage or NSBitmapImageRep object:
 
