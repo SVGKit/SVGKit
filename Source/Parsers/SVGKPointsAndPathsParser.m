@@ -310,7 +310,6 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 		NSAssert(FALSE, @"invalid coord");
 #else
 	if( ! [scanner scanFloat:floatPointer] )
-#endif
 		NSAssert(FALSE, @"invalid coord");
 #endif
 }
