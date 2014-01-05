@@ -157,9 +157,9 @@ clazz *parser = [[clazz alloc] init]; \
 }
 
 static FILE *desc;
-static int
+static size_t
 readPacket(char *mem, int size) {
-    int res;
+    size_t res;
 	
     res = fread(mem, 1, size, desc);
     return(res);
@@ -210,14 +210,14 @@ readPacket(char *mem, int size) {
 		NSInteger bytesRead = [stream read:(uint8_t*)&buff maxLength:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
-			int libXmlParserParseError = xmlParseChunk(ctx, buff, (int)bytesRead, 0);
+			NSInteger libXmlParserParseError = xmlParseChunk(ctx, buff, (int)bytesRead, 0);
 			
 			if( [currentParseRun.errorsFatal count] > 0 )
 			{
 				// 3.   if libxml failed chunk, break
 				if( libXmlParserParseError > 0 )
 				{
-				DDLogVerbose(@"[%@] libXml reported internal parser error with magic libxml code = %i (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], libXmlParserParseError );
+				DDLogVerbose(@"[%@] libXml reported internal parser error with magic libxml code = %li (look this up on http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserErrors)", [self class], (long)libXmlParserParseError );
 				currentParseRun.libXMLFailed = YES;
 				}
 				else

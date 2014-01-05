@@ -261,27 +261,6 @@
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
 
-/**
- Higher-performance version of .UIImage property (the property uses this method, but you can tweak the parameters for better performance / worse accuracy)
- 
- NB: you can get BETTER performance using the exportNSDataAntiAliased: version of this method, becuase you bypass Apple's slow code for making UIImage objects
- 
- @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
- @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
- @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
- */
--(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality;
-/**
- Highest-performance version of .UIImage property (this minimizes memory usage and can lead to large speed-ups e.g. when using SVG images as textures with OpenGLES)
- 
- NB: we could probably achieve get even higher performance in OpenGL by sidestepping NSData entirely and using raw byte arrays (should result in zero-copy).
- 
- @param shouldAntialias = Apple defaults to TRUE, but turn it off for small speed boost
- @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
- @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
- */
--(NSData*) exportNSDataAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
-
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
 
 /** alters the SVG image's size directly (by changing the viewport) so that it will fit inside the specifed area without stretching or deforming */
