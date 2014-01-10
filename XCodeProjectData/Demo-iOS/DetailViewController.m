@@ -14,6 +14,26 @@
 #import "SVGKFastImageView.h"
 #import "SVGKLayeredImageView.h"
 
+@interface ImageLoadingOptions : NSObject
+@property(nonatomic) BOOL requiresLayeredImageView;
+@property(nonatomic) CGSize overrideImageSize;
+@property(nonatomic) float overrideImageRenderScale; 
+@property(nonatomic,retain) NSString* diskFilenameToLoad;
+- (id)initWithName:(NSString*) name;
+@end
+@implementation ImageLoadingOptions
+- (id)initWithName:(NSString*) name
+{
+    self = [super init];
+    if (self) {
+		self.diskFilenameToLoad = name;
+        self.overrideImageRenderScale = 1.0;
+		self.overrideImageSize = CGSizeZero;
+    }
+    return self;
+}
+@end
+
 @interface DetailViewController ()
 
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -292,35 +312,47 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 }
 
-- (void)loadResource:(NSString *)name
+-(void) willLoadNewResource
 {
+	// update the view
+	self.subViewLoadingPopup.hidden = FALSE;
+	self.progressLoading.progress = 0;
 	[self.viewActivityIndicator startAnimating];
-	[[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; // makes the animation appear
-	self.startParseTime = self.endParseTime = [NSDate date]; // reset them
+	/** Move the gesture recognizer off the old view */
+	if( self.contentView != nil
+	   && self.tapGestureRecognizer != nil )
+		[self.contentView removeGestureRecognizer:self.tapGestureRecognizer];
 	
-	SVGKImageView* newContentView = nil;
-	BOOL thisImageRequiresLayeredImageView = false;
-	CGSize customSizeForImage = CGSizeZero;
-    
+	[self.labelParseTime removeFromSuperview]; // we'll re-add to the new one
+	[self.contentView removeFromSuperview];
+}
+
+-(void) preProcessImageFor2X:(ImageLoadingOptions*) options
+{
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
-	BOOL shouldScaleTimesTwo = false;
-	if( [name hasSuffix:@"@2x"])
+	if( [options.diskFilenameToLoad hasSuffix:@"@2x"])
 	{
-		name = [name substringToIndex:name.length - @"@2x".length];
-		shouldScaleTimesTwo = true;
-		thisImageRequiresLayeredImageView = true;
+		options.diskFilenameToLoad = [options.diskFilenameToLoad substringToIndex:options.diskFilenameToLoad.length - @"@2x".length];
+		options.overrideImageRenderScale = 2.0;
+		options.requiresLayeredImageView = true;
 	}
 #endif
-	
-	if( [name hasSuffix:@"@160x240"])
+}
+
+-(void) preProcessImageForAt160x240:(ImageLoadingOptions*) options
+{
+	if( [options.diskFilenameToLoad hasSuffix:@"@160x240"]) // could be any 999x999 you want, up to you to implement!
 	{
-		name = [name substringToIndex:name.length - @"@160x240".length];
-		customSizeForImage = CGSizeMake( 160, 240 );
+		options.diskFilenameToLoad = [options.diskFilenameToLoad substringToIndex:options.diskFilenameToLoad.length - @"@160x240".length];
+		options.overrideImageSize = CGSizeMake( 160, 240 );
 	}
-	
+}
+
+-(void) preProcessImageCheckWorkaroundAppleBugInGradientImages:(ImageLoadingOptions*) options
+{
 	if(
-	   [name  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
-	   || [name isEqualToString:@"RainbowWing"] // RainbodWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
+	   [options.diskFilenameToLoad  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
+	   || [options.diskFilenameToLoad isEqualToString:@"RainbowWing"] // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
 	   )
 	{
 		/**
@@ -341,8 +373,26 @@ CATextLayer *textLayerForLastTappedLayer;
 		 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
 		 
 		 */
-		thisImageRequiresLayeredImageView = true;
+		options.requiresLayeredImageView = true;
 	}
+}
+
+- (void)loadResource:(NSString *)name
+{
+	[self willLoadNewResource];
+	[[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; // makes the animation appear
+	
+	self.startParseTime = self.endParseTime = [NSDate date]; // reset them
+	
+	SVGKImageView* newContentView = nil;
+	
+	/** This demo shows different images being used in different ways.
+	 Here we setup special conditions based on the filename etc:
+	 */
+	ImageLoadingOptions* loadingOptions = [[[ImageLoadingOptions alloc] initWithName:name] autorelease];
+	[self preProcessImageFor2X:loadingOptions];
+	[self preProcessImageForAt160x240:loadingOptions];
+	[self preProcessImageCheckWorkaroundAppleBugInGradientImages:loadingOptions];
 	
 	/** Detect the magic name(s) for the nil-demos */
 	if( [name isEqualToString:@"nil-demo-layered-imageview"])
@@ -370,14 +420,13 @@ CATextLayer *textLayerForLastTappedLayer;
 			document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
 		}
 		else
+		{
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
+		}
 		self.endParseTime = [NSDate date];
 		
-		
-#if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
-		if( shouldScaleTimesTwo )
-			document.scale = 2.0;
-#endif
+		if( loadingOptions.overrideImageRenderScale != 1.0 )
+			document.scale = loadingOptions.overrideImageRenderScale;
 		
 		if( document == nil )
 		{
@@ -392,10 +441,10 @@ CATextLayer *textLayerForLastTappedLayer;
 				
 				/** NB: the SVG Spec says that the "correct" way to upscale or downscale an SVG is by changing the
 				 SVG Viewport. SVGKit automagically does this for you if you ever set a value to image.scale */
-				if( ! CGSizeEqualToSize( CGSizeZero, customSizeForImage ) )
-					document.size = customSizeForImage; // preferred way to scale an SVG! (standards compliant!)
+				if( ! CGSizeEqualToSize( CGSizeZero, loadingOptions.overrideImageSize ) )
+					document.size = loadingOptions.overrideImageSize; // preferred way to scale an SVG! (standards compliant!)
 				
-				if( thisImageRequiresLayeredImageView )
+				if( loadingOptions.requiresLayeredImageView )
 				{
 					newContentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
 				}
@@ -417,19 +466,23 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 	}
 	
+	if (_name) {
+		[_name release];
+		_name = nil;
+	}
+	
+	_name = [name copy];
+	
+	[self didLoadNewResourceCreatingImageView:newContentView];
+}
+
+-(void) didLoadNewResourceCreatingImageView:(SVGKImageView*) newContentView
+{
 	if( newContentView != nil )
 	{
 		/**
 		 * NB: at this point we're guaranteed to have a "new" replacemtent ready for self.contentView
 		 */
-		
-		/** Move the gesture recognizer off the old view */
-		if( self.contentView != nil
-		   && self.tapGestureRecognizer != nil )
-			[self.contentView removeGestureRecognizer:self.tapGestureRecognizer];
-		
-		[self.labelParseTime removeFromSuperview]; // we'll re-add to the new one
-		[self.contentView removeFromSuperview];
 		
 		/******* swap the new contentview in ************/
 		self.contentView = newContentView;
@@ -455,13 +508,6 @@ CATextLayer *textLayerForLastTappedLayer;
 			self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 		}
 		[self.contentView addGestureRecognizer:self.tapGestureRecognizer];
-		
-		if (_name) {
-			[_name release];
-			_name = nil;
-		}
-		
-		_name = [name copy];
 		
 		[self.scrollViewForSVG addSubview:self.contentView];
 		[self.scrollViewForSVG setContentSize: self.contentView.frame.size];
@@ -489,6 +535,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 	
 	[self.viewActivityIndicator stopAnimating];
+	self.subViewLoadingPopup.hidden = TRUE;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

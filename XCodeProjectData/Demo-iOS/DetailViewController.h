@@ -30,6 +30,8 @@
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollViewForSVG;
 @property (nonatomic, retain) IBOutlet SVGKImageView *contentView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
+@property (nonatomic, retain) IBOutlet UIProgressView* progressLoading;
+@property (nonatomic, retain) IBOutlet UIView* subViewLoadingPopup;
 
 @property(nonatomic,retain) IBOutlet UILabel* labelParseTime;
 
