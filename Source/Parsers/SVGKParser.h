@@ -79,6 +79,20 @@
  */
 +(void) cancelParser:(SVGKParser*) parserToCancel;
 
+/**
+ Creates an SVGKParser, and adds the "standard" extensions for parsing
+ a standard SVG file; you can then add any of your own custom extensions
+ before triggering the parse with e.g. "parseSynchronously"
+ */
++(SVGKParser *) newParserWithDefaultSVGKParserExtensions:(SVGKSource *)source;
+
+/**
+ Delegates to [self newParserWithDefaultSVGKParserExtensions:], and then auto-starts
+ the parse SYNCHRONOUSLY (may take anything from 0.001 seconds up to 30+ seconds
+ for a huge SVG file).
+ 
+ Returns the fully-parsed result, including any errors
+ */
 + (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
 
 /**

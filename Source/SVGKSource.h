@@ -25,6 +25,10 @@
 @property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
 @property (nonatomic, retain) NSInputStream* stream;
 
+/** If known, the amount of data in bytes contained in this source (e.g. the filesize for a
+ file, or the Content-Length header for a URL). Otherwise "0" for "unknown" */
+@property (nonatomic) uint64_t approximateLengthInBytesOr0;
+
 /**
  Subclasses convert their proprietary data into something that implements NSInputStream, which allows the
  base class to handle everything else

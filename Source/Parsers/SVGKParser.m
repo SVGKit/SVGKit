@@ -78,12 +78,19 @@ SVGKParser* getCurrentlyParsingParser()
 	parserToCancel.hasCancelBeenRequested = TRUE;
 }
 
-+ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
++(SVGKParser *) newParserWithDefaultSVGKParserExtensions:(SVGKSource *)source
 {
-	SVGKParser *parser = [[[SVGKParser alloc] initWithSource:source] autorelease];
+	SVGKParser *parser = [[SVGKParser alloc] initWithSource:source];
 	[parser addDefaultSVGParserExtensions];
 	
+	return parser;
+}
+
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
+{
+	SVGKParser* parser = [self newParserWithDefaultSVGKParserExtensions:source];
 	SVGKParseResult* result = [parser parseSynchronously];
+	[parser release];
 	
 	return result;
 }
@@ -221,13 +228,25 @@ readPacket(char *mem, int size) {
 		// 1. while (source has chunks of BYTES)
 		// 2. Check asynch cancellation flag
 		// 3.   read a chunk from source, send to libxml
+		uint64_t totalBytesRead = 0;
 		NSInteger bytesRead = [stream read:(uint8_t*)&buff maxLength:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
+			totalBytesRead += bytesRead;
+			
 			if( self.hasCancelBeenRequested )
 			{
 				DDLogInfo( @"SVGKParser: 'cancel parse' discovered; bailing on this XML parse" );
 				break;
+			}
+			else
+			{
+				if( source.approximateLengthInBytesOr0 > 0 )
+				{
+					currentParseRun.parseProgressFractionApproximate = totalBytesRead / source.approximateLengthInBytesOr0;
+				}
+				else
+					currentParseRun.parseProgressFractionApproximate = 0;
 			}
 			
 			NSInteger libXmlParserParseError = xmlParseChunk(ctx, buff, (int)bytesRead, 0);
@@ -262,6 +281,8 @@ readPacket(char *mem, int size) {
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
 	
 	xmlFreeParserCtxt(ctx);
+	
+	[[NSThread currentThread].threadDictionary removeObjectForKey:kThreadLocalCurrentlyActiveParser];
 	
 	// 4. return result
 	return currentParseRun;

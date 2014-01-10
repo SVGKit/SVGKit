@@ -37,6 +37,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SVGKParser.h" // needed for asynchronous loading method-signature
+
 @class SVGDocument;
 @class SVGSVGElement;
 @class SVGKSource;
@@ -45,6 +47,9 @@
 #define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
 
 @class SVGDefsElement;
+
+@class SVGKImage; // needed for typedef below
+typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
 
 @interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
 {
@@ -84,6 +89,15 @@
  - Creates an SVGKSource so that you can later inspect exactly where it found the file
  */
 + (SVGKImage *)imageNamed:(NSString *)name;
+/**
+ Almost identical to imageNamed: except that it performs the parse in a separate thread.
+ 
+ Returns an SVGKParser object that you can cancel, or inspect for progress (using parser.currentParseRun)
+ 
+ UNLESS the image was already loaded, and a cached version can be returned - in which case,
+ returns nil and immmediately calls the completion block
+ */
++(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate) blockCompleted;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
 #if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
 + (SVGKImage *)imageWithData:(NSData *)data;

@@ -437,7 +437,8 @@ CATextLayer *textLayerForLastTappedLayer;
 		if( self.labelParseTime == nil )
 		{
 			self.labelParseTime = [[[UILabel alloc] init] autorelease];
-			self.labelParseTime.frame = CGRectMake( 0, 0, self.view.bounds.size.width, 20.0 );
+			self.labelParseTime.frame = CGRectMake( 0, 0, self.contentView.bounds.size.width, 20.0 );
+			self.labelParseTime.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 			self.labelParseTime.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
 			self.labelParseTime.textColor = [UIColor blackColor];
 			self.labelParseTime.text = @"(parsing)";
