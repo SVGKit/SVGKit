@@ -43,11 +43,12 @@
 - (void)loadResource:(NSString *)name;
 - (void)shakeHead;
 
-/** Apple's NSTimer class is an old OS X class that's badly designed, often causes
- crashes, and doesn't place nicely with ObjC blocks (Apple needs to substantially re-design
- it to work with their new feature). It sets up infinite retain cycles and you can't set
- the .userInfo after its started (which is ridiculous, but a side-effect of the crazy internal
- retain'ing Apple does)
+/** Apple's NSTimer class is an old OS X class that doesn't place nicely with ObjC blocks
+ (Apple needs to upgrade it). It sets up some nasty retain cycles and you can't set
+ the .userInfo after its started (a side-effect of the internal retain'ing Apple does)
+ 
+ By storing this reference here, we can give a block a reference in advance, while also
+ giving the block's output to the timer as .userinfo at creation time
  */
 @property (nonatomic, retain) NSTimer* tickerLoadingApplesNSTimerSucks;
 
@@ -335,6 +336,9 @@ CATextLayer *textLayerForLastTappedLayer;
 	[self.contentView removeFromSuperview];
 }
 
+/**
+ If you want to emulate Apple's @2x naming system for UIImage, you can...
+ */
 -(void) preProcessImageFor2X:(ImageLoadingOptions*) options
 {
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
@@ -347,6 +351,9 @@ CATextLayer *textLayerForLastTappedLayer;
 #endif
 }
 
+/**
+ If you want to emulate Apple's @WxH naming system for UIImage, you can...
+ */
 -(void) preProcessImageForAt160x240:(ImageLoadingOptions*) options
 {
 	if( [options.diskFilenameToLoad hasSuffix:@"@160x240"]) // could be any 999x999 you want, up to you to implement!
@@ -356,6 +363,9 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 }
 
+/**
+ Sometimes you HAVE to use an SVGKLayeredImageView...
+ */
 -(void) preProcessImageCheckWorkaroundAppleBugInGradientImages:(ImageLoadingOptions*) options
 {
 	if(
@@ -427,7 +437,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 		else
 		{
-#define LOAD_SYNCHRONOUSLY 0
+#define LOAD_SYNCHRONOUSLY 0 // Synchronous load is less code, easier to write - but poor for large images
 #if LOAD_SYNCHRONOUSLY
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 			[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:document];
@@ -447,6 +457,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 }
 
+/** Updates the on-screen loading bar */
 -(void) tickLoadingSVG:(NSTimer*) timer
 {
 	SVGKParser* parser = (SVGKParser*) timer.userInfo;
@@ -458,6 +469,10 @@ CATextLayer *textLayerForLastTappedLayer;
 	});
 }
 
+/**
+ Creates an appopriate SVGKImageView to display the loaded SVGKImage, and triggers the post-processing
+ of on-screen displays
+ */
 -(void) internalLoadedResource:(NSString*) name withOptions:(ImageLoadingOptions*) loadingOptions createImageViewFromDocument:(SVGKImage*) document
 {
 	self.endParseTime = [NSDate date];
@@ -513,6 +528,10 @@ CATextLayer *textLayerForLastTappedLayer;
 	[self didLoadNewResourceCreatingImageView:newContentView];
 }
 
+/**
+ Reconfigures the view to display the newly-loaded image, and display meta info
+ about how long it took to parse, etc
+ */
 -(void) didLoadNewResourceCreatingImageView:(SVGKImageView*) newContentView
 {
 	if( newContentView != nil )
