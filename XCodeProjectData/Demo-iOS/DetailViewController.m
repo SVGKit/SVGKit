@@ -422,9 +422,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	else
 	{
 		/**
-		 FINALLY:
-		 
-		 the actual loading of the SVG file and making a view to display it!
+		 the actual loading of the SVG file
 		 */
 		
 		SVGKImage *document = nil;
@@ -437,7 +435,6 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 		else
 		{
-#define LOAD_SYNCHRONOUSLY 0 // Synchronous load is less code, easier to write - but poor for large images
 #if LOAD_SYNCHRONOUSLY
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 			[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:document];
