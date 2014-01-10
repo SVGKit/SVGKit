@@ -223,6 +223,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 					   }
 #endif
 					   
+					   blockCompleted( finalImage );
 				   });
 	
     return parser;

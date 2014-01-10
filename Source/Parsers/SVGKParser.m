@@ -243,7 +243,7 @@ readPacket(char *mem, int size) {
 			{
 				if( source.approximateLengthInBytesOr0 > 0 )
 				{
-					currentParseRun.parseProgressFractionApproximate = totalBytesRead / source.approximateLengthInBytesOr0;
+					currentParseRun.parseProgressFractionApproximate = totalBytesRead / (double) source.approximateLengthInBytesOr0;
 				}
 				else
 					currentParseRun.parseProgressFractionApproximate = 0;
