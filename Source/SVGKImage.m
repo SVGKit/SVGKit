@@ -577,6 +577,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return nil;
 	else
 	{		
+		/** CALayer has the magic valueForKey method */
+		NSString* layerID = [originalLayer valueForKey:kSVGElementIdentifier];
+		if( layerID != nil )
+			[clonedLayer setValue:layerID forKey:kSVGElementIdentifier];
+		
+		
 		CGRect lFrame = clonedLayer.frame;
 		CGFloat xOffset = 0.0;
 		CGFloat yOffset = 0.0;
@@ -712,7 +718,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		DDLogInfo(@"[%@] ...time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );		
 	}
 	else
-		DDLogVerbose(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
+		DDLogVerbose(@"[%@] fetching CALayerTree: re-using cached CALayers (FREE))", [self class] );
 	
 	return CALayerTree;
 }

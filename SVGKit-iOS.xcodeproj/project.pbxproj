@@ -81,6 +81,9 @@
 		66988DCF168A129500EC93C7 /* CSSValueList.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DCD168A129500EC93C7 /* CSSValueList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DD0168A129500EC93C7 /* CSSValueList.m in Sources */ = {isa = PBXBuildFile; fileRef = 66988DCE168A129500EC93C7 /* CSSValueList.m */; };
 		66988DD3168A13BD00EC93C7 /* CSSValue_ForSubclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DD1168A13BC00EC93C7 /* CSSValue_ForSubclasses.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66E4E5C4188EF5D3007DFCAA /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD78175F542A0072AAEF /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66E4E5C5188EF5D3007DFCAA /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD7A175F542A0072AAEF /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66E4E5C6188EF5D3007DFCAA /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD7C175F542A0072AAEF /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E8639F1688C2780059C9C4 /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863A01688C2780059C9C4 /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8630F1688C2770059C9C4 /* AppleSucksDOMImplementation.m */; };
 		66E863A11688C2780059C9C4 /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863101688C2770059C9C4 /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -899,6 +902,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E8639F1688C2780059C9C4 /* AppleSucksDOMImplementation.h in Headers */,
+				66E4E5C4188EF5D3007DFCAA /* SVGKSourceLocalFile.h in Headers */,
+				66E4E5C5188EF5D3007DFCAA /* SVGKSourceString.h in Headers */,
+				66E4E5C6188EF5D3007DFCAA /* SVGKSourceURL.h in Headers */,
 				66849FAD18393EC600AE4F28 /* NamedNodeMap_Iterable.h in Headers */,
 				66E863A11688C2780059C9C4 /* Attr.h in Headers */,
 				66E863A31688C2780059C9C4 /* CDATASection.h in Headers */,
