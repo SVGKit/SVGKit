@@ -31,6 +31,7 @@
 		661ADBFC16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBFB16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661AE44916D13DA8005E69D9 /* SVGTransformable.h in Headers */ = {isa = PBXBuildFile; fileRef = 663FD01716CAF05900CCBFB3 /* SVGTransformable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661AE44A16D13DAD005E69D9 /* SVGFitToViewBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 66A09CB016CFF494003CD5CD /* SVGFitToViewBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		663403A4188EFC8A0077005F /* CALayer+RecursiveClone.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD88175F54680072AAEF /* CALayer+RecursiveClone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6636CD7F175F542A0072AAEF /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD79175F542A0072AAEF /* SVGKSourceLocalFile.m */; };
 		6636CD81175F542A0072AAEF /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD7B175F542A0072AAEF /* SVGKSourceString.m */; };
 		6636CD83175F542A0072AAEF /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD7D175F542A0072AAEF /* SVGKSourceURL.m */; };
@@ -973,6 +974,7 @@
 				66E8640D1688C2780059C9C4 /* SVGKPointsAndPathsParser.h in Headers */,
 				66E8640F1688C2780059C9C4 /* CALayerWithChildHitTest.h in Headers */,
 				66E864111688C2780059C9C4 /* CAShapeLayerWithHitTest.h in Headers */,
+				663403A4188EFC8A0077005F /* CALayer+RecursiveClone.h in Headers */,
 				66E864131688C2780059C9C4 /* CGPathAdditions.h in Headers */,
 				66E864151688C2780059C9C4 /* SVGKLayer.h in Headers */,
 				66E864171688C2780059C9C4 /* SVGKImage.h in Headers */,
