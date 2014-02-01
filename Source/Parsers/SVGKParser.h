@@ -69,9 +69,39 @@
 
 #pragma mark - NEW
 
-+ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
-- (SVGKParseResult*) parseSynchronously;
+/**
+ If you kept the SVGKParser instance when you started a parse, you can
+ hand that instance to another thread and the OTHER thread can trigger
+ a cancel.
+ 
+ It is not instantaneous, but kicks in as soon as more data is read from
+ the raw bytes-stream, so it's pretty quick
+ */
++(void) cancelParser:(SVGKParser*) parserToCancel;
 
+/**
+ Creates an SVGKParser, and adds the "standard" extensions for parsing
+ a standard SVG file; you can then add any of your own custom extensions
+ before triggering the parse with e.g. "parseSynchronously"
+ */
++(SVGKParser *) newParserWithDefaultSVGKParserExtensions:(SVGKSource *)source;
+
+/**
+ Delegates to [self newParserWithDefaultSVGKParserExtensions:], and then auto-starts
+ the parse SYNCHRONOUSLY (may take anything from 0.001 seconds up to 30+ seconds
+ for a huge SVG file).
+ 
+ Returns the fully-parsed result, including any errors
+ */
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
+
+/**
+ This MIGHT now be safe to call multiple times on different threads
+ (NB: the only reason it wasn't safe before was major bugs in libxml
+ that break libxml in horrible ways, see the source code to this class
+ for more info)
+ */
+- (SVGKParseResult*) parseSynchronously;
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute;
 

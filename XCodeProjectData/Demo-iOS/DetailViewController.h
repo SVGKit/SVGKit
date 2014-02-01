@@ -12,6 +12,8 @@
 #import "CALayerExporter.h"
 #import "SVGKImage.h"
 
+#define LOAD_SYNCHRONOUSLY 0 // Synchronous load is less code, easier to write - but poor for large images
+
 #define ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE 1 // demonstrates using the "SVGKImage.scale" property to scale an SVG *before it generates output image data*
 
 #define ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING 1 // only exists because people ignore the docs and try to do this when they clearly shouldn't. If you're foolish enough to do this, this code will show you how to do it CORRECTLY. Look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
@@ -30,6 +32,8 @@
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollViewForSVG;
 @property (nonatomic, retain) IBOutlet SVGKImageView *contentView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
+@property (nonatomic, retain) IBOutlet UIProgressView* progressLoading;
+@property (nonatomic, retain) IBOutlet UIView* subViewLoadingPopup;
 
 @property(nonatomic,retain) IBOutlet UILabel* labelParseTime;
 
