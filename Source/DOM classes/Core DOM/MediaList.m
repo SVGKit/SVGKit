@@ -6,8 +6,8 @@
 @synthesize length;
 
 - (void)dealloc {
-  [mediaText release];
-  [super dealloc];
+  [mediaText RELEASE];
+  [super DEALLOC];
 }
 
 -(NSString*) item:(unsigned long) index

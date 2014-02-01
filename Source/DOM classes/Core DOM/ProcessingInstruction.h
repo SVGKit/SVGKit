@@ -17,8 +17,8 @@
 #import "Node.h"
 
 @interface ProcessingInstruction : Node
-@property(nonatomic,retain,readonly) NSString* target;
-@property(nonatomic,retain,readonly) NSString* data;
+@property(nonatomic, STRONG,readonly) NSString* target;
+@property(nonatomic, STRONG,readonly) NSString* data;
 
 -(id) initProcessingInstruction:(NSString*) target value:(NSString*) data;
 

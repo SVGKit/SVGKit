@@ -6,7 +6,7 @@
 
 - (void)dealloc {
   self.internalArray = nil;
-  [super dealloc];
+  [super DEALLOC];
 }
 
 - (id)init

@@ -9,8 +9,8 @@
 #import "CALayerExporter.h"
 
 typedef struct ExportPathCommandsContext {
-    NSString* pathName;
-    NSMutableString* pathCommands;
+    __unsafe_unretained NSString* pathName;
+    __unsafe_unretained NSMutableString* pathCommands;
 } ExportPathCommandsContext;
 
 void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
@@ -73,7 +73,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [[NSMutableDictionary dictionary] retain];
+        propertyRegistry = [[NSMutableDictionary dictionary] RETAIN];
         
         NSArray* CALayerProperties = [NSArray arrayWithObjects:@"name", @"bounds", @"frame", nil];
         [propertyRegistry setObject:CALayerProperties
@@ -87,8 +87,8 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 }
 
 - (void)dealloc {
-    [rootView release];
-    [super dealloc];
+    [rootView RELEASE];
+    [super DEALLOC];
 }
 
 - (void)startExport
@@ -264,7 +264,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                    didParseLayer:currentLayer
                    withStatement:addSublayerStatement];
     
-    NSString* releaseStatement = [NSString stringWithFormat:@"[%@ release];", layerName];
+    NSString* releaseStatement = [NSString stringWithFormat:@"[%@ RELEASE];", layerName];
     [self.delegate layerExporter:self
                    didParseLayer:currentLayer
                    withStatement:releaseStatement];

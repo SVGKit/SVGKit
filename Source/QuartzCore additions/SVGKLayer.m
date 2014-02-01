@@ -13,7 +13,7 @@
 /** Apple requires this to be implemented by CALayer subclasses */
 +(id)layer
 {
-	SVGKLayer* layer = [[[SVGKLayer alloc] init] autorelease];
+	SVGKLayer* layer = [[[SVGKLayer alloc] init] AUTORELEASE];
 	return layer;
 }
 
@@ -39,7 +39,7 @@
 	if( _SVGImage != nil )
 	{
 		[_SVGImage.CALayerTree removeFromSuperlayer];
-		[_SVGImage release];
+		[_SVGImage RELEASE];
 	}
 	
 	/** 2: update pointer */
@@ -48,7 +48,7 @@
 	/** 3: add new */
 	if( _SVGImage != nil )
 	{
-		[_SVGImage retain];
+		[_SVGImage RETAIN];
 		self.startRenderTime = [NSDate date];
 		[self addSublayer:_SVGImage.CALayerTree];
 		self.endRenderTime = [NSDate date];
@@ -61,7 +61,7 @@
 	
 	self.SVGImage = nil;
 	
-    [super dealloc];
+    [super DEALLOC];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */

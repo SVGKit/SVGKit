@@ -9,7 +9,7 @@
 
 @interface SVGAnimatedPreserveAspectRatio : NSObject
 
-@property(nonatomic,retain) SVGPreserveAspectRatio* baseVal;
-@property(nonatomic,retain, readonly) SVGPreserveAspectRatio* animVal;
+@property(nonatomic, STRONG) SVGPreserveAspectRatio* baseVal;
+@property(nonatomic, STRONG, readonly) SVGPreserveAspectRatio* animVal;
 
 @end

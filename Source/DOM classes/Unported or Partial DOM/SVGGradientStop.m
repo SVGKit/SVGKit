@@ -65,7 +65,7 @@
 //{
 //    
 //    
-//    [super dealloc];
+//    [super DEALLOC];
 //}
 
 @end

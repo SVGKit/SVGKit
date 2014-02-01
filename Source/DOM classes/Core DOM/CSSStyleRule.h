@@ -14,8 +14,8 @@
 
 @interface CSSStyleRule : CSSRule
 
-@property(nonatomic,retain) NSString* selectorText;
-@property(nonatomic,retain) CSSStyleDeclaration* style;
+@property(nonatomic, STRONG) NSString* selectorText;
+@property(nonatomic, STRONG) CSSStyleDeclaration* style;
 
 #pragma mark - methods needed for ObjectiveC implementation
 

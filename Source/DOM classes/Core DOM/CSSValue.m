@@ -7,8 +7,8 @@
 @synthesize cssValueType;
 
 - (void)dealloc {
-    [_cssText release];
-    [super dealloc];
+    [_cssText RELEASE];
+    [super DEALLOC];
 }
 
 - (id)init

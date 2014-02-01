@@ -16,8 +16,8 @@
 
 - (void)dealloc {
     CGPathRelease(maskPath);
-    [stopIdentifiers release];
-    [super dealloc];
+    [stopIdentifiers RELEASE];
+    [super DEALLOC];
 }
 
 - (void)setMaskPath:(CGPathRef)maskP {
@@ -42,7 +42,7 @@
         CGContextConcatCTM(ctx, CGAffineTransformMake(1, 0, 0, 1, -self.startPoint.x, -self.startPoint.y));
         
         if (self.colors.count) {
-            CGColorRef colorRef = (CGColorRef)[self.colors objectAtIndex:0];
+            CGColorRef colorRef = (__bridge CGColorRef)[self.colors objectAtIndex:0];
             numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
             

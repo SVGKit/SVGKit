@@ -6,7 +6,7 @@
 {
     self = [super init];
     if (self) {
-        self.baseVal = [[SVGPreserveAspectRatio new] autorelease];
+        self.baseVal = [[SVGPreserveAspectRatio new] AUTORELEASE];
     }
     return self;
 }
@@ -16,7 +16,7 @@
  */
 -(SVGPreserveAspectRatio *)animVal
 {
-	SVGPreserveAspectRatio* cloneOfBase = [[SVGPreserveAspectRatio new] autorelease];
+	SVGPreserveAspectRatio* cloneOfBase = [[SVGPreserveAspectRatio new] AUTORELEASE];
 	
 	cloneOfBase.align = self.baseVal.align;
 	cloneOfBase.meetOrSlice = self.baseVal.meetOrSlice;

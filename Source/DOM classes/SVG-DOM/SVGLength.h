@@ -48,7 +48,7 @@ typedef enum SVG_LENGTH_TYPE
 @property(nonatomic,readonly) SVG_LENGTH_TYPE unitType;
 @property(nonatomic) float value;
 @property(nonatomic) float valueInSpecifiedUnits;
-@property(nonatomic,retain) NSString* valueAsString;
+@property(nonatomic, STRONG) NSString* valueAsString;
 	
 -(void) newValueSpecifiedUnits:(SVG_LENGTH_TYPE) unitType valueInSpecifiedUnits:(float) valueInSpecifiedUnits;
 -(void) convertToSpecifiedUnits:(SVG_LENGTH_TYPE) unitType;

@@ -23,14 +23,14 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	[stream open];
 	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] AUTORELEASE];
 	return s;
 }
 
 - (void)dealloc {
 	self.svgLanguageVersion = nil;
 	self.stream = nil;
-	[super dealloc];
+	[super DEALLOC];
 }
 
 @end

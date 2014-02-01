@@ -12,15 +12,15 @@
 
 @interface SVGKParseResult : NSObject
 
-@property(nonatomic, retain) NSMutableArray* warnings, * errorsRecoverable, * errorsFatal;
+@property(nonatomic, STRONG) NSMutableArray* warnings, * errorsRecoverable, * errorsFatal;
 @property(nonatomic) BOOL libXMLFailed;
 /** 0.0 = no parsing done yet, 0.x = partially parsed, 1.0 = parse complete (no fatal errors) */
 @property(nonatomic) double parseProgressFractionApproximate;
 
-@property(nonatomic,retain) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
-@property(nonatomic,retain) SVGDocument* parsedDocument; /*< both are needed, see spec */
+@property(nonatomic, STRONG) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
+@property(nonatomic, STRONG) SVGDocument* parsedDocument; /*< both are needed, see spec */
 
-@property(nonatomic,retain) NSMutableDictionary* namespacesEncountered; /**< maps "prefix" to "uri" */
+@property(nonatomic, STRONG) NSMutableDictionary* namespacesEncountered; /**< maps "prefix" to "uri" */
 
 -(void) addSourceError:(NSError*) fatalError;
 -(void) addParseWarning:(NSError*) warning;
@@ -30,7 +30,7 @@
 
 #if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
 /*! Each SVGKParserExtension can optionally save extra data here */
-@property(nonatomic,retain) NSMutableDictionary* extensionsData;
+@property(nonatomic, STRONG) NSMutableDictionary* extensionsData;
 
 -(NSMutableDictionary*) dictionaryForParserExtension:(NSObject<SVGKParserExtension>*) extension;
 #endif

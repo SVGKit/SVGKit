@@ -1,4 +1,6 @@
 #import "StyleSheet.h"
+#import "Node.h"
+#import "MediaList.h"
 
 @implementation StyleSheet
 
@@ -11,13 +13,13 @@
 @synthesize media;
 
 - (void)dealloc {
-  [type release];
-  [ownerNode release];
-  [parentStyleSheet release];
-  [href release];
-  [title release];
-  [media release];
-  [super dealloc];
+  [type RELEASE];
+  [ownerNode RELEASE];
+  [parentStyleSheet RELEASE];
+  [href RELEASE];
+  [title RELEASE];
+  [media RELEASE];
+  [super DEALLOC];
 }
 
 @end

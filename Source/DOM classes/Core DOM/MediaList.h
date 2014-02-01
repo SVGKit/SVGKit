@@ -17,7 +17,7 @@
 
 @interface MediaList : NSObject
 
-@property(nonatomic,retain) NSString* mediaText;
+@property(nonatomic, STRONG) NSString* mediaText;
 @property(nonatomic) unsigned long length;
 
 -(NSString*) item:(unsigned long) index;

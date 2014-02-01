@@ -19,10 +19,10 @@
 
 - (void)dealloc
 {
-	[_window release];
-	[_navigationController release];
-	[_splitViewController release];
-    [super dealloc];
+	[_window RELEASE];
+	[_navigationController RELEASE];
+	[_splitViewController RELEASE];
+    [super DEALLOC];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,15 +30,15 @@
     
     [SVGKit enableLogging];
 
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] AUTORELEASE];
     // Override point for customization after application launch.
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-	    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController_iPhone" bundle:nil] autorelease];
-	    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
+	    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController_iPhone" bundle:nil] AUTORELEASE];
+	    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] AUTORELEASE];
 	    self.window.rootViewController = self.navigationController;
 	} else {
-	    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController_iPad" bundle:nil] autorelease];
-	    UINavigationController *masterNavigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
+	    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController_iPad" bundle:nil] AUTORELEASE];
+	    UINavigationController *masterNavigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] AUTORELEASE];
 	    
 		/**
 		 ADAM: NB: I had to rename the XIB file.
@@ -49,12 +49,12 @@
 		 
 		 Even restarting didn't fix Xcode, but renaming the file does.
 		 */
-	    DetailViewController *detailViewController = [[[DetailViewController alloc] initWithNibName:@"iPadDetailViewController" bundle:nil] autorelease];
-	    UINavigationController *detailNavigationController = [[[UINavigationController alloc] initWithRootViewController:detailViewController] autorelease];
+	    DetailViewController *detailViewController = [[[DetailViewController alloc] initWithNibName:@"iPadDetailViewController" bundle:nil] AUTORELEASE];
+	    UINavigationController *detailNavigationController = [[[UINavigationController alloc] initWithRootViewController:detailViewController] AUTORELEASE];
 		
 		masterViewController.detailViewController = detailViewController;
 		
-	    self.splitViewController = [[[UISplitViewController alloc] init] autorelease];
+	    self.splitViewController = [[[UISplitViewController alloc] init] AUTORELEASE];
 	    self.splitViewController.delegate = detailViewController;
 	    self.splitViewController.viewControllers = [NSArray arrayWithObjects:masterNavigationController, detailNavigationController, nil];
 	    

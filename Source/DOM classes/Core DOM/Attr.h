@@ -23,12 +23,12 @@
 @interface Attr : Node
 
 /*! NB: The official DOM spec FAILS TO SPECIFY what the value of "name" is */
-@property(nonatomic,retain,readonly) NSString* name;
+@property(nonatomic, STRONG,readonly) NSString* name;
 @property(nonatomic,readonly) BOOL specified;
-@property(nonatomic,retain,readonly) NSString* value;
+@property(nonatomic, STRONG,readonly) NSString* value;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) Element* ownerElement;
+@property(nonatomic, STRONG,readonly) Element* ownerElement;
 
 #pragma mark - ObjC methods
 

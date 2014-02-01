@@ -17,6 +17,6 @@
 
 @property (nonatomic) /* SVGAnimatedRect */ SVGRect viewBox;
 
-@property(nonatomic,retain) SVGAnimatedPreserveAspectRatio* preserveAspectRatio;
+@property(nonatomic, STRONG) SVGAnimatedPreserveAspectRatio* preserveAspectRatio;
 
 @end

@@ -5,7 +5,7 @@
 
 @interface SVGKSourceURL : SVGKSource
 
-@property (nonatomic, retain) NSURL* URL;
+@property (nonatomic, STRONG) NSURL* URL;
 
 + (SVGKSource*)sourceFromURL:(NSURL*)u;
 

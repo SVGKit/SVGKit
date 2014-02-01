@@ -1,5 +1,5 @@
 #import "StyleSheetList.h"
 
 @interface StyleSheetList()
-@property(nonatomic,retain) NSMutableArray* internalArray;
+@property(nonatomic, STRONG) NSMutableArray* internalArray;
 @end

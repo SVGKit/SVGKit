@@ -33,7 +33,7 @@
 - (void)dealloc {
 	CGPathRelease(_pathForShapeInRelativeCoords);
     
-	[super dealloc];
+	[super DEALLOC];
 }
 
 -(void)setPathForShapeInRelativeCoords:(CGPathRef)pathForShapeInRelativeCoords

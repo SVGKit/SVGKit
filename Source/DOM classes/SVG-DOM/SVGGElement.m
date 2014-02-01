@@ -11,7 +11,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest layer] RETAIN];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	

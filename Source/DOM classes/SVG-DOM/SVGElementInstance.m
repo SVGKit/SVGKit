@@ -15,7 +15,7 @@
     self.childNodes = nil;
     self.correspondingElement = nil;
     self.correspondingUseElement = nil;
-    [super dealloc];
+    [super DEALLOC];
 }
 
 -(void)setParentNode:(SVGElementInstance *)newParentNode
@@ -27,14 +27,14 @@
 			/* additionally remove self from parent's childNodes */
 			[self.parentNode.childNodes.internalArray removeObject:self];
 			
-			[parentNode release];
+			[parentNode RELEASE];
 			parentNode = newParentNode;
 		}
 		else
 		{
 			/* additionally ADD self to parent's childNodes */
 			parentNode = newParentNode;
-			[parentNode retain];
+			[parentNode RETAIN];
 			
 			NSAssert( NSNotFound != [self.parentNode.childNodes.internalArray indexOfObject:self], @"Found that I was already a child of the node that I was being added to - should be impossible!" );
 			

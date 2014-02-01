@@ -16,7 +16,7 @@
 
 - (void)dealloc {
     self.internalArray = nil;
-    [super dealloc];
+    [super DEALLOC];
 }
 
 -(unsigned long)length

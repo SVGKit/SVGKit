@@ -60,8 +60,8 @@
 		specificClone.borderColor = selfSpecific.borderColor;
 		specificClone.opacity = selfSpecific.opacity;
 		specificClone.compositingFilter = selfSpecific.compositingFilter;
-		specificClone.filters = [[selfSpecific.filters copy] autorelease];
-		specificClone.backgroundFilters = [[selfSpecific.backgroundFilters copy] autorelease];
+		specificClone.filters = [[selfSpecific.filters copy] AUTORELEASE];
+		specificClone.backgroundFilters = [[selfSpecific.backgroundFilters copy] AUTORELEASE];
 		specificClone.shouldRasterize = selfSpecific.shouldRasterize;
 		specificClone.rasterizationScale = selfSpecific.rasterizationScale;
 		specificClone.shadowColor = selfSpecific.shadowColor;
@@ -70,7 +70,7 @@
 		specificClone.shadowRadius = selfSpecific.shadowRadius;
 		specificClone.shadowPath = selfSpecific.shadowPath;
 		specificClone.name = selfSpecific.name;
-		specificClone.style = [[selfSpecific.style copy] autorelease];
+		specificClone.style = [[selfSpecific.style copy] AUTORELEASE];
 	}
 	
 	if( [clone isKindOfClass:[CAGradientLayer class]])
@@ -81,8 +81,8 @@
 		specificClone.startPoint = selfSpecific.startPoint;
 		specificClone.endPoint = selfSpecific.endPoint;
 		specificClone.type = selfSpecific.type;
-		specificClone.colors = [[selfSpecific.colors copy] autorelease];
-		specificClone.locations = [[selfSpecific.locations copy] autorelease];
+		specificClone.colors = [[selfSpecific.colors copy] AUTORELEASE];
+		specificClone.locations = [[selfSpecific.locations copy] AUTORELEASE];
 	}
 	
 	if( [clone isKindOfClass:[CAShapeLayer class]])

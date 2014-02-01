@@ -28,11 +28,11 @@
 
 @interface SVGUseElement : SVGElement < SVGTransformable /*FIXME: delete this rubbish:*/, ConverterSVGToCALayer>
 
-@property(nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
-@property(nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;
-@property(nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* width;
-@property(nonatomic, retain, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
-@property(nonatomic, retain, readonly) SVGElementInstance* instanceRoot;
-@property(nonatomic, retain, readonly) SVGElementInstance* animatedInstanceRoot;
+@property(nonatomic, STRONG, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
+@property(nonatomic, STRONG, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;
+@property(nonatomic, STRONG, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* width;
+@property(nonatomic, STRONG, readonly) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
+@property(nonatomic, STRONG, readonly) SVGElementInstance* instanceRoot;
+@property(nonatomic, STRONG, readonly) SVGElementInstance* animatedInstanceRoot;
 
 @end

@@ -31,10 +31,10 @@
 #import "StyleSheetList+Mutable.h"
 
 @interface SVGKParser()
-@property(nonatomic,retain, readwrite) SVGKSource* source;
-@property(nonatomic,retain, readwrite) NSMutableArray* externalStylesheets;
-@property(nonatomic,retain, readwrite) SVGKParseResult* currentParseRun;
-@property(nonatomic,retain) NSString* defaultXMLNamespaceForThisParseRun;
+@property(nonatomic, STRONG, readwrite) SVGKSource* source;
+@property(nonatomic, STRONG, readwrite) NSMutableArray* externalStylesheets;
+@property(nonatomic, STRONG, readwrite) SVGKParseResult* currentParseRun;
+@property(nonatomic, STRONG) NSString* defaultXMLNamespaceForThisParseRun;
 @property(nonatomic) BOOL hasCancelBeenRequested;
 @end
 
@@ -90,7 +90,7 @@ SVGKParser* getCurrentlyParsingParser()
 {
 	SVGKParser* parser = [self newParserWithDefaultSVGKParserExtensions:source];
 	SVGKParseResult* result = [parser parseSynchronously];
-	[parser release];
+	[parser RELEASE];
 	
 	return result;
 }
@@ -116,23 +116,23 @@ SVGKParser* getCurrentlyParsingParser()
 	self.currentParseRun = nil;
 	self.source = nil;
     self.externalStylesheets = nil;
-	[_storedChars release];
-	[_stackOfParserExtensions release];
-   // [_parentOfCurrentNode release];
+	[_storedChars RELEASE];
+	[_stackOfParserExtensions RELEASE];
+   // [_parentOfCurrentNode RELEASE];
 	self.parserExtensions = nil;
     self.parserKnownNamespaces = nil;
     self.defaultXMLNamespaceForThisParseRun = nil;
-	[super dealloc];
+	[super DEALLOC];
 }
 
 -(void) addDefaultSVGParserExtensions
 {
-	SVGKParserSVG *subParserSVG = [[[SVGKParserSVG alloc] init] autorelease];
-	SVGKParserGradient* subParserGradients = [[[SVGKParserGradient alloc] init] autorelease];
-	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[[SVGKParserPatternsAndGradients alloc] init] autorelease];
-	SVGKParserStyles* subParserStyles = [[[SVGKParserStyles alloc] init] autorelease];
-	SVGKParserDefsAndUse *subParserDefsAndUse = [[[SVGKParserDefsAndUse alloc] init] autorelease];
-	SVGKParserDOM *subParserXMLDOM = [[[SVGKParserDOM alloc] init] autorelease];
+	SVGKParserSVG *subParserSVG = [[[SVGKParserSVG alloc] init] AUTORELEASE];
+	SVGKParserGradient* subParserGradients = [[[SVGKParserGradient alloc] init] AUTORELEASE];
+	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[[SVGKParserPatternsAndGradients alloc] init] AUTORELEASE];
+	SVGKParserStyles* subParserStyles = [[[SVGKParserStyles alloc] init] AUTORELEASE];
+	SVGKParserDefsAndUse *subParserDefsAndUse = [[[SVGKParserDefsAndUse alloc] init] AUTORELEASE];
+	SVGKParserDOM *subParserXMLDOM = [[[SVGKParserDOM alloc] init] AUTORELEASE];
 	
 	[self addParserExtension:subParserSVG];
 	[self addParserExtension:subParserGradients];
@@ -187,7 +187,7 @@ readPacket(char *mem, int size) {
 
 - (SVGKParseResult*) parseSynchronously
 {
-	self.currentParseRun = [[SVGKParseResult new] autorelease];
+	self.currentParseRun = [[SVGKParseResult new] AUTORELEASE];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
 	[[NSThread currentThread].threadDictionary setObject:self forKey:kThreadLocalCurrentlyActiveParser];
@@ -341,7 +341,7 @@ readPacket(char *mem, int size) {
     do
     {
         bytesRead = [src.stream read:byteBuffer maxLength:4096];
-        NSString *read = [[[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
+        NSString *read = [[[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding] AUTORELEASE];
         if( result )
             result = [result stringByAppendingString:read];
         else
@@ -367,12 +367,12 @@ readPacket(char *mem, int size) {
                 if( cssSource != nil )
                 {
                     NSString *cssText = [self stringFromSource:cssSource];
-                    CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:cssText] autorelease];
+                    CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:cssText] AUTORELEASE];
                     
                     if( currentParseRun.parsedDocument.rootElement == nil )
                     {
                         if( self.externalStylesheets == nil )
-                            self.externalStylesheets = [[[NSMutableArray alloc] init] autorelease];
+                            self.externalStylesheets = [[[NSMutableArray alloc] init] AUTORELEASE];
                         [self.externalStylesheets addObject:parsedStylesheet];
                     }
                     else
@@ -390,7 +390,7 @@ readPacket(char *mem, int size) {
     if( self.externalStylesheets != nil )
     {
         [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObjectsFromArray:self.externalStylesheets];
-        [self.externalStylesheets release];
+        [self.externalStylesheets RELEASE];
         self.externalStylesheets = nil;
     }
 }
@@ -419,7 +419,7 @@ static void processingInstructionSAX (void * ctx,
 		/** Send any partially-parsed text data into the old node that is now the parent node,
 		 then change the "storing chars" flag to fit the new node */
 		
-		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		Text *tNode = [[[Text alloc] initWithValue:_storedChars] AUTORELEASE];
 		
 		[_parentOfCurrentNode appendChild:tNode];
 		
@@ -600,7 +600,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		/** NB this happens *AFTER* setting default namespaces for all attributes - the xmlns: attributes are required by the XML
 		 spec to all live in a special magical namespace AND to all use the same prefix of "xmlns" - no other is allowed!
 		 */
-		Attr* newAttributeFromNamespaceDeclaration = [[[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace] autorelease];
+		Attr* newAttributeFromNamespaceDeclaration = [[[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace] AUTORELEASE];
 		
 		[attributeObjects setObject:newAttributeFromNamespaceDeclaration forKey:newAttributeFromNamespaceDeclaration.nodeName];
 	}
@@ -684,7 +684,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		/** Send any parsed text data into the node-we're-closing */
 		
-		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		Text *tNode = [[[Text alloc] initWithValue:_storedChars] AUTORELEASE];
 		
 		[_parentOfCurrentNode appendChild:tNode];
 		
@@ -729,9 +729,9 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	DDLogCWarn(@"Error encountered during parse: %s", msg);
 	SVGKParser* self = getCurrentlyParsingParser();
 	SVGKParseResult* parseResult = self.currentParseRun;
-	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  (NSString*) msg, NSLocalizedDescriptionKey,
-																				nil]]];
+    NSString* nsmsg = [NSString stringWithUTF8String:msg];
+    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:nsmsg, NSLocalizedDescriptionKey,nil];
+	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:dic]];
 }
 
 static void	unparsedEntityDeclaration(void * ctx, 
@@ -853,7 +853,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **na
 				 forKey:prefix];
 	}
 	
-	return [dict autorelease];
+	return [dict AUTORELEASE];
 }
 
 
@@ -876,13 +876,13 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		
 		NSString* qname = (prefix == nil) ? localName : [NSString stringWithFormat:@"%@:%@", prefix, localName];
 		
-		Attr* newAttribute = [[[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value] autorelease];
+		Attr* newAttribute = [[[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value] AUTORELEASE];
 		
 		[dict setObject:newAttribute
 				 forKey:qname];
 	}
 	
-	return [dict autorelease];
+	return [dict AUTORELEASE];
 }
 
 #define MAX_ACCUM 256
@@ -928,7 +928,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		else if (c == ';' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			Attr* newAttribute = [[[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]] autorelease];
+			Attr* newAttribute = [[[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]] AUTORELEASE];
 			
 			[dict setObject:newAttribute
 					 forKey:newAttribute.localName];
@@ -944,7 +944,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		accum[accumIdx++] = c;
 	}
 	
-	return [dict autorelease];
+	return [dict AUTORELEASE];
 }
 
 @end
