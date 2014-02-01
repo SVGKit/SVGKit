@@ -1,7 +1,5 @@
 #import "SVGKPointsAndPathsParser.h"
 
-#import "NSCharacterSet+SVGKExtensions.h"
-
 // TODO: support quadratic-bezier-curveto
 // TODO: support smooth-quadratic-bezier-curveto
 // TODO: support elliptical-arc
@@ -196,7 +194,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (void) readWhitespace:(NSScanner*)scanner
 {
-    [scanner scanCharactersFromSet:[NSCharacterSet SVGWhitespaceCharacterSet]
+    [scanner scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
                         intoString:NULL];
 }
 
