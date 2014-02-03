@@ -37,12 +37,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SVGKParser.h" // needed for asynchronous loading method-signature
-
 @class SVGDocument;
 @class SVGSVGElement;
 @class SVGKSource;
 @class SVGKParseResult;
+@class SVGKParser;
 
 #define ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED 1 // if ENABLED, then ALL instances created with imageNamed: are shared, and are NEVER RELEASED
 
@@ -64,14 +63,14 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
  */
 @property (nonatomic, readonly) UIImage* UIImage;
 
-@property (nonatomic, retain, readonly) SVGKSource* source;
-@property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, STRONG, readonly) SVGKSource* source;
+@property (nonatomic, STRONG, readonly) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readonly) CALayer* CALayerTree;
+@property (nonatomic, STRONG, readonly) SVGDocument* DOMDocument;
+@property (nonatomic, STRONG, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, STRONG, readonly) CALayer* CALayerTree;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
+@property (nonatomic, STRONG, readonly) NSString* nameUsedToInstantiate;
 #endif
 
 #pragma mark - methods to quick load an SVG as an image

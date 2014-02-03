@@ -22,18 +22,18 @@
 
 @interface DocumentType : Node
 
-@property(nonatomic,retain,readonly) NSString* name;
-@property(nonatomic,retain,readonly) NamedNodeMap* entities;
-@property(nonatomic,retain,readonly) NamedNodeMap* notations;
+@property(nonatomic, STRONG,readonly) NSString* name;
+@property(nonatomic, STRONG,readonly) NamedNodeMap* entities;
+@property(nonatomic, STRONG,readonly) NamedNodeMap* notations;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* publicId;
+@property(nonatomic, STRONG,readonly) NSString* publicId;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* systemId;
+@property(nonatomic, STRONG,readonly) NSString* systemId;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* internalSubset;
+@property(nonatomic, STRONG,readonly) NSString* internalSubset;
 
 
 @end

@@ -29,7 +29,7 @@
 
 -(SVGElementInstance*) convertSVGElementToElementInstanceTree:(SVGElement*) original outermostUseElement:(SVGUseElement*) outermostUseElement
 {
-	SVGElementInstance* instance = [[[SVGElementInstance alloc] init] autorelease];
+	SVGElementInstance* instance = [[[SVGElementInstance alloc] init] AUTORELEASE];
 	instance.correspondingElement = original;
 	instance.correspondingUseElement = outermostUseElement;
 	
@@ -57,14 +57,14 @@
 		if( [name isEqualToString:@"defs"])
 		{	
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-			SVGDefsElement *element = [[[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+			SVGDefsElement *element = [[[SVGDefsElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] AUTORELEASE];
 			
 			return element;
 		}
 		else if( [name isEqualToString:@"use"])
 		{	
 			/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-			SVGUseElement *useElement = [[[SVGUseElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+			SVGUseElement *useElement = [[[SVGUseElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] AUTORELEASE];
 			
 			[useElement postProcessAttributesAddingErrorsTo:parseResult]; // handles "transform" and "style"
 			

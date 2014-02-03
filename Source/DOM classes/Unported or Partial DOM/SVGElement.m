@@ -174,12 +174,12 @@
 }
 
 - (void)dealloc {
-	[_stringValue release];
-	[_identifier release];
-	[xmlbase release];
+	[_stringValue RELEASE];
+	[_identifier RELEASE];
+	[xmlbase RELEASE];
 	self.className = nil;
     self.style = nil;
-	[super dealloc];
+	[super DEALLOC];
 }
 
 - (void)loadDefaults {
@@ -204,7 +204,7 @@
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{
-		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
+		self.style = [[[CSSStyleDeclaration alloc] init] AUTORELEASE];
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])

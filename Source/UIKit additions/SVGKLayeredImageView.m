@@ -5,7 +5,7 @@
 #import "SVGKSourceString.h"
 
 @interface SVGKLayeredImageView()
-@property(nonatomic,retain) CAShapeLayer* internalBorderLayer;
+@property(nonatomic, STRONG) CAShapeLayer* internalBorderLayer;
 @end
 
 @implementation SVGKLayeredImageView
@@ -175,7 +175,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 - (void)dealloc
 {
 	
-    [super dealloc];
+    [super DEALLOC];
 }
 
 @end

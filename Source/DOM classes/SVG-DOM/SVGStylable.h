@@ -15,8 +15,8 @@
 
 @protocol SVGStylable <NSObject>
 
-@property(nonatomic,retain) /*FIXME: should be of type: SVGAnimatedString */ NSString* className;
-@property(nonatomic,retain)	CSSStyleDeclaration* style;
+@property(nonatomic, STRONG) /*FIXME: should be of type: SVGAnimatedString */ NSString* className;
+@property(nonatomic, STRONG)	CSSStyleDeclaration* style;
 
 -(CSSValue*) getPresentationAttribute:(NSString*) name;
 

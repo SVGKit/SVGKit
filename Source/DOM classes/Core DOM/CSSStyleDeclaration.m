@@ -6,7 +6,7 @@
 
 @interface CSSStyleDeclaration()
 
-@property(nonatomic,retain) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;
+@property(nonatomic, STRONG) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;
 
 @end
 
@@ -19,10 +19,10 @@
 @synthesize parentRule;
 
 - (void)dealloc {
-    [_cssText release];
+    [_cssText RELEASE];
     self.parentRule = nil;
   self.internalDictionaryOfStylesByCSSClass = nil;
-    [super dealloc];
+    [super DEALLOC];
 }
 
 - (id)init
@@ -43,9 +43,9 @@
  */
 -(void)setCssText:(NSString *)newCSSText
 {
-	[_cssText release];
+	[_cssText RELEASE];
 	_cssText = newCSSText;
-	[newCSSText retain];
+	[newCSSText RETAIN];
 	
 	/** and now post-process it, *as required by* the CSS/DOM spec... */
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];
@@ -92,18 +92,18 @@
                 NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
 				NSString *cssValueString = [NSString stringWithUTF8String:accum];
 				
-				NSMutableCharacterSet* trimmingSetForKey = [[[NSMutableCharacterSet alloc] init] autorelease];
+				NSMutableCharacterSet* trimmingSetForKey = [[[NSMutableCharacterSet alloc] init] AUTORELEASE];
 				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
-				[keyString autorelease]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
+				[keyString AUTORELEASE]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
 				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
 				
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
-					cssValue = [[[CSSValueList alloc] init] autorelease];
+					cssValue = [[[CSSValueList alloc] init] AUTORELEASE];
 				else
-					cssValue = [[[CSSPrimitiveValue alloc] init] autorelease];
+					cssValue = [[[CSSPrimitiveValue alloc] init] AUTORELEASE];
 				cssValue.cssText = cssValueString; // has the side-effect of parsing, if required
 				
                 [dict setObject:cssValue
@@ -121,7 +121,7 @@
 		accum[accumIdx++] = c;
 	}
 	
-	return [dict autorelease];
+	return [dict AUTORELEASE];
 }
 
 -(NSString*) getPropertyValue:(NSString*) propertyName

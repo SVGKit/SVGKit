@@ -9,7 +9,7 @@
 @interface CSSPrimitiveValue()
 
 @property(nonatomic) float internalValue;
-@property(nonatomic,retain) NSString* internalString;
+@property(nonatomic, STRONG) NSString* internalString;
 
 @end
 
@@ -24,7 +24,7 @@
 
 - (void)dealloc {
     self.internalString = nil;
-    [super dealloc];
+    [super DEALLOC];
 }
 
 - (id)init
@@ -219,9 +219,9 @@
 
 -(void)setCssText:(NSString *)newCssText
 {
-	[_cssText release];
+	[_cssText RELEASE];
 	_cssText = newCssText;
-	[_cssText retain];
+	[_cssText RETAIN];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
 	if( _cssText == nil

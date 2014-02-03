@@ -18,7 +18,7 @@
     NSMutableDictionary* propertyRegistry;
 }
 
-@property (readwrite,nonatomic,retain) UIView* rootView;
+@property (readwrite,nonatomic, STRONG) UIView* rootView;
 @property (readwrite,nonatomic,assign) id<CALayerExporterDelegate> delegate;
 
 - (CALayerExporter*) initWithView:(UIView*)v;

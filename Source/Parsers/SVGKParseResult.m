@@ -18,7 +18,7 @@
     self.parsedDocument = nil;
     self.rootOfSVGTree = nil;
     
-    [super dealloc];
+    [super DEALLOC];
 }
 
 - (id)init

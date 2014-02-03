@@ -8,7 +8,7 @@
 
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
-@property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+@property (nonatomic, STRONG) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
 @end
 
 @implementation SVGKFastImageView
@@ -114,9 +114,9 @@
         [self addInternalRedrawOnResizeObservers];
     
     /** other obeservers */
-    [self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-    [self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-    [self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+    [self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+    [self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+    [self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 }
 
 - (void)setImage:(SVGKImage *)image {
@@ -131,28 +131,28 @@
 #endif
 	
     if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+        [_image removeObserver:self forKeyPath:@"size" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
     }
-    [_image release];
-    _image = [image retain];
+    [_image RELEASE];
+    _image = [image RETAIN];
     
     if( self.disableAutoRedrawAtHighestResolution )
         ;
     else
-        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+        [_image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 }
 
 -(void) addInternalRedrawOnResizeObservers
 {
-	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 	//[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) removeInternalRedrawOnResizeObservers
 {
-	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
-	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self  forKeyPath:@"layer" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self.layer removeObserver:self forKeyPath:@"transform" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
 	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
 }
 
@@ -180,13 +180,13 @@
 	else
 		[self removeInternalRedrawOnResizeObservers];
 	
-	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
-	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
-	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
+	[self removeObserver:self forKeyPath:@"image" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self removeObserver:self forKeyPath:@"tileRatio" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
+	[self removeObserver:self forKeyPath:@"showBorder" context:(__bridge void *)(internalContextPointerBecauseApplesDemandsIt)];
     
 	self.image = nil;
 	
-    [super dealloc];
+    [super DEALLOC];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */

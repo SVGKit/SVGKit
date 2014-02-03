@@ -21,7 +21,7 @@
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
-@property(nonatomic,retain) SVGKImage* mainInstance;
+@property(nonatomic, STRONG) SVGKImage* mainInstance;
 @end
 @implementation SVGKImageCacheLine
 @synthesize numberOfInstances;
@@ -33,15 +33,15 @@
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
 
-@property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, STRONG, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readwrite) SVGKSource* source;
+@property (nonatomic, STRONG, readwrite) SVGKSource* source;
 
-@property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readwrite) CALayer* CALayerTree;
+@property (nonatomic, STRONG, readwrite) SVGDocument* DOMDocument;
+@property (nonatomic, STRONG, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, STRONG, readwrite) CALayer* CALayerTree;
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-@property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, STRONG, readwrite) NSString* nameUsedToInstantiate;
 #endif
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
@@ -161,7 +161,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     result->cameFromGlobalCache = TRUE;
     result.nameUsedToInstantiate = name;
     
-    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
+    SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] AUTORELEASE];
     newCacheLine.mainInstance = result;
     
     [globalSVGKImageCache setValue:newCacheLine forKey:name];
@@ -204,7 +204,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 				   ^{
 					   SVGKParseResult* parsedSVG = [parser parseSynchronously];
 					   
-					   SVGKImage* finalImage = [[[SVGKImage alloc] initWithParsedSVG:parsedSVG] autorelease];
+					   SVGKImage* finalImage = [[[SVGKImage alloc] initWithParsedSVG:parsedSVG] AUTORELEASE];
 					   
 #ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 					   if( finalImage != nil )
@@ -212,7 +212,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 						   finalImage->cameFromGlobalCache = TRUE;
 						   finalImage.nameUsedToInstantiate = name;
 						   
-						   SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
+						   SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] AUTORELEASE];
 						   newCacheLine.mainInstance = finalImage;
 						   
 						   [globalSVGKImageCache setValue:newCacheLine forKey:name];
@@ -232,13 +232,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+	return [[[[self class] alloc] initWithContentsOfURL:url] AUTORELEASE];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
     @synchronized(self) {
-	return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+	return [[[[self class] alloc] initWithContentsOfFile:aPath] AUTORELEASE];
     }
 }
 
@@ -246,7 +246,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+	return [[[[self class] alloc] initWithSource:newSource] AUTORELEASE];
     }
 }
 
@@ -341,7 +341,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.nameUsedToInstantiate = nil;
 #endif
 	
-	[super dealloc];
+	[super DEALLOC];
 }
 
 //TODO mac alternatives to UIKit functions
@@ -641,7 +641,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
 			
-			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child] autorelease];
+			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child] AUTORELEASE];
 			
 			if (!sublayer) {
 				continue;
@@ -713,7 +713,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated)", [self class] );
 
 		NSDate* startTime = [NSDate date];
-		self.CALayerTree = [[self newCALayerTree] autorelease];
+		self.CALayerTree = [[self newCALayerTree] AUTORELEASE];
 		
 		DDLogInfo(@"[%@] ...time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );		
 	}

@@ -157,17 +157,17 @@
             [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
 //            theColor = CGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
+            [colorBuilder addObject:(__bridge id)CGColorWithSVGColor([theStop stopColor])];
             //        CGColorRelease(alphaColor);
         }
         
         colors = [[NSArray alloc] initWithArray:colorBuilder];
-        [colorBuilder release];
+        [colorBuilder RELEASE];
         
         locations = [[NSArray alloc] initWithArray:locationBuilder];
-        [locationBuilder release];
+        [locationBuilder RELEASE];
         
-        [_stops release];
+        [_stops RELEASE];
         _stops = nil;
     }
     
@@ -198,13 +198,13 @@
 
 -(void)dealloc
 {
-    [_stops release];
+    [_stops RELEASE];
     _stops = nil;
     
-    [colors release];
-    [locations release];
+    [colors RELEASE];
+    [locations RELEASE];
     
-    [super dealloc];
+    [super DEALLOC];
 }
 
 @end

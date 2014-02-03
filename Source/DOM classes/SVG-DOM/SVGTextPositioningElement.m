@@ -13,7 +13,7 @@
   self.dx = nil;
   self.dy = nil;
   self.rotate = nil;
-  [super dealloc];
+  [super DEALLOC];
 }
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult

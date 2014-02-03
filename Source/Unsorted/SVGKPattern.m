@@ -8,7 +8,7 @@
 
 + (SVGKPattern *)patternWithUIColor:(UIColor *)color
 {
-    SVGKPattern* p = [[[SVGKPattern alloc] init] autorelease];
+    SVGKPattern* p = [[[SVGKPattern alloc] init] AUTORELEASE];
     p.color = color;
     return p;
 }

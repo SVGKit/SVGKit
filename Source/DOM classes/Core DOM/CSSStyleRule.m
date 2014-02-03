@@ -9,7 +9,7 @@
 - (void)dealloc {
     self.style = nil;
     self.selectorText = nil;
-    [super dealloc];
+    [super DEALLOC];
 }
 
 - (id)init
@@ -26,7 +26,7 @@
     if (self) {
         self.selectorText = selector;
 		
-		CSSStyleDeclaration* styleDeclaration = [[[CSSStyleDeclaration alloc] init] autorelease];
+		CSSStyleDeclaration* styleDeclaration = [[[CSSStyleDeclaration alloc] init] AUTORELEASE];
 		styleDeclaration.cssText = styleText;
 		
 		self.style = styleDeclaration;

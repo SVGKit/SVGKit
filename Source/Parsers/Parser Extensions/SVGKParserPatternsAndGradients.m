@@ -26,7 +26,7 @@
 
 - (void)dealloc {
 	
-	[super dealloc];
+	[super DEALLOC];
 }
 
 -(NSArray*) supportedNamespaces

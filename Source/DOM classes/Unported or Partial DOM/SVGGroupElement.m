@@ -21,7 +21,7 @@
 
 - (void)dealloc {
 	
-    [super dealloc];
+    [super DEALLOC];
 }
 
 - (void)loadDefaults {
@@ -38,7 +38,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest layer] RETAIN];
 		
 		_layer.name = self.identifier;
 		[_layer setValue:self.identifier forKey:kSVGElementIdentifier];
@@ -99,7 +99,7 @@
  _attributes = [[NSDictionary alloc] initWithDictionary:buildDictionary];
  //these properties are inherited by children of this group
  }
- [buildDictionary release];
+ [buildDictionary RELEASE];
  
  */
 

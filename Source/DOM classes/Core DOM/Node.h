@@ -101,17 +101,17 @@ typedef enum DOMNodeType
 
 @interface Node : NSObject
 
-@property(nonatomic,retain,readonly) NSString* nodeName;
-@property(nonatomic,retain,readonly) NSString* nodeValue;
+@property(nonatomic, STRONG,readonly) NSString* nodeName;
+@property(nonatomic, STRONG,readonly) NSString* nodeValue;
 	
 @property(nonatomic,readonly) DOMNodeType nodeType;
 @property(nonatomic,assign,readonly) Node* parentNode;
-@property(nonatomic,retain,readonly) NodeList* childNodes;
+@property(nonatomic, STRONG,readonly) NodeList* childNodes;
 @property(nonatomic,assign,readonly) Node* firstChild;
 @property(nonatomic,assign,readonly) Node* lastChild;
 @property(nonatomic,assign,readonly) Node* previousSibling;
 @property(nonatomic,assign,readonly) Node* nextSibling;
-@property(nonatomic,retain,readonly) NamedNodeMap* attributes; /*< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
+@property(nonatomic, STRONG,readonly) NamedNodeMap* attributes; /*< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
 
 // Modified in DOM Level 2:
 @property(nonatomic,assign,readonly) Document* ownerDocument;
@@ -133,13 +133,13 @@ typedef enum DOMNodeType
 -(BOOL) isSupportedFeature:(NSString*) feature version:(NSString*) version;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* namespaceURI;
+@property(nonatomic, STRONG,readonly) NSString* namespaceURI;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* prefix;
+@property(nonatomic, STRONG,readonly) NSString* prefix;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) NSString* localName;
+@property(nonatomic, STRONG,readonly) NSString* localName;
 
 // Introduced in DOM Level 2:
 @property(nonatomic) BOOL hasAttributes;

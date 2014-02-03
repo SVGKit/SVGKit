@@ -12,7 +12,7 @@
   self.cssText = nil;
   self.parentRule = nil;
   self.parentStyleSheet = nil;
-  [super dealloc];
+  [super DEALLOC];
 }
 
 @end

@@ -307,7 +307,7 @@
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
-	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
+	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] RETAIN];
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
@@ -435,7 +435,7 @@
 			gradientLayer.mask =_shapeLayer;
             gradientLayer.maskPath = pathToPlaceInLayer;
             CGPathRelease(pathToPlaceInLayer);
-			[_shapeLayer release]; // because it was created with a +1 retain count
+			[_shapeLayer RELEASE]; // because it was created with a +1 retain count
 			
 			return gradientLayer;
 		}

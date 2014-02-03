@@ -20,11 +20,11 @@
 
 @interface SVGDocument : Document
 
-@property (nonatomic, retain, readonly) NSString* title;
-@property (nonatomic, retain, readonly) NSString* referrer;
-@property (nonatomic, retain, readonly) NSString* domain;
-@property (nonatomic, retain, readonly) NSString* URL;
-@property (nonatomic, retain, readonly) SVGSVGElement* rootElement;
+@property (nonatomic, STRONG, readonly) NSString* title;
+@property (nonatomic, STRONG, readonly) NSString* referrer;
+@property (nonatomic, STRONG, readonly) NSString* domain;
+@property (nonatomic, STRONG, readonly) NSString* URL;
+@property (nonatomic, STRONG, readonly) SVGSVGElement* rootElement;
 
 #pragma mark - Objective-C init methods (not part of DOM spec, but necessary!)
 

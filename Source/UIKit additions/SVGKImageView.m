@@ -50,7 +50,7 @@
 
 - (void)dealloc
 {
-	[super dealloc];
+	[super DEALLOC];
 }
 
 @end

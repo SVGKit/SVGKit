@@ -12,6 +12,6 @@
 
 @protocol DocumentStyle <NSObject>
 
-@property(nonatomic,retain) StyleSheetList* styleSheets;
+@property(nonatomic, STRONG) StyleSheetList* styleSheets;
 
 @end

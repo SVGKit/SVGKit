@@ -1,8 +1,8 @@
 #import "SVGElementInstance.h"
 
 @interface SVGElementInstance ()
-@property(nonatomic,retain, readwrite) SVGElement* correspondingElement;
-@property(nonatomic,retain, readwrite) SVGUseElement* correspondingUseElement;
-@property(nonatomic,retain, readwrite) SVGElementInstance* parentNode;
-@property(nonatomic,retain, readwrite) SVGElementInstanceList* childNodes;
+@property(nonatomic, STRONG, readwrite) SVGElement* correspondingElement;
+@property(nonatomic, STRONG, readwrite) SVGUseElement* correspondingUseElement;
+@property(nonatomic, STRONG, readwrite) SVGElementInstance* parentNode;
+@property(nonatomic, STRONG, readwrite) SVGElementInstanceList* childNodes;
 @end

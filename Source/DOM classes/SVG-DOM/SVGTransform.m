@@ -7,8 +7,8 @@
 @synthesize angle;
 
 - (void)dealloc {
-  [matrix release];
-  [super dealloc];
+  [matrix RELEASE];
+  [super DEALLOC];
 }
 
 -(void) setMatrix:(SVGMatrix*) matrix { NSAssert( FALSE, @"Not implemented yet" ); }

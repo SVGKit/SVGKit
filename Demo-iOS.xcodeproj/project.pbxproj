@@ -7,6 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02D656BC189D388A00A2AF3F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862581688BA0B0059C9C4 /* AppDelegate.m */; };
+		02D656BD189D388A00A2AF3F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8625D1688BA0B0059C9C4 /* DetailViewController.m */; };
+		02D656BE189D388A00A2AF3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E862681688BA0B0059C9C4 /* main.m */; };
+		02D656BF189D388A00A2AF3F /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8626A1688BA0B0059C9C4 /* MasterViewController.m */; };
+		02D656C1189D388A00A2AF3F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
+		02D656C2189D388A00A2AF3F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
+		02D656C4189D388A00A2AF3F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
+		02D656C5189D388A00A2AF3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
+		02D656C6189D388A00A2AF3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
+		02D656C7189D388A00A2AF3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD2161727CF008D5FBE /* CoreGraphics.framework */; };
+		02D656C9189D388A00A2AF3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862591688BA0B0059C9C4 /* Default-568h@2x.png */; };
+		02D656CA189D388A00A2AF3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 66E8625E1688BA0B0059C9C4 /* InfoPlist.strings */; };
+		02D656CB189D388A00A2AF3F /* cubic01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA181181D598F00E49B68 /* cubic01.svg */; };
+		02D656CC189D388A00A2AF3F /* iPadDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E862601688BA0B0059C9C4 /* iPadDetailViewController.xib */; };
+		02D656CD189D388A00A2AF3F /* iPhoneDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E862621688BA0B0059C9C4 /* iPhoneDetailViewController.xib */; };
+		02D656CE189D388A00A2AF3F /* MasterViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E862641688BA0B0059C9C4 /* MasterViewController_iPad.xib */; };
+		02D656CF189D388A00A2AF3F /* MasterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66E862661688BA0B0059C9C4 /* MasterViewController_iPhone.xib */; };
+		02D656D0189D388A00A2AF3F /* Monkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862781688BA510059C9C4 /* Monkey.png */; };
+		02D656D1189D388A00A2AF3F /* map-alaska-onlysimple.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */; };
+		02D656D2189D388A00A2AF3F /* BlankMap-World6-Equirectangular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */; };
+		02D656D3189D388A00A2AF3F /* Note.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862791688BA510059C9C4 /* Note.png */; };
+		02D656D4189D388A00A2AF3F /* australia_states_blank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8627C1688BA510059C9C4 /* australia_states_blank.svg */; };
+		02D656D5189D388A00A2AF3F /* Blank_Map-Africa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8627D1688BA510059C9C4 /* Blank_Map-Africa.svg */; };
+		02D656D6189D388A00A2AF3F /* breaking-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8627E1688BA510059C9C4 /* breaking-1.svg */; };
+		02D656D7189D388A00A2AF3F /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8627F1688BA510059C9C4 /* CurvedDiamond.svg */; };
+		02D656D8189D388A00A2AF3F /* Europe_states_reduced.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862801688BA510059C9C4 /* Europe_states_reduced.svg */; };
+		02D656D9189D388A00A2AF3F /* imageWithASinglePointPath.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862811688BA510059C9C4 /* imageWithASinglePointPath.svg */; };
+		02D656DA189D388A00A2AF3F /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862821688BA510059C9C4 /* Lion.svg */; };
+		02D656DB189D388A00A2AF3F /* Location_European_nation_states.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862831688BA510059C9C4 /* Location_European_nation_states.svg */; };
+		02D656DC189D388A00A2AF3F /* Map.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862841688BA510059C9C4 /* Map.svg */; };
+		02D656DD189D388A00A2AF3F /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862861688BA510059C9C4 /* Monkey.svg */; };
+		02D656DE189D388A00A2AF3F /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862871688BA510059C9C4 /* Note.svg */; };
+		02D656DF189D388A00A2AF3F /* Reinel_compass_rose-simplified-for-testing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */; };
+		02D656E0189D388A00A2AF3F /* Reinel_compass_rose.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */; };
+		02D656E1189D388A00A2AF3F /* quad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA17F181D590300E49B68 /* quad01.svg */; };
+		02D656E2189D388A00A2AF3F /* test-wave-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628A1688BA510059C9C4 /* test-wave-1.svg */; };
+		02D656E3189D388A00A2AF3F /* Text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628B1688BA510059C9C4 /* Text.svg */; };
+		02D656E4189D388A00A2AF3F /* uk-only.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628C1688BA510059C9C4 /* uk-only.svg */; };
+		02D656E5189D388A00A2AF3F /* voies.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628D1688BA510059C9C4 /* voies.svg */; };
+		02D656E6189D388A00A2AF3F /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
+		02D656E7189D388A00A2AF3F /* gradients.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFED16C9AF1C00CCBFB3 /* gradients.svg */; };
+		02D656E8189D388A00A2AF3F /* shapes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */; };
+		02D656E9189D388A00A2AF3F /* strokes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEF16C9AF1C00CCBFB3 /* strokes.svg */; };
+		02D656EA189D388A00A2AF3F /* transformations.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF016C9AF1C00CCBFB3 /* transformations.svg */; };
+		02D656EB189D388A00A2AF3F /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
+		02D656EC189D388A00A2AF3F /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
+		02D656ED189D388A00A2AF3F /* rotated-and-skewed-text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 661ADBF916CC3399006F4BC3 /* rotated-and-skewed-text.svg */; };
+		02D656EE189D388A00A2AF3F /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
+		02D656EF189D388A00A2AF3F /* lingrad01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA016CFE67B003CD5CD /* lingrad01.svg */; };
+		02D656F0189D388A00A2AF3F /* opacity01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA116CFE67B003CD5CD /* opacity01.svg */; };
+		02D656F1189D388A00A2AF3F /* PreserveAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA216CFE67B003CD5CD /* PreserveAspectRatio.svg */; };
+		02D656F2189D388A00A2AF3F /* StyleAttribute.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA316CFE67B003CD5CD /* StyleAttribute.svg */; };
+		02D656F3189D388A00A2AF3F /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA416CFE67B003CD5CD /* text01.svg */; };
+		02D656F4189D388A00A2AF3F /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA516CFE67B003CD5CD /* tspan01.svg */; };
+		02D656F5189D388A00A2AF3F /* rounded-rects.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66324BE116D24FA4001C1E83 /* rounded-rects.svg */; };
+		02D656F6189D388A00A2AF3F /* svg-with-explicit-width.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */; };
+		02D656F7189D388A00A2AF3F /* svg-with-explicit-width-large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */; };
+		02D656F8189D388A00A2AF3F /* radialGradientTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9ED79A20179D83580048AA5B /* radialGradientTest.svg */; };
+		02D656F9189D388A00A2AF3F /* sakamura-default-fill-opacity-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */; };
+		02D65701189D392200A2AF3F /* libSVGKit-iOS-ARC.1.2.0pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D656B7189D377800A2AF3F /* libSVGKit-iOS-ARC.1.2.0pre.a */; };
 		661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
 		661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
 		661A0DD3161727CF008D5FBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD2161727CF008D5FBE /* CoreGraphics.framework */; };
@@ -70,6 +130,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		02D656B6189D377800A2AF3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02D656B1189D2C0600A2AF3F;
+			remoteInfo = "SVGKit-iOS-ARC";
+		};
+		02D656FF189D391C00A2AF3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02D655C4189D2C0600A2AF3F;
+			remoteInfo = "SVGKit-iOS-ARC";
+		};
 		6649E1091617574700AFE92A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
@@ -87,6 +161,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02D656FD189D388A00A2AF3F /* Demo-iOS-ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS-ARC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D656FE189D388A00A2AF3F /* Demo-iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Demo-iOS copy-Info.plist"; path = "/Users/zyg/Desktop/touchvg/thirdparty/SVGKit/Demo-iOS copy-Info.plist"; sourceTree = "<absolute>"; };
 		661A0DCA161727CF008D5FBE /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		661A0DD0161727CF008D5FBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -157,6 +233,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		02D656C0189D388A00A2AF3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02D656C1189D388A00A2AF3F /* CoreText.framework in Frameworks */,
+				02D656C2189D388A00A2AF3F /* libxml2.dylib in Frameworks */,
+				02D65701189D392200A2AF3F /* libSVGKit-iOS-ARC.1.2.0pre.a in Frameworks */,
+				02D656C4189D388A00A2AF3F /* QuartzCore.framework in Frameworks */,
+				02D656C5189D388A00A2AF3F /* UIKit.framework in Frameworks */,
+				02D656C6189D388A00A2AF3F /* Foundation.framework in Frameworks */,
+				02D656C7189D388A00A2AF3F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		661A0DC7161727CF008D5FBE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,6 +273,7 @@
 				6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */,
 				661A0DCD161727CF008D5FBE /* Frameworks */,
 				661A0DCB161727CF008D5FBE /* Products */,
+				02D656FE189D388A00A2AF3F /* Demo-iOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				661A0DCA161727CF008D5FBE /* Demo-iOS.app */,
+				02D656FD189D388A00A2AF3F /* Demo-iOS-ARC.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */,
+				02D656B7189D377800A2AF3F /* libSVGKit-iOS-ARC.1.2.0pre.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -323,6 +416,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		02D656B8189D388A00A2AF3F /* Demo-iOS-ARC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02D656FA189D388A00A2AF3F /* Build configuration list for PBXNativeTarget "Demo-iOS-ARC" */;
+			buildPhases = (
+				02D656BB189D388A00A2AF3F /* Sources */,
+				02D656C0189D388A00A2AF3F /* Frameworks */,
+				02D656C8189D388A00A2AF3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02D65700189D391C00A2AF3F /* PBXTargetDependency */,
+			);
+			name = "Demo-iOS-ARC";
+			productName = iOSDemo;
+			productReference = 02D656FD189D388A00A2AF3F /* Demo-iOS-ARC.app */;
+			productType = "com.apple.product-type.application";
+		};
 		661A0DC9161727CF008D5FBE /* Demo-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 661A0DF4161727D0008D5FBE /* Build configuration list for PBXNativeTarget "Demo-iOS" */;
@@ -369,11 +480,19 @@
 			projectRoot = "";
 			targets = (
 				661A0DC9161727CF008D5FBE /* Demo-iOS */,
+				02D656B8189D388A00A2AF3F /* Demo-iOS-ARC */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		02D656B7189D377800A2AF3F /* libSVGKit-iOS-ARC.1.2.0pre.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libSVGKit-iOS-ARC.1.2.0pre.a";
+			remoteRef = 02D656B6189D377800A2AF3F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -384,6 +503,62 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		02D656C8189D388A00A2AF3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02D656C9189D388A00A2AF3F /* Default-568h@2x.png in Resources */,
+				02D656CA189D388A00A2AF3F /* InfoPlist.strings in Resources */,
+				02D656CB189D388A00A2AF3F /* cubic01.svg in Resources */,
+				02D656CC189D388A00A2AF3F /* iPadDetailViewController.xib in Resources */,
+				02D656CD189D388A00A2AF3F /* iPhoneDetailViewController.xib in Resources */,
+				02D656CE189D388A00A2AF3F /* MasterViewController_iPad.xib in Resources */,
+				02D656CF189D388A00A2AF3F /* MasterViewController_iPhone.xib in Resources */,
+				02D656D0189D388A00A2AF3F /* Monkey.png in Resources */,
+				02D656D1189D388A00A2AF3F /* map-alaska-onlysimple.svg in Resources */,
+				02D656D2189D388A00A2AF3F /* BlankMap-World6-Equirectangular.svg in Resources */,
+				02D656D3189D388A00A2AF3F /* Note.png in Resources */,
+				02D656D4189D388A00A2AF3F /* australia_states_blank.svg in Resources */,
+				02D656D5189D388A00A2AF3F /* Blank_Map-Africa.svg in Resources */,
+				02D656D6189D388A00A2AF3F /* breaking-1.svg in Resources */,
+				02D656D7189D388A00A2AF3F /* CurvedDiamond.svg in Resources */,
+				02D656D8189D388A00A2AF3F /* Europe_states_reduced.svg in Resources */,
+				02D656D9189D388A00A2AF3F /* imageWithASinglePointPath.svg in Resources */,
+				02D656DA189D388A00A2AF3F /* Lion.svg in Resources */,
+				02D656DB189D388A00A2AF3F /* Location_European_nation_states.svg in Resources */,
+				02D656DC189D388A00A2AF3F /* Map.svg in Resources */,
+				02D656DD189D388A00A2AF3F /* Monkey.svg in Resources */,
+				02D656DE189D388A00A2AF3F /* Note.svg in Resources */,
+				02D656DF189D388A00A2AF3F /* Reinel_compass_rose-simplified-for-testing.svg in Resources */,
+				02D656E0189D388A00A2AF3F /* Reinel_compass_rose.svg in Resources */,
+				02D656E1189D388A00A2AF3F /* quad01.svg in Resources */,
+				02D656E2189D388A00A2AF3F /* test-wave-1.svg in Resources */,
+				02D656E3189D388A00A2AF3F /* Text.svg in Resources */,
+				02D656E4189D388A00A2AF3F /* uk-only.svg in Resources */,
+				02D656E5189D388A00A2AF3F /* voies.svg in Resources */,
+				02D656E6189D388A00A2AF3F /* RainbowWing.svg in Resources */,
+				02D656E7189D388A00A2AF3F /* gradients.svg in Resources */,
+				02D656E8189D388A00A2AF3F /* shapes.svg in Resources */,
+				02D656E9189D388A00A2AF3F /* strokes.svg in Resources */,
+				02D656EA189D388A00A2AF3F /* transformations.svg in Resources */,
+				02D656EB189D388A00A2AF3F /* Sample Licenses from svg-android project.txt in Resources */,
+				02D656EC189D388A00A2AF3F /* groups-and-layers-test.svg in Resources */,
+				02D656ED189D388A00A2AF3F /* rotated-and-skewed-text.svg in Resources */,
+				02D656EE189D388A00A2AF3F /* g-element-applies-rotation.svg in Resources */,
+				02D656EF189D388A00A2AF3F /* lingrad01.svg in Resources */,
+				02D656F0189D388A00A2AF3F /* opacity01.svg in Resources */,
+				02D656F1189D388A00A2AF3F /* PreserveAspectRatio.svg in Resources */,
+				02D656F2189D388A00A2AF3F /* StyleAttribute.svg in Resources */,
+				02D656F3189D388A00A2AF3F /* text01.svg in Resources */,
+				02D656F4189D388A00A2AF3F /* tspan01.svg in Resources */,
+				02D656F5189D388A00A2AF3F /* rounded-rects.svg in Resources */,
+				02D656F6189D388A00A2AF3F /* svg-with-explicit-width.svg in Resources */,
+				02D656F7189D388A00A2AF3F /* svg-with-explicit-width-large.svg in Resources */,
+				02D656F8189D388A00A2AF3F /* radialGradientTest.svg in Resources */,
+				02D656F9189D388A00A2AF3F /* sakamura-default-fill-opacity-test.svg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		661A0DC8161727CF008D5FBE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,6 +618,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		02D656BB189D388A00A2AF3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02D656BC189D388A00A2AF3F /* AppDelegate.m in Sources */,
+				02D656BD189D388A00A2AF3F /* DetailViewController.m in Sources */,
+				02D656BE189D388A00A2AF3F /* main.m in Sources */,
+				02D656BF189D388A00A2AF3F /* MasterViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		661A0DC6161727CF008D5FBE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -457,6 +643,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		02D65700189D391C00A2AF3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SVGKit-iOS-ARC";
+			targetProxy = 02D656FF189D391C00A2AF3F /* PBXContainerItemProxy */;
+		};
 		66E785A9171A1208001EF59D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SVGKit-iOS";
@@ -508,6 +699,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		02D656FB189D388A00A2AF3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-iOS/Demo-iOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"Source/**",
+					"calayer-exporter",
+				);
+				INFOPLIST_FILE = "Demo-iOS copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Demo-iOS-ARC";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		02D656FC189D388A00A2AF3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-iOS/Demo-iOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"Source/**",
+					"calayer-exporter",
+				);
+				INFOPLIST_FILE = "Demo-iOS copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Demo-iOS-ARC";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		661A0DF2161727D0008D5FBE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -607,6 +836,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		02D656FA189D388A00A2AF3F /* Build configuration list for PBXNativeTarget "Demo-iOS-ARC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02D656FB189D388A00A2AF3F /* Debug */,
+				02D656FC189D388A00A2AF3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		661A0DC4161727CF008D5FBE /* Build configuration list for PBXProject "Demo-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

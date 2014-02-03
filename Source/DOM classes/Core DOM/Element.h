@@ -57,7 +57,7 @@
 
 @interface Element : Node
 
-@property(nonatomic,retain,readonly) NSString* tagName;
+@property(nonatomic, STRONG,readonly) NSString* tagName;
 
 -(NSString*) getAttribute:(NSString*) name;
 -(void) setAttribute:(NSString*) name value:(NSString*) value;

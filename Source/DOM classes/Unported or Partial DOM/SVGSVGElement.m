@@ -42,23 +42,23 @@
 -(void)dealloc
 {
 	self.viewBox = SVGRectUninitialized();
-    [x release];
-    [y release];
-    [width release];
-    [height release];
-    [contentScriptType release];
-    [contentStyleType release];
+    [x RELEASE];
+    [y RELEASE];
+    [width RELEASE];
+    [height RELEASE];
+    [contentScriptType RELEASE];
+    [contentStyleType RELEASE];
     self.currentView = nil;
     self.currentTranslate = nil;
     self.styleSheets = nil;
-	[super dealloc];	
+	[super DEALLOC];	
 }
 
 #pragma mark - CSS Spec methods (via the DocumentCSS protocol)
 
 -(void)loadDefaults
 {
-	self.styleSheets = [[[StyleSheetList alloc] init] autorelease];
+	self.styleSheets = [[[StyleSheetList alloc] init] AUTORELEASE];
 }
 @synthesize styleSheets;
 
@@ -171,7 +171,7 @@
 		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
 	}
 	
-	self.preserveAspectRatio = [[SVGAnimatedPreserveAspectRatio new] autorelease]; // automatically sets defaults
+	self.preserveAspectRatio = [[SVGAnimatedPreserveAspectRatio new] AUTORELEASE]; // automatically sets defaults
 	
 	NSString* stringPreserveAspectRatio = [self getAttribute:@"preserveAspectRatio"];
 	NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
@@ -237,7 +237,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest layer] RETAIN];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
