@@ -196,8 +196,21 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (void) readWhitespace:(NSScanner*)scanner
 {
-    [scanner scanCharactersFromSet:[NSCharacterSet SVGWhitespaceCharacterSet]
+    [scanner scanCharactersFromSet:[SVGKPointsAndPathsParser SVGWhitespaceCharacterSet]
                         intoString:NULL];
+}
+
++ (NSCharacterSet *)SVGWhitespaceCharacterSet;
+{
+	static NSCharacterSet *sWhitespaceCharacterSet = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+		DDLogVerbose(@"Allocating static NSCharacterSet containing whitespace characters. Should be small, but Apple seems to take up 5+ megabytes each time?");
+		sWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%c%c%c%c", 0x20, 0x9, 0xD, 0xA]];
+		[sWhitespaceCharacterSet retain]; // required, this is a non-ARC project.
+    });
+	
+    return sWhitespaceCharacterSet;
 }
 
 + (void) readCommaAndWhitespace:(NSScanner*)scanner
