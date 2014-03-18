@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name        = 'SVGKit'
   s.version     = '1.x'
   s.license     = 'MIT'
-  s.platform    = :ios, '7.0'
+  s.platform    = :ios, '4.0'
   s.summary     = "Display and interact with SVG Images on iOS, using native rendering (CoreAnimation)."
   s.homepage = 'https://github.com/SVGKit/SVGKit'
   s.author   = { 'Steven Fusco'    => 'github@stevenfusco.com',
