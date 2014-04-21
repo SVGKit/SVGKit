@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <QuartzCore/Quartzcore.h>
+#import <QuartzCore/QuartzCore.h>
 
 @protocol ConverterSVGToCALayer < NSObject >
 
