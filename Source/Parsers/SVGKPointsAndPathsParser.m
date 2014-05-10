@@ -491,7 +491,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     CGPoint coord1 = CGPointMake(p1.x+origin.x, p1.y+origin.y);
     [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
     
-    SVGCurve thisCurve;
+    SVGCurve thisCurve = SVGCurveZero;
     if (SVGCurveEqualToCurve(SVGCurveZero, prevCurve)) {
         // assume control point is coincident with the current point
         thisCurve = SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, thisCurve.p.x, thisCurve.p.y);
