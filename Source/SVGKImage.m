@@ -607,7 +607,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		clonedLayer.frame = lFrame;
 		
 		
-		return clonedLayer;
+		return [clonedLayer retain];
 	}
 }
 

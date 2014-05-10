@@ -390,7 +390,6 @@ SVGKParser* getCurrentlyParsingParser()
     if( self.externalStylesheets != nil )
     {
         [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObjectsFromArray:self.externalStylesheets];
-        [self.externalStylesheets release];
         self.externalStylesheets = nil;
     }
 }
