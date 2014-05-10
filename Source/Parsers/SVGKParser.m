@@ -733,14 +733,14 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 																				nil]]];
 }
 
-//static void	unparsedEntityDeclaration(void * ctx, 
-//									 const xmlChar * name, 
-//									 const xmlChar * publicId, 
-//									 const xmlChar * systemId, 
-//									 const xmlChar * notationName)
-//{
-//	DDLogCWarn(@"ERror: unparsed entity Decl");
-//}
+static void	unparsedEntityDeclaration(void * ctx,
+									 const xmlChar * name,
+									 const xmlChar * publicId,
+									 const xmlChar * systemId,
+									 const xmlChar * notationName)
+{
+	DDLogCWarn(@"Error: unparsed entity Decl");
+}
 
 static void structuredError		(void * userData, 
 									 xmlErrorPtr error)
@@ -802,7 +802,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* notationDecl */
     NULL,                       /* attributeDecl */
     NULL,                       /* elementDecl */
-    NULL,                       /* unparsedEntityDecl */
+    unparsedEntityDeclaration,                       /* unparsedEntityDecl */
     NULL,                       /* setDocumentLocator */
     NULL,                       /* startDocument */
     NULL,                       /* endDocument */
