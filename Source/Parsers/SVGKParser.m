@@ -176,14 +176,14 @@ SVGKParser* getCurrentlyParsingParser()
 	}
 }
 
-static FILE *desc;
-static size_t
-readPacket(char *mem, int size) {
-    size_t res;
-	
-    res = fread(mem, 1, size, desc);
-    return(res);
-}
+//static FILE *desc;
+//static size_t
+//readPacket(char *mem, int size) {
+//    size_t res;
+//	
+//    res = fread(mem, 1, size, desc);
+//    return(res);
+//}
 
 - (SVGKParseResult*) parseSynchronously
 {
@@ -734,14 +734,14 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 																				nil]]];
 }
 
-static void	unparsedEntityDeclaration(void * ctx, 
-									 const xmlChar * name, 
-									 const xmlChar * publicId, 
-									 const xmlChar * systemId, 
-									 const xmlChar * notationName)
-{
-	DDLogCWarn(@"ERror: unparsed entity Decl");
-}
+//static void	unparsedEntityDeclaration(void * ctx, 
+//									 const xmlChar * name, 
+//									 const xmlChar * publicId, 
+//									 const xmlChar * systemId, 
+//									 const xmlChar * notationName)
+//{
+//	DDLogCWarn(@"ERror: unparsed entity Decl");
+//}
 
 static void structuredError		(void * userData, 
 									 xmlErrorPtr error)
