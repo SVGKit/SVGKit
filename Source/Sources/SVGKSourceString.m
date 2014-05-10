@@ -7,6 +7,7 @@
 	[stream open];
 	
 	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
+	s.approximateLengthInBytesOr0 = [rawString lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 	
 	return s;
 }

@@ -71,11 +71,11 @@
 			if( [attributes valueForKey:@"x"] != nil )
 				useElement.x = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"x"]) value]];
 			if( [attributes valueForKey:@"y"] != nil )
-				useElement.x = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"y"]) value]];
+				useElement.y = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"y"]) value]];
 			if( [attributes valueForKey:@"width"] != nil )
-				useElement.x = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"width"]) value]];
+				useElement.width = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"width"]) value]];
 			if( [attributes valueForKey:@"height"] != nil )
-				useElement.x = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"height"]) value]];
+				useElement.height = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"height"]) value]];
 			
 			NSString* hrefAttribute = [useElement getAttributeNS:@"http://www.w3.org/1999/xlink" localName:@"href"];
 			
@@ -91,7 +91,7 @@
 				/** have to find the node in the DOM tree with id = xlink:href's value */
 				SVGElement* linkedElement = (SVGElement*) [parseResult.parsedDocument getElementById:linkHref];
 				
-				NSAssert( linkedElement != nil, @"Found an SVG <use> tag that points to a non-existent element. Missing element: id = ", linkHref );
+				NSAssert( linkedElement != nil, @"Found an SVG <use> tag that points to a non-existent element. Missing element: id = %@", linkHref );
 				
 				
 				useElement.instanceRoot = [self convertSVGElementToElementInstanceTree:linkedElement outermostUseElement:useElement];

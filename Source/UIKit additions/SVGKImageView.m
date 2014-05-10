@@ -53,4 +53,19 @@
 	[super dealloc];
 }
 
+/**
+ The intrinsic sized of the image view.
+ 
+ This is useful for playing nicely with autolayout.
+
+ @return The size of the image if it has one, or CGSizeZero if not
+ */
+- (CGSize)intrinsicContentSize {
+    if ([self.image hasSize]) {
+        return self.image.size;
+    }
+
+    return CGSizeZero;
+}
+
 @end
