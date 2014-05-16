@@ -6,12 +6,10 @@ Pod::Spec.new do |s|
   s.summary     = "Display and interact with SVG Images on iOS, using native rendering (CoreAnimation)."
   s.homepage = 'https://github.com/SVGKit/SVGKit'
   s.author   = { 'Steven Fusco'    => 'github@stevenfusco.com',
-                 'adam'            => 'git.sucks.this.email.doesnt.exist@mailinator.com',
                  'adamgit'         => 'adam.m.s.martin@gmail.com',
                  'Kevin Stich'     => 'stich@50cubes.com',
                  'Joshua May'      => 'notjosh@gmail.com',
                  'Eric Man'        => 'meric.au@gmail.com',
-                 'adamgit'         => 'git.sucks.this.email.doesnt.exist@mailinator.com',
                  'Matt Rajca'      => 'matt.rajca@me.com',
                  'Moritz Pfeiffer' => 'moritz.pfeiffer@alp-phone.ch',
                  'Steven Fusco'    => 'sfusco@spiral.local',
@@ -23,5 +21,10 @@ Pod::Spec.new do |s|
   s.framework = 'QuartzCore', 'CoreText'
   s.dependency 'CocoaLumberjack'
   s.prefix_header_file = 'XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch'
-  s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
+  s.requires_arc = false
+  s.xcconfig = {
+    'CLANG_CXX_LANGUAGE_STANDARD' => 'gnu++11',
+    'CLANG_CXX_LIBRARY' => 'libstdc++',
+    'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2'
+  }
 end
