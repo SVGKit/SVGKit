@@ -35,17 +35,6 @@
 
 @synthesize localName;
 
-- (void)dealloc {
-    [nodeName release];
-    [nodeValue release];
-    [childNodes release];
-    [attributes release];
-    [prefix release];
-    [namespaceURI release];
-    [localName release];
-    [super dealloc];
-}
-
 - (id)init
 {
     NSAssert( FALSE, @"This class has no init method - it MUST NOT be init'd via init - you MUST use one of the multi-argument constructors instead" );
@@ -84,12 +73,11 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
-				[self autorelease];
 				return nil;
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -110,7 +98,6 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
-				[self autorelease];
 				return nil;
 			}break;
 				
@@ -129,12 +116,12 @@
 			{
 				
 				self.nodeName = n;
-
-				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
+				
+				self.attributes = [[NamedNodeMap alloc] init];
 			}break;
 		}
-
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -314,7 +301,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:[stringAccumulator autorelease]];
+			return [NSString stringWithString:stringAccumulator];
 		}
 			
 		case DOMNodeType_TEXT_NODE:

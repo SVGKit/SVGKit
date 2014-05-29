@@ -150,24 +150,21 @@
     {
 		//        CGColorRef theColor = NULL;//, alphaColor = NULL;
         NSUInteger numStops = [_stops count];
-        NSMutableArray *colorBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
+		CFMutableArrayRef colorBuilder = CFArrayCreateMutable(kCFAllocatorDefault, numStops, &kCFTypeArrayCallBacks);
         NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
         for (SVGGradientStop *theStop in _stops)
         {
 			[locationBuilder addObject:@(theStop.offset)];
 			//            theColor = CGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
+			CFArrayAppendValue(colorBuilder, CGColorWithSVGColor([theStop stopColor]));
             //        CGColorRelease(alphaColor);
         }
         
-        colors = [[NSArray alloc] initWithArray:colorBuilder];
-        [colorBuilder release];
+        colors = [[NSArray alloc] initWithArray:CFBridgingRelease(colorBuilder)];
         
         locations = [[NSArray alloc] initWithArray:locationBuilder];
-        [locationBuilder release];
         
-        [_stops release];
         _stops = nil;
     }
     
@@ -194,17 +191,6 @@
 -(void)layoutLayer:(CALayer *)layer
 {
 	
-}
-
--(void)dealloc
-{
-    [_stops release];
-    _stops = nil;
-    
-    [colors release];
-    [locations release];
-    
-    [super dealloc];
 }
 
 @end

@@ -39,7 +39,7 @@
     
 	NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@""];
 	
-	NSString* cmdArgs = nil;
+	NSString* cmdArgs;
 	[dataScanner scanUpToCharactersFromSet:knownCommands
 								intoString:&cmdArgs];
 	

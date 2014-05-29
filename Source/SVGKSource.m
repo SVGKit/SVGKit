@@ -6,7 +6,7 @@
 #import "SVGKSource-private.h"
 
 @interface SVGKSource ()
-@property (readwrite, nonatomic, retain) NSInputStream* stream;
+@property (readwrite, nonatomic, strong) NSInputStream* stream;
 @end
 
 @implementation SVGKSource
@@ -42,12 +42,6 @@
 
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {
 	return [SVGKSourceString sourceFromContentsOfString:rawString];
-}
-
-- (void)dealloc {
-	self.svgLanguageVersion = nil;
-	self.stream = nil;
-	[super dealloc];
 }
 
 - (id)copyWithZone:(NSZone *)zone

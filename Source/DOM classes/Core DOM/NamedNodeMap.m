@@ -11,8 +11,8 @@
 #import "NamedNodeMap_Iterable.h"
 
 @interface NamedNodeMap()
-@property(nonatomic,retain) NSMutableDictionary* internalDictionary;
-@property(nonatomic,retain) NSMutableDictionary* internalDictionaryOfNamespaces;
+@property(nonatomic,strong) NSMutableDictionary* internalDictionary;
+@property(nonatomic,strong) NSMutableDictionary* internalDictionaryOfNamespaces;
 @end
 
 @implementation NamedNodeMap
@@ -23,17 +23,10 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.internalDictionary = [NSMutableDictionary dictionary];
-		self.internalDictionaryOfNamespaces = [NSMutableDictionary dictionary];
+        self.internalDictionary = [[NSMutableDictionary alloc] init];
+		self.internalDictionaryOfNamespaces = [[NSMutableDictionary alloc] init];
     }
     return self;
-}
-
-- (void)dealloc {
-    self.internalDictionary = nil;
-	self.internalDictionaryOfNamespaces = nil;
-	
-    [super dealloc];
 }
 
 -(Node*) getNamedItem:(NSString*) name
@@ -158,7 +151,7 @@
 	NSMutableDictionary* namespaceDict = (self.internalDictionaryOfNamespaces)[effectiveNamespace];
 	if( namespaceDict == nil )
 	{
-		namespaceDict = [NSMutableDictionary dictionary];
+		namespaceDict = [[NSMutableDictionary alloc] init];
 		(self.internalDictionaryOfNamespaces)[effectiveNamespace] = namespaceDict;
 	}
 	Node* oldNode = namespaceDict[arg.localName];
@@ -201,8 +194,8 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	NamedNodeMap* clone = [[NamedNodeMap allocWithZone:zone] init];
-	clone.internalDictionary = [[self.internalDictionary copyWithZone:zone] autorelease];
-	clone.internalDictionaryOfNamespaces = [[self.internalDictionaryOfNamespaces copyWithZone:zone] autorelease];
+	clone.internalDictionary = [self.internalDictionary copyWithZone:zone];
+	clone.internalDictionaryOfNamespaces = [self.internalDictionaryOfNamespaces copyWithZone:zone];
 	
 	return clone;
 }

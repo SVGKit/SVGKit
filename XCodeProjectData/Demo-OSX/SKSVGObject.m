@@ -65,7 +65,7 @@ return nil
 
 @interface SKSVGBundleObject ()
 @property (readwrite, copy) NSString* fullFileName;
-@property (readwrite, retain) NSBundle *theBundle;
+@property (readwrite, strong) NSBundle *theBundle;
 @end
 
 @implementation SKSVGBundleObject
@@ -96,8 +96,8 @@ return nil
 
 - (NSURL*)svgURL
 {
-	NSString *newName = nil;
-	NSString *extension = nil;
+	NSString *newName;
+	NSString *extension;
 	[self getFileName:&newName extension:&extension];
 	
 	NSURL *retURL = [self.theBundle URLForResource:newName withExtension:extension];
@@ -106,8 +106,8 @@ return nil
 
 - (NSString*)fileName
 {
-	NSString *newName = nil;
-	NSString *extension = nil;
+	NSString *newName;
+	NSString *extension;
 	[self getFileName:&newName extension:&extension];
 	
 	NSString *fullPath = [self.theBundle pathForResource:newName ofType:extension];
@@ -127,18 +127,10 @@ return nil
 	}
 }
 
-- (void)dealloc
-{
-	self.fullFileName = nil;
-	self.theBundle = nil;
-	
-	[super dealloc];
-}
-
 @end
 
 @interface SKSVGURLObject ()
-@property (retain, readwrite) NSURL *svgURL;
+@property (strong, readwrite) NSURL *svgURL;
 @end
 
 @implementation SKSVGURLObject
@@ -156,8 +148,8 @@ return nil
 	NSURL *tmpURL = self.svgURL;
 	
 	if([tmpURL isFileURL]){
-		NSString *val = nil;
-		NSError *err = nil;
+		NSString *val;
+		NSError *err;
 		if([tmpURL getResourceValue:&val forKey:NSURLLocalizedNameKey error:&err] == NO)
 		{
 			NSLog(@"SKSVGObject: Could not find out if extension is hidden in file \"%@\", error: %@", [tmpURL path], [err localizedDescription]);
@@ -181,13 +173,6 @@ return nil
 	} else {
 		return NO;
 	}
-}
-
-- (void)dealloc
-{
-	self.svgURL = nil;
-	
-	[super dealloc];
 }
 
 @end

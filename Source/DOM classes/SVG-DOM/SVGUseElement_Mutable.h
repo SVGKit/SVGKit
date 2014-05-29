@@ -1,11 +1,11 @@
 #import <SVGKit/SVGUseElement.h>
 
 @interface SVGUseElement ()
-@property(nonatomic, retain, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
-@property(nonatomic, retain, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;
-@property(nonatomic, retain, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* width;
-@property(nonatomic, retain, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
-@property(nonatomic, retain, readwrite) SVGElementInstance* instanceRoot;
-@property(nonatomic, retain, readwrite) SVGElementInstance* animatedInstanceRoot;
+@property(nonatomic, strong, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* x;
+@property(nonatomic, strong, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* y;
+@property(nonatomic, strong, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* width;
+@property(nonatomic, strong, readwrite) /*FIXME: should be SVGAnimatedLength instead*/ SVGLength* height;
+@property(nonatomic, strong, readwrite) SVGElementInstance* instanceRoot;
+@property(nonatomic, strong, readwrite) SVGElementInstance* animatedInstanceRoot;
 
 @end

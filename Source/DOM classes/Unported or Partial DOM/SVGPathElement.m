@@ -56,7 +56,7 @@
 																	   path:path
 																 relativeTo:lastCoordinate];
             } else {
-                NSString* cmdArgs = nil;
+                NSString* cmdArgs;
                 BOOL foundParameters = [dataScanner scanUpToCharactersFromSet:knownCommands
                                                                    intoString:&cmdArgs];
                 

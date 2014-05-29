@@ -35,7 +35,7 @@
 
 @interface CharacterData : Node
 
-@property(nonatomic,retain,readonly) NSString* data;
+@property(nonatomic,strong,readonly) NSString* data;
 	
 @property(nonatomic,readonly) unsigned long length;
 

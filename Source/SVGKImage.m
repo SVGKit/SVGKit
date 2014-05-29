@@ -35,14 +35,14 @@
 
 @property(nonatomic) CGSize internalSizeThatWasSetExplicitlyByUser;
 
-@property (nonatomic, retain, readwrite) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, strong, readwrite) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readwrite) SVGKSource* source;
+@property (nonatomic, strong, readwrite) SVGKSource* source;
 
-@property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readwrite) CALayer* CALayerTree;
-@property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
+@property (nonatomic, strong, readwrite) SVGDocument* DOMDocument;
+@property (nonatomic, strong, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, strong, readwrite) CALayer* CALayerTree;
+@property (nonatomic, strong, readwrite) NSString* nameUsedToInstantiate;
 @property (nonatomic, getter = hasRenderingIssue) BOOL renderingIssue;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
@@ -107,7 +107,7 @@
 		return nil;
 	}
 	
-	SVGKImage* result = [self imageWithContentsOfURL:url];
+	SVGKImage* result = [[self alloc] initWithContentsOfURL:url];
     
 	if ([[NSBundle mainBundle] isEqual:bundle] && [SVGKImage isCacheEnabled]) {
 		if( result != nil )
@@ -134,14 +134,14 @@
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-		return [[[[self class] alloc] initWithContentsOfURL:url] autorelease];
+		return [[[self class] alloc] initWithContentsOfURL:url];
     }
 }
 
 + (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
     @synchronized(self) {
-		return [[[[self class] alloc] initWithContentsOfFile:aPath] autorelease];
+		return [[[self class] alloc] initWithContentsOfFile:aPath];
     }
 }
 
@@ -149,7 +149,7 @@
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-		return [[(SVGKImage*)[[self class] alloc] initWithSource:newSource] autorelease];
+		return [(SVGKImage*)[[self class] alloc] initWithSource:newSource];
     }
 }
 
@@ -194,7 +194,6 @@
 		if ( self.DOMDocument == nil )
 		{
 			DDLogError(@"[%@] ERROR: failed to init SVGKImage with parse result = %@, returning nil from init methods", [self class], parseResult );
-			[self autorelease];
 			return nil;
 		}
 		
@@ -217,29 +216,19 @@
 - (id)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
-	return [self initWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath]];
+	return [self initWithSource:[[SVGKSourceLocalFile alloc] initWithFilename:aPath]];
 }
 
 - (id)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
-	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
+	return [self initWithSource:[[SVGKSourceURL alloc] initWithURL:url]];
 }
 
 - (void)dealloc
 {
 	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	[self removeObserver:self forKeyPath:@"scale"];
-	
-	self.source = nil;
-	self.parseErrorsAndWarnings = nil;
-	
-	self.DOMDocument = nil;
-	self.DOMTree = nil;
-	self.CALayerTree = nil;
-	self.nameUsedToInstantiate = nil;
-	
-	[super dealloc];
 }
 
 //TODO mac alternatives to UIKit functions
@@ -248,7 +237,7 @@
 {
 	NSParameterAssert(data != nil);
 	@synchronized(self){
-		return [[(SVGKImage*)[[self class] alloc] initWithData:data] autorelease];
+		return [(SVGKImage*)[[self class] alloc] initWithData:data];
 	}
 }
 
@@ -256,7 +245,7 @@
 {
 	NSParameterAssert(data != nil);
 	
-	return [self initWithSource:[SVGKSourceData sourceFromData:data]];
+	return [self initWithSource:[[SVGKSourceData alloc] initWithData:data]];
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
@@ -392,14 +381,13 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	SVGKSource *copySource = nil;
+	SVGKSource *copySource;
 	if (!(copySource = [self.source copyWithZone:zone]))
 	{
 		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ from %@", [self class], self, [self.source class], self.source);
 		return nil;
 	}
 	SVGKImage *copyImage = [[SVGKImage allocWithZone:zone] initWithSource:copySource];
-	[copySource release];
 	if (!CGSizeEqualToSize(self.internalSizeThatWasSetExplicitlyByUser, CGSizeZero)) {
 		copyImage.size = self.size;
 	} /* else {
@@ -592,7 +580,6 @@
             }
 			
 			[layer addSublayer:sublayer];
-			[sublayer release];
 		}
 	}
 	
@@ -653,7 +640,7 @@
 
 static inline NSString *exceptionInfo(NSException *e)
 {
-	NSString *debugStr = nil;
+	NSString *debugStr;
 #if 0
 	debugStr = [NSString stringWithFormat:@", call stack: %@", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
 #else
@@ -669,7 +656,7 @@ static inline NSString *exceptionInfo(NSException *e)
 	{
 		DDLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one (will cache it once generated).", [self class] );
 		@try {
-			self.CALayerTree = [[self newCALayerTree] autorelease];
+			self.CALayerTree = [self newCALayerTree];
 		}
 		@catch (NSException *exception) {
 			DDLogError(@"[%@] Error generating CALayerTree: %@", [self class], exceptionInfo(exception));
@@ -715,7 +702,7 @@ static inline NSString *exceptionInfo(NSException *e)
 - (NSDictionary*) dictionaryOfLayers
 {
 	// TODO: consider removing this method: it caches the lookup of individual items in the CALayerTree. It's a performance boost, but is it enough to be worthwhile?
-	NSMutableDictionary* layersByElementId = [NSMutableDictionary dictionary];
+	NSMutableDictionary* layersByElementId = [[NSMutableDictionary alloc] init];
 	
 	CALayer* rootLayer = self.CALayerTree;
 	
@@ -880,7 +867,7 @@ return; \
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
-	CIImage *result = nil;
+	CIImage *result;
 	CGImageRef theRef = [imRep CGImage];
 	if (theRef) {
 		result = [CIImage imageWithCGImage:theRef];
@@ -902,7 +889,7 @@ return; \
 	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
 	CIImage *result = [[CIImage alloc] initWithBitmapImageRep:imRep];
-	return [result autorelease];
+	return result;
 }
 
 - (NSImage*)exportNSImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality
@@ -910,7 +897,7 @@ return; \
 	if ([self hasSize]) {
 		DDLogVerbose(@"[%@] DEBUG: Generating an NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 		
-		NSImageRep *imRep = [SVGKImageRep imageRepWithSVGImage:self];
+		NSImageRep *imRep = [[SVGKImageRep alloc] initWithSVGImage:self];
 		
 		if (!imRep) {
 			imRep = [self exportBitmapImageRepAntiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality showInfo:NO];
@@ -925,7 +912,7 @@ return; \
 		[retval addRepresentation:imRep];
 		[retval setSize:self.size];
 		
-		return [retval autorelease];
+		return retval;
 	} else {
 		DDLogError(@"[%@] ERROR: You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance", [self class]);
 		
@@ -950,7 +937,7 @@ return; \
 		NSGraphicsContext *NSctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
 		CGContextRef ctx = [NSctx graphicsPort];
 		[self renderToContext:ctx antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:YES];
-		return [imageRep autorelease];
+		return imageRep;
 	} else {
 		DDLogError(@"[%@] ERROR: You asked to export an SVG to bitmap, but the SVG file has infinite size. Either fix the SVG file, or set an explicit size you want it to be exported at (by calling .size = something on this SVGKImage instance", [self class]);
 		

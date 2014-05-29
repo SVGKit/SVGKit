@@ -9,7 +9,7 @@
 #include <sys/sysctl.h>
 
 @interface SVGLength()
-@property(nonatomic,retain) CSSPrimitiveValue* internalCSSPrimitiveValue;
+@property(nonatomic,strong) CSSPrimitiveValue* internalCSSPrimitiveValue;
 @end
 
 @implementation SVGLength
@@ -20,12 +20,6 @@
 @synthesize valueAsString;
 @synthesize internalCSSPrimitiveValue;
 
-- (void)dealloc {
-    self.valueAsString = nil;
-    self.internalCSSPrimitiveValue = nil;
-    [super dealloc];
-}
-
 - (id)init
 {
     NSAssert(FALSE, @"This class must not be init'd. Use the static hepler methods to instantiate it instead");
@@ -34,7 +28,7 @@
 
 - (NSString*)description
 {
-	NSString *unit = nil;
+	NSString *unit;
 #define UnitSwitch(name) case SVG_LENGTHTYPE_##name: \
 unit = [@#name lowercaseString]; \
 break
@@ -66,11 +60,11 @@ break
 			
 		default:
 		case SVG_LENGTHTYPE_UNKNOWN:
-			return [NSString stringWithFormat:@"%@: Unknown type and length.", [self class]];
+			return [[NSString alloc] initWithFormat:@"%@: Unknown type and length.", [self class]];
 			break;
 	}
 	
-	return [NSString stringWithFormat:@"%@: %f%@.", [self class], self.value, unit];
+	return [[NSString alloc] initWithFormat:@"%@: %f%@.", [self class], self.value, unit];
 #undef UnitSwitch
 }
 
@@ -136,7 +130,7 @@ break
 
 +(SVGLength*) svgLengthZero
 {
-	SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:nil] autorelease];
+	SVGLength* result = [[SVGLength alloc] initWithCSSPrimitiveValue:nil];
 	
 	return result;
 }
@@ -151,9 +145,7 @@ static CGFloat cachedDevicePixelsPerInch;
 	
 	SVGLength* result = [[SVGLength alloc] initWithCSSPrimitiveValue:pv];
 	
-	[pv release];
-	
-	return [result autorelease];
+	return result;
 }
 
 -(CGFloat) pixelsValue

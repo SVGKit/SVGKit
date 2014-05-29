@@ -14,6 +14,8 @@
 #import <SVGKit/CSSStyleRule.h>
 #import <SVGKit/CSSRuleList+Mutable.h>
 
+#import <SVGKit/StyleSheet.h>
+
 #import <SVGKit/SVGGElement.h>
 
 #import <SVGKit/SVGRect.h>
@@ -129,7 +131,7 @@
 		else
 		{
 			Node* currentAncestor = newParent;
-			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement = nil;
+			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement;
 			while( firstAncestorThatIsAnyKindOfSVGElement == nil
 				  && currentAncestor != nil ) // if we run out of tree! This would be an error (see below)
 			{
@@ -175,15 +177,6 @@
 	}
 }
 
-- (void)dealloc {
-	[_stringValue release];
-	[_identifier release];
-	[xmlbase release];
-	self.className = nil;
-    self.style = nil;
-	[super dealloc];
-}
-
 - (void)loadDefaults {
 	// to be overriden by subclasses
 }
@@ -206,7 +199,7 @@
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{
-		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
+		self.style = [[CSSStyleDeclaration alloc] init];
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])
@@ -250,7 +243,7 @@
                 value = [self getAttribute:@"gradientTransform"];
             }
 						
-		NSError* error = nil;
+		NSError* error;
 		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
 		
 		[regexpTransformListItem enumerateMatchesInString:value options:0 range:NSMakeRange(0, [value length]) usingBlock:

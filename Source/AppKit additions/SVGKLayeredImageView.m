@@ -6,7 +6,7 @@
 #import "BlankSVG.h"
 
 @interface SVGKLayeredImageView()
-@property(nonatomic,retain) CAShapeLayer* internalBorderLayer;
+@property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end
 
 @implementation SVGKLayeredImageView
@@ -25,7 +25,7 @@
 }
 
 #define SetupLayer() \
-	self.layer = [SVGKLayer layer]; \
+	self.layer = [[SVGKLayer alloc] init]; \
 	self.wantsLayer = YES
 
 -(id)initWithFrame:(NSRect)frame

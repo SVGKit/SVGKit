@@ -437,7 +437,6 @@
 			gradientLayer.mask =_shapeLayer;
             gradientLayer.maskPath = pathToPlaceInLayer;
             CGPathRelease(pathToPlaceInLayer);
-			[_shapeLayer release]; // because it was created with a +1 retain count
 			
 			return gradientLayer;
 		}

@@ -40,7 +40,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 
 + (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage
 {
-	SVGKPattern *p = nil;
+	SVGKPattern *p;
 	
 	CGColorRef tmpColor = CGColorMakeFromImage(cgImage);
 	p = [SVGKPattern patternWithCGColor:tmpColor];
@@ -55,7 +55,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 	
 	p.color = cgColor;
 	
-	return [p autorelease];
+	return p;
 }
 
 #if TARGET_OS_IPHONE
@@ -67,10 +67,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 
 + (SVGKPattern*)patternWithImage:(UIImage*)image
 {
-    UIColor* patternImage = [[UIColor alloc] initWithPatternImage:image];
-    SVGKPattern *p = [self patternWithUIColor:patternImage];
-	[patternImage release];
-	return p;
+    return [self patternWithUIColor:[[UIColor alloc] initWithPatternImage:image]];
 }
 
 #else
@@ -125,8 +122,6 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 - (void)dealloc
 {
 	self.color = NULL;
-	
-	[super dealloc];
 }
 
 @end

@@ -452,6 +452,8 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 	} else {
 		//THIS IS DICEY CODE!
 		//I am unsure how well this will preform: something could break it
+		//This is also why this code is not compiled with ARC: the Objective-C object would go out of scope
+		//and be released.
 		CGColorRef tmpoutColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
 		
 		outColor = (CGColorRef)[(id)tmpoutColor autorelease];

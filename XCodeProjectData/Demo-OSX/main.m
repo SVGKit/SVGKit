@@ -22,7 +22,6 @@
 
 - (void)parser:(SVGKParser *)parserPassed DidFinishParsingWithResult:(SVGKParseResult *)result
 {
-	[parserPassed release];
 	NSLog(@"Parse Complete");
 }
 
@@ -40,7 +39,7 @@ int main(int argc, char *argv[])
 	@autoreleasepool {
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"CurvedDiamond" ofType:@"svg"];
 		SVGKSource *theSource = [SVGKSource sourceFromFilename:path];
-		SVGKParser *theParser = [[[SVGKParser alloc] initWithSource:theSource] retain];
+		SVGKParser *theParser = [[SVGKParser alloc] initWithSource:theSource];
 		[theParser addDefaultSVGParserExtensions];
 		[theParser parseAsynchronously];
 		TestDelegate *theTest = [TestDelegate new];

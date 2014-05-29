@@ -11,7 +11,7 @@
 @class SVGKSource;
 
 @interface SVGKImageRep : NSImageRep
-@property (nonatomic, retain, readonly) SVGKImage *image;
+@property (nonatomic, strong, readonly) SVGKImage *image;
 
 //Function used by NSImageRep to init.
 + (id)imageRepWithData:(NSData *)d;

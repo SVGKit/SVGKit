@@ -130,7 +130,7 @@
 	/** undocumented Apple bug: CTFontCreateWithName cannot accept nil input*/
 	CTFontRef font = NULL;
 	if( actualFamily != nil)
-		font = CTFontCreateWithName( (CFStringRef)actualFamily, effectiveFontSize, NULL);
+		font = CTFontCreateWithName( (__bridge CFStringRef)actualFamily, effectiveFontSize, NULL);
 	if( font == NULL )
 		font = CTFontCreateWithName( CFSTR("Verdana"), effectiveFontSize, NULL); // Spec says to use "whatever default font-family is normal for your system". On iOS, that's Verdana
 	
@@ -150,11 +150,10 @@
 	 */
 	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
 	[tempString addAttribute:(NSString *)kCTFontAttributeName
-					   value:(id)font
+					   value:(__bridge id)font
 					   range:NSMakeRange(0, tempString.string.length)];
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (__bridge CFMutableAttributedStringRef) tempString );
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
-	[tempString release];
     CFRelease(framesetter);
 	
 	CGRect unTransformedFinalBounds = { CGPointZero, suggestedUntransformedSize}; // everything's been pre-scaled by [self transformAbsolute]

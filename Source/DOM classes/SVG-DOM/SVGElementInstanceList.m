@@ -4,11 +4,6 @@
 @implementation SVGElementInstanceList
 @synthesize internalArray;
 
-- (void)dealloc {
-	self.internalArray = nil;
-	[super dealloc];
-}
-
 - (id)init
 {
     self = [super init];

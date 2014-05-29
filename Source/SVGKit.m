@@ -110,7 +110,6 @@ if (mutStr.length == 0) { \
 			[valString setString:@"LOG_LEVEL_OFF"];
 		}
 		LOG_OBJC_MAYBE(LOG_ASYNC_INFO, (ddLogLevelInternal | newLogLevel), LOG_FLAG_INFO, 0, @"[%@] WARN: The raw log level %i is invalid! The new raw log level is %i, or with the following flags: %@.", self, rawLevel, newLogLevel, valString);
-		[valString release];
 		ddLogLevelInternal = newLogLevel;
 	}else {
 		NSMutableString *valStr = [[NSMutableString alloc] init];
@@ -124,7 +123,6 @@ if (mutStr.length == 0) { \
 		}
 		
 		LOG_OBJC_MAYBE(LOG_ASYNC_VERBOSE, (ddLogLevelInternal | rawLevel), LOG_FLAG_VERBOSE, 0, @"[%@] DEBUG: Current raw debug level has been set at %i, or with the following flags: %@", self, rawLevel, valStr);
-		[valStr release];
 		
 		ddLogLevelInternal = rawLevel;
 	}
@@ -141,7 +139,7 @@ if (mutStr.length == 0) { \
 	switch (newLevel) {
 		case SVGKLoggingMixed:
 		{
-			NSString *logName = nil;
+			NSString *logName;
 #define ARG(theArg) case theArg: \
 logName = @#theArg; \
 break

@@ -15,8 +15,7 @@
 	if (self = [super initWithInputSteam:stream]) {
 		self.rawString = tmpStr;
 	}
-	[theStr release];
-	[stream release];
+	
 	return self;
 }
 
@@ -24,14 +23,7 @@
 {
 	SVGKSourceString *s = [[self alloc] initWithString:rawString];
 	
-	return [s autorelease];
-}
-
-- (void)dealloc
-{
-	self.rawString = nil;
-	
-	[super dealloc];
+	return s;
 }
 
 - (id)copyWithZone:(NSZone *)zone

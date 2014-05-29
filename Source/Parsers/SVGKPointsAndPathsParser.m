@@ -251,7 +251,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (CGPoint) readMoveto:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Mm"];
     if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd] )
 	{
@@ -327,7 +327,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	DDLogVerbose(@"Parsing command string: line-to command");
 #endif
 	
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Ll"];
     
 	if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd] )
@@ -384,7 +384,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	DDLogVerbose(@"Parsing command string: quadratic-bezier-curve-to command");
 #endif
 	
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Qq"];
     
 	if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd] )
@@ -452,7 +452,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #if VERBOSE_PARSE_SVG_COMMAND_STRINGS
 	DDLogVerbose(@"Parsing command string: smooth-quadratic-bezier-curve-to command");
 #endif
-	NSString* cmd = nil;
+	NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Tt"];
     
 	if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd] )
@@ -523,7 +523,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #if VERBOSE_PARSE_SVG_COMMAND_STRINGS
 	DDLogVerbose(@"Parsing command string: curve-to command");
 #endif
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Cc"];
     
 	if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd])
@@ -593,7 +593,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (SVGCurve) readSmoothCurvetoCommand:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin withPrevCurve:(SVGCurve)prevCurve
 {
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Ss"];
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
@@ -686,7 +686,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #if VERBOSE_PARSE_SVG_COMMAND_STRINGS
 	DDLogVerbose(@"Parsing command string: vertical-line-to command");
 #endif
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Vv"];
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:&cmd];
     
@@ -729,7 +729,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #if VERBOSE_PARSE_SVG_COMMAND_STRINGS
 	DDLogVerbose(@"Parsing command string: horizontal-line-to command");
 #endif
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Hh"];
     
 	if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd] )
@@ -749,7 +749,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #if VERBOSE_PARSE_SVG_COMMAND_STRINGS
 	DDLogVerbose(@"Parsing command string: close command");
 #endif
-    NSString* cmd = nil;
+    NSString* cmd;
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Zz"];
 	
 	if( ! [scanner scanCharactersFromSet:cmdFormat intoString:&cmd] )

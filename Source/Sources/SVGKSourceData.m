@@ -10,7 +10,7 @@
 #import "SVGKSource-private.h"
 
 @interface SVGKSourceData ()
-@property (readwrite, retain, nonatomic) NSData *data;
+@property (readwrite, strong, nonatomic) NSData *data;
 @end
 
 @implementation SVGKSourceData
@@ -22,7 +22,6 @@
 	if (self = [super initWithInputSteam:stream]) {
 		self.data = data;
 	}
-	[stream release];
 	return self;
 }
 
@@ -41,26 +40,14 @@
 {
 	if ([data isKindOfClass:[NSMutableData class]]) {
 		data = [[NSData alloc] initWithData:data];
-	} else {
-		[data retain];
 	}
-	self = [self initWithDataNoMutableCheck:data];
-	[data release];
-
-	return self;
+	return [self initWithDataNoMutableCheck:data];
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
-	SVGKSourceData* s = [[[SVGKSourceData alloc] initWithData:data] autorelease];
+	SVGKSourceData* s = [[SVGKSourceData alloc] initWithData:data];
 	
 	return s;
-}
-
-- (void)dealloc
-{
-	self.data = nil;
-	
-	[super dealloc];
 }
 
 - (NSString*)description

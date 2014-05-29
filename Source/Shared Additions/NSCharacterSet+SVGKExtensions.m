@@ -21,7 +21,6 @@
     dispatch_once(&onceToken, ^{
 		DDLogVerbose(@"Allocating static NSCharacterSet containing whitespace characters. Should be small, but Apple seems to take up 5+ megabytes each time?");
 		sWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"\x20\x9\xD\xA"];
-		[sWhitespaceCharacterSet retain]; // required, this is a non-ARC project.
     });
 	
     return sWhitespaceCharacterSet;

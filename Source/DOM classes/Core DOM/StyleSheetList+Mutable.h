@@ -1,5 +1,5 @@
 #import <SVGKit/StyleSheetList.h>
 
 @interface StyleSheetList()
-@property(nonatomic,retain) NSMutableArray* internalArray;
+@property(nonatomic,strong) NSMutableArray* internalArray;
 @end

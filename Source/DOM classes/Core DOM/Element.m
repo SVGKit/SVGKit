@@ -4,17 +4,12 @@
 #import <SVGKit/DOMHelperUtilities.h>
 
 @interface Element()
-@property(nonatomic,retain,readwrite) NSString* tagName;
+@property(nonatomic,strong,readwrite) NSString* tagName;
 @end
 
 @implementation Element
 
 @synthesize tagName;
-
-- (void)dealloc {
-    self.tagName = nil;
-    [super dealloc];
-}
 
 - (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
     self = [super initType:DOMNodeType_ELEMENT_NODE name:n];
@@ -67,7 +62,6 @@
 	Attr* att = [[Attr alloc] initWithName:name value:value];
 	
 	[self.attributes setNamedItem:att];
-	[att release];
 }
 
 -(void) removeAttribute:(NSString*) name
@@ -105,7 +99,7 @@
 	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:name inNamespace:nil childrenOfElement:self addToList:accumulator];
 	
-	return [accumulator autorelease];
+	return accumulator;
 }
 
 // Introduced in DOM Level 2:
@@ -125,7 +119,6 @@
 	Attr* att = [[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value];
 	
 	[self.attributes setNamedItemNS:att];
-	[att release];
 }
 
 // Introduced in DOM Level 2:
@@ -155,7 +148,7 @@
 	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self addToList:accumulator];
 	
-	return [accumulator autorelease];
+	return accumulator;
 }
 
 // Introduced in DOM Level 2:

@@ -27,21 +27,19 @@ static NSDictionary *elementMap = nil;
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [[NSDictionary alloc] initWithObjectsAndKeys:
-						  [SVGSVGElement class], @"svg",
-						  [SVGCircleElement class], @"circle",
-						  [SVGDescriptionElement class], @"description",
-						  [SVGEllipseElement class], @"ellipse",
-						  [SVGGElement class], @"g",
-						  [SVGImageElement class], @"image",
-						  [SVGLineElement class], @"line",
-						  [SVGPathElement class], @"path",
-						  [SVGPolygonElement class], @"polygon",
-						  [SVGPolylineElement class], @"polyline",
-						  [SVGRectElement class], @"rect",
-						  [SVGTitleElement class], @"title",
-						  [SVGTextElement class], @"text",
-						  nil];
+			elementMap = @{@"svg": [SVGSVGElement class],
+				  @"circle": [SVGCircleElement class],
+				  @"description": [SVGDescriptionElement class],
+				  @"ellipse": [SVGEllipseElement class],
+				  @"g": [SVGGElement class],
+				  @"image": [SVGImageElement class],
+				  @"line": [SVGLineElement class],
+				  @"path": [SVGPathElement class],
+				  @"polygon": [SVGPolygonElement class],
+				  @"polyline": [SVGPolylineElement class],
+				  @"rect": [SVGRectElement class],
+				  @"title": [SVGTitleElement class],
+				  @"text": [SVGTextElement class]};
 		}
 	}
 	return self;
@@ -90,7 +88,7 @@ static NSDictionary *elementMap = nil;
 		/** special case: <svg:svg ... version="XXX"> */
 		if( [@"svg" isEqualToString:name] )
 		{
-			NSString* svgVersion = nil;
+			NSString* svgVersion;
 			
 			/** According to spec, if the first XML node is an SVG node, then it
 			 becomes TWO THINGS:
@@ -164,13 +162,12 @@ static NSDictionary *elementMap = nil;
 				{
 					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
-				[newDocument release];
 			}
 			
 		}
 		
 		
-		return [element autorelease];
+		return element;
 	}
 	
 	return nil;

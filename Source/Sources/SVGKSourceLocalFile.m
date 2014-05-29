@@ -24,12 +24,11 @@
 	if (self = [super initWithInputSteam:stream]) {
 		self.filePath = p;
 	}
-	[stream release];
 	return self;
 }
 
 + (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p {
-	SVGKSourceLocalFile* s = [[[SVGKSourceLocalFile alloc] initWithFilename:p] autorelease];
+	SVGKSourceLocalFile* s = [[SVGKSourceLocalFile alloc] initWithFilename:p];
 		
 	return s;
 }
@@ -39,11 +38,6 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:absolute])
         return [SVGKSourceLocalFile sourceFromFilename:absolute];
     return nil;
-}
-
-- (void)dealloc {
-	self.filePath = nil;
-	[super dealloc];
 }
 
 - (NSString*)description

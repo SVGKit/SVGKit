@@ -58,7 +58,6 @@ static NSMutableDictionary *SVGCacheObject = nil;
 	if (SVGCacheObject) {
 		DDLogVerbose(@"[%@] INFO: Deleting image cache, %li images will be purged.", self, (long)[SVGCacheObject count]);
 		
-		[SVGCacheObject release];
 		SVGCacheObject = nil;
 	}
 }

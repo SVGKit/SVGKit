@@ -11,15 +11,15 @@
 
 @interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
 
-@property (readonly, retain) NSArray *svgArray;
+@property (readonly, strong) NSArray *svgArray;
 
-@property (assign) IBOutlet NSWindow *layeredWindow;
-@property (assign) IBOutlet SVGKLayeredImageView *layeredView;
-@property (assign) IBOutlet NSTableView *layeredTable;
+@property (weak) IBOutlet NSWindow *layeredWindow;
+@property (weak) IBOutlet SVGKLayeredImageView *layeredView;
+@property (weak) IBOutlet NSTableView *layeredTable;
 
-@property (assign) IBOutlet NSWindow *quickWindow;
-@property (assign) IBOutlet SVGKFastImageView *fastView;
-@property (assign) IBOutlet NSTableView *fastTable;
+@property (weak) IBOutlet NSWindow *quickWindow;
+@property (weak) IBOutlet SVGKFastImageView *fastView;
+@property (weak) IBOutlet NSTableView *fastTable;
 @property (nonatomic, getter = isCacheEnabled) BOOL cacheEnabled;
 
 - (IBAction)clearSVGCache:(id)sender;

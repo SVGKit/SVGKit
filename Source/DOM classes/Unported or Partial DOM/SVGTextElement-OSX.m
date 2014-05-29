@@ -170,9 +170,8 @@
 	[tempString addAttribute:NSFontAttributeName
 					   value:font
 					   range:NSMakeRange(0, tempString.string.length)];
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (__bridge CFMutableAttributedStringRef) tempString );
 	CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
-	[tempString release];
 	CFRelease(framesetter);
 	
 	CGRect unTransformedFinalBounds = { CGPointZero, suggestedUntransformedSize}; // everything's been pre-scaled by [self transformAbsolute]
@@ -180,7 +179,7 @@
 	CATextLayer *label = [[CATextLayer alloc] init];
 	[SVGHelperUtilities configureCALayer:label usingElement:self];
 	
-	label.font = (CFTypeRef)font;
+	label.font = (__bridge CFTypeRef)font;
 	
 	NSString *alignmentMode = kCAAlignmentLeft;
 	NSString *alignment = [self cascadedValueForStylableProperty:@"text-align"];

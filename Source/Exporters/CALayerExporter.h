@@ -26,8 +26,8 @@
     NSMutableDictionary* propertyRegistry;
 }
 
-@property (readwrite,nonatomic,retain) DWView* rootView;
-@property (readwrite,nonatomic,assign) id<CALayerExporterDelegate> delegate;
+@property (readwrite,nonatomic,strong) DWView* rootView;
+@property (readwrite,nonatomic,weak) id<CALayerExporterDelegate> delegate;
 
 - (id) initWithView:(DWView*)v;
 - (void) startExport;

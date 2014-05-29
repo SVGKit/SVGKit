@@ -10,7 +10,7 @@
 
 @interface SVGKSourceData : SVGKSource <NSCopying>
 
-@property (readonly, retain, nonatomic) NSData *data;
+@property (readonly, strong, nonatomic) NSData *data;
 
 - (id)initFromData:(NSData*)data DEPRECATED_ATTRIBUTE;
 - (id)initWithData:(NSData*)data;

@@ -22,18 +22,21 @@
 
 typedef SVGImage *SVGImageRef;
 
-static CGImageRef SVGImageCGImage(SVGImageRef img)
+//create a retained CGImage because I don't trust ARC not to release
+//the classes, thus the images, when we leave this function.
+//This is mainly for the benefit of the OS X port
+static CGImageRef CreateSVGImageCGImage(SVGImageRef img)
 {
 #if TARGET_OS_IPHONE
-    return img.CGImage;
+    return CGImageRetain(img.CGImage);
 #else
-    NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCIImage:img] autorelease];
-    return rep.CGImage;
+    NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCIImage:img];
+    return CGImageRetain(rep.CGImage);
 #endif
 }
 
 @interface SVGImageElement()
-@property (nonatomic, retain, readwrite) NSString *href;
+@property (nonatomic, strong, readwrite) NSString *href;
 @end
 
 @implementation SVGImageElement
@@ -48,12 +51,6 @@ static CGImageRef SVGImageCGImage(SVGImageRef img)
 @synthesize height = _height;
 
 @synthesize href = _href;
-
-- (void)dealloc {
-    [_href release], _href = nil;
-	
-    [super dealloc];
-}
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
@@ -90,7 +87,7 @@ static CGImageRef SVGImageCGImage(SVGImageRef img)
 		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
 		SVGImageRef image = [SVGImage imageWithData:imageData];
 		
-		newLayer.contents = (id)SVGImageCGImage(image);
+		newLayer.contents = CFBridgingRelease(CreateSVGImageCGImage(image));
 	}
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];

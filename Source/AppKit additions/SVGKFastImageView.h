@@ -27,7 +27,7 @@
 @interface SVGKFastImageView : SVGKImageView
 
 @property(nonatomic) CGSize tileRatio;
-@property(nonatomic,retain) SVGKImage* image;
+@property(nonatomic,strong) SVGKImage* image;
 
 /** Connvenience function to the text and gradient checkers
  */

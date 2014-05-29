@@ -16,8 +16,6 @@
 
 - (void)dealloc {
     CGPathRelease(maskPath);
-    [stopIdentifiers release];
-    [super dealloc];
 }
 
 - (void)setMaskPath:(CGPathRef)maskP {
@@ -42,7 +40,7 @@
         CGContextConcatCTM(ctx, CGAffineTransformMake(1, 0, 0, 1, -self.startPoint.x, -self.startPoint.y));
         
         if (self.colors.count) {
-            CGColorRef colorRef = (CGColorRef)[self.colors objectAtIndex:0];
+            CGColorRef colorRef = (__bridge CGColorRef)[self.colors objectAtIndex:0];
             numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
         }
@@ -52,7 +50,7 @@
         
         for (int x = 0; x < num_locations; x++) {
             locations[x] = [[self.locations objectAtIndex:x] floatValue];
-            const CGFloat *comps = CGColorGetComponents((CGColorRef)[self.colors objectAtIndex:x]);
+            const CGFloat *comps = CGColorGetComponents((__bridge CGColorRef)[self.colors objectAtIndex:x]);
             for (int y = 0; y < numbOfComponents; y++) {
                 size_t shift = numbOfComponents * x;
                 components[shift + y] = comps[y];
@@ -80,7 +78,7 @@
     for (NSString *key in stopIdentifiers) {
         if ([key isEqualToString:identifier]) {
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self.colors];
-            const CGFloat *colors = CGColorGetComponents((CGColorRef)[arr objectAtIndex:i]);
+            const CGFloat *colors = CGColorGetComponents((__bridge CGColorRef)[arr objectAtIndex:i]);
             CGFloat a = colors[3];
             const CGFloat *colors2 = CGColorGetComponents(color.CGColor);
             CGFloat r = colors2[0];
@@ -101,7 +99,7 @@
     for (NSString *key in stopIdentifiers) {
         if ([key isEqualToString:identifier]) {
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self.colors];
-            const CGFloat *colors = CGColorGetComponents((CGColorRef)[arr objectAtIndex:i]);
+            const CGFloat *colors = CGColorGetComponents((__bridge CGColorRef)[arr objectAtIndex:i]);
             CGFloat a = colors[3];
 			CGFloat r = 0;
             CGFloat g = 0;
@@ -116,8 +114,7 @@
 			}
             [arr removeObjectAtIndex:i];
 			CGColorRef newColor = CGColorCreateGenericRGB(r, g, b, a);
-            [arr insertObject:(id)newColor atIndex:i];
-			CGColorRelease(newColor);
+            [arr insertObject:CFBridgingRelease(newColor) atIndex:i];
             [self setColors:[NSArray arrayWithArray:arr]];
             return;
         }

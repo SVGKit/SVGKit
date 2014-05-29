@@ -63,14 +63,14 @@
 	BOOL isParsed;
 }
 
-@property(nonatomic,retain,readonly) SVGKSource* source;
+@property(nonatomic,strong,readonly) SVGKSource* source;
 @property(nonatomic,retain,readonly) NSMutableArray* externalStylesheets;
-@property(nonatomic,retain,readonly) SVGKParseResult* currentParseRun;
-@property(nonatomic,assign,readwrite) NSObject<SVGKParserDelegate> *delegate;
+@property(nonatomic,strong,readonly) SVGKParseResult* currentParseRun;
+@property(nonatomic,weak,readwrite) NSObject<SVGKParserDelegate> *delegate;
 @property(nonatomic,readonly) BOOL isParsed;
 
-@property(nonatomic,retain) NSMutableArray* parserExtensions;
-@property(nonatomic,retain) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
+@property(nonatomic,strong) NSMutableArray* parserExtensions;
+@property(nonatomic,strong) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
 
 #pragma mark - NEW
 

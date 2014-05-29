@@ -15,34 +15,20 @@
 
 @interface RoseReturnFunc : NSObject
 
-@property (assign) SVGKImageView *theView;
-@property (retain) NSObject<SKSVGObject> *imagePath;
+@property (weak) SVGKImageView *theView;
+@property (strong) NSObject<SKSVGObject> *imagePath;
 
 @end
 
 @implementation RoseReturnFunc
 
-- (void)dealloc
-{
-	self.imagePath = nil;
-	
-	[super dealloc];
-}
-
 @end
 
 @interface SKAppDelegate ()
-@property (readwrite, retain) NSArray *svgArray;
+@property (readwrite, strong) NSArray *svgArray;
 @end
 
 @implementation SKAppDelegate
-
-- (void)dealloc
-{
-    self.svgArray = nil;
-	
-	[super dealloc];
-}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -66,11 +52,10 @@
 			if (![tmpArray containsObject:tmpObj]) {
 				[tmpArray addObject:tmpObj];
 			}
-			[tmpObj release];
 		}
 	}
 	
-	//[tmpArray addObject:[[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]] autorelease]];
+	//[tmpArray addObject:[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
 	
 	@autoreleasepool {
 		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
@@ -81,8 +66,7 @@
 		}];
 	}
 	
-	self.svgArray = [NSArray arrayWithArray:tmpArray];
-	[tmpArray release];
+	self.svgArray = [[NSArray alloc] initWithArray:tmpArray];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
@@ -91,9 +75,9 @@
 	NSInteger selRow = [tmpView selectedRow];
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
-		SVGKImage *theImage = nil;
-		SVGKImageView *theImageView = nil;
-		NSWindow *imageWindow = nil;
+		SVGKImage *theImage;
+		SVGKImageView *theImageView;
+		NSWindow *imageWindow;
 		if (tmpView == self.fastTable) {
 			imageWindow = self.quickWindow;
 			theImageView = self.fastView;
@@ -109,16 +93,16 @@
 			theFunc.theView = theImageView;
 			theFunc.imagePath = tmpObj;
 			NSBeginAlertSheet(@"Complex SVG", @"No", @"Yes", nil, imageWindow, self,
-							  @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)(CFTypeRef)theFunc,
+							  @selector(sheetDidEnd:returnCode:contextInfo:), NULL, (void*)CFBridgingRetain(theFunc),
 							  @"The image \"%@\" has rendering issues on SVGKit. If you want to load the image, "
 							  @"it will probably crash the app or, more likely, cause the view to become unresponsive."
 							  @"\n\nAre you sure you want to load the image?", tmpObj.fileName);
-				return;
+			return;
 		}
 		
 		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
-			theImage = [[SVGKImage imageNamed:tmpObj.fullFileName fromBundle:((SKSVGBundleObject*)tmpObj).theBundle] retain];
+			theImage = [SVGKImage imageNamed:tmpObj.fullFileName fromBundle:((SKSVGBundleObject*)tmpObj).theBundle];
 		} else {
 			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
 		}
@@ -129,14 +113,13 @@
 		
 		theImageView.frameSize = theImage.size;
 		theImageView.image = theImage;
-		[theImage release];
 	}else
 		NSBeep();
 }
 
 static inline NSString *exceptionInfo(NSException *e)
 {
-	NSString *debugStr = nil;
+	NSString *debugStr;
 #if 0
 	debugStr = [NSString stringWithFormat:@", call stack: { %@ }", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
 #else
@@ -149,16 +132,15 @@ static inline NSString *exceptionInfo(NSException *e)
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
 {
 	CFTypeRef CFCtx = contextInfo;
-	RoseReturnFunc *theFunc = (RoseReturnFunc *)CFCtx;
+	RoseReturnFunc *theFunc = CFBridgingRelease(CFCtx);
 	
 	if (returnCode != NSAlertDefaultReturn) {
-		SVGKImage *tmpImage = nil;
+		SVGKImage *tmpImage;
 		@try {
 			tmpImage = [SVGKImage imageWithContentsOfURL:theFunc.imagePath.svgURL];
 		}
 		@catch (NSException *e) {
 			NSLog(@"EXCEPTION while loading %@: %@", theFunc.imagePath.fileName, exceptionInfo(e));
-			[theFunc release];
 			return;
 		}
 		if (![tmpImage hasSize]) {
@@ -174,12 +156,7 @@ static inline NSString *exceptionInfo(NSException *e)
 			theFunc.theView.frameSize = NSMakeSize(100, 100);
 			NSLog(@"EXCEPTION while setting image %@ %@: %@", tmpImage, theFunc.imagePath.fileName, exceptionInfo(e));
 		}
-		@finally {
-			[theFunc release];
-		}
 	}
-	
-	[theFunc release];
 }
 
 - (IBAction)showLayeredWindow:(id)sender

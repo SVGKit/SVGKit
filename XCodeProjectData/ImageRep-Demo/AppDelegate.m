@@ -16,11 +16,6 @@
 @implementation AppDelegate
 @synthesize useRepDirectly;
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	self.useRepDirectly = NO;
@@ -29,7 +24,7 @@
 
 - (IBAction)selectSVG:(id)sender
 {
-	NSOpenPanel *op = [[NSOpenPanel openPanel] retain];
+	NSOpenPanel *op = [NSOpenPanel openPanel];
 	[op setTitle: @"Open SVG file"];
 	[op setAllowsMultipleSelection: NO];
 	[op setAllowedFileTypes:@[@"public.svg-image", @"svg"]];
@@ -37,28 +32,20 @@
 	[op setCanChooseFiles: YES];
 	
 	if ([op runModal] != NSOKButton)
-	{
-		[op release];
 		return;
-	}
 	NSURL *svgUrl = [op URLs][0];
-	NSImage *selectImage = nil;
+	NSImage *selectImage;
 	if (!self.useRepDirectly) {
 		selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
-		[op release];
 	} else {
 		selectImage = [[NSImage alloc] init];
 		SVGKImageRep *imRep = [[SVGKImageRep alloc] initWithContentsOfURL:svgUrl];
-		[op release];
 		if (!imRep) {
-			[selectImage release];
 			return;
 		}
 		[selectImage addRepresentation:imRep];
-		[imRep release];
 	}
 	[svgSelected setImage:selectImage];
-	[selectImage release];
 }
 
 - (IBAction)exportAsTIFF:(id)sender
@@ -68,18 +55,18 @@
 		NSBeep();
 		return;
 	} else {
-		NSSavePanel *savePanel = [[NSSavePanel savePanel] retain];
+		NSSavePanel *savePanel = [NSSavePanel savePanel];
 		[savePanel setTitle:@"Save TIFF data"];
 		[savePanel setAllowedFileTypes:@[(NSString*)kUTTypeTIFF]];
 		[savePanel setCanCreateDirectories:YES];
 		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {
-			NSData *tiffData = nil;
+			NSData *tiffData;
 			if (!self.useRepDirectly)
 				tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 			else {
 				NSArray *imageRepArrays = [theImage representations];
-				SVGKImageRep *promising = nil;
+				SVGKImageRep *promising;
 				NSSize oldSize = NSZeroSize;
 				for (id anObject in imageRepArrays) {
 					if ([anObject isKindOfClass:[SVGKImageRep class]]) {
@@ -100,7 +87,6 @@
 				
 			}
 		}
-		[savePanel release];
 	}
 }
 

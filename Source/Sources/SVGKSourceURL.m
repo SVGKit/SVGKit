@@ -2,7 +2,7 @@
 #import "SVGKSource-private.h"
 
 @interface SVGKSourceURL ()
-@property (readwrite, nonatomic, retain) NSURL* URL;
+@property (readwrite, nonatomic, strong) NSURL* URL;
 @end
 
 @implementation SVGKSourceURL
@@ -24,12 +24,11 @@
 	if (self = [super initWithInputSteam:stream]) {
 		self.URL = u;
 	}
-	[stream release];
 	return self;
 }
 
-+ (SVGKSource*)sourceFromURL:(NSURL*)u {
-	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithURL:u] autorelease];
++ (SVGKSourceURL*)sourceFromURL:(NSURL*)u {
+	SVGKSourceURL* s = [[SVGKSourceURL alloc] initWithURL:u];
 	
 	return s;
 }
@@ -37,12 +36,6 @@
 - (SVGKSource *)sourceFromRelativePath:(NSString *)path {
     NSURL *url = [[self.URL URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
     return [SVGKSourceURL sourceFromURL:url];
-}
-
-- (void)dealloc {
-	self.URL = nil;
-	
-	[super dealloc];
 }
 
 - (NSString*)description

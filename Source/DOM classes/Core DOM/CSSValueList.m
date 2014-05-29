@@ -3,18 +3,13 @@
 
 @interface CSSValueList()
 
-@property(nonatomic,retain) NSArray* internalArray;
+@property(nonatomic,strong) NSArray* internalArray;
 
 @end
 
 @implementation CSSValueList
 
 @synthesize internalArray;
-
-- (void)dealloc {
-	self.internalArray = nil;
-	[super dealloc];
-}
 
 - (id)init
 {
@@ -39,9 +34,7 @@
 
 -(void)setCssText:(NSString *)newCssText
 {
-	[_cssText release];
 	_cssText = newCssText;
-	[_cssText retain];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
 	DDLogVerbose(@"[%@] received new CSS Text, need to split this and save as CSSValue instances: %@", [self class], _cssText);

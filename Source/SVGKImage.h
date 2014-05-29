@@ -67,20 +67,20 @@
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
 
-@property (nonatomic, readonly) CIImage *CIImage;
+@property (unsafe_unretained, nonatomic, readonly) CIImage *CIImage;
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-@property (nonatomic, readonly) UIImage* UIImage;
+@property (unsafe_unretained, nonatomic, readonly) UIImage* UIImage;
 #else
-@property (nonatomic, readonly) NSImage *NSImage;
-@property (nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
+@property (unsafe_unretained, nonatomic, readonly) NSImage *NSImage;
+@property (unsafe_unretained, nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
 #endif
 
-@property (nonatomic, retain, readonly) SVGKSource* source;
-@property (nonatomic, retain, readonly) SVGKParseResult* parseErrorsAndWarnings;
+@property (nonatomic, strong, readonly) SVGKSource* source;
+@property (nonatomic, strong, readonly) SVGKParseResult* parseErrorsAndWarnings;
 
-@property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
-@property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
-@property (nonatomic, retain, readonly) CALayer* CALayerTree;
+@property (nonatomic, strong, readonly) SVGDocument* DOMDocument;
+@property (nonatomic, strong, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
+@property (nonatomic, strong, readonly) CALayer* CALayerTree;
 
 #pragma mark - methods to quick load an SVG as an image
 /**

@@ -5,11 +5,6 @@
 @synthesize mediaText;
 @synthesize length;
 
-- (void)dealloc {
-	[mediaText release];
-	[super dealloc];
-}
-
 -(NSString*) item:(unsigned long) index
 {
 	NSAssert( FALSE, @"Not implemented yet");

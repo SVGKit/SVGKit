@@ -13,7 +13,7 @@
 	IBOutlet NSImageCell *svgSelected;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSWindow *window;
 @property BOOL useRepDirectly;
 
 - (IBAction)selectSVG:(id)sender;
