@@ -309,8 +309,8 @@ readPacket(char *mem, int size) {
 	self.isBeingParsed = YES;
 	dispatch_async(dispatch_get_global_queue(0, 0), ^{
 		//Hack: create a new block, then parse synchronously with a new object in the new thread.
-		SVGKSource *newSource = nil;
-		SVGKParser *otherParser = nil;
+		SVGKSource *newSource;
+		SVGKParser *otherParser;
 		if (!(newSource = [self.source copy])) {
 			DDLogWarn(@"[%@] WARN: Can't copy source to make a new parser.", [self class]);
 			DDLogInfo(@"[%@] INFO: Will use current parser, which may cause errors with threading!.", [self class]);
@@ -319,7 +319,7 @@ readPacket(char *mem, int size) {
 			otherParser = [[SVGKParser alloc] initWithSource:newSource];
 			newSource = nil;
 		}
-		SVGKParseResult *theResult = nil;
+		SVGKParseResult *theResult;
 		if (otherParser == self) {
 			//Just in case
 			@synchronized(otherParser) {
@@ -377,7 +377,7 @@ readPacket(char *mem, int size) {
 
 - (SVGKSource *)loadCSSFrom:(NSString *)href
 {
-    SVGKSource *cssSource = nil;
+    SVGKSource *cssSource;
     if( [href hasPrefix:@"http"] )
     {
         NSURL *url = [NSURL URLWithString:href];
@@ -412,7 +412,7 @@ readPacket(char *mem, int size) {
 {
     static uint8_t byteBuffer[4096];
     NSInteger bytesRead;
-    NSString *result = nil;
+    NSString *result;
     do
     {
         bytesRead = [src.stream read:byteBuffer maxLength:4096];
@@ -506,8 +506,8 @@ static void processingInstructionSAX (void * ctx,
 	 (most tags are handled by the default SVGParserSVG - but if you have other XML embedded in your SVG, you'll
 	 have custom parser extentions too)
 	 */
-	NSObject<SVGKParserExtension>* defaultParserForThisNamespace = nil;
-	NSObject<SVGKParserExtension>* defaultParserForEverything = nil;
+	NSObject<SVGKParserExtension>* defaultParserForThisNamespace;
+	NSObject<SVGKParserExtension>* defaultParserForEverything;
 	for( NSObject<SVGKParserExtension>* subParser in self.parserExtensions )
 	{
 		// TODO: rather than checking for the default parser on every node, we should stick them in a Dictionar at the start and re-use them when needed

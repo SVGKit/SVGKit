@@ -88,7 +88,7 @@ static NSDictionary *elementMap = nil;
 		/** special case: <svg:svg ... version="XXX"> */
 		if( [@"svg" isEqualToString:name] )
 		{
-			NSString* svgVersion = nil;
+			NSString* svgVersion;
 			
 			/** According to spec, if the first XML node is an SVG node, then it
 			 becomes TWO THINGS:

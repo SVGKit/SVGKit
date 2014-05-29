@@ -381,7 +381,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-	SVGKSource *copySource = nil;
+	SVGKSource *copySource;
 	if (!(copySource = [self.source copyWithZone:zone]))
 	{
 		DDLogError(@"[%@] ERROR: Unable to copy %@, unable to copy %@ from %@", [self class], self, [self.source class], self.source);
@@ -640,7 +640,7 @@
 
 static inline NSString *exceptionInfo(NSException *e)
 {
-	NSString *debugStr = nil;
+	NSString *debugStr;
 #if 0
 	debugStr = [NSString stringWithFormat:@", call stack: %@", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
 #else
@@ -867,7 +867,7 @@ return; \
 	
 	DDLogVerbose(@"[%@] DEBUG: Generating a CIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], self.size.width, self.size.height);
 	
-	CIImage *result = nil;
+	CIImage *result;
 	CGImageRef theRef = [imRep CGImage];
 	if (theRef) {
 		result = [CIImage imageWithCGImage:theRef];

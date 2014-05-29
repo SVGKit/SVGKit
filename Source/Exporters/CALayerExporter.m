@@ -119,7 +119,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
                 
                 NSMethodSignature* methodSig = [currentLayer methodSignatureForSelector:message];
                 
-                NSString* propertyValue = nil;
+                NSString* propertyValue;
                 const char * methodReturnType = [methodSig methodReturnType];
                 
                 if (0 == strcmp("@", methodReturnType)) {

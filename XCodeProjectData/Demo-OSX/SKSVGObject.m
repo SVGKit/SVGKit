@@ -96,8 +96,8 @@ return nil
 
 - (NSURL*)svgURL
 {
-	NSString *newName = nil;
-	NSString *extension = nil;
+	NSString *newName;
+	NSString *extension;
 	[self getFileName:&newName extension:&extension];
 	
 	NSURL *retURL = [self.theBundle URLForResource:newName withExtension:extension];
@@ -106,8 +106,8 @@ return nil
 
 - (NSString*)fileName
 {
-	NSString *newName = nil;
-	NSString *extension = nil;
+	NSString *newName;
+	NSString *extension;
 	[self getFileName:&newName extension:&extension];
 	
 	NSString *fullPath = [self.theBundle pathForResource:newName ofType:extension];
@@ -148,8 +148,8 @@ return nil
 	NSURL *tmpURL = self.svgURL;
 	
 	if([tmpURL isFileURL]){
-		NSString *val = nil;
-		NSError *err = nil;
+		NSString *val;
+		NSError *err;
 		if([tmpURL getResourceValue:&val forKey:NSURLLocalizedNameKey error:&err] == NO)
 		{
 			NSLog(@"SKSVGObject: Could not find out if extension is hidden in file \"%@\", error: %@", [tmpURL path], [err localizedDescription]);

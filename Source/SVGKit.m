@@ -139,7 +139,7 @@ if (mutStr.length == 0) { \
 	switch (newLevel) {
 		case SVGKLoggingMixed:
 		{
-			NSString *logName = nil;
+			NSString *logName;
 #define ARG(theArg) case theArg: \
 logName = @#theArg; \
 break

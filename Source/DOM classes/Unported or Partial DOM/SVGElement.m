@@ -131,7 +131,7 @@
 		else
 		{
 			Node* currentAncestor = newParent;
-			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement = nil;
+			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement;
 			while( firstAncestorThatIsAnyKindOfSVGElement == nil
 				  && currentAncestor != nil ) // if we run out of tree! This would be an error (see below)
 			{
@@ -243,7 +243,7 @@
                 value = [self getAttribute:@"gradientTransform"];
             }
 						
-		NSError* error = nil;
+		NSError* error;
 		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
 		
 		[regexpTransformListItem enumerateMatchesInString:value options:0 range:NSMakeRange(0, [value length]) usingBlock:

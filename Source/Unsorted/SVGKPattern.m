@@ -40,7 +40,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 
 + (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage
 {
-	SVGKPattern *p = nil;
+	SVGKPattern *p;
 	
 	CGColorRef tmpColor = CGColorMakeFromImage(cgImage);
 	p = [SVGKPattern patternWithCGColor:tmpColor];

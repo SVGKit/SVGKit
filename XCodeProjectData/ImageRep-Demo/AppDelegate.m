@@ -34,14 +34,12 @@
 	if ([op runModal] != NSOKButton)
 		return;
 	NSURL *svgUrl = [op URLs][0];
-	NSImage *selectImage = nil;
+	NSImage *selectImage;
 	if (!self.useRepDirectly) {
 		selectImage = [[NSImage alloc] initWithContentsOfURL:svgUrl];
-		op = nil;
 	} else {
 		selectImage = [[NSImage alloc] init];
 		SVGKImageRep *imRep = [[SVGKImageRep alloc] initWithContentsOfURL:svgUrl];
-		op = nil;
 		if (!imRep) {
 			return;
 		}
@@ -63,12 +61,12 @@
 		[savePanel setCanCreateDirectories:YES];
 		[savePanel setCanSelectHiddenExtension:YES];
 		if ([savePanel runModal] == NSOKButton) {
-			NSData *tiffData = nil;
+			NSData *tiffData;
 			if (!self.useRepDirectly)
 				tiffData = [theImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1];
 			else {
 				NSArray *imageRepArrays = [theImage representations];
-				SVGKImageRep *promising = nil;
+				SVGKImageRep *promising;
 				NSSize oldSize = NSZeroSize;
 				for (id anObject in imageRepArrays) {
 					if ([anObject isKindOfClass:[SVGKImageRep class]]) {

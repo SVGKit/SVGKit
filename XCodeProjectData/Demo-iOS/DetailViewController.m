@@ -95,7 +95,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	CGPoint p = [recognizer locationInView:self.contentView];
 	
 #if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
-	SVGKImage* svgImage = nil; // ONLY used for the hacky code below that demonstrates how complex hit-testing is on an SVGKFastImageView
+	SVGKImage* svgImage; // ONLY used for the hacky code below that demonstrates how complex hit-testing is on an SVGKFastImageView
 	
 	/**
 	 WARNING:
@@ -282,7 +282,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	[[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]]; // makes the animation appear
 	self.startParseTime = self.endParseTime = [NSDate date]; // reset them
 	
-	SVGKImageView* newContentView = nil;
+	SVGKImageView* newContentView;
 	BOOL thisImageRequiresLayeredImageView = false;
 	CGSize customSizeForImage = CGSizeZero;
     
@@ -345,7 +345,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		 the actual loading of the SVG file and making a view to display it!
 		 */
 		
-		SVGKImage *document = nil;
+		SVGKImage *document;
 		
 		/** Detect URL vs file */
 		self.startParseTime = [NSDate date];

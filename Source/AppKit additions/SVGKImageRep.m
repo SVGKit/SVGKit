@@ -56,7 +56,7 @@
 
 + (NSArray *)imageUnfilteredFileTypes
 {
-	static NSArray *types = nil;
+	static NSArray *types;
 	if (types == nil) {
 		types = @[@"svg"];
 	}
@@ -65,7 +65,7 @@
 
 + (NSArray *)imageUnfilteredTypes
 {
-	static NSArray *UTItypes = nil;
+	static NSArray *UTItypes;
 	if (UTItypes == nil) {
 		UTItypes = @[@"public.svg-image"];
 	}
@@ -80,7 +80,7 @@
 
 + (BOOL)canInitWithData:(NSData *)d
 {
-	SVGKParseResult *parseResult = nil;
+	SVGKParseResult *parseResult;
 	@autoreleasepool {
 		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[[SVGKSourceData alloc] initWithData:d]];
 	}
@@ -164,7 +164,7 @@
 		if (theImage == nil) {
 			return nil;
 		}
-		SVGKImage *tmpImage = nil;
+		SVGKImage *tmpImage;
 		if (copyImag) {
 			tmpImage = [theImage copy];
 			if (tmpImage) {
@@ -178,7 +178,7 @@
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
 		
 		if (hasGrad || hasText) {
-			NSString *errstuff = nil;
+			NSString *errstuff;
 			
 			if (hasGrad) {
 				errstuff = @"gradients";

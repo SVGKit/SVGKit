@@ -75,9 +75,9 @@
 	NSInteger selRow = [tmpView selectedRow];
 	if (selRow > -1 && selRow < [self.svgArray count]) {
 		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
-		SVGKImage *theImage = nil;
-		SVGKImageView *theImageView = nil;
-		NSWindow *imageWindow = nil;
+		SVGKImage *theImage;
+		SVGKImageView *theImageView;
+		NSWindow *imageWindow;
 		if (tmpView == self.fastTable) {
 			imageWindow = self.quickWindow;
 			theImageView = self.fastView;
@@ -119,7 +119,7 @@
 
 static inline NSString *exceptionInfo(NSException *e)
 {
-	NSString *debugStr = nil;
+	NSString *debugStr;
 #if 0
 	debugStr = [NSString stringWithFormat:@", call stack: { %@ }", [NSDictionary dictionaryWithObjects:e.callStackReturnAddresses forKeys:e.callStackSymbols]];
 #else
@@ -135,7 +135,7 @@ static inline NSString *exceptionInfo(NSException *e)
 	RoseReturnFunc *theFunc = CFBridgingRelease(CFCtx);
 	
 	if (returnCode != NSAlertDefaultReturn) {
-		SVGKImage *tmpImage = nil;
+		SVGKImage *tmpImage;
 		@try {
 			tmpImage = [SVGKImage imageWithContentsOfURL:theFunc.imagePath.svgURL];
 		}

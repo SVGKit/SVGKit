@@ -28,7 +28,7 @@
 
 - (NSString*)description
 {
-	NSString *unit = nil;
+	NSString *unit;
 #define UnitSwitch(name) case SVG_LENGTHTYPE_##name: \
 unit = [@#name lowercaseString]; \
 break
