@@ -64,10 +64,10 @@
             
             CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);
             
-            free(locations);
-            free(components);
             CGGradientRelease(gradient);
         }
+        free(locations);
+        free(components);
     } else {
         [super renderInContext:ctx];
     }

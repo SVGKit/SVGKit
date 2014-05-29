@@ -481,7 +481,6 @@ readPacket(char *mem, int size) {
     if( self.externalStylesheets != nil )
     {
         [currentParseRun.parsedDocument.rootElement.styleSheets.internalArray addObjectsFromArray:self.externalStylesheets];
-        [self.externalStylesheets release];
         self.externalStylesheets = nil;
     }
 }
