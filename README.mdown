@@ -7,7 +7,7 @@ Versions:
   - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0 as well as a lot of enhancements including OS X support and "modern" Objective-C syntax.
   - v1.x = current "in development" branch with latest changes, fixes, features
   - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct:__ It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
-  - arc - Branch that has the iOS and OS X project use Automatic Reference Counting.
+  - arc - Branch that has the iOS and OS X project use Automatic Reference Counting. __Now defunct:__ it has been merged back to master.
   - namespaces - Branch that has the SVGKit headers better designed to work with OS X. __Now defunct:__ it has been merged back to master.
   - toSVGKit - Branch that contains staged changes to put back into SVGKit's 1.1.0 branch.
   - patterns - Branch for working on pattern support. based off of SVGKit's 1.1.0 branch as opposed to my master. Parts have been merged back to master.
