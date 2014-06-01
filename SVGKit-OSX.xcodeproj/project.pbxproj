@@ -831,6 +831,7 @@
 				5540E66D17387C9F004029EF /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		5540E66D17387C9F004029EF /* Products */ = {
 			isa = PBXGroup;

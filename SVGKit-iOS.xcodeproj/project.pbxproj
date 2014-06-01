@@ -690,6 +690,7 @@
 				6639618F16145D0400E58CCA /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		6639618F16145D0400E58CCA /* Products */ = {
 			isa = PBXGroup;
@@ -1050,7 +1051,7 @@
 		6639618516145D0400E58CCA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = na;
 			};
 			buildConfigurationList = 6639618816145D0400E58CCA /* Build configuration list for PBXProject "SVGKit-iOS" */;
@@ -1186,7 +1187,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1221,7 +1221,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
