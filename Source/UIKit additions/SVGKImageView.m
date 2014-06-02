@@ -1,4 +1,4 @@
-#import <SVGKit/SVGKImageView.h>
+#import "SVGKImageView.h"
 
 @implementation SVGKImageView
 

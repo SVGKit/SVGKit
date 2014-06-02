@@ -1,18 +1,32 @@
-#import <AppKit/AppKit.h>
+#import <Foundation/Foundation.h>
+#if !TARGET_OS_IPHONE
+#import <Cocoa/Cocoa.h>
+#else
+#import <UIKit/UIKit.h>
+#endif
 
 #import <SVGKit/SVGKImageView.h>
 
 /**
- * SVGKit's version of NSImageView - with some improvements over Apple's design
+ * SVGKit's version of NSImageView or UIImageView - with some improvements over Apple's design
  
- WARNING: CAAnimations are NOT supported
+ WARNING 1: CAAnimations are NOT supported
  - because of the way this class works, any animations you add to the SVGKImage's CALayerTree *will be ignored*. If you need to animate the elements of an SVG file, use SVGKLayer instead (although that class is missing some of the features of this class, and is a little harder to use)
-
- Basic usage:
+ 
+ WARNING 2 (iOS only): UIScrollView requires special-case code
+ - Apple's implementation of UIScrollView is badly broken for zooming. To workaround this, you MUST disable the auto-redraw on this class BEFORE zooming a UIScrollView. You can re-enable it after the zoom has finished. You MUST ALSO make a manual call to "fix" the transform of the view each time Apple sends you the "didFinishZooming:atScale" method. There is an example of this in the demo project (currently named "iOS-Demo.xcodeproj") showing exactly how to do this. It only requires 2 lines of code, but Apple's documentation makes it clear that this is the only way to work in harmony with UIScrollView's internal hacks.
+ - to disable auto-redraw-on-resize, set the BOOL: disableAutoRedrawAtHighestResolution to FALSE
+ 
+ Basic usage (OS X):
  - as per NSImageView, simpy:
  - SVGKImageView *skv = [[SVGKImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"image.svg"]];
  - [view addSubview: skv];
  
+ Basic usage (iOS):
+ - as per UIImageView, simpy:
+ - SVGKImageView *skv = [[SVGKImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"image.svg"]];
+ - [self.view addSubview: skv];
+
  Advanced usage:
  - to make the contents shrink to half their actual size, and tile to fill, set self.tileRatio = CGSizeMake( 2.0f, 2.0f );
  NOTE: I'd prefer to do this view UIViewContentMode, but Apple didn't make it extensible
@@ -28,11 +42,16 @@
 
 @property(nonatomic) CGSize tileRatio;
 @property(nonatomic,strong) SVGKImage* image;
+#if TARGET_OS_IPHONE
+@property(nonatomic) BOOL disableAutoRedrawAtHighestResolution;
+#endif
 
 /** Connvenience function to the text and gradient checkers
  */
-+ (BOOL)svgImage:(SVGKImage*)theImage hasNoClass:(Class)theClass;
-+ (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class)theClass;
+#if !TARGET_OS_IPHONE
++(BOOL)svgImage:(SVGKImage*)theImage hasNoClass:(Class)theClass;
++(BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class)theClass;
+#endif
 
 /** Apple has a bug in CALayer where their renderInContext: method does not respect Apple's own mask layers.
  
@@ -41,12 +60,14 @@
  correctly
  */
 +(BOOL)svgImageHasNoGradients:(SVGKImage*) image;
-+(BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*) element DEPRECATED_ATTRIBUTE;
++(BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*) element;
 
+#if !TARGET_OS_IPHONE
 /** The text implementation on OS X is different between CALayers and NSViews. If the CALayer is made in 
  SVGKLayeredImageView, it renders right-side up. Otherwise, it is upside-down.
  */
-+ (BOOL)svgImageHasNoText:(SVGKImage*)image;
-+ (BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element DEPRECATED_ATTRIBUTE;
++(BOOL)svgImageHasNoText:(SVGKImage*)image;
++(BOOL)svgElementAndDescendentsHaveNoText:(SVGElement*) element DEPRECATED_ATTRIBUTE;
+#endif
 
 @end

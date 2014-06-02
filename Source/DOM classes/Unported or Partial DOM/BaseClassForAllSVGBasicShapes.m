@@ -1,7 +1,7 @@
 #import <SVGKit/BaseClassForAllSVGBasicShapes.h>
 #import <SVGKit/BaseClassForAllSVGBasicShapes_ForSubclasses.h>
 
-#import <SVGKit/CGPathAdditions.h>
+#import "CGPathAdditions.h"
 #import <SVGKit/SVGDefsElement.h>
 #import <SVGKit/SVGKPattern.h>
 #import <SVGKit/CAShapeLayerWithHitTest.h>

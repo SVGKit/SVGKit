@@ -6,7 +6,7 @@
 #if IS_ALSO_LUMBERJACK_LOG_LEVEL
 extern int ddLogLevel CA_HIDDEN;
 #else
-__private_extern__ int SVGCurrentLogLevel();
+int SVGCurrentLogLevel() CA_HIDDEN;
 #define ddLogLevel SVGCurrentLogLevel()
 #endif
 

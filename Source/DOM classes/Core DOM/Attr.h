@@ -18,7 +18,6 @@
 /** objc won't allow this: @class Node;*/
 #import <SVGKit/Node.h>
 @class Element;
-#import <SVGKit/Element.h>
 
 @interface Attr : Node
 
