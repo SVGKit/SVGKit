@@ -134,15 +134,17 @@ or load an image and convert it to an NSImage or NSBitmapImageRep object:
     NSImage *newImage = [SVGKImage imageNamed:@"mySVGfile"].NSImage;
     NSBitmapImageRep *newImageRep = [SVGKImage imageNamed:@"mySVGfile"].bitmapImageRep;
     
-Or load the SVG using NSImage:
+or load the SVG using NSImage:
 
     NSImage *svgImage = [NSImage imageNamed:@"mySVGfile.svg"];
 
-Note that there is a naming conflict with one of OS X's headers, specifically a struct called *Comment* in the AIFF header. The following code __must be included in any source file that will include SVGKit headers, *before* any other header includes.__ A good place to put it would be in the prefix header.
+Note that there is a naming conflict with one of OS X's headers, specifically a struct called `Comment` in the AIFF header. The following code __must be included in any source file that will include SVGKit headers, *before* any other header includes.__ A good place to put it would be in the prefix header.
 
     #define Comment AIFFComment
     #include <CoreServices/CoreServices.h>
     #undef Comment
+
+Also note that using Objective C modules support introduced in Xcode 5 may cause similar build failures.
 
 ## Usage
 
@@ -153,7 +155,9 @@ There are three ways to make SVGKit run on OS X:
 
 ## Installation
 
-Note that you can build SVGKit as either a framework (which will include the Lumberjack code as a subframework) or a static library (which will have Lumberjack code embedded with it). If you include it as a framework, you don't have to worry about adding other frameworks or there being duplicate classes if more than one bundle your app uses links to it. Using the static library will have some speed boosts when loading your app, but you must also link to a framework that isn't included by default in Xcode projects.
+Note that you can only build SVGKit as a framework (which will include the Lumberjack code as a subframework) For loading the framework at run time, add the following line to the `rpath` linker options:
+
+     @loader_path/../Frameworks
 
 ### SVGKit
 
@@ -162,39 +166,3 @@ There is a sample project you can examine which copies the SVGKit framework into
 ### SVGKImageRep
 
 To use SVGKImageRep, either just link to SVGKit, or load the SVGKit framework with NSBundle. Both methods will add the SVGKImageRep class to the NSImageRep classes list.
-
-### libSVGKit
-
-To include libSVGKit in an OS X project, follow these steps:
-
-  1. Open the project "SVGKit-OSX"
-  2. Select the target "libSVGKit" from the dropdown build selector at top left.
-  3. Build.
-  4. Open the Products section on left hand bar in Xcode, right click the product, and select "Show in Finder".
-  5. Drag/drop the library file, and the headers folder SVGKit (should be in "usr/local/include") into your OS X project.
-  7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
-  6. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
-  8. Add all the __required Apple Frameworks__ (see below).
-  10. Add the library "libxml2.dylib"
-  9. (Optional but recommended): Edit your build settings and add "Header Search Paths" = "${SDK_DIR}/usr/include/libxml2"
-  1. Import the SVGKit header in your app: #import &lt;SVGKit/SVGKit.h&gt;
-
-Note that you can also include the Xcode project in a similar way as iOS.
-
-#### REQUIRED APPLE FRAMEWORKS
-
-You must add the following frameworks for libSVGKit to link - unless you are embedding the whole project file (in which case Apple does it automatically)
-
-  - QuartzCore
-  - Cocoa
-
-(You will most likely need to import QuartzCore into your project. Note that unlike iOS, OS X uses the concept of umbrella frameworks more-so than iOS.)
-
-Here is a list of all the frameworks that libSVGKit uses and can be linked against:
-
-  - CoreText (10.8 or later)
-  - Foundation
-  - AppKit
-  - CoreFoundation
-  - QuartzCore
-  - ApplicationServices
