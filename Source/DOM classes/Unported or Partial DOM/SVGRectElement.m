@@ -7,7 +7,7 @@
 @interface SVGRectElement ()
 
 #if (!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
-void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
+static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
 #endif
 
 @end
