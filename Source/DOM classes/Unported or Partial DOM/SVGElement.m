@@ -20,6 +20,8 @@
 
 #import "SVGTransformable.h"
 
+#import "SVGKCGFloatAdditions.h"
+
 @interface SVGElement ()
 
 @property (nonatomic, copy) NSString *stringValue;
@@ -69,7 +71,7 @@
 	BOOL isTagAllowedToBeAViewport = [self.tagName isEqualToString:@"svg"] || [self.tagName isEqualToString:@"foreignObject"]; // NB: Spec lists "image" tag too but only as an IMPLICIT CREATOR - we don't actually handle it (it creates an <SVG> tag ... that will be handled later)
 	
 	BOOL isTagDefiningAViewport = [self.attributes getNamedItem:@"width"] != nil || [self.attributes getNamedItem:@"height"] != nil;
-		
+	
 	if( isTagAllowedToBeAViewport && isTagDefiningAViewport )
 	{
 		DDLogVerbose(@"[%@] WARNING: setting self (tag = %@) to be a viewport", [self class], self.tagName );
@@ -102,7 +104,7 @@
 	
 	/** SVG Spec: if "outermost SVG tag" then both element refs should be nil */
 	if( [self isKindOfClass:[SVGSVGElement class]]
-	&& (self.parentNode == nil || ! [self.parentNode isKindOfClass:[SVGElement class]]) )
+	   && (self.parentNode == nil || ! [self.parentNode isKindOfClass:[SVGElement class]]) )
 	{
 		self.rootOfCurrentDocumentFragment = nil;
 		self.viewportElement = nil;
@@ -115,7 +117,7 @@
 		 If the tree is purely SVGElement nodes / subclasses, that's easy.
 		 
 		 But if there are custom nodes in there (any other DOM node, for instance), it gets
-		more tricky. We have to recurse up the tree until we find an SVGElement we can latch
+		 more tricky. We have to recurse up the tree until we find an SVGElement we can latch
 		 onto
 		 */
 		
@@ -127,7 +129,7 @@
 		else
 		{
 			Node* currentAncestor = newParent;
-			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement = nil;
+			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement;
 			while( firstAncestorThatIsAnyKindOfSVGElement == nil
 				  && currentAncestor != nil ) // if we run out of tree! This would be an error (see below)
 			{
@@ -173,15 +175,6 @@
 	}
 }
 
-- (void)dealloc {
-	[_stringValue release];
-	[_identifier release];
-	[xmlbase release];
-	self.className = nil;
-    self.style = nil;
-	[super dealloc];
-}
-
 - (void)loadDefaults {
 	// to be overriden by subclasses
 }
@@ -204,7 +197,7 @@
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{
-		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
+		self.style = [[CSSStyleDeclaration alloc] init];
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])
@@ -238,20 +231,17 @@
 		{
 			SVGElement<SVGTransformable>* selfTransformable = (SVGElement<SVGTransformable>*) self;
 			
-		/**
-		 http://www.w3.org/TR/SVG/coords.html#TransformAttribute
-		 
-		 The individual transform definitions are separated by whitespace and/or a comma. 
-		 */
-		NSString* value = [self getAttribute:@"transform"];
+			/**
+			 http://www.w3.org/TR/SVG/coords.html#TransformAttribute
+			 
+			 The individual transform definitions are separated by whitespace and/or a comma.
+			 */
+			NSString* value = [self getAttribute:@"transform"];
             if (!value.length) {
                 value = [self getAttribute:@"gradientTransform"];
             }
-		
-#if !(TARGET_OS_IPHONE) && ( !defined( __MAC_10_7 ) || __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_6_7 )
-		DDLogVerbose(@"[%@] WARNING: the transform attribute requires OS X 10.7 or above (we need Regular Expressions! Apple was slow to add them :( ). Ignoring TRANSFORMs in SVG!", [self class] );
-#else
-		NSError* error = nil;
+						
+		NSError* error;
 		NSRegularExpression* regexpTransformListItem = [NSRegularExpression regularExpressionWithPattern:@"[^\\(\\),]*\\([^\\)]*" options:0 error:&error]; // anything except space and brackets ... followed by anything except open bracket ... plus anything until you hit a close bracket
 		
 		[regexpTransformListItem enumerateMatchesInString:value options:0 range:NSMakeRange(0, [value length]) usingBlock:
@@ -273,14 +263,14 @@
 			/** if you get ", " (comma AND space), Apple sends you an extra 0-length match - "" - between your args. We strip that here */
 			parameterStrings = [parameterStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
 			
-			//EXTREME DEBUG: DDLogVerbose(@"[%@] DEBUG: found parameters = %@", [self class], parameterStrings);
+			//EXTREME DEBUG: NSLog(@"[%@] DEBUG: found parameters = %@", [self class], parameterStrings);
 			
 			command = [command stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
 			
 			if( [command isEqualToString:@"translate"] )
 			{
-				CGFloat xtrans = [(NSString*)parameterStrings[0] floatValue];
-				CGFloat ytrans = [parameterStrings count] > 1 ? [(NSString*)parameterStrings[1] floatValue] : 0.0;
+				CGFloat xtrans = [(NSString*)parameterStrings[0] SVGKCGFloatValue];
+				CGFloat ytrans = [parameterStrings count] > 1 ? [(NSString*)parameterStrings[1] SVGKCGFloatValue] : 0.0;
 				
 				CGAffineTransform nt = CGAffineTransformMakeTranslation(xtrans, ytrans);
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
@@ -288,20 +278,20 @@
 			}
 			else if( [command isEqualToString:@"scale"] )
 			{
-				CGFloat xScale = [(NSString*)parameterStrings[0] floatValue];
-				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)parameterStrings[1] floatValue] : xScale;
+				CGFloat xScale = [(NSString*)parameterStrings[0] SVGKCGFloatValue];
+				CGFloat yScale = [parameterStrings count] > 1 ? [(NSString*)parameterStrings[1] SVGKCGFloatValue] : xScale;
 				
 				CGAffineTransform nt = CGAffineTransformMakeScale(xScale, yScale);
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 			}
 			else if( [command isEqualToString:@"matrix"] )
 			{
-				CGFloat a = [(NSString*)parameterStrings[0] floatValue];
-				CGFloat b = [(NSString*)parameterStrings[1] floatValue];
-				CGFloat c = [(NSString*)parameterStrings[2] floatValue];
-				CGFloat d = [(NSString*)parameterStrings[3] floatValue];
-				CGFloat tx = [(NSString*)parameterStrings[4] floatValue];
-				CGFloat ty = [(NSString*)parameterStrings[5] floatValue];
+				CGFloat a = [(NSString*)parameterStrings[0] SVGKCGFloatValue];
+				CGFloat b = [(NSString*)parameterStrings[1] SVGKCGFloatValue];
+				CGFloat c = [(NSString*)parameterStrings[2] SVGKCGFloatValue];
+				CGFloat d = [(NSString*)parameterStrings[3] SVGKCGFloatValue];
+				CGFloat tx = [(NSString*)parameterStrings[4] SVGKCGFloatValue];
+				CGFloat ty = [(NSString*)parameterStrings[5] SVGKCGFloatValue];
 				
 				CGAffineTransform nt = CGAffineTransformMake(a, b, c, d, tx, ty );
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
@@ -317,7 +307,7 @@
 				 */
 				if( [parameterStrings count] == 1)
 				{
-					CGFloat degrees = [parameterStrings[0] floatValue];
+					CGFloat degrees = [parameterStrings[0] SVGKCGFloatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
 					
 					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
@@ -325,10 +315,10 @@
 				}
 				else if( [parameterStrings count] == 3)
 				{
-					CGFloat degrees = [parameterStrings[0] floatValue];
+					CGFloat degrees = [parameterStrings[0] SVGKCGFloatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
-					CGFloat centerX = [parameterStrings[1] floatValue];
-					CGFloat centerY = [parameterStrings[2] floatValue];
+					CGFloat centerX = [parameterStrings[1] SVGKCGFloatValue];
+					CGFloat centerY = [parameterStrings[2] SVGKCGFloatValue];
 					CGAffineTransform nt = CGAffineTransformIdentity;
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
 					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
@@ -360,14 +350,12 @@
 		}];
 		
 		//DEBUG: DDLogVerbose(@"[%@] Set local / relative transform = (%2.2f, %2.2f // %2.2f, %2.2f) + (%2.2f, %2.2f translate)", [self class], selfTransformable.transform.a, selfTransformable.transform.b, selfTransformable.transform.c, selfTransformable.transform.d, selfTransformable.transform.tx, selfTransformable.transform.ty );
-#endif
 		}
 	}
-
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@ %p | id=%@ | prefix:localName=%@:%@ | tagName=%@ | stringValue=%@ | children=%ld>", 
+	return [NSString stringWithFormat:@"<%@ %p | id=%@ | prefix:localName=%@:%@ | tagName=%@ | stringValue=%@ | children=%ld>",
 			[self class], self, _identifier, self.prefix, self.localName, self.tagName, _stringValue, self.childNodes.length];
 }
 
@@ -383,11 +371,12 @@
 		if( [self conformsToProtocol:@protocol(SVGTransformable)] )
 		{
 			SVGElement<SVGTransformable>* selfTransformable = (SVGElement<SVGTransformable>*) self;
-		selfTransformable.transform = CGAffineTransformIdentity;
+			selfTransformable.transform = CGAffineTransformIdentity;
 		}
 	}
 	return self;
 }
+
 - (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes
 {
 	self = [super initWithQualifiedName:n inNameSpaceURI:nsURI attributes:attributes];
@@ -398,7 +387,7 @@
 		if( [self conformsToProtocol:@protocol(SVGTransformable)] )
 		{
 			SVGElement<SVGTransformable>* selfTransformable = (SVGElement<SVGTransformable>*) self;
-		selfTransformable.transform = CGAffineTransformIdentity;
+			selfTransformable.transform = CGAffineTransformIdentity;
 		}
 	}
 	return self;

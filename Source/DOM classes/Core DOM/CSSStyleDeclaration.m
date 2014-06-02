@@ -1,12 +1,12 @@
-#import "CSSStyleDeclaration.h"
+#import <SVGKit/CSSStyleDeclaration.h>
 
-#import "CSSValue.h"
-#import "CSSValueList.h"
-#import "CSSPrimitiveValue.h"
+#import <SVGKit/CSSValue.h>
+#import <SVGKit/CSSValueList.h>
+#import <SVGKit/CSSPrimitiveValue.h>
 
 @interface CSSStyleDeclaration()
 
-@property(nonatomic,retain) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;
+@property(nonatomic,strong) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;
 
 @end
 
@@ -18,18 +18,11 @@
 @synthesize length;
 @synthesize parentRule;
 
-- (void)dealloc {
-    [_cssText release];
-    self.parentRule = nil;
-  self.internalDictionaryOfStylesByCSSClass = nil;
-    [super dealloc];
-}
-
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.internalDictionaryOfStylesByCSSClass = [NSMutableDictionary dictionary];
+        self.internalDictionaryOfStylesByCSSClass = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -43,15 +36,13 @@
  */
 -(void)setCssText:(NSString *)newCSSText
 {
-	[_cssText release];
 	_cssText = newCSSText;
-	[newCSSText retain];
 	
 	/** and now post-process it, *as required by* the CSS/DOM spec... */
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];
 	
 	self.internalDictionaryOfStylesByCSSClass = processedStyles;
-  
+	
 }
 
 -(NSMutableDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {
@@ -96,9 +87,8 @@
 				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
-				keyString = [[keyString autorelease] stringByTrimmingCharactersInSet:trimmingSetForKey];
-				[trimmingSetForKey release];
-                
+				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
+				
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
 					cssValue = [[CSSValueList alloc] init];
@@ -107,7 +97,6 @@
 				cssValue.cssText = cssValueString; // has the side-effect of parsing, if required
 				
                 dict[keyString] = cssValue;
-                [cssValue release];
                 
                 bzero(name, MAX_NAME);
                 
@@ -121,7 +110,7 @@
 		accum[accumIdx++] = c;
 	}
 	
-	return [dict autorelease];
+	return dict;
 }
 
 -(NSString*) getPropertyValue:(NSString*) propertyName

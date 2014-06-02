@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node; */
-#import "Node.h"
+#import <SVGKit/Node.h>
 
 @interface EntityReference : Node
 

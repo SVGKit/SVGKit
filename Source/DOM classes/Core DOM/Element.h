@@ -49,15 +49,13 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
-@class Attr;
-#import "Attr.h"
-@class NodeList;
-#import "NodeList.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Attr.h>
+#import <SVGKit/NodeList.h>
 
 @interface Element : Node
 
-@property(nonatomic,retain,readonly) NSString* tagName;
+@property(nonatomic,strong,readonly) NSString* tagName;
 
 -(NSString*) getAttribute:(NSString*) name;
 -(void) setAttribute:(NSString*) name value:(NSString*) value;

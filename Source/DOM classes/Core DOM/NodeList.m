@@ -1,5 +1,5 @@
-#import "NodeList.h"
-#import "NodeList+Mutable.h"
+#import <SVGKit/NodeList.h>
+#import <SVGKit/NodeList+Mutable.h>
 
 @implementation NodeList
 
@@ -9,14 +9,9 @@
     self = [super init];
 	
     if (self) {
-        self.internalArray = [NSMutableArray array];
+        self.internalArray = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void)dealloc {
-    self.internalArray = nil;
-    [super dealloc];
 }
 
 -(Node*) item:(int) index
@@ -31,7 +26,7 @@
 
 #pragma mark - ADDITIONAL to SVG Spec: Objective-C support for fast-iteration ("for * in ..." syntax)
 
--(NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id [])buffer count:(NSUInteger)len
+-(NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
 {
 	return [self.internalArray countByEnumeratingWithState:state objects:buffer count:len];
 }

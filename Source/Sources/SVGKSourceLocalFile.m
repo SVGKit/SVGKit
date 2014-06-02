@@ -1,40 +1,48 @@
-#import "SVGKSourceLocalFile.h"
+#import <SVGKit/SVGKSourceLocalFile.h>
+#import "SVGKSource-private.h"
+
+@interface SVGKSourceLocalFile ()
+@property (readwrite, nonatomic, copy) NSString* filePath;
+@end
 
 @implementation SVGKSourceLocalFile
 
-+(uint64_t) sizeInBytesOfFilePath:(NSString*) filePath
+- (id)copyWithZone:(NSZone *)zone
 {
-	NSError* errorReadingFileAttributes;
-	NSFileManager* fileManager = [NSFileManager defaultManager];
-	NSDictionary* atts = [fileManager attributesOfItemAtPath:filePath error:&errorReadingFileAttributes];
-	
-	if( atts == nil )
-		return -1;
-	else
-		return atts.fileSize;
+	return [[SVGKSourceLocalFile alloc] initWithFilename:self.filePath];
+}
+
+- (id)initFromFilename:(NSString*)p
+{
+	return [self initWithFilename:p];
+}
+
+- (id)initWithFilename:(NSString*)p
+{
+	NSInputStream* stream = [[NSInputStream alloc] initWithFileAtPath:p];
+	[stream open];
+	if (self = [super initWithInputSteam:stream]) {
+		self.filePath = p;
+	}
+	return self;
 }
 
 + (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p {
-	NSInputStream* stream = [NSInputStream inputStreamWithFileAtPath:p];
-	[stream open];
-	
-	SVGKSourceLocalFile* s = [[[SVGKSourceLocalFile alloc] initWithInputSteam:stream] autorelease];
-	s.filePath = p;
-	s.approximateLengthInBytesOr0 = [self sizeInBytesOfFilePath:p];
-	
+	SVGKSourceLocalFile* s = [[SVGKSourceLocalFile alloc] initWithFilename:p];
+		
 	return s;
 }
 
-- (SVGKSource *)sourceFromRelativePath:(NSString *)relative {
+- (SVGKSourceLocalFile *)sourceFromRelativePath:(NSString *)relative {
     NSString *absolute = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:relative];
     if ([[NSFileManager defaultManager] fileExistsAtPath:absolute])
         return [SVGKSourceLocalFile sourceFromFilename:absolute];
     return nil;
 }
 
-- (void)dealloc {
-	self.filePath = nil;
-	[super dealloc];
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"%@, file path: %@", [self debugDescription], self.filePath];
 }
 
 @end

@@ -1,14 +1,17 @@
-#import "SVGSVGElement.h"
+#import <SVGKit/SVGSVGElement.h>
 
-#import "SVGSVGElement_Mutable.h"
+#import <SVGKit/SVGSVGElement_Mutable.h>
 #import "CALayerWithChildHitTest.h"
-#import "DOMHelperUtilities.h"
-#import "SVGHelperUtilities.h"
+#import <SVGKit/DOMHelperUtilities.h>
+#import <SVGKit/SVGHelperUtilities.h>
+#import "StyleSheetList.h"
 
-#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
 #endif
 
 @interface SVGSVGElement()
@@ -42,23 +45,13 @@
 -(void)dealloc
 {
 	self.viewBox = SVGRectUninitialized();
-    [x release];
-    [y release];
-    [width release];
-    [height release];
-    [contentScriptType release];
-    [contentStyleType release];
-    self.currentView = nil;
-    self.currentTranslate = nil;
-    self.styleSheets = nil;
-	[super dealloc];	
 }
 
 #pragma mark - CSS Spec methods (via the DocumentCSS protocol)
 
 -(void)loadDefaults
 {
-	self.styleSheets = [[[StyleSheetList alloc] init] autorelease];
+	self.styleSheets = [[StyleSheetList alloc] init];
 }
 @synthesize styleSheets;
 
@@ -168,10 +161,10 @@
 	}
 	else
 	{
-		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
+		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !
 	}
 	
-	self.preserveAspectRatio = [[SVGAnimatedPreserveAspectRatio new] autorelease]; // automatically sets defaults
+	self.preserveAspectRatio = [SVGAnimatedPreserveAspectRatio new]; // automatically sets defaults
 	
 	NSString* stringPreserveAspectRatio = [self getAttribute:@"preserveAspectRatio"];
 	NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
@@ -215,13 +208,7 @@
 	else
 		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
 	    //osx logging
-#if TARGET_OS_IPHONE        
         DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
-#else
-        //mac logging
-     DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
-#endif   
-	
 }
 
 - (SVGElement *)findFirstElementOfClass:(Class)classParameter {
@@ -237,7 +224,7 @@
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	
@@ -267,6 +254,5 @@
 {	
 	return  self.viewBox.height == 0 ? 0 : self.viewBox.width / self.viewBox.height;
 }
-
 
 @end

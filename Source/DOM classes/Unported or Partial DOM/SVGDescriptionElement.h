@@ -5,8 +5,8 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
-@interface SVGDescriptionElement : SVGElement { }
+@interface SVGDescriptionElement : SVGElement
 
 @end

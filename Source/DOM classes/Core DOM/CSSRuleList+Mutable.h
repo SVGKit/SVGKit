@@ -1,7 +1,7 @@
-#import "CSSRuleList.h"
+#import <SVGKit/CSSRuleList.h>
 
 @interface CSSRuleList ()
 
-@property(nonatomic,retain) NSMutableArray* internalArray;
+@property(nonatomic,strong) NSMutableArray* internalArray;
 
 @end

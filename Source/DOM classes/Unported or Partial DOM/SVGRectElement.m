@@ -6,8 +6,8 @@
 
 @interface SVGRectElement ()
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0 
-void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
+#if (!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
+static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY);
 #endif
 
 @end
@@ -24,10 +24,10 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, 
 @synthesize rx = _rx;
 @synthesize ry = _ry;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0 
+#if (!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
 // adapted from http://www.cocoanetics.com/2010/02/drawing-rounded-rectangles/
 
-void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY) {
+static void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, CGFloat radiusY) {
 	CGRect innerRect = CGRectInset(rect, radiusX, radiusY);
 	
 	CGFloat innerRight = innerRect.origin.x + innerRect.size.width;
@@ -70,23 +70,23 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, 
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"x"] length] > 0 )
-	_x = [SVGLength svgLengthFromNSString:[self getAttribute:@"x"]];
+		_x = [SVGLength svgLengthFromNSString:[self getAttribute:@"x"]];
 	
 	if( [[self getAttribute:@"y"] length] > 0 )
-	_y = [SVGLength svgLengthFromNSString:[self getAttribute:@"y"]];
+		_y = [SVGLength svgLengthFromNSString:[self getAttribute:@"y"]];
 	
 	if( [[self getAttribute:@"width"] length] > 0 )
-	_width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
+		_width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
 	
 	if( [[self getAttribute:@"height"] length] > 0 )
-	_height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
+		_height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
 	
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	_rx = [SVGLength svgLengthFromNSString:[self getAttribute:@"rx"]];
+		_rx = [SVGLength svgLengthFromNSString:[self getAttribute:@"rx"]];
 	
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	_ry = [SVGLength svgLengthFromNSString:[self getAttribute:@"ry"]];
-
+		_ry = [SVGLength svgLengthFromNSString:[self getAttribute:@"ry"]];
+	
 	/**
 	 Create a square OR rounded rectangle as a CGPath
 	 
@@ -109,7 +109,7 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, 
 			radiusXPixels = radiusYPixels;
 		
 		CGPathAddRoundedRect(path,
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0 
+#if !(!(__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0) && !(__MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_9))
 							 nil,
 #endif
 							 rect, radiusXPixels, radiusYPixels);

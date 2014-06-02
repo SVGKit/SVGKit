@@ -38,11 +38,11 @@
 	if( x.value == 0 )
 		xNormalized = 0;
 	else
-	switch( x.unitType )  // SVG needs gradients measured in percent...
+		switch( x.unitType )  // SVG needs gradients measured in percent...
 	{
 		case SVG_LENGTHTYPE_PERCENTAGE:
 		{
-			 xNormalized = [x numberValue]; // will convert the percent into [0,1]
+			xNormalized = [x numberValue]; // will convert the percent into [0,1]
 		}break;
 			
 		case SVG_LENGTHTYPE_NUMBER:
@@ -61,7 +61,7 @@
 	if( y.value == 0 )
 		yNormalized = 0;
 	else
-	switch( y.unitType )  // SVG needs gradients measured in percent...
+		switch( y.unitType )  // SVG needs gradients measured in percent...
 	{
 		case SVG_LENGTHTYPE_PERCENTAGE:
 		{
@@ -111,9 +111,9 @@
         CGPoint endPoint = [self normalizeGradientCoordinate:svgX2 y:svgY2 rectToFill:rectForRelativeUnits];
         
 #ifdef SVG_DEBUG_GRADIENTS
-    DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
-    
-    DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+        DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+        
+        DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
         
         //    return gradientLayer;
@@ -135,12 +135,12 @@
         endPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.y]] rectToFill:rectForRelativeUnits];
         
 #ifdef SVG_DEBUG_GRADIENTS
-        NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+        DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
         
-        NSLog(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+        DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
         
-        //    return gradientLayer;
+        // return gradientLayer;
         gradientLayer.startPoint = startPoint;
         gradientLayer.endPoint = endPoint;
         gradientLayer.type = kCAGradientLayerAxial;
@@ -148,30 +148,27 @@
     
     if( colors == nil ) //these can't be determined until parsing is complete, need to update SVGGradientParser and do this on end element
     {
-//        CGColorRef theColor = NULL;//, alphaColor = NULL;
+		// CGColorRef theColor = NULL;//, alphaColor = NULL;
         NSUInteger numStops = [_stops count];
-        NSMutableArray *colorBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
+        CFMutableArrayRef colorBuilder = CFArrayCreateMutable(kCFAllocatorDefault, numStops, &kCFTypeArrayCallBacks);
         NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
-        for (SVGGradientStop *theStop in _stops) 
+        for (SVGGradientStop *theStop in _stops)
         {
             [locationBuilder addObject:@(theStop.offset)];
-//            theColor = CGColorWithSVGColor([theStop stopColor]);
-            //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
-            //        CGColorRelease(alphaColor);
+			// theColor = CGColorWithSVGColor([theStop stopColor]);
+            // alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
+            CFArrayAppendValue(colorBuilder, CGColorWithSVGColor([theStop stopColor]));
+            // CGColorRelease(alphaColor);
         }
         
-        colors = [[NSArray alloc] initWithArray:colorBuilder];
-        [colorBuilder release];
+        colors = [[NSArray alloc] initWithArray:CFBridgingRelease(colorBuilder)];
         
         locations = [[NSArray alloc] initWithArray:locationBuilder];
-        [locationBuilder release];
         
-        [_stops release];
         _stops = nil;
     }
     
-//    DDLogVerbose(@"Setting gradient shiz");
+    //  DDLogVerbose(@"Setting gradient shiz");
     [gradientLayer setColors:colors];
     [gradientLayer setLocations:locations];
 	
@@ -179,14 +176,14 @@
 	DDLogVerbose(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
 	DDLogVerbose(@"[%@] set gradient layer colors = %@", [self class], colors);
 	DDLogVerbose(@"[%@] set gradient layer locations = %@", [self class], locations);
-//    gradientLayer.colors = colors;
-//    gradientLayer.locations = locations;
+    //  gradientLayer.colors = colors;
+    //  gradientLayer.locations = locations;
     
-//    for( id colorRef in colors )
-//        CGColorRelease((CGColorRef)colorRef);
+	//  for( id colorRef in colors )
+	//      CGColorRelease((CGColorRef)colorRef);
     
     
-//    gradientLayer.type = kCAGradientLayerAxial;
+    //  gradientLayer.type = kCAGradientLayerAxial;
     
     return gradientLayer;
 }
@@ -194,17 +191,6 @@
 -(void)layoutLayer:(CALayer *)layer
 {
 	
-}
-
--(void)dealloc
-{
-    [_stops release];
-    _stops = nil;
-    
-    [colors release];
-    [locations release];
-    
-    [super dealloc];
 }
 
 @end

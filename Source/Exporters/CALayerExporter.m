@@ -8,16 +8,20 @@
 
 #import "CALayerExporter.h"
 
-typedef struct ExportPathCommandsContext {
-    NSString* pathName;
-    NSMutableString* pathCommands;
-} ExportPathCommandsContext;
+@interface ExportPathCommandsContext : NSObject
+@property (nonatomic, strong) NSString *pathName;
+@property (nonatomic, strong) NSMutableString* pathCommands;
+@end
 
-void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
+@implementation ExportPathCommandsContext
+
+@end
+
+static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)
 {
-    ExportPathCommandsContext* ctx = (ExportPathCommandsContext*) exportPathCommandsConextPtr;
-    NSMutableString* pathCommands = ctx->pathCommands;
-    NSString* pathName = ctx-> pathName;
+    ExportPathCommandsContext* ctx = (__bridge ExportPathCommandsContext *)(exportPathCommandsConextPtr);
+    NSMutableString* pathCommands = ctx.pathCommands;
+    NSString* pathName = ctx.pathName;
     CGPoint* pathPoints = element->points;
     switch (element->type) {
         case kCGPathElementMoveToPoint:
@@ -67,26 +71,18 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 @synthesize delegate;
 @synthesize rootView;
 
-- (id)initWithView:(UIView*)v
+- (id)initWithView:(DWView*)v
 {
     self = [super init];
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [[NSMutableDictionary alloc] init];
-        
-        NSArray* CALayerProperties = @[@"name", @"bounds", @"frame"];
-        propertyRegistry[NSStringFromClass([CALayer class])] = CALayerProperties;
-        
-        NSArray* CAShapeLayerProperties = @[@"path", @"fillColor", @"fillRule", @"strokeColor", @"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern"];
-        propertyRegistry[NSStringFromClass([CAShapeLayer class])] = CAShapeLayerProperties;
+		propertyRegistry = [[NSMutableDictionary alloc] initWithDictionary:
+							@{NSStringFromClass([CALayer class]): @[@"name", @"bounds", @"frame"],
+							NSStringFromClass([CAShapeLayer class]): @[@"path", @"fillColor", @"fillRule", @"strokeColor",
+							@"lineWidth", @"miterLimit", @"lineCap", @"lineJoin", @"lineDashPhase", @"lineDashPattern"]}];
     }
     return self;
-}
-
-- (void)dealloc {
-    [rootView release];
-    [super dealloc];
 }
 
 - (void)startExport
@@ -123,11 +119,12 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                 
                 NSMethodSignature* methodSig = [currentLayer methodSignatureForSelector:message];
                 
-                NSString* propertyValue = nil;
+                NSString* propertyValue;
                 const char * methodReturnType = [methodSig methodReturnType];
                 
                 if (0 == strcmp("@", methodReturnType)) {
                     
+					//FIXME: Clang complains about a potential leak here...
                     id v = [currentLayer performSelector:message];
                     
                     if (nil == v) {
@@ -205,7 +202,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                             size_t colorComponentsCount = CGColorGetNumberOfComponents(color);
                             NSMutableString* colorComponentsCreateStatement = [NSMutableString stringWithFormat:@"CGFloat %@[] = ", componentsName];
                             [colorComponentsCreateStatement appendString:@"{"];
-                            for (int i=0; i != colorComponentsCount; ++i) {
+                            for (NSInteger i=0; i != colorComponentsCount; ++i) {
                                 [colorComponentsCreateStatement appendFormat:@"%@%f", ((i != 0) ? @"," : @""), colorComponents[i]];
                             }
                             [colorComponentsCreateStatement appendString:@"};"];
@@ -228,7 +225,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                         if (0 == path) {
                             propertyValue = @"0";
                         } else {
-                        
+							
                             NSString* pathName = [NSString stringWithFormat:@"%@_%@_pathref", layerName, propertyName];
                             NSString* pathCreateStatement = [NSString stringWithFormat:@"CGMutablePathRef %@ = CGPathCreateMutable();", pathName];
                             [self.delegate layerExporter:self
@@ -236,11 +233,11 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
                                            withStatement:pathCreateStatement];
                             
                             NSMutableString* pathCommands = [NSMutableString string];
-                            ExportPathCommandsContext exportPathContext;
+                            ExportPathCommandsContext *exportPathContext = [ExportPathCommandsContext new];
                             exportPathContext.pathName = pathName;
                             exportPathContext.pathCommands = pathCommands;
                             
-                            CGPathApply(path, &exportPathContext, exportPathCommands);
+                            CGPathApply(path, (__bridge void *)(exportPathContext), exportPathCommands);
                             [self.delegate layerExporter:self
                                            didParseLayer:currentLayer
                                            withStatement:pathCommands];
@@ -260,7 +257,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
         }
     }
     
-    
     NSString* addSublayerStatement = [NSString stringWithFormat:@"[%@ addSublayer:%@];", parentName, layerName];
     [self.delegate layerExporter:self
                    didParseLayer:currentLayer
@@ -277,9 +273,4 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
     }
 }
 
-
-
-
-
 @end
-

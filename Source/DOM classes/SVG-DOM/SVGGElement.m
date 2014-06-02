@@ -1,17 +1,17 @@
-#import "SVGGElement.h"
+#import <SVGKit/SVGGElement.h>
 
-#import "CALayerWithChildHitTest.h"
+#import <SVGKit/CALayerWithChildHitTest.h>
 
-#import "SVGHelperUtilities.h"
+#import <SVGKit/SVGHelperUtilities.h>
 
-@implementation SVGGElement 
+@implementation SVGGElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
 - (CALayer *) newLayer
 {
 	
-	CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+	CALayer* _layer = [[CALayerWithChildHitTest alloc] init];
 	
 	[SVGHelperUtilities configureCALayer:_layer usingElement:self];
 	

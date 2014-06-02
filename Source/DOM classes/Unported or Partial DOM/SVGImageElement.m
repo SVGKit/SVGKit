@@ -7,7 +7,12 @@
 #import <UIKit/UIKit.h>
 
 #else
+
+#import <AppKit/AppKit.h>
+
 #endif
+
+#import "SVGKCGFloatAdditions.h"
 
 #if TARGET_OS_IPHONE
 #define SVGImage UIImage
@@ -15,20 +20,23 @@
 #define SVGImage CIImage
 #endif
 
-#define SVGImageRef SVGImage*
+typedef SVGImage *SVGImageRef;
 
-CGImageRef SVGImageCGImage(SVGImageRef img)
+//create a retained CGImage because I don't trust ARC not to release
+//the classes, thus the images, when we leave this function.
+//This is mainly for the benefit of the OS X port
+static CGImageRef CreateSVGImageCGImage(SVGImageRef img)
 {
 #if TARGET_OS_IPHONE
-    return img.CGImage;
+    return CGImageRetain(img.CGImage);
 #else
-    NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCIImage:img] autorelease];
-    return rep.CGImage;
+    NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCIImage:img];
+    return CGImageRetain(rep.CGImage);
 #endif
 }
 
 @interface SVGImageElement()
-@property (nonatomic, retain, readwrite) NSString *href;
+@property (nonatomic, strong, readwrite) NSString *href;
 @end
 
 @implementation SVGImageElement
@@ -44,29 +52,23 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 
 @synthesize href = _href;
 
-- (void)dealloc {
-    [_href release], _href = nil;
-
-    [super dealloc];
-}
-
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 
 	if( [[self getAttribute:@"x"] length] > 0 )
-	_x = [[self getAttribute:@"x"] floatValue];
+		_x = [[self getAttribute:@"x"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"y"] length] > 0 )
-	_y = [[self getAttribute:@"y"] floatValue];
+		_y = [[self getAttribute:@"y"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"width"] length] > 0 )
-	_width = [[self getAttribute:@"width"] floatValue];
+		_width = [[self getAttribute:@"width"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"height"] length] > 0 )
-	_height = [[self getAttribute:@"height"] floatValue];
+		_height = [[self getAttribute:@"height"] SVGKCGFloatValue];
 
 	if( [[self getAttribute:@"href"] length] > 0 )
-	self.href = [self getAttribute:@"href"];
+		self.href = [self getAttribute:@"href"];
 }
 
 
@@ -81,11 +83,12 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
 	newLayer.frame = frame;
 	
-	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
-	SVGImageRef image = [SVGImage imageWithData:imageData];
+	@autoreleasepool {
+		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+		SVGImageRef image = [SVGImage imageWithData:imageData];
 	
-	newLayer.contents = (id)SVGImageCGImage(image);
-		
+		newLayer.contents = CFBridgingRelease(CreateSVGImageCGImage(image));
+	}
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];
 

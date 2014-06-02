@@ -1,33 +1,33 @@
-#import "SVGKParserSVG.h"
+#import <SVGKit/SVGKParserSVG.h>
 
-#import "SVGSVGElement.h"
-#import "SVGCircleElement.h"
-#import "SVGDefsElement.h"
-#import "SVGDescriptionElement.h"
-//#import "SVGKSource.h"
-#import "SVGEllipseElement.h"
-#import "SVGGElement.h"
-#import "SVGImageElement.h"
-#import "SVGLineElement.h"
-#import "SVGPathElement.h"
-#import "SVGPolygonElement.h"
-#import "SVGPolylineElement.h"
-#import "SVGRectElement.h"
-#import "SVGTitleElement.h"
-#import "SVGTextElement.h"
+#import <SVGKit/SVGSVGElement.h>
+#import <SVGKit/SVGCircleElement.h>
+#import <SVGKit/SVGDefsElement.h>
+#import <SVGKit/SVGDescriptionElement.h>
+//#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGEllipseElement.h>
+#import <SVGKit/SVGGElement.h>
+#import <SVGKit/SVGImageElement.h>
+#import <SVGKit/SVGLineElement.h>
+#import <SVGKit/SVGPathElement.h>
+#import <SVGKit/SVGPolygonElement.h>
+#import <SVGKit/SVGPolylineElement.h>
+#import <SVGKit/SVGRectElement.h>
+#import <SVGKit/SVGTitleElement.h>
+#import <SVGKit/SVGTextElement.h>
 
-#import "SVGDocument_Mutable.h"
+#import <SVGKit/SVGDocument_Mutable.h>
 
 @implementation SVGKParserSVG
 
-static NSDictionary *elementMap;
+static NSDictionary *elementMap = nil;
 
 - (id)init {
 	self = [super init];
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [@{@"svg": [SVGSVGElement class],
+			elementMap = @{@"svg": [SVGSVGElement class],
                           @"circle": [SVGCircleElement class],
                           @"description": [SVGDescriptionElement class],
                           @"ellipse": [SVGEllipseElement class],
@@ -39,15 +39,10 @@ static NSDictionary *elementMap;
                           @"polyline": [SVGPolylineElement class],
                           @"rect": [SVGRectElement class],
                           @"title": [SVGTitleElement class],
-						   @"text": [SVGTextElement class]} retain];
+						   @"text": [SVGTextElement class]};
 		}
 	}
 	return self;
-}
-
-- (void)dealloc {
-	
-	[super dealloc];
 }
 
 -(NSArray*) supportedNamespaces
@@ -93,7 +88,7 @@ static NSDictionary *elementMap;
 		/** special case: <svg:svg ... version="XXX"> */
 		if( [@"svg" isEqualToString:name] )
 		{
-			NSString* svgVersion = nil;
+			NSString* svgVersion;
 			
 			/** According to spec, if the first XML node is an SVG node, then it
 			 becomes TWO THINGS:
@@ -167,13 +162,12 @@ static NSDictionary *elementMap;
 				{
 					NSAssert( FALSE, @"Currently not supported: multiple SVG Document nodes in a single SVG file" );
 				}
-                [newDocument release];
 			}
 			
 		}
 		
 		
-		return [element autorelease];
+		return element;
 	}
 	
 	return nil;

@@ -10,29 +10,18 @@
 @synthesize extensionsData;
 #endif
 
--(void)dealloc {
-    self.warnings = nil;
-    self.errorsRecoverable = nil;
-    self.errorsFatal = nil;
-    self.namespacesEncountered = nil;
-    self.parsedDocument = nil;
-    self.rootOfSVGTree = nil;
-    
-    [super dealloc];
-}
-
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.warnings = [NSMutableArray array];
-		self.errorsRecoverable = [NSMutableArray array];
-		self.errorsFatal = [NSMutableArray array];
+        self.warnings = [[NSMutableArray alloc] init];
+		self.errorsRecoverable = [[NSMutableArray alloc] init];
+		self.errorsFatal = [[NSMutableArray alloc] init];
 		
-		self.namespacesEncountered = [NSMutableDictionary dictionary];
+		self.namespacesEncountered = [[NSMutableDictionary alloc] init];
 		
-		#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
-		self.extensionsData = [NSMutableDictionary dictionary];
+#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
+		self.extensionsData = [[NSMutableDictionary alloc] init];
 #endif
     }
     return self;
@@ -63,7 +52,7 @@
 
 -(void) addSAXError:(NSError*) saxError
 {
-	DDLogWarn(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
+	DDLogError(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
 	[self.errorsFatal addObject:saxError];
 }
 
@@ -73,7 +62,7 @@
 	NSMutableDictionary* d = [self.extensionsData objectForKey:[extension class]];
 	if( d == nil )
 	{
-		d = [NSMutableDictionary dictionary];
+		d = [[NSMutableDictionary alloc] init];
 		[self.extensionsData setObject:d forKey:[extension class]];
 	}
 	

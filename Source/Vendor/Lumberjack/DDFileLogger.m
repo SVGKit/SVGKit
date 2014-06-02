@@ -96,8 +96,8 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-	NSNumber *old = [change objectForKey:NSKeyValueChangeOldKey];
-	NSNumber *new = [change objectForKey:NSKeyValueChangeNewKey];
+	NSNumber *old = change[NSKeyValueChangeOldKey];
+	NSNumber *new = change[NSKeyValueChangeNewKey];
 	
 	if ([old isEqual:new])
 	{
@@ -146,7 +146,7 @@
 	
 	if (count > 0)
 	{
-		DDLogFileInfo *logFileInfo = [sortedLogFileInfos objectAtIndex:0];
+		DDLogFileInfo *logFileInfo = sortedLogFileInfos[0];
 		
 		if (!logFileInfo.isArchived)
 		{
@@ -168,7 +168,7 @@
 	NSUInteger i;
 	for (i = maxNumLogFiles; i < count; i++)
 	{
-		DDLogFileInfo *logFileInfo = [sortedArchivedLogFileInfos objectAtIndex:i];
+		DDLogFileInfo *logFileInfo = sortedArchivedLogFileInfos[i];
 		
 		DDLogWarnInfo(@"DDLogFileManagerDefault: Deleting file: %@", logFileInfo.fileName);
 		
@@ -188,13 +188,13 @@
 {
 #if TARGET_OS_IPHONE
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-	NSString *baseDir = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+	NSString *baseDir = ([paths count] > 0) ? paths[0] : nil;
 	NSString *logsDirectory = [baseDir stringByAppendingPathComponent:@"Logs"];
     
 #else
 	NSString *appName = [[NSProcessInfo processInfo] processName];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-	NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : NSTemporaryDirectory();
+	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
 	NSString *logsDirectory = [[basePath stringByAppendingPathComponent:@"Logs"] stringByAppendingPathComponent:appName];
 
 #endif
@@ -772,7 +772,7 @@
 		
 		if ([sortedLogFileInfos count] > 0)
 		{
-			DDLogFileInfo *mostRecentLogFileInfo = [sortedLogFileInfos objectAtIndex:0];
+			DDLogFileInfo *mostRecentLogFileInfo = sortedLogFileInfos[0];
 			
 			BOOL useExistingLogFile = YES;
 			BOOL shouldArchiveMostRecent = NO;
@@ -950,7 +950,7 @@
 {
 	if (modificationDate == nil)
 	{
-		modificationDate = [[self fileAttributes] objectForKey:NSFileModificationDate];
+		modificationDate = [self fileAttributes][NSFileModificationDate];
 	}
 	
 	return modificationDate;
@@ -963,7 +963,7 @@
 	
 	#if TARGET_OS_IPHONE
 	
-		const char *path = [filePath UTF8String];
+		const char *path = [filePath fileSystemRepresentation];
 		
 		struct attrlist attrList;
 		memset(&attrList, 0, sizeof(attrList));
@@ -992,7 +992,7 @@
 		
 	#else
 		
-		creationDate = [[self fileAttributes] objectForKey:NSFileCreationDate];
+		creationDate = [self fileAttributes][NSFileCreationDate];
 		
 	#endif
 		
@@ -1004,7 +1004,7 @@
 {
 	if (fileSize == 0)
 	{
-		fileSize = [[[self fileAttributes] objectForKey:NSFileSize] unsignedLongLongValue];
+		fileSize = [[self fileAttributes][NSFileSize] unsignedLongLongValue];
 	}
 	
 	return fileSize;
@@ -1145,7 +1145,7 @@
 	NSUInteger i;
 	for (i = 1; i < max; i++)
 	{
-		NSString *attr = [components objectAtIndex:i];
+		NSString *attr = components[i];
 		
 		if ([attrName isEqualToString:attr])
 		{
@@ -1177,7 +1177,7 @@
 	
 	if (count > 0)
 	{
-		[newFileName appendString:[components objectAtIndex:0]];
+		[newFileName appendString:components[0]];
 	}
 	
 	NSString *lastExt = @"";
@@ -1185,7 +1185,7 @@
 	NSUInteger i;
 	for (i = 1; i < count; i++)
 	{
-		NSString *attr = [components objectAtIndex:i];
+		NSString *attr = components[i];
 		if ([attr length] == 0)
 		{
 			continue;
@@ -1236,7 +1236,7 @@
 	
 	if (count > 0)
 	{
-		[newFileName appendString:[components objectAtIndex:0]];
+		[newFileName appendString:components[0]];
 	}
 	
 	BOOL found = NO;
@@ -1244,7 +1244,7 @@
 	NSUInteger i;
 	for (i = 1; i < count; i++)
 	{
-		NSString *attr = [components objectAtIndex:i];
+		NSString *attr = components[i];
 		
 		if ([attrName isEqualToString:attr])
 		{
@@ -1266,7 +1266,7 @@
 
 - (BOOL)hasExtendedAttributeWithName:(NSString *)attrName
 {
-	const char *path = [filePath UTF8String];
+	const char *path = [filePath fileSystemRepresentation];
 	const char *name = [attrName UTF8String];
 	
 	ssize_t result = getxattr(path, name, NULL, 0, 0, 0);
@@ -1276,7 +1276,7 @@
 
 - (void)addExtendedAttributeWithName:(NSString *)attrName
 {
-	const char *path = [filePath UTF8String];
+	const char *path = [filePath fileSystemRepresentation];
 	const char *name = [attrName UTF8String];
 	
 	int result = setxattr(path, name, NULL, 0, 0, 0);
@@ -1289,7 +1289,7 @@
 
 - (void)removeExtendedAttributeWithName:(NSString *)attrName
 {
-	const char *path = [filePath UTF8String];
+	const char *path = [filePath fileSystemRepresentation];
 	const char *name = [attrName UTF8String];
 	
 	int result = removexattr(path, name, 0);

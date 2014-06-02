@@ -1,14 +1,9 @@
-#import "MediaList.h"
+#import <SVGKit/MediaList.h>
 
 @implementation MediaList
 
 @synthesize mediaText;
 @synthesize length;
-
-- (void)dealloc {
-  [mediaText release];
-  [super dealloc];
-}
 
 -(NSString*) item:(unsigned long) index
 {

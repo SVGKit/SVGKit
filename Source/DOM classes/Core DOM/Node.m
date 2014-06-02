@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Node.h"
-#import "Node+Mutable.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Node+Mutable.h>
 
-#import "NodeList+Mutable.h"
-#import "NamedNodeMap.h"
+#import <SVGKit/NodeList+Mutable.h>
+#import <SVGKit/NamedNodeMap.h>
 
 #import "NamedNodeMap_Iterable.h" // Needed for the optional (non-SVG spec) "recursive toXML" method
 
@@ -35,17 +35,6 @@
 
 @synthesize localName;
 
-- (void)dealloc {
-    [nodeName release];
-    [nodeValue release];
-    [childNodes release];
-    [attributes release];
-    [prefix release];
-    [namespaceURI release];
-    [localName release];
-    [super dealloc];
-}
-
 - (id)init
 {
     NSAssert( FALSE, @"This class has no init method - it MUST NOT be init'd via init - you MUST use one of the multi-argument constructors instead" );
@@ -55,13 +44,8 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -77,7 +61,7 @@
 				self.nodeName = n;
 				self.nodeValue = v;
 			}break;
-			
+				
 				
 			case DOMNodeType_DOCUMENT_NODE:
 			case DOMNodeType_DOCUMENT_TYPE_NODE:
@@ -89,11 +73,11 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
-				self = nil;
+				return nil;
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -114,7 +98,7 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
-				self = nil;
+				return nil;
 			}break;
 				
 				
@@ -133,11 +117,11 @@
 				
 				self.nodeName = n;
 				
-				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
+				self.attributes = [[NamedNodeMap alloc] init];
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -168,13 +152,8 @@
 
 - (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
 	self = [self initType:nt name:n value:v];
 	
 	if( self )
@@ -295,7 +274,7 @@
 
 #pragma mark - SPECIAL CASE: DOM level 3 method
 
-/** 
+/**
  
  Note that the DOM 3 spec defines this as RECURSIVE:
  
@@ -322,7 +301,7 @@
 					[stringAccumulator appendString:subText];
 			}
 			
-			return [NSString stringWithString:[stringAccumulator autorelease]];
+			return [NSString stringWithString:stringAccumulator];
 		}
 			
 		case DOMNodeType_TEXT_NODE:

@@ -16,8 +16,7 @@
  */
 #import <Foundation/Foundation.h>
 
-@class Node;
-#import "Node.h"
+#import <SVGKit/Node.h>
 
 @interface NodeList : NSObject <NSFastEnumeration>
 

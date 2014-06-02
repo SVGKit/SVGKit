@@ -9,10 +9,10 @@
 
 #import "MasterViewController.h"
 
-#import "NodeList+Mutable.h"
+#import <SVGKit/NodeList+Mutable.h>
 
-#import "SVGKFastImageView.h"
-#import "SVGKLayeredImageView.h"
+#import <SVGKit/SVGKFastImageView.h>
+#import <SVGKit/SVGKLayeredImageView.h>
 
 @interface ImageLoadingOptions : NSObject
 @property(nonatomic) BOOL requiresLayeredImageView;
@@ -36,7 +36,7 @@
 
 @interface DetailViewController ()
 
-@property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIPopoverController *popoverController;
 
 @property (nonatomic, retain) NSDate* startParseTime, * endParseTime;
 
@@ -75,27 +75,13 @@
 }
 
 - (void)dealloc {
-	self.popoverController = nil;
-	self.toolbar = nil;
 	self.detailItem = nil;
-	
-	self.name = nil;
-	self.exportText = nil;
-	self.exportLog = nil;
-	self.layerExporter = nil;
-	self.scrollViewForSVG = nil;
-	self.contentView = nil;
-	self.viewActivityIndicator = nil;
-	
-	[super dealloc];
 }
 
 -(void)viewDidLoad
 {
-	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease],
-											   nil];
+	self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)],
+											   [[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)]];
 }
 
 CALayer* lastTappedLayer;
@@ -138,7 +124,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	CGPoint p = [recognizer locationInView:self.contentView];
 	
 #if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
-	SVGKImage* svgImage = nil; // ONLY used for the hacky code below that demonstrates how complex hit-testing is on an SVGKFastImageView
+	SVGKImage* svgImage; // ONLY used for the hacky code below that demonstrates how complex hit-testing is on an SVGKFastImageView
 	
 	/**
 	 WARNING:
@@ -211,7 +197,6 @@ CATextLayer *textLayerForLastTappedLayer;
 			
 			lastTappedLayer = [[CALayer alloc] init];
 			lastTappedLayer.frame = absolutePositionedCloneLayer.frame;
-			[absolutePositionedCloneLayer release];
 			
 			/**
 			 ALSO, because SVGKFastImageView DOES NOT ALTER the underlying layers when it zooms
@@ -244,7 +229,7 @@ CATextLayer *textLayerForLastTappedLayer;
 												 size:14.0f];
 			CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
 			
-			textLayerForLastTappedLayer = [[[CATextLayer alloc] init] autorelease];
+			textLayerForLastTappedLayer = [[CATextLayer alloc] init];
 			[textLayerForLastTappedLayer setFont:@"Helvetica"];
 			[textLayerForLastTappedLayer setFontSize:14.0f];
 			[textLayerForLastTappedLayer setFrame:CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height)];
@@ -263,7 +248,7 @@ CATextLayer *textLayerForLastTappedLayer;
 
 #pragma mark - CRITICAL: this method makes Apple render SVGs in sharp focus
 
--(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)finalScale
+-(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)finalScale
 {
 	/** NB: very important! The "finalScale" paramter to this method is SLIGHTLY DIFFERENT from the scale that Apple reports in the other delegate methods
 	 
@@ -308,8 +293,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	if (detailItem != newDetailItem) {
 		[self deselectTappedLayer]; // do this first because it DEPENDS UPON the type of self.contentView BEFORE the change in value
 		
-		[detailItem release];
-		detailItem = [newDetailItem retain];
+		detailItem = newDetailItem;
 		
 		// FIXME: re-write this class so that this method does NOT require self.view to exist
 		[self view]; // Apple's design to trigger the creation of view. Original design of THIS class is that it breaks if view isn't already existing
@@ -405,7 +389,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	/** This demo shows different images being used in different ways.
 	 Here we setup special conditions based on the filename etc:
 	 */
-	ImageLoadingOptions* loadingOptions = [[[ImageLoadingOptions alloc] initWithName:name] autorelease];
+	ImageLoadingOptions* loadingOptions = [[ImageLoadingOptions alloc] initWithName:name];
 	[self preProcessImageFor2X:loadingOptions];
 	[self preProcessImageForAt160x240:loadingOptions];
 	[self preProcessImageCheckWorkaroundAppleBugInGradientImages:loadingOptions];
@@ -417,7 +401,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		 
 		 NB: this is what Apple's InterfaceBuilder / Xcode 4 FORCES YOU TO DO because of massive bugs in Xcode 4!
 		 */
-		[self didLoadNewResourceCreatingImageView:[[[SVGKLayeredImageView alloc] initWithCoder:nil] autorelease]];
+		[self didLoadNewResourceCreatingImageView:[[SVGKLayeredImageView alloc] initWithCoder:nil]];
 	}
 	else
 	{
@@ -425,7 +409,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		 the actual loading of the SVG file
 		 */
 		
-		SVGKImage *document = nil;
+		SVGKImage *document;
 		
 		/** Detect URL vs file */
 		self.startParseTime = [NSDate date];
@@ -480,7 +464,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	
 	if( document == nil )
 	{
-		[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 		newContentView = nil; // signals to the rest of this method: the load failed
 	}
 	else
@@ -496,11 +480,11 @@ CATextLayer *textLayerForLastTappedLayer;
 			
 			if( loadingOptions.requiresLayeredImageView )
 			{
-				newContentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
+				newContentView = [[SVGKLayeredImageView alloc] initWithSVGKImage:document];
 			}
 			else
 			{
-				newContentView = [[[SVGKFastImageView alloc] initWithSVGKImage:document] autorelease];
+				newContentView = [[SVGKFastImageView alloc] initWithSVGKImage:document];
 				
 				NSLog(@"[%@] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this", [self class]);
 				
@@ -509,15 +493,10 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 		else
 		{
-			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 			newContentView = nil; // signals to the rest of this method: the load failed
 			
 		}
-	}
-	
-	if (_name) {
-		[_name release];
-		_name = nil;
 	}
 	
 	_name = [name copy];
@@ -542,7 +521,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		
 		if( self.labelParseTime == nil )
 		{
-			self.labelParseTime = [[[UILabel alloc] init] autorelease];
+			self.labelParseTime = [[UILabel alloc] init];
 			self.labelParseTime.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 			self.labelParseTime.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
 			self.labelParseTime.textColor = [UIColor blackColor];
@@ -617,8 +596,8 @@ CATextLayer *textLayerForLastTappedLayer;
 	animation.duration = 0.25f;
 	animation.autoreverses = YES;
 	animation.repeatCount = 100000;
-	animation.fromValue = [NSNumber numberWithFloat:0.1f];
-	animation.toValue = [NSNumber numberWithFloat:-0.1f];
+	animation.fromValue = @0.1f;
+	animation.toValue = @-0.1f;
 	
 	[layer addAnimation:animation forKey:@"shakingHead"];
 }
@@ -675,7 +654,7 @@ CATextLayer *textLayerForLastTappedLayer;
     _layerExporter.delegate = self;
     
     UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
-    UIViewController* textViewController = [[[UIViewController alloc] init] autorelease];
+    UIViewController* textViewController = [[UIViewController alloc] init];
     [textViewController setView:textView];
     UIPopoverController* exportPopover = [[UIPopoverController alloc] initWithContentViewController:textViewController];
     [exportPopover setDelegate:self];
@@ -704,20 +683,14 @@ CATextLayer *textLayerForLastTappedLayer;
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
 {
-    [_exportText release];
     _exportText = nil;
     
-    [_layerExporter release];
     _layerExporter = nil;
-    
-    [pc release];
 }
 
 
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
-
-
 
 @end

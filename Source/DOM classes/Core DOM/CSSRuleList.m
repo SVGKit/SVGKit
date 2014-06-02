@@ -1,20 +1,15 @@
-#import "CSSRuleList.h"
-#import "CSSRuleList+Mutable.h"
+#import <SVGKit/CSSRuleList.h>
+#import <SVGKit/CSSRuleList+Mutable.h>
 
 @implementation CSSRuleList
 
 @synthesize internalArray;
 
-- (void)dealloc {
-    self.internalArray = nil;
-    [super dealloc];
-}
-
 - (id)init
 {
     self = [super init];
     if (self) {
-        self.internalArray = [NSMutableArray array];
+        self.internalArray = [[NSMutableArray alloc] init];
     }
     return self;
 }

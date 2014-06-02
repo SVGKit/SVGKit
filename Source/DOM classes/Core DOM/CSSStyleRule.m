@@ -1,16 +1,10 @@
 
-#import "CSSStyleRule.h"
+#import <SVGKit/CSSStyleRule.h>
 
 @implementation CSSStyleRule
 
 @synthesize selectorText;
 @synthesize style;
-
-- (void)dealloc {
-    self.style = nil;
-    self.selectorText = nil;
-    [super dealloc];
-}
 
 - (id)init
 {
@@ -30,7 +24,6 @@
 		styleDeclaration.cssText = styleText;
 		
 		self.style = styleDeclaration;
-        [styleDeclaration release];
     }
     return self;
 }

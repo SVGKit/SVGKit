@@ -21,12 +21,12 @@
  
  */
 
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
-#import "SVGRect.h"
-#import "SVGGradientStop.h"
-#import "SVGTransformable.h"
-#import "SVGGradientLayer.h"
+#import <SVGKit/SVGRect.h>
+#import <SVGKit/SVGGradientStop.h>
+#import <SVGKit/SVGTransformable.h>
+#import <SVGKit/SVGGradientLayer.h>
 
 @interface SVGGradientElement : SVGElement <SVGTransformable> /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
 {
@@ -40,7 +40,7 @@
     NSArray *colors, *locations; /* FIXME: not in SVG Spec */
 }
 
-@property (readonly, retain)NSArray *stops; /* FIXME: not in SVG Spec */
+@property (readonly, strong)NSArray *stops; /* FIXME: not in SVG Spec */
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 

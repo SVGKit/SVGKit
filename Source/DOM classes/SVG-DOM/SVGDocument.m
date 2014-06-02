@@ -6,10 +6,10 @@
  http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGDocument
  */
 
-#import "Document+Mutable.h"
-
-#import "SVGDocument.h"
-#import "SVGDocument_Mutable.h"
+#import <SVGKit/Document+Mutable.h>
+#import <SVGKit/SVGSVGElement.h>
+#import <SVGKit/SVGDocument.h>
+#import <SVGKit/SVGDocument_Mutable.h>
 
 #import "NamedNodeMap_Iterable.h" // needed for the allPrefixesByNamespace implementation
 
@@ -22,16 +22,6 @@
 @synthesize URL;
 @synthesize rootElement=_rootElement;
 
-
-- (void)dealloc {
-  [title release];
-  [referrer release];
-  [domain release];
-  [URL release];
-  [_rootElement release];
-  [super dealloc];
-}
-
 - (id)init
 {
     self = [super initType:DOMNodeType_DOCUMENT_NODE name:@"#document"];
@@ -43,9 +33,7 @@
 
 -(void)setRootElement:(SVGSVGElement *)rootElement
 {
-	[_rootElement release];
 	_rootElement = rootElement;
-	[_rootElement retain];
 	
 	/*! SVG spec has two variables with same name, because DOM was written to support
 	 weak programming languages that don't provide full OOP polymorphism.

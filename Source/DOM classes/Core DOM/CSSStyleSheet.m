@@ -1,23 +1,17 @@
-#import "CSSStyleSheet.h"
+#import <SVGKit/CSSStyleSheet.h>
 
-#import "CSSRuleList+Mutable.h"
+#import <SVGKit/CSSRuleList+Mutable.h>
 
-#import "CSSStyleRule.h"
+#import <SVGKit/CSSStyleRule.h>
 
 @implementation CSSStyleSheet
 
 @synthesize ownerRule;
 @synthesize cssRules;
 
-- (void)dealloc {
-    self.ownerRule = nil;
-    self.cssRules = nil;
-    [super dealloc];
-}
-
 /**
  Used to insert a new rule into the style sheet. The new rule now becomes part of the cascade.
-
+ 
  Parameters
  
  rule of type DOMString
@@ -42,10 +36,9 @@
 	NSArray* stringSplitContainer = [rule componentsSeparatedByString:@"{"];
 	if( [stringSplitContainer count] >= 2 ) //not necessary unless using shitty svgs
 	{
-		CSSStyleRule* newRule = [[CSSStyleRule alloc] initWithSelectorText:[stringSplitContainer objectAtIndex:0] styleText:[stringSplitContainer objectAtIndex:1]];
+		CSSStyleRule* newRule = [[CSSStyleRule alloc] initWithSelectorText:[stringSplitContainer[0] substringFromIndex:1] styleText:stringSplitContainer[1]];
 		
 		[self.cssRules.internalArray insertObject:newRule atIndex:index-1]; // CSS says you insert "BEFORE" the index, which is the opposite of most C-based programming languages
-		[newRule release];
 		return index-1;
 	}
 	else
@@ -67,7 +60,7 @@
     self = [super init];
     if (self)
 	{
-		self.cssRules = [[[CSSRuleList alloc]init] autorelease];
+		self.cssRules = [[CSSRuleList alloc]init];
 		@autoreleasepool { //creating lots of autoreleased strings, not helpful for older devices
 			
 			/**
@@ -89,7 +82,7 @@
 				
 			}
 		}
-	
+		
     }
     return self;
 }

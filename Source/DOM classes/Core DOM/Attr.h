@@ -16,19 +16,18 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
+#import <SVGKit/Node.h>
 @class Element;
-#import "Element.h"
 
 @interface Attr : Node
 
 /*! NB: The official DOM spec FAILS TO SPECIFY what the value of "name" is */
-@property(nonatomic,retain,readonly) NSString* name;
+@property(nonatomic,strong,readonly) NSString* name;
 @property(nonatomic,readonly) BOOL specified;
-@property(nonatomic,retain,readonly) NSString* value;
+@property(nonatomic,strong,readonly) NSString* value;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readonly) Element* ownerElement;
+@property(nonatomic,strong,readonly) Element* ownerElement;
 
 #pragma mark - ObjC methods
 

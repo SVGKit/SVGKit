@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CDATASection.h"
+#import <SVGKit/CDATASection.h>
 
 @implementation CDATASection
 

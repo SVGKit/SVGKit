@@ -6,18 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CharacterData.h"
+#import <SVGKit/CharacterData.h>
 
 @implementation CharacterData
 
 @synthesize data;
 
 @synthesize length;
-
-- (void)dealloc {
-  [data release];
-  [super dealloc];
-}
 
 -(NSString*) substringData:(unsigned long) offset count:(unsigned long) count
 {

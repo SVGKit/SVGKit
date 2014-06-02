@@ -1,5 +1,12 @@
 #import "SVGKLayer.h"
 
+//DW stands for Darwin
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define DWBlackColor() [UIColor blackColor].CGColor
+#else
+#define DWBlackColor() CGColorGetConstantColor(kCGColorBlack)
+#endif
+
 @implementation SVGKLayer
 {
 
@@ -13,7 +20,7 @@
 /** Apple requires this to be implemented by CALayer subclasses */
 +(id)layer
 {
-	SVGKLayer* layer = [[[SVGKLayer alloc] init] autorelease];
+	SVGKLayer* layer = [[SVGKLayer alloc] init];
 	return layer;
 }
 
@@ -22,12 +29,13 @@
     self = [super init];
     if (self)
 	{
-    	self.borderColor = [UIColor blackColor].CGColor;
+    	self.borderColor = DWBlackColor();
 		
 		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )
@@ -38,8 +46,9 @@
 	/** 1: remove old */
 	if( _SVGImage != nil )
 	{
-		[_SVGImage.CALayerTree removeFromSuperlayer];
-		[_SVGImage release];
+		if ([_SVGImage hasCALayerTree]) {
+			[_SVGImage.CALayerTree removeFromSuperlayer];
+		}
 	}
 	
 	/** 2: update pointer */
@@ -48,20 +57,19 @@
 	/** 3: add new */
 	if( _SVGImage != nil )
 	{
-		[_SVGImage retain];
-		self.startRenderTime = [NSDate date];
-		[self addSublayer:_SVGImage.CALayerTree];
-		self.endRenderTime = [NSDate date];
+		if ([_SVGImage hasCALayerTree] || _SVGImage.CALayerTree) {
+			self.startRenderTime = [NSDate date];
+			[self addSublayer:_SVGImage.CALayerTree];
+			self.endRenderTime = [NSDate date];
+		}
 	}
 }
 
 - (void)dealloc
 {
-	//FIXME: Apple crashes on this line, even though BY DEFINITION Apple should not be crashing: [self removeObserver:self forKeyPath:@"showBorder"];
+	[self removeObserver:self forKeyPath:@"showBorder"];
 	
 	self.SVGImage = nil;
-	
-    [super dealloc];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
@@ -71,11 +79,11 @@
 	{
 		if( self.showBorder )
 		{
-			self.borderWidth = 1.0f;
+			self.borderWidth = 1.0;
 		}
 		else
 		{
-			self.borderWidth = 0.0f;
+			self.borderWidth = 0.0;
 		}
 		
 		[self setNeedsDisplay];

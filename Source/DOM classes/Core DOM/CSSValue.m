@@ -1,15 +1,10 @@
-#import "CSSValue.h"
-#import "CSSValue_ForSubclasses.h"
+#import <SVGKit/CSSValue.h>
+#import <SVGKit/CSSValue_ForSubclasses.h>
 
 @implementation CSSValue
 
 @synthesize cssText = _cssText;
 @synthesize cssValueType;
-
-- (void)dealloc {
-    [_cssText release];
-    [super dealloc];
-}
 
 - (id)init
 {

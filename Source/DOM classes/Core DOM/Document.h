@@ -55,31 +55,22 @@
 #import <Foundation/Foundation.h>
 
 /** ObjectiveC won't allow this: @class Node; */
-#import "Node.h"
-@class Element;
-#import "Element.h"
-@class Comment;
-#import "Comment.h"
-@class CDATASection;
-#import "CDATASection.h"
-@class DocumentFragment;
-#import "DocumentFragment.h"
-@class EntityReference;
-#import "EntityReference.h"
-@class NodeList;
-#import "NodeList.h"
-@class ProcessingInstruction;
-#import "ProcessingInstruction.h"
-@class DocumentType;
-#import "DocumentType.h"
-@class AppleSucksDOMImplementation;
-#import "AppleSucksDOMImplementation.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Element.h>
+#import <SVGKit/Comment.h>
+#import <SVGKit/CDATASection.h>
+#import <SVGKit/DocumentFragment.h>
+#import <SVGKit/EntityReference.h>
+#import <SVGKit/NodeList.h>
+#import <SVGKit/ProcessingInstruction.h>
+#import <SVGKit/DocumentType.h>
+#import <SVGKit/AppleSucksDOMImplementation.h>
 
 @interface Document : Node
 
-@property(nonatomic,retain,readonly) DocumentType*     doctype;
-@property(nonatomic,retain,readonly) AppleSucksDOMImplementation*  implementation;
-@property(nonatomic,retain,readonly) Element*          documentElement;
+@property(nonatomic,strong,readonly) DocumentType*     doctype;
+@property(nonatomic,strong,readonly) AppleSucksDOMImplementation*  implementation;
+@property(nonatomic,strong,readonly) Element*          documentElement;
 
 
 -(Element*) createElement:(NSString*) tagName __attribute__((ns_returns_retained));

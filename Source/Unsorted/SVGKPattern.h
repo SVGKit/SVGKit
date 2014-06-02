@@ -4,24 +4,33 @@
 
 #import <UIKit/UIKit.h>
 
+#else
+
+#import <AppKit/AppKit.h>
+
 #endif
 
 /** lightweight wrapper for UIColor so that we can draw with fill patterns */
 @interface SVGKPattern : NSObject
 {
 }
+@property (readwrite, nonatomic) CGColorRef color;
+
++ (SVGKPattern*)patternWithCGImage:(CGImageRef)cgImage;
++ (SVGKPattern*)patternWithCGColor:(CGColorRef)cgColor;
+
+- (CGColorRef) CGColor;
 
 #if TARGET_OS_IPHONE
 
 + (SVGKPattern*) patternWithUIColor:(UIColor*)color;
 + (SVGKPattern*) patternWithImage:(UIImage*)image;
 
-@property (readwrite,nonatomic,retain) UIColor* color;
-
 #else
 
-#endif
++ (SVGKPattern*)patternWithNSColor:(NSColor*)color;
++ (SVGKPattern*)patternWithImage:(NSImage*)image;
 
-- (CGColorRef) CGColor;
+#endif
 
 @end
