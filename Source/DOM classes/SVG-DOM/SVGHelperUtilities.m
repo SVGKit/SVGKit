@@ -114,7 +114,7 @@
 						
 						double ratioOfRatios = svgSVGElement.aspectRatioFromWidthPerHeight / svgSVGElement.aspectRatioFromViewBox;
 						
-						DDLogWarn(@"rationOfRatios = %.2f", ratioOfRatios );
+						DDLogWarn(@"ratioOfRatios = %.2f", ratioOfRatios );
 						DDLogWarn(@"Experimental: auto-scaling viewbox transform to fulfil SVG spec's default MEET settings, because your SVG file has different aspect-ratios for viewBox and for svg.width,svg.height");
 						
 						/**

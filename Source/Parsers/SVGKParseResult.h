@@ -14,6 +14,8 @@
 
 @property(nonatomic, retain) NSMutableArray* warnings, * errorsRecoverable, * errorsFatal;
 @property(nonatomic) BOOL libXMLFailed;
+/** 0.0 = no parsing done yet, 0.x = partially parsed, 1.0 = parse complete (no fatal errors) */
+@property(nonatomic) double parseProgressFractionApproximate;
 
 @property(nonatomic,retain) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
 @property(nonatomic,retain) SVGDocument* parsedDocument; /*< both are needed, see spec */

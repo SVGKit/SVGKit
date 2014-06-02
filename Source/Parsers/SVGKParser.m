@@ -35,6 +35,7 @@
 @property(nonatomic,retain, readwrite) NSMutableArray* externalStylesheets;
 @property(nonatomic,retain, readwrite) SVGKParseResult* currentParseRun;
 @property(nonatomic,retain) NSString* defaultXMLNamespaceForThisParseRun;
+@property(nonatomic) BOOL hasCancelBeenRequested;
 @end
 
 @implementation SVGKParser
@@ -62,15 +63,39 @@ static NSString *NSStringFromLibxmlString (const xmlChar *string);
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
-static SVGKParser *parserThatWasMostRecentlyStarted;
+#define kThreadLocalCurrentlyActiveParser ( @"kThreadLocalCurrentlyActiveParser" )
 
-+ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
+/** This is a workaround to the major, catastophic bugs in libxml that you cannot
+ attach a "context" object to libxml parser - and without that, you can't actually
+ parse, because you have no reference to the context of your original "parse" call. ARGH!
+ */
+SVGKParser* getCurrentlyParsingParser()
+{
+	/** Currently implemented NON THREAD SAFE using a static varailbe that only
+	 allows one parse in memory at a time:
+	 */
+	return [[NSThread currentThread].threadDictionary objectForKey:kThreadLocalCurrentlyActiveParser];
+}
+
++(void)cancelParser:(SVGKParser *)parserToCancel
+{
+	parserToCancel.hasCancelBeenRequested = TRUE;
+}
+
++(SVGKParser *) newParserWithDefaultSVGKParserExtensions:(SVGKSource *)source
 {
 	SVGKParser *parser = [[SVGKParser alloc] initWithSource:source];
 	[parser addDefaultSVGParserExtensions];
 	
+	return parser;
+}
+
++ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
+{
+	SVGKParser* parser = [self newParserWithDefaultSVGKParserExtensions:source];
 	SVGKParseResult* result = [[parser parseSynchronously] retain];
 	[parser release];
+	
 	return [result autorelease];
 }
 
@@ -156,21 +181,21 @@ clazz *parser = [[clazz alloc] init]; \
 	}
 }
 
-static FILE *desc;
-static size_t
-readPacket(char *mem, int size) {
-    size_t res;
-	
-    res = fread(mem, 1, size, desc);
-    return(res);
-}
+//static FILE *desc;
+//static size_t
+//readPacket(char *mem, int size) {
+//    size_t res;
+//	
+//    res = fread(mem, 1, size, desc);
+//    return(res);
+//}
 
 - (SVGKParseResult*) parseSynchronously
 {
 	self.currentParseRun = [[SVGKParseResult new] autorelease];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
-	parserThatWasMostRecentlyStarted = self;
+	[[NSThread currentThread].threadDictionary setObject:self forKey:kThreadLocalCurrentlyActiveParser];
 	
 	/*
 	// 1. while (source has chunks of BYTES)
@@ -206,10 +231,29 @@ readPacket(char *mem, int size) {
 	if( ctx ) // if libxml init succeeds...
 	{
 		// 1. while (source has chunks of BYTES)
-		// 2.   read a chunk from source, send to libxml
+		// 2. Check asynch cancellation flag
+		// 3.   read a chunk from source, send to libxml
+		uint64_t totalBytesRead = 0;
 		NSInteger bytesRead = [stream read:(uint8_t*)&buff maxLength:READ_CHUNK_SZ];
 		while( bytesRead > 0 )
 		{
+			totalBytesRead += bytesRead;
+			
+			if( self.hasCancelBeenRequested )
+			{
+				DDLogInfo( @"SVGKParser: 'cancel parse' discovered; bailing on this XML parse" );
+				break;
+			}
+			else
+			{
+				if( source.approximateLengthInBytesOr0 > 0 )
+				{
+					currentParseRun.parseProgressFractionApproximate = totalBytesRead / (double) source.approximateLengthInBytesOr0;
+				}
+				else
+					currentParseRun.parseProgressFractionApproximate = 0;
+			}
+			
 			NSInteger libXmlParserParseError = xmlParseChunk(ctx, buff, (int)bytesRead, 0);
 			
 			if( [currentParseRun.errorsFatal count] > 0 )
@@ -242,6 +286,8 @@ readPacket(char *mem, int size) {
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
 	
 	xmlFreeParserCtxt(ctx);
+	
+	[[NSThread currentThread].threadDictionary removeObjectForKey:kThreadLocalCurrentlyActiveParser];
 	
 	// 4. return result
 	return currentParseRun;
@@ -357,8 +403,8 @@ static void processingInstructionSAX (void * ctx,
                                          const xmlChar * target,
                                          const xmlChar * data)
 {
-    SVGKParser *self = parserThatWasMostRecentlyStarted;
-    
+	SVGKParser* self = getCurrentlyParsingParser();
+	
     NSString *stringTarget = NSStringFromLibxmlString(target);
 	NSString *stringData = NSStringFromLibxmlString(data);
     
@@ -493,7 +539,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
 	
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser *self = getCurrentlyParsingParser();
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
@@ -655,7 +701,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser* self = getCurrentlyParsingParser();
 	
 	[self handleEndElement:NSStringFromLibxmlString(localname)];
 }
@@ -669,15 +715,15 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
 {
-    SVGKParser *self = parserThatWasMostRecentlyStarted;
+    SVGKParser* self = getCurrentlyParsingParser();
 	
 	[self handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
-    SVGKParser *self = parserThatWasMostRecentlyStarted;
-    
-    [self handleFoundCharacters:chars length:len];
+	SVGKParser* self = getCurrentlyParsingParser();
+	
+	[self handleFoundCharacters:chars length:len];
 }
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
@@ -687,18 +733,19 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
     va_start(va, msg);
     errStr = [[NSString alloc] initWithFormat:@(msg) arguments:va];
     va_end(va);
-    
+
+	DDLogCWarn(@"Error encountered during parse: %s", errStr);
+	SVGKParser* self = getCurrentlyParsingParser();
 	SVGKParseResult* parseResult = self.currentParseRun;
     
-    DDLogCWarn(@"Error encountered during parse: %@", errStr);
 	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
     [errStr release];
 }
 
-static void	unparsedEntityDeclaration(void * ctx, 
-									 const xmlChar * name, 
-									 const xmlChar * publicId, 
-									 const xmlChar * systemId, 
+static void	unparsedEntityDeclaration(void * ctx,
+									 const xmlChar * name,
+									 const xmlChar * publicId,
+									 const xmlChar * systemId,
 									 const xmlChar * notationName)
 {
 	DDLogCWarn(@"Error: unparsed entity Decl");
@@ -729,7 +776,7 @@ static void structuredError		(void * userData,
 	
 	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
-	SVGKParser *self = parserThatWasMostRecentlyStarted;
+	SVGKParser* self = getCurrentlyParsingParser();
 	SVGKParseResult* parseResult = self.currentParseRun;
 	switch( errorLevel )
 	{
@@ -764,7 +811,7 @@ static xmlSAXHandler SAXHandler = {
     NULL,                       /* notationDecl */
     NULL,                       /* attributeDecl */
     NULL,                       /* elementDecl */
-    NULL,                       /* unparsedEntityDecl */
+    unparsedEntityDeclaration,                       /* unparsedEntityDecl */
     NULL,                       /* setDocumentLocator */
     NULL,                       /* startDocument */
     NULL,                       /* endDocument */

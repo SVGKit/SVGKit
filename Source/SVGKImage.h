@@ -37,6 +37,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SVGKParser.h" // needed for asynchronous loading method-signature
+
 @class SVGDocument;
 @class SVGSVGElement;
 @class SVGKSource;
@@ -46,9 +48,12 @@
 
 @class SVGDefsElement;
 
+@class SVGKImage; // needed for typedef below
+typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
+
 @interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     BOOL cameFromGlobalCache;
 #endif
 }
@@ -65,7 +70,7 @@
 @property (nonatomic, retain, readonly) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readonly) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readonly) CALayer* CALayerTree;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readonly) NSString* nameUsedToInstantiate;
 #endif
 
@@ -84,6 +89,15 @@
  - Creates an SVGKSource so that you can later inspect exactly where it found the file
  */
 + (SVGKImage *)imageNamed:(NSString *)name;
+/**
+ Almost identical to imageNamed: except that it performs the parse in a separate thread.
+ 
+ Returns an SVGKParser object that you can cancel, or inspect for progress (using parser.currentParseRun)
+ 
+ UNLESS the image was already loaded, and a cached version can be returned - in which case,
+ returns nil and immmediately calls the completion block
+ */
++(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate) blockCompleted;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
 #if TARGET_OS_IPHONE // doesn't exist on OS X's Image class
 + (SVGKImage *)imageWithData:(NSData *)data;

@@ -18,7 +18,7 @@
 
 #import "SVGKExporterUIImage.h" // needed for .UIImage property
 
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
 @property(nonatomic,retain) SVGKImage* mainInstance;
@@ -40,7 +40,7 @@
 @property (nonatomic, retain, readwrite) SVGDocument* DOMDocument;
 @property (nonatomic, retain, readwrite) SVGSVGElement* DOMTree; // needs renaming + (possibly) replacing by DOMDocument
 @property (nonatomic, retain, readwrite) CALayer* CALayerTree;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @property (nonatomic, retain, readwrite) NSString* nameUsedToInstantiate;
 #endif
 
@@ -57,9 +57,9 @@
 @synthesize scale = _scale;
 @synthesize source;
 @synthesize parseErrorsAndWarnings;
-@synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+@synthesize nameUsedToInstantiate = _nameUsedToInstantiate;
 static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - Respond to low-memory warnings by dumping the global static cache
@@ -83,22 +83,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
 
 #pragma mark - Convenience initializers
-+ (SVGKImage *)imageNamed:(NSString *)name {
++(SVGKSource*) internalSourceAnywhereInBundleUsingName:(NSString*) name
+{
 	NSParameterAssert(name != nil);
-    
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    if( globalSVGKImageCache == nil )
-    {
-        globalSVGKImageCache = [NSMutableDictionary new];
-    }
-    
-    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
-    if( cacheLine != nil )
-    {
-        cacheLine.numberOfInstances ++;
-        return cacheLine.mainInstance;
-    }
-#endif
 	
 	/** Apple's File APIs are very very bad and require you to strip the extension HALF the time.
 	 
@@ -133,7 +120,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 	
 	if( pathToFileInBundle == nil
-	&& pathToFileInDocumentsFolder == nil )
+	   && pathToFileInDocumentsFolder == nil )
 	{
 		DDLogCWarn(@"[%@] MISSING FILE (not found in App-bundle, not found in Documents folder), COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
 		return nil;
@@ -142,12 +129,33 @@ static NSMutableDictionary* globalSVGKImageCache;
 	/** Prefer the Documents-folder version over the Bundle version (allows you to have a default, and override at runtime) */
 	SVGKSourceLocalFile* source = [SVGKSourceLocalFile sourceFromFilename: pathToFileInDocumentsFolder == nil ? pathToFileInBundle : pathToFileInDocumentsFolder];
 	
+	return source;
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name
+{	
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    if( globalSVGKImageCache == nil )
+    {
+        globalSVGKImageCache = [NSMutableDictionary new];
+    }
+    
+    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
+    if( cacheLine != nil )
+    {
+        cacheLine.numberOfInstances ++;
+        return cacheLine.mainInstance;
+    }
+#endif
+	
+	SVGKSource* source = [self internalSourceAnywhereInBundleUsingName:name];
+	
 	/**
 	 Key moment: init and parse the SVGKImage
 	 */
 	SVGKImage* result = [self imageWithSource:source];
     
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 	if( result != nil )
 	{
         result->cameFromGlobalCache = TRUE;
@@ -165,6 +173,60 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
     
     return result;
+}
+
++(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
+{	
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    if( globalSVGKImageCache == nil )
+    {
+        globalSVGKImageCache = [NSMutableDictionary new];
+    }
+    
+    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
+    if( cacheLine != nil )
+    {
+        cacheLine.numberOfInstances ++;
+		
+		blockCompleted( cacheLine.mainInstance );
+        return nil;
+    }
+#endif
+	
+	SVGKSource* source = [self internalSourceAnywhereInBundleUsingName:name];
+	
+	/**
+	 Key moment: init and parse the SVGKImage
+	 */
+	
+	SVGKParser* parser = [SVGKParser newParserWithDefaultSVGKParserExtensions:source];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+				   ^{
+					   SVGKParseResult* parsedSVG = [parser parseSynchronously];
+					   
+					   SVGKImage* finalImage = [[[SVGKImage alloc] initWithParsedSVG:parsedSVG] autorelease];
+					   
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+					   if( finalImage != nil )
+					   {
+						   finalImage->cameFromGlobalCache = TRUE;
+						   finalImage.nameUsedToInstantiate = name;
+						   
+						   SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
+						   newCacheLine.mainInstance = finalImage;
+						   
+						   [globalSVGKImageCache setValue:newCacheLine forKey:name];
+					   }
+					   else
+					   {
+						   NSLog(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+					   }
+#endif
+					   
+					   blockCompleted( finalImage );
+				   });
+	
+    return parser;
 }
 
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
@@ -256,7 +318,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 - (void)dealloc
 {
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     if( self->cameFromGlobalCache )
     {
         SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:self.nameUsedToInstantiate];
@@ -277,7 +339,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.DOMDocument = nil;
 	self.DOMTree = nil;
 	self.CALayerTree = nil;
-#ifdef ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+#if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     self.nameUsedToInstantiate = nil;
 #endif
 	
@@ -517,6 +579,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 		return nil;
 	else
 	{		
+		/** CALayer has the magic valueForKey method */
+		NSString* layerID = [originalLayer valueForKey:kSVGElementIdentifier];
+		if( layerID != nil )
+			[clonedLayer setValue:layerID forKey:kSVGElementIdentifier];
+		
+		
 		CGRect lFrame = clonedLayer.frame;
 		CGFloat xOffset = 0.0;
 		CGFloat yOffset = 0.0;
@@ -541,7 +609,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		clonedLayer.frame = lFrame;
 		
 		
-		return clonedLayer;
+		return [clonedLayer retain];
 	}
 }
 
@@ -653,7 +721,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		DDLogInfo(@"[%@] ...time taken to convert from DOM to fresh CALayers: %2.3f seconds)", [self class], -1.0f * [startTime timeIntervalSinceNow] );		
 	}
 	else
-		DDLogVerbose(@"[%@] rendering to CGContext: re-using cached CALayers (FREE))", [self class] );
+		DDLogVerbose(@"[%@] fetching CALayerTree: re-using cached CALayers (FREE))", [self class] );
 	
 	return CALayerTree;
 }

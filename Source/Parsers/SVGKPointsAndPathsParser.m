@@ -196,8 +196,12 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
  */
 + (void) readWhitespace:(NSScanner*)scanner
 {
-    [scanner scanCharactersFromSet:[NSCharacterSet SVGWhitespaceCharacterSet]
+	DDLogVerbose(@"Apple's implementation of scanCharactersFromSet seems to generate large amounts of temporary objects and can cause a crash here by taking literally megabytes of RAM in temporary internal variables. This is surprising, but I can't see anythign we're doing wrong. Adding this autoreleasepool drops memory usage (inside Apple's methods!) massively, so it seems to be the right thing to do");
+	@autoreleasepool
+	{
+		[scanner scanCharactersFromSet:[NSCharacterSet SVGWhitespaceCharacterSet]
                         intoString:NULL];
+	}
 }
 
 + (void) readCommaAndWhitespace:(NSScanner*)scanner
@@ -491,7 +495,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     CGPoint coord1 = CGPointMake(p1.x+origin.x, p1.y+origin.y);
     [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
     
-    SVGCurve thisCurve;
+    SVGCurve thisCurve = SVGCurveZero;
     if (SVGCurveEqualToCurve(SVGCurveZero, prevCurve)) {
         // assume control point is coincident with the current point
         thisCurve = SVGCurveMake(coord1.x, coord1.y, 0.0f, 0.0f, prevCurve.p.x, prevCurve.p.y);

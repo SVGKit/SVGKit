@@ -51,7 +51,8 @@
 		specificClone.minificationFilterBias = selfSpecific.minificationFilterBias;
 		specificClone.opaque = selfSpecific.opaque;
 		specificClone.needsDisplayOnBoundsChange = selfSpecific.needsDisplayOnBoundsChange;
-		specificClone.drawsAsynchronously = selfSpecific.drawsAsynchronously;
+		if( [specificClone respondsToSelector:@selector(drawsAsynchronously)]) // Apple Bug: iOS6+ only, but unmarked in source header
+			specificClone.drawsAsynchronously = selfSpecific.drawsAsynchronously;
 		specificClone.edgeAntialiasingMask = selfSpecific.edgeAntialiasingMask;
 		specificClone.backgroundColor = selfSpecific.backgroundColor;
 		specificClone.cornerRadius = selfSpecific.cornerRadius;
