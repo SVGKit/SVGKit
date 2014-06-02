@@ -7,6 +7,6 @@
 
 #import <SVGKit/SVGElement.h>
 
-@interface SVGDescriptionElement : SVGElement { }
+@interface SVGDescriptionElement : SVGElement
 
 @end

@@ -238,7 +238,7 @@
 - (void)layoutLayer:(CALayer *)layer {
  	
 	/**
-	 According to the SVG spec ... what this method originaly did is illegal. I've deleted all of it, and now a few more SVG's render correctly, that
+	According to the SVG spec ... what this method originaly did is illegal. I've deleted all of it, and now a few more SVG's render correctly, that
 	 previously were rendering with strange offsets at the top level
 	 */
 }
@@ -254,6 +254,5 @@
 {	
 	return  self.viewBox.height == 0 ? 0 : self.viewBox.width / self.viewBox.height;
 }
-
 
 @end

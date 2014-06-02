@@ -18,7 +18,7 @@
     }
     return self;
 }
--(Text*) splitText:(unsigned long) offset;
+-(Text*) splitText:(NSUInteger) offset;
 {
 	NSAssert( FALSE, @"Not implemented yet" );
 	return nil;

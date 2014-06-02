@@ -10,8 +10,8 @@
 
 @interface CSSValueList : CSSValue
 
-@property(nonatomic,readonly) unsigned long length;
+@property(nonatomic,readonly) NSUInteger length;
 
--(CSSValue*) item:(unsigned long) index;
+-(CSSValue*) item:(NSUInteger) index;
 
 @end

@@ -237,8 +237,8 @@
  Re-calculates the absolute transform on-demand by querying parent's absolute transform and appending self's relative transform.
  
  Can take ONLY TWO kinds of element:
- - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
- - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
+  - something that implements SVGTransformable (non-transformables shouldn't be performing transforms!)
+  - something that defines a new viewport co-ordinate system (i.e. the SVG tag itself; this is AN IMPLICIT TRANSFORMABLE!)
  */
 +(CGAffineTransform) transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:(SVGElement*) transformableOrSVGSVGElement
 {
@@ -290,7 +290,7 @@
 #if FORCE_RASTERIZE_LAYERS
 	if ([layer respondsToSelector:@selector(setShouldRasterize:)]) {
 		[layer performSelector:@selector(setShouldRasterize:)
-					withObject:[NSNumber numberWithBool:YES]];
+						  withObject:@YES];
 	}
 	
 	/** If you're going to rasterize, Apple's code is dumb, and needs to be "told" if its using a Retina display */
@@ -322,7 +322,7 @@
     //BIZARRE: Apple sometimes gives a different value for this even when transformAbsolute == identity! : CGRect localPathBB = CGPathGetPathBoundingBox( _pathRelative );
 	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
 	CGRect transformedPathBB = CGPathGetBoundingBox( pathToPlaceInLayer );
-	
+
 #if IMPROVE_PERFORMANCE_BY_WORKING_AROUND_APPLE_FRAME_ALIGNMENT_BUG
 	transformedPathBB = CGRectIntegral( transformedPathBB ); // ridiculous but improves performance of apple's code by up to 50% !
 #endif
@@ -352,7 +352,7 @@
 	if( actualStroke.length > 0
 	   && (! [@"none" isEqualToString:actualStroke]) )
 	{
-		CGFloat strokeWidth = actualStrokeWidth.length > 0 ? [actualStrokeWidth SVGKCGFloatValue] : 1.0f;
+		CGFloat strokeWidth = actualStrokeWidth.length > 0 ? [actualStrokeWidth SVGKCGFloatValue] : 1.0;
 		
 		/*
 		 We have to apply any scale-factor part of the affine transform to the stroke itself (this is bizarre and horrible, yes, but that's the spec for you!)
@@ -446,11 +446,10 @@
 		SVGColor fillColorAsSVGColor = ( actualFill.length > 0 ) ?
 		SVGColorFromString([actualFill UTF8String]) // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		: SVGColorMake(0, 0, 0, 0);
+		if( actualFillOpacity.length > 0 )
+			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
 		
-        if( actualFillOpacity.length > 0 )
-            fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
-		
-        _shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
+		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
 	{

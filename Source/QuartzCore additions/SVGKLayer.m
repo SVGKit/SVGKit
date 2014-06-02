@@ -1,4 +1,4 @@
-#import <SVGKit/SVGKLayer.h>
+#import "SVGKLayer.h"
 
 //DW stands for Darwin
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
@@ -79,11 +79,11 @@
 	{
 		if( self.showBorder )
 		{
-			self.borderWidth = 1.0f;
+			self.borderWidth = 1.0;
 		}
 		else
 		{
-			self.borderWidth = 0.0f;
+			self.borderWidth = 0.0;
 		}
 		
 		[self setNeedsDisplay];

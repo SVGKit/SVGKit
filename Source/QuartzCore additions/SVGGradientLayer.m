@@ -43,17 +43,17 @@
             CGColorRef colorRef = (__bridge CGColorRef)[self.colors objectAtIndex:0];
             numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
-        }
-        
-        CGFloat *locations = calloc(num_locations, sizeof(CGFloat));
-        CGFloat *components = calloc(num_locations, numbOfComponents * sizeof(CGFloat));
-        
-        for (int x = 0; x < num_locations; x++) {
-            locations[x] = [[self.locations objectAtIndex:x] floatValue];
-            const CGFloat *comps = CGColorGetComponents((__bridge CGColorRef)[self.colors objectAtIndex:x]);
-            for (int y = 0; y < numbOfComponents; y++) {
-                size_t shift = numbOfComponents * x;
-                components[shift + y] = comps[y];
+            
+            CGFloat *locations = calloc(num_locations, sizeof(CGFloat));
+            CGFloat *components = calloc(num_locations, numbOfComponents * sizeof(CGFloat));
+            
+            for (int x = 0; x < num_locations; x++) {
+                locations[x] = [[self.locations objectAtIndex:x] floatValue];
+                const CGFloat *comps = CGColorGetComponents((__bridge CGColorRef)[self.colors objectAtIndex:x]);
+                for (int y = 0; y < numbOfComponents; y++) {
+                    size_t shift = numbOfComponents * x;
+                    components[shift + y] = comps[y];
+                }
             }
             
             CGPoint position = self.startPoint;
@@ -62,10 +62,10 @@
             
             CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);
             
+            free(locations);
+            free(components);
             CGGradientRelease(gradient);
         }
-        free(locations);
-        free(components);
     } else {
         [super renderInContext:ctx];
     }

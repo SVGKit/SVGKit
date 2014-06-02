@@ -39,7 +39,7 @@
 	 AND: bottom-right-corner of this layer will be "the bottom-right corner of the convex-hull rect of all sublayers"
 	 */
 	layer.frame = mainRect;
-	
+
 	/** Changing THIS layer's frame now means all DIRECT sublayers are offset by too much (because when we change the offset
 	 of the parent frame (this.frame), Apple *does not* shift the sublayers around to keep them in same place.
 	 

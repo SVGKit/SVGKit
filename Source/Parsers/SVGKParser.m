@@ -5,20 +5,20 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import <SVGKit/SVGKParser.h>
+#import "SVGKParser.h"
 #import <libxml/parser.h>
 
-#import <SVGKit/SVGKParserSVG.h>
+#import "SVGKParserSVG.h"
 
-#import <SVGKit/SVGKParserGradient.h>
-#import <SVGKit/SVGKParserPatternsAndGradients.h>
-#import <SVGKit/SVGKParserStyles.h>
-#import <SVGKit/SVGKParserDefsAndUse.h>
-#import <SVGKit/SVGKParserDOM.h>
+#import "SVGKParserGradient.h"
+#import "SVGKParserPatternsAndGradients.h"
+#import "SVGKParserStyles.h"
+#import "SVGKParserDefsAndUse.h"
+#import "SVGKParserDOM.h"
 
-#import <SVGKit/SVGDocument_Mutable.h> // so we can modify the SVGDocuments we're parsing
+#import "SVGDocument_Mutable.h" // so we can modify the SVGDocuments we're parsing
 
-#import <SVGKit/Node.h>
+#import "Node.h"
 
 #ifndef USENSSTRINGFROMLIBXMLSTRINGFUNCTION
 #define USENSSTRINGFROMLIBXMLSTRINGFUNCTION 0
@@ -177,11 +177,11 @@ clazz *parser = [[clazz alloc] init]; \
 }
 
 static FILE *desc;
-static size_t
+static int
 readPacket(char *mem, int size) {
-    size_t res;
+    int res;
 	
-    res = fread(mem, 1, size, desc);
+    res = (int)fread(mem, 1, size, desc);
     return(res);
 }
 
@@ -232,12 +232,12 @@ readPacket(char *mem, int size) {
 	/*
 	 DDLogVerbose(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
 	 xmlSubstituteEntitiesDefault(1);
-	 xmlCtxtUseOptions( ctx,
-	 XML_PARSE_DTDATTR  // default DTD attributes
-	 | XML_PARSE_NOENT    // substitute entities
-	 | XML_PARSE_DTDVALID // validate with the DTD
-	 );
-	 */
+	xmlCtxtUseOptions( ctx,
+					  XML_PARSE_DTDATTR  // default DTD attributes
+					  | XML_PARSE_NOENT    // substitute entities
+					  | XML_PARSE_DTDVALID // validate with the DTD
+					  );
+	*/
 	
 	if( ctx ) // if libxml init succeeds...
 	{
@@ -365,13 +365,13 @@ readPacket(char *mem, int size) {
 
 /** ADAM: use this for a higher-performance, *non-blocking* parse
  (when someone upgrades this class and the interface to support non-blocking parse)
- // Called when a chunk of data has been downloaded.
- - (void)connection:(NSURLConnection *)connection
- didReceiveData:(NSData *)data
- {
- // Process the downloaded chunk of data.
- xmlParseChunk(_xmlParserContext, (const char *)[data bytes], [data length], 0);//....Getting Exception at this line.
- }
+// Called when a chunk of data has been downloaded.
+- (void)connection:(NSURLConnection *)connection 
+	didReceiveData:(NSData *)data 
+{
+	// Process the downloaded chunk of data.
+	xmlParseChunk(_xmlParserContext, (const char *)[data bytes], [data length], 0);//....Getting Exception at this line.
+}
  */
 
 
@@ -594,7 +594,6 @@ static void processingInstructionSAX (void * ctx,
 	[_parentOfCurrentNode appendChild:subParserResult]; // this is a DOM method: should NOT have side-effects
 	_parentOfCurrentNode = subParserResult;
 	
-	
 	if( parsingRootTag )
 	{
 		currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
@@ -729,13 +728,12 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		DDLogCWarn(@"[%@] WARNING: Your input SVG contains tags that have no namespace, and your document doesn't define a default namespace. This is always incorrect - it means some of your SVG data will be ignored, and usually means you have a typo in there somewhere. Tag with no namespace: <%@>", [NSctx class], stringLocalName );
 	}
-	
+
 	[NSctx handleStartElement:stringLocalName namePrefix:stringPrefix namespaceURI:stringURI attributeObjects:attributeObjects];
 }
 
 - (void)handleEndElement:(NSString *)name {
 	//DELETE DEBUG DDLogVerbose(@"ending element, name = %@", name);
-	
 	
 	NSObject* lastobject = [_stackOfParserExtensions lastObject];
 	
@@ -819,11 +817,14 @@ static void	unparsedEntityDeclaration(void * ctx,
 									  const xmlChar * systemId,
 									  const xmlChar * notationName)
 {
-	DDLogCWarn(@"[%@] Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@", [((__bridge id)(ctx)) class], NSStringFromLibxmlString(name), NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId), NSStringFromLibxmlString(notationName));
+	DDLogCWarn(@"[%@] Error: unparsed entity Decl, name: %@ publicID: %@ systemID: %@ notation name: %@",
+			   [((__bridge id)(ctx)) class], NSStringFromLibxmlString(name),
+			   NSStringFromLibxmlString(publicId), NSStringFromLibxmlString(systemId),
+			   NSStringFromLibxmlString(notationName));
 }
 
-static void structuredError		(void * userData,
-								 xmlErrorPtr error)
+static void structuredError (void * userData,
+							 xmlErrorPtr error)
 {
 	/**
 	 XML_ERR_WARNING = 1 : A simple warning

@@ -14,12 +14,12 @@
     return self;
 }
 
--(unsigned long)length
+-(NSUInteger)length
 {
 	return self.internalArray.count;
 }
 
--(StyleSheet*) item:(unsigned long) index
+-(StyleSheet*) item:(NSUInteger) index
 {
 	return (self.internalArray)[index];
 }

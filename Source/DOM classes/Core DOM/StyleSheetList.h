@@ -12,8 +12,8 @@
 
 @interface StyleSheetList : NSObject
 
-@property(nonatomic,readonly) unsigned long length;
+@property(nonatomic,readonly) NSUInteger length;
 
--(StyleSheet*) item:(unsigned long) index;
+-(StyleSheet*) item:(NSUInteger) index;
 
 @end

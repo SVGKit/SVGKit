@@ -56,23 +56,14 @@
 
 /** ObjectiveC won't allow this: @class Node; */
 #import <SVGKit/Node.h>
-@class Element;
 #import <SVGKit/Element.h>
-@class Comment;
 #import <SVGKit/Comment.h>
-@class CDATASection;
 #import <SVGKit/CDATASection.h>
-@class DocumentFragment;
 #import <SVGKit/DocumentFragment.h>
-@class EntityReference;
 #import <SVGKit/EntityReference.h>
-@class NodeList;
 #import <SVGKit/NodeList.h>
-@class ProcessingInstruction;
 #import <SVGKit/ProcessingInstruction.h>
-@class DocumentType;
 #import <SVGKit/DocumentType.h>
-@class AppleSucksDOMImplementation;
 #import <SVGKit/AppleSucksDOMImplementation.h>
 
 @interface Document : Node

@@ -1,9 +1,9 @@
-#import <SVGKit/SVGLength.h>
+#import "SVGLength.h"
 
-#import <SVGKit/CSSPrimitiveValue.h>
+#import "CSSPrimitiveValue.h"
 #import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
 
-#import <SVGKit/SVGUtils.h>
+#import "SVGUtils.h"
 
 #include <sys/types.h>
 #include <sys/sysctl.h>

@@ -5,13 +5,7 @@
 #import <SVGKit/DOMGlobalSettings.h>
 #import "SVGKCGFloatAdditions.h"
 
-#if CGFLOAT_IS_DOUBLE
-#define CGFCONST(theVal) theVal
-#else
-#define CGFCONST(theVal) theVal##f
-#endif
-
-#define INCHES_PER_CENTIMETRE ( CGFCONST(0.393700787) )
+#define INCHES_PER_CENTIMETRE ( 0.393700787)
 
 @interface CSSPrimitiveValue()
 
@@ -33,7 +27,7 @@
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];
     if (self) {
-		self.pixelsPerInch = CGFCONST(1.0); // this can be overridden by classes that import the CSSPrimitiveValue_ConfigurablePixelsPerInch.h header
+		self.pixelsPerInch = 1.0; // this can be overridden by classes that import the CSSPrimitiveValue_ConfigurablePixelsPerInch.h header
     }
     return self;
 }
@@ -56,7 +50,7 @@
 	{
 		case CSS_UNKNOWN:
 		{
-			if( self.internalValue == CGFCONST(0.0) )
+			if( self.internalValue == 0.0 )
 				return self.internalValue;
 			else
 			{
@@ -79,15 +73,15 @@
 				}break;
 				case CSS_MM:
 				{
-					valueAsInches = self.internalValue * INCHES_PER_CENTIMETRE * CGFCONST(10.0);
+					valueAsInches = self.internalValue * INCHES_PER_CENTIMETRE * 10.0;
 				}break;
 				case CSS_PT:
 				{
-					valueAsInches = self.internalValue / CGFCONST(72.0);
+					valueAsInches = self.internalValue / 72.0;
 				}break;
 				case CSS_PC:
 				{
-					valueAsInches = self.internalValue * CGFCONST(12.0) / CGFCONST(72.0);
+					valueAsInches = self.internalValue * 12.0 / 72.0;
 				}break;
 					
 				default:
@@ -104,15 +98,15 @@
 				}break;
 				case CSS_MM:
 				{
-					return valueAsInches / INCHES_PER_CENTIMETRE * CGFCONST(10.0);
+					return valueAsInches / INCHES_PER_CENTIMETRE * 10.0;
 				}break;
 				case CSS_PT:
 				{
-					return valueAsInches * CGFCONST(72.0);
+					return valueAsInches * 72.0;
 				}break;
 				case CSS_PC:
 				{
-					return valueAsInches / CGFCONST(12.0) * CGFCONST(72.0);
+					return valueAsInches / 12.0 * 72.0;
 				}break;
 				case CSS_PX:
 				{
@@ -174,7 +168,7 @@
 		{
 			if( unitType == CSS_NUMBER )
 			{
-				return self.internalValue / CGFCONST(100.0); // convert percentages to values from 0.0 - 1.0
+				return self.internalValue / 100.0; // convert percentages to values from 0.0 - 1.0
 			}
 			else
 				NSAssert( FALSE, @"Asked to convert a Percentage value to a different type (%i)", unitType );
@@ -186,7 +180,7 @@
 		}
 	}
 	
-	return CGFCONST(0.0); // this will never happen. you should have Asserted by now, or else returned early with the correct value
+	return 0.0; // this will never happen. you should have Asserted by now, or else returned early with the correct value
 }
 
 -(void) setStringValue:(CSSPrimitiveType) stringType stringValue:(NSString*) stringValue
@@ -194,7 +188,7 @@
 	self.primitiveType = stringType;
 	self.internalString = stringValue;
 	
-	self.internalValue = CGFCONST(0.0);
+	self.internalValue = 0.0;
 }
 
 -(NSString*) getStringValue
@@ -227,7 +221,7 @@
 	if( _cssText == nil
 	   || _cssText.length == 0 )
 	{
-		self.internalValue = CGFCONST(0.0);
+		self.internalValue = 0.0;
 		self.internalString = @"";
 		self.primitiveType = CSS_UNKNOWN;
 	}

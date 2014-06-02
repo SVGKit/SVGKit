@@ -1,4 +1,4 @@
-#import <SVGKit/SVGKParseResult.h>
+#import "SVGKParseResult.h"
 
 @implementation SVGKParseResult
 

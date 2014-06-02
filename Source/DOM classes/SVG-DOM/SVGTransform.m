@@ -1,5 +1,4 @@
-#import <SVGKit/SVGTransform.h>
-#import <SVGKit/SVGMatrix.h>
+#import "SVGTransform.h"
 
 @implementation SVGTransform
 

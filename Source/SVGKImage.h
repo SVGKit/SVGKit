@@ -59,7 +59,7 @@
 
 @interface SVGKImage : NSObject <NSCopying> // doesn't extend UIImage because Apple made UIImage immutable
 {
-	BOOL cameFromGlobalCache;
+    BOOL cameFromGlobalCache;
 }
 
 /** Generates an image on the fly

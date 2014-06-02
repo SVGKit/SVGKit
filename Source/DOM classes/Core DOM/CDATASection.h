@@ -7,8 +7,6 @@
  };
  */
 #import <Foundation/Foundation.h>
-
-@class Text;
 #import <SVGKit/Text.h>
 
 @interface CDATASection : Text

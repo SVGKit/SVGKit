@@ -7,13 +7,13 @@
 //
 
 
-#import <SVGKit/SVGGradientStop.h>
-#import <SVGKit/SVGElement_ForParser.h>
+#import "SVGGradientStop.h"
+#import "SVGElement_ForParser.h"
 
-#import <SVGKit/SVGUtils.h>
-#import <SVGKit/SVGKParser.h>
+#import "SVGUtils.h"
+#import "SVGKParser.h"
 
-#import <SVGKit/SVGLength.h>
+#import "SVGLength.h"
 
 #import "SVGKCGFloatAdditions.h"
 
@@ -27,7 +27,7 @@
 
 -(void)loadDefaults
 {
-	_stopOpacity = 1.0f;
+	_stopOpacity = 1.0;
 }
 
 -(void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult

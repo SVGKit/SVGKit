@@ -50,9 +50,7 @@
 
 /** objc won't allow this: @class Node;*/
 #import <SVGKit/Node.h>
-@class Attr;
 #import <SVGKit/Attr.h>
-@class NodeList;
 #import <SVGKit/NodeList.h>
 
 @interface Element : Node

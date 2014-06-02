@@ -5,11 +5,10 @@
 //  Copyright Matt Rajca 2010-2011. All rights reserved.
 //
 
-#import <SVGKit/SVGUtils.h>
+#import "SVGUtils.h"
 
 #define MAX_ACCUM 64
 #define NUM_COLORS 147
-
 
 SVGColor ColorValueWithName (const char *name);
 

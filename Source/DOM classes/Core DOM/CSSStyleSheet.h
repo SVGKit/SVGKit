@@ -17,7 +17,6 @@
 
 @interface CSSStyleSheet : NSObject
 
-
 @property(nonatomic,strong) CSSRule* ownerRule;
 @property(nonatomic,strong) CSSRuleList* cssRules;
 

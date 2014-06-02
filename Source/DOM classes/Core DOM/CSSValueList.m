@@ -20,12 +20,12 @@
     return self;
 }
 
--(unsigned long)length
+-(NSUInteger)length
 {
 	return self.internalArray.count;
 }
 
--(CSSValue*) item:(unsigned long) index
+-(CSSValue*) item:(NSUInteger) index
 {
 	return (self.internalArray)[index];
 }

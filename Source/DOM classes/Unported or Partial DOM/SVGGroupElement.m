@@ -8,12 +8,12 @@
  
  This is the "G" tag.
  */
-#import <SVGKit/SVGGroupElement.h>
+#import "SVGGroupElement.h"
 
-#import <SVGKit/CALayerWithChildHitTest.h>
+#import "CALayerWithChildHitTest.h"
 
-#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
-#import <SVGKit/Node.h>
+#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import "Node.h"
 
 #import "SVGKCGFloatAdditions.h"
 
@@ -22,7 +22,7 @@
 @synthesize opacity = _opacity;
 
 - (void)loadDefaults {
-	_opacity = 1.0f;
+	_opacity = 1.0;
 }
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {

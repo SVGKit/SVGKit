@@ -1,8 +1,8 @@
-#import <SVGKit/SVGPolylineElement.h>
+#import "SVGPolylineElement.h"
 
-#import <SVGKit/SVGUtils.h>
+#import "SVGUtils.h"
 
-#import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
+#import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 
 @implementation SVGPolylineElement
