@@ -309,9 +309,10 @@
 				{
 					CGFloat degrees = [parameterStrings[0] SVGKCGFloatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
-					
-					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
-					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
+                    
+					selfTransformable.transform = CGAffineTransformRotate(selfTransformable.transform, radians);
+//					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);
+//					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 				}
 				else if( [parameterStrings count] == 3)
 				{
@@ -319,11 +320,15 @@
 					CGFloat radians = degrees * M_PI / 180.0;
 					CGFloat centerX = [parameterStrings[1] SVGKCGFloatValue];
 					CGFloat centerY = [parameterStrings[2] SVGKCGFloatValue];
-					CGAffineTransform nt = CGAffineTransformIdentity;
-					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
-					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
-					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(-1.0 * centerX, -1.0 * centerY) );
-					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
+                    
+                    selfTransformable.transform = CGAffineTransformTranslate(selfTransformable.transform, centerX, centerY);
+                    selfTransformable.transform = CGAffineTransformRotate(selfTransformable.transform, radians);
+                    selfTransformable.transform = CGAffineTransformTranslate(selfTransformable.transform, -1.0 * centerX, -1.0 * centerY);
+//					CGAffineTransform nt = CGAffineTransformIdentity;
+//					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(centerX, centerY) );
+//					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeRotation(radians) );
+//					nt = CGAffineTransformConcat( nt, CGAffineTransformMakeTranslation(-1.0 * centerX, -1.0 * centerY) );
+//					selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 					} else
 					{
 					DDLogError(@"[%@] ERROR: input file is illegal, has an SVG matrix transform attribute without the required 1 or 3 parameters. Item = %@, transform attribute value = %@", [self class], transformString, value );
