@@ -430,15 +430,15 @@
 	/**
 	 First, find all the attributes that declare a new Namespace at this point */
 	NSString* xmlnsNamespace = @"http://www.w3.org/2000/xmlns/";
-	NSDictionary* xmlnsNodemap = [nodeMapsByNamespace objectForKey:xmlnsNamespace];
+	NSDictionary* xmlnsNodemap = nodeMapsByNamespace[xmlnsNamespace];
 	/** ... output them, making them 'active' in the output tree */
 	for( NSString* xmlnsNodeName in xmlnsNodemap )
 	{
-		Node* attribute = [xmlnsNodemap objectForKey:xmlnsNodeName];
+		Node* attribute = xmlnsNodemap[xmlnsNodeName];
 		
-		if( [prefixesByACTIVENamespace objectForKey:xmlnsNodeName] == nil )
+		if( prefixesByACTIVENamespace[xmlnsNodeName] == nil )
 		{
-			[newlyActivatedPrefixesByNamespace setObject:xmlnsNodeName forKey:attribute.nodeValue];
+			newlyActivatedPrefixesByNamespace[attribute.nodeValue] = xmlnsNodeName;
 			if( xmlnsNodeName.length == 0 ) // special case: the "default" namespace we encode elsewhere in SVGKit as a namespace of ""
 				[outputString appendFormat:@" xmlns=\"%@\"", attribute.nodeValue];
 			else
@@ -458,30 +458,30 @@
 		if( [namespace isEqualToString:xmlnsNamespace] )
 			continue; // we had to handle this FIRST, so we've already done it
 		
-		NSString* localPrefix = [prefixesByACTIVENamespace objectForKey:namespace];
+		NSString* localPrefix = prefixesByACTIVENamespace[namespace];
 		if( localPrefix == nil )
 		{
 			/** check if it's one of our freshly-activated ones */
-			localPrefix = [newlyActivatedPrefixesByNamespace objectForKey:namespace];
+			localPrefix = newlyActivatedPrefixesByNamespace[namespace];
 		}
 		
 		if( localPrefix == nil )
 		{
 			/** If it STILL isn't active, (no parent Node has output it yet), we must activate it */
 			
-			localPrefix = [prefixesByKNOWNNamespace objectForKey:namespace];
+			localPrefix = prefixesByKNOWNNamespace[namespace];
 			
 			NSAssert( localPrefix != nil, @"Found a namespace (%@) in node (%@) which wasn't listed in the KNOWN namespaces you provided (%@); you MUST provide a COMPLETE list of known-namespaces to this method", namespace, self.nodeName, prefixesByKNOWNNamespace );
 			
-			[newlyActivatedPrefixesByNamespace setObject:localPrefix forKey:namespace];
+			newlyActivatedPrefixesByNamespace[namespace] = localPrefix;
 			[outputString appendFormat:@" xmlns:%@=\"%@\"", localPrefix, namespace];
 		}
 		
 		/** Finally: output the plain-old-attributes, overwriting their prefixes where necessary */
-		NSDictionary* nodeMap = [nodeMapsByNamespace objectForKey:namespace];
+		NSDictionary* nodeMap = nodeMapsByNamespace[namespace];
 		for( NSString* nodeNameFromMap in nodeMap )
 		{
-			Node* attribute = [nodeMap objectForKey:nodeNameFromMap];
+			Node* attribute = nodeMap[nodeNameFromMap];
 			
 			attribute.prefix = localPrefix; /** Overrides any default pre-existing value */
 			

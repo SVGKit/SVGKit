@@ -82,17 +82,17 @@
 	NSDictionary* nodeMapsByNamespace = [node.attributes allNodesUnsortedDOM2];
 	
 	NSString* xmlnsNamespace = @"http://www.w3.org/2000/xmlns/";
-	NSDictionary* xmlnsNodemap = [nodeMapsByNamespace objectForKey:xmlnsNamespace];
+	NSDictionary* xmlnsNodemap = nodeMapsByNamespace[xmlnsNamespace];
 	
 	for( NSString* xmlnsNodeName in xmlnsNodemap )
 	{
-		Node* namespaceDeclaration = [xmlnsNodemap objectForKey:xmlnsNodeName];
+		Node* namespaceDeclaration = xmlnsNodemap[xmlnsNodeName];
 		
-		NSMutableArray* prefixesForNamespace = [output objectForKey:namespaceDeclaration.nodeValue];
+		NSMutableArray* prefixesForNamespace = output[namespaceDeclaration.nodeValue];
 		if( prefixesForNamespace == nil )
 		{
 			prefixesForNamespace = [NSMutableArray array];
-			[output setObject:prefixesForNamespace forKey:namespaceDeclaration.nodeValue];
+			output[namespaceDeclaration.nodeValue] = prefixesForNamespace;
 		}
 		
 		if( ! [prefixesForNamespace containsObject:namespaceDeclaration.nodeName])
@@ -131,14 +131,14 @@
 	
 	for( NSString* namespace in prefixArraysByNamespace )
 	{
-		NSArray* prefixes = [prefixArraysByNamespace objectForKey:namespace];
+		NSArray* prefixes = prefixArraysByNamespace[namespace];
 		
 		BOOL exportedAUniquePrefix = FALSE;
 		for( NSString* nextPrefix in prefixes )
 		{
 			if( ! [normalizedPrefixesByNamespace.allValues containsObject:nextPrefix])
 			{
-				[normalizedPrefixesByNamespace setObject:nextPrefix forKey:namespace];
+				normalizedPrefixesByNamespace[namespace] = nextPrefix;
 				exportedAUniquePrefix = TRUE;
 				break;
 			}
@@ -149,7 +149,7 @@
 		{
 			if( [namespace isEqualToString:@"http://w3.org/2000/svg"])
 			{
-				[normalizedPrefixesByNamespace setObject:@"" forKey:namespace];
+				normalizedPrefixesByNamespace[namespace] = @"";
 			}
 			else
 			{
@@ -163,7 +163,7 @@
 					newPrefix = [NSString stringWithFormat:@"%@-%i", [namespace lastPathComponent], suffix];
 				}
 				
-				[normalizedPrefixesByNamespace setObject:newPrefix forKey:namespace];
+				normalizedPrefixesByNamespace[namespace] = newPrefix;
 			}
 		}
 	}

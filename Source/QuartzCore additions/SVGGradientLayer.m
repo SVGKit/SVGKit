@@ -41,7 +41,7 @@
         CGContextConcatCTM(ctx, CGAffineTransformMake(1, 0, 0, 1, -self.startPoint.x, -self.startPoint.y));
         
         if (self.colors.count) {
-            CGColorRef colorRef = (__bridge CGColorRef)[self.colors objectAtIndex:0];
+            CGColorRef colorRef = (__bridge CGColorRef)(self.colors)[0];
             numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
             
@@ -49,8 +49,8 @@
             CGFloat *components = calloc(num_locations, numbOfComponents * sizeof(CGFloat));
             
             for (NSInteger x = 0; x < num_locations; x++) {
-                locations[x] = [[self.locations objectAtIndex:x] floatValue];
-                const CGFloat *comps = CGColorGetComponents((__bridge CGColorRef)[self.colors objectAtIndex:x]);
+                locations[x] = [(self.locations)[x] floatValue];
+                const CGFloat *comps = CGColorGetComponents((__bridge CGColorRef)(self.colors)[x]);
                 for (NSInteger y = 0; y < numbOfComponents; y++) {
                     size_t shift = numbOfComponents * x;
                     components[shift + y] = comps[y];
@@ -79,14 +79,13 @@
     for (NSString *key in stopIdentifiers) {
         if ([key isEqualToString:identifier]) {
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self.colors];
-            const CGFloat *colors = CGColorGetComponents((__bridge CGColorRef)[arr objectAtIndex:i]);
+            const CGFloat *colors = CGColorGetComponents((__bridge CGColorRef)arr[i]);
             CGFloat a = colors[3];
             const CGFloat *colors2 = CGColorGetComponents(color.CGColor);
             CGFloat r = colors2[0];
             CGFloat g = colors2[1];
             CGFloat b = colors2[2];
-            [arr removeObjectAtIndex:i];
-            [arr insertObject:(id)[UIColor colorWithRed:r green:g blue:b alpha:a].CGColor atIndex:i];
+            arr[i] = (id)[UIColor colorWithRed:r green:g blue:b alpha:a].CGColor;
             [self setColors:[NSArray arrayWithArray:arr]];
             return;
         }
@@ -100,7 +99,7 @@
     for (NSString *key in stopIdentifiers) {
         if ([key isEqualToString:identifier]) {
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self.colors];
-            const CGFloat *colors = CGColorGetComponents((__bridge CGColorRef)[arr objectAtIndex:i]);
+            const CGFloat *colors = CGColorGetComponents((__bridge CGColorRef)arr[i]);
             CGFloat a = colors[3];
 			CGFloat r = 0;
             CGFloat g = 0;
@@ -113,9 +112,8 @@
 			} else {
 				[color getRed:&r green:&g blue:&b alpha:NULL];
 			}
-            [arr removeObjectAtIndex:i];
 			CGColorRef newColor = CGColorCreateGenericRGB(r, g, b, a);
-            [arr insertObject:CFBridgingRelease(newColor) atIndex:i];
+            arr[i] = CFBridgingRelease(newColor);
             [self setColors:[NSArray arrayWithArray:arr]];
             return;
         }

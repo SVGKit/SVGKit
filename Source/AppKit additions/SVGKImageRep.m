@@ -16,6 +16,7 @@
 #import "SVGKImageRep-private.h"
 #import "SVGKImage-private.h"
 #import <Lumberjack/Lumberjack.h>
+#import "SVGKImage+CGContext.h"
 
 #ifndef CHECKFORRENDERINCONTEXT
 #define CHECKFORRENDERINCONTEXT 0
@@ -249,44 +250,20 @@
 			   CGSizeEqualToSize(self.image.size, CGSizeMake(self.pixelsWide, self.pixelsHigh))) {
 		return [super drawInRect:rect];
 	}
-#if CHECKFORRENDERINCONTEXT
-	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
-#endif
-		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
-		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
-		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, rect.size, NULL);
-		if (!layerRef) {
-			return NO;
-		}
-		
-		CGContextRef layerCont = CGLayerGetContext(layerRef);
-		CGContextSaveGState(layerCont);
-		[self.image renderToContext:layerCont antiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality flipYaxis:YES];
-		CGContextRestoreGState(layerCont);
-		
-		CGContextDrawLayerInRect(imRepCtx, rect, layerRef);
-		CGLayerRelease(layerRef);
-#if CHECKFORRENDERINCONTEXT
-	} else {
-		//...But should the method be removed in a future version, fall back to the old method
-		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
-		if (!tmpImage) {
-			return NO;
-		}
-		
-		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showInfo:NO];
-		if (!bitRep) {
-			return NO;
-		}
-		[tmpImage addRepresentation:bitRep];
-		
-		NSRect imageRect;
-		imageRect.size = rect.size;
-		imageRect.origin = NSZeroPoint;
-		
-		[tmpImage drawAtPoint:rect.origin fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
+
+	CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
+	CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, rect.size, NULL);
+	if (!layerRef) {
+		return NO;
 	}
-#endif
+
+	CGContextRef layerCont = CGLayerGetContext(layerRef);
+	CGContextSaveGState(layerCont);
+	[self.image renderToContext:layerCont antiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality flipYaxis:YES];
+	CGContextRestoreGState(layerCont);
+
+	CGContextDrawLayerInRect(imRepCtx, rect, layerRef);
+	CGLayerRelease(layerRef);
 	
 	return YES;
 }
@@ -298,44 +275,20 @@
 	if (!CGSizeEqualToSize(self.image.size, scaledSize)) {
 		self.image.size = scaledSize;
 	}
-#if CHECKFORRENDERINCONTEXT
-	if ([self.image respondsToSelector:@selector(renderToContext:antiAliased:curveFlatnessFactor:interpolationQuality:flipYaxis:)]) {
-#endif
-		//We'll use this because it's probably faster, and we're drawing almost directly to the graphics context...
-		CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
-		CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, scaledSize, NULL);
-		if (!layerRef) {
-			return NO;
-		}
-		
-		CGContextRef layerCont = CGLayerGetContext(layerRef);
-		CGContextSaveGState(layerCont);
-		[self.image renderToContext:layerCont antiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality flipYaxis:YES];
-		CGContextRestoreGState(layerCont);
-		
-		CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
-		CGLayerRelease(layerRef);
-#if CHECKFORRENDERINCONTEXT
-	} else {
-		//...But should the method be removed in a future version, fall back to the old method
-		NSImage *tmpImage = [[NSImage alloc] initWithSize:scaledSize];
-		if (!tmpImage) {
-			return NO;
-		}
-		
-		NSBitmapImageRep *bitRep = [self.image exportBitmapImageRepAntiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality showInfo:NO];
-		if (!bitRep) {
-			return NO;
-		}
-		[tmpImage addRepresentation:bitRep];
-		
-		NSRect imageRect;
-		imageRect.size = self.size;
-		imageRect.origin = NSZeroPoint;
-		
-		[tmpImage drawAtPoint:NSZeroPoint fromRect:imageRect operation:NSCompositeSourceOver fraction:1];
+
+	CGContextRef imRepCtx = [[NSGraphicsContext currentContext] graphicsPort];
+	CGLayerRef layerRef = CGLayerCreateWithContext(imRepCtx, scaledSize, NULL);
+	if (!layerRef) {
+		return NO;
 	}
-#endif
+
+	CGContextRef layerCont = CGLayerGetContext(layerRef);
+	CGContextSaveGState(layerCont);
+	[self.image renderToContext:layerCont antiAliased:_antiAlias curveFlatnessFactor:_curveFlatness interpolationQuality:_interpolQuality flipYaxis:YES];
+	CGContextRestoreGState(layerCont);
+
+	CGContextDrawLayerAtPoint(imRepCtx, CGPointZero, layerRef);
+	CGLayerRelease(layerRef);
 	
 	return YES;
 }

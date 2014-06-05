@@ -73,7 +73,7 @@ SVGKParser* getCurrentlyParsingParser()
 	/** Currently implemented NON THREAD SAFE using a static varailbe that only
 	 allows one parse in memory at a time:
 	 */
-	return [[NSThread currentThread].threadDictionary objectForKey:kThreadLocalCurrentlyActiveParser];
+	return ([NSThread currentThread].threadDictionary)[kThreadLocalCurrentlyActiveParser];
 }
 
 +(void)cancelParser:(SVGKParser *)parserToCancel
@@ -179,7 +179,7 @@ clazz *parser = [[clazz alloc] init]; \
 	self.currentParseRun = [SVGKParseResult new];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
-	[[NSThread currentThread].threadDictionary setObject:self forKey:kThreadLocalCurrentlyActiveParser];
+	([NSThread currentThread].threadDictionary)[kThreadLocalCurrentlyActiveParser] = self;
 	
 	/*
 	// 1. while (source has chunks of BYTES)
@@ -305,7 +305,7 @@ clazz *parser = [[clazz alloc] init]; \
     if( cssSource == nil )
     {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = paths[0];
         NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
         NSString *cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         
@@ -582,14 +582,14 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 */
 	for( NSString* prefix in namespacesByPrefix )
 	{
-		NSString* namespace = [namespacesByPrefix objectForKey:prefix];
+		NSString* namespace = namespacesByPrefix[prefix];
 		
 		/** NB this happens *AFTER* setting default namespaces for all attributes - the xmlns: attributes are required by the XML
 		 spec to all live in a special magical namespace AND to all use the same prefix of "xmlns" - no other is allowed!
 		 */
 		Attr* newAttributeFromNamespaceDeclaration = [[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace];
 		
-		[attributeObjects setObject:newAttributeFromNamespaceDeclaration forKey:newAttributeFromNamespaceDeclaration.nodeName];
+		attributeObjects[newAttributeFromNamespaceDeclaration.nodeName] = newAttributeFromNamespaceDeclaration;
 	}
 	
 	/**
@@ -601,9 +601,9 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		NSString* uri = namespacesByPrefix[prefix];
 		
 		if( [prefix isEqualToString:@""] ) // special string we put in earlier to indicate zero-length / "default" prefix
-			[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
+			(NSctx.currentParseRun.namespacesEncountered)[[NSNull null]] = uri;
 		else
-			[NSctx.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
+			(NSctx.currentParseRun.namespacesEncountered)[prefix] = uri;
 	}
 	
 #if DEBUG_XML_PARSER

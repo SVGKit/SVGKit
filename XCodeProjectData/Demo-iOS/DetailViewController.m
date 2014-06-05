@@ -493,7 +493,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 		else
 		{
-			[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%lu fatal errors, %lu warnings. First fatal = %@",(unsigned long)[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+			[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%lu fatal errors, %lu warnings. First fatal = %@",(unsigned long)[document.parseErrorsAndWarnings.errorsFatal count],(unsigned long)([document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count]), ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 			newContentView = nil; // signals to the rest of this method: the load failed
 			
 		}
