@@ -1,4 +1,5 @@
 #import <SVGKit/SVGKFastImageView.h>
+#include <tgmath.h>
 #import "BlankSVG.h"
 
 #define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc

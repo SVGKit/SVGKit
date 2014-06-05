@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #define DWView UIView
 #else
-#import <AppKit/AppKit.h>
+#import <Cocoa/Cocoa.h>
 #define DWView NSView
 #endif
 #import <QuartzCore/QuartzCore.h>

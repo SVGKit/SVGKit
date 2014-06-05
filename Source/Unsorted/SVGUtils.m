@@ -269,7 +269,7 @@ typedef enum {
 SVGColor SVGColorFromString (const char *string) {
 	NSCAssert(string != NULL, @"NullPointerException: you gave us a null pointer, very bad thing to do...");
 	SVGColor color;
-	bzero(&color, sizeof(color));
+	memset(&color, 0, sizeof(color));
 	
 	color.a = 0xFF;
 	if (!strncmp(string, "url", 4)) {
@@ -382,7 +382,7 @@ CGFloat SVGPercentageFromString (const char *string) {
 		return -1;
 	}
 	
-	return atoi(string) / 100.0f;
+	return atoi(string) / 100.0;
 }
 
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close) {

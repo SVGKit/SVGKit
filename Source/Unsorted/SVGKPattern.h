@@ -6,7 +6,7 @@
 
 #else
 
-#import <AppKit/AppKit.h>
+#import <Cocoa/Cocoa.h>
 
 #endif
 

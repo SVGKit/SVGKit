@@ -7,6 +7,7 @@
 //
 
 #import "SVGGradientLayer.h"
+#include <tgmath.h>
 
 @implementation SVGGradientLayer
 
@@ -47,17 +48,17 @@
             CGFloat *locations = calloc(num_locations, sizeof(CGFloat));
             CGFloat *components = calloc(num_locations, numbOfComponents * sizeof(CGFloat));
             
-            for (int x = 0; x < num_locations; x++) {
+            for (NSInteger x = 0; x < num_locations; x++) {
                 locations[x] = [[self.locations objectAtIndex:x] floatValue];
                 const CGFloat *comps = CGColorGetComponents((__bridge CGColorRef)[self.colors objectAtIndex:x]);
-                for (int y = 0; y < numbOfComponents; y++) {
+                for (NSInteger y = 0; y < numbOfComponents; y++) {
                     size_t shift = numbOfComponents * x;
                     components[shift + y] = comps[y];
                 }
             }
             
             CGPoint position = self.startPoint;
-            CGFloat radius = floorf(self.endPoint.x * self.bounds.size.width);
+            CGFloat radius = floor(self.endPoint.x * self.bounds.size.width);
             CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, num_locations);
             
             CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);

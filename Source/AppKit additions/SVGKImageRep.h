@@ -6,7 +6,7 @@
 //
 //
 
-#import <AppKit/AppKit.h>
+#import <Cocoa/Cocoa.h>
 @class SVGKImage;
 @class SVGKSource;
 

@@ -15,7 +15,6 @@
  @param multiplyFlatness = how many pixels a curve can be flattened by (Apple's internal setting) to make it faster to render but less accurate
  @param interpolationQuality = Apple internal setting, c.f. Apple docs for CGInterpolationQuality
  */
--(void) renderToContext:(CGContextRef) context antiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality flipYaxis:(BOOL) flipYaxis;
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 -(UIImage *) exportUIImageAntiAliased:(BOOL) shouldAntialias curveFlatnessFactor:(CGFloat) multiplyFlatness interpolationQuality:(CGInterpolationQuality) interpolationQuality showInfo:(BOOL)theWarn;
 #else

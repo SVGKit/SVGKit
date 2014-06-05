@@ -10,6 +10,7 @@
 #import <SVGKit/SVGKSourceData.h>
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import <SVGKit/SVGKSourceURL.h>
+#include <tgmath.h>
 
 #import <SVGKit/SVGKImageRep.h>
 #import "SVGKImageRep-private.h"

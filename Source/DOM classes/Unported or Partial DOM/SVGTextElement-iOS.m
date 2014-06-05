@@ -2,6 +2,7 @@
 
 #import <CoreText/CoreText.h>
 #import <UIKit/UIKit.h>
+#include <tgmath.h>
 
 #import <SVGKit/SVGUtils.h>
 #import <SVGKit/SVGElement_ForParser.h> // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)

@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
 	#import <Foundation/Foundation.h>
-	#import <AppKit/AppKit.h>
+	#import <Cocoa/Cocoa.h>
 	#import "DDLog.h"
 
 	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 0
