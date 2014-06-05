@@ -12,6 +12,10 @@
 
 SVGColor ColorValueWithName (const char *name);
 
+#if __has_feature(objc_arc)
+#warning This file must NOT be compiled with ARC. Use -fno-objc-arc flag.
+#endif
+
 static const char *gColorNames[NUM_COLORS] = {
 	"aliceblue",
 	"antiquewhite",
@@ -280,7 +284,7 @@ SVGColor SVGColorFromString (const char *string) {
 		size_t len = strlen(string);
 		
 		char accum[MAX_ACCUM];
-		bzero(accum, MAX_ACCUM);
+		memset(accum, 0, MAX_ACCUM);
 		
 		int accumIdx = 0, currComponent = 0;
 		Phase phase = PhaseNone;
@@ -298,7 +302,7 @@ SVGColor SVGColorFromString (const char *string) {
 			
 			if (phase == PhaseRGB) {
 				if (c == '(') {
-					bzero(accum, MAX_ACCUM);
+					memset(accum, 0, MAX_ACCUM);
 					accumIdx = 0;
 					
 					continue;
@@ -313,7 +317,7 @@ SVGColor SVGColorFromString (const char *string) {
 						currComponent++;
 					}
 					
-					bzero(accum, MAX_ACCUM);
+					memset(accum, 0, MAX_ACCUM);
 					accumIdx = 0;
 					
 					continue;
@@ -391,7 +395,7 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 	size_t len = strlen(string);
 	
 	char accum[MAX_ACCUM];
-	bzero(accum, MAX_ACCUM);
+	memset(accum, 0, MAX_ACCUM);
 	
 	int accumIdx = 0, currComponent = 0;
 	
@@ -421,7 +425,7 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 				currComponent = 0;
 			}
 			
-			bzero(accum, MAX_ACCUM);
+			memset(accum, 0, MAX_ACCUM);
 			accumIdx = 0;
 		}
 		else if (isdigit(c) || c == '-' || c == '.') { // is digit or decimal separator OR A MINUS SIGN!!! ?
