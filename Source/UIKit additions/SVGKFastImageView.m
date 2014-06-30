@@ -185,6 +185,8 @@
 	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
     
 	self.image = nil;
+    self.startRenderTime = nil;
+    self.endRenderTime = nil;
 	
     [super dealloc];
 }
