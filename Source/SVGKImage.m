@@ -255,7 +255,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     self.nameUsedToInstantiate = nil;
 #endif
 	
-	[super dealloc];
+	//[super dealloc];
 }
 
 //TODO mac alternatives to UIKit functions
