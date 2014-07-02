@@ -8,4 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-__private_extern__ NSString* const SVGKGetDefaultImageStringContents();
+#define __private_extern __attribute__((visibility("hidden")))
+
+__private_extern NSString* const SVGKGetDefaultImageStringContents();

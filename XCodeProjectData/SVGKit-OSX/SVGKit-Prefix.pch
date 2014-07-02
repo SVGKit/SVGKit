@@ -6,6 +6,8 @@
 #include <CoreServices/CoreServices.h>
 #undef Comment
 
+#include <tgmath.h>
+
 #ifdef __OBJC__
 	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>
