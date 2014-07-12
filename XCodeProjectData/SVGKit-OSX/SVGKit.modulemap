@@ -1,0 +1,12 @@
+framework module SVGKit {
+	umbrella header "SVGKit.h"
+	
+	export *
+	module * { export * }
+	module Comment {
+		conflict CoreServices.CarbonCore.AIFF, "comment redefined"
+		header "Comment.h"
+		export *
+	}
+	
+}

@@ -1,7 +1,7 @@
 #import <SVGKit/SVGTextElement.h>
 
-#import <CoreText/CoreText.h>
-#import <UIKit/UIKit.h>
+@import CoreText;
+@import UIKit;
 #include <tgmath.h>
 
 #import <SVGKit/SVGUtils.h>
