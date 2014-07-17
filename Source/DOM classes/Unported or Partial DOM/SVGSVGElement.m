@@ -48,6 +48,7 @@
     [height release];
     [contentScriptType release];
     [contentStyleType release];
+    self.preserveAspectRatio = nil;
     self.currentView = nil;
     self.currentTranslate = nil;
     self.styleSheets = nil;
