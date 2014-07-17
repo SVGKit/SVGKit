@@ -50,14 +50,4 @@
     CGPathRelease(path);
 }
 
--(CALayer *)newLayer
-{
-	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddEllipseInRect(path, NULL, CGRectMake(_cx - _rx, _cy - _ry, _rx * 2, _ry * 2));
-	
-	CALayer* result = [SVGHelperUtilities newCALayerForPathBasedSVGElement:self withPath:path];
-	CGPathRelease(path);
-	return result;
-}
-
 @end
