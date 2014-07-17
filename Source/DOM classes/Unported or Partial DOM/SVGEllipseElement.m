@@ -43,6 +43,11 @@
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
 		self.ry = self.rx = [[self getAttribute:@"r"] floatValue];
 	}
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+	CGPathAddEllipseInRect(path, NULL, CGRectMake(self.cx - self.rx, self.cy - self.ry, self.rx * 2, self.ry * 2));
+	self.pathForShapeInRelativeCoords = path;
+    CGPathRelease(path);
 }
 
 -(CALayer *)newLayer
