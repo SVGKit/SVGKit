@@ -1,6 +1,7 @@
 #import "SVGImageElement.h"
 
 #import "SVGHelperUtilities.h"
+#import "NSData+NSInputStream.h"
 
 #if TARGET_OS_IPHONE
 
@@ -81,7 +82,14 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
 	newLayer.frame = frame;
 	
-	NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+	NSData *imageData;
+	if( [_href hasPrefix:@"data:"] || [_href hasPrefix:@"http:"] )
+		imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+	else
+	{
+		NSInputStream *stream = [self.rootOfCurrentDocumentFragment.source sourceFromRelativePath:_href].stream;
+		imageData = [NSData dataWithContentsOfStream:stream initialCapacity:NSUIntegerMax error:nil];
+	}
 	SVGImageRef image = [SVGImage imageWithData:imageData];
 	
 	newLayer.contents = (id)SVGImageCGImage(image);

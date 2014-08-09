@@ -97,6 +97,8 @@ static NSDictionary *elementMap;
 		/** special case: <svg:svg ... version="XXX"> */
 		if( [@"svg" isEqualToString:name] )
 		{
+            ((SVGSVGElement *) element).source = SVGKSource;
+            
 			NSString* svgVersion = nil;
 			
 			/** According to spec, if the first XML node is an SVG node, then it
