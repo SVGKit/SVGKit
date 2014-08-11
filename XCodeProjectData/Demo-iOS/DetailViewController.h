@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SVGKit.h"
-#import "CALayerExporter.h"
-#import "SVGKImage.h"
+#import <SVGKit/SVGKit.h>
+#import <SVGKit/CALayerExporter.h>
+#import <SVGKit/SVGKImage.h>
 
 #define LOAD_SYNCHRONOUSLY 0 // Synchronous load is less code, easier to write - but poor for large images
 

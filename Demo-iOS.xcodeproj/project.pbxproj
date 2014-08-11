@@ -538,10 +538,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"../../iOS/**",
-					"../../Core/**",
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -564,10 +560,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"../../iOS/**",
-					"../../Core/**",
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
@@ -581,13 +573,8 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-iOS/Demo-iOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"Source/**",
-					"calayer-exporter",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/Demo-iOS/Demo-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
 				WRAPPER_EXTENSION = app;
@@ -599,13 +586,8 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-iOS/Demo-iOS-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"Source/**",
-					"calayer-exporter",
-				);
 				INFOPLIST_FILE = "XCodeProjectData/Demo-iOS/Demo-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
 				WRAPPER_EXTENSION = app;

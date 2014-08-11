@@ -9,10 +9,10 @@
 
 #import "MasterViewController.h"
 
-#import "NodeList+Mutable.h"
+#import <SVGKit/NodeList+Mutable.h>
 
-#import "SVGKFastImageView.h"
-#import "SVGKLayeredImageView.h"
+#import <SVGKit/SVGKFastImageView.h>
+#import <SVGKit/SVGKLayeredImageView.h>
 
 @interface ImageLoadingOptions : NSObject
 @property(nonatomic) BOOL requiresLayeredImageView;
