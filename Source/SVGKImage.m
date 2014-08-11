@@ -660,7 +660,7 @@ static NSMutableDictionary* globalSVGKImageCache;
             }
         }
         
-        [clipPathElement layoutLayer:clipLayer];
+        [clipPathElement layoutLayer:clipLayer toMaskLayer:layer];
         
         DDLogCWarn(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(layer.frame), NSStringFromCGRect(clipLayer.frame));
         layer.mask = clipLayer;
