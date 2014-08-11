@@ -26,7 +26,7 @@
 }
 
 - (SVGKSource *)sourceFromRelativePath:(NSString *)relative {
-    NSString *absolute = [NSURL URLWithString:relative relativeToURL:[NSURL fileURLWithPath:self.filePath]].path;
+    NSString *absolute = ((NSURL*)[NSURL URLWithString:relative relativeToURL:[NSURL fileURLWithPath:self.filePath]]).path;
     if ([[NSFileManager defaultManager] fileExistsAtPath:absolute])
         return [SVGKSourceLocalFile sourceFromFilename:absolute];
     return nil;
