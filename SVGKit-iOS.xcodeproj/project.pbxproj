@@ -1215,7 +1215,6 @@
 		6639619A16145D0400E58CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1242,7 +1241,6 @@
 		6639619B16145D0400E58CCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1276,6 +1274,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
+				PUBLIC_HEADERS_FOLDER_PATH = include/SVGKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1296,6 +1295,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
+				PUBLIC_HEADERS_FOLDER_PATH = include/SVGKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
