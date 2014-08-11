@@ -235,6 +235,8 @@
 		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
+		BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; };
+		BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -484,6 +486,8 @@
 		66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAnimatedPreserveAspectRatio.m; sourceTree = "<group>"; };
 		9ED79A22179D87790048AA5B /* SVGGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientLayer.h; sourceTree = "<group>"; };
 		9ED79A23179D87790048AA5B /* SVGGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientLayer.m; sourceTree = "<group>"; };
+		BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSInputStream.h"; sourceTree = "<group>"; };
+		BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSInputStream.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -878,6 +882,8 @@
 				66E863951688C2780059C9C4 /* SVGKImageView.m */,
 				66E863961688C2780059C9C4 /* SVGKLayeredImageView.h */,
 				66E863971688C2780059C9C4 /* SVGKLayeredImageView.m */,
+				BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */,
+				BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */,
 			);
 			path = "UIKit additions";
 			sourceTree = "<group>";
@@ -988,6 +994,7 @@
 				66EEE8601688CB37002E2658 /* SVGGradientElement.h in Headers */,
 				66EEE8621688CB37002E2658 /* SVGGradientStop.h in Headers */,
 				66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */,
+				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */,
 				66372EF01695F193008C6C56 /* SVGStylable.h in Headers */,
 				6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */,
@@ -1117,6 +1124,7 @@
 				66E863C31688C2780059C9C4 /* SVGAngle.m in Sources */,
 				66E863C51688C2780059C9C4 /* SVGDefsElement.m in Sources */,
 				66E863C71688C2780059C9C4 /* SVGDocument.m in Sources */,
+				BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */,
 				66E863CA1688C2780059C9C4 /* SVGElementInstance.m in Sources */,
 				66E863CD1688C2780059C9C4 /* SVGElementInstanceList.m in Sources */,
 				668418C518674BF900C61EC2 /* SVGKExporterUIImage.m in Sources */,

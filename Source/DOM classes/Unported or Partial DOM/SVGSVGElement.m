@@ -33,6 +33,7 @@
 @synthesize currentView;
 @synthesize currentScale;
 @synthesize currentTranslate;
+@synthesize source;
 
 @synthesize viewBox = _viewBox; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 @synthesize preserveAspectRatio; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
@@ -52,6 +53,7 @@
     self.currentView = nil;
     self.currentTranslate = nil;
     self.styleSheets = nil;
+    self.source = nil;
 	[super dealloc];	
 }
 
