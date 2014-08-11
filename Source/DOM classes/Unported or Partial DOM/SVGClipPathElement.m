@@ -12,10 +12,15 @@
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
     [super postProcessAttributesAddingErrorsTo:parseResult];
     
+    NSError *error = [NSError errorWithDomain:@"SVGKit" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                         @"<clipPath> found in SVG. May render incorrectly with SVGKFastImageView due to Apple bug in CALayer .mask rendering.", NSLocalizedDescriptionKey,
+                                                                         nil]];
+    [parseResult addParseErrorRecoverable:error];
+    
     clipPathUnits = SVG_UNIT_TYPE_USERSPACEONUSE;
     
     NSString *units = [self getAttribute:@"clipPathUnits"];
-    if( units ) {
+    if( units != nil && units.length > 0 ) {
         if( [units isEqualToString:@"userSpaceOnUse"] )
             clipPathUnits = SVG_UNIT_TYPE_USERSPACEONUSE;
         else if( [units isEqualToString:@"objectBoundingBox"] )
