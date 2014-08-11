@@ -8,6 +8,7 @@
 #import "SVGTransformable.h"
 #import "SVGSVGElement.h"
 #import "SVGGradientLayer.h"
+#import "SVGImageElement.h"
 
 @implementation SVGHelperUtilities
 
@@ -49,16 +50,38 @@
 	   || transformableOrSVGSVGElement.viewportElement == transformableOrSVGSVGElement // ?? I don't understand: ?? if it's something other than itself, then: we simply don't need to worry about it ??
 	   )
 	{
-		SVGSVGElement<SVGFitToViewBox>* svgSVGElement = (SVGSVGElement<SVGFitToViewBox>*) transformableOrSVGSVGElement;
+		id<SVGFitToViewBox> fitToViewBox = (id<SVGFitToViewBox>) transformableOrSVGSVGElement;
 		
 		/**
 		 Calculate the "implicit" viewport->viewbox transform (caused by the <SVG> tag's possible "viewBox" attribute)
 		 Also calculate the "implicit" realViewport -> svgDefaultViewport transform (caused by the user changing the external
 		    size of the rendered SVG)
 		 */
-		SVGRect frameViewBox = svgSVGElement.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
-		SVGRect frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
-		SVGRect frameRequestedViewport = svgSVGElement.requestedViewport; // the default viewport requested in the SVG source file (may be Uninitialized if no svg width or height params in original source file)
+		SVGRect frameViewBox = fitToViewBox.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
+		SVGRect frameActualViewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
+		SVGRect frameRequestedViewport; // the default viewport requested in the SVG source file (may be Uninitialized if no svg width or height params in original source file)
+        CGFloat height;
+        if( [fitToViewBox isKindOfClass:[SVGSVGElement class]] )
+        {
+            SVGSVGElement *svgElement = (SVGSVGElement *)fitToViewBox;
+            frameActualViewport = svgElement.viewport;
+            frameRequestedViewport = svgElement.requestedViewport;
+            height = [svgElement.height pixelsValue];
+        }
+        else if( [fitToViewBox isKindOfClass:[SVGImageElement class]] )
+        {
+            SVGImageElement *imageElement = (SVGImageElement *)fitToViewBox;
+            if( imageElement.width > 0 && imageElement.height > 0 )
+                frameRequestedViewport = SVGRectMake(imageElement.x, imageElement.y, imageElement.width, imageElement.height);
+            else
+                frameRequestedViewport = SVGRectUninitialized();
+            frameActualViewport = frameRequestedViewport;
+            height = imageElement.height;
+        }
+        else
+        {
+            DDLogWarn(@"[%@] WARNING: unsupported element %@ sent to transformRelativeIncludingViewportForTransformableOrViewportEstablishingElement", [self class], transformableOrSVGSVGElement);
+        }
 		
 		if( ! SVGRectIsInitialized(frameActualViewport))
 		{
@@ -98,9 +121,9 @@
 				 
 				 In short, you MUST implement "<svg preserveAspectRatio=xMidYMid ... />", even if you're not supporting that attribute.
 				 */
-				if( svgSVGElement.preserveAspectRatio.baseVal.meetOrSlice == SVG_MEETORSLICE_MEET ) // ALWAYS TRUE in current implementation
+				if( fitToViewBox.preserveAspectRatio.baseVal.meetOrSlice == SVG_MEETORSLICE_MEET ) // ALWAYS TRUE in current implementation
 				{
-					if( ABS( svgSVGElement.aspectRatioFromWidthPerHeight - svgSVGElement.aspectRatioFromViewBox) > 0.00001 )
+					if( ABS( fitToViewBox.aspectRatioFromWidthPerHeight - fitToViewBox.aspectRatioFromViewBox) > 0.00001 )
 					{
 						/** The aspect ratios for viewport and viewbox differ; Spec requires us to
 						 insert an extra transform that causes aspect ratio for internal data to be
@@ -112,7 +135,7 @@
 						 c.f.: http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute (read carefully)
 						 */
 						
-						double ratioOfRatios = svgSVGElement.aspectRatioFromWidthPerHeight / svgSVGElement.aspectRatioFromViewBox;
+						double ratioOfRatios = fitToViewBox.aspectRatioFromWidthPerHeight / fitToViewBox.aspectRatioFromViewBox;
 						
 						DDLogWarn(@"ratioOfRatios = %.2f", ratioOfRatios );
 						DDLogWarn(@"Experimental: auto-scaling viewbox transform to fulfil SVG spec's default MEET settings, because your SVG file has different aspect-ratios for viewBox and for svg.width,svg.height");
@@ -130,7 +153,7 @@
 						double yTranslationRequired;
 						if( ratioOfRatios > 1.0 ) // if we're going to have space to either side
 						{
-							switch( svgSVGElement.preserveAspectRatio.baseVal.align )
+							switch( fitToViewBox.preserveAspectRatio.baseVal.align )
 							{
 								case SVG_PRESERVEASPECTRATIO_XMINYMIN:
 								case SVG_PRESERVEASPECTRATIO_XMINYMID:
@@ -165,7 +188,7 @@
 						
 						if( ratioOfRatios < 1.0 ) // if we're going to have space above and below
 						{
-							switch( svgSVGElement.preserveAspectRatio.baseVal.align )
+							switch( fitToViewBox.preserveAspectRatio.baseVal.align )
 							{
 								case SVG_PRESERVEASPECTRATIO_XMINYMIN:
 								case SVG_PRESERVEASPECTRATIO_XMIDYMIN:
@@ -178,14 +201,14 @@
 								case SVG_PRESERVEASPECTRATIO_XMIDYMID:
 								case SVG_PRESERVEASPECTRATIO_XMAXYMID:
 								{
-									yTranslationRequired = ((1.0-ratioOfRatios)/2.0 * [svgSVGElement.height pixelsValue]);
+									yTranslationRequired = ((1.0-ratioOfRatios)/2.0 * height);
 								}break;
 									
 								case SVG_PRESERVEASPECTRATIO_XMINYMAX:
 								case SVG_PRESERVEASPECTRATIO_XMIDYMAX:
 								case SVG_PRESERVEASPECTRATIO_XMAXYMAX:
 								{
-									yTranslationRequired = ((1.0-ratioOfRatios) * [svgSVGElement.height pixelsValue]);
+									yTranslationRequired = ((1.0-ratioOfRatios) * height);
 								}break;
 									
 								case SVG_PRESERVEASPECTRATIO_NONE:
