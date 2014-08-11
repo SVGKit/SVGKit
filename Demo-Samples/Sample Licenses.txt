@@ -53,6 +53,10 @@ Reinel_compass_rose.svg
      -- Creative Commons
      -- http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg
 
+Coins.svg
+     -- Created by author, public domain
+     -- Coins images Public Domain, http://pixabay.com/en/euro-2-coin-currency-europe-money-400287/
+
 
 FILES TAKEN DIRECT FROM THE OFFICIAL SVG SPEC:
 -----------

@@ -88,7 +88,10 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	else
 	{
 		NSInputStream *stream = [self.rootOfCurrentDocumentFragment.source sourceFromRelativePath:_href].stream;
-		imageData = [NSData dataWithContentsOfStream:stream initialCapacity:NSUIntegerMax error:nil];
+        NSError *error = nil;
+		imageData = [NSData dataWithContentsOfStream:stream initialCapacity:NSUIntegerMax error:&error];
+		if( error )
+			DDLogError(@"[%@] ERROR: unable to read stream from %@ into NSData: %@", [self class], _href, error);
 	}
 	SVGImageRef image = [SVGImage imageWithData:imageData];
 	
