@@ -79,6 +79,11 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	
 	[SVGHelperUtilities configureCALayer:newLayer usingElement:self];
 	
+	/** transform our LOCAL path into ABSOLUTE space */
+	CGRect frame = CGRectMake(_x, _y, _width, _height);
+	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
+	newLayer.frame = frame;
+	
 	NSData *imageData;
 	if( [_href hasPrefix:@"data:"] || [_href hasPrefix:@"http:"] )
 		imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
@@ -90,17 +95,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 		if( error )
 			DDLogError(@"[%@] ERROR: unable to read stream from %@ into NSData: %@", [self class], _href, error);
 	}
-    SVGImageRef image = [SVGImage imageWithData:imageData];
-    if( image.size.width && image.size.height )
-    {
-        // TODO: do something different for retina displays?
-        self.viewBox = SVGRectMake(0, 0, image.size.width, image.size.height);
-    }
-    
-    /** transform our LOCAL path into ABSOLUTE space */
-    CGRect frame = CGRectMake(_x, _y, _width, _height);
-    frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
-    newLayer.frame = frame;
+	SVGImageRef image = [SVGImage imageWithData:imageData];
 	
 	newLayer.contents = (id)SVGImageCGImage(image);
 		
@@ -135,16 +130,6 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 
 - (void)layoutLayer:(CALayer *)layer {
     
-}
-
--(double)aspectRatioFromWidthPerHeight
-{
-    return self.height == 0 ? 0 : self.width / self.height;
-}
-
--(double)aspectRatioFromViewBox
-{
-    return self.viewBox.height == 0 ? 0 : self.viewBox.width / self.viewBox.height;
 }
 
 @end
