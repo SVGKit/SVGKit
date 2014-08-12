@@ -69,6 +69,8 @@
 		9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9ED79A20179D83580048AA5B /* radialGradientTest.svg */; };
 		BD15857C199909B800461AA5 /* Coins.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD15857B199909B800461AA5 /* Coins.svg */; };
 		BD15857E199909C400461AA5 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = BD15857D199909C400461AA5 /* Coin.png */; };
+		BDC40146199AA41900DFEA27 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */; };
+		BDC40148199AA42C00DFEA27 /* Snowman.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC40147199AA42C00DFEA27 /* Snowman.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +160,8 @@
 		9ED79A20179D83580048AA5B /* radialGradientTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = radialGradientTest.svg; sourceTree = "<group>"; };
 		BD15857B199909B800461AA5 /* Coins.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Coins.svg; sourceTree = "<group>"; };
 		BD15857D199909C400461AA5 /* Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coin.png; sourceTree = "<group>"; };
+		BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ImageAspectRatio.svg; sourceTree = "<group>"; };
+		BDC40147199AA42C00DFEA27 /* Snowman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snowman.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +288,7 @@
 				BD15857D199909C400461AA5 /* Coin.png */,
 				66E862781688BA510059C9C4 /* Monkey.png */,
 				66E862791688BA510059C9C4 /* Note.png */,
+				BDC40147199AA42C00DFEA27 /* Snowman.png */,
 			);
 			path = Bitmap;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				66E8628C1688BA510059C9C4 /* uk-only.svg */,
 				66E8628D1688BA510059C9C4 /* voies.svg */,
 				BD15857B199909B800461AA5 /* Coins.svg */,
+				BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */,
 			);
 			path = SVG;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 				BD15857C199909B800461AA5 /* Coins.svg in Resources */,
 				66E8629C1688BA510059C9C4 /* Note.svg in Resources */,
 				66E8629D1688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg in Resources */,
+				BDC40148199AA42C00DFEA27 /* Snowman.png in Resources */,
 				66E8629E1688BA510059C9C4 /* Reinel_compass_rose.svg in Resources */,
 				667CA180181D590300E49B68 /* quad01.svg in Resources */,
 				66E8629F1688BA510059C9C4 /* test-wave-1.svg in Resources */,
@@ -426,6 +433,7 @@
 				66E862A21688BA510059C9C4 /* voies.svg in Resources */,
 				66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */,
 				663FCFF116C9AF1C00CCBFB3 /* gradients.svg in Resources */,
+				BDC40146199AA41900DFEA27 /* ImageAspectRatio.svg in Resources */,
 				663FCFF216C9AF1C00CCBFB3 /* shapes.svg in Resources */,
 				663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */,
 				663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */,
