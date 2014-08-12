@@ -79,11 +79,6 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	
 	[SVGHelperUtilities configureCALayer:newLayer usingElement:self];
 	
-	/** transform our LOCAL path into ABSOLUTE space */
-	CGRect frame = CGRectMake(_x, _y, _width, _height);
-	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
-	newLayer.frame = frame;
-	
 	NSData *imageData;
 	if( [_href hasPrefix:@"data:"] || [_href hasPrefix:@"http:"] )
 		imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
@@ -95,9 +90,44 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 		if( error )
 			DDLogError(@"[%@] ERROR: unable to read stream from %@ into NSData: %@", [self class], _href, error);
 	}
-	SVGImageRef image = [SVGImage imageWithData:imageData];
+    SVGImageRef image = [SVGImage imageWithData:imageData];
+    
+    CGRect frame = CGRectMake(_x, _y, _width, _height);
+    
+    if( imageData )
+        self.viewBox = SVGRectMake(0, 0, image.size.width, image.size.height);
+    else
+        self.viewBox = SVGRectMake(0, 0, _width, _height);
+    
+    CGImageRef imageRef = SVGImageCGImage(image);
+    
+    // apply preserveAspectRatio
+    if( self.preserveAspectRatio.baseVal.align != SVG_PRESERVEASPECTRATIO_NONE
+       && ABS( self.aspectRatioFromWidthPerHeight - self.aspectRatioFromViewBox) > 0.00001 )
+    {
+        double ratioOfRatios = self.aspectRatioFromWidthPerHeight / self.aspectRatioFromViewBox;
+        if( self.preserveAspectRatio.baseVal.meetOrSlice == SVG_MEETORSLICE_MEET )
+        {
+            // shrink the image to fit in the frame, preserving the aspect ratio
+            frame = [self clipFrame:frame fromRatio:ratioOfRatios];
+        }
+        else if( self.preserveAspectRatio.baseVal.meetOrSlice == SVG_MEETORSLICE_SLICE )
+        {
+            // crop the image
+            CGRect cropRect = CGRectMake(0, 0, image.size.width, image.size.height);
+            cropRect = [self clipFrame:cropRect fromRatio:1.0 / ratioOfRatios];
+            
+            CGImageRef croppedRef = CGImageCreateWithImageInRect(imageRef, cropRect);
+            CGImageRelease(imageRef);
+            imageRef = croppedRef;
+        }
+    }
+    
+    /** transform our LOCAL path into ABSOLUTE space */
+    frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
+    newLayer.frame = frame;
 	
-	newLayer.contents = (id)SVGImageCGImage(image);
+	newLayer.contents = (id)imageRef;
 		
 #if OLD_CODE
 	__block CALayer *layer = [[CALayer layer] retain];
@@ -128,8 +158,71 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	return newLayer;
 }
 
+- (CGRect)clipFrame:(CGRect)frame fromRatio:(double)ratioOfRatios
+{
+    if( ratioOfRatios > 1 ) // if we're going to have space to either side
+    {
+        CGFloat width = frame.size.width;
+        frame.size.width = frame.size.width / ratioOfRatios;
+        switch( self.preserveAspectRatio.baseVal.align )
+        {
+            case SVG_PRESERVEASPECTRATIO_XMIDYMIN:
+            case SVG_PRESERVEASPECTRATIO_XMIDYMID:
+            case SVG_PRESERVEASPECTRATIO_XMIDYMAX:
+            {
+                frame.origin.x = frame.origin.x + ((width - frame.size.width) / 2);
+            }break;
+                
+            case SVG_PRESERVEASPECTRATIO_XMAXYMIN:
+            case SVG_PRESERVEASPECTRATIO_XMAXYMID:
+            case SVG_PRESERVEASPECTRATIO_XMAXYMAX:
+            {
+                frame.origin.x = frame.origin.x + width - frame.size.width;
+            }break;
+                
+            default:
+                break;
+        }
+    }
+    else // if we're going to have space above and below
+    {
+        CGFloat height = frame.size.height;
+        frame.size.height = frame.size.height * ratioOfRatios;
+        switch( self.preserveAspectRatio.baseVal.align )
+        {
+            case SVG_PRESERVEASPECTRATIO_XMINYMID:
+            case SVG_PRESERVEASPECTRATIO_XMIDYMID:
+            case SVG_PRESERVEASPECTRATIO_XMAXYMID:
+            {
+                frame.origin.y = frame.origin.y + ((height - frame.size.height) / 2);
+            }break;
+                
+            case SVG_PRESERVEASPECTRATIO_XMINYMAX:
+            case SVG_PRESERVEASPECTRATIO_XMIDYMAX:
+            case SVG_PRESERVEASPECTRATIO_XMAXYMAX:
+            {
+                frame.origin.y = frame.origin.y + height - frame.size.height;
+            }break;
+                
+            default:
+                break;
+        }
+    }
+    return frame;
+}
+
 - (void)layoutLayer:(CALayer *)layer {
     
+}
+
+-(double)aspectRatioFromWidthPerHeight
+{
+    return self.height == 0 ? 0 : self.width / self.height;
+}
+
+-(double)aspectRatioFromViewBox
+{
+    return self.viewBox.height == 0 ? 0 : self.viewBox.width / self.viewBox.height;
 }
 
 @end
