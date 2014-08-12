@@ -67,7 +67,9 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 	_height = [[self getAttribute:@"height"] floatValue];
 
 	if( [[self getAttribute:@"href"] length] > 0 )
-	self.href = [self getAttribute:@"href"];
+        self.href = [self getAttribute:@"href"];
+    
+    [SVGHelperUtilities parsePreserveAspectRatioFor:self];
 }
 
 
