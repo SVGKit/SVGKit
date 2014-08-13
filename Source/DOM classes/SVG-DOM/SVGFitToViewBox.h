@@ -19,7 +19,4 @@
 
 @property(nonatomic,retain) SVGAnimatedPreserveAspectRatio* preserveAspectRatio;
 
--(double)aspectRatioFromWidthPerHeight;
--(double)aspectRatioFromViewBox;
-
 @end
