@@ -11,14 +11,14 @@
 #endif
 
 #if TARGET_OS_IPHONE
-#define SVGImage UIImage
+#define AppleNativeImage UIImage
 #else
-#define SVGImage CIImage
+#define AppleNativeImage CIImage
 #endif
 
-#define SVGImageRef SVGImage*
+#define AppleNativeImageRef AppleNativeImage*
 
-CGImageRef SVGImageCGImage(SVGImageRef img)
+CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 {
 #if TARGET_OS_IPHONE
     return img.CGImage;
@@ -93,7 +93,7 @@ CGImageRef SVGImageCGImage(SVGImageRef img)
 		if( error )
 			DDLogError(@"[%@] ERROR: unable to read stream from %@ into NSData: %@", [self class], _href, error);
 	}
-	SVGImageRef image = [SVGImage imageWithData:imageData];
+	AppleNativeImageRef image = [AppleNativeImage imageWithData:imageData];
 	
 	newLayer.contents = (id)SVGImageCGImage(image);
 		
