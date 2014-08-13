@@ -64,6 +64,8 @@
 		668418C418674BF900C61EC2 /* SVGKExporterUIImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 668418C218674BF900C61EC2 /* SVGKExporterUIImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		668418C518674BF900C61EC2 /* SVGKExporterUIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 668418C318674BF900C61EC2 /* SVGKExporterUIImage.m */; };
 		66849FAD18393EC600AE4F28 /* NamedNodeMap_Iterable.h in Headers */ = {isa = PBXBuildFile; fileRef = 66849FAC18393D3100AE4F28 /* NamedNodeMap_Iterable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694B5DB199C10400028CFF6 /* SVGKSourceNSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6694B5DE199C10400028CFF6 /* SVGKSourceNSData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6694B5DC199C10400028CFF6 /* SVGKSourceNSData.m */; };
 		6694BB7B16967407007D0947 /* DOMGlobalSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694BB7A16967407007D0947 /* DOMGlobalSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DB3168A001400EC93C7 /* CSSStyleDeclaration.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DB4168A001400EC93C7 /* CSSStyleDeclaration.m in Sources */ = {isa = PBXBuildFile; fileRef = 66988DB2168A001400EC93C7 /* CSSStyleDeclaration.m */; };
@@ -235,7 +237,7 @@
 		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
-		BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; };
+		BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
 /* End PBXBuildFile section */
 
@@ -315,6 +317,8 @@
 		668418C218674BF900C61EC2 /* SVGKExporterUIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKExporterUIImage.h; sourceTree = "<group>"; };
 		668418C318674BF900C61EC2 /* SVGKExporterUIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKExporterUIImage.m; sourceTree = "<group>"; };
 		66849FAC18393D3100AE4F28 /* NamedNodeMap_Iterable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NamedNodeMap_Iterable.h; sourceTree = "<group>"; };
+		6694B5DB199C10400028CFF6 /* SVGKSourceNSData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKSourceNSData.h; sourceTree = "<group>"; };
+		6694B5DC199C10400028CFF6 /* SVGKSourceNSData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKSourceNSData.m; sourceTree = "<group>"; };
 		6694BB7A16967407007D0947 /* DOMGlobalSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOMGlobalSettings.h; sourceTree = "<group>"; };
 		66988DAF1689FF5D00EC93C7 /* SVGStylable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGStylable.h; sourceTree = "<group>"; };
 		66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSStyleDeclaration.h; sourceTree = "<group>"; };
@@ -547,6 +551,8 @@
 			children = (
 				6636CD78175F542A0072AAEF /* SVGKSourceLocalFile.h */,
 				6636CD79175F542A0072AAEF /* SVGKSourceLocalFile.m */,
+				6694B5DB199C10400028CFF6 /* SVGKSourceNSData.h */,
+				6694B5DC199C10400028CFF6 /* SVGKSourceNSData.m */,
 				6636CD7A175F542A0072AAEF /* SVGKSourceString.h */,
 				6636CD7B175F542A0072AAEF /* SVGKSourceString.m */,
 				6636CD7C175F542A0072AAEF /* SVGKSourceURL.h */,
@@ -994,7 +1000,6 @@
 				66EEE8601688CB37002E2658 /* SVGGradientElement.h in Headers */,
 				66EEE8621688CB37002E2658 /* SVGGradientStop.h in Headers */,
 				66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */,
-				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */,
 				66372EF01695F193008C6C56 /* SVGStylable.h in Headers */,
 				6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */,
@@ -1030,6 +1035,8 @@
 				00E86D671741586600F0FA0A /* DDFileLogger.h in Headers */,
 				00E86D691741586600F0FA0A /* DDLog.h in Headers */,
 				00E86D6B1741586600F0FA0A /* DDTTYLogger.h in Headers */,
+				6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */,
+				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				00E86D6D1741586600F0FA0A /* ContextFilterLogFormatter.h in Headers */,
 				00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */,
 			);
@@ -1107,6 +1114,7 @@
 			files = (
 				66E863A01688C2780059C9C4 /* AppleSucksDOMImplementation.m in Sources */,
 				66E863A21688C2780059C9C4 /* Attr.m in Sources */,
+				6694B5DE199C10400028CFF6 /* SVGKSourceNSData.m in Sources */,
 				66E863A41688C2780059C9C4 /* CDATASection.m in Sources */,
 				66E863A61688C2780059C9C4 /* CharacterData.m in Sources */,
 				66E863A81688C2780059C9C4 /* Comment.m in Sources */,

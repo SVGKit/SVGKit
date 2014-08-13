@@ -204,7 +204,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 				   ^{
 					   SVGKParseResult* parsedSVG = [parser parseSynchronously];
 					   
-					   SVGKImage* finalImage = [[[SVGKImage alloc] initWithParsedSVG:parsedSVG] autorelease];
+					   SVGKImage* finalImage = [[[SVGKImage alloc] initWithParsedSVG:parsedSVG fromSource:source] autorelease];
 					   
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 					   if( finalImage != nil )
@@ -260,7 +260,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 /**
  Designated Initializer
  */
-- (id)initWithParsedSVG:(SVGKParseResult *)parseResult {
+- (id)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource 
+{
 	self = [super init];
 	if (self)
 	{
@@ -273,6 +274,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		{
 			self.DOMDocument = parseErrorsAndWarnings.parsedDocument;
 			self.DOMTree = DOMDocument.rootElement;
+			self.source = parseSource;
 		}
 		else
 		{
@@ -282,7 +284,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		if ( self.DOMDocument == nil )
 		{
-			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods", [self class], source );
+			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods. Parser warnings and errors = %@", [self class], parseSource, parseErrorsAndWarnings );
 			self = nil;
 		}
 		
@@ -295,10 +297,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 - (id)initWithSource:(SVGKSource *)newSource {
 	NSAssert( newSource != nil, @"Attempted to init an SVGKImage using a nil SVGKSource");
 	
-	self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
-	if (self) {
-		self.source = newSource;
-	}
+	self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource] fromSource:newSource];
+	
 	return self;
 }
 
@@ -345,20 +345,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 //TODO mac alternatives to UIKit functions
-
-#if TARGET_OS_IPHONE
-+ (UIImage *)imageWithData:(NSData *)data
-{
-	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
-	return nil;
-}
-#endif
-
-- (id)initWithData:(NSData *)data
-{
-	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
-	return nil;
-}
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
 

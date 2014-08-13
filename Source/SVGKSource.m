@@ -19,14 +19,6 @@
     return nil;
 }
 
-+ (SVGKSource*)sourceFromData:(NSData*)data {
-	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
-	[stream open];
-	
-	SVGKSource* s = [[[SVGKSource alloc] initWithInputSteam:stream] autorelease];
-	return s;
-}
-
 - (void)dealloc {
 	self.svgLanguageVersion = nil;
 	self.stream = nil;
