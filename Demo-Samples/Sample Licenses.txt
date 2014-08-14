@@ -57,6 +57,10 @@ Coins.svg
      -- Created by author, public domain
      -- Coins images Public Domain, http://pixabay.com/en/euro-2-coin-currency-europe-money-400287/
 
+ImageAspectRatio.svg
+     -- Created by author based on PreserveAspectRatio.svg from the SVG spec
+     -- Snowman image Public Domain, http://www.publicdomainpictures.net/view-image.php?image=17565&picture=snowman-decoration
+
 
 FILES TAKEN DIRECT FROM THE OFFICIAL SVG SPEC:
 -----------

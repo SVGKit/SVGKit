@@ -462,4 +462,46 @@
 	return _shapeLayer;
 }
 
++(void) parsePreserveAspectRatioFor:(id<SVGFitToViewBox>) element
+{
+    element.preserveAspectRatio = [[SVGAnimatedPreserveAspectRatio new] autorelease]; // automatically sets defaults
+    
+    NSString* stringPreserveAspectRatio = [element getAttribute:@"preserveAspectRatio"];
+    NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
+    
+    for( NSString* aspectRatioCommand in aspectRatioCommands )
+    {
+        if( [aspectRatioCommand isEqualToString:@"meet"]) /** NB this is default anyway. Dont technically need to set it */
+            element.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_MEET;
+        else if( [aspectRatioCommand isEqualToString:@"slice"])
+            element.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_SLICE;
+        
+        else if( [aspectRatioCommand isEqualToString:@"xMinYMin"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMIN;
+        else if( [aspectRatioCommand isEqualToString:@"xMinYMid"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMID;
+        else if( [aspectRatioCommand isEqualToString:@"xMinYMax"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMAX;
+        
+        else if( [aspectRatioCommand isEqualToString:@"xMidYMin"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMIN;
+        else if( [aspectRatioCommand isEqualToString:@"xMidYMid"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMID;
+        else if( [aspectRatioCommand isEqualToString:@"xMidYMax"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMAX;
+        
+        else if( [aspectRatioCommand isEqualToString:@"xMaxYMin"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMIN;
+        else if( [aspectRatioCommand isEqualToString:@"xMaxYMid"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMID;
+        else if( [aspectRatioCommand isEqualToString:@"xMaxYMax"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMAX;
+        
+        else
+        {
+            DDLogWarn(@"Found unexpected preserve-aspect-ratio command inside element's 'preserveAspectRatio' attribute. Command = '%@'", aspectRatioCommand );
+        }
+    }
+}
+
 @end
