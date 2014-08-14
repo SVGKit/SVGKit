@@ -239,8 +239,8 @@
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 		BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
-		BD1585781996CC1F00461AA5 /* SVGClipPathElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585761996CC1F00461AA5 /* SVGClipPathElement.h */; };
-		BD1585791996CC1F00461AA5 /* SVGClipPathElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585771996CC1F00461AA5 /* SVGClipPathElement.m */; };
+		BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4F199D0897008AE06D /* SVGClipPathElement.h */; };
+		BD2F8C52199D0897008AE06D /* SVGClipPathElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2F8C50199D0897008AE06D /* SVGClipPathElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -494,8 +494,9 @@
 		9ED79A23179D87790048AA5B /* SVGGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientLayer.m; sourceTree = "<group>"; };
 		BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSInputStream.h"; sourceTree = "<group>"; };
 		BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSInputStream.m"; sourceTree = "<group>"; };
-		BD1585761996CC1F00461AA5 /* SVGClipPathElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGClipPathElement.h; sourceTree = "<group>"; };
-		BD1585771996CC1F00461AA5 /* SVGClipPathElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGClipPathElement.m; sourceTree = "<group>"; };
+		BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGUnitTypes.h; sourceTree = "<group>"; };
+		BD2F8C4F199D0897008AE06D /* SVGClipPathElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGClipPathElement.h; sourceTree = "<group>"; };
+		BD2F8C50199D0897008AE06D /* SVGClipPathElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGClipPathElement.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -721,6 +722,8 @@
 				66E863331688C2770059C9C4 /* SVGAngle.m */,
 				66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */,
 				66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */,
+				BD2F8C4F199D0897008AE06D /* SVGClipPathElement.h */,
+				BD2F8C50199D0897008AE06D /* SVGClipPathElement.m */,
 				66E863341688C2770059C9C4 /* SVGDefsElement.h */,
 				66E863351688C2770059C9C4 /* SVGDefsElement.m */,
 				66E863361688C2770059C9C4 /* SVGDocument.h */,
@@ -762,6 +765,7 @@
 				661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */,
 				661ADBF616CC2FCA006F4BC3 /* SVGTextContentElement.m */,
 				661ADBFB16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h */,
+				BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */,
 			);
 			path = "SVG-DOM";
 			sourceTree = "<group>";
@@ -779,8 +783,6 @@
 				66EEE85F1688CB37002E2658 /* SVGStyleElement.m */,
 				66E8634F1688C2770059C9C4 /* SVGCircleElement.h */,
 				66E863501688C2770059C9C4 /* SVGCircleElement.m */,
-				BD1585761996CC1F00461AA5 /* SVGClipPathElement.h */,
-				BD1585771996CC1F00461AA5 /* SVGClipPathElement.m */,
 				66E863511688C2770059C9C4 /* SVGDescriptionElement.h */,
 				66E863521688C2770059C9C4 /* SVGDescriptionElement.m */,
 				66E863531688C2770059C9C4 /* SVGElement.h */,
@@ -965,6 +967,7 @@
 				66E863DE1688C2780059C9C4 /* SVGCircleElement.h in Headers */,
 				66E863E01688C2780059C9C4 /* SVGDescriptionElement.h in Headers */,
 				66E863E21688C2780059C9C4 /* SVGElement.h in Headers */,
+				BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */,
 				66E863E41688C2780059C9C4 /* SVGElement_ForParser.h in Headers */,
 				66E863E51688C2780059C9C4 /* SVGEllipseElement.h in Headers */,
 				66E863E71688C2780059C9C4 /* SVGGroupElement.h in Headers */,
@@ -1017,7 +1020,6 @@
 				66988DC3168A038400EC93C7 /* CSSRuleList.h in Headers */,
 				66988DC7168A04D100EC93C7 /* CSSRuleList+Mutable.h in Headers */,
 				66988DCB168A0A2300EC93C7 /* CSSPrimitiveValue.h in Headers */,
-				BD1585781996CC1F00461AA5 /* SVGClipPathElement.h in Headers */,
 				66988DCF168A129500EC93C7 /* CSSValueList.h in Headers */,
 				66988DD3168A13BD00EC93C7 /* CSSValue_ForSubclasses.h in Headers */,
 				666674BA168A511400486B68 /* CSSStyleRule.h in Headers */,
@@ -1149,8 +1151,8 @@
 				66E863D91688C2780059C9C4 /* SVGTransform.m in Sources */,
 				66E863DB1688C2780059C9C4 /* SVGUseElement.m in Sources */,
 				66E863DF1688C2780059C9C4 /* SVGCircleElement.m in Sources */,
+				BD2F8C52199D0897008AE06D /* SVGClipPathElement.m in Sources */,
 				66E863E11688C2780059C9C4 /* SVGDescriptionElement.m in Sources */,
-				BD1585791996CC1F00461AA5 /* SVGClipPathElement.m in Sources */,
 				66E863E31688C2780059C9C4 /* SVGElement.m in Sources */,
 				66E863E61688C2780059C9C4 /* SVGEllipseElement.m in Sources */,
 				66E863E81688C2780059C9C4 /* SVGGroupElement.m in Sources */,

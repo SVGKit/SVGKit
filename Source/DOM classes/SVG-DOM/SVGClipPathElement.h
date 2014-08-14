@@ -17,21 +17,13 @@ http://www.w3.org/TR/SVG/masking.html#InterfaceSVGClipPathElement
 
 #import "ConverterSVGToCALayer.h"
 #import "SVGTransformable.h"
-
-
-typedef enum SVG_CLIPPATHUNITS
-{
-    // Unit Types
-    SVG_UNIT_TYPE_UNKNOWN = 0,
-    SVG_UNIT_TYPE_USERSPACEONUSE = 1,
-    SVG_UNIT_TYPE_OBJECTBOUNDINGBOX = 2
-} SVG_CLIPPATHUNITS;
+#import "SVGUnitTypes.h"
 
 
 // Does NOT implement ConverterSVGToCALayer because <clipPath> elements are never rendered directly; they're only referenced via clip-path attributes in other elements
 @interface SVGClipPathElement : SVGElement <SVGTransformable, SVGStylable>
 
-@property(nonatomic, readonly) SVG_CLIPPATHUNITS clipPathUnits;
+@property(nonatomic, readonly) SVG_UNIT_TYPE clipPathUnits;
 
 - (CALayer *) newLayer;
 - (void)layoutLayer:(CALayer *)layer toMaskLayer:(CALayer *)maskThis;
