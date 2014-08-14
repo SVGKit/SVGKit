@@ -19,7 +19,7 @@
 		663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
 		663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
-		6649E10D1617577000AFE92A /* libSVGKit-iOS.1.2.0pre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */; };
+		6649E10D1617577000AFE92A /* libSVGKit-iOS.1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
@@ -33,6 +33,9 @@
 		66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA416CFE67B003CD5CD /* text01.svg */; };
 		66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A09CA516CFE67B003CD5CD /* tspan01.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
+		66B695F2199BFAC900F8E7EE /* imagetag-layered.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */; };
+		66B695F3199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 66B695F0199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png */; };
+		66B695F4199BFAC900F8E7EE /* imagetag-layer2-sun.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66B695F1199BFAC900F8E7EE /* imagetag-layer2-sun.svg */; };
 		66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */; };
 		66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */; };
 		66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */; };
@@ -116,6 +119,9 @@
 		66A09CA416CFE67B003CD5CD /* text01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = text01.svg; sourceTree = "<group>"; };
 		66A09CA516CFE67B003CD5CD /* tspan01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tspan01.svg; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
+		66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "imagetag-layered.svg"; sourceTree = "<group>"; };
+		66B695F0199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird-1382034603Euc-cropped.png"; sourceTree = "<group>"; };
+		66B695F1199BFAC900F8E7EE /* imagetag-layer2-sun.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "imagetag-layer2-sun.svg"; sourceTree = "<group>"; };
 		66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sakamura-default-fill-opacity-test.svg"; sourceTree = "<group>"; };
 		66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width.svg"; sourceTree = "<group>"; };
 		66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width-large.svg"; sourceTree = "<group>"; };
@@ -167,7 +173,7 @@
 			files = (
 				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
-				6649E10D1617577000AFE92A /* libSVGKit-iOS.1.2.0pre.a in Frameworks */,
+				6649E10D1617577000AFE92A /* libSVGKit-iOS.1.2.0.a in Frameworks */,
 				6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */,
 				661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */,
 				661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */,
@@ -225,7 +231,7 @@
 		6649E1031617574600AFE92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */,
+				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,6 +299,9 @@
 			children = (
 				663FCFEC16C9AF1C00CCBFB3 /* apache-licensed-from-svg-android */,
 				66A09C9F16CFE67B003CD5CD /* svg spec examples */,
+				66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */,
+				66B695F0199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png */,
+				66B695F1199BFAC900F8E7EE /* imagetag-layer2-sun.svg */,
 				663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */,
 				665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */,
 				66324BE116D24FA4001C1E83 /* rounded-rects.svg */,
@@ -380,10 +389,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0pre.a */ = {
+		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libSVGKit-iOS.1.2.0pre.a";
+			path = "libSVGKit-iOS.1.2.0.a";
 			remoteRef = 6649E1091617574700AFE92A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -430,13 +439,16 @@
 				663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */,
 				663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */,
 				663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */,
+				66B695F2199BFAC900F8E7EE /* imagetag-layered.svg in Resources */,
 				663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */,
 				661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */,
 				665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */,
 				66A09CA616CFE67B003CD5CD /* lingrad01.svg in Resources */,
 				66A09CA716CFE67B003CD5CD /* opacity01.svg in Resources */,
 				66A09CA816CFE67B003CD5CD /* PreserveAspectRatio.svg in Resources */,
+				66B695F3199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png in Resources */,
 				66A09CA916CFE67B003CD5CD /* StyleAttribute.svg in Resources */,
+				66B695F4199BFAC900F8E7EE /* imagetag-layer2-sun.svg in Resources */,
 				66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */,
 				66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */,
 				66324BE216D24FA4001C1E83 /* rounded-rects.svg in Resources */,
