@@ -1,5 +1,6 @@
 #import "SVGImageElement.h"
 
+#import "CALayerWithClipRender.h"
 #import "SVGHelperUtilities.h"
 #import "NSData+NSInputStream.h"
 
@@ -79,7 +80,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 
 - (CALayer *) newLayer
 {
-	CALayer* newLayer = [[CALayer alloc] init];
+	CALayer* newLayer = [[CALayerWithClipRender layer] retain];
 	
 	[SVGHelperUtilities configureCALayer:newLayer usingElement:self];
 	
