@@ -76,6 +76,6 @@
     if( self.clipPathUnits == SVG_UNIT_TYPE_USERSPACEONUSE )
         mainRect = CGRectOffset(mainRect, -maskThis.frame.origin.x, -maskThis.frame.origin.y);
     layer.frame = mainRect;
- }
+}
 
 @end
