@@ -42,12 +42,19 @@
         CGPathRelease(translatedPath);
         CGContextClip(ctx);
     } else {
-        CGRect bounds = layer.bounds;
-// TODO: render at screen resolution
-        
-        // otherwise, create an offscreen bitmap,
+        // otherwise, create an offscreen bitmap at screen resolution,
+        CGFloat scale = MAX(layer.contentsScale, layer.mask.contentsScale);
+#if TARGET_OS_IPHONE
+        scale = MAX(scale, [[UIScreen mainScreen] scale]);
+#endif
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-        CGContextRef offscreenContext = CGBitmapContextCreate(NULL, bounds.size.width, bounds.size.height, 8, 0, colorSpace, kCGImageAlphaOnly);
+        CGContextRef offscreenContext = CGBitmapContextCreate(NULL,
+                                                              layer.bounds.size.width * scale,
+                                                              layer.bounds.size.height * scale,
+                                                              8, 0,
+                                                              colorSpace,
+                                                              kCGImageAlphaOnly);
+        CGContextScaleCTM(offscreenContext, scale, scale);
         
         // render the mask to it, undoing the offset from SVGClipPathLayer.layoutLayer
         CGPoint offset = layer.mask.frame.origin;
