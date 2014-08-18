@@ -7,7 +7,10 @@
 	
 	if( stream == nil )
 	{
-		/* Thanks, Apple, for not implementing your own method. Not */
+		/* Thanks, Apple, for not implementing your own method.
+		 c.f. http://stackoverflow.com/questions/20571069/i-cannot-initialize-a-nsinputstream
+		 
+		 NB: current Apple docs don't seem to mention this - certainly not in the inputStreamWithURL: method? */
 		NSData *tempData = [NSData dataWithContentsOfURL:u]; 
 		stream = [[[NSInputStream alloc] initWithData:tempData] autorelease]; 
 	}
