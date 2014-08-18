@@ -433,6 +433,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		if( [name hasPrefix:@"http://"])
 		{
 			document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
+			[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:document];
 		}
 		else
 		{

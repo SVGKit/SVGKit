@@ -4,6 +4,13 @@
 
 + (SVGKSource*)sourceFromURL:(NSURL*)u {
 	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
+	
+	if( stream == nil )
+	{
+		/* Thanks, Apple, for not implementing your own method. Not */
+		NSData *tempData = [NSData dataWithContentsOfURL:u]; 
+		stream = [[[NSInputStream alloc] initWithData:tempData] autorelease]; 
+	}
 	//DO NOT DO THIS: let the parser do it at last possible moment (Apple has threading problems otherwise!) [stream open];
 	
 	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithInputSteam:stream] autorelease];
