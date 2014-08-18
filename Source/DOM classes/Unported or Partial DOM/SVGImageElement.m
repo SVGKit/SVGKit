@@ -105,6 +105,38 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 	 */
 	AppleNativeImageRef image = [AppleNativeImage imageWithData:imageData];
 	
+    if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
+    {
+        SVGKImage *svg = nil;
+        
+        if( effectiveSource == nil )
+            effectiveSource = [SVGKSourceURL sourceFromURL:imageURL];
+        
+        if( effectiveSource != nil )
+        {
+            DDLogInfo(@"Attempting to interpret the image at URL as an embedded SVG link (Apple failed to parse it): %@", _href );
+            if( imageData != nil )
+            {
+                /** NB: sources can only be used once; we've already opened the stream for the source
+                 earlier, so we MUST pass-in the already-downloaded NSData
+                 
+                 (if not, we'd be downloading it twice anyway, which can be lethal with large
+                 SVG files!)
+                 */
+                svg = [SVGKImage imageWithSource: [SVGKSourceNSData sourceFromData:imageData URLForRelativeLinks:imageURL]];
+            }
+            else
+            {
+                svg = [SVGKImage imageWithSource: effectiveSource];
+            }
+            
+            if( svg != nil )
+            {
+                image = svg.UIImage;
+            }
+        }
+    }
+    
 	if( image != nil )
 	{
         CGRect frame = CGRectMake(_x, _y, _width, _height);
@@ -143,41 +175,6 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
         newLayer.frame = frame;
         
         newLayer.contents = (id)imageRef;
-	}
-	else // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
-	{
-		SVGKImage *svg = nil;
-		
-		if( effectiveSource == nil )
-			effectiveSource = [SVGKSourceURL sourceFromURL:imageURL];
-		
-        if( effectiveSource != nil )
-		{
-			DDLogInfo(@"Attempting to interpret the image at URL as an embedded SVG link (Apple failed to parse it): %@", _href );
-			if( imageData != nil )
-			{
-				/** NB: sources can only be used once; we've already opened the stream for the source
-				 earlier, so we MUST pass-in the already-downloaded NSData
-				 
-				 (if not, we'd be downloading it twice anyway, which can be lethal with large
-				 SVG files!)
-				 */
-				svg = [SVGKImage imageWithSource: [SVGKSourceNSData sourceFromData:imageData URLForRelativeLinks:imageURL]];
-			}
-			else
-			{
-				svg = [SVGKImage imageWithSource: effectiveSource];
-			}
-			
-            if( svg != nil )
-			{
-                image = svg.UIImage;
-                if( image != nil )
-				{
-                    newLayer.contents = (id)SVGImageCGImage(image);
-                }
-            }
-        }
 	}
 		
 #if OLD_CODE
