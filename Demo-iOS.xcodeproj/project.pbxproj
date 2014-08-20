@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		556C405119A5122800733CBB /* test-stroke-dash-array.svg in Resources */ = {isa = PBXBuildFile; fileRef = 556C405019A5122800733CBB /* test-stroke-dash-array.svg */; };
 		661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
 		661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
 		661A0DD3161727CF008D5FBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD2161727CF008D5FBE /* CoreGraphics.framework */; };
@@ -94,6 +95,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		556C405019A5122800733CBB /* test-stroke-dash-array.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-stroke-dash-array.svg"; sourceTree = "<group>"; };
 		661A0DCA161727CF008D5FBE /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		661A0DD0161727CF008D5FBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -332,6 +334,7 @@
 				66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */,
 				66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
+				556C405019A5122800733CBB /* test-stroke-dash-array.svg */,
 				66E8628B1688BA510059C9C4 /* Text.svg */,
 				66E8628C1688BA510059C9C4 /* uk-only.svg */,
 				66E8628D1688BA510059C9C4 /* voies.svg */,
@@ -424,6 +427,7 @@
 				66E862921688BA510059C9C4 /* Blank_Map-Africa.svg in Resources */,
 				66E862931688BA510059C9C4 /* breaking-1.svg in Resources */,
 				66E862941688BA510059C9C4 /* CurvedDiamond.svg in Resources */,
+				556C405119A5122800733CBB /* test-stroke-dash-array.svg in Resources */,
 				66E862951688BA510059C9C4 /* Europe_states_reduced.svg in Resources */,
 				66E862961688BA510059C9C4 /* imageWithASinglePointPath.svg in Resources */,
 				66E862971688BA510059C9C4 /* Lion.svg in Resources */,
