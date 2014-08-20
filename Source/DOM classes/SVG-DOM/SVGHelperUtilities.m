@@ -366,6 +366,33 @@
 		
 		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
 		
+        /**
+         Stroke dash array
+         */
+        NSString *dashArrayString = [svgElement cascadedValueForStylableProperty:@"stroke-dasharray"];
+        if(dashArrayString != nil && ![dashArrayString isEqualToString:@""]) {
+            NSArray *dashArrayStringComponents = [dashArrayString componentsSeparatedByString:@" "];
+            if( [dashArrayStringComponents count] < 2 )
+            { // min 2 elements required, perhaps it's comma-separated:
+                dashArrayStringComponents = [dashArrayString componentsSeparatedByString:@","];
+            }
+            if( [dashArrayStringComponents count] > 1 )
+            {
+                BOOL valid = NO;
+                NSMutableArray *dashArray = [[NSMutableArray alloc] init];
+                for( NSString *n in dashArrayStringComponents ){
+                    [dashArray addObject:[NSNumber numberWithFloat:[n floatValue]]];
+                    if( !valid && [n floatValue] != 0 ){
+                        // avoid 'CGContextSetLineDash: invalid dash array: at least one element must be non-zero.'
+                        valid = YES;
+                    }
+                }
+                if( valid ){
+                    _shapeLayer.lineDashPattern = dashArray;
+                }
+            }
+        }
+		
 		/**
 		 Line joins + caps: butt / square / miter
 		 */
