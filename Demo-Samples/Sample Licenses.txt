@@ -41,7 +41,11 @@ map-alaska-onlysimple.svg
 test-wave-1.svg
      -- Public Domain, author: Adam Martin (http://t-machine.org)
      -- Created by: Inkscape
-	 
+     
+test-stroke-dash-array.svg
+     -- Public Domain, author: David Sweetman
+     -- Created by author
+
 Location_European_nation_states
      -- Creative Commons
 	 -- http://en.wikipedia.org/wiki/File:Location_European_nation_states.svg
