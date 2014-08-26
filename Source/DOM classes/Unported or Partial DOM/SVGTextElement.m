@@ -126,7 +126,11 @@
 	 
 	 If/when Apple fixes their bugs - or if you know enough about their API's to workaround the bugs, feel free to fix this code.
 	 */
-	CGFloat offsetToConvertSVGOriginToAppleOrigin = - suggestedUntransformedSize.height;
+    CTLineRef line = CTLineCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+    CGFloat ascent = 0;
+    CTLineGetTypographicBounds(line, &ascent, NULL, NULL);
+    CFRelease(line);
+	CGFloat offsetToConvertSVGOriginToAppleOrigin = -ascent;
 	CGSize fakeSizeToApplyNonTranslatingPartsOfTransform = CGSizeMake( 0, offsetToConvertSVGOriginToAppleOrigin);
 	
 	label.position = CGPointMake( 0,
