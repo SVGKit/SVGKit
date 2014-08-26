@@ -50,6 +50,8 @@ This method ONLY looks at current node to establish the above two things, to do 
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement*) svgElement withPath:(CGPathRef) path;
 
++(CGColorRef) parseFillForElement:(SVGElement *)svgElement;
+
 +(void) parsePreserveAspectRatioFor:(id<SVGFitToViewBox>) element;
 
 @end
