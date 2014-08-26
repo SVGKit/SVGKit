@@ -127,9 +127,6 @@
 	 If/when Apple fixes their bugs - or if you know enough about their API's to workaround the bugs, feel free to fix this code.
 	 */
 	CGFloat offsetToConvertSVGOriginToAppleOrigin = - suggestedUntransformedSize.height;
-#if TARGET_OS_IPHONE
-    offsetToConvertSVGOriginToAppleOrigin /= [[UIScreen mainScreen] scale];
-#endif
 	CGSize fakeSizeToApplyNonTranslatingPartsOfTransform = CGSizeMake( 0, offsetToConvertSVGOriginToAppleOrigin);
 	
 	label.position = CGPointMake( 0,
