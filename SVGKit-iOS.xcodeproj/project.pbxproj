@@ -237,6 +237,7 @@
 		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
+		BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
 		BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4F199D0897008AE06D /* SVGClipPathElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1069,6 +1070,7 @@
 				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				00E86D6D1741586600F0FA0A /* ContextFilterLogFormatter.h in Headers */,
 				00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */,
+				BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
