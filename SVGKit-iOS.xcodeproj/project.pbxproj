@@ -237,15 +237,16 @@
 		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
+		BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
-		BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4F199D0897008AE06D /* SVGClipPathElement.h */; };
+		BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4F199D0897008AE06D /* SVGClipPathElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD2F8C52199D0897008AE06D /* SVGClipPathElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2F8C50199D0897008AE06D /* SVGClipPathElement.m */; };
-		BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C53199D14D6008AE06D /* CALayerWithClipRender.h */; };
+		BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C53199D14D6008AE06D /* CALayerWithClipRender.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD2F8C56199D14D6008AE06D /* CALayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2F8C54199D14D6008AE06D /* CALayerWithClipRender.m */; };
-		BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */ = {isa = PBXBuildFile; fileRef = BD4C56DA199D55CC00AF04AD /* CAShapeLayerWithClipRender.h */; };
+		BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */ = {isa = PBXBuildFile; fileRef = BD4C56DA199D55CC00AF04AD /* CAShapeLayerWithClipRender.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD4C56DD199D55CC00AF04AD /* CAShapeLayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */; };
-		BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */; };
+		BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */; };
 /* End PBXBuildFile section */
 
@@ -985,10 +986,8 @@
 				66E863DE1688C2780059C9C4 /* SVGCircleElement.h in Headers */,
 				66E863E01688C2780059C9C4 /* SVGDescriptionElement.h in Headers */,
 				66E863E21688C2780059C9C4 /* SVGElement.h in Headers */,
-				BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */,
 				66E863E41688C2780059C9C4 /* SVGElement_ForParser.h in Headers */,
 				66E863E51688C2780059C9C4 /* SVGEllipseElement.h in Headers */,
-				BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */,
 				66E863E71688C2780059C9C4 /* SVGGroupElement.h in Headers */,
 				66E863E91688C2780059C9C4 /* SVGImageElement.h in Headers */,
 				668418BA1867457900C61EC2 /* SVGKImage+CGContext.h in Headers */,
@@ -1035,13 +1034,11 @@
 				66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */,
 				66988DBB168A027E00EC93C7 /* CSSRule.h in Headers */,
 				668418C018674A0300C61EC2 /* SVGKExporterNSData.h in Headers */,
-				BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */,
 				66988DBF168A031200EC93C7 /* CSSStyleSheet.h in Headers */,
 				66988DC3168A038400EC93C7 /* CSSRuleList.h in Headers */,
 				66988DC7168A04D100EC93C7 /* CSSRuleList+Mutable.h in Headers */,
 				66988DCB168A0A2300EC93C7 /* CSSPrimitiveValue.h in Headers */,
 				66988DCF168A129500EC93C7 /* CSSValueList.h in Headers */,
-				BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */,
 				66988DD3168A13BD00EC93C7 /* CSSValue_ForSubclasses.h in Headers */,
 				666674BA168A511400486B68 /* CSSStyleRule.h in Headers */,
 				666674C1168A556300486B68 /* StyleSheetList.h in Headers */,
@@ -1065,10 +1062,15 @@
 				00E86D671741586600F0FA0A /* DDFileLogger.h in Headers */,
 				00E86D691741586600F0FA0A /* DDLog.h in Headers */,
 				00E86D6B1741586600F0FA0A /* DDTTYLogger.h in Headers */,
+				BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */,
+				BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */,
+				BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */,
+				BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */,
 				6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */,
 				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				00E86D6D1741586600F0FA0A /* ContextFilterLogFormatter.h in Headers */,
 				00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */,
+				BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
