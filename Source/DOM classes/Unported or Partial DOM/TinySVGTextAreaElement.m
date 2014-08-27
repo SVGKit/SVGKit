@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 na. All rights reserved.
 //
 
-#import "SVGTextAreaElement.h"
+#import "TinySVGTextAreaElement.h"
 #import "SVGKParseResult.h"
 #import "SVGElement_ForParser.h"
 
 
-@interface SVGTextAreaElement()
+@interface TinySVGTextAreaElement()
 @property(nonatomic,retain,readwrite) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ width;
 @property(nonatomic,retain,readwrite) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ height;
 @end
 
 
-@implementation SVGTextAreaElement
+@implementation TinySVGTextAreaElement
 
 @synthesize width;
 @synthesize height;

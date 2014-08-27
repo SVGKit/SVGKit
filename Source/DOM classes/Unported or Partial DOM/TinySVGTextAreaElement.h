@@ -8,7 +8,7 @@
 
 #import "SVGTextElement.h"
 
-@interface SVGTextAreaElement : SVGTextElement
+@interface TinySVGTextAreaElement : SVGTextElement
 
 @property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ width;
 @property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ height;

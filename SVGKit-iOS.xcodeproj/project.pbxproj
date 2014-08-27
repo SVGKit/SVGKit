@@ -245,8 +245,8 @@
 		BD2F8C56199D14D6008AE06D /* CALayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2F8C54199D14D6008AE06D /* CALayerWithClipRender.m */; };
 		BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */ = {isa = PBXBuildFile; fileRef = BD4C56DA199D55CC00AF04AD /* CAShapeLayerWithClipRender.h */; };
 		BD4C56DD199D55CC00AF04AD /* CAShapeLayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */; };
-		BDA133B719AD0E81003C9945 /* SVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* SVGTextAreaElement.h */; };
-		BDA133B819AD0E81003C9945 /* SVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* SVGTextAreaElement.m */; };
+		BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */; };
+		BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -507,8 +507,8 @@
 		BD2F8C54199D14D6008AE06D /* CALayerWithClipRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerWithClipRender.m; sourceTree = "<group>"; };
 		BD4C56DA199D55CC00AF04AD /* CAShapeLayerWithClipRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAShapeLayerWithClipRender.h; sourceTree = "<group>"; };
 		BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAShapeLayerWithClipRender.m; sourceTree = "<group>"; };
-		BDA133B519AD0E81003C9945 /* SVGTextAreaElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextAreaElement.h; sourceTree = "<group>"; };
-		BDA133B619AD0E81003C9945 /* SVGTextAreaElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextAreaElement.m; sourceTree = "<group>"; };
+		BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TinySVGTextAreaElement.h; sourceTree = "<group>"; };
+		BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TinySVGTextAreaElement.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -823,10 +823,10 @@
 				66E8636A1688C2770059C9C4 /* SVGSVGElement.m */,
 				66E8636B1688C2770059C9C4 /* SVGTextElement.h */,
 				66E8636C1688C2770059C9C4 /* SVGTextElement.m */,
-				BDA133B519AD0E81003C9945 /* SVGTextAreaElement.h */,
-				BDA133B619AD0E81003C9945 /* SVGTextAreaElement.m */,
 				66E8636D1688C2770059C9C4 /* SVGTitleElement.h */,
 				66E8636E1688C2770059C9C4 /* SVGTitleElement.m */,
+				BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */,
+				BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */,
 			);
 			path = "Unported or Partial DOM";
 			sourceTree = "<group>";
@@ -1035,7 +1035,7 @@
 				66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */,
 				66988DBB168A027E00EC93C7 /* CSSRule.h in Headers */,
 				668418C018674A0300C61EC2 /* SVGKExporterNSData.h in Headers */,
-				BDA133B719AD0E81003C9945 /* SVGTextAreaElement.h in Headers */,
+				BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */,
 				66988DBF168A031200EC93C7 /* CSSStyleSheet.h in Headers */,
 				66988DC3168A038400EC93C7 /* CSSRuleList.h in Headers */,
 				66988DC7168A04D100EC93C7 /* CSSRuleList+Mutable.h in Headers */,
@@ -1219,7 +1219,7 @@
 				66988DB4168A001400EC93C7 /* CSSStyleDeclaration.m in Sources */,
 				66988DB8168A004D00EC93C7 /* CSSValue.m in Sources */,
 				66988DBC168A027E00EC93C7 /* CSSRule.m in Sources */,
-				BDA133B819AD0E81003C9945 /* SVGTextAreaElement.m in Sources */,
+				BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */,
 				66988DC0168A031200EC93C7 /* CSSStyleSheet.m in Sources */,
 				66988DC4168A038400EC93C7 /* CSSRuleList.m in Sources */,
 				66988DCC168A0A2300EC93C7 /* CSSPrimitiveValue.m in Sources */,
