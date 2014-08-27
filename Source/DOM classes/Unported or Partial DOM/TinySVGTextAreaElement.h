@@ -1,5 +1,5 @@
 //
-//  SVGTextAreaElement.h
+//  TinySVGTextAreaElement.h
 //  SVGKit-iOS
 //
 //  Created by David Gileadi on 8/26/14.
