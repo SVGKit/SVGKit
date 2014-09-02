@@ -3,7 +3,7 @@
 #import <SVGKit/CAShapeLayerWithHitTest.h>
 #import <SVGKit/SVGUtils.h>
 #import <SVGKit/SVGGradientElement.h>
-#import <SVGKit/CGPathAdditions.h>
+#import "CGPathAdditions.h"
 
 #import <SVGKit/SVGTransformable.h>
 #import <SVGKit/SVGSVGElement.h>
@@ -368,6 +368,33 @@
 		
 		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
 		
+        /**
+         Stroke dash array
+         */
+        NSString *dashArrayString = [svgElement cascadedValueForStylableProperty:@"stroke-dasharray"];
+        if(dashArrayString != nil && ![dashArrayString isEqualToString:@""]) {
+            NSArray *dashArrayStringComponents = [dashArrayString componentsSeparatedByString:@" "];
+            if( [dashArrayStringComponents count] < 2 )
+            { // min 2 elements required, perhaps it's comma-separated:
+                dashArrayStringComponents = [dashArrayString componentsSeparatedByString:@","];
+            }
+            if( [dashArrayStringComponents count] > 1 )
+            {
+                BOOL valid = NO;
+                NSMutableArray *dashArray = [[NSMutableArray alloc] init];
+                for( NSString *n in dashArrayStringComponents ){
+                    [dashArray addObject:[NSNumber numberWithFloat:[n floatValue]]];
+                    if( !valid && [n floatValue] != 0 ){
+                        // avoid 'CGContextSetLineDash: invalid dash array: at least one element must be non-zero.'
+                        valid = YES;
+                    }
+                }
+                if( valid ){
+                    _shapeLayer.lineDashPattern = dashArray;
+                }
+            }
+        }
+		
 		/**
 		 Line joins + caps: butt / square / miter
 		 */
@@ -410,14 +437,9 @@
 		}
 	}
 	
-	
 	NSString* actualFill = [svgElement cascadedValueForStylableProperty:@"fill"];
 	NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
-	if ( [actualFill hasPrefix:@"none"])
-	{
-		_shapeLayer.fillColor = nil;
-	}
-	else if ( [actualFill hasPrefix:@"url"] )
+	if ( [actualFill hasPrefix:@"url"] )
 	{
 		NSRange idKeyRange = NSMakeRange(5, actualFill.length - 6);
 		NSString* _fillId = [actualFill substringWithRange:idKeyRange];
@@ -443,23 +465,94 @@
 	}
 	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
 	{
+		_shapeLayer.fillColor = [self parseFillForElement:svgElement fromFill:actualFill andOpacity:actualFillOpacity];
+	}
+    
+	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity"];
+	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
+	CGPathRelease(pathToPlaceInLayer);
+	return _shapeLayer;
+}
+
++(CGColorRef) parseFillForElement:(SVGElement *)svgElement
+{
+	NSString* actualFill = [svgElement cascadedValueForStylableProperty:@"fill"];
+	NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
+	return [self parseFillForElement:svgElement fromFill:actualFill andOpacity:actualFillOpacity];
+}
+
++(CGColorRef) parseFillForElement:(SVGElement *)svgElement fromFill:(NSString *)actualFill andOpacity:(NSString *)actualFillOpacity
+{
+	CGColorRef fillColor = nil;
+	if ( [actualFill hasPrefix:@"none"])
+	{
+		fillColor = nil;
+	}
+	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
+	{
 		SVGColor fillColorAsSVGColor = ( actualFill.length > 0 ) ?
 		SVGColorFromString([actualFill UTF8String]) // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		: SVGColorMake(0, 0, 0, 0);
 		if( actualFillOpacity.length > 0 )
 			fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
 		
-		_shapeLayer.fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
+        if( actualFillOpacity.length > 0 )
+            fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
+		
+        fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
 	}
 	else
 	{
-		
+#if TARGET_OS_IPHONE
+		fillColor = [UIColor blackColor].CGColor;
+#else
+		fillColor = CGColorGetConstantColor(kCGColorBlack);
+#endif
 	}
+
+	return fillColor;
+}
+
++(void) parsePreserveAspectRatioFor:(id<SVGFitToViewBox>) element
+{
+    element.preserveAspectRatio = [SVGAnimatedPreserveAspectRatio new]; // automatically sets defaults
     
-	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity"];
-	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity SVGKCGFloatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
-	CGPathRelease(pathToPlaceInLayer);
-	return _shapeLayer;
+    NSString* stringPreserveAspectRatio = @"";//[element getAttribute:@"preserveAspectRatio"];
+    NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
+    
+    for( NSString* aspectRatioCommand in aspectRatioCommands )
+    {
+        if( [aspectRatioCommand isEqualToString:@"meet"]) /** NB this is default anyway. Dont technically need to set it */
+            element.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_MEET;
+        else if( [aspectRatioCommand isEqualToString:@"slice"])
+            element.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_SLICE;
+        
+        else if( [aspectRatioCommand isEqualToString:@"xMinYMin"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMIN;
+        else if( [aspectRatioCommand isEqualToString:@"xMinYMid"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMID;
+        else if( [aspectRatioCommand isEqualToString:@"xMinYMax"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMAX;
+        
+        else if( [aspectRatioCommand isEqualToString:@"xMidYMin"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMIN;
+        else if( [aspectRatioCommand isEqualToString:@"xMidYMid"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMID;
+        else if( [aspectRatioCommand isEqualToString:@"xMidYMax"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMAX;
+        
+        else if( [aspectRatioCommand isEqualToString:@"xMaxYMin"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMIN;
+        else if( [aspectRatioCommand isEqualToString:@"xMaxYMid"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMID;
+        else if( [aspectRatioCommand isEqualToString:@"xMaxYMax"])
+            element.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMAX;
+        
+        else
+        {
+            DDLogWarn(@"Found unexpected preserve-aspect-ratio command inside element's 'preserveAspectRatio' attribute. Command = '%@'", aspectRatioCommand );
+        }
+    }
 }
 
 @end

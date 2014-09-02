@@ -51,6 +51,7 @@
 #if !TARGET_OS_IPHONE
 #import <SVGKit/SVGKImageRep.h>
 #endif
+#import <SVGKit/TinySVGTextAreaElement.h>
 
 typedef enum _SVGKLoggingLevel
 {

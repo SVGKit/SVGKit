@@ -1,7 +1,7 @@
 #import <SVGKit/SVGKSource.h>
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import <SVGKit/SVGKSourceURL.h>
-#import <SVGKit/SVGKSourceData.h>
+#import <SVGKit/SVGKSourceNSData.h>
 #import <SVGKit/SVGKSourceString.h>
 #import "SVGKSource-private.h"
 
@@ -37,7 +37,7 @@
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data {
-	return [SVGKSourceData sourceFromData:data];
+	return [SVGKSourceNSData sourceFromData:data];
 }
 
 + (SVGKSource*)sourceFromContentsOfString:(NSString*)rawString {

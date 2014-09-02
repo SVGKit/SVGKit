@@ -355,6 +355,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	if(
 	   [options.diskFilenameToLoad  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
 	   || [options.diskFilenameToLoad isEqualToString:@"RainbowWing"] // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
+	   || [options.diskFilenameToLoad isEqualToString:@"imagetag-layered"] // uses gradients for prettiness
 	   )
 	{
 		/**
@@ -416,6 +417,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		if( [name hasPrefix:@"http://"])
 		{
 			document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
+			[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:document];
 		}
 		else
 		{

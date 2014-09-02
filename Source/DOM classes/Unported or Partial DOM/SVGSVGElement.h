@@ -65,6 +65,7 @@
 #import <SVGKit/NodeList.h>
 
 #import <SVGKit/ConverterSVGToCALayer.h>
+#import <SVGKit/SVGKSource.h>
 
 @interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
 
@@ -90,6 +91,7 @@
 @property (nonatomic, strong, readonly) SVGViewSpec* currentView;
 @property (nonatomic, readonly) float currentScale;
 @property (nonatomic, strong, readonly) SVGPoint* currentTranslate;
+@property (nonatomic, retain, readwrite) SVGKSource *source;
 
 -(long) suspendRedraw:(long) maxWaitMilliseconds;
 -(void) unsuspendRedraw:(long) suspendHandleID;

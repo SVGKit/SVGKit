@@ -36,6 +36,7 @@
 @synthesize currentView;
 @synthesize currentScale;
 @synthesize currentTranslate;
+@synthesize source;
 
 @synthesize viewBox = _viewBox; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 @synthesize preserveAspectRatio; // each SVGElement subclass that conforms to protocol "SVGFitToViewBox" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
@@ -156,52 +157,18 @@
 	if( [[self getAttribute:@"viewBox"] length] > 0 )
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
-		
-		_viewBox = SVGRectMake([boxElements[0] floatValue], [boxElements[1] floatValue], [boxElements[2] floatValue], [boxElements[3] floatValue]);
+		if ([boxElements count] < 2) {
+            /* count should be 4 -- maybe they're comma separated like (x,y,w,h) */
+            boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
+        }
+		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
 	}
 	else
 	{
 		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !
 	}
 	
-	self.preserveAspectRatio = [SVGAnimatedPreserveAspectRatio new]; // automatically sets defaults
-	
-	NSString* stringPreserveAspectRatio = [self getAttribute:@"preserveAspectRatio"];
-	NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
-	
-	for( NSString* aspectRatioCommand in aspectRatioCommands )
-	{
-		if( [aspectRatioCommand isEqualToString:@"meet"]) /** NB this is default anyway. Dont technically need to set it */
-			self.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_MEET;
-		else if( [aspectRatioCommand isEqualToString:@"slice"])
-			self.preserveAspectRatio.baseVal.meetOrSlice = SVG_MEETORSLICE_SLICE;
-		
-		else if( [aspectRatioCommand isEqualToString:@"xMinYMin"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMIN;
-		else if( [aspectRatioCommand isEqualToString:@"xMinYMid"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMID;
-		else if( [aspectRatioCommand isEqualToString:@"xMinYMax"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMINYMAX;
-		
-		else if( [aspectRatioCommand isEqualToString:@"xMidYMin"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMIN;
-		else if( [aspectRatioCommand isEqualToString:@"xMidYMid"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMID;
-		else if( [aspectRatioCommand isEqualToString:@"xMidYMax"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMIDYMAX;
-		
-		else if( [aspectRatioCommand isEqualToString:@"xMaxYMin"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMIN;
-		else if( [aspectRatioCommand isEqualToString:@"xMaxYMid"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMID;
-		else if( [aspectRatioCommand isEqualToString:@"xMaxYMax"])
-			self.preserveAspectRatio.baseVal.align = SVG_PRESERVEASPECTRATIO_XMAXYMAX;
-		
-		else
-		{
-			DDLogWarn(@"Found unexpected preserve-aspect-ratio command inside element's 'preserveAspectRatio' attribute. Command = '%@'", aspectRatioCommand );
-		}
-	}
+    [SVGHelperUtilities parsePreserveAspectRatioFor:self];
 
 	if( stringWidth == nil || stringWidth.length < 1 )
 		self.width = nil; // i.e. undefined

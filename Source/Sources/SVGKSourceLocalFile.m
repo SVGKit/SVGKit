@@ -1,8 +1,8 @@
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import "SVGKSource-private.h"
 
-@interface SVGKSourceLocalFile ()
-@property (readwrite, nonatomic, copy) NSString* filePath;
+@interface SVGKSourceLocalFile()
+@property (nonatomic, readwrite) BOOL wasRelative;
 @end
 
 @implementation SVGKSourceLocalFile
@@ -10,11 +10,6 @@
 - (id)copyWithZone:(NSZone *)zone
 {
 	return [[SVGKSourceLocalFile alloc] initWithFilename:self.filePath];
-}
-
-- (id)initFromFilename:(NSString*)p
-{
-	return [self initWithFilename:p];
 }
 
 - (id)initWithFilename:(NSString*)p
@@ -36,13 +31,18 @@
 - (SVGKSourceLocalFile *)sourceFromRelativePath:(NSString *)relative {
     NSString *absolute = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:relative];
     if ([[NSFileManager defaultManager] fileExistsAtPath:absolute])
-        return [SVGKSourceLocalFile sourceFromFilename:absolute];
+	{
+       SVGKSourceLocalFile* result = [SVGKSourceLocalFile sourceFromFilename:absolute];
+		result.wasRelative = true;
+		return result;
+	}
     return nil;
 }
 
-- (NSString*)description
+-(NSString *)description
 {
-	return [NSString stringWithFormat:@"%@, file path: %@", [self debugDescription], self.filePath];
+	BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.filePath];
+	return [NSString stringWithFormat:@"File: %@%@\"%@\" (%llu bytes)", self.wasRelative? @"(relative) " : @"", fileExists?@"":@"NOT FOUND!  ", self.filePath, self.approximateLengthInBytesOr0 ];
 }
 
 @end

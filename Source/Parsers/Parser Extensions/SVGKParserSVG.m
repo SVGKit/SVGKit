@@ -15,6 +15,7 @@
 #import <SVGKit/SVGRectElement.h>
 #import <SVGKit/SVGTitleElement.h>
 #import <SVGKit/SVGTextElement.h>
+#import "TinySVGTextAreaElement.h"
 
 #import <SVGKit/SVGDocument_Mutable.h>
 
@@ -39,7 +40,9 @@ static NSDictionary *elementMap = nil;
                           @"polyline": [SVGPolylineElement class],
                           @"rect": [SVGRectElement class],
                           @"title": [SVGTitleElement class],
-						   @"text": [SVGTextElement class]};
+						   @"text": [SVGTextElement class],
+						   @"textArea": [TinySVGTextAreaElement class],
+};
 		}
 	}
 	return self;
@@ -88,7 +91,9 @@ static NSDictionary *elementMap = nil;
 		/** special case: <svg:svg ... version="XXX"> */
 		if( [@"svg" isEqualToString:name] )
 		{
-			NSString* svgVersion;
+            ((SVGSVGElement *) element).source = SVGKSource;
+            
+			NSString* svgVersion = nil;
 			
 			/** According to spec, if the first XML node is an SVG node, then it
 			 becomes TWO THINGS:

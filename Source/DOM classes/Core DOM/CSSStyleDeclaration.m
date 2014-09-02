@@ -62,7 +62,10 @@
 	for (size_t n = 0; n <= len; n++) {
 		char c = cstr[n];
 		
-		if (c == '\n' || c == '\t' || c == ' ') {
+        /* SVG spec specifies some attribute lists might be delimited by white space.
+         e.g. stroke-dasharray is 'A list of comma and/or white space separated <length>s'
+         http://www.w3.org/TR/SVG/painting.html */
+		if (c == '\n' || c == '\t') {
 			continue;
 		}
 		

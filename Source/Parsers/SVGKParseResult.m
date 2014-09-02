@@ -26,6 +26,12 @@
     }
     return self;
 }
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"[Parse result: %lu warnings, %lu errors(recoverable), %lu errors (fatal). Last fatal error (or last recoverable error if no fatal ones) = %@", (unsigned long)self.warnings.count, (unsigned long)self.errorsRecoverable.count, (unsigned long)self.errorsFatal.count, self.errorsFatal.count > 0 ? [self.errorsFatal lastObject] : self.errorsRecoverable.count > 0 ? [self.errorsRecoverable lastObject] : @"(n/a)"];
+}
+
 -(void) addSourceError:(NSError*) fatalError
 {
 	DDLogError(@"[%@] SVG ERROR: %@", [self class], fatalError);
