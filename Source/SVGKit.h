@@ -53,7 +53,7 @@
 #endif
 #import <SVGKit/TinySVGTextAreaElement.h>
 
-typedef enum _SVGKLoggingLevel
+typedef NS_ENUM(int, SVGKLoggingLevel)
 {
 	SVGKLoggingMixed = -1,
 	SVGKLoggingOff = 0,
@@ -61,7 +61,7 @@ typedef enum _SVGKLoggingLevel
 	SVGKLoggingWarning,
 	SVGKLoggingError,
 	SVGKLoggingVerbose
-} SVGKLoggingLevel;
+};
 
 @interface SVGKit : NSObject
 
