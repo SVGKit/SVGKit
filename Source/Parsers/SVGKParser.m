@@ -100,7 +100,7 @@ SVGKParser* getCurrentlyParsingParser()
 
 #define READ_CHUNK_SZ 1024*10
 
-- (id)initWithSource:(SVGKSource *) s {
+- (instancetype)initWithSource:(SVGKSource *) s {
 	self = [super init];
 	if (self) {
 		self.parserExtensions = [[NSMutableArray alloc] init];

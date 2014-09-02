@@ -383,7 +383,7 @@
                 BOOL valid = NO;
                 NSMutableArray *dashArray = [[NSMutableArray alloc] init];
                 for( NSString *n in dashArrayStringComponents ){
-                    [dashArray addObject:[NSNumber numberWithFloat:[n floatValue]]];
+                    [dashArray addObject:@([n floatValue])];
                     if( !valid && [n floatValue] != 0 ){
                         // avoid 'CGContextSetLineDash: invalid dash array: at least one element must be non-zero.'
                         valid = YES;

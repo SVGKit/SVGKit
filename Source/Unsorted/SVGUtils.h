@@ -27,5 +27,11 @@ SVGColor SVGColorFromString (const char *string);
 
 CGFloat SVGPercentageFromString (const char *string);
 
+
+CF_IMPLICIT_BRIDGING_ENABLED
+
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close);
 CGColorRef CGColorWithSVGColor (SVGColor color);
+
+CF_IMPLICIT_BRIDGING_DISABLED
+

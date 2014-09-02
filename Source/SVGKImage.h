@@ -129,9 +129,9 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
 + (SVGKImage*) defaultImage; //For a simple default image
 
-- (id)initWithContentsOfURL:(NSURL *)url;
-- (id)initWithContentsOfFile:(NSString *)path;
-- (id)initWithData:(NSData *)data;
+- (instancetype)initWithContentsOfURL:(NSURL *)url;
+- (instancetype)initWithContentsOfFile:(NSString *)path;
+- (instancetype)initWithData:(NSData *)data;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 
@@ -141,7 +141,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
  
  Use this method to double-check, before calling .size, whether it's going to give you a legal value safely
  */
--(BOOL) hasSize;
+@property (nonatomic, readonly) BOOL hasSize;
 
 /**
  NB: always call "hasSize" before calling this method; some SVG's may have NO DEFINED SIZE, and so
@@ -227,7 +227,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
 #pragma mark - core methods for interacting with an SVG image usefully (not from UIImage)
 
 /*! If you want to provide a custom SVGKSource */
-- (id)initWithSource:(SVGKSource *)source;
+- (instancetype)initWithSource:(SVGKSource *)source;
 
 /*! If you already have a parsed SVG, and just want to upgrade it to an SVGKImage
  
@@ -236,7 +236,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
  NB: this is frequently used if you have to add custom SVGKParserExtensions to parse an
  SVG which contains custom tags
  */
-- (id)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource;
+- (instancetype)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource NS_DESIGNATED_INITIALIZER;
 
 
 /*! Creates a new instance each time you call it. This should ONLY be used if you specifically need to duplicate
@@ -248,7 +248,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
  */
 - (CALayer *)newCALayerTree;
 
-- (BOOL)hasCALayerTree;
+@property (nonatomic, readonly) BOOL hasCALayerTree;
 
 /*! uses the current .CALayerTree property to find the layer, recursing down the tree (or creates a new
  CALayerTree on demand, and caches it)

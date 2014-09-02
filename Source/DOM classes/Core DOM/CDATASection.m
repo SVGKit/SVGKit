@@ -10,7 +10,7 @@
 
 @implementation CDATASection
 
-- (id)initWithValue:(NSString*) v
+- (instancetype)initWithValue:(NSString*) v
 {
     self = [super initType:DOMNodeType_CDATA_SECTION_NODE name:@"#cdata-section" value:v];
     if (self) {

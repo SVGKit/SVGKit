@@ -18,7 +18,7 @@
 @synthesize target;
 @synthesize data;
 
--(id) initProcessingInstruction:(NSString*) t value:(NSString*) d
+-(instancetype) initProcessingInstruction:(NSString*) t value:(NSString*) d
 {
     self = [super initType:DOMNodeType_PROCESSING_INSTRUCTION_NODE name:t value:d];
     if (self) {

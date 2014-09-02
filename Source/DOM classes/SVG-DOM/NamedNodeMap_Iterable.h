@@ -5,13 +5,13 @@
  
  @return an Array of "nodes from the nodemap (Node)"
  */
--(NSArray*) allNodesUnsortedDOM1;
+@property (nonatomic, readonly, copy) NSArray *allNodesUnsortedDOM1;
 
 /**
  DOM2 requires everything to have a namespace - much better than DOM1
  
  @return a Dictionary of "namespace (string)" mapped to "node from nodemap (Node)"
  */
- -(NSDictionary*) allNodesUnsortedDOM2;
+ @property (nonatomic, readonly, copy) NSDictionary *allNodesUnsortedDOM2;
 
 @end

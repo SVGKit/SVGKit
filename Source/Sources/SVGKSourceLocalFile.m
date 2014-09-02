@@ -12,7 +12,7 @@
 	return [[SVGKSourceLocalFile alloc] initWithFilename:self.filePath];
 }
 
-- (id)initWithFilename:(NSString*)p
+- (instancetype)initWithFilename:(NSString*)p
 {
 	NSInputStream* stream = [[NSInputStream alloc] initWithFileAtPath:p];
 	[stream open];

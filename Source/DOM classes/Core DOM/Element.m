@@ -11,7 +11,7 @@
 
 @synthesize tagName;
 
-- (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
+- (instancetype)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
     self = [super initType:DOMNodeType_ELEMENT_NODE name:n];
     if (self) {
         self.tagName = n;
@@ -23,7 +23,7 @@
     }
     return self;
 }
-- (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary *)attributes
+- (instancetype)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary *)attributes
 {
     self = [super initType:DOMNodeType_ELEMENT_NODE name:n inNamespace:nsURI];
     if (self) {

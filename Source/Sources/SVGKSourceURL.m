@@ -17,7 +17,7 @@
 	return [self initWithURL:u];
 }
 
-- (id)initWithURL:(NSURL*)u
+- (instancetype)initWithURL:(NSURL*)u
 {
 	NSInputStream* stream = [[NSInputStream alloc] initWithURL:u];
 	[stream open];

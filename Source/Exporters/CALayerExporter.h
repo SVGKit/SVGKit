@@ -29,7 +29,7 @@
 @property (readwrite,nonatomic,strong) DWView* rootView;
 @property (readwrite,nonatomic,weak) id<CALayerExporterDelegate> delegate;
 
-- (id) initWithView:(DWView*)v;
+- (instancetype) initWithView:(DWView*)v NS_DESIGNATED_INITIALIZER;
 - (void) startExport;
 
 @end

@@ -270,7 +270,7 @@
 /**
  Designated Initializer
  */
-- (id)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource 
+- (instancetype)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource 
 {
 	self = [super init];
 	if (self)
@@ -307,7 +307,7 @@
 	return self;
 }
 
-- (id)initWithSource:(SVGKSource *)newSource {
+- (instancetype)initWithSource:(SVGKSource *)newSource {
 	NSAssert( newSource != nil, @"Attempted to init an SVGKImage using a nil SVGKSource");
 	
 	@autoreleasepool {
@@ -317,13 +317,13 @@
 	return self;
 }
 
-- (id)initWithContentsOfFile:(NSString *)aPath {
+- (instancetype)initWithContentsOfFile:(NSString *)aPath {
 	NSParameterAssert(aPath != nil);
 	
 	return [self initWithSource:[[SVGKSourceLocalFile alloc] initWithFilename:aPath]];
 }
 
-- (id)initWithContentsOfURL:(NSURL *)url {
+- (instancetype)initWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	
 	return [self initWithSource:[[SVGKSourceURL alloc] initWithURL:url]];
@@ -345,7 +345,7 @@
 	}
 }
 
-- (id)initWithData:(NSData *)data
+- (instancetype)initWithData:(NSData *)data
 {
 	NSParameterAssert(data != nil);
 	

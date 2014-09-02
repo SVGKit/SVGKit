@@ -18,13 +18,13 @@
 //self.backgroundColor = [UIColor clearColor];
 
 /** Apple requires this to be implemented by CALayer subclasses */
-+(id)layer
++ (instancetype)layer
 {
 	SVGKLayer* layer = [[SVGKLayer alloc] init];
 	return layer;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self)

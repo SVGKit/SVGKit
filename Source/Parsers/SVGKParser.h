@@ -107,7 +107,7 @@
 
 #pragma mark - OLD - POTENTIALLY DELETE THESE ONCE THEY'VE ALL BEEN CHECKED AND CONVERTED
 
-- (id)initWithSource:(SVGKSource *)doc;
+- (instancetype)initWithSource:(SVGKSource *)doc NS_DESIGNATED_INITIALIZER;
 
 /*! Adds the default SVG-tag parsers (everything in the SVG namespace); you should always use these, unless you
  are massively customizing SVGKit's parser! */

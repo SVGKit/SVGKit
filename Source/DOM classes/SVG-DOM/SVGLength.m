@@ -20,7 +20,7 @@
 @synthesize valueAsString;
 @synthesize internalCSSPrimitiveValue;
 
-- (id)init
+- (instancetype)init
 {
     NSAssert(FALSE, @"This class must not be init'd. Use the static hepler methods to instantiate it instead");
     return nil;
@@ -68,7 +68,7 @@ break
 #undef UnitSwitch
 }
 
-- (id)initWithCSSPrimitiveValue:(CSSPrimitiveValue*) pv
+- (instancetype)initWithCSSPrimitiveValue:(CSSPrimitiveValue*) pv
 {
     self = [super init];
     if (self) {
