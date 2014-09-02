@@ -7,7 +7,7 @@
 //
 
 #import <SVGKit/SVGKit.h>
-#import <SVGKit/SVGKSourceData.h>
+#import <SVGKit/SVGKSourceNSData.h>
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import <SVGKit/SVGKSourceURL.h>
 #include <tgmath.h>
@@ -84,7 +84,7 @@
 {
 	SVGKParseResult *parseResult;
 	@autoreleasepool {
-		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[[SVGKSourceData alloc] initWithData:d]];
+		parseResult = [SVGKParser parseSourceUsingDefaultSVGKParser:[[SVGKSourceNSData alloc] initWithData:d]];
 	}
 	if (parseResult == nil) {
 		return NO;
@@ -142,7 +142,7 @@
 
 - (id)initWithSVGString:(NSString *)theString
 {
-	return [self initWithSVGSource:[SVGKSourceData sourceFromContentsOfString:theString]];
+	return [self initWithSVGSource:[SVGKSourceNSData sourceFromContentsOfString:theString]];
 }
 
 - (void)setSize:(NSSize)aSize sizeImage:(BOOL)theSize

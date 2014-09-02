@@ -19,7 +19,17 @@
 #if TARGET_OS_IPHONE
 #define AppleNativeImage UIImage
 #else
-#define AppleNativeImage CIImage
+#define AppleNativeImage NSImage
+
+@implementation NSImage (priv)
+
++ (instancetype)imageWithData:(NSData*)aData
+{
+    return [[self alloc] initWithData:aData];
+}
+
+@end
+
 #endif
 
 #define AppleNativeImageRef AppleNativeImage*
@@ -32,8 +42,8 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 #if TARGET_OS_IPHONE
     return CGImageRetain(img.CGImage);
 #else
-    NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCIImage:img];
-    return CGImageRetain(rep.CGImage);
+    CGImageRef rep = [img CGImageForProposedRect:NULL context:nil hints:nil];
+    return CGImageRetain(rep);
 #endif
 }
 
@@ -133,7 +143,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 #if TARGET_OS_IPHONE
                 image = svg.UIImage;
 #else
-                image = svg.CIImage;
+                image = svg.NSImage;
 #endif
             }
         }
