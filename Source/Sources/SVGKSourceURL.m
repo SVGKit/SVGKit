@@ -34,13 +34,13 @@
 }
 
 - (SVGKSource *)sourceFromRelativePath:(NSString *)path {
-    NSURL *url = [[self.URL URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
-    return [SVGKSourceURL sourceFromURL:url];
+	NSURL *url = [NSURL URLWithString:path relativeToURL:self.URL];
+	return [SVGKSourceURL sourceFromURL:url];
 }
 
-- (NSString*)description
+-(NSString *)description
 {
-	return [NSString stringWithFormat:@"%@, URL: %@", [self baseDescription], self.URL];
+	return [NSString stringWithFormat:@"[SVGKSource: URL = \"%@\"]", self.URL ];
 }
 
 @end

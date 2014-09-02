@@ -9,6 +9,8 @@
 #import <SVGKit/SVGHelperUtilities.h>
 
 #import "SVGKCGFloatAdditions.h"
+#import "SVGHelperUtilities.h"
+#import "SVGUtils.h"
 
 @implementation SVGTextElement
 
@@ -209,18 +211,34 @@
 	 
 	 If/when Apple fixes their bugs - or if you know enough about their API's to workaround the bugs, feel free to fix this code.
 	 */
-	CGFloat offsetToConvertSVGOriginToAppleOrigin = - suggestedUntransformedSize.height;
+    CTLineRef line = CTLineCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+    CGFloat ascent = 0;
+    CTLineGetTypographicBounds(line, &ascent, NULL, NULL);
+    CFRelease(line);
+	CGFloat offsetToConvertSVGOriginToAppleOrigin = -ascent;
 	CGSize fakeSizeToApplyNonTranslatingPartsOfTransform = CGSizeMake( 0, offsetToConvertSVGOriginToAppleOrigin);
 	
 	label.position = CGPointMake( 0,
 								 0 + CGSizeApplyAffineTransform( fakeSizeToApplyNonTranslatingPartsOfTransform, textTransformAbsoluteWithLocalPositionOffset).height);
-	label.anchorPoint = CGPointZero; // WARNING: SVG applies transforms around the top-left as origin, whereas Apple defaults to center as origin, so we tell Apple to work "like SVG" here.
+    
+    NSString *textAnchor = [self cascadedValueForStylableProperty:@"text-anchor"];
+    if( [@"middle" isEqualToString:textAnchor] )
+        label.anchorPoint = CGPointMake(0.5, 0.0);
+    else if( [@"end" isEqualToString:textAnchor] )
+        label.anchorPoint = CGPointMake(1.0, 0.0);
+    else
+        label.anchorPoint = CGPointZero; // WARNING: SVG applies transforms around the top-left as origin, whereas Apple defaults to center as origin, so we tell Apple to work "like SVG" here.
+    
 	label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
 	label.fontSize = effectiveFontSize;
     label.string = effectiveText;
-    label.alignmentMode = alignmentMode;
-    label.foregroundColor = CGColorWithSVGColor(col);
-	
+    label.alignmentMode = kCAAlignmentLeft;
+    
+    label.foregroundColor = [SVGHelperUtilities parseFillForElement:self];
+#if TARGET_OS_IPHONE
+    label.contentsScale = [[UIScreen mainScreen] scale];
+#endif
+
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
 	label.borderColor = [UIColor redColor].CGColor;

@@ -116,6 +116,16 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate) blockCompleted;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
 + (SVGKImage *)imageWithData:(NSData *)data;
+
+/**
+ PREFERABLY: this is our only method, apart from the convenience "imageNamed"
+ 
+ If you need to create an SVG e.g. diretly from raw bytes, then you MUST use
+ this method and ADDITIONALLY wrap your data into an SVGKSource.
+ 
+ This is because SVG's cannot parse correctly without the metadata about where
+ the file came from: e.g. they cannot process relative links, cross-references, etc.
+ */
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
 + (SVGKImage*) defaultImage; //For a simple default image
 
@@ -226,7 +236,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
  NB: this is frequently used if you have to add custom SVGKParserExtensions to parse an
  SVG which contains custom tags
  */
-- (id)initWithParsedSVG:(SVGKParseResult *)parseResult;
+- (id)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource;
 
 
 /*! Creates a new instance each time you call it. This should ONLY be used if you specifically need to duplicate

@@ -5,10 +5,10 @@
 
 @interface SVGKSourceLocalFile : SVGKSource <NSCopying>
 
-@property (readonly, nonatomic, copy) NSString* filePath;
+@property (nonatomic, retain) NSString* filePath;
+@property (nonatomic, readonly) BOOL wasRelative;
 
-- (id)initFromFilename:(NSString*)p DEPRECATED_ATTRIBUTE;
-- (id)initWithFilename:(NSString*)p;
+- (instancetype)initWithFilename:(NSString*)p;
 + (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p;
 
 @end

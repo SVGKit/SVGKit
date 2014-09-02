@@ -15,11 +15,13 @@
 
 #import <SVGKit/SVGKSourceLocalFile.h>
 #import <SVGKit/SVGKSourceURL.h>
-#import <SVGKit/SVGKSourceData.h>
+#import <SVGKit/SVGKSourceNSData.h>
 #if !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #import <SVGKit/SVGKImageRep.h>
 #import "SVGKImageRep-private.h"
 #endif
+
+#import <SVGKit/SVGClipPathElement.h>
 
 #import "SVGKImage-private.h"
 #import "BlankSVG.h"
@@ -76,7 +78,7 @@
 }
 
 + (SVGKImage *)defaultImage {
-    return [self imageWithSource:[SVGKSourceData sourceFromContentsOfString:SVGKGetDefaultImageStringContents()]];
+    return [self imageWithSource:[SVGKSourceNSData sourceFromContentsOfString:SVGKGetDefaultImageStringContents()]];
 }
 
 #pragma mark - Convenience initializers
@@ -209,7 +211,7 @@
 				   ^{
 					   SVGKParseResult* parsedSVG = [parser parseSynchronously];
 					   
-					   SVGKImage* finalImage = [[SVGKImage alloc] initWithParsedSVG:parsedSVG];
+					   SVGKImage* finalImage = [[SVGKImage alloc] initWithParsedSVG:parsedSVG fromSource:source];
 					   
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 					   if( finalImage != nil )
@@ -267,7 +269,8 @@
 /**
  Designated Initializer
  */
-- (id)initWithParsedSVG:(SVGKParseResult *)parseResult {
+- (id)initWithParsedSVG:(SVGKParseResult *)parseResult fromSource:(SVGKSource*) parseSource 
+{
 	self = [super init];
 	if (self)
 	{
@@ -280,6 +283,7 @@
 		{
 			self.DOMDocument = parseErrorsAndWarnings.parsedDocument;
 			self.DOMTree = DOMDocument.rootElement;
+			self.source = parseSource;
 		}
 		else
 		{
@@ -294,7 +298,7 @@
 		
 		if ( self.DOMDocument == nil )
 		{
-			DDLogError(@"[%@] ERROR: failed to init SVGKImage with parse result = %@, returning nil from init methods", [self class], parseResult );
+			DDLogError(@"[%@] ERROR: failed to init SVGKImage with source = %@, returning nil from init methods. Parser warnings and errors = %@", [self class], parseSource, parseErrorsAndWarnings );
 			return nil;
 		}
 		
@@ -306,11 +310,9 @@
 	NSAssert( newSource != nil, @"Attempted to init an SVGKImage using a nil SVGKSource");
 	
 	@autoreleasepool {
-		self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource]];
+		self = [self initWithParsedSVG:[SVGKParser parseSourceUsingDefaultSVGKParser:newSource] fromSource:newSource];
 	}
-	if (self) {
-		self.source = newSource;
-	}
+
 	return self;
 }
 
@@ -346,7 +348,7 @@
 {
 	NSParameterAssert(data != nil);
 	
-	return [self initWithSource:[[SVGKSourceData alloc] initWithData:data]];
+	return [self initWithSource:[[SVGKSourceNSData alloc] initWithData:data]];
 }
 
 #pragma mark - UIImage methods we reproduce to make it act like a UIImage
@@ -665,7 +667,44 @@
 	{
 		SVGUseElement* useElement = (SVGUseElement*) element;
 		childNodes = useElement.instanceRoot.correspondingElement.childNodes;
-	}
+    }
+    
+    /**
+     Special handling for clip-path; need to create their children
+     */
+    NSString* clipPath = [element cascadedValueForStylableProperty:@"clip-path"];
+    if ( [clipPath hasPrefix:@"url"] )
+    {
+        NSRange idKeyRange = NSMakeRange(5, clipPath.length - 6);
+        NSString* _pathId = [clipPath substringWithRange:idKeyRange];
+        
+        /** Replace the return layer with a special layer using the URL fill */
+        /** fetch the fill layer by URL using the DOM */
+        NSAssert( element.rootOfCurrentDocumentFragment != nil, @"This SVG shape has a URL clip-path type; it needs to search for that URL (%@) inside its nearest-ancestor <SVG> node, but the rootOfCurrentDocumentFragment reference was nil (suggests the parser failed, or the SVG file is corrupt)", _pathId );
+        
+        SVGClipPathElement* clipPathElement = (SVGClipPathElement*) [element.rootOfCurrentDocumentFragment getElementById:_pathId];
+        NSAssert( clipPathElement != nil, @"This SVG shape has a URL clip-path (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", _pathId );
+        
+        CALayer *clipLayer = [clipPathElement newLayer];
+        for (SVGElement *child in clipPathElement.childNodes )
+        {
+            if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
+                
+                CALayer *sublayer = [self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child];
+                
+                if (!sublayer) {
+                    continue;
+                }
+                
+                [clipLayer addSublayer:sublayer];
+            }
+        }
+        
+        [clipPathElement layoutLayer:clipLayer toMaskLayer:layer];
+        
+        DDLogCWarn(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(layer.frame), NSStringFromCGRect(clipLayer.frame));
+        layer.mask = clipLayer;
+    }
 	
 	if ( childNodes.length < 1 ) {
 		return layer;

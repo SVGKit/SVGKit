@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = 'SVGKit'
-  s.version     = '1.x'
+  s.version     = '2.x'
   s.license     = 'MIT'
   s.platform    = :ios, '6.0'
   s.summary     = "Display and interact with SVG Images on iOS, using native rendering (CoreAnimation)."
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.xcconfig = {
     'CLANG_CXX_LANGUAGE_STANDARD' => 'gnu++11',
-    'CLANG_CXX_LIBRARY' => 'libstdc++',
+    'CLANG_CXX_LIBRARY' => 'libc++',
     'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2'
   }
 end
