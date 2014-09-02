@@ -200,8 +200,8 @@
 /* Begin PBXFileReference section */
 		551165F41970F14100C8A63D /* Demo-iOS copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		551165F51970F14200C8A63D /* Demo-iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Demo-iOS copy-Info.plist"; path = "/Users/cwbetts/makestuff/SVGKit/Demo-iOS copy-Info.plist"; sourceTree = "<absolute>"; };
-		55DAA99D1785331900032E72 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		556C405019A5122800733CBB /* test-stroke-dash-array.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-stroke-dash-array.svg"; sourceTree = "<group>"; };
+		55DAA99D1785331900032E72 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		661A0DCA161727CF008D5FBE /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		661A0DD0161727CF008D5FBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -369,14 +369,6 @@
 				663FCFF016C9AF1C00CCBFB3 /* transformations.svg */,
 			);
 			path = "apache-licensed-from-svg-android";
-			sourceTree = "<group>";
-		};
-		6649E1031617574600AFE92A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		66A09C9F16CFE67B003CD5CD /* svg spec examples */ = {
@@ -661,7 +653,6 @@
 				66E862921688BA510059C9C4 /* Blank_Map-Africa.svg in Resources */,
 				66E862931688BA510059C9C4 /* breaking-1.svg in Resources */,
 				66E862941688BA510059C9C4 /* CurvedDiamond.svg in Resources */,
-				556C405119A5122800733CBB /* test-stroke-dash-array.svg in Resources */,
 				66E862951688BA510059C9C4 /* Europe_states_reduced.svg in Resources */,
 				66E862961688BA510059C9C4 /* imageWithASinglePointPath.svg in Resources */,
 				66E862971688BA510059C9C4 /* Lion.svg in Resources */,

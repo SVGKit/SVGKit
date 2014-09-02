@@ -262,7 +262,7 @@
 		55247B27173DB63C00531BBC /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B21173DB63B00531BBC /* SVGKSourceURL.m */; };
 		553F327517F2A8ED00221391 /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 553F327317F2A8ED00221391 /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		553F327717F2A8ED00221391 /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 553F327417F2A8ED00221391 /* SVGKSourceString.m */; };
-		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5540E75017387F2B004029EF /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E75117387F2B004029EF /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
 		5540E75217387F2B004029EF /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68917387F2A004029EF /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E75317387F2B004029EF /* Attr.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68A17387F2A004029EF /* Attr.m */; };
@@ -311,7 +311,7 @@
 		5540E77E17387F2B004029EF /* MediaList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6B517387F2B004029EF /* MediaList.m */; };
 		5540E77F17387F2B004029EF /* NamedNodeMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B617387F2B004029EF /* NamedNodeMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E78017387F2B004029EF /* NamedNodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6B717387F2B004029EF /* NamedNodeMap.m */; };
-		5540E78117387F2B004029EF /* Node+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B817387F2B004029EF /* Node+Mutable.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5540E78117387F2B004029EF /* Node+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B817387F2B004029EF /* Node+Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E78217387F2B004029EF /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6B917387F2B004029EF /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E78317387F2B004029EF /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6BA17387F2B004029EF /* Node.m */; };
 		5540E78417387F2B004029EF /* NodeList+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6BB17387F2B004029EF /* NodeList+Mutable.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -376,7 +376,7 @@
 		5540E7BF17387F2B004029EF /* SVGDescriptionElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6F817387F2B004029EF /* SVGDescriptionElement.m */; };
 		5540E7C017387F2B004029EF /* SVGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6F917387F2B004029EF /* SVGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E7C117387F2B004029EF /* SVGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6FA17387F2B004029EF /* SVGElement.m */; };
-		5540E7C217387F2B004029EF /* SVGElement_ForParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6FB17387F2B004029EF /* SVGElement_ForParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5540E7C217387F2B004029EF /* SVGElement_ForParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6FB17387F2B004029EF /* SVGElement_ForParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E7C317387F2B004029EF /* SVGEllipseElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6FC17387F2B004029EF /* SVGEllipseElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E7C417387F2B004029EF /* SVGEllipseElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E6FD17387F2B004029EF /* SVGEllipseElement.m */; };
 		5540E7C517387F2B004029EF /* SVGGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E6FE17387F2B004029EF /* SVGGradientElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -661,6 +661,12 @@
 		55C53D921940B9CD00649455 /* SVGKImage+CGContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 55C53D8A1940B9CC00649455 /* SVGKImage+CGContext.h */; };
 		55C53D931940B9CD00649455 /* SVGKImage+CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C53D8B1940B9CC00649455 /* SVGKImage+CGContext.m */; };
 		55C53D941940B9CD00649455 /* SVGKImage+CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C53D8B1940B9CC00649455 /* SVGKImage+CGContext.m */; };
+		55E4107619B6826B009A2E63 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5542C852193BC0190046BB14 /* CoreGraphics.framework */; };
+		55E4107819B68298009A2E63 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E4107719B68298009A2E63 /* CoreText.framework */; };
+		55E4107A19B682A6009A2E63 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E4107919B682A6009A2E63 /* UIKit.framework */; };
+		55E4107C19B682AD009A2E63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E4107B19B682AD009A2E63 /* Foundation.framework */; };
+		55E4107E19B682B3009A2E63 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E4107D19B682B2009A2E63 /* QuartzCore.framework */; };
+		55E4108019B682C7009A2E63 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E4107F19B682C7009A2E63 /* CoreImage.framework */; };
 		55F2684D19B66B9C00F6410E /* CALayerWithClipRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F2684919B66B9C00F6410E /* CALayerWithClipRender.h */; };
 		55F2684E19B66B9C00F6410E /* CALayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2684A19B66B9C00F6410E /* CALayerWithClipRender.m */; };
 		55F2684F19B66B9C00F6410E /* CALayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2684A19B66B9C00F6410E /* CALayerWithClipRender.m */; };
@@ -1051,6 +1057,11 @@
 		55C53D891940B9CC00649455 /* SVGKExporterUIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKExporterUIImage.m; sourceTree = "<group>"; };
 		55C53D8A1940B9CC00649455 /* SVGKImage+CGContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKImage+CGContext.h"; sourceTree = "<group>"; };
 		55C53D8B1940B9CC00649455 /* SVGKImage+CGContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGKImage+CGContext.m"; sourceTree = "<group>"; };
+		55E4107719B68298009A2E63 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		55E4107919B682A6009A2E63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		55E4107B19B682AD009A2E63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		55E4107D19B682B2009A2E63 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		55E4107F19B682C7009A2E63 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
 		55EB3EC51970D9DC00D03713 /* SVGKit.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = SVGKit.modulemap; path = "XCodeProjectData/SVGKit-OSX/SVGKit.modulemap"; sourceTree = SOURCE_ROOT; };
 		55F2684919B66B9C00F6410E /* CALayerWithClipRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALayerWithClipRender.h; sourceTree = "<group>"; };
 		55F2684A19B66B9C00F6410E /* CALayerWithClipRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALayerWithClipRender.m; sourceTree = "<group>"; };
@@ -1072,6 +1083,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E4108019B682C7009A2E63 /* CoreImage.framework in Frameworks */,
+				55E4107E19B682B3009A2E63 /* QuartzCore.framework in Frameworks */,
+				55E4107C19B682AD009A2E63 /* Foundation.framework in Frameworks */,
+				55E4107A19B682A6009A2E63 /* UIKit.framework in Frameworks */,
+				55E4107819B68298009A2E63 /* CoreText.framework in Frameworks */,
+				55E4107619B6826B009A2E63 /* CoreGraphics.framework in Frameworks */,
 				551165AD1970F12800C8A63D /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1154,6 +1171,11 @@
 		5540E66E17387C9F004029EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55E4107F19B682C7009A2E63 /* CoreImage.framework */,
+				55E4107D19B682B2009A2E63 /* QuartzCore.framework */,
+				55E4107B19B682AD009A2E63 /* Foundation.framework */,
+				55E4107919B682A6009A2E63 /* UIKit.framework */,
+				55E4107719B68298009A2E63 /* CoreText.framework */,
 				5563201919B675A80097D2EF /* libxml2.dylib */,
 				5542C852193BC0190046BB14 /* CoreGraphics.framework */,
 				5542C853193BC0190046BB14 /* CoreImage.framework */,
@@ -2432,11 +2454,15 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2452,7 +2478,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_MODULE_NAME = SVGKit;
 				PRODUCT_NAME = SVGKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -2467,12 +2492,16 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2484,7 +2513,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_MODULE_NAME = SVGKit;
 				PRODUCT_NAME = SVGKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -2513,6 +2541,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
