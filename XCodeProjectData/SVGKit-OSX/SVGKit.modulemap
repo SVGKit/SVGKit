@@ -1,6 +1,13 @@
 framework module SVGKit {
     conflict CoreServices.CarbonCore, "comment redefined"
+    
 	umbrella header "SVGKit.h"
-	
 	export *
+    module * { export * }
+
+    module CALayerExporter {
+        header "CALayerExporter.h"
+        export *
+    }
+    
 }

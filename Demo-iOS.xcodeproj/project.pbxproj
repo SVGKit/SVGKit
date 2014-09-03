@@ -388,8 +388,8 @@
 			isa = PBXGroup;
 			children = (
 				66E862561688BA0B0059C9C4 /* Demo-iOS */,
-				66E862761688BA510059C9C4 /* Demo-Samples */,
 				55E410AE19B686FD009A2E63 /* Swift-iOS */,
+				66E862761688BA510059C9C4 /* Demo-Samples */,
 				661A0DCD161727CF008D5FBE /* Frameworks */,
 				661A0DCB161727CF008D5FBE /* Products */,
 				551165F51970F14200C8A63D /* Demo-iOS copy-Info.plist */,
