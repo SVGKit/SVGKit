@@ -1,8 +1,8 @@
 #import <SVGKit/SVGKImageView.h>
 
 @implementation SVGKImageView
+@dynamic image;
 
-//@synthesize image = _image;
 @synthesize showBorder = _showBorder;
 
 
