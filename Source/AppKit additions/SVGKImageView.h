@@ -29,13 +29,13 @@ UIView
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 //@property(nonatomic,strong) SVGKImage* image;
 
-@property SVGKImage *image;
+@property (nonatomic) SVGKImage *image;
 
-- (instancetype)initWithSVGKImage:(SVGKImage*) im NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSVGKImage:(SVGKImage*) im;
 
 #if !TARGET_OS_IPHONE
 //Default initializer for (Cocoa) subclasses. Will set the frame of the view and init with an image
-- (id)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame NS_DESIGNATED_INITIALIZER;
+- (id)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame;
 #else
 @property(nonatomic,readonly) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
 #endif

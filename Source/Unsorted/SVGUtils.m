@@ -13,7 +13,7 @@
 SVGColor ColorValueWithName (const char *name);
 
 #if __has_feature(objc_arc)
-#warning This file must NOT be compiled with ARC. Use -fno-objc-arc flag.
+#error This file must NOT be compiled with ARC. Use -fno-objc-arc flag.
 #endif
 
 static const char *gColorNames[NUM_COLORS] = {

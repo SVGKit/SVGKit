@@ -24,8 +24,8 @@
 
 @interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
-
-- (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 @end
 
 @implementation SVGKImageRep
@@ -95,27 +95,27 @@
 	return YES;
 }
 
-+ (id)imageRepWithData:(NSData *)d
++ (instancetype)imageRepWithData:(NSData *)d
 {
 	return [[self alloc] initWithData:d];
 }
 
-+ (id)imageRepWithContentsOfFile:(NSString *)filename
++ (instancetype)imageRepWithContentsOfFile:(NSString *)filename
 {
 	return [[self alloc] initWithContentsOfFile:filename];
 }
 
-+ (id)imageRepWithContentsOfURL:(NSURL *)url
++ (instancetype)imageRepWithContentsOfURL:(NSURL *)url
 {
 	return [[self alloc] initWithContentsOfURL:url];
 }
 
-+ (id)imageRepWithSVGSource:(SVGKSource*)theSource
++ (instancetype)imageRepWithSVGSource:(SVGKSource*)theSource
 {
 	return [[self alloc] initWithSVGSource:theSource];
 }
 
-+ (id)imageRepWithSVGImage:(SVGKImage*)theImage
++ (instancetype)imageRepWithSVGImage:(SVGKImage*)theImage
 {
 	return [[self alloc] initWithSVGImage:theImage];
 }
@@ -125,22 +125,22 @@
 	[self loadSVGKImageRep];
 }
 
-- (id)initWithData:(NSData *)theData
+- (instancetype)initWithData:(NSData *)theData
 {
 	return [self initWithSVGImage:[[SVGKImage alloc] initWithData:theData] copy:NO];
 }
 
-- (id)initWithContentsOfURL:(NSURL *)theURL
+- (instancetype)initWithContentsOfURL:(NSURL *)theURL
 {
 	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfURL:theURL] copy:NO];
 }
 
-- (id)initWithContentsOfFile:(NSString *)thePath
+- (instancetype)initWithContentsOfFile:(NSString *)thePath
 {
 	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfFile:thePath] copy:NO];
 }
 
-- (id)initWithSVGString:(NSString *)theString
+- (instancetype)initWithSVGString:(NSString *)theString
 {
 	return [self initWithSVGSource:[SVGKSourceNSData sourceFromContentsOfString:theString]];
 }
@@ -155,12 +155,12 @@
 	}
 }
 
-- (id)initWithSVGSource:(SVGKSource*)theSource
+- (instancetype)initWithSVGSource:(SVGKSource*)theSource
 {
 	return [self initWithSVGImage:[[SVGKImage alloc] initWithSource:theSource] copy:NO];
 }
 
-- (id)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag
+- (instancetype)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag
 {
 	if (self = [super init]) {
 		if (theImage == nil) {
@@ -215,6 +215,16 @@
 	return self;
 }
 
+- (instancetype)init
+{
+    return self = [super init];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    return self = [super initWithCoder:coder];
+}
+
 - (void)setSize:(NSSize)aSize
 {
 	[self setSize:aSize sizeImage:YES];
@@ -230,7 +240,7 @@
 	[NSImageRep unregisterImageRepClass:[SVGKImageRep class]];
 }
 
-- (id)initWithSVGImage:(SVGKImage*)theImage
+- (instancetype)initWithSVGImage:(SVGKImage*)theImage
 {
 	//Copy over the image, just in case
 	return [self initWithSVGImage:theImage copy:YES];

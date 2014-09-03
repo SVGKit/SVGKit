@@ -26,6 +26,6 @@
  */
 
 @interface SVGKLayeredImageView : SVGKImageView
-- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 
 @end

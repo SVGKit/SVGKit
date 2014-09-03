@@ -37,7 +37,7 @@ private var lastTappedLayerOriginalBorderColor: CGColor? = UIColor.clearColor().
 private var textLayerForLastTappedLayer: CATextLayer? = nil
 
 
-class DetailViewController: UIViewController, UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate {
+class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate {
                             
 	@IBOutlet weak var detailDescriptionLabel: UILabel!
     

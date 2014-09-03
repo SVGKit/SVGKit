@@ -20,23 +20,14 @@
 #define AppleNativeImage UIImage
 #else
 #define AppleNativeImage NSImage
-
-@implementation NSImage (priv)
-
-+ (instancetype)imageWithData:(NSData*)aData
-{
-    return [[self alloc] initWithData:aData];
-}
-
-@end
-
 #endif
 
-#define AppleNativeImageRef AppleNativeImage*
+typedef AppleNativeImage *AppleNativeImageRef;
 
 //create a retained CGImage because I don't trust ARC not to release
 //the classes, thus the images, when we leave this function.
 //This is mainly for the benefit of the OS X port
+CGImageRef SVGImageCGImage(AppleNativeImageRef img) CF_RETURNS_RETAINED;
 CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 {
 #if TARGET_OS_IPHONE
@@ -111,7 +102,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 	/** Now we have some raw bytes, try to load using Apple's image loaders
 	 (will fail if the image is an SVG file)
 	 */
-	AppleNativeImageRef image = [AppleNativeImage imageWithData:imageData];
+	AppleNativeImageRef image = [[AppleNativeImage alloc] initWithData:imageData];
 	
     if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
     {
