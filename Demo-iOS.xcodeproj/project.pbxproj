@@ -123,6 +123,12 @@
 		55CCBF5D19BA751D00957A39 /* voies.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E8628D1688BA510059C9C4 /* voies.svg */; };
 		55CCBF5E19BA751D00957A39 /* Coins.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD15857B199909B800461AA5 /* Coins.svg */; };
 		55CCBF5F19BA751D00957A39 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */; };
+		55CCBF6019BA77DC00957A39 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = BD15857D199909C400461AA5 /* Coin.png */; };
+		55CCBF6119BA77DC00957A39 /* Snowman.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC40147199AA42C00DFEA27 /* Snowman.png */; };
+		55CCBF6219BA77DC00957A39 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = BD15857D199909C400461AA5 /* Coin.png */; };
+		55CCBF6319BA77DC00957A39 /* Monkey.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862781688BA510059C9C4 /* Monkey.png */; };
+		55CCBF6419BA77DC00957A39 /* Note.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E862791688BA510059C9C4 /* Note.png */; };
+		55CCBF6519BA77DC00957A39 /* Snowman.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC40147199AA42C00DFEA27 /* Snowman.png */; };
 		55DAA99E1785331900032E72 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DAA99D1785331900032E72 /* CoreImage.framework */; };
 		55E410B219B686FD009A2E63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E410B119B686FD009A2E63 /* AppDelegate.swift */; };
 		55E410B419B686FD009A2E63 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E410B319B686FD009A2E63 /* MasterViewController.swift */; };
@@ -749,6 +755,7 @@
 				551165D51970F14100C8A63D /* Note.svg in Resources */,
 				55CCBF3019BA751C00957A39 /* ImageAspectRatio.svg in Resources */,
 				55CCBF2B19BA751C00957A39 /* imagetag-layered.svg in Resources */,
+				55CCBF6119BA77DC00957A39 /* Snowman.png in Resources */,
 				551165D61970F14100C8A63D /* Reinel_compass_rose-simplified-for-testing.svg in Resources */,
 				551165D71970F14100C8A63D /* Reinel_compass_rose.svg in Resources */,
 				551165D81970F14100C8A63D /* quad01.svg in Resources */,
@@ -775,6 +782,7 @@
 				551165EC1970F14100C8A63D /* rounded-rects.svg in Resources */,
 				551165ED1970F14100C8A63D /* svg-with-explicit-width.svg in Resources */,
 				551165EE1970F14100C8A63D /* svg-with-explicit-width-large.svg in Resources */,
+				55CCBF6019BA77DC00957A39 /* Coin.png in Resources */,
 				551165EF1970F14100C8A63D /* radialGradientTest.svg in Resources */,
 				551165F01970F14100C8A63D /* sakamura-default-fill-opacity-test.svg in Resources */,
 				55CCBF2D19BA751C00957A39 /* imagetag-layer2-sun.svg in Resources */,
@@ -809,14 +817,18 @@
 				55CCBF4E19BA751D00957A39 /* Location_European_nation_states.svg in Resources */,
 				55CCBF3B19BA751D00957A39 /* StyleAttribute.svg in Resources */,
 				55CCBF3219BA751D00957A39 /* gradients.svg in Resources */,
+				55CCBF6519BA77DC00957A39 /* Snowman.png in Resources */,
 				55CCBF4D19BA751D00957A39 /* Lion.svg in Resources */,
+				55CCBF6419BA77DC00957A39 /* Note.png in Resources */,
 				55CCBF5A19BA751D00957A39 /* test-stroke-dash-array.svg in Resources */,
 				55CCBF4419BA751D00957A39 /* rotated-and-skewed-text.svg in Resources */,
 				55CCBF5719BA751D00957A39 /* svg-with-explicit-width.svg in Resources */,
 				55CCBF5C19BA751D00957A39 /* uk-only.svg in Resources */,
 				55CCBF5F19BA751D00957A39 /* ImageAspectRatio.svg in Resources */,
+				55CCBF6319BA77DC00957A39 /* Monkey.png in Resources */,
 				55E410B919B686FD009A2E63 /* Main.storyboard in Resources */,
 				55CCBF4219BA751D00957A39 /* g-element-applies-rotation.svg in Resources */,
+				55CCBF6219BA77DC00957A39 /* Coin.png in Resources */,
 				55CCBF4019BA751D00957A39 /* imagetag-layer2-sun.svg in Resources */,
 				55CCBF5919BA751D00957A39 /* test-wave-1.svg in Resources */,
 				55CCBF3A19BA751D00957A39 /* quad01.svg in Resources */,
