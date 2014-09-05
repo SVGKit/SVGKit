@@ -279,7 +279,7 @@
 		55D8EE7417629224009C25F1 /* Text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Text.svg; sourceTree = "<group>"; };
 		55D8EE7517629224009C25F1 /* uk-only.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "uk-only.svg"; sourceTree = "<group>"; };
 		55D8EE7617629224009C25F1 /* voies.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = voies.svg; sourceTree = "<group>"; };
-		55E4107419B680DF009A2E63 /* Demo-OSX copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E4107419B680DF009A2E63 /* Demo-OSX-Modules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX-Modules.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,7 +366,7 @@
 			children = (
 				55D8EE2417628A71009C25F1 /* Demo-OSX.app */,
 				55CB7855176BE32C00BD97F1 /* ImageRepTest.app */,
-				55E4107419B680DF009A2E63 /* Demo-OSX copy.app */,
+				55E4107419B680DF009A2E63 /* Demo-OSX-Modules.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -520,9 +520,9 @@
 			productReference = 55D8EE2417628A71009C25F1 /* Demo-OSX.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55E4104019B680DF009A2E63 /* Demo-OSX copy */ = {
+		55E4104019B680DF009A2E63 /* Demo-OSX-Modules */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55E4107119B680DF009A2E63 /* Build configuration list for PBXNativeTarget "Demo-OSX copy" */;
+			buildConfigurationList = 55E4107119B680DF009A2E63 /* Build configuration list for PBXNativeTarget "Demo-OSX-Modules" */;
 			buildPhases = (
 				55E4104319B680DF009A2E63 /* Sources */,
 				55E4104719B680DF009A2E63 /* Frameworks */,
@@ -534,9 +534,9 @@
 			dependencies = (
 				55E4104119B680DF009A2E63 /* PBXTargetDependency */,
 			);
-			name = "Demo-OSX copy";
+			name = "Demo-OSX-Modules";
 			productName = "Demo-OSX";
-			productReference = 55E4107419B680DF009A2E63 /* Demo-OSX copy.app */;
+			productReference = 55E4107419B680DF009A2E63 /* Demo-OSX-Modules.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -569,7 +569,7 @@
 			targets = (
 				55D8EE2317628A71009C25F1 /* Demo-OSX */,
 				55CB7854176BE32C00BD97F1 /* ImageRepTest */,
-				55E4104019B680DF009A2E63 /* Demo-OSX copy */,
+				55E4104019B680DF009A2E63 /* Demo-OSX-Modules */,
 				55CB78A4176BF56500BD97F1 /* All Mac Demos */,
 			);
 		};
@@ -947,7 +947,7 @@
 				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-OSX/Demo-OSX-Prefix.pch";
 				INFOPLIST_FILE = "XCodeProjectData/Demo-OSX/Demo-OSX-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				PRODUCT_NAME = "Demo-OSX copy";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -961,7 +961,7 @@
 				GCC_PREFIX_HEADER = "XCodeProjectData/Demo-OSX/Demo-OSX-Prefix.pch";
 				INFOPLIST_FILE = "XCodeProjectData/Demo-OSX/Demo-OSX-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				PRODUCT_NAME = "Demo-OSX copy";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1005,7 +1005,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55E4107119B680DF009A2E63 /* Build configuration list for PBXNativeTarget "Demo-OSX copy" */ = {
+		55E4107119B680DF009A2E63 /* Build configuration list for PBXNativeTarget "Demo-OSX-Modules" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55E4107219B680DF009A2E63 /* Debug */,
