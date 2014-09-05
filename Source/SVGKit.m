@@ -20,7 +20,7 @@
 int ddLogLevel = DEFAULT_LOG_LEVEL;
 #define ddLogLevelInternal ddLogLevel
 #else
-static int ddLogLevelInternal = DEFAULT_LOG_LEVEL;
+static DDLogLevel ddLogLevelInternal = DEFAULT_LOG_LEVEL;
 int SVGCurrentLogLevel()
 {
 	return ddLogLevelInternal;

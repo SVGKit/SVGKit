@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5505CF6419BA51C40028CF57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 		551164891970EBB700C8A63D /* CGPathAdditions.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 5540E73717387F2B004029EF /* CGPathAdditions.h */; };
 		5511648A1970EBC600C8A63D /* DOMHelperUtilities.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 5540E6AE17387F2B004029EF /* DOMHelperUtilities.h */; };
 		5511648C1970EC3700C8A63D /* SVGEllipseElement.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 5540E6FC17387F2B004029EF /* SVGEllipseElement.h */; };
@@ -42,7 +43,7 @@
 		551164D21970EF4F00C8A63D /* SVGKSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E73E17387F2B004029EF /* SVGKSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		551164D31970EF4F00C8A63D /* SVGKSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73F17387F2B004029EF /* SVGKSource.m */; };
 		551164D41970EF4F00C8A63D /* SVGKSource-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574ADA917889CA000EA4281 /* SVGKSource-private.h */; };
-		551164D51970EF4F00C8A63D /* BlankSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 55801823176E4D7800F64989 /* BlankSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		551164D51970EF4F00C8A63D /* BlankSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 55801823176E4D7800F64989 /* BlankSVG.h */; };
 		551164D61970EF4F00C8A63D /* BlankSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 55801824176E4D7800F64989 /* BlankSVG.m */; };
 		551164D71970EF7D00C8A63D /* SVGKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74C17387F2B004029EF /* SVGKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		551164D81970EF7D00C8A63D /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
@@ -2041,6 +2042,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5505CF6419BA51C40028CF57 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
