@@ -47,7 +47,7 @@
 		551164D71970EF7D00C8A63D /* SVGKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74C17387F2B004029EF /* SVGKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		551164D81970EF7D00C8A63D /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
 		551164D91970EF7D00C8A63D /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74E17387F2B004029EF /* SVGUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		551164DA1970EF7D00C8A63D /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		551164DA1970EF7D00C8A63D /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; };
 		551164DB1970EFC100C8A63D /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68717387F2A004029EF /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		551164DC1970EFC100C8A63D /* AppleSucksDOMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E68817387F2A004029EF /* AppleSucksDOMImplementation.m */; };
 		551164DD1970EFC100C8A63D /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E68917387F2A004029EF /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -438,7 +438,7 @@
 		5540E80D17387F2B004029EF /* SVGKPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74C17387F2B004029EF /* SVGKPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5540E80E17387F2B004029EF /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
 		5540E80F17387F2B004029EF /* SVGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5540E74E17387F2B004029EF /* SVGUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5540E81017387F2B004029EF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5540E81017387F2B004029EF /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; };
 		5540E814173881BF004029EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5540E816173881BF004029EF /* InfoPlist.strings */; };
 		5540E819173887D9004029EF /* SVGTextElement-OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E71717387F2B004029EF /* SVGTextElement-OSX.m */; };
 		5542C823193BBEB90046BB14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5542C822193BBEB90046BB14 /* Foundation.framework */; };
@@ -454,7 +454,7 @@
 		5542C85D193BC0410046BB14 /* SVGKSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E73F17387F2B004029EF /* SVGKSource.m */; };
 		5542C85E193BC0440046BB14 /* BlankSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 55801824176E4D7800F64989 /* BlankSVG.m */; };
 		5542C85F193BC0490046BB14 /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74D17387F2B004029EF /* SVGKPattern.m */; };
-		5542C860193BC0510046BB14 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5542C860193BC0510046BB14 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5540E74F17387F2B004029EF /* SVGUtils.m */; };
 		5542C862193BC0C30046BB14 /* SVGKSourceString.m in Sources */ = {isa = PBXBuildFile; fileRef = 553F327417F2A8ED00221391 /* SVGKSourceString.m */; };
 		5542C863193BC0C30046BB14 /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B1D173DB63B00531BBC /* SVGKSourceLocalFile.m */; };
 		5542C864193BC0C30046BB14 /* SVGKSourceURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 55247B21173DB63B00531BBC /* SVGKSourceURL.m */; };

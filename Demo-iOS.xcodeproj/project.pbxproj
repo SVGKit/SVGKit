@@ -1099,6 +1099,7 @@
 				55E410C919B686FE009A2E63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		661A0DC4161727CF008D5FBE /* Build configuration list for PBXProject "Demo-iOS" */ = {
 			isa = XCConfigurationList;

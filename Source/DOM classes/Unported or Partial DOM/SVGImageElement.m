@@ -179,7 +179,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
         frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
         newLayer.frame = frame;
         
-        newLayer.contents = (__bridge id)imageRef;
+        newLayer.contents = CFBridgingRelease(imageRef);
 	}
 		
 #if OLD_CODE
