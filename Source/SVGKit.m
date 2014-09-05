@@ -34,7 +34,7 @@ int SVGCurrentLogLevel()
 + (SVGKLoggingLevel) logLevel
 {
 	SVGKLoggingLevel retVal;
-	switch (ddLogLevel) {
+	switch (ddLogLevelInternal) {
 		case LOG_LEVEL_ERROR:
 			retVal = SVGKLoggingError;
 			break;

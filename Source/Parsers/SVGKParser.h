@@ -113,6 +113,6 @@
  are massively customizing SVGKit's parser! */
 - (void) addDefaultSVGParserExtensions;
 /*! NB: you ALMOST ALWAYS want to first call "addDefaultSVGParserExtensions" */
-- (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension;
+- (void) addParserExtension:(id<SVGKParserExtension>) extension;
 
 @end
