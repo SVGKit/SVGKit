@@ -15,7 +15,7 @@
 @synthesize internalBorderLayer = _internalBorderLayer;
 
 /** uses the custom SVGKLayer instead of a default CALayer */
-+(Class)layerClass
++ (Class)layerClass
 {
     return [SVGKLayer class];
 }

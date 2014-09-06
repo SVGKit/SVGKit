@@ -25,7 +25,7 @@
 		return nil;
 	}
 	else
-		return [super init];
+		return self = [super init];
 }
 
 - (void)setImage:(SVGKImage*)image

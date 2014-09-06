@@ -1528,8 +1528,8 @@
 		5542C848193BBFC50046BB14 /* UIKit additions */ = {
 			isa = PBXGroup;
 			children = (
-				5542C84A193BBFC50046BB14 /* SVGKFastImageView.m */,
 				5542C84C193BBFC50046BB14 /* SVGKImageView.m */,
+				5542C84A193BBFC50046BB14 /* SVGKFastImageView.m */,
 				5542C84E193BBFC50046BB14 /* SVGKLayeredImageView.m */,
 			);
 			name = "UIKit additions";
@@ -2706,6 +2706,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -2722,6 +2723,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;

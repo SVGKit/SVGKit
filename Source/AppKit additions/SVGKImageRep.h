@@ -36,4 +36,8 @@
 + (void)loadSVGKImageRep;
 + (void)unloadSVGKImageRep;
 
+// init methods inherited from NSImageRep
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+- (instancetype)init;
+
 @end

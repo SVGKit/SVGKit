@@ -17,15 +17,10 @@
 #import "SVGKImage-private.h"
 #import <Lumberjack/Lumberjack.h>
 #import "SVGKImage+CGContext.h"
-
-#ifndef CHECKFORRENDERINCONTEXT
-#define CHECKFORRENDERINCONTEXT 0
-#endif
+#import "BlankSVG.h"
 
 @interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
-- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
 @end
 
 @implementation SVGKImageRep
@@ -145,16 +140,6 @@
 	return [self initWithSVGSource:[SVGKSourceNSData sourceFromContentsOfString:theString]];
 }
 
-- (void)setSize:(NSSize)aSize sizeImage:(BOOL)theSize
-{
-	[super setSize:aSize];
-	[self setPixelsHigh:ceil(aSize.height)];
-	[self setPixelsWide:ceil(aSize.width)];
-	if (theSize) {
-		self.image.size = aSize;
-	}
-}
-
 - (instancetype)initWithSVGSource:(SVGKSource*)theSource
 {
 	return [self initWithSVGImage:[[SVGKImage alloc] initWithSource:theSource] copy:NO];
@@ -203,10 +188,10 @@
 			self.image.size = CGSizeMake(32, 32);
 		}
 		
-		[self setColorSpaceName:NSCalibratedRGBColorSpace];
-		[self setAlpha:YES];
-		[self setBitsPerSample:0];
-		[self setOpaque:NO];
+        self.colorSpaceName = NSCalibratedRGBColorSpace;
+        self.alpha = YES;
+        self.bitsPerSample = 0;
+        self.opaque = NO;
 		[self setSize:self.image.size sizeImage:NO];
 		self.interpolationQuality = kCGInterpolationDefault;
 		self.antiAlias = YES;
@@ -217,17 +202,22 @@
 
 - (instancetype)init
 {
-    return self = [super init];
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    return self = [super initWithCoder:coder];
+    return self = [self initWithSVGString:SVGKGetDefaultImageStringContents()];
 }
 
 - (void)setSize:(NSSize)aSize
 {
 	[self setSize:aSize sizeImage:YES];
+}
+
+- (void)setSize:(NSSize)aSize sizeImage:(BOOL)theSize
+{
+    [super setSize:aSize];
+    self.pixelsHigh = ceil(aSize.height);
+    self.pixelsWide = ceil(aSize.width);
+    if (theSize) {
+        self.image.size = aSize;
+    }
 }
 
 + (void)loadSVGKImageRep
@@ -301,6 +291,31 @@
 	CGLayerRelease(layerRef);
 	
 	return YES;
+}
+
+#pragma mark - Inherited protocols
+
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    SVGKImageRep *toRet = [[SVGKImageRep alloc] initWithSVGImage:self.image];
+    
+    return toRet;
+}
+
+#pragma mark NSCoding
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super initWithCoder:coder]) {
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [super encodeWithCoder:aCoder];
 }
 
 @end
