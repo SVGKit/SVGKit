@@ -31,6 +31,13 @@
 		55CB787A176BE36F00BD97F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7871176BE36F00BD97F1 /* InfoPlist.strings */; };
 		55CB787B176BE36F00BD97F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7873176BE36F00BD97F1 /* MainMenu.xib */; };
 		55CB787C176BE36F00BD97F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB7875176BE36F00BD97F1 /* main.m */; };
+		55CCBF6D19BA902300957A39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB786E176BE36F00BD97F1 /* AppDelegate.m */; };
+		55CCBF6E19BA902300957A39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CB7875176BE36F00BD97F1 /* main.m */; };
+		55CCBF7019BA902300957A39 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
+		55CCBF7119BA902300957A39 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554A1DAA193BCD4400AFD0D8 /* SVGKit.framework */; };
+		55CCBF7319BA902300957A39 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55CB786F176BE36F00BD97F1 /* Credits.rtf */; };
+		55CCBF7419BA902300957A39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7871176BE36F00BD97F1 /* InfoPlist.strings */; };
+		55CCBF7519BA902300957A39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CB7873176BE36F00BD97F1 /* MainMenu.xib */; };
 		55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
 		55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3017628A71009C25F1 /* InfoPlist.strings */; };
 		55D8EE3417628A71009C25F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3317628A71009C25F1 /* main.m */; };
@@ -165,6 +172,13 @@
 			remoteGlobalIDString = 55CB7854176BE32C00BD97F1;
 			remoteInfo = ImageRepTest;
 		};
+		55CCBF6B19BA902300957A39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5540E66B17387C9F004029EF;
+			remoteInfo = SVGKit;
+		};
 		55E4103E19B68051009A2E63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55D8EE4417628B56009C25F1 /* SVGKit.xcodeproj */;
@@ -183,6 +197,16 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		55CB788D176BE45500BD97F1 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55CCBF7619BA902300957A39 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -228,6 +252,7 @@
 		55CB7875176BE36F00BD97F1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55CB7876176BE36F00BD97F1 /* SVGKitImageRepTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGKitImageRepTest-Info.plist"; sourceTree = "<group>"; };
 		55CB7877176BE36F00BD97F1 /* SVGKitImageRepTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKitImageRepTest-Prefix.pch"; sourceTree = "<group>"; };
+		55CCBF7A19BA902300957A39 /* ImageRepTest-Modules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageRepTest-Modules.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D8EE2417628A71009C25F1 /* Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D8EE2717628A71009C25F1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		55D8EE2A17628A71009C25F1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -289,6 +314,15 @@
 			files = (
 				55CB7856176BE32C00BD97F1 /* Cocoa.framework in Frameworks */,
 				554A1DE1193C036E00AFD0D8 /* SVGKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55CCBF6F19BA902300957A39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55CCBF7019BA902300957A39 /* Cocoa.framework in Frameworks */,
+				55CCBF7119BA902300957A39 /* SVGKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +401,7 @@
 				55D8EE2417628A71009C25F1 /* Demo-OSX.app */,
 				55CB7855176BE32C00BD97F1 /* ImageRepTest.app */,
 				55E4107419B680DF009A2E63 /* Demo-OSX-Modules.app */,
+				55CCBF7A19BA902300957A39 /* ImageRepTest-Modules.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -501,6 +536,25 @@
 			productReference = 55CB7855176BE32C00BD97F1 /* ImageRepTest.app */;
 			productType = "com.apple.product-type.application";
 		};
+		55CCBF6919BA902300957A39 /* ImageRepTest-Modules */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55CCBF7719BA902300957A39 /* Build configuration list for PBXNativeTarget "ImageRepTest-Modules" */;
+			buildPhases = (
+				55CCBF6C19BA902300957A39 /* Sources */,
+				55CCBF6F19BA902300957A39 /* Frameworks */,
+				55CCBF7219BA902300957A39 /* Resources */,
+				55CCBF7619BA902300957A39 /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55CCBF6A19BA902300957A39 /* PBXTargetDependency */,
+			);
+			name = "ImageRepTest-Modules";
+			productName = ImageRepTest;
+			productReference = 55CCBF7A19BA902300957A39 /* ImageRepTest-Modules.app */;
+			productType = "com.apple.product-type.application";
+		};
 		55D8EE2317628A71009C25F1 /* Demo-OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55D8EE4117628A71009C25F1 /* Build configuration list for PBXNativeTarget "Demo-OSX" */;
@@ -568,8 +622,9 @@
 			projectRoot = "";
 			targets = (
 				55D8EE2317628A71009C25F1 /* Demo-OSX */,
-				55CB7854176BE32C00BD97F1 /* ImageRepTest */,
 				55E4104019B680DF009A2E63 /* Demo-OSX-Modules */,
+				55CB7854176BE32C00BD97F1 /* ImageRepTest */,
+				55CCBF6919BA902300957A39 /* ImageRepTest-Modules */,
 				55CB78A4176BF56500BD97F1 /* All Mac Demos */,
 			);
 		};
@@ -614,6 +669,16 @@
 				55CB7879176BE36F00BD97F1 /* Credits.rtf in Resources */,
 				55CB787A176BE36F00BD97F1 /* InfoPlist.strings in Resources */,
 				55CB787B176BE36F00BD97F1 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55CCBF7219BA902300957A39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55CCBF7319BA902300957A39 /* Credits.rtf in Resources */,
+				55CCBF7419BA902300957A39 /* InfoPlist.strings in Resources */,
+				55CCBF7519BA902300957A39 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,6 +782,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55CCBF6C19BA902300957A39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55CCBF6D19BA902300957A39 /* AppDelegate.m in Sources */,
+				55CCBF6E19BA902300957A39 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55D8EE2017628A71009C25F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -759,6 +833,11 @@
 			isa = PBXTargetDependency;
 			target = 55CB7854176BE32C00BD97F1 /* ImageRepTest */;
 			targetProxy = 55CB78AB176BF56D00BD97F1 /* PBXContainerItemProxy */;
+		};
+		55CCBF6A19BA902300957A39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVGKit;
+			targetProxy = 55CCBF6B19BA902300957A39 /* PBXContainerItemProxy */;
 		};
 		55E4104119B680DF009A2E63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -852,6 +931,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55CCBF7819BA902300957A39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		55CCBF7919BA902300957A39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "XCodeProjectData/ImageRep-Demo/SVGKitImageRepTest-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -983,6 +1086,15 @@
 			buildConfigurations = (
 				55CB78A5176BF56500BD97F1 /* Debug */,
 				55CB78A6176BF56500BD97F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55CCBF7719BA902300957A39 /* Build configuration list for PBXNativeTarget "ImageRepTest-Modules" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55CCBF7819BA902300957A39 /* Debug */,
+				55CCBF7919BA902300957A39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
