@@ -8,6 +8,8 @@
 
 #include <tgmath.h>
 
+#include <CoreGraphics/CoreGraphics.h>
+#include <CoreText/CoreText.h>
 #ifdef __OBJC__
 	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>

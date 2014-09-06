@@ -51,14 +51,13 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
     var tapGestureRecognizer: UITapGestureRecognizer!
     private var tickerLoadingApplesNSTimerSucks: NSTimer!
     
-    @IBOutlet var toolbar: UIToolbar!
     @IBOutlet var scrollViewForSVG: UIScrollView!
     @IBOutlet var contentView: SVGKImageView!
     @IBOutlet var viewActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var progressLoading: UIProgressView!
     @IBOutlet var subViewLoadingPopup: UIView!
     
-    @IBOutlet var labelParseTime: UILabel!
+    var labelParseTime: UILabel?
 
     func deselectTappedLayer() {
         if( lastTappedLayer != nil ) {
@@ -74,10 +73,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
     
     func handleTapGesture(recognizer: UITapGestureRecognizer) {
         var p = recognizer.locationInView(contentView)
-        
         var layerForHitTesting = self.contentView.layer;
-        
-        
         var hitLayer = layerForHitTesting.hitTest(p)
         
         if( hitLayer == lastTappedLayer ) {
@@ -102,20 +98,21 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
                     var fontToDraw = UIFont(name: "Helvetica", size: 14)
                     let sizeOfTextRect = textToDraw.sizeWithAttributes([NSFontAttributeName: fontToDraw])
                     //let sizeOfTextRect = textToDraw.sizeWithFont(fontToDraw)
-                    
-                    textLayerForLastTappedLayer = CATextLayer()
-                    textLayerForLastTappedLayer?.font = "Helvetica"
-                    textLayerForLastTappedLayer?.fontSize = 14
-                    textLayerForLastTappedLayer?.frame = CGRect(origin: CGPointZero, size: sizeOfTextRect)
-                    textLayerForLastTappedLayer?.string = textToDraw
-                    textLayerForLastTappedLayer?.alignmentMode = kCAAlignmentLeft
-                    textLayerForLastTappedLayer?.foregroundColor = UIColor.redColor().CGColor
-                    textLayerForLastTappedLayer?.contentsScale = UIScreen.mainScreen().scale
-                    textLayerForLastTappedLayer?.shouldRasterize = false
+                    let tmpLayer = CATextLayer()
+                    tmpLayer.font = "Helvetica"
+                    tmpLayer.fontSize = 14
+                    tmpLayer.frame = CGRect(origin: CGPointZero, size: sizeOfTextRect)
+                    tmpLayer.string = textToDraw
+                    tmpLayer.alignmentMode = kCAAlignmentLeft
+                    tmpLayer.foregroundColor = UIColor.redColor().CGColor
+                    tmpLayer.contentsScale = UIScreen.mainScreen().scale
+                    tmpLayer.shouldRasterize = false
+                    textLayerForLastTappedLayer = tmpLayer
                     contentView.layer.addSublayer(textLayerForLastTappedLayer!)
                     /*
                     * mtrubnikov's code for adding a text overlay showing exactly what you tapped*/
-                }            }
+                }
+		    }
         }
     }
     
@@ -209,7 +206,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
                 contentView.removeGestureRecognizer(tapGestureRecognizer)
         }
         
-        labelParseTime.removeFromSuperview() // we'll re-add to the new one
+        labelParseTime?.removeFromSuperview() // we'll re-add to the new one
         contentView.removeFromSuperview()
     }
     
@@ -287,9 +284,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
             NB: this is what Apple's InterfaceBuilder / Xcode 4 FORCES YOU TO DO because of massive bugs in Xcode 4!
             */
             didLoadNewResourceCreatingImageView(SVGKLayeredImageView(coder: nil))
-        }
-        else
-        {
+        } else {
             /**
             the actual loading of the SVG file
             */
@@ -298,13 +293,10 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
             
             /** Detect URL vs file */
             startParseTime = NSDate()
-            if name.hasPrefix("http://")
-            {
+            if name.hasPrefix("http://") {
                 document = SVGKImage(contentsOfURL: NSURL(string: name))
                 internalLoadedResource(name, withOptions: loadingOptions, createImageViewFromDocument: document)
-            }
-            else
-            {
+            } else {
                 if LOAD_SYNCHRONOUSLY {
                     document = SVGKImage(named: name.stringByAppendingPathExtension("svg"))
                     internalLoadedResource(name, withOptions: loadingOptions, createImageViewFromDocument: document)
@@ -380,17 +372,18 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
             /******* swap the new contentview in ************/
             self.contentView = newContentView;
             
-            if( self.labelParseTime == nil ){
-                self.labelParseTime = UILabel();
-                self.labelParseTime.autoresizingMask = .FlexibleWidth;
-                self.labelParseTime.backgroundColor = UIColor(white: 1, alpha: 0.5)
-                self.labelParseTime.textColor = UIColor.blackColor();
-                self.labelParseTime.text = "(parsing)";
+            if labelParseTime == nil {
+                let tmpLabel = UILabel()
+                tmpLabel.autoresizingMask = .FlexibleWidth;
+                tmpLabel.backgroundColor = UIColor(white: 1, alpha: 0.5)
+                tmpLabel.textColor = UIColor.blackColor();
+                tmpLabel.text = "(parsing)";
+                labelParseTime = tmpLabel
             }
             /** Workaround for Apple 10 years old bug in OS X that they ported to iOS :( */
-            self.labelParseTime.frame = CGRectMake( 0, 0, self.contentView.bounds.size.width, 20.0 );
+            labelParseTime!.frame = CGRectMake( 0, 0, self.contentView.bounds.size.width, 20.0 );
             
-            contentView.addSubview(labelParseTime)
+            contentView.addSubview(labelParseTime!)
             
             /** set the border for new item */
             self.contentView.showBorder = false;
@@ -410,7 +403,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
             self.scrollViewForSVG.maximumZoomScale = max( 1, screenToDocumentSizeRatio );
             
             title = self.name;
-            self.labelParseTime.text = NSString(format:"%@ (parsed: %.2f secs, rendered: %.2f secs)", name, endParseTime.timeIntervalSinceDate(startParseTime), self.contentView.timeIntervalForLastReRenderOfSVGFromMemory)
+            labelParseTime!.text = NSString(format:"%@ (parsed: %.2f secs, rendered: %.2f secs)", name, endParseTime.timeIntervalSinceDate(startParseTime), self.contentView.timeIntervalForLastReRenderOfSVGFromMemory)
             
             /** Fast image view renders asynchronously, so we have to wait for a callback that its finished a render... */
             contentView.addObserver(self, forKeyPath: "timeIntervalForLastReRenderOfSVGFromMemory", options: NSKeyValueObservingOptions(0), context: nil)
@@ -433,7 +426,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
     
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
         if keyPath == "timeIntervalForLastReRenderOfSVGFromMemory" {
-            labelParseTime.text = NSString(format:"%@ (parsed: %.2f secs, rendered: %.2f secs)", name as NSString, endParseTime.timeIntervalSinceDate(startParseTime), contentView.timeIntervalForLastReRenderOfSVGFromMemory );
+            labelParseTime!.text = NSString(format:"%@ (parsed: %.2f secs, rendered: %.2f secs)", name as NSString, endParseTime.timeIntervalSinceDate(startParseTime), contentView.timeIntervalForLastReRenderOfSVGFromMemory );
 
         }
     }
@@ -459,18 +452,18 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
     }
     
     @IBAction func showHideBorder(sender: AnyObject!) {
-    contentView.showBorder = !contentView.showBorder;
-    
-    /**
-    NB: normally, the following would NOT be needed - the SVGKImageView would automatically
-    detect it needs to be re-drawn.
-    
-    But ... because we're doing zooming in this class, and Apple's zooming causes huge performance problems,
-    we disabled the auto-redraw in the loadResource: method above.
-    
-    So, now, we have to manually tell the SVGKImageView to redraw
-    */
-    contentView.setNeedsDisplay()
+        contentView.showBorder = !contentView.showBorder;
+        
+        /**
+        NB: normally, the following would NOT be needed - the SVGKImageView would automatically
+        detect it needs to be re-drawn.
+        
+        But ... because we're doing zooming in this class, and Apple's zooming causes huge performance problems,
+        we disabled the auto-redraw in the loadResource: method above.
+        
+        So, now, we have to manually tell the SVGKImageView to redraw
+        */
+        contentView.setNeedsDisplay()
     }
 
     

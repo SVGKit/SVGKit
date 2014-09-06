@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "551165AE1970F14100C8A63D"
-               BuildableName = "Demo-iOS copy.app"
+               BuildableName = "Demo-iOS Framework.app"
                BlueprintName = "Demo-iOS Framework"
                ReferencedContainer = "container:Demo-iOS.xcodeproj">
             </BuildableReference>
