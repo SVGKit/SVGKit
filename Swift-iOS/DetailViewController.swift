@@ -11,7 +11,7 @@ import SVGKit
 import SVGKit.CALayerExporter
 import QuartzCore
 
-struct ImageLoadingOptions {
+private struct ImageLoadingOptions {
     var requiresLayeredImageView = false
     var overrideImageSize = CGSizeZero
     var overrideImageRenderScale: CGFloat = 0
@@ -172,7 +172,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
 
     
     func layerInfo(l: CALayer) -> String {
-        return "\(l.dynamicType):\(NSStringFromCGRect(l.frame))"
+        return "\(NSStringFromClass(l.dynamicType)):\(NSStringFromCGRect(l.frame))"
     }
     
 	func configureView() {
@@ -213,7 +213,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
     /**
     If you want to emulate Apple's @2x naming system for UIImage, you can...
     */
-    func preProcessImageFor2X(inout options: ImageLoadingOptions) {
+    private func preProcessImageFor2X(inout options: ImageLoadingOptions) {
         if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE {
             if options.diskFilenameToLoad.hasSuffix("@2x") {
                 options.diskFilenameToLoad = (options.diskFilenameToLoad as NSString).substringToIndex((options.diskFilenameToLoad as NSString).length - ("@2x" as NSString).length);
@@ -223,7 +223,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
         }
     }
 
-    func preProcessImageForAt160x240(inout options: ImageLoadingOptions) {
+    private func preProcessImageForAt160x240(inout options: ImageLoadingOptions) {
         if options.diskFilenameToLoad.hasSuffix("@160x240") // could be any 999x999 you want, up to you to implement!
         {
             options.diskFilenameToLoad = (options.diskFilenameToLoad as NSString).substringToIndex((options.diskFilenameToLoad as NSString).length - ("@160x240" as NSString).length)
@@ -231,7 +231,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
         }
     }
     
-    func preProcessImageCheckWorkaroundAppleBugInGradientImages(inout options: ImageLoadingOptions) {
+    private func preProcessImageCheckWorkaroundAppleBugInGradientImages(inout options: ImageLoadingOptions) {
         if(
         options.diskFilenameToLoad == "Monkey" // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
         || options.diskFilenameToLoad == "RainbowWing" // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
@@ -337,8 +337,8 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
                 
                 /** NB: the SVG Spec says that the "correct" way to upscale or downscale an SVG is by changing the
                 SVG Viewport. SVGKit automagically does this for you if you ever set a value to image.scale */
-                if( !CGSizeEqualToSize( CGSizeZero, loadingOptions.overrideImageSize ) ) {
-                document.size = loadingOptions.overrideImageSize; // preferred way to scale an SVG! (standards compliant!)
+                if CGSizeZero != loadingOptions.overrideImageSize {
+                    document.size = loadingOptions.overrideImageSize; // preferred way to scale an SVG! (standards compliant!)
                 }
                 
                 if loadingOptions.requiresLayeredImageView {
@@ -346,7 +346,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
                 } else {
                     newContentView = SVGKFastImageView(SVGKImage: document)
                     
-                    NSLog("[\(self.dynamicType)] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this");
+                    println("[\(NSStringFromClass(self.dynamicType))] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this");
                     
                     (newContentView as SVGKFastImageView).disableAutoRedrawAtHighestResolution = true
                 }

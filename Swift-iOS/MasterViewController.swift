@@ -75,7 +75,7 @@ class SwiftMasterViewController: UITableViewController, UIAlertViewDelegate {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if sampleNames[indexPath.row] == "Reinel_compass_rose" {
-            NSLog("*****************\n*   WARNING\n*\n* The sample 'Reinel_compass_rose' is currently unsupported;\n* it is included in this build so that people working on it can test it and see if it works yet\n*\n*\n*****************");
+            println("*****************\n*   WARNING\n*\n* The sample 'Reinel_compass_rose' is currently unsupported;\n* it is included in this build so that people working on it can test it and see if it works yet\n*\n*\n*****************");
             UIAlertView(title: "WARNING", message: "Reinel_compass_rose breaks SVGKit, it uses unsupported SVG commands; until we have added support for those commands, it's here as a test - but it WILL CRASH if you try to view it", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK, crash").show()
             
             self.nameOfBrokenSVGToLoad = sampleNames[indexPath.row];
