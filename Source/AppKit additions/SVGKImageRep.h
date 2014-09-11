@@ -26,7 +26,7 @@
 - (instancetype)initWithSVGString:(NSString *)theString;
 - (instancetype)initWithSVGImage:(SVGKImage*)theImage;
 - (instancetype)initWithSVGSource:(SVGKSource*)theSource;
-- (instancetype)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImage NS_DESIGNATED_INITIALIZER;
 
 - (NSData *)TIFFRepresentation;
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize;
