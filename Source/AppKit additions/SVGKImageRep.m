@@ -145,14 +145,14 @@
 	return [self initWithSVGImage:[[SVGKImage alloc] initWithSource:theSource] copy:NO];
 }
 
-- (instancetype)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImag
+- (instancetype)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImage
 {
 	if (self = [super init]) {
 		if (theImage == nil) {
 			return nil;
 		}
 		SVGKImage *tmpImage;
-		if (copyImag) {
+		if (copyImage) {
 			tmpImage = [theImage copy];
 			if (tmpImage) {
 				theImage = tmpImage;
