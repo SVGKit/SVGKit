@@ -126,8 +126,8 @@ static float cachedDevicePixelsPerInch;
 
 +(float) pixelsPerInchForCurrentDevice
 {
-	/** Using this as reference: http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
-	 */
+	/** Using this as reference: http://en.wikipedia.org/wiki/Retina_Display 
+      */
 	
 	size_t size;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -146,10 +146,13 @@ static float cachedDevicePixelsPerInch;
 	|| [platform hasPrefix:@"iPhone6"])
 		return 326.0f;
 	
+    if([platform hasPrefix:@"iPhone7"]) //iphone 6 and 6+
+        return 401.0f;
+    
 	if( [platform hasPrefix:@"iPhone"]) // catch-all for higher-end devices not yet existing
 	{
 		NSAssert(FALSE, @"Not supported yet: you are using an iPhone that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
-		return 326.0f;
+		return 401.0f;
 	}
 	
 	if( [platform hasPrefix:@"iPod1"]
