@@ -46,7 +46,7 @@
  Element getElementById(in DOMString elementId);
  */
 
-#import "DocumentCSS.h"
+#import "SVGKDocumentCSS.h"
 #import "SVGFitToViewBox.h"
 
 #import "SVGElement.h"
@@ -61,13 +61,13 @@
 #import "SVGTransform.h"
 
 #pragma mark - a few raw DOM imports are required for SVG DOM, but not many
-#import "Element.h"
-#import "NodeList.h"
+#import "SVGKElement.h"
+#import "SVGKNodeList.h"
 
 #import "ConverterSVGToCALayer.h"
 #import "SVGKSource.h"
 
-@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
+@interface SVGSVGElement : SVGElement < SVGKDocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
 
 
 
@@ -101,8 +101,8 @@
 -(BOOL) animationsPaused;
 -(float) getCurrentTime;
 -(void) setCurrentTime:(float) seconds;
--(NodeList*) getIntersectionList:(SVGRect) rect referenceElement:(SVGElement*) referenceElement;
--(NodeList*) getEnclosureList:(SVGRect) rect referenceElement:(SVGElement*) referenceElement;
+-(SVGKNodeList*) getIntersectionList:(SVGRect) rect referenceElement:(SVGElement*) referenceElement;
+-(SVGKNodeList*) getEnclosureList:(SVGRect) rect referenceElement:(SVGElement*) referenceElement;
 -(BOOL) checkIntersection:(SVGElement*) element rect:(SVGRect) rect;
 -(BOOL) checkEnclosure:(SVGElement*) element rect:(SVGRect) rect;
 -(void) deselectAll;
@@ -114,7 +114,7 @@
 -(SVGRect) createSVGRect;
 -(SVGTransform*) createSVGTransform;
 -(SVGTransform*) createSVGTransformFromMatrix:(SVGMatrix*) matrix;
--(Element*) getElementById:(NSString*) elementId;
+-(SVGKElement*) getElementById:(NSString*) elementId;
 
 #pragma mark - below here VIOLATES THE STANDARD, but needs to be CAREFULLY merged with spec
 

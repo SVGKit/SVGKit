@@ -40,7 +40,7 @@
     {
         NSDictionary *styleDict = [SVGKParser NSDictionaryFromCSSAttributes:[self getAttributeNode:@"style"]];
 		
-		Attr* testObject = [styleDict objectForKey:@"stop-color"];
+		SVGKAttr* testObject = [styleDict objectForKey:@"stop-color"];
         if( testObject != nil )
             _stopColor = SVGColorFromString([testObject.value UTF8String]);
         
