@@ -95,7 +95,7 @@ class SwiftDetailViewController: UIViewController, UIPopoverControllerDelegate, 
                     */
                     var textToDraw: String = NSString(format: "%@ (%@): {%.1f, %.1f} {%.1f, %.1f}", hitLayer.name, NSStringFromClass(hitLayer!.dynamicType), lastTappedLayer!.frame.origin.x, lastTappedLayer!.frame.origin.y, lastTappedLayer!.frame.size.width, lastTappedLayer!.frame.size.height);
                     
-                    var fontToDraw = UIFont(name: "Helvetica", size: 14)
+                    var fontToDraw = UIFont(name: "Helvetica", size: 14)!
                     let sizeOfTextRect = textToDraw.sizeWithAttributes([NSFontAttributeName: fontToDraw])
                     //let sizeOfTextRect = textToDraw.sizeWithFont(fontToDraw)
                     let tmpLayer = CATextLayer()
