@@ -1,0 +1,25 @@
+/*
+ SVG-DOM, via Core DOM:
+ 
+ http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1004215813
+ 
+ interface ProcessingInstruction : Node {
+ readonly attribute DOMString        target;
+ attribute DOMString        data;
+ // raises(DOMException) on setting
+ 
+ };
+*/
+
+#import <Foundation/Foundation.h>
+
+/** objc won't allow this: @class Node;*/
+#import "SVGKNode.h"
+
+@interface SVGKProcessingInstruction : SVGKNode
+@property(nonatomic,retain,readonly) NSString* target;
+@property(nonatomic,retain,readonly) NSString* data;
+
+-(id) initProcessingInstruction:(NSString*) target value:(NSString*) data;
+
+@end

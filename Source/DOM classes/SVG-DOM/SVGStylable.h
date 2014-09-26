@@ -10,14 +10,14 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "CSSStyleDeclaration.h"
-#import "CSSValue.h"
+#import "SVGKCSSStyleDeclaration.h"
+#import "SVGKCSSValue.h"
 
 @protocol SVGStylable <NSObject>
 
 @property(nonatomic,retain) /*FIXME: should be of type: SVGAnimatedString */ NSString* className;
-@property(nonatomic,retain)	CSSStyleDeclaration* style;
+@property(nonatomic,retain)	SVGKCSSStyleDeclaration* style;
 
--(CSSValue*) getPresentationAttribute:(NSString*) name;
+-(SVGKCSSValue*) getPresentationAttribute:(NSString*) name;
 
 @end

@@ -19,7 +19,7 @@
 @class SVGKParseResult;
 #import "SVGKParseResult.h"
 
-#import "Node.h"
+#import "SVGKNode.h"
 
 /*! Experimental: allow SVGKit parser-extensions to insert custom data into an SVGKParseResult */
 #define ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA 0
@@ -42,12 +42,12 @@
  Because SVG-DOM uses DOM, custom parsers can return any object they like - so long as its some kind of
  subclass of DOM's Node class
  */
-- (Node*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(Node*) parentNode;
+- (SVGKNode*)handleStartElement:(NSString *)name document:(SVGKSource*) document namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult*) parseResult parentNode:(SVGKNode*) parentNode;
 
 /**
  Primarily used by the few nodes - <TEXT> and <TSPAN> - that need to post-process their text-content.
  In SVG, almost all data is stored in the attributes instead
  */
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult;
+-(void)handleEndElement:(SVGKNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult;
 
 @end

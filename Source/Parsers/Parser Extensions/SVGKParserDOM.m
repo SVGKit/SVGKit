@@ -1,6 +1,6 @@
 #import "SVGKParserDOM.h"
 
-#import "Node+Mutable.h"
+#import "SVGKNode+Mutable.h"
 
 @implementation SVGKParserDOM
 
@@ -20,7 +20,7 @@
 	return [NSMutableArray array];
 }
 
-- (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributeObjects parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
+- (SVGKNode*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributeObjects parseResult:(SVGKParseResult *)parseResult parentNode:(SVGKNode*) parentNode
 {
 	if( [[self supportedNamespaces] count] == 0
 	|| [[self supportedNamespaces] containsObject:XMLNSURI] ) // unnecesary here, but allows safe updates to this parser's matching later
@@ -29,7 +29,7 @@
 		
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
 		// FIXME: we always return an empty Element here; for DOM spec, should we be detecting things like "comment" nodes? I dont know how libxml handles those and sends them to us. I've never seen one in action...
-		Element *blankElement = [[[Element alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributeObjects] autorelease];
+		SVGKElement *blankElement = [[[SVGKElement alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributeObjects] autorelease];
 		
 		return blankElement;
 	}
@@ -37,7 +37,7 @@
 	return nil;
 }
 
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+-(void)handleEndElement:(SVGKNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	
 }

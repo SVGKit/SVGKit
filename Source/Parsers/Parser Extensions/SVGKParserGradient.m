@@ -34,12 +34,12 @@ static NSSet *_svgGradientParserSupportedTags = nil;
     return _svgGradientParserSupportedTags;
 }
 
--(Node *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node *)parentNode
+-(SVGKNode *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(SVGKNode *)parentNode
 {
 //    SVGColor startColor = SVGColorFromString(<#const char *string#>)
 //    CGPoint startPos = CGPointMake([attributes objectFor, <#CGFloat y#>)
     
-    Node *returnObject = nil;
+    SVGKNode *returnObject = nil;
     
     NSRange range = [name rangeOfString:@"Gradient"];
     if( ( range.location != NSNotFound) )
@@ -83,7 +83,7 @@ static NSSet *_svgGradientParserSupportedTags = nil;
     return [returnObject autorelease];
 }
 
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+-(void)handleEndElement:(SVGKNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	
 }

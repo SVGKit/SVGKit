@@ -8,11 +8,11 @@
 #import "SVGElement.h"
 
 #import "SVGElement_ForParser.h" //.h" // to solve insane Xcode circular dependencies
-#import "StyleSheetList+Mutable.h"
+#import "SVGKStyleSheetList+Mutable.h"
 
-#import "CSSStyleSheet.h"
-#import "CSSStyleRule.h"
-#import "CSSRuleList+Mutable.h"
+#import "SVGKCSSStyleSheet.h"
+#import "SVGKCSSStyleRule.h"
+#import "SVGKCSSRuleList+Mutable.h"
 
 #import "SVGGElement.h"
 
@@ -48,7 +48,7 @@
 @synthesize style; /**< CSS style, from SVGStylable interface */
 
 /** from SVGStylable interface */
--(CSSValue*) getPresentationAttribute:(NSString*) name
+-(SVGKCSSValue*) getPresentationAttribute:(NSString*) name
 {
 	NSAssert(FALSE, @"getPresentationAttribute: not implemented yet");
 	return nil;
@@ -96,7 +96,7 @@
 
 /*! Override so that we can automatically set / unset the ownerSVGElement and viewportElement properties,
  as required by SVG Spec */
--(void)setParentNode:(Node *)newParent
+-(void)setParentNode:(SVGKNode *)newParent
 {
 	[super setParentNode:newParent];
 	
@@ -126,7 +126,7 @@
 		}
 		else
 		{
-			Node* currentAncestor = newParent;
+			SVGKNode* currentAncestor = newParent;
 			SVGElement*	firstAncestorThatIsAnyKindOfSVGElement = nil;
 			while( firstAncestorThatIsAnyKindOfSVGElement == nil
 				  && currentAncestor != nil ) // if we run out of tree! This would be an error (see below)
@@ -204,7 +204,7 @@
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{
-		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
+		self.style = [[[SVGKCSSStyleDeclaration alloc] init] autorelease];
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])
@@ -455,7 +455,7 @@
         return element.nodeName != nil && [element.nodeName isEqualToString:selector];
 }
 
-- (BOOL) styleRule:(CSSStyleRule *) styleRule appliesTo:(SVGElement *) element
+- (BOOL) styleRule:(SVGKCSSStyleRule *) styleRule appliesTo:(SVGElement *) element
 {
     NSRange nextRule = [self nextSelectorRangeFromText:styleRule.selectorText startFrom:NSMakeRange(0, 0)];
     if( nextRule.location == NSNotFound )
@@ -501,17 +501,17 @@
             
             @autoreleasepool /** DOM / CSS is insanely verbose, so this is likely to generate a lot of crud objects */
             {
-                for( StyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
+                for( SVGKStyleSheet* genericSheet in self.rootOfCurrentDocumentFragment.styleSheets.internalArray ) // because it's far too much effort to use CSS's low-quality iteration here...
                 {
-                    if( [genericSheet isKindOfClass:[CSSStyleSheet class]])
+                    if( [genericSheet isKindOfClass:[SVGKCSSStyleSheet class]])
                     {
-                        CSSStyleSheet* cssSheet = (CSSStyleSheet*) genericSheet;
+                        SVGKCSSStyleSheet* cssSheet = (SVGKCSSStyleSheet*) genericSheet;
                         
-                        for( CSSRule* genericRule in cssSheet.cssRules.internalArray)
+                        for( SVGKCSSRule* genericRule in cssSheet.cssRules.internalArray)
                         {
-                            if( [genericRule isKindOfClass:[CSSStyleRule class]])
+                            if( [genericRule isKindOfClass:[SVGKCSSStyleRule class]])
                             {
-                                CSSStyleRule* styleRule = (CSSStyleRule*) genericRule;
+                                SVGKCSSStyleRule* styleRule = (SVGKCSSStyleRule*) genericRule;
                                 
                                 if( [self styleRule:styleRule appliesTo:self] )
                                 {
@@ -529,7 +529,7 @@
 			 OR: if you find an <SVG> tag before you find a <G> tag, give up
 			 */
 			
-			Node* parentElement = self.parentNode;
+			SVGKNode* parentElement = self.parentNode;
 			while( parentElement != nil
 				  && ! [parentElement isKindOfClass:[SVGGElement class]]
 				  && ! [parentElement isKindOfClass:[SVGSVGElement class]])

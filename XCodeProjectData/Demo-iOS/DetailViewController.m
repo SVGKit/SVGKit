@@ -9,7 +9,7 @@
 
 #import "MasterViewController.h"
 
-#import "NodeList+Mutable.h"
+#import "SVGKNodeList+Mutable.h"
 
 #import "SVGKFastImageView.h"
 #import "SVGKLayeredImageView.h"
