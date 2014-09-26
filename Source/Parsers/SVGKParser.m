@@ -347,6 +347,7 @@ clazz *parser = [[clazz alloc] init]; \
     static uint8_t byteBuffer[4096];
     NSInteger bytesRead;
     NSString *result;
+    [src.stream open]; // if we do this, we CANNOT parse from this source again in future
     do
     {
         bytesRead = [src.stream read:byteBuffer maxLength:4096];
