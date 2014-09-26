@@ -10,20 +10,19 @@
 
 #import "SVGKParserSVG.h"
 
-@class SVGKParserGradient;
 #import "SVGKParserGradient.h"
-@class SVGKParserPatternsAndGradients;
 #import "SVGKParserPatternsAndGradients.h"
-@class SVGKParserStyles;
 #import "SVGKParserStyles.h"
-@class SVGKParserDefsAndUse;
 #import "SVGKParserDefsAndUse.h"
-@class SVGKParserDOM;
 #import "SVGKParserDOM.h"
 
 #import "SVGDocument_Mutable.h" // so we can modify the SVGDocuments we're parsing
 
 #import "Node.h"
+
+#ifndef USENSSTRINGFROMLIBXMLSTRINGFUNCTION
+#define USENSSTRINGFROMLIBXMLSTRINGFUNCTION 0
+#endif
 
 #import "SVGKSourceString.h"
 #import "SVGKSourceURL.h"
@@ -31,10 +30,10 @@
 #import "StyleSheetList+Mutable.h"
 
 @interface SVGKParser()
-@property(nonatomic,retain, readwrite) SVGKSource* source;
+@property(nonatomic,strong, readwrite) SVGKSource* source;
 @property(nonatomic,retain, readwrite) NSMutableArray* externalStylesheets;
-@property(nonatomic,retain, readwrite) SVGKParseResult* currentParseRun;
-@property(nonatomic,retain) NSString* defaultXMLNamespaceForThisParseRun;
+@property(nonatomic,strong, readwrite) SVGKParseResult* currentParseRun;
+@property(nonatomic,strong) NSString* defaultXMLNamespaceForThisParseRun;
 @property(nonatomic) BOOL hasCancelBeenRequested;
 @end
 
@@ -55,7 +54,11 @@ static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *pr
 static void	charactersFoundSAX(void * ctx, const xmlChar * ch, int len);
 static void errorEncounteredSAX(void * ctx, const char * msg, ...);
 
-static NSString *NSStringFromLibxmlString (const xmlChar *string);
+#if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
+static inline NSString *NSStringFromLibxmlString (const xmlChar *string);
+#else
+#define NSStringFromLibxmlString(string) (string ? @((const char*)string) : nil)
+#endif
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct);
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct);
 
@@ -70,7 +73,7 @@ SVGKParser* getCurrentlyParsingParser()
 	/** Currently implemented NON THREAD SAFE using a static varailbe that only
 	 allows one parse in memory at a time:
 	 */
-	return [[NSThread currentThread].threadDictionary objectForKey:kThreadLocalCurrentlyActiveParser];
+	return ([NSThread currentThread].threadDictionary)[kThreadLocalCurrentlyActiveParser];
 }
 
 +(void)cancelParser:(SVGKParser *)parserToCancel
@@ -90,7 +93,6 @@ SVGKParser* getCurrentlyParsingParser()
 {
 	SVGKParser* parser = [self newParserWithDefaultSVGKParserExtensions:source];
 	SVGKParseResult* result = [parser parseSynchronously];
-	[parser release];
 	
 	return result;
 }
@@ -98,57 +100,44 @@ SVGKParser* getCurrentlyParsingParser()
 
 #define READ_CHUNK_SZ 1024*10
 
-- (id)initWithSource:(SVGKSource *) s {
+- (instancetype)initWithSource:(SVGKSource *) s {
 	self = [super init];
 	if (self) {
-		self.parserExtensions = [NSMutableArray array];
+		self.parserExtensions = [[NSMutableArray alloc] init];
 		
 		self.source = s;
         self.externalStylesheets = nil;
 		
-		_storedChars = [NSMutableString new];
-		_stackOfParserExtensions = [NSMutableArray new];
+		_storedChars = [[NSMutableString alloc] init];
+		_stackOfParserExtensions = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
 
-- (void)dealloc {
-	self.currentParseRun = nil;
-	self.source = nil;
-    self.externalStylesheets = nil;
-	[_storedChars release];
-	[_stackOfParserExtensions release];
-   // [_parentOfCurrentNode release];
-	self.parserExtensions = nil;
-    self.parserKnownNamespaces = nil;
-    self.defaultXMLNamespaceForThisParseRun = nil;
-	[super dealloc];
+#define AddParser(clazz) { \
+clazz *parser = [[clazz alloc] init]; \
+[self addParserExtension:parser];\
 }
 
 -(void) addDefaultSVGParserExtensions
 {
-	SVGKParserSVG *subParserSVG = [[[SVGKParserSVG alloc] init] autorelease];
-	SVGKParserGradient* subParserGradients = [[[SVGKParserGradient alloc] init] autorelease];
-	SVGKParserPatternsAndGradients *subParserPatternsAndGradients = [[[SVGKParserPatternsAndGradients alloc] init] autorelease];
-	SVGKParserStyles* subParserStyles = [[[SVGKParserStyles alloc] init] autorelease];
-	SVGKParserDefsAndUse *subParserDefsAndUse = [[[SVGKParserDefsAndUse alloc] init] autorelease];
-	SVGKParserDOM *subParserXMLDOM = [[[SVGKParserDOM alloc] init] autorelease];
-	
-	[self addParserExtension:subParserSVG];
-	[self addParserExtension:subParserGradients];
-	[self addParserExtension:subParserPatternsAndGradients]; // FIXME: this is a "not implemente yet" parser; now that we have gradients, it should be deleted / renamed!
-	[self addParserExtension:subParserStyles];
-	[self addParserExtension:subParserDefsAndUse];
-	[self addParserExtension:subParserXMLDOM];
+    AddParser(SVGKParserSVG);
+    AddParser(SVGKParserGradient);
+    AddParser(SVGKParserPatternsAndGradients); // FIXME: this is a "not implemented yet" parser; now that we have gradients, it should be renamed!
+    AddParser(SVGKParserStyles);
+    AddParser(SVGKParserDefsAndUse);
+    AddParser(SVGKParserDOM);
 }
 
-- (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension
+#undef AddParser
+
+- (void) addParserExtension:(id<SVGKParserExtension>) extension
 {
 	// TODO: Should check for conflicts between this parser-extension and our existing parser-extensions, and issue warnings for any we find
 	
 	if( self.parserExtensions == nil )
 	{
-		self.parserExtensions = [NSMutableArray array];
+		self.parserExtensions = [[NSMutableArray alloc] init];
 	}
 	
 	if( [self.parserExtensions containsObject:extension])
@@ -161,15 +150,15 @@ SVGKParser* getCurrentlyParsingParser()
 	
 	if( self.parserKnownNamespaces == nil )
 	{
-		self.parserKnownNamespaces = [NSMutableDictionary dictionary];
+		self.parserKnownNamespaces = [[NSMutableDictionary alloc] init];
 	}
 	for( NSString* parserNamespace in extension.supportedNamespaces )
 	{
-		NSMutableArray* extensionsForNamespace = [self.parserKnownNamespaces objectForKey:parserNamespace];
+		NSMutableArray* extensionsForNamespace = (self.parserKnownNamespaces)[parserNamespace];
 		if( extensionsForNamespace == nil )
 		{
-			extensionsForNamespace = [NSMutableArray array];
-			[self.parserKnownNamespaces setObject:extensionsForNamespace forKey:parserNamespace];
+			extensionsForNamespace = [[NSMutableArray alloc] init];
+			(self.parserKnownNamespaces)[parserNamespace] = extensionsForNamespace;
 		}
 		
 		[extensionsForNamespace addObject:extension];
@@ -187,10 +176,15 @@ SVGKParser* getCurrentlyParsingParser()
 
 - (SVGKParseResult*) parseSynchronously
 {
-	self.currentParseRun = [[SVGKParseResult new] autorelease];
+	if( self.currentParseRun != nil )
+	{
+		DDLogError(@"FATAL: attempting to run the parser twice in one thread; limxml is single-threaded only, so we are too (until someone wraps libxml to be multi-threaded)");
+	}
+	
+	self.currentParseRun = [SVGKParseResult new];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
-	[[NSThread currentThread].threadDictionary setObject:self forKey:kThreadLocalCurrentlyActiveParser];
+	([NSThread currentThread].threadDictionary)[kThreadLocalCurrentlyActiveParser] = self;
 	
 	/*
 	// 1. while (source has chunks of BYTES)
@@ -200,20 +194,34 @@ SVGKParser* getCurrentlyParsingParser()
 	*/
 	
 	NSInputStream* stream = source.stream;
+	if( stream == nil )
+	{
+		[currentParseRun addSourceError:[NSError errorWithDomain:@"SVGKit" code:2354 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Source failed to create a valid NSInputStream; check your log files for why the SVGKSource failed (source = %@)",source]}]];
+																								
+	}
+	else
+	{
+		[stream open];
 	NSStreamStatus status = [stream streamStatus];
 	if (status != NSStreamStatusOpen)
 	{
 		if (status == NSStreamStatusError)
+		{
 			[currentParseRun addSourceError:[stream streamError]];
+		}
+		else
+		{
+			[currentParseRun addSourceError:[NSError errorWithDomain:@"SVGKit" code:2573 userInfo:@{NSLocalizedDescriptionKey: @"The stream wouldn't open; this can happen when Apple libraries incorrectly open slowly over the internet. Any other case is probably a threading bug inside SVGKit"}]];
+		}
 		[stream close];
 		return  currentParseRun;
 	}
 	char buff[READ_CHUNK_SZ];
 	
 	xmlParserCtxtPtr ctx;
-	ctx = xmlCreatePushParserCtxt(&SAXHandler, NULL, NULL, 0, NULL); // NEVER pass anything except NULL in second arg - libxml has a massive bug internally
+	ctx = xmlCreatePushParserCtxt(&SAXHandler, (__bridge void *)(self), NULL, 0, NULL);
 	
-	/* 
+	/*
 	 DDLogVerbose(@"[%@] WARNING: Substituting entities directly into document, c.f. http://www.xmlsoft.org/entities.html for why!", [self class]);
 	 xmlSubstituteEntitiesDefault(1);
 	xmlCtxtUseOptions( ctx,
@@ -264,7 +272,7 @@ SVGKParser* getCurrentlyParsingParser()
 					DDLogWarn(@"[%@] SVG parser generated one or more FATAL errors (not the XML parser), errors follow:", [self class] );
 					for( NSError* error in currentParseRun.errorsFatal )
 					{
-						DDLogWarn(@"[%@] ... FATAL ERRRO in SVG parse: %@", [self class], error );
+						DDLogWarn(@"[%@] ... FATAL ERRROR in SVG parse: %@", [self class], error );
 					}
 				}
 				
@@ -281,6 +289,7 @@ SVGKParser* getCurrentlyParsingParser()
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
 	
 	xmlFreeParserCtxt(ctx);
+	}
 	
 	[[NSThread currentThread].threadDictionary removeObjectForKey:kThreadLocalCurrentlyActiveParser];
 	
@@ -302,7 +311,7 @@ SVGKParser* getCurrentlyParsingParser()
 
 - (SVGKSource *)loadCSSFrom:(NSString *)href
 {
-    SVGKSource *cssSource = nil;
+    SVGKSource *cssSource;
     if( [href hasPrefix:@"http"] )
     {
         NSURL *url = [NSURL URLWithString:href];
@@ -316,7 +325,7 @@ SVGKParser* getCurrentlyParsingParser()
     if( cssSource == nil )
     {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = paths[0];
         NSString *path = [documentsDirectory stringByAppendingPathComponent:href];
         NSString *cssText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         
@@ -337,11 +346,12 @@ SVGKParser* getCurrentlyParsingParser()
 {
     static uint8_t byteBuffer[4096];
     NSInteger bytesRead;
-    NSString *result = nil;
+    NSString *result;
+    [src.stream open]; // if we do this, we CANNOT parse from this source again in future
     do
     {
         bytesRead = [src.stream read:byteBuffer maxLength:4096];
-        NSString *read = [[[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
+        NSString *read = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
         if( result )
             result = [result stringByAppendingString:read];
         else
@@ -367,12 +377,12 @@ SVGKParser* getCurrentlyParsingParser()
                 if( cssSource != nil )
                 {
                     NSString *cssText = [self stringFromSource:cssSource];
-                    CSSStyleSheet* parsedStylesheet = [[[CSSStyleSheet alloc] initWithString:cssText] autorelease];
+                    CSSStyleSheet* parsedStylesheet = [[CSSStyleSheet alloc] initWithString:cssText];
                     
                     if( currentParseRun.parsedDocument.rootElement == nil )
                     {
                         if( self.externalStylesheets == nil )
-                            self.externalStylesheets = [[[NSMutableArray alloc] init] autorelease];
+                            self.externalStylesheets = [[NSMutableArray alloc] init];
                         [self.externalStylesheets addObject:parsedStylesheet];
                     }
                     else
@@ -398,7 +408,7 @@ static void processingInstructionSAX (void * ctx,
                                          const xmlChar * target,
                                          const xmlChar * data)
 {
-	SVGKParser* self = getCurrentlyParsingParser();
+	SVGKParser *self = (__bridge SVGKParser *)(ctx);
 	
     NSString *stringTarget = NSStringFromLibxmlString(target);
 	NSString *stringData = NSStringFromLibxmlString(data);
@@ -408,17 +418,17 @@ static void processingInstructionSAX (void * ctx,
 
 - (void)handleStartElement:(NSString *)name namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributeObjects:(NSMutableDictionary *) attributeObjects
 {
-	BOOL parsingRootTag = FALSE;
+	BOOL parsingRootTag = NO;
 	
 	if( _parentOfCurrentNode == nil )
-		parsingRootTag = TRUE;
+		parsingRootTag = YES;
 	
 	if( ! parsingRootTag && _storedChars.length > 0 )
 	{
 		/** Send any partially-parsed text data into the old node that is now the parent node,
 		 then change the "storing chars" flag to fit the new node */
 		
-		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		Text *tNode = [[Text alloc] initWithValue:_storedChars];
 		
 		[_parentOfCurrentNode appendChild:tNode];
 		
@@ -431,8 +441,8 @@ static void processingInstructionSAX (void * ctx,
 	 (most tags are handled by the default SVGParserSVG - but if you have other XML embedded in your SVG, you'll
 	 have custom parser extentions too)
 	 */
-	NSObject<SVGKParserExtension>* defaultParserForThisNamespace = nil;
-	NSObject<SVGKParserExtension>* defaultParserForEverything = nil;
+	NSObject<SVGKParserExtension>* defaultParserForThisNamespace;
+	NSObject<SVGKParserExtension>* defaultParserForEverything;
 	for( NSObject<SVGKParserExtension>* subParser in self.parserExtensions )
 	{
 		// TODO: rather than checking for the default parser on every node, we should stick them in a Dictionar at the start and re-use them when needed
@@ -457,7 +467,7 @@ static void processingInstructionSAX (void * ctx,
 		
 		if( shouldBreakBecauseParserIsADefault )
 			continue;
-			
+		
 		/**
 		 Now we know it's a specific parser, check if it handles this particular node
 		 */
@@ -519,7 +529,6 @@ static void processingInstructionSAX (void * ctx,
 	[_parentOfCurrentNode appendChild:subParserResult]; // this is a DOM method: should NOT have side-effects
 	_parentOfCurrentNode = subParserResult;
 	
-		
 	if( parsingRootTag )
 	{
 		currentParseRun.parsedDocument.rootElement = (SVGSVGElement*) subParserResult;
@@ -534,7 +543,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 							 const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
 							 int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
 	
-	SVGKParser *self = getCurrentlyParsingParser();
+	SVGKParser *NSctx = (__bridge SVGKParser*)(ctx);
 	
 	NSString *stringLocalName = NSStringFromLibxmlString(localname);
 	NSString *stringPrefix = NSStringFromLibxmlString(prefix);
@@ -543,17 +552,17 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	NSString *stringURI = NSStringFromLibxmlString(URI);
 	
 	/** Set a default Namespace for rest of this document if one is included in the attributes */
-	if( self.defaultXMLNamespaceForThisParseRun == nil )
+	if( NSctx.defaultXMLNamespaceForThisParseRun == nil )
 	{
 		NSString* newDefaultNamespace = [namespacesByPrefix valueForKey:@""];
 		if( newDefaultNamespace != nil )
 		{
-			self.defaultXMLNamespaceForThisParseRun = newDefaultNamespace;
+			NSctx.defaultXMLNamespaceForThisParseRun = newDefaultNamespace;
 		}
 	}
 	
 	if( stringURI == nil
-	&& self.defaultXMLNamespaceForThisParseRun != nil )
+	   && NSctx.defaultXMLNamespaceForThisParseRun != nil )
 	{
 		/** Apply the default XML NS to this tag as if it had been typed in.
 		 
@@ -564,13 +573,13 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 		 ...then any time we find a tag that HAS NO EXPLICIT NAMESPACE, we act as if it had that one.
 		 */
 		
-		stringURI = self.defaultXMLNamespaceForThisParseRun;
+		stringURI = NSctx.defaultXMLNamespaceForThisParseRun;
 	}
 	
 	for( Attr* newAttribute in attributeObjects.allValues )
 	{
 		if( newAttribute.namespaceURI == nil )
-			newAttribute.namespaceURI = self.defaultXMLNamespaceForThisParseRun;
+			newAttribute.namespaceURI = NSctx.defaultXMLNamespaceForThisParseRun;
 	}
 	
 	/**
@@ -594,14 +603,14 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 */
 	for( NSString* prefix in namespacesByPrefix )
 	{
-		NSString* namespace = [namespacesByPrefix objectForKey:prefix];
+		NSString* namespace = namespacesByPrefix[prefix];
 		
 		/** NB this happens *AFTER* setting default namespaces for all attributes - the xmlns: attributes are required by the XML
 		 spec to all live in a special magical namespace AND to all use the same prefix of "xmlns" - no other is allowed!
 		 */
-		Attr* newAttributeFromNamespaceDeclaration = [[[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace] autorelease];
+		Attr* newAttributeFromNamespaceDeclaration = [[Attr alloc] initWithNamespace:@"http://www.w3.org/2000/xmlns/" qualifiedName:[NSString stringWithFormat:@"xmlns:%@", prefix] value:namespace];
 		
-		[attributeObjects setObject:newAttributeFromNamespaceDeclaration forKey:newAttributeFromNamespaceDeclaration.nodeName];
+		attributeObjects[newAttributeFromNamespaceDeclaration.nodeName] = newAttributeFromNamespaceDeclaration;
 	}
 	
 	/**
@@ -610,17 +619,17 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	 */
 	for( NSString* prefix in namespacesByPrefix )
 	{
-		NSString* uri = [namespacesByPrefix objectForKey:prefix];
+		NSString* uri = namespacesByPrefix[prefix];
 		
 		if( [prefix isEqualToString:@""] ) // special string we put in earlier to indicate zero-length / "default" prefix
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:[NSNull null]];
+			(NSctx.currentParseRun.namespacesEncountered)[[NSNull null]] = uri;
 		else
-			[self.currentParseRun.namespacesEncountered setObject:uri forKey:prefix];
+			(NSctx.currentParseRun.namespacesEncountered)[prefix] = uri;
 	}
 	
 #if DEBUG_XML_PARSER
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
-	DDLogCWarn(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [self class], [NSString stringWithFormat:@"%@:",stringPrefix], name, stringURI, nb_attributes );
+	DDLogCWarn(@"[%@] DEBUG_VERBOSE: <%@%@> (namespace URL:%@), attributes: %i", [NSctx class], [NSString stringWithFormat:@"%@:",stringPrefix], name, stringURI, nb_attributes );
 #endif
 #endif
 	
@@ -652,22 +661,21 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	
 	if( stringURI == nil && stringPrefix == nil )
 	{
-		DDLogCWarn(@"[%@] WARNING: Your input SVG contains tags that have no namespace, and your document doesn't define a default namespace. This is always incorrect - it means some of your SVG data will be ignored, and usually means you have a typo in there somewhere. Tag with no namespace: <%@>", [self class], stringLocalName );
+		DDLogCWarn(@"[%@] WARNING: Your input SVG contains tags that have no namespace, and your document doesn't define a default namespace. This is always incorrect - it means some of your SVG data will be ignored, and usually means you have a typo in there somewhere. Tag with no namespace: <%@>", [NSctx class], stringLocalName );
 	}
-		  
-	[self handleStartElement:stringLocalName namePrefix:stringPrefix namespaceURI:stringURI attributeObjects:attributeObjects];
+
+	[NSctx handleStartElement:stringLocalName namePrefix:stringPrefix namespaceURI:stringURI attributeObjects:attributeObjects];
 }
 
 - (void)handleEndElement:(NSString *)name {
 	//DELETE DEBUG DDLogVerbose(@"ending element, name = %@", name);
-	
 	
 	NSObject* lastobject = [_stackOfParserExtensions lastObject];
 	
 	[_stackOfParserExtensions removeLastObject];
 	
 	NSObject<SVGKParserExtension>* parser = (NSObject<SVGKParserExtension>*)lastobject;
-//	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
+	//	NSObject<SVGKParserExtension>* parentParser = [_stackOfParserExtensions lastObject];
 	
 #if DEBUG_XML_PARSER
 #if DEBUG_VERBOSE_LOG_EVERY_TAG
@@ -683,7 +691,7 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 	{
 		/** Send any parsed text data into the node-we're-closing */
 		
-		Text *tNode = [[[Text alloc] initWithValue:_storedChars] autorelease];
+		Text *tNode = [[Text alloc] initWithValue:_storedChars];
 		
 		[_parentOfCurrentNode appendChild:tNode];
 		
@@ -698,39 +706,42 @@ static void startElementSAX (void *ctx, const xmlChar *localname, const xmlChar 
 }
 
 static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {
-	SVGKParser* self = getCurrentlyParsingParser();
+	SVGKParser *NSctx = (__bridge SVGKParser*)(ctx);
 	
-	[self handleEndElement:NSStringFromLibxmlString(localname)];
+	[NSctx handleEndElement:NSStringFromLibxmlString(localname)];
 }
 
 - (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
-		char value[len + 1];
-		strncpy(value, (const char *) chars, len);
-		value[len] = '\0';
-		
-		[_storedChars appendString:[NSString stringWithUTF8String:value]];
+	NSString *stringToAppend = [[NSString alloc] initWithBytes:chars length:len encoding:NSUTF8StringEncoding];
+	
+	[_storedChars appendString:stringToAppend];
 }
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
 {
-    SVGKParser* self = getCurrentlyParsingParser();
+    SVGKParser *NSctx = (__bridge SVGKParser*)(ctx);
 	
-	[self handleFoundCharacters:value length:len];
+	[NSctx handleFoundCharacters:value length:len];
 }
 
 static void	charactersFoundSAX (void *ctx, const xmlChar *chars, int len) {
-	SVGKParser* self = getCurrentlyParsingParser();
+	SVGKParser *NSctx = (__bridge SVGKParser*)(ctx);
 	
-	[self handleFoundCharacters:chars length:len];
+	[NSctx handleFoundCharacters:chars length:len];
 }
 
 static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
-	DDLogCWarn(@"Error encountered during parse: %s", msg);
-	SVGKParser* self = getCurrentlyParsingParser();
+    va_list va;
+    NSString *errStr = nil;
+	SVGKParser *self = (__bridge SVGKParser *)(ctx);
+    va_start(va, msg);
+    errStr = [[NSString alloc] initWithFormat:@(msg) arguments:va];
+    va_end(va);
+
+	DDLogCWarn(@"Error encountered during parse: %@", errStr);
 	SVGKParseResult* parseResult = self.currentParseRun;
-	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  (NSString*) msg, NSLocalizedDescriptionKey,
-																				nil]]];
+    
+	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{NSLocalizedDescriptionKey: errStr}]];
 }
 
 static void	unparsedEntityDeclaration(void * ctx,
@@ -752,43 +763,38 @@ static void structuredError		(void * userData,
 	 */
 	xmlErrorLevel errorLevel = error->level;
 	
-	NSMutableDictionary* details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									[NSString stringWithCString:error->message encoding:NSUTF8StringEncoding], NSLocalizedDescriptionKey,
-									[NSNumber numberWithInt:error->line], @"lineNumber",
-									[NSNumber numberWithInt:error->int2], @"columnNumber",
-									nil];
+	NSMutableDictionary* details = [[NSMutableDictionary alloc] initWithDictionary:@{
+									NSLocalizedDescriptionKey:	@(error->message),
+									@"lineNumber":				@(error->line),
+									@"columnNumber":			@(error->int2)}];
 	
 	if( error->str1 )
-		[details setValue:[NSString stringWithCString:error->str1 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo1"];
+		details[@"bonusInfo1"] = @(error->str1);
 	if( error->str2 )
-		[details setValue:[NSString stringWithCString:error->str2 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo2"];
+		details[@"bonusInfo2"] = @(error->str2);
 	if( error->str3 )
-		[details setValue:[NSString stringWithCString:error->str3 encoding:NSUTF8StringEncoding] forKey:@"bonusInfo3"];
+		details[@"bonusInfo3"] = @(error->str3);
 	
-	NSError* objcError = [NSError errorWithDomain:[[NSNumber numberWithInt:error->domain] stringValue] code:error->code userInfo:details];
+	NSError* objcError = [NSError errorWithDomain:[@(error->domain) stringValue] code:error->code userInfo:details];
 	
-	SVGKParser* self = getCurrentlyParsingParser();
-	SVGKParseResult* parseResult = self.currentParseRun;
+	details = nil;
+	SVGKParser *NSctx = (__bridge SVGKParser*)(userData);
+	SVGKParseResult* parseResult = NSctx.currentParseRun;
 	switch( errorLevel )
 	{
 		case XML_ERR_WARNING:
-		{
 			[parseResult addParseWarning:objcError];
-		}break;
+			break;
 			
 		case XML_ERR_ERROR:
-		{
 			[parseResult addParseErrorRecoverable:objcError];
-		}break;
+			break;
 			
 		case XML_ERR_FATAL:
-		{
 			[parseResult addParseErrorFatal:objcError];
-		}
         default:
             break;
 	}
-	
 }
 
 static xmlSAXHandler SAXHandler = {
@@ -829,16 +835,18 @@ static xmlSAXHandler SAXHandler = {
 #pragma mark -
 #pragma mark Utility
 
-static NSString *NSStringFromLibxmlString (const xmlChar *string) {
+#if USENSSTRINGFROMLIBXMLSTRINGFUNCTION
+static inline NSString *NSStringFromLibxmlString (const xmlChar *string) {
 	if( string == NULL ) // Yes, Apple requires we do this check!
 		return nil;
 	else
-		return [NSString stringWithUTF8String:(const char *) string];
+		return @((const char *) string);
 }
+#endif
 
 static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **namespaces, int namespaces_ct)
 {
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:namespaces_ct];
 	
 	for (int i = 0; i < namespaces_ct * 2; i += 2)
 	{
@@ -848,40 +856,34 @@ static NSMutableDictionary *NSDictionaryFromLibxmlNamespaces (const xmlChar **na
 		if( prefix == nil )
 			prefix = @""; // Special case: Apple dictionaries can't handle null keys
 		
-		[dict setObject:uri
-				 forKey:prefix];
+		dict[prefix] = uri;
 	}
 	
-	return [dict autorelease];
+	return dict;
 }
 
 
 static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **attrs, int attr_ct) {
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:attr_ct];
 	
 	for (int i = 0; i < attr_ct * 5; i += 5) {
 		const char *begin = (const char *) attrs[i + 3];
 		const char *end = (const char *) attrs[i + 4];
 		size_t vlen = strlen(begin) - strlen(end);
-		
-		char val[vlen + 1];
-		strncpy(val, begin, vlen);
-		val[vlen] = '\0';
-		
+				
 		NSString* localName = NSStringFromLibxmlString(attrs[i]);
 		NSString* prefix = NSStringFromLibxmlString(attrs[i+1]);
 		NSString* uri = NSStringFromLibxmlString(attrs[i+2]);
-		NSString* value = [NSString stringWithUTF8String:val];
+		NSString* value = [[NSString alloc] initWithBytes:begin length:vlen encoding:NSUTF8StringEncoding];
 		
 		NSString* qname = (prefix == nil) ? localName : [NSString stringWithFormat:@"%@:%@", prefix, localName];
 		
-		Attr* newAttribute = [[[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value] autorelease];
+		Attr* newAttribute = [[Attr alloc] initWithNamespace:uri qualifiedName:qname value:value];
 		
-		[dict setObject:newAttribute
-				 forKey:qname];
+		dict[qname] = newAttribute;
 	}
 	
-	return [dict autorelease];
+	return dict;
 }
 
 #define MAX_ACCUM 256
@@ -891,8 +893,8 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	
 	if( styleAttribute == nil )
 	{
-		DDLogCWarn(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
-		return [NSDictionary dictionary];
+		DDLogWarn(@"[%@] WARNING: asked to convert an empty CSS string into a CSS dictionary; returning empty dictionary", [self class] );
+		return @{};
 	}
 	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -927,11 +929,10 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		else if (c == ';' || c == '\0') {
 			accum[accumIdx] = '\0';
 			
-			Attr* newAttribute = [[[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:[NSString stringWithUTF8String:name] value:[NSString stringWithUTF8String:accum]] autorelease];
+			Attr* newAttribute = [[Attr alloc] initWithNamespace:styleAttribute.namespaceURI qualifiedName:@(name) value:@(accum)];
 			
-			[dict setObject:newAttribute
-					 forKey:newAttribute.localName];
-			
+			dict[newAttribute.localName] = newAttribute;
+            
 			bzero(name, MAX_NAME);
 			
 			bzero(accum, MAX_ACCUM);
@@ -943,7 +944,7 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 		accum[accumIdx++] = c;
 	}
 	
-	return [dict autorelease];
+	return dict;
 }
 
 @end

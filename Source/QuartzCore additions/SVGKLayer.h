@@ -1,6 +1,6 @@
 #import <QuartzCore/QuartzCore.h>
 
-#import "SVGKit.h"
+#import <SVGKit/SVGKImage.h>
 
 /**
  * SVGKLayer: this is the "low level" equivalent of SVGKImageView, and allows you to perform e.g. CoreAnimation on the individual elemetns / layers
@@ -29,7 +29,7 @@
  */
 @interface SVGKLayer : CALayer
 
-@property(nonatomic,retain) SVGKImage* SVGImage;
+@property(nonatomic,strong) SVGKImage* SVGImage;
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 
 @property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */

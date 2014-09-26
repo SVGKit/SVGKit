@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#import "SVGKParser.h"
+#import <SVGKit/SVGKParser.h>
 
 @interface SVGKParserSVG : NSObject <SVGKParserExtension> {
 }

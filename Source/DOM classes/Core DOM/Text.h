@@ -11,13 +11,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class CharacterData;
-#import "CharacterData.h"
+//@class CharacterData;
+#import <SVGKit/CharacterData.h>
 
 @interface Text : CharacterData
 
-- (id)initWithValue:(NSString*) v;
+- (instancetype)initWithValue:(NSString*) v NS_DESIGNATED_INITIALIZER;
 
--(Text*) splitText:(unsigned long) offset;
+-(Text*) splitText:(NSUInteger) offset;
 
 @end

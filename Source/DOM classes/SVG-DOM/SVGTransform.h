@@ -24,7 +24,7 @@
  
 #import <Foundation/Foundation.h>
 
-#import "SVGMatrix.h"
+#import <SVGKit/SVGMatrix.h>
 
 @interface SVGTransform : NSObject
 
@@ -41,7 +41,7 @@ typedef enum SVGKTransformType
 } SVGKTransformType;
 
 @property(nonatomic) SVGKTransformType type;
-@property(nonatomic,retain) SVGMatrix* matrix;
+@property(nonatomic,strong) SVGMatrix* matrix;
 @property(nonatomic,readonly) float angle;
 
 -(void) setMatrix:(SVGMatrix*) matrix;

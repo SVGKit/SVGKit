@@ -49,15 +49,13 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
-@class Attr;
-#import "Attr.h"
-@class NodeList;
-#import "NodeList.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Attr.h>
+#import <SVGKit/NodeList.h>
 
 @interface Element : Node
 
-@property(nonatomic,retain,readonly) NSString* tagName;
+@property(nonatomic,strong,readonly) NSString* tagName;
 
 -(NSString*) getAttribute:(NSString*) name;
 -(void) setAttribute:(NSString*) name value:(NSString*) value;
@@ -93,7 +91,7 @@
 
 #pragma mark - Objective-C init methods (not in SVG Spec - you're supposed to use SVGDocument's createXXX methods instead)
 
-- (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes;
-- (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes;
+- (instancetype)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes NS_DESIGNATED_INITIALIZER;
 	
 @end

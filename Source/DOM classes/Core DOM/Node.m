@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Node.h"
-#import "Node+Mutable.h"
+#import <SVGKit/Node.h>
+#import <SVGKit/Node+Mutable.h>
 
-#import "NodeList+Mutable.h"
-#import "NamedNodeMap.h"
+#import <SVGKit/NodeList+Mutable.h>
+#import <SVGKit/NamedNodeMap.h>
 
 #import "NamedNodeMap_Iterable.h" // Needed for the optional (non-SVG spec) "recursive toXML" method
 
@@ -35,33 +35,17 @@
 
 @synthesize localName;
 
-- (void)dealloc {
-    [nodeName release];
-    [nodeValue release];
-    [childNodes release];
-    [attributes release];
-    [prefix release];
-    [namespaceURI release];
-    [localName release];
-    [super dealloc];
-}
-
-- (id)init
+- (instancetype)init
 {
     NSAssert( FALSE, @"This class has no init method - it MUST NOT be init'd via init - you MUST use one of the multi-argument constructors instead" );
 	
     return nil;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
     self = [super init];
     if (self) {
 		self.nodeType = nt;
@@ -77,7 +61,7 @@
 				self.nodeName = n;
 				self.nodeValue = v;
 			}break;
-			
+				
 				
 			case DOMNodeType_DOCUMENT_NODE:
 			case DOMNodeType_DOCUMENT_TYPE_NODE:
@@ -89,16 +73,16 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd with a value; nodes of that type have no value in the DOM spec", nt);
 				
-				self = nil;
+				return nil;
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n
 {
     self = [super init];
     if (self) {
@@ -114,7 +98,7 @@
 			{
 				NSAssert( FALSE, @"NodeType = %i cannot be init'd without a value; nodes of that type MUST have a value in the DOM spec", nt);
 				
-				self = nil;
+				return nil;
 			}break;
 				
 				
@@ -133,11 +117,11 @@
 				
 				self.nodeName = n;
 				
-				self.attributes = [[[NamedNodeMap alloc] init] autorelease];
+				self.attributes = [[NamedNodeMap alloc] init];
 			}break;
 		}
 		
-		self.childNodes = [[[NodeList alloc] init] autorelease];
+		self.childNodes = [[NodeList alloc] init];
     }
     return self;
 }
@@ -149,12 +133,12 @@
 	NSArray* nameSpaceParts = [self.nodeName componentsSeparatedByString:@":"];
 	self.localName = [nameSpaceParts lastObject];
 	if( [nameSpaceParts count] > 1 )
-		self.prefix = [nameSpaceParts objectAtIndex:0];
+		self.prefix = nameSpaceParts[0];
 		
 	self.namespaceURI = nsURI;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI
 {
 	self = [self initType:nt name:n];
 	
@@ -166,15 +150,10 @@
 	return self;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
-	if( [v isKindOfClass:[NSMutableString class]])
-	{
-		/** Apple allows this, but it breaks the whole of Obj-C / cocoa, which is damn stupid
-		 So we have to fix it.*/
-		v = [NSString stringWithString:v];
-	}
-	
+	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
+	//Immutable strings will just be retained
 	self = [self initType:nt name:n value:v];
 	
 	if( self )
@@ -227,7 +206,7 @@
 	}
 	else
 	{
-		[self.childNodes.internalArray replaceObjectAtIndex:[self.childNodes.internalArray indexOfObject:oldChild] withObject:newChild];
+		(self.childNodes.internalArray)[[self.childNodes.internalArray indexOfObject:oldChild]] = newChild;
 		
 		newChild.parentNode = self;
 		oldChild.parentNode = nil;
@@ -295,7 +274,7 @@
 
 #pragma mark - SPECIAL CASE: DOM level 3 method
 
-/** 
+/**
  
  Note that the DOM 3 spec defines this as RECURSIVE:
  
@@ -314,7 +293,7 @@
 			/** DOM 3 Spec:
 			 "concatenation of the textContent attribute value of every child node, excluding COMMENT_NODE and PROCESSING_INSTRUCTION_NODE nodes. This is the empty string if the node has no children."
 			 */
-			NSMutableString* stringAccumulator = [[[NSMutableString alloc] init] autorelease];
+			NSMutableString* stringAccumulator = [[NSMutableString alloc] init];
 			for( Node* subNode in self.childNodes.internalArray )
 			{
 				NSString* subText = subNode.textContent; // don't call this method twice; it's expensive to calculate!
@@ -451,15 +430,15 @@
 	/**
 	 First, find all the attributes that declare a new Namespace at this point */
 	NSString* xmlnsNamespace = @"http://www.w3.org/2000/xmlns/";
-	NSDictionary* xmlnsNodemap = [nodeMapsByNamespace objectForKey:xmlnsNamespace];
+	NSDictionary* xmlnsNodemap = nodeMapsByNamespace[xmlnsNamespace];
 	/** ... output them, making them 'active' in the output tree */
 	for( NSString* xmlnsNodeName in xmlnsNodemap )
 	{
-		Node* attribute = [xmlnsNodemap objectForKey:xmlnsNodeName];
+		Node* attribute = xmlnsNodemap[xmlnsNodeName];
 		
-		if( [prefixesByACTIVENamespace objectForKey:xmlnsNodeName] == nil )
+		if( prefixesByACTIVENamespace[xmlnsNodeName] == nil )
 		{
-			[newlyActivatedPrefixesByNamespace setObject:xmlnsNodeName forKey:attribute.nodeValue];
+			newlyActivatedPrefixesByNamespace[attribute.nodeValue] = xmlnsNodeName;
 			if( xmlnsNodeName.length == 0 ) // special case: the "default" namespace we encode elsewhere in SVGKit as a namespace of ""
 				[outputString appendFormat:@" xmlns=\"%@\"", attribute.nodeValue];
 			else
@@ -479,30 +458,30 @@
 		if( [namespace isEqualToString:xmlnsNamespace] )
 			continue; // we had to handle this FIRST, so we've already done it
 		
-		NSString* localPrefix = [prefixesByACTIVENamespace objectForKey:namespace];
+		NSString* localPrefix = prefixesByACTIVENamespace[namespace];
 		if( localPrefix == nil )
 		{
 			/** check if it's one of our freshly-activated ones */
-			localPrefix = [newlyActivatedPrefixesByNamespace objectForKey:namespace];
+			localPrefix = newlyActivatedPrefixesByNamespace[namespace];
 		}
 		
 		if( localPrefix == nil )
 		{
 			/** If it STILL isn't active, (no parent Node has output it yet), we must activate it */
 			
-			localPrefix = [prefixesByKNOWNNamespace objectForKey:namespace];
+			localPrefix = prefixesByKNOWNNamespace[namespace];
 			
 			NSAssert( localPrefix != nil, @"Found a namespace (%@) in node (%@) which wasn't listed in the KNOWN namespaces you provided (%@); you MUST provide a COMPLETE list of known-namespaces to this method", namespace, self.nodeName, prefixesByKNOWNNamespace );
 			
-			[newlyActivatedPrefixesByNamespace setObject:localPrefix forKey:namespace];
+			newlyActivatedPrefixesByNamespace[namespace] = localPrefix;
 			[outputString appendFormat:@" xmlns:%@=\"%@\"", localPrefix, namespace];
 		}
 		
 		/** Finally: output the plain-old-attributes, overwriting their prefixes where necessary */
-		NSDictionary* nodeMap = [nodeMapsByNamespace objectForKey:namespace];
+		NSDictionary* nodeMap = nodeMapsByNamespace[namespace];
 		for( NSString* nodeNameFromMap in nodeMap )
 		{
-			Node* attribute = [nodeMap objectForKey:nodeNameFromMap];
+			Node* attribute = nodeMap[nodeNameFromMap];
 			
 			attribute.prefix = localPrefix; /** Overrides any default pre-existing value */
 			

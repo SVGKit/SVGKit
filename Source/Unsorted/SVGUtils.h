@@ -8,12 +8,12 @@
 #import <CoreFoundation/CoreFoundation.h>
 
 #if TARGET_OS_IPHONE
-
 #import <UIKit/UIKit.h>
-
+#else
+#import <Cocoa/Cocoa.h>
 #endif
 
-#define RGB_N(v) (v) / 255.0f
+#define RGB_N(v) (v) / 255.0
 
 typedef struct {
 	uint8_t r;
@@ -27,5 +27,11 @@ SVGColor SVGColorFromString (const char *string);
 
 CGFloat SVGPercentageFromString (const char *string);
 
+
+CF_IMPLICIT_BRIDGING_ENABLED
+
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close);
-CGColorRef CGColorWithSVGColor (SVGColor color);
+CGColorRef CreateCGColorWithSVGColor (SVGColor color);
+
+CF_IMPLICIT_BRIDGING_DISABLED
+

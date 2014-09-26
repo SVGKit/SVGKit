@@ -15,20 +15,20 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Document.h"
-#import "SVGSVGElement.h"
+#import <SVGKit/Document.h>
+#import <SVGKit/SVGSVGElement.h>
 
 @interface SVGDocument : Document
 
-@property (nonatomic, retain, readonly) NSString* title;
-@property (nonatomic, retain, readonly) NSString* referrer;
-@property (nonatomic, retain, readonly) NSString* domain;
-@property (nonatomic, retain, readonly) NSString* URL;
-@property (nonatomic, retain, readonly) SVGSVGElement* rootElement;
+@property (nonatomic, strong, readonly) NSString* title;
+@property (nonatomic, strong, readonly) NSString* referrer;
+@property (nonatomic, strong, readonly) NSString* domain;
+@property (nonatomic, strong, readonly) NSString* URL;
+@property (nonatomic, strong, readonly) SVGSVGElement* rootElement;
 
 #pragma mark - Objective-C init methods (not part of DOM spec, but necessary!)
 
-- (id)init;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Serialization methods that we think ought to be part of the SVG spec, as they are needed for a good implementation, but we can't find in the main Spec
 
@@ -37,7 +37,7 @@
  
  @return a dictionary mapping "namespace" to "ARRAY of prefix-strings"
  */
--(NSMutableDictionary*) allPrefixesByNamespace;
+@property (nonatomic, readonly, copy) NSMutableDictionary *allPrefixesByNamespace;
 
 /**
  As per allPrefixesByNamespace, but takes the output and guarantees that:
@@ -58,6 +58,6 @@
  
  @return a dictionary mapping "namespace" to "prefix-string or empty-string for the default namespace"
  */
--(NSMutableDictionary*) allPrefixesByNamespaceNormalized;
+@property (nonatomic, readonly, copy) NSMutableDictionary *allPrefixesByNamespaceNormalized;
 
 @end

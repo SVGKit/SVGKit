@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 na. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

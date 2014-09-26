@@ -6,7 +6,7 @@
  This is a special, magical parser that matches "no namespace" - i.e. matches what happens when no namspace was declared\
  */
 #import <Foundation/Foundation.h>
-#import "SVGKParserExtension.h"
+#import <SVGKit/SVGKParserExtension.h>
 
 @interface SVGKParserDOM : NSObject <SVGKParserExtension>
 

@@ -6,10 +6,10 @@
  http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGDocument
  */
 
-#import "Document+Mutable.h"
-
-#import "SVGDocument.h"
-#import "SVGDocument_Mutable.h"
+#import <SVGKit/Document+Mutable.h>
+#import <SVGKit/SVGSVGElement.h>
+#import <SVGKit/SVGDocument.h>
+#import <SVGKit/SVGDocument_Mutable.h>
 
 #import "NamedNodeMap_Iterable.h" // needed for the allPrefixesByNamespace implementation
 
@@ -22,17 +22,7 @@
 @synthesize URL;
 @synthesize rootElement=_rootElement;
 
-
-- (void)dealloc {
-  [title release];
-  [referrer release];
-  [domain release];
-  [URL release];
-  [_rootElement release];
-  [super dealloc];
-}
-
-- (id)init
+- (instancetype)init
 {
     self = [super initType:DOMNodeType_DOCUMENT_NODE name:@"#document"];
     if (self) {
@@ -43,9 +33,7 @@
 
 -(void)setRootElement:(SVGSVGElement *)rootElement
 {
-	[_rootElement release];
 	_rootElement = rootElement;
-	[_rootElement retain];
 	
 	/*! SVG spec has two variables with same name, because DOM was written to support
 	 weak programming languages that don't provide full OOP polymorphism.
@@ -94,17 +82,17 @@
 	NSDictionary* nodeMapsByNamespace = [node.attributes allNodesUnsortedDOM2];
 	
 	NSString* xmlnsNamespace = @"http://www.w3.org/2000/xmlns/";
-	NSDictionary* xmlnsNodemap = [nodeMapsByNamespace objectForKey:xmlnsNamespace];
+	NSDictionary* xmlnsNodemap = nodeMapsByNamespace[xmlnsNamespace];
 	
 	for( NSString* xmlnsNodeName in xmlnsNodemap )
 	{
-		Node* namespaceDeclaration = [xmlnsNodemap objectForKey:xmlnsNodeName];
+		Node* namespaceDeclaration = xmlnsNodemap[xmlnsNodeName];
 		
-		NSMutableArray* prefixesForNamespace = [output objectForKey:namespaceDeclaration.nodeValue];
+		NSMutableArray* prefixesForNamespace = output[namespaceDeclaration.nodeValue];
 		if( prefixesForNamespace == nil )
 		{
 			prefixesForNamespace = [NSMutableArray array];
-			[output setObject:prefixesForNamespace forKey:namespaceDeclaration.nodeValue];
+			output[namespaceDeclaration.nodeValue] = prefixesForNamespace;
 		}
 		
 		if( ! [prefixesForNamespace containsObject:namespaceDeclaration.nodeName])
@@ -143,14 +131,14 @@
 	
 	for( NSString* namespace in prefixArraysByNamespace )
 	{
-		NSArray* prefixes = [prefixArraysByNamespace objectForKey:namespace];
+		NSArray* prefixes = prefixArraysByNamespace[namespace];
 		
 		BOOL exportedAUniquePrefix = FALSE;
 		for( NSString* nextPrefix in prefixes )
 		{
 			if( ! [normalizedPrefixesByNamespace.allValues containsObject:nextPrefix])
 			{
-				[normalizedPrefixesByNamespace setObject:nextPrefix forKey:namespace];
+				normalizedPrefixesByNamespace[namespace] = nextPrefix;
 				exportedAUniquePrefix = TRUE;
 				break;
 			}
@@ -161,7 +149,7 @@
 		{
 			if( [namespace isEqualToString:@"http://w3.org/2000/svg"])
 			{
-				[normalizedPrefixesByNamespace setObject:@"" forKey:namespace];
+				normalizedPrefixesByNamespace[namespace] = @"";
 			}
 			else
 			{
@@ -175,7 +163,7 @@
 					newPrefix = [NSString stringWithFormat:@"%@-%i", [namespace lastPathComponent], suffix];
 				}
 				
-				[normalizedPrefixesByNamespace setObject:newPrefix forKey:namespace];
+				normalizedPrefixesByNamespace[namespace] = newPrefix;
 			}
 		}
 	}

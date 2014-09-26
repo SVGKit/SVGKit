@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Text.h"
+#import <SVGKit/Text.h>
 
 @implementation Text
 
-- (id)initWithValue:(NSString*) v
+- (instancetype)initWithValue:(NSString*) v
 {
     self = [super initType:DOMNodeType_TEXT_NODE name:@"#text" value:v];
     if (self) {
@@ -18,7 +18,7 @@
     }
     return self;
 }
--(Text*) splitText:(unsigned long) offset;
+-(Text*) splitText:(NSUInteger) offset;
 {
 	NSAssert( FALSE, @"Not implemented yet" );
 	return nil;

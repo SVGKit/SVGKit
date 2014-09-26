@@ -10,33 +10,28 @@
 @synthesize extensionsData;
 #endif
 
--(void)dealloc {
-    self.warnings = nil;
-    self.errorsRecoverable = nil;
-    self.errorsFatal = nil;
-    self.namespacesEncountered = nil;
-    self.parsedDocument = nil;
-    self.rootOfSVGTree = nil;
-    
-    [super dealloc];
-}
-
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.warnings = [NSMutableArray array];
-		self.errorsRecoverable = [NSMutableArray array];
-		self.errorsFatal = [NSMutableArray array];
+        self.warnings = [[NSMutableArray alloc] init];
+		self.errorsRecoverable = [[NSMutableArray alloc] init];
+		self.errorsFatal = [[NSMutableArray alloc] init];
 		
-		self.namespacesEncountered = [NSMutableDictionary dictionary];
+		self.namespacesEncountered = [[NSMutableDictionary alloc] init];
 		
-		#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
-		self.extensionsData = [NSMutableDictionary dictionary];
+#if ENABLE_PARSER_EXTENSIONS_CUSTOM_DATA
+		self.extensionsData = [[NSMutableDictionary alloc] init];
 #endif
     }
     return self;
 }
+
+-(NSString *)description
+{
+	return [NSString stringWithFormat:@"[Parse result: %lu warnings, %lu errors(recoverable), %lu errors (fatal). Last fatal error (or last recoverable error if no fatal ones) = %@", (unsigned long)self.warnings.count, (unsigned long)self.errorsRecoverable.count, (unsigned long)self.errorsFatal.count, self.errorsFatal.count > 0 ? [self.errorsFatal lastObject] : self.errorsRecoverable.count > 0 ? [self.errorsRecoverable lastObject] : @"(n/a)"];
+}
+
 -(void) addSourceError:(NSError*) fatalError
 {
 	DDLogError(@"[%@] SVG ERROR: %@", [self class], fatalError);
@@ -63,7 +58,7 @@
 
 -(void) addSAXError:(NSError*) saxError
 {
-	DDLogWarn(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
+	DDLogError(@"[%@] SVG ERROR: %@", [self class], [saxError localizedDescription]);
 	[self.errorsFatal addObject:saxError];
 }
 
@@ -73,7 +68,7 @@
 	NSMutableDictionary* d = [self.extensionsData objectForKey:[extension class]];
 	if( d == nil )
 	{
-		d = [NSMutableDictionary dictionary];
+		d = [[NSMutableDictionary alloc] init];
 		[self.extensionsData setObject:d forKey:[extension class]];
 	}
 	

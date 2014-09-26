@@ -5,7 +5,7 @@
  readonly attribute SVGPreserveAspectRatio animVal;
  */
 #import <Foundation/Foundation.h>
-#import "SVGPreserveAspectRatio.h"
+#import <SVGKit/SVGPreserveAspectRatio.h>
 
 @interface SVGAnimatedPreserveAspectRatio : NSObject
 

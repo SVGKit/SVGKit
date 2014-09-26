@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CDATASection.h"
+#import <SVGKit/CDATASection.h>
 
 @implementation CDATASection
 
-- (id)initWithValue:(NSString*) v
+- (instancetype)initWithValue:(NSString*) v
 {
     self = [super initType:DOMNodeType_CDATA_SECTION_NODE name:@"#cdata-section" value:v];
     if (self) {

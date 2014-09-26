@@ -1,4 +1,4 @@
-#import "SVGDefsElement.h"
+#import <SVGKit/SVGDefsElement.h>
 
 @implementation SVGDefsElement
 

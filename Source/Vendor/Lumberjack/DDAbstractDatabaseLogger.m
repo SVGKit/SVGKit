@@ -1,5 +1,6 @@
 #import "DDAbstractDatabaseLogger.h"
-#import <math.h>
+#include <math.h>
+#include <tgmath.h>
 
 /**
  * Welcome to Cocoa Lumberjack!

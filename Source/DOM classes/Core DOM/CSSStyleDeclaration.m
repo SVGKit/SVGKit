@@ -1,12 +1,12 @@
-#import "CSSStyleDeclaration.h"
+#import <SVGKit/CSSStyleDeclaration.h>
 
-#import "CSSValue.h"
-#import "CSSValueList.h"
-#import "CSSPrimitiveValue.h"
+#import <SVGKit/CSSValue.h>
+#import <SVGKit/CSSValueList.h>
+#import <SVGKit/CSSPrimitiveValue.h>
 
 @interface CSSStyleDeclaration()
 
-@property(nonatomic,retain) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;
+@property(nonatomic,strong) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;
 
 @end
 
@@ -18,18 +18,11 @@
 @synthesize length;
 @synthesize parentRule;
 
-- (void)dealloc {
-    [_cssText release];
-    self.parentRule = nil;
-  self.internalDictionaryOfStylesByCSSClass = nil;
-    [super dealloc];
-}
-
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.internalDictionaryOfStylesByCSSClass = [NSMutableDictionary dictionary];
+        self.internalDictionaryOfStylesByCSSClass = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -43,15 +36,13 @@
  */
 -(void)setCssText:(NSString *)newCSSText
 {
-	[_cssText release];
 	_cssText = newCSSText;
-	[newCSSText retain];
 	
 	/** and now post-process it, *as required by* the CSS/DOM spec... */
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];
 	
 	self.internalDictionaryOfStylesByCSSClass = processedStyles;
-  
+	
 }
 
 -(NSMutableDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {
@@ -71,7 +62,10 @@
 	for (size_t n = 0; n <= len; n++) {
 		char c = cstr[n];
 		
-		if (c == '\n' || c == '\t' || c == ' ') {
+        /* SVG spec specifies some attribute lists might be delimited by white space.
+         e.g. stroke-dasharray is 'A list of comma and/or white space separated <length>s'
+         http://www.w3.org/TR/SVG/painting.html */
+		if (c == '\n' || c == '\t') {
 			continue;
 		}
 		
@@ -90,24 +84,22 @@
                 accum[accumIdx] = '\0';
                 
                 NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
-				NSString *cssValueString = [NSString stringWithUTF8String:accum];
+				NSString *cssValueString = @(accum);
 				
-				NSMutableCharacterSet* trimmingSetForKey = [[[NSMutableCharacterSet alloc] init] autorelease];
+				NSMutableCharacterSet* trimmingSetForKey = [[NSMutableCharacterSet alloc] init];
 				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
 				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 				
-				[keyString autorelease]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
 				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
 				
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
-					cssValue = [[[CSSValueList alloc] init] autorelease];
+					cssValue = [[CSSValueList alloc] init];
 				else
-					cssValue = [[[CSSPrimitiveValue alloc] init] autorelease];
+					cssValue = [[CSSPrimitiveValue alloc] init];
 				cssValue.cssText = cssValueString; // has the side-effect of parsing, if required
 				
-                [dict setObject:cssValue
-                         forKey:keyString];
+                dict[keyString] = cssValue;
                 
                 bzero(name, MAX_NAME);
                 
@@ -121,7 +113,7 @@
 		accum[accumIdx++] = c;
 	}
 	
-	return [dict autorelease];
+	return dict;
 }
 
 -(NSString*) getPropertyValue:(NSString*) propertyName
@@ -136,7 +128,7 @@
 
 -(CSSValue*) getPropertyCSSValue:(NSString*) propertyName
 {
-	return [self.internalDictionaryOfStylesByCSSClass objectForKey:propertyName];
+	return (self.internalDictionaryOfStylesByCSSClass)[propertyName];
 }
 
 -(NSString*) removeProperty:(NSString*) propertyName
@@ -162,7 +154,7 @@
 {
 	/** this is stupid slow, but until Apple *can be bothered* to add a "stable-order" dictionary to their libraries, this is the only sensibly easy way of implementing this method */
 	NSArray* sortedKeys = [[self.internalDictionaryOfStylesByCSSClass allKeys] sortedArrayUsingSelector:@selector(compare:)];
-	CSSValue* v = [sortedKeys objectAtIndex:index];
+	CSSValue* v = sortedKeys[index];
 	return v.cssText;
 }
 

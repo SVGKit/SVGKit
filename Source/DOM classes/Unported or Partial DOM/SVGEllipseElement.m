@@ -11,6 +11,8 @@
 
 #import "SVGHelperUtilities.h"
 
+#import "SVGKCGFloatAdditions.h"
+
 @interface SVGEllipseElement()
 @property (nonatomic, readwrite) CGFloat cx;
 @property (nonatomic, readwrite) CGFloat cy;
@@ -29,30 +31,25 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	if( [[self getAttribute:@"cx"] length] > 0 )
-	self.cx = [[self getAttribute:@"cx"] floatValue];
+		self.cx = [[self getAttribute:@"cx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"cy"] length] > 0 )
-	self.cy = [[self getAttribute:@"cy"] floatValue];
+		self.cy = [[self getAttribute:@"cy"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	self.rx = [[self getAttribute:@"rx"] floatValue];
+		self.rx = [[self getAttribute:@"rx"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	self.ry = [[self getAttribute:@"ry"] floatValue];
+		self.ry = [[self getAttribute:@"ry"] SVGKCGFloatValue];
 	
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
-		self.ry = self.rx = [[self getAttribute:@"r"] floatValue];
+		self.ry = self.rx = [[self getAttribute:@"r"] SVGKCGFloatValue];
 	}
-}
-
--(CALayer *)newLayer
-{
-	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddEllipseInRect(path, NULL, CGRectMake(_cx - _rx, _cy - _ry, _rx * 2, _ry * 2));
-	
-	CALayer* result = [SVGHelperUtilities newCALayerForPathBasedSVGElement:self withPath:path];
-	CGPathRelease(path);
-	return result;
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+	CGPathAddEllipseInRect(path, NULL, CGRectMake(self.cx - self.rx, self.cy - self.ry, self.rx * 2, self.ry * 2));
+	self.pathForShapeInRelativeCoords = path;
+    CGPathRelease(path);
 }
 
 @end

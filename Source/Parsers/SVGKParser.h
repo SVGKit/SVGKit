@@ -37,11 +37,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SVGKSource.h"
-#import "SVGKParserExtension.h"
-#import "SVGKParseResult.h"
+#import <SVGKit/SVGKSource.h>
+#import <SVGKit/SVGKParserExtension.h>
+#import <SVGKit/SVGKParseResult.h>
 
-#import "SVGElement.h"
+#import <SVGKit/SVGElement.h>
 
 
 
@@ -60,12 +60,12 @@
 	Node * _parentOfCurrentNode;
 }
 
-@property(nonatomic,retain,readonly) SVGKSource* source;
+@property(nonatomic,strong,readonly) SVGKSource* source;
 @property(nonatomic,retain,readonly) NSMutableArray* externalStylesheets;
-@property(nonatomic,retain,readonly) SVGKParseResult* currentParseRun;
+@property(nonatomic,strong,readonly) SVGKParseResult* currentParseRun;
 
-@property(nonatomic,retain) NSMutableArray* parserExtensions;
-@property(nonatomic,retain) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
+@property(nonatomic,strong) NSMutableArray* parserExtensions;
+@property(nonatomic,strong) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
 
 #pragma mark - NEW
 
@@ -105,18 +105,14 @@
 
 +(NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute;
 
-
-
 #pragma mark - OLD - POTENTIALLY DELETE THESE ONCE THEY'VE ALL BEEN CHECKED AND CONVERTED
 
-- (id)initWithSource:(SVGKSource *)doc;
+- (instancetype)initWithSource:(SVGKSource *)doc NS_DESIGNATED_INITIALIZER;
 
 /*! Adds the default SVG-tag parsers (everything in the SVG namespace); you should always use these, unless you
  are massively customizing SVGKit's parser! */
--(void) addDefaultSVGParserExtensions;
+- (void) addDefaultSVGParserExtensions;
 /*! NB: you ALMOST ALWAYS want to first call "addDefaultSVGParserExtensions" */
-- (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension;
-
-
+- (void) addParserExtension:(id<SVGKParserExtension>) extension;
 
 @end

@@ -31,11 +31,11 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
+#import <SVGKit/Node.h>
 
 @interface CharacterData : Node
 
-@property(nonatomic,retain,readonly) NSString* data;
+@property(nonatomic,strong,readonly) NSString* data;
 	
 @property(nonatomic,readonly) unsigned long length;
 

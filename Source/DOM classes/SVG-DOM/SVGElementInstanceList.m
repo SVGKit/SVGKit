@@ -1,15 +1,10 @@
-#import "SVGElementInstanceList.h"
-#import "SVGElementInstanceList_Internal.h"
+#import <SVGKit/SVGElementInstanceList.h>
+#import <SVGKit/SVGElementInstanceList_Internal.h>
 
 @implementation SVGElementInstanceList
 @synthesize internalArray;
 
-- (void)dealloc {
-  self.internalArray = nil;
-  [super dealloc];
-}
-
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -28,7 +23,7 @@
 	if( index >= [self.internalArray count] )
 		return nil;
 	
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 @end

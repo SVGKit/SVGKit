@@ -12,20 +12,19 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "CSSRule.h"
-#import "CSSRuleList.h"
+#import <SVGKit/CSSRule.h>
+#import <SVGKit/CSSRuleList.h>
 
 @interface CSSStyleSheet : NSObject
 
-
-@property(nonatomic,retain) CSSRule* ownerRule;
-@property(nonatomic,retain) CSSRuleList* cssRules;
+@property(nonatomic,strong) CSSRule* ownerRule;
+@property(nonatomic,strong) CSSRuleList* cssRules;
 
 -(long) insertRule:(NSString*) rule index:(unsigned long) index;
 -(void) deleteRule:(unsigned long) index;
 
 #pragma mark - methods needed for ObjectiveC implementation
 
-- (id)initWithString:(NSString*) styleSheetBody;
+- (instancetype)initWithString:(NSString*) styleSheetBody NS_DESIGNATED_INITIALIZER;
 
 @end

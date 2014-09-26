@@ -3,22 +3,37 @@
 SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
 
 ## Versions:
+
+  - master - Current branch in development. Has code from SVGKit's 1.1.0  branch - https://github.com/SVGKit/SVGKit/tree/1.1.0 as well as a lot of enhancements including OS X support and "modern" Objective-C syntax.
   - v1.x = current "in development" branch with latest changes, fixes, features
-    - NB: this is now automatically selected in GitHub as the "default" branch when you visit SVGKit's project page
-    - USE THIS FOR EVERYTHING UNLESS YOU HAVE A VERY GOOD REASON NOT TO!
-  - v1.1.0 = last previous release; outdated, but won't change; works with iOS7 (not perfect, but OK), has fixes + adds basic (slow) Text support
+  - v1.1.0 - Branch that was used to merge changes from SVGKit's 1.1.0 branch from SVGKit's master. __Now defunct:__ It has been merged with master. Occasionally the branch will be used as a staging branch for merges to go back to master.
   - v1.0 = Major refactor/re-write at start of 2013, approximately 90% coverage of the SVG spec. Stable and quite fast - https://github.com/SVGKit/SVGKit/tree/v1.0
-
-### Forks:
-
-  - [Unofficial ARC fork](https://github.com/MaddTheSane/SVGKit/tree/arc) (MaddTheSane) - this closely tracks the 1.x dev branch, so it's usually very similar, but contains unique differences and so IS NOT SUPPORTED (if you have bugs, reproduce them in 1.x branch before reporting them)
-  - [OS X fork](https://github.com/MaddTheSane/SVGKit/tree/master) (MaddTheSane) - this fork adds a complete working build of SVGKit for Mac OS X, and a (very) large number of tweaks (over 10k lines of code). We need help integrating + checking these changes against master / 1.x - please get in touch (create an issue, or email adam.m.s.martin at gmail) if you can help.
+  - arc - Branch that has the iOS and OS X project use Automatic Reference Counting. __Now defunct:__ it has been merged back to master.
+  - namespaces - Branch that has the SVGKit headers better designed to work with OS X. __Now defunct:__ it has been merged back to master.
+  - toSVGKit - Branch that contains staged changes to put back into SVGKit's 1.1.0 branch.
+  - patterns - Branch for working on pattern support. based off of SVGKit's 1.1.0 branch as opposed to my master. Parts have been merged back to master.
+  - noAsserts - Most of the NSAsserts are changed into DDLogErrors.
+  - colorFlags - The SVGColor struct has a flag for the status of the creation of the color struct.
+  - cleanup - Merging my master to the original version's 1.x branch.
 
 # Apps that use SVGKit
 
 New for 2014 - we have a wiki page listing known apps that use SVGKit, and how they're using it:
 
 * https://github.com/SVGKit/SVGKit/wiki/Apps-using-SVGKit
+
+## Advanced Features (this branch/fork only!)
+
+  - use an SVG just like it's a normal PNG file: use SVGKFastImageView like it's UIImageView/NSImageView:
+  - load an SVG from web, or from disk
+  - search an SVG file for particular tags / nodes / elements
+  - automatic scaling of your SVG to fit their on-screen size (often reduces the memory required)
+  - Access to the DOM Document Object Model
+  - Retrieve any part of your SVG document positioned correctly in space
+  - detailed information on whether and WHY parsing failed
+
+iPhone/iPad (iOS) Info
+===
 
 # Getting Started
 
@@ -40,7 +55,8 @@ It's all setup already, all you need to do is:
 6. select the "Debug-universal" (or Release-universal if you were building in Release mode) folder
 7. Drag/drop the .a file and the "usr" folder into your project (select the "Copy files" checkbox)
 8. In Build Settings, select "Other Linker Flags" and add "-ObjC"
-9. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler 2.0"
+9. Edit your build settings and set "C/C++ Compiler Version" = "LLVM Compiler"
+7. Edit your build settings and add "Other Linker Flags" = "-ObjC"
 10. Add ALL the frameworks and 3rd party libraries listed below (go to "Build Phases", and "Link Binary with Libraries"):
   - CoreText
   - CoreImage
@@ -82,10 +98,52 @@ If you get this error:
 
 "Edit your build settings and add "Other Linker Flags" = "-ObjC""
 
+OS X Info
+===
+
+### Ultra-quick 'getting started'
+-----
+
+Open the project "Demo-OSX", select either Demo-OSX, ImageRepTest, or ImageRepTest-NS, build and run.
+
+To use SVGKit, either create and display the image on screen:
+
+    [view addSubview: [[SVGKLayeredImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"mySVGfile.svg"]]];
+    
+or load an image and convert it to an NSImage or NSBitmapImageRep object:
+
+    NSImage *newImage = [SVGKImage imageNamed:@"mySVGfile"].NSImage;
+    NSBitmapImageRep *newImageRep = [SVGKImage imageNamed:@"mySVGfile"].bitmapImageRep;
+    
+or load the SVG using NSImage:
+
+    NSImage *svgImage = [NSImage imageNamed:@"mySVGfile.svg"];
+
+Note that there is a naming conflict with one of OS X's headers, specifically a struct called `Comment` in the AIFF header. The following code __must be included in any source file that will include SVGKit headers, *before* any other header includes.__ A good place to put it would be in the prefix header.
+
+    #define Comment AIFFComment
+    #include <CoreServices/CoreServices.h>
+    #undef Comment
+
+Also note that using Objective C modules support introduced in Xcode 5 may cause similar build failures.
 
 ## Usage - OS X
 
-We need someone to integrate the OS X fork into the main project - please help.
+There are three ways to make SVGKit run on OS X:
+  1. Use SVGKImageRep. Load the SVGKit framework via direct linking or NSBundle. You can then use NSImage to load SVGs like any other NSImage-capable file. Note that it has the same limitations as SVGKFastImageView.
+  1. SVGKLayeredImageView is the suggested way to display SVGs on OS X. Note that if you add the view subclass via Interface Builder, the framework will complain when the view is inited.
+  1. SVGKFastImageView is another subclass of NSView that you can use. Note that there currently is a bug that text will be upside-down unless the CALayer is also being used by a SVGKLayeredImageView. Also, like the iOS version, scaling and gradients don't work.
 
-The fork is over here: https://github.com/MaddTheSane/SVGKit/tree/master
+## Installation
 
+Note that you can only build SVGKit as a framework (which will include the Lumberjack code as a subframework) For loading the framework at run time, add the following line to the `rpath` linker options:
+
+     @loader_path/../Frameworks
+
+### SVGKit
+
+There is a sample project you can examine which copies the SVGKit framework into the Frameworks subdirectory of the app and sets the runpath to @loader_path/../Frameworks to load the framework. To include an SVGKit header is the same as any other OS X framework, by including &lt;SVGKit/HeaderName.h&gt;.
+
+### SVGKImageRep
+
+To use SVGKImageRep, either just link to SVGKit, or load the SVGKit framework with NSBundle. Both methods will add the SVGKImageRep class to the NSImageRep classes list.

@@ -10,8 +10,7 @@
 #define MAX_ACCUM 64
 #define NUM_COLORS 147
 
-
-SVGColor ColorValueWithName (const char *name);
+static SVGColor ColorValueWithName (const char *name);
 
 static const char *gColorNames[NUM_COLORS] = {
 	"aliceblue",
@@ -270,15 +269,18 @@ typedef enum {
 SVGColor SVGColorFromString (const char *string) {
 	NSCAssert(string != NULL, @"NullPointerException: you gave us a null pointer, very bad thing to do...");
 	SVGColor color;
-	bzero(&color, sizeof(color));
+	memset(&color, 0, sizeof(color));
 	
 	color.a = 0xFF;
-	
-	if (!strncmp(string, "rgb(", 4)) {
+	if (!strncmp(string, "url", 4)) {
+		DDLogCWarn(@"%s: WARNING: Unable to get an SVG color from a url (most likely a pattern)", __FUNCTION__);
+		DDLogCInfo(@"%s: INFO: returning a black SVG color", __FUNCTION__);
+		color = SVGColorMake(0, 0, 0, 255);
+	} else if (!strncmp(string, "rgb(", 4)) {
 		size_t len = strlen(string);
 		
 		char accum[MAX_ACCUM];
-		bzero(accum, MAX_ACCUM);
+		memset(accum, 0, MAX_ACCUM);
 		
 		int accumIdx = 0, currComponent = 0;
 		Phase phase = PhaseNone;
@@ -296,7 +298,7 @@ SVGColor SVGColorFromString (const char *string) {
 			
 			if (phase == PhaseRGB) {
 				if (c == '(') {
-					bzero(accum, MAX_ACCUM);
+					memset(accum, 0, MAX_ACCUM);
 					accumIdx = 0;
 					
 					continue;
@@ -311,7 +313,7 @@ SVGColor SVGColorFromString (const char *string) {
 						currComponent++;
 					}
 					
-					bzero(accum, MAX_ACCUM);
+					memset(accum, 0, MAX_ACCUM);
 					accumIdx = 0;
 					
 					continue;
@@ -380,7 +382,7 @@ CGFloat SVGPercentageFromString (const char *string) {
 		return -1;
 	}
 	
-	return atoi(string) / 100.0f;
+	return atoi(string) / 100.0;
 }
 
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close) {
@@ -389,7 +391,7 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 	size_t len = strlen(string);
 	
 	char accum[MAX_ACCUM];
-	bzero(accum, MAX_ACCUM);
+	memset(accum, 0, MAX_ACCUM);
 	
 	int accumIdx = 0, currComponent = 0;
 	
@@ -419,7 +421,7 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 				currComponent = 0;
 			}
 			
-			bzero(accum, MAX_ACCUM);
+			memset(accum, 0, MAX_ACCUM);
 			accumIdx = 0;
 		}
 		else if (isdigit(c) || c == '-' || c == '.') { // is digit or decimal separator OR A MINUS SIGN!!! ?
@@ -434,16 +436,23 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 	return path;
 }
 
-CGColorRef CGColorWithSVGColor (SVGColor color) {
+CGColorRef CreateCGColorWithSVGColor (SVGColor color) {
 	CGColorRef outColor = NULL;
 	
 #if TARGET_OS_IPHONE
-	outColor = [UIColor colorWithRed:RGB_N(color.r)
+	outColor = CGColorRetain([UIColor colorWithRed:RGB_N(color.r)
 							   green:RGB_N(color.g)
 								blue:RGB_N(color.b)
-							   alpha:RGB_N(color.a)].CGColor;
+							   alpha:RGB_N(color.a)].CGColor);
 #else
-	outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
+	if ([NSColor instancesRespondToSelector:@selector(CGColor)]) {
+		outColor = CGColorRetain([NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
+											   blue:RGB_N(color.b) alpha:RGB_N(color.a)].CGColor);
+	}
+    
+    if (outColor == NULL) {
+		outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
+	}
 #endif
 	
 	return outColor;

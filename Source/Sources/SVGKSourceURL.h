@@ -1,12 +1,13 @@
 /**
  
  */
-#import "SVGKSource.h"
+#import <SVGKit/SVGKSource.h>
 
-@interface SVGKSourceURL : SVGKSource
+@interface SVGKSourceURL : SVGKSource <NSCopying>
 
-@property (nonatomic, retain) NSURL* URL;
+@property (readonly, nonatomic, strong) NSURL* URL;
 
+- (instancetype)initWithURL:(NSURL*)u NS_DESIGNATED_INITIALIZER;
 + (SVGKSource*)sourceFromURL:(NSURL*)u;
 
 @end

@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ProcessingInstruction.h"
+#import <SVGKit/ProcessingInstruction.h>
 
 @interface ProcessingInstruction()
-@property(nonatomic,retain,readwrite) NSString* target;
-@property(nonatomic,retain,readwrite) NSString* data;
+@property(nonatomic,strong,readwrite) NSString* target;
+@property(nonatomic,strong,readwrite) NSString* data;
 @end
 
 @implementation ProcessingInstruction
@@ -18,7 +18,7 @@
 @synthesize target;
 @synthesize data;
 
--(id) initProcessingInstruction:(NSString*) t value:(NSString*) d
+-(instancetype) initProcessingInstruction:(NSString*) t value:(NSString*) d
 {
     self = [super initType:DOMNodeType_PROCESSING_INSTRUCTION_NODE name:t value:d];
     if (self) {

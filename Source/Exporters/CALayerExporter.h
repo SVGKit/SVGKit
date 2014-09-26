@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+
+//DW stands for Darwin
+#if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #import <UIKit/UIKit.h>
+#define DWView UIView
+#else
+#import <Cocoa/Cocoa.h>
+#define DWView NSView
+#endif
 #import <QuartzCore/QuartzCore.h>
 
 @protocol CALayerExporterDelegate;
@@ -18,10 +26,10 @@
     NSMutableDictionary* propertyRegistry;
 }
 
-@property (readwrite,nonatomic,retain) UIView* rootView;
-@property (readwrite,nonatomic,assign) id<CALayerExporterDelegate> delegate;
+@property (readwrite,nonatomic,strong) DWView* rootView;
+@property (readwrite,nonatomic,weak) id<CALayerExporterDelegate> delegate;
 
-- (CALayerExporter*) initWithView:(UIView*)v;
+- (instancetype) initWithView:(DWView*)v NS_DESIGNATED_INITIALIZER;
 - (void) startExport;
 
 @end

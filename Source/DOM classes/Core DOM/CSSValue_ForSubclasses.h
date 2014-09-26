@@ -2,6 +2,6 @@
 
 @interface CSSValue()
 
-- (id)initWithUnitType:(CSSUnitType) t;
+- (instancetype)initWithUnitType:(CSSUnitType) t;
 
 @end

@@ -1,20 +1,11 @@
-#import "SVGTextPositioningElement.h"
-#import "SVGTextPositioningElement_Mutable.h"
+#import <SVGKit/SVGTextPositioningElement.h>
+#import <SVGKit/SVGTextPositioningElement_Mutable.h>
 
-#import "SVGElement_ForParser.h" // because we do post-processing of the SVG x,y,dx,dy,rotate attributes
+#import <SVGKit/SVGElement_ForParser.h> // because we do post-processing of the SVG x,y,dx,dy,rotate attributes
 
 @implementation SVGTextPositioningElement
 
 @synthesize x,y,dx,dy,rotate;
-
-- (void)dealloc {
-  self.x = nil;
-  self.y = nil;
-  self.dx = nil;
-  self.dy = nil;
-  self.rotate = nil;
-  [super dealloc];
-}
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
 {

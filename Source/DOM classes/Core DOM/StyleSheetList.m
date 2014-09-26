@@ -1,32 +1,27 @@
-#import "StyleSheetList.h"
-#import "StyleSheetList+Mutable.h"
+#import <SVGKit/StyleSheetList.h>
+#import <SVGKit/StyleSheetList+Mutable.h>
 
 @implementation StyleSheetList
 
 @synthesize internalArray;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.internalArray = [NSMutableArray array];
+        self.internalArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void)dealloc {
-    self.internalArray = nil;
-    [super dealloc];
-}
-
--(unsigned long)length
+-(NSUInteger)length
 {
 	return self.internalArray.count;
 }
 
--(StyleSheet*) item:(unsigned long) index
+-(StyleSheet*) item:(NSUInteger) index
 {
-	return [self.internalArray objectAtIndex:index];
+	return (self.internalArray)[index];
 }
 
 @end

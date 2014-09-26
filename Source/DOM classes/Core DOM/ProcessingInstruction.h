@@ -14,12 +14,12 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
+#import <SVGKit/Node.h>
 
 @interface ProcessingInstruction : Node
-@property(nonatomic,retain,readonly) NSString* target;
-@property(nonatomic,retain,readonly) NSString* data;
+@property(nonatomic,strong,readonly) NSString* target;
+@property(nonatomic,strong,readonly) NSString* data;
 
--(id) initProcessingInstruction:(NSString*) target value:(NSString*) data;
+-(instancetype) initProcessingInstruction:(NSString*) target value:(NSString*) data NS_DESIGNATED_INITIALIZER;
 
 @end

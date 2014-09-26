@@ -15,6 +15,8 @@
 
 #import "SVGLength.h"
 
+#import "SVGKCGFloatAdditions.h"
+
 @implementation SVGGradientStop
 
 @synthesize offset = _offset;
@@ -25,7 +27,7 @@
 
 -(void)loadDefaults
 {
-	_stopOpacity = 1.0f;
+	_stopOpacity = 1.0;
 }
 
 -(void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
@@ -40,13 +42,13 @@
     {
         NSDictionary *styleDict = [SVGKParser NSDictionaryFromCSSAttributes:[self getAttributeNode:@"style"]];
 		
-		Attr* testObject = [styleDict objectForKey:@"stop-color"];
+		Attr* testObject = styleDict[@"stop-color"];
         if( testObject != nil )
             _stopColor = SVGColorFromString([testObject.value UTF8String]);
         
-        testObject = [styleDict objectForKey:@"stop-opacity"];
+        testObject = styleDict[@"stop-opacity"];
 		if( testObject != nil )
-			_stopOpacity = [testObject.value floatValue];
+			_stopOpacity = [testObject.value SVGKCGFloatValue];
         _stopColor.a = (_stopOpacity * 255);
     }
 	
@@ -55,17 +57,9 @@
         _stopColor = SVGColorFromString( [[self getAttribute:@"stop-color"] UTF8String] );
 	
 	if( [self getAttribute:@"stop-opacity"].length > 0 )
-        _stopOpacity = [[self getAttribute:@"stop-opacity"] floatValue];
+        _stopOpacity = [[self getAttribute:@"stop-opacity"] SVGKCGFloatValue];
 	
 	_stopColor.a = (_stopOpacity * 255);
 }
-
-//no memory allocated by this subclass
-//-(void)dealloc
-//{
-//    
-//    
-//    [super dealloc];
-//}
 
 @end

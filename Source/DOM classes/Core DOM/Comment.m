@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Comment.h"
+#import <SVGKit/Comment.h>
 
 @implementation Comment
 
-- (id)initWithValue:(NSString*) v
+- (instancetype)initWithValue:(NSString*) v
 {
     self = [super initType:DOMNodeType_COMMENT_NODE name:@"#comment" value:v];
     if (self) {
