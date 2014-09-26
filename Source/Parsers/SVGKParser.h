@@ -107,12 +107,12 @@
 
 #pragma mark - OLD - POTENTIALLY DELETE THESE ONCE THEY'VE ALL BEEN CHECKED AND CONVERTED
 
-- (id)initWithSource:(SVGKSource *)doc;
+- (instancetype)initWithSource:(SVGKSource *)doc NS_DESIGNATED_INITIALIZER;
 
 /*! Adds the default SVG-tag parsers (everything in the SVG namespace); you should always use these, unless you
  are massively customizing SVGKit's parser! */
 - (void) addDefaultSVGParserExtensions;
 /*! NB: you ALMOST ALWAYS want to first call "addDefaultSVGParserExtensions" */
-- (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension;
+- (void) addParserExtension:(id<SVGKParserExtension>) extension;
 
 @end

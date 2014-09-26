@@ -15,19 +15,19 @@
 @synthesize internalBorderLayer = _internalBorderLayer;
 
 /** uses the custom SVGKLayer instead of a default CALayer */
-+(Class)layerClass
++ (Class)layerClass
 {
     return [SVGKLayer class];
 }
 
-- (id)init
+- (instancetype)init
 {
     NSAssert(false, @"init not supported, use initWithSVGKImage:");
 
     return nil;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if( aDecoder == nil )
     {
@@ -44,7 +44,7 @@
     return self;
 }
 
--(id)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if( self )
@@ -54,7 +54,7 @@
     return self;
 }
 
-- (id)initWithSVGKImage:(SVGKImage*) im
+- (instancetype)initWithSVGKImage:(SVGKImage*) im
 {
     if( im == nil )
     {

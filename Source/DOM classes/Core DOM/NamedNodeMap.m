@@ -20,7 +20,7 @@
 @synthesize internalDictionary;
 @synthesize internalDictionaryOfNamespaces;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.internalDictionary = [[NSMutableDictionary alloc] init];

@@ -35,14 +35,14 @@
 
 @synthesize localName;
 
-- (id)init
+- (instancetype)init
 {
     NSAssert( FALSE, @"This class has no init method - it MUST NOT be init'd via init - you MUST use one of the multi-argument constructors instead" );
 	
     return nil;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v
 {
 	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
 	//Immutable strings will just be retained
@@ -82,7 +82,7 @@
     return self;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n
 {
     self = [super init];
     if (self) {
@@ -138,7 +138,7 @@
 	self.namespaceURI = nsURI;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI
 {
 	self = [self initType:nt name:n];
 	
@@ -150,7 +150,7 @@
 	return self;
 }
 
-- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI
 {
 	//Mutable Strings will be copied into immutable strings using nodeName and nodeValue's setter.
 	//Immutable strings will just be retained

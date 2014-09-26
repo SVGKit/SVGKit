@@ -22,7 +22,7 @@
 @synthesize URL;
 @synthesize rootElement=_rootElement;
 
-- (id)init
+- (instancetype)init
 {
     self = [super initType:DOMNodeType_DOCUMENT_NODE name:@"#document"];
     if (self) {

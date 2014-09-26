@@ -10,7 +10,7 @@
 
 @implementation Comment
 
-- (id)initWithValue:(NSString*) v
+- (instancetype)initWithValue:(NSString*) v
 {
     self = [super initType:DOMNodeType_COMMENT_NODE name:@"#comment" value:v];
     if (self) {

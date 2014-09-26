@@ -14,7 +14,7 @@
 @synthesize svgLanguageVersion;
 @synthesize stream;
 
-- (id)initWithInputSteam:(NSInputStream*)s {
+- (instancetype)initWithInputSteam:(NSInputStream*)s {
 	self = [super init];
 	if (!self)
 		return nil;

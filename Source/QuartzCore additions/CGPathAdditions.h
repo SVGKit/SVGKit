@@ -16,7 +16,7 @@
 #endif
 
 /*! From original SVGKit, but it seems to be "the opposite of translation" */
-CGPathRef CGPathCreateByOffsettingPath (CGPathRef aPath, CGFloat x, CGFloat y);
+CGPathRef CGPathCreateByOffsettingPath (CGPathRef aPath, CGFloat x, CGFloat y) CF_RETURNS_RETAINED;
 
 /*! New SVGKit: carefully named method that does what it claims to: it translates a path by the specified amount */
-CGPathRef CGPathCreateByTranslatingPath (CGPathRef aPath, CGFloat x, CGFloat y);
+CGPathRef CGPathCreateByTranslatingPath (CGPathRef aPath, CGFloat x, CGFloat y) CF_RETURNS_RETAINED;

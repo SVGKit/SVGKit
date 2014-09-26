@@ -100,7 +100,7 @@ SVGKParser* getCurrentlyParsingParser()
 
 #define READ_CHUNK_SZ 1024*10
 
-- (id)initWithSource:(SVGKSource *) s {
+- (instancetype)initWithSource:(SVGKSource *) s {
 	self = [super init];
 	if (self) {
 		self.parserExtensions = [[NSMutableArray alloc] init];
@@ -131,7 +131,7 @@ clazz *parser = [[clazz alloc] init]; \
 
 #undef AddParser
 
-- (void) addParserExtension:(NSObject<SVGKParserExtension>*) extension
+- (void) addParserExtension:(id<SVGKParserExtension>) extension
 {
 	// TODO: Should check for conflicts between this parser-extension and our existing parser-extensions, and issue warnings for any we find
 	

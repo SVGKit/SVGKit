@@ -55,7 +55,7 @@
 
 #pragma mark - methods needed for ObjectiveC implementation
 
-- (id)initWithString:(NSString*) styleSheetBody
+- (instancetype)initWithString:(NSString*) styleSheetBody
 {
     self = [super init];
     if (self)

@@ -32,8 +32,8 @@
 
 + (void)maskLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
     // if all that's masking is a single path, just clip to it
-    if( layer.mask.sublayers.count == 1 && [[layer.mask.sublayers objectAtIndex:0] isKindOfClass:[CAShapeLayer class]] ) {
-        CGPathRef maskPath = ((CAShapeLayer *) [layer.mask.sublayers objectAtIndex:0]).path;
+    if( layer.mask.sublayers.count == 1 && [(layer.mask.sublayers)[0] isKindOfClass:[CAShapeLayer class]] ) {
+        CGPathRef maskPath = ((CAShapeLayer *) (layer.mask.sublayers)[0]).path;
         // we have to undo the offset from SVGClipPathLayer.layoutLayer
         CGAffineTransform offset = CGAffineTransformMakeTranslation(layer.mask.frame.origin.x, layer.mask.frame.origin.y);
         CGPathRef translatedPath = CGPathCreateCopyByTransformingPath(maskPath, &offset);

@@ -1,8 +1,8 @@
 #import <SVGKit/SVGKImageView.h>
 
 @implementation SVGKImageView
+@dynamic image;
 
-//@synthesize image = _image;
 @synthesize showBorder = _showBorder;
 
 
@@ -25,7 +25,7 @@
 		return nil;
 	}
 	else
-		return [super init];
+		return self = [super init];
 }
 
 - (void)setImage:(SVGKImage*)image

@@ -10,11 +10,7 @@
 #define MAX_ACCUM 64
 #define NUM_COLORS 147
 
-SVGColor ColorValueWithName (const char *name);
-
-#if __has_feature(objc_arc)
-#warning This file must NOT be compiled with ARC. Use -fno-objc-arc flag.
-#endif
+static SVGColor ColorValueWithName (const char *name);
 
 static const char *gColorNames[NUM_COLORS] = {
 	"aliceblue",
@@ -440,26 +436,22 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 	return path;
 }
 
-CGColorRef CGColorWithSVGColor (SVGColor color) {
+CGColorRef CreateCGColorWithSVGColor (SVGColor color) {
 	CGColorRef outColor = NULL;
 	
 #if TARGET_OS_IPHONE
-	outColor = [UIColor colorWithRed:RGB_N(color.r)
+	outColor = CGColorRetain([UIColor colorWithRed:RGB_N(color.r)
 							   green:RGB_N(color.g)
 								blue:RGB_N(color.b)
-							   alpha:RGB_N(color.a)].CGColor;
+							   alpha:RGB_N(color.a)].CGColor);
 #else
 	if ([NSColor instancesRespondToSelector:@selector(CGColor)]) {
-		outColor = [NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
-											   blue:RGB_N(color.b) alpha:RGB_N(color.a)].CGColor;
-	} else {
-		//THIS IS DICEY CODE!
-		//I am unsure how well this will preform: something could break it
-		//This is also why this code is not compiled with ARC: the Objective-C object would go out of scope
-		//and be released.
-		CGColorRef tmpoutColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
-		
-		outColor = (CGColorRef)[(id)tmpoutColor autorelease];
+		outColor = CGColorRetain([NSColor colorWithCalibratedRed:RGB_N(color.r) green:RGB_N(color.g)
+											   blue:RGB_N(color.b) alpha:RGB_N(color.a)].CGColor);
+	}
+    
+    if (outColor == NULL) {
+		outColor = CGColorCreateGenericRGB(RGB_N(color.r), RGB_N(color.g), RGB_N(color.b), RGB_N(color.a));
 	}
 #endif
 	

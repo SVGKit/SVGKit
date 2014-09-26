@@ -3,7 +3,7 @@
 @implementation SVGPreserveAspectRatio
 
 /** Sets default values mandated by SVG Spec */
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {

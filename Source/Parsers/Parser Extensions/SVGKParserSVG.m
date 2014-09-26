@@ -23,7 +23,7 @@
 
 static NSDictionary *elementMap = nil;
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		

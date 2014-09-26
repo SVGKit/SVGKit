@@ -7,7 +7,7 @@
 
 @implementation SVGKSourceString
 
-- (id)initWithString:(NSString*)theStr
+- (instancetype)initWithString:(NSString*)theStr
 {
 	NSString *tmpStr = [[NSString alloc] initWithString:theStr];
 	NSInputStream* stream = [[NSInputStream alloc] initWithData:[tmpStr dataUsingEncoding:NSUTF8StringEncoding]];

@@ -14,18 +14,19 @@
 @property (nonatomic, strong, readonly) SVGKImage *image;
 
 //Function used by NSImageRep to init.
-+ (id)imageRepWithData:(NSData *)d;
-+ (id)imageRepWithContentsOfFile:(NSString *)filename;
-+ (id)imageRepWithContentsOfURL:(NSURL *)url;
-+ (id)imageRepWithSVGImage:(SVGKImage*)theImage;
-+ (id)imageRepWithSVGSource:(SVGKSource*)theSource;
++ (instancetype)imageRepWithData:(NSData *)d;
++ (instancetype)imageRepWithContentsOfFile:(NSString *)filename;
++ (instancetype)imageRepWithContentsOfURL:(NSURL *)url;
++ (instancetype)imageRepWithSVGImage:(SVGKImage*)theImage;
++ (instancetype)imageRepWithSVGSource:(SVGKSource*)theSource;
 
-- (id)initWithData:(NSData *)theData;
-- (id)initWithContentsOfURL:(NSURL *)theURL;
-- (id)initWithContentsOfFile:(NSString *)thePath;
-- (id)initWithSVGString:(NSString *)theString;
-- (id)initWithSVGImage:(SVGKImage*)theImage;
-- (id)initWithSVGSource:(SVGKSource*)theSource;
+- (instancetype)initWithData:(NSData *)theData;
+- (instancetype)initWithContentsOfURL:(NSURL *)theURL;
+- (instancetype)initWithContentsOfFile:(NSString *)thePath;
+- (instancetype)initWithSVGString:(NSString *)theString;
+- (instancetype)initWithSVGImage:(SVGKImage*)theImage;
+- (instancetype)initWithSVGSource:(SVGKSource*)theSource;
+- (instancetype)initWithSVGImage:(SVGKImage*)theImage copy:(BOOL)copyImage NS_DESIGNATED_INITIALIZER;
 
 - (NSData *)TIFFRepresentation;
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize;
@@ -34,5 +35,9 @@
 
 + (void)loadSVGKImageRep;
 + (void)unloadSVGKImageRep;
+
+// init methods inherited from NSImageRep
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+- (instancetype)init;
 
 @end

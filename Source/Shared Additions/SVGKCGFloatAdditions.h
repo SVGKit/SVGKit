@@ -17,12 +17,12 @@
 //The SVGK prefix is to prevent possible clashes when/if Apple implements the functions
 @interface NSString (SVGKCGFloatAdditions)
 
-- (CGFloat)SVGKCGFloatValue;
+@property (nonatomic, readonly) CGFloat SVGKCGFloatValue;
 
 @end
 
 @interface NSNumber (SVGKCGFloatAdditions)
 
-- (CGFloat)SVGKCGFloatValue;
+@property (nonatomic, readonly) CGFloat SVGKCGFloatValue;
 
 @end

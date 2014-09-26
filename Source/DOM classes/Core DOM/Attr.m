@@ -28,7 +28,7 @@
 // Introduced in DOM Level 2:
 @synthesize ownerElement;
 
-- (id)initWithName:(NSString*) n value:(NSString*) v
+- (instancetype)initWithName:(NSString*) n value:(NSString*) v
 {
     self = [super initType:DOMNodeType_ATTRIBUTE_NODE name:n value:v];
     if (self)
@@ -39,7 +39,7 @@
     return self;
 }
 
-- (id)initWithNamespace:(NSString*) ns qualifiedName:(NSString*) qn value:(NSString *)v
+- (instancetype)initWithNamespace:(NSString*) ns qualifiedName:(NSString*) qn value:(NSString *)v
 {
     self = [super initType:DOMNodeType_ATTRIBUTE_NODE name:qn value:v inNamespace:ns];
 	if (self)

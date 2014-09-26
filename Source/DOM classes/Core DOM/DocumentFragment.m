@@ -10,7 +10,7 @@
 
 @implementation DocumentFragment
 
-- (id)init
+- (instancetype)init
 {
     self = [super initType:DOMNodeType_DOCUMENT_FRAGMENT_NODE name:nil];
     if (self) {

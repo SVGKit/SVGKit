@@ -18,32 +18,25 @@
 
 #if TARGET_OS_IPHONE
 #define AppleNativeImage UIImage
+#define AppleNativeImageSize(theImage) (theImage.size)
 #else
-#define AppleNativeImage NSImage
-
-@implementation NSImage (priv)
-
-+ (instancetype)imageWithData:(NSData*)aData
-{
-    return [[self alloc] initWithData:aData];
-}
-
-@end
-
+#define AppleNativeImage CIImage
+#define AppleNativeImageSize(theImage) (theImage.extent.size)
 #endif
 
-#define AppleNativeImageRef AppleNativeImage*
+typedef AppleNativeImage *AppleNativeImageRef;
 
-//create a retained CGImage because I don't trust ARC not to release
-//the classes, thus the images, when we leave this function.
-//This is mainly for the benefit of the OS X port
+// Create a retained CGImage because I don't trust ARC not to release
+// the classes, thus the images, when we leave this function.
+// This is mainly for the benefit of the OS X port
+static CGImageRef SVGImageCGImage(AppleNativeImageRef img) CF_RETURNS_RETAINED;
 CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 {
 #if TARGET_OS_IPHONE
     return CGImageRetain(img.CGImage);
 #else
-    CGImageRef rep = [img CGImageForProposedRect:NULL context:nil hints:nil];
-    return CGImageRetain(rep);
+    NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithCIImage:img];
+    return CGImageRetain(rep.CGImage);
 #endif
 }
 
@@ -111,7 +104,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 	/** Now we have some raw bytes, try to load using Apple's image loaders
 	 (will fail if the image is an SVG file)
 	 */
-	AppleNativeImageRef image = [AppleNativeImage imageWithData:imageData];
+	AppleNativeImageRef image = [[AppleNativeImage alloc] initWithData:imageData];
 	
     if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
     {
@@ -143,7 +136,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 #if TARGET_OS_IPHONE
                 image = svg.UIImage;
 #else
-                image = svg.NSImage;
+                image = svg.CIImage;
 #endif
             }
         }
@@ -154,7 +147,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
         CGRect frame = CGRectMake(_x, _y, _width, _height);
         
         if( imageData )
-            self.viewBox = SVGRectMake(0, 0, image.size.width, image.size.height);
+            self.viewBox = SVGRectMake(0, 0, AppleNativeImageSize(image).width, AppleNativeImageSize(image).height);
         else
             self.viewBox = SVGRectMake(0, 0, _width, _height);
         
@@ -173,7 +166,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
             else if( self.preserveAspectRatio.baseVal.meetOrSlice == SVG_MEETORSLICE_SLICE )
             {
                 // crop the image
-                CGRect cropRect = CGRectMake(0, 0, image.size.width, image.size.height);
+                CGRect cropRect = CGRectMake(0, 0, AppleNativeImageSize(image).width, AppleNativeImageSize(image).height);
                 cropRect = [self clipFrame:cropRect fromRatio:1.0 / ratioOfRatios];
                 
                 CGImageRef croppedRef = CGImageCreateWithImageInRect(imageRef, cropRect);
@@ -186,7 +179,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
         frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
         newLayer.frame = frame;
         
-        newLayer.contents = (__bridge id)imageRef;
+        newLayer.contents = CFBridgingRelease(imageRef);
 	}
 		
 #if OLD_CODE

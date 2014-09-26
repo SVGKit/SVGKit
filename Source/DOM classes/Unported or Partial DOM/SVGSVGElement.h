@@ -99,9 +99,8 @@
 -(void) forceRedraw;
 -(void) pauseAnimations;
 -(void) unpauseAnimations;
--(BOOL) animationsPaused;
--(float) getCurrentTime;
--(void) setCurrentTime:(float) seconds;
+@property (nonatomic, readonly) BOOL animationsPaused;
+@property (nonatomic, getter=getCurrentTime) float currentTime;
 -(NodeList*) getIntersectionList:(SVGRect) rect referenceElement:(SVGElement*) referenceElement;
 -(NodeList*) getEnclosureList:(SVGRect) rect referenceElement:(SVGElement*) referenceElement;
 -(BOOL) checkIntersection:(SVGElement*) element rect:(SVGRect) rect;

@@ -10,7 +10,7 @@
 
 @implementation Text
 
-- (id)initWithValue:(NSString*) v
+- (instancetype)initWithValue:(NSString*) v
 {
     self = [super initType:DOMNodeType_TEXT_NODE name:@"#text" value:v];
     if (self) {

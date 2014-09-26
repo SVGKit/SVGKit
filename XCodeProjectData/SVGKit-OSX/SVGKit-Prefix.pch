@@ -8,7 +8,17 @@
 
 #include <tgmath.h>
 
+#include <CoreGraphics/CoreGraphics.h>
+#include <CoreText/CoreText.h>
 #ifdef __OBJC__
+    #ifndef NS_DESIGNATED_INITIALIZER
+    #if __has_attribute(objc_designated_initializer)
+    #define NS_DESIGNATED_INITIALIZER __attribute__((objc_designated_initializer))
+    #else
+    #define NS_DESIGNATED_INITIALIZER
+    #endif
+    #endif
+
 	#import <Foundation/Foundation.h>
 	#import <Cocoa/Cocoa.h>
 	#import <QuartzCore/QuartzCore.h>
@@ -35,3 +45,5 @@
 	#define IS_ALSO_LUMBERJACK_LOG_LEVEL 0
 	#import "SVGKit_logging.pch"
 #endif
+
+

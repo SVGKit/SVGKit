@@ -7,17 +7,12 @@
 
 @implementation SVGKSourceURL
 
-- (id)copyWithZone:(NSZone *)zone
+- (instancetype)copyWithZone:(NSZone *)zone
 {
 	return [[SVGKSourceURL alloc] initWithURL:self.URL];
 }
 
-- (id)initFromURL:(NSURL*)u
-{
-	return [self initWithURL:u];
-}
-
-- (id)initWithURL:(NSURL*)u
+- (instancetype)initWithURL:(NSURL*)u
 {
 	NSInputStream* stream = [[NSInputStream alloc] initWithURL:u];
 	[stream open];
@@ -27,7 +22,7 @@
 	return self;
 }
 
-+ (SVGKSourceURL*)sourceFromURL:(NSURL*)u {
++ (instancetype)sourceFromURL:(NSURL*)u {
 	SVGKSourceURL* s = [[SVGKSourceURL alloc] initWithURL:u];
 	
 	return s;

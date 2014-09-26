@@ -1,12 +1,12 @@
 
 
-_CGColorWithSVGColor
+_CreateCGColorWithSVGColor
 #_CGPathAddRoundedRect
 _CGPathCreateByOffsettingPath
 _CGPathCreateByTranslatingPath
 _CGRectFromSVGRect
 _CGSizeFromSVGRect
-_ColorValueWithName
+#_ColorValueWithName
 #.objc_class_name_AppleSucksDOMImplementation
 .objc_class_name_Attr
 .objc_class_name_BaseClassForAllSVGBasicShapes

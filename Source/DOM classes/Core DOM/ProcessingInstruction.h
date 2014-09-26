@@ -20,6 +20,6 @@
 @property(nonatomic,strong,readonly) NSString* target;
 @property(nonatomic,strong,readonly) NSString* data;
 
--(id) initProcessingInstruction:(NSString*) target value:(NSString*) data;
+-(instancetype) initProcessingInstruction:(NSString*) target value:(NSString*) data NS_DESIGNATED_INITIALIZER;
 
 @end

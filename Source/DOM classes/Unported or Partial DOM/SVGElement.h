@@ -46,8 +46,8 @@
 
 #pragma mark - SVG-spec supporting methods that aren't in the Spec itself
 
-- (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes;
-- (id)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes;
+- (instancetype)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithQualifiedName:(NSString*) n inNameSpaceURI:(NSString*) nsURI attributes:(NSMutableDictionary*) attributes NS_DESIGNATED_INITIALIZER;
 
 -(void) reCalculateAndSetViewportElementReferenceUsingFirstSVGAncestor:(SVGElement*) firstAncestor;
 

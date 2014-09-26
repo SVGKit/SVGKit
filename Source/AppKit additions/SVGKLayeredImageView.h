@@ -26,5 +26,16 @@
  */
 
 @interface SVGKLayeredImageView : SVGKImageView
+#if TARGET_OS_IPHONE
+- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSVGKImage:(SVGKImage*) im NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+#else
+- (instancetype)initWithSVGKImage:(SVGKImage*)im frame:(NSRect)theFrame NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSVGKImage:(SVGKImage*) im;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+#endif
+
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
 @end

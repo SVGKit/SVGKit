@@ -71,7 +71,7 @@ static void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathEl
 @synthesize delegate;
 @synthesize rootView;
 
-- (id)initWithView:(DWView*)v
+- (instancetype)initWithView:(DWView*)v
 {
     self = [super init];
     if (self) {

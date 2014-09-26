@@ -154,10 +154,10 @@ typedef enum DOMNodeType
 
 #pragma mark - Objective-C init methods (not in SVG Spec - you're supposed to use SVGDocument's createXXX methods instead)
 /** Designated initializers - 2 pairs (one for DOM 1, no namespace, the other for DOM 2, with namespace) of 2 methods (one for nodes that REQUIRE a value, the other for nodes that MUST NOT have a value) */
-- (id)initType:(DOMNodeType) nt name:(NSString*) n;
-- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v;
-- (id)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI;
-- (id)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI;
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n NS_DESIGNATED_INITIALIZER;
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v NS_DESIGNATED_INITIALIZER;
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n inNamespace:(NSString*) nsURI;
+- (instancetype)initType:(DOMNodeType) nt name:(NSString*) n value:(NSString*) v inNamespace:(NSString*) nsURI;
 
 #pragma mark - Objective-C serialization method to serialize a DOM tree back to XML (used heavily in SVGKit's output/conversion features)
 

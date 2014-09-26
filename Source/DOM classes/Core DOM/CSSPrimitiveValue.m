@@ -23,7 +23,7 @@
 
 @synthesize primitiveType;
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithUnitType:CSS_PRIMITIVE_VALUE];
     if (self) {

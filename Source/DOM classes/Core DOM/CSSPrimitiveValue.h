@@ -91,7 +91,7 @@ typedef enum CSSPrimitiveType
 
 -(void) setStringValue:(CSSPrimitiveType) stringType stringValue:(NSString*) stringValue;
 
--(NSString*) getStringValue;
+@property (nonatomic, getter=getStringValue, readonly, copy) NSString *stringValue;
 
 -(/* FIXME: have to add this type: Counter*/ void) getCounterValue;
 

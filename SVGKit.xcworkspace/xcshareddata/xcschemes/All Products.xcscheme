@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "661A0DC9161727CF008D5FBE"
-               BuildableName = "Demo-iOS.app"
-               BlueprintName = "Demo-iOS"
+               BlueprintIdentifier = "551165AE1970F14100C8A63D"
+               BuildableName = "Demo-iOS Framework.app"
+               BlueprintName = "Demo-iOS Framework"
                ReferencedContainer = "container:Demo-iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,10 +43,19 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "55CB78A4176BF56500BD97F1"
+            BuildableName = "All Mac Demos"
+            BlueprintName = "All Mac Demos"
+            ReferencedContainer = "container:Demo-OSX.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
@@ -71,6 +80,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "55CB78A4176BF56500BD97F1"
+            BuildableName = "All Mac Demos"
+            BlueprintName = "All Mac Demos"
+            ReferencedContainer = "container:Demo-OSX.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
