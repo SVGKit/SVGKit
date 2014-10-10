@@ -29,6 +29,7 @@
 #import "SVGKSourceURL.h"
 #import "CSSStyleSheet.h"
 #import "StyleSheetList+Mutable.h"
+#import "NSData+NSInputStream.h"
 
 @interface SVGKParser()
 @property(nonatomic,retain, readwrite) SVGKSource* source;
@@ -355,20 +356,9 @@ SVGKParser* getCurrentlyParsingParser()
 
 - (NSString *)stringFromSource:(SVGKSource *) src
 {
-    static uint8_t byteBuffer[4096];
-    NSInteger bytesRead;
-    NSString *result = nil;
     [src.stream open]; // if we do this, we CANNOT parse from this source again in future
-    do
-    {
-        bytesRead = [src.stream read:byteBuffer maxLength:4096];
-        NSString *read = [[[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
-        if( result )
-            result = [result stringByAppendingString:read];
-        else
-            result = read;
-    } while (bytesRead > 0);
-    return result;
+    NSData *data = [NSData dataWithContentsOfStream:src.stream initialCapacity:4096 error:nil];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 - (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data
