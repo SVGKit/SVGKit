@@ -26,6 +26,15 @@
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
 		55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */; };
 		55452BF719EC68A200B75A30 /* libSVGKit-iOS.1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.1.2.0.a */; };
+		55452C0619EC6C9B00B75A30 /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */; };
+		55452C0719EC6C9B00B75A30 /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0019EC6C9B00B75A30 /* g-element-applies-rotation.svg */; };
+		55452C0819EC6C9B00B75A30 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0119EC6C9B00B75A30 /* ImageAspectRatio.svg */; };
+		55452C0919EC6C9B00B75A30 /* imagetag-layer2-sun.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0219EC6C9B00B75A30 /* imagetag-layer2-sun.svg */; };
+		55452C0A19EC6C9B00B75A30 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0319EC6C9B00B75A30 /* Lion.svg */; };
+		55452C0B19EC6C9B00B75A30 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0419EC6C9B00B75A30 /* Monkey.svg */; };
+		55452C0C19EC6C9B00B75A30 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0519EC6C9B00B75A30 /* Note.svg */; };
+		55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639633F16145DDC00E58CCA /* libxml2.dylib */; };
+		55825B3A19EC7B4700635497 /* SVGKit_iOS-RetainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661ADBF316CC2FBE006F4BC3 /* SVGTextPositioningElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */; };
 		661ADBF716CC2FCA006F4BC3 /* SVGTextContentElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -296,6 +305,14 @@
 		55452BF119EC68A200B75A30 /* SVGKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55452BF419EC68A200B75A30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKit_iOS_Tests.m; sourceTree = "<group>"; };
+		55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CurvedDiamond.svg; path = "Demo-Samples/SVG/CurvedDiamond.svg"; sourceTree = SOURCE_ROOT; };
+		55452C0019EC6C9B00B75A30 /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "g-element-applies-rotation.svg"; path = "Demo-Samples/SVG/g-element-applies-rotation.svg"; sourceTree = SOURCE_ROOT; };
+		55452C0119EC6C9B00B75A30 /* ImageAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ImageAspectRatio.svg; path = "Demo-Samples/SVG/ImageAspectRatio.svg"; sourceTree = SOURCE_ROOT; };
+		55452C0219EC6C9B00B75A30 /* imagetag-layer2-sun.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "imagetag-layer2-sun.svg"; path = "Demo-Samples/SVG/imagetag-layer2-sun.svg"; sourceTree = SOURCE_ROOT; };
+		55452C0319EC6C9B00B75A30 /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Lion.svg; path = "Demo-Samples/SVG/Lion.svg"; sourceTree = SOURCE_ROOT; };
+		55452C0419EC6C9B00B75A30 /* Monkey.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Monkey.svg; path = "Demo-Samples/SVG/Monkey.svg"; sourceTree = SOURCE_ROOT; };
+		55452C0519EC6C9B00B75A30 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Note.svg; path = "Demo-Samples/SVG/Note.svg"; sourceTree = SOURCE_ROOT; };
+		55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGKit_iOS-RetainTests.m"; sourceTree = "<group>"; };
 		661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextPositioningElement.h; sourceTree = "<group>"; };
 		661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextPositioningElement.m; sourceTree = "<group>"; };
 		661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextContentElement.h; sourceTree = "<group>"; };
@@ -532,6 +549,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */,
 				55452BF719EC68A200B75A30 /* libSVGKit-iOS.1.2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,17 +609,34 @@
 			isa = PBXGroup;
 			children = (
 				55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */,
+				55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */,
 				55452BF319EC68A200B75A30 /* Supporting Files */,
 			);
 			path = "SVGKit-iOS Tests";
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		55452BF319EC68A200B75A30 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				55452BF419EC68A200B75A30 /* Info.plist */,
+				55452C0D19EC6CA400B75A30 /* Test SVGs */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		55452C0D19EC6CA400B75A30 /* Test SVGs */ = {
+			isa = PBXGroup;
+			children = (
+				55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */,
+				55452C0019EC6C9B00B75A30 /* g-element-applies-rotation.svg */,
+				55452C0119EC6C9B00B75A30 /* ImageAspectRatio.svg */,
+				55452C0219EC6C9B00B75A30 /* imagetag-layer2-sun.svg */,
+				55452C0319EC6C9B00B75A30 /* Lion.svg */,
+				55452C0419EC6C9B00B75A30 /* Monkey.svg */,
+				55452C0519EC6C9B00B75A30 /* Note.svg */,
+			);
+			name = "Test SVGs";
 			sourceTree = "<group>";
 		};
 		6636CD77175F542A0072AAEF /* Sources */ = {
@@ -1193,6 +1228,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55452C0719EC6C9B00B75A30 /* g-element-applies-rotation.svg in Resources */,
+				55452C0619EC6C9B00B75A30 /* CurvedDiamond.svg in Resources */,
+				55452C0819EC6C9B00B75A30 /* ImageAspectRatio.svg in Resources */,
+				55452C0A19EC6C9B00B75A30 /* Lion.svg in Resources */,
+				55452C0C19EC6C9B00B75A30 /* Note.svg in Resources */,
+				55452C0919EC6C9B00B75A30 /* imagetag-layer2-sun.svg in Resources */,
+				55452C0B19EC6C9B00B75A30 /* Monkey.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,6 +1262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55825B3A19EC7B4700635497 /* SVGKit_iOS-RetainTests.m in Sources */,
 				55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1376,11 +1419,20 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"Source/**",
+					"calayer-exporter",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "SVGKit-iOS Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1410,10 +1462,19 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"Source/**",
+					"calayer-exporter",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "SVGKit-iOS Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
