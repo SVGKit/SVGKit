@@ -58,14 +58,16 @@
 }
 
 - (void)testSameFileTwice {
-	@autoreleasepool {
-		SVGKImage *image = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Monkey" ofType:@"svg"]];
-		SVGKImage *image2 = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Monkey" ofType:@"svg"]];
-
-		// Yes, this is ARC, yes we do this to quiet a warning
-		[image class];
-		[image2 class];
-	}
+    XCTAssertNoThrow(^{
+        @autoreleasepool {
+            SVGKImage *image = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Monkey" ofType:@"svg"]];
+            SVGKImage *image2 = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Monkey" ofType:@"svg"]];
+            
+            // Yes, this is ARC, yes we do this to quiet a warning
+            [image class];
+            [image2 class];
+        }
+    });
 }
 
 @end
