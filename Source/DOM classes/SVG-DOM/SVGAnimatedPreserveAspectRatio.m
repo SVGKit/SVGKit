@@ -2,6 +2,12 @@
 
 @implementation SVGAnimatedPreserveAspectRatio
 
+- (void)dealloc
+{
+    self.baseVal = nil;
+    [super dealloc];
+}
+
 - (id)init
 {
     self = [super init];

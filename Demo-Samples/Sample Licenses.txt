@@ -41,7 +41,11 @@ map-alaska-onlysimple.svg
 test-wave-1.svg
      -- Public Domain, author: Adam Martin (http://t-machine.org)
      -- Created by: Inkscape
-	 
+     
+test-stroke-dash-array.svg
+     -- Public Domain, author: David Sweetman
+     -- Created by author
+
 Location_European_nation_states
      -- Creative Commons
 	 -- http://en.wikipedia.org/wiki/File:Location_European_nation_states.svg
@@ -52,6 +56,14 @@ Location_European_nation_states
 Reinel_compass_rose.svg
      -- Creative Commons
      -- http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg
+
+Coins.svg
+     -- Created by author, public domain
+     -- Coins images Public Domain, http://pixabay.com/en/euro-2-coin-currency-europe-money-400287/
+
+ImageAspectRatio.svg
+     -- Created by author based on PreserveAspectRatio.svg from the SVG spec
+     -- Snowman image Public Domain, http://www.publicdomainpictures.net/view-image.php?image=17565&picture=snowman-decoration
 
 
 FILES TAKEN DIRECT FROM THE OFFICIAL SVG SPEC:

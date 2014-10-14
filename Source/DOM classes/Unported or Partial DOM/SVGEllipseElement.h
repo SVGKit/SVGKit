@@ -6,6 +6,7 @@
 //
 
 #import "BaseClassForAllSVGBasicShapes.h"
+#import "BaseClassForAllSVGBasicShapes_ForSubclasses.h"
 
 @interface SVGEllipseElement : BaseClassForAllSVGBasicShapes { }
 

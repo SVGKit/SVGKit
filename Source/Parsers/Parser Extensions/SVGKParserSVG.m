@@ -2,6 +2,7 @@
 
 #import "SVGSVGElement.h"
 #import "SVGCircleElement.h"
+#import "SVGClipPathElement.h"
 #import "SVGDefsElement.h"
 #import "SVGDescriptionElement.h"
 //#import "SVGKSource.h"
@@ -15,6 +16,7 @@
 #import "SVGRectElement.h"
 #import "SVGTitleElement.h"
 #import "SVGTextElement.h"
+#import "TinySVGTextAreaElement.h"
 
 #import "SVGDocument_Mutable.h"
 
@@ -33,6 +35,7 @@ static NSDictionary *elementMap;
                           [SVGDescriptionElement class], @"description",
                           [SVGEllipseElement class], @"ellipse",
                           [SVGGElement class], @"g",
+                          [SVGClipPathElement class], @"clipPath",
                           [SVGImageElement class], @"image",
                           [SVGLineElement class], @"line",
                           [SVGPathElement class], @"path",
@@ -40,7 +43,8 @@ static NSDictionary *elementMap;
                           [SVGPolylineElement class], @"polyline",
                           [SVGRectElement class], @"rect",
                           [SVGTitleElement class], @"title",
-						   [SVGTextElement class], @"text",
+                           [SVGTextElement class], @"text",
+                          [TinySVGTextAreaElement class], @"textArea",
 						   nil] retain];
 		}
 	}
@@ -97,6 +101,8 @@ static NSDictionary *elementMap;
 		/** special case: <svg:svg ... version="XXX"> */
 		if( [@"svg" isEqualToString:name] )
 		{
+            ((SVGSVGElement *) element).source = SVGKSource;
+            
 			NSString* svgVersion = nil;
 			
 			/** According to spec, if the first XML node is an SVG node, then it

@@ -19,28 +19,23 @@
 @synthesize detailViewController = _detailViewController;
 @synthesize nameOfBrokenSVGToLoad = _nameOfBrokenSVGToLoad;
 
-- (id)init
+- (void)setupSampleNames
 {
-    if (self) {
-        self.sampleNames = [NSMutableArray arrayWithObjects: @"map-alaska-onlysimple", @"g-element-applies-rotation", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"rounded-rects", @"gradients",@"radialGradientTest", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"opacity01", @"Note", @"Note@2x", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"quad01", @"cubic01", @"rotated-and-skewed-text", @"RainbowWing", @"sakamura-default-fill-opacity-test", @"StyleAttribute", @"voies", @"nil-demo-layered-imageview", @"svg-with-explicit-width", @"svg-with-explicit-width-large", @"svg-with-explicit-width-large@160x240", @"BlankMap-World6-Equirectangular", nil];
-    }
-	
-	/** Apple really sucks. They keep randomly changing which init methods they call, BREAKING ALL EXISTING CODE */
-    return nil;
+    self.sampleNames = [NSMutableArray arrayWithObjects: @"map-alaska-onlysimple", @"g-element-applies-rotation", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"rounded-rects", @"gradients",@"radialGradientTest", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"opacity01", @"Note", @"Note@2x", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"quad01", @"cubic01", @"rotated-and-skewed-text", @"RainbowWing", @"sakamura-default-fill-opacity-test", @"StyleAttribute", @"voies", @"nil-demo-layered-imageview", @"svg-with-explicit-width", @"svg-with-explicit-width-large", @"svg-with-explicit-width-large@160x240", @"BlankMap-World6-Equirectangular", @"Coins", @"imagetag-layered", @"ImageAspectRatio", @"test-stroke-dash-array", nil];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-		[self init];
+		[self setupSampleNames];
     }
     return self;
 }
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	self = [super initWithCoder:aDecoder];
 	if (self) {
-		[self init];
+		[self setupSampleNames];
 	}
 	return self;
 }
@@ -110,9 +105,8 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if( buttonIndex == 0 )
+	if( buttonIndex == [alertView cancelButtonIndex] )
 	{
-		NSLog(@"[%@] Apple hates all developers. Why did they have a 'cancel clicked' if they also send 'cancel' as 'not cancelled'?", [self class]);
 		return;
 	}
 	

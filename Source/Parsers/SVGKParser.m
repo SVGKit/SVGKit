@@ -29,6 +29,7 @@
 #import "SVGKSourceURL.h"
 #import "CSSStyleSheet.h"
 #import "StyleSheetList+Mutable.h"
+#import "NSData+NSInputStream.h"
 
 @interface SVGKParser()
 @property(nonatomic,retain, readwrite) SVGKSource* source;
@@ -187,6 +188,11 @@ SVGKParser* getCurrentlyParsingParser()
 
 - (SVGKParseResult*) parseSynchronously
 {
+	if( self.currentParseRun != nil )
+	{
+		DDLogError(@"FATAL: attempting to run the parser twice in one thread; limxml is single-threaded only, so we are too (until someone wraps libxml to be multi-threaded)");
+	}
+	
 	self.currentParseRun = [[SVGKParseResult new] autorelease];
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
@@ -200,11 +206,25 @@ SVGKParser* getCurrentlyParsingParser()
 	*/
 	
 	NSInputStream* stream = source.stream;
+	if( stream == nil )
+	{
+		[currentParseRun addSourceError:[NSError errorWithDomain:@"SVGKit" code:2354 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Source failed to create a valid NSInputStream; check your log files for why the SVGKSource failed (source = %@)",source]}]];
+																								
+	}
+	else
+	{
+		[stream open];
 	NSStreamStatus status = [stream streamStatus];
 	if (status != NSStreamStatusOpen)
 	{
 		if (status == NSStreamStatusError)
+		{
 			[currentParseRun addSourceError:[stream streamError]];
+		}
+		else
+		{
+			[currentParseRun addSourceError:[NSError errorWithDomain:@"SVGKit" code:2573 userInfo:@{NSLocalizedDescriptionKey: @"The stream wouldn't open; this can happen when Apple libraries incorrectly open slowly over the internet. Any other case is probably a threading bug inside SVGKit"}]];
+		}
 		[stream close];
 		return  currentParseRun;
 	}
@@ -281,6 +301,7 @@ SVGKParser* getCurrentlyParsingParser()
 		xmlParseChunk(ctx, NULL, 0, 1); // EOF
 	
 	xmlFreeParserCtxt(ctx);
+	}
 	
 	[[NSThread currentThread].threadDictionary removeObjectForKey:kThreadLocalCurrentlyActiveParser];
 	
@@ -335,19 +356,9 @@ SVGKParser* getCurrentlyParsingParser()
 
 - (NSString *)stringFromSource:(SVGKSource *) src
 {
-    static uint8_t byteBuffer[4096];
-    NSInteger bytesRead;
-    NSString *result = nil;
-    do
-    {
-        bytesRead = [src.stream read:byteBuffer maxLength:4096];
-        NSString *read = [[[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding] autorelease];
-        if( result )
-            result = [result stringByAppendingString:read];
-        else
-            result = read;
-    } while (bytesRead > 0);
-    return result;
+    [src.stream open]; // if we do this, we CANNOT parse from this source again in future
+    NSData *data = [NSData dataWithContentsOfStream:src.stream initialCapacity:4096 error:nil];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 - (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data
