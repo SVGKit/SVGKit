@@ -177,6 +177,11 @@
 	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
 	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
     
+    if (_image) {
+        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+    }
+    
+    [_image release];
 	_image = nil;
     self.startRenderTime = nil;
     self.endRenderTime = nil;
