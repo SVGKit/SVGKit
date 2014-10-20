@@ -15,14 +15,31 @@ typedef struct {
 	CGFloat offY;
 } PathInfo;
 
+CGFloat fixInfinity(CGFloat inputFloat){
+    if(inputFloat>CGFLOAT_MAX) inputFloat=CGFLOAT_MAX;
+    if(inputFloat<(-1)*CGFLOAT_MAX) inputFloat=(-1)*CGFLOAT_MAX;
+    return inputFloat;
+}
+
+CGPoint *fixPointInfinity(CGPoint *inputFloat){
+    int i;
+    for (i = 0; i < sizeof(inputFloat); ++i)
+    {
+        inputFloat[0].x=fixInfinity(inputFloat[0].x);
+        inputFloat[0].y=fixInfinity(inputFloat[0].y);
+
+    }
+    return inputFloat;
+}
+
 void applier (void *info, const CGPathElement *element) {
 	PathInfo *pathInfo = (PathInfo *) info;
 	
 	CGMutablePathRef path = pathInfo->path;
-	CGFloat x = pathInfo->offX;
-	CGFloat y = pathInfo->offY;
-	
-	const CGPoint *points = element->points;
+	CGFloat x = fixInfinity(pathInfo->offX);
+	CGFloat y = fixInfinity(pathInfo->offY);
+    
+	const CGPoint *points = fixPointInfinity(element->points);
 	
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
@@ -51,8 +68,8 @@ CGPathRef CGPathCreateByOffsettingPath (CGPathRef aPath, CGFloat x, CGFloat y) {
 	
 	PathInfo *info = (PathInfo *) malloc(sizeof(PathInfo));
 	info->path = path;
-	info->offX = x;
-	info->offY = y;
+	info->offX = fixInfinity(x);
+	info->offY = fixInfinity(y);
 	
 	CGPathApply(aPath, info, &applier);
 	free(info);
@@ -64,10 +81,10 @@ void applyPathTranslation (void *info, const CGPathElement *element) {
 	PathInfo *pathInfo = (PathInfo *) info;
 	
 	CGMutablePathRef path = pathInfo->path;
-	CGFloat x = pathInfo->offX;
-	CGFloat y = pathInfo->offY;
+	CGFloat x = fixInfinity(pathInfo->offX);
+	CGFloat y = fixInfinity(pathInfo->offY);
 	
-	const CGPoint *points = element->points;
+	const CGPoint *points = fixPointInfinity(element->points);
 	
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
@@ -96,8 +113,8 @@ CGPathRef CGPathCreateByTranslatingPath (CGPathRef aPath, CGFloat x, CGFloat y) 
 	
 	PathInfo *info = (PathInfo *) malloc(sizeof(PathInfo));
 	info->path = path;
-	info->offX = x;
-	info->offY = y;
+	info->offX = fixInfinity(x);
+	info->offY = fixInfinity(y);
 	
 	CGPathApply(aPath, info, &applyPathTranslation);
 	free(info);
