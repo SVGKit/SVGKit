@@ -57,7 +57,7 @@ void applier (void *info, const CGPathElement *element) {
 	CGFloat x = fixInfinity(pathInfo->offX);
 	CGFloat y = fixInfinity(pathInfo->offY);
     
-	const CGPoint *points = fixPointsInfinity(element->points);
+	const CGPoint *points = fixPointsInfinity(element);
 	
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
@@ -102,7 +102,7 @@ void applyPathTranslation (void *info, const CGPathElement *element) {
 	CGFloat x = fixInfinity(pathInfo->offX);
 	CGFloat y = fixInfinity(pathInfo->offY);
 	
-	const CGPoint *points = fixPointsInfinity(element->points);
+	const CGPoint *points = fixPointsInfinity(element);
 	
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
