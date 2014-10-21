@@ -21,15 +21,33 @@ CGFloat fixInfinity(CGFloat inputFloat){
     return inputFloat;
 }
 
-CGPoint *fixPointInfinity(CGPoint *inputFloat){
-    int i;
-    for (i = 0; i < sizeof(inputFloat); ++i)
+CGPoint *fixPointsInfinity(CGPathElement *element){
+    int i,total;
+    
+    switch (element->type) {
+        case kCGPathElementMoveToPoint:
+            total=1;
+            break;
+        case kCGPathElementAddLineToPoint:
+            total=1;
+            break;
+        case kCGPathElementAddQuadCurveToPoint:
+            total=2;
+            break;
+        case kCGPathElementAddCurveToPoint:
+            total=3;
+            break;
+        default:
+            total=0;
+            break;
+    }
+    for (i = 0; i < total; i++)
     {
-        inputFloat[0].x=fixInfinity(inputFloat[0].x);
-        inputFloat[0].y=fixInfinity(inputFloat[0].y);
+        element->points[i].x=fixInfinity(element->points[i].x);
+        element->points[i].y=fixInfinity(element->points[i].y);
 
     }
-    return inputFloat;
+    return element->points;
 }
 
 void applier (void *info, const CGPathElement *element) {
@@ -39,7 +57,7 @@ void applier (void *info, const CGPathElement *element) {
 	CGFloat x = fixInfinity(pathInfo->offX);
 	CGFloat y = fixInfinity(pathInfo->offY);
     
-	const CGPoint *points = fixPointInfinity(element->points);
+	const CGPoint *points = fixPointsInfinity(element->points);
 	
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
@@ -84,7 +102,7 @@ void applyPathTranslation (void *info, const CGPathElement *element) {
 	CGFloat x = fixInfinity(pathInfo->offX);
 	CGFloat y = fixInfinity(pathInfo->offY);
 	
-	const CGPoint *points = fixPointInfinity(element->points);
+	const CGPoint *points = fixPointsInfinity(element->points);
 	
 	switch (element->type) {
 		case kCGPathElementMoveToPoint:
