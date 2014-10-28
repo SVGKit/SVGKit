@@ -10,10 +10,6 @@
 @property(nonatomic,readwrite) DOMNodeType nodeType;
 @property(nonatomic,assign,readwrite) Node* parentNode;
 @property(nonatomic,retain,readwrite) NodeList* childNodes;
-@property(nonatomic,assign,readwrite) Node* firstChild;
-@property(nonatomic,assign,readwrite) Node* lastChild;
-@property(nonatomic,assign,readwrite) Node* previousSibling;
-@property(nonatomic,assign,readwrite) Node* nextSibling;
 @property(nonatomic,retain,readwrite) NamedNodeMap* attributes;
 
 @property(nonatomic,assign,readwrite) Document* ownerDocument;
