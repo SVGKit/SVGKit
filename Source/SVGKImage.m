@@ -658,7 +658,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	 
 	 (parent may have to change its size to fit children)
 	 */
-	NSUInteger childCount = 0;
+	NSUInteger sublayerCount = 0;
 	for (SVGElement *child in childNodes )
 	{
 		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
@@ -669,12 +669,17 @@ static NSMutableDictionary* globalSVGKImageCache;
 				continue;
 			}
 			
-			childCount++;
+			sublayerCount++;
 			[layer addSublayer:sublayer];
 		}
 	}
 	
-	if ( childCount < 1 ) {
+	/**
+	 If none of the child nodes return a CALayer, we're safe to early-out here (and in fact we need to because
+	 calling setNeedsDisplay on an image layer hides the image). We can't just check childNodes.count because
+	 there may be some nodes like whitespace nodes for which we don't create layers.
+	 */
+	if ( sublayerCount < 1 ) {
 		return layer;
 	}
 	
