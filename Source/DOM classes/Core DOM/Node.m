@@ -575,7 +575,7 @@
 		case DOMNodeType_DOCUMENT_NODE:
 		case DOMNodeType_ELEMENT_NODE:
 		{
-			[outputString appendString:@">\n"];
+			[outputString appendString:@">"];
 		}break;
 			
 		case DOMNodeType_DOCUMENT_TYPE_NODE:
@@ -638,7 +638,7 @@
 		case DOMNodeType_DOCUMENT_NODE:
 		case DOMNodeType_ELEMENT_NODE:
 		{
-			[outputString appendFormat:@"</%@>\n", self.nodeName];
+			[outputString appendFormat:@"</%@>", self.nodeName];
 		}break;
 			
 		case DOMNodeType_DOCUMENT_TYPE_NODE:
