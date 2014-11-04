@@ -653,15 +653,12 @@ static NSMutableDictionary* globalSVGKImageCache;
         [clipLayer release]; // because it was created with a +1 retain count
     }
 	
-	if ( childNodes.length < 1 ) {
-		return layer;
-	}
-	
 	/**
 	 Generate child nodes and then re-layout
 	 
 	 (parent may have to change its size to fit children)
 	 */
+	NSUInteger childCount = 0;
 	for (SVGElement *child in childNodes )
 	{
 		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
@@ -670,10 +667,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 			
 			if (!sublayer) {
 				continue;
-            }
+			}
 			
+			childCount++;
 			[layer addSublayer:sublayer];
 		}
+	}
+	
+	if ( childCount < 1 ) {
+		return layer;
 	}
 	
 	/** ...relayout */
