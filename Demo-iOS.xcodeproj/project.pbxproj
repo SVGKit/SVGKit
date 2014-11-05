@@ -75,6 +75,7 @@
 		BD15857E199909C400461AA5 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = BD15857D199909C400461AA5 /* Coin.png */; };
 		BDC40146199AA41900DFEA27 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */; };
 		BDC40148199AA42C00DFEA27 /* Snowman.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC40147199AA42C00DFEA27 /* Snowman.png */; };
+		E203AF8D1A0AC14F000DE028 /* fillrule-evenodd.svg in Resources */ = {isa = PBXBuildFile; fileRef = E203AF8C1A0AC14F000DE028 /* fillrule-evenodd.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6639618D16145D0400E58CCA;
 			remoteInfo = "SVGKit-iOS";
+		};
+		E203AF8F1A0AC14F000DE028 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55452BF119EC68A200B75A30;
+			remoteInfo = "SVGKit-iOS Tests";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -170,6 +178,7 @@
 		BD15857D199909C400461AA5 /* Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coin.png; sourceTree = "<group>"; };
 		BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ImageAspectRatio.svg; sourceTree = "<group>"; };
 		BDC40147199AA42C00DFEA27 /* Snowman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snowman.png; sourceTree = "<group>"; };
+		E203AF8C1A0AC14F000DE028 /* fillrule-evenodd.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "fillrule-evenodd.svg"; path = "../fillrule-evenodd.svg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */,
+				E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,6 +255,7 @@
 		66A09C9F16CFE67B003CD5CD /* svg spec examples */ = {
 			isa = PBXGroup;
 			children = (
+				E203AF8C1A0AC14F000DE028 /* fillrule-evenodd.svg */,
 				667CA181181D598F00E49B68 /* cubic01.svg */,
 				66A09CA016CFE67B003CD5CD /* lingrad01.svg */,
 				66A09CA116CFE67B003CD5CD /* opacity01.svg */,
@@ -405,6 +416,13 @@
 			remoteRef = 6649E1091617574700AFE92A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SVGKit-iOS Tests.xctest";
+			remoteRef = E203AF8F1A0AC14F000DE028 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -465,6 +483,7 @@
 				66A09CAB16CFE67B003CD5CD /* tspan01.svg in Resources */,
 				66324BE216D24FA4001C1E83 /* rounded-rects.svg in Resources */,
 				66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */,
+				E203AF8D1A0AC14F000DE028 /* fillrule-evenodd.svg in Resources */,
 				66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */,
 				BD15857E199909C400461AA5 /* Coin.png in Resources */,
 				9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */,

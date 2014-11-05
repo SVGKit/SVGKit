@@ -21,7 +21,11 @@
 
 - (void)setupSampleNames
 {
-    self.sampleNames = [NSMutableArray arrayWithObjects: @"map-alaska-onlysimple", @"g-element-applies-rotation", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"rounded-rects", @"gradients",@"radialGradientTest", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"opacity01", @"Note", @"Note@2x", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"quad01", @"cubic01", @"rotated-and-skewed-text", @"RainbowWing", @"sakamura-default-fill-opacity-test", @"StyleAttribute", @"voies", @"nil-demo-layered-imageview", @"svg-with-explicit-width", @"svg-with-explicit-width-large", @"svg-with-explicit-width-large@160x240", @"BlankMap-World6-Equirectangular", @"Coins", @"imagetag-layered", @"ImageAspectRatio", @"test-stroke-dash-array", nil];
+    self.sampleNames = [NSMutableArray arrayWithObjects: @"map-alaska-onlysimple", @"g-element-applies-rotation", @"groups-and-layers-test", @"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg", @"shapes", @"strokes", @"transformations", @"rounded-rects", @"gradients",@"radialGradientTest", @"PreserveAspectRatio", @"australia_states_blank", @"Reinel_compass_rose", @"Monkey", @"Blank_Map-Africa", @"opacity01", @"Note", @"Note@2x", @"imageWithASinglePointPath", @"Lion", @"lingrad01", @"Map", @"CurvedDiamond", @"Text", @"text01", @"tspan01", @"Location_European_nation_states", @"uk-only", @"Europe_states_reduced", @"Compass_rose_pale", @"quad01", @"cubic01", @"rotated-and-skewed-text", @"RainbowWing", @"sakamura-default-fill-opacity-test", @"StyleAttribute", @"voies", @"nil-demo-layered-imageview", @"svg-with-explicit-width", @"svg-with-explicit-width-large", @"svg-with-explicit-width-large@160x240", @"BlankMap-World6-Equirectangular", @"Coins", @"imagetag-layered", @"ImageAspectRatio", @"test-stroke-dash-array",
+                        
+        // This file is still not fully supported, arc to is missing, but it has the evenodd in it
+        @"fillrule-evenodd",
+                        nil];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
