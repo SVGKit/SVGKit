@@ -105,8 +105,8 @@
 		66E863A41688C2780059C9C4 /* CDATASection.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863131688C2770059C9C4 /* CDATASection.m */; };
 		66E863A51688C2780059C9C4 /* CharacterData.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863141688C2770059C9C4 /* CharacterData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863A61688C2780059C9C4 /* CharacterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863151688C2770059C9C4 /* CharacterData.m */; };
-		66E863A71688C2780059C9C4 /* Comment.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863161688C2770059C9C4 /* Comment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66E863A81688C2780059C9C4 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863171688C2770059C9C4 /* Comment.m */; };
+		66E863A71688C2780059C9C4 /* SVGComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863161688C2770059C9C4 /* SVGComment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66E863A81688C2780059C9C4 /* SVGComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863171688C2770059C9C4 /* SVGComment.m */; };
 		66E863A91688C2780059C9C4 /* Document+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863181688C2770059C9C4 /* Document+Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863AA1688C2780059C9C4 /* Document.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863191688C2770059C9C4 /* Document.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E863AB1688C2780059C9C4 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8631A1688C2770059C9C4 /* Document.m */; };
@@ -388,8 +388,8 @@
 		66E863131688C2770059C9C4 /* CDATASection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDATASection.m; sourceTree = "<group>"; };
 		66E863141688C2770059C9C4 /* CharacterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterData.h; sourceTree = "<group>"; };
 		66E863151688C2770059C9C4 /* CharacterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterData.m; sourceTree = "<group>"; };
-		66E863161688C2770059C9C4 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		66E863171688C2770059C9C4 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		66E863161688C2770059C9C4 /* SVGComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGComment.h; sourceTree = "<group>"; };
+		66E863171688C2770059C9C4 /* SVGComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGComment.m; sourceTree = "<group>"; };
 		66E863181688C2770059C9C4 /* Document+Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Document+Mutable.h"; sourceTree = "<group>"; };
 		66E863191688C2770059C9C4 /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		66E8631A1688C2770059C9C4 /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
@@ -744,8 +744,8 @@
 				66E863131688C2770059C9C4 /* CDATASection.m */,
 				66E863141688C2770059C9C4 /* CharacterData.h */,
 				66E863151688C2770059C9C4 /* CharacterData.m */,
-				66E863161688C2770059C9C4 /* Comment.h */,
-				66E863171688C2770059C9C4 /* Comment.m */,
+				66E863161688C2770059C9C4 /* SVGComment.h */,
+				66E863171688C2770059C9C4 /* SVGComment.m */,
 				66988DB1168A001400EC93C7 /* CSSStyleDeclaration.h */,
 				66988DB2168A001400EC93C7 /* CSSStyleDeclaration.m */,
 				66988DB9168A027E00EC93C7 /* CSSRule.h */,
@@ -1024,7 +1024,7 @@
 				66E863A11688C2780059C9C4 /* Attr.h in Headers */,
 				66E863A31688C2780059C9C4 /* CDATASection.h in Headers */,
 				66E863A51688C2780059C9C4 /* CharacterData.h in Headers */,
-				66E863A71688C2780059C9C4 /* Comment.h in Headers */,
+				66E863A71688C2780059C9C4 /* SVGComment.h in Headers */,
 				66E863A91688C2780059C9C4 /* Document+Mutable.h in Headers */,
 				66E863AA1688C2780059C9C4 /* Document.h in Headers */,
 				66372EEE1695F16A008C6C56 /* DocumentCSS.h in Headers */,
@@ -1276,7 +1276,7 @@
 				6694B5DE199C10400028CFF6 /* SVGKSourceNSData.m in Sources */,
 				66E863A41688C2780059C9C4 /* CDATASection.m in Sources */,
 				66E863A61688C2780059C9C4 /* CharacterData.m in Sources */,
-				66E863A81688C2780059C9C4 /* Comment.m in Sources */,
+				66E863A81688C2780059C9C4 /* SVGComment.m in Sources */,
 				66E863AB1688C2780059C9C4 /* Document.m in Sources */,
 				66E863AD1688C2780059C9C4 /* DocumentFragment.m in Sources */,
 				66E863AF1688C2780059C9C4 /* DocumentType.m in Sources */,
@@ -1578,6 +1578,7 @@
 				55452BFB19EC68A200B75A30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6639618816145D0400E58CCA /* Build configuration list for PBXProject "SVGKit-iOS" */ = {
 			isa = XCConfigurationList;
