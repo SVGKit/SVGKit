@@ -539,7 +539,10 @@
 			
 			if( parentElement == nil
 			   || [parentElement isKindOfClass:[SVGSVGElement class]] )
-				return nil; // give up!
+                
+                //FIXME: not sure if this is correct,
+                //if we did not found any style in any of parent nodes, take one from root
+                return [self.rootOfCurrentDocumentFragment.style getPropertyValue:stylableProperty];
 			else
 			{
 				return [((SVGElement*)parentElement) cascadedValueForStylableProperty:stylableProperty];

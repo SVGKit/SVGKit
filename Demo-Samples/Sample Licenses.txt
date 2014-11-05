@@ -89,3 +89,7 @@ text01.svg
 	 
 tspan01.svg
 	 -- http://www.w3.org/TR/SVG/images/text/tspan01.svg
+
+fillrule-evenodd.svg
+    -- http://www.w3.org/TR/SVG/images/painting/fillrule-evenodd.svg
+

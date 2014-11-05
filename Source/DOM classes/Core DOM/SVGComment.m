@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Comment.h"
+#import "SVGComment.h"
 
-@implementation Comment
+@implementation SVGComment
 
 - (id)initWithValue:(NSString*) v
 {
