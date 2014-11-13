@@ -133,7 +133,17 @@
 	NSString* stringWidth = [self getAttribute:@"width"];
 	NSString* stringHeight = [self getAttribute:@"height"];
 	
-	if( stringWidth == nil || stringWidth.length < 1 )
+    /**
+     Ignore percetage width and heights which are only used when rendering in HTML
+     */
+
+    if ([stringWidth containsString:@"%"])
+        stringWidth = nil;
+
+    if ([stringHeight containsString:@"%"])
+        stringHeight = nil;
+
+    if( stringWidth == nil || stringWidth.length < 1 )
 		self.width = nil; // i.e. undefined
 	else
 		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
@@ -142,27 +152,8 @@
 		self.height = nil; // i.e. undefined
 	else
 		self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
-	
-	/* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
-	if( self.width != nil && self.height != nil )
-		self.requestedViewport = SVGRectMake( 0, 0, [self.width pixelsValue], [self.height pixelsValue] );
-	else
-		self.requestedViewport = SVGRectUninitialized();
-	
-	
-	/**
-	 NB: this is VERY CONFUSING due to badly written SVG Spec, but: the viewport MUST NOT be set by the parser,
-	 it MUST ONLY be set by the "renderer" -- and the renderer MAY have decided to use a different viewport from
-	 the one that the SVG file *implies* (e.g. if the user scales the SVG, the viewport WILL BE DIFFERENT,
-	 by definition!
-	 
-	 ...However: the renderer will ALWAYS start with the default viewport values (that are calcualted by the parsing process)
-	 and it makes it much cleaner and safer to implement if we have the PARSER set the viewport initially
-	 
-	 (and the renderer will IMMEDIATELY overwrite them once the parsing is finished IFF IT NEEDS TO)
-	 */
-	self.viewport = self.requestedViewport; // renderer can/will change the .viewport, but .requestedViewport can only be set by the PARSER
-	
+
+
 	if( [[self getAttribute:@"viewBox"] length] > 0 )
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
@@ -171,26 +162,44 @@
             boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
         }
 		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
-	}
+
+        /**
+         Infer width and height from viewBox if not specified
+         */
+
+        if (self.width == nil)
+            self.width = [SVGLength svgLengthFromNumber:_viewBox.width];
+
+        if (self.height == nil)
+            self.height = [SVGLength svgLengthFromNumber:_viewBox.height];
+    }
 	else
 	{
 		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
 	}
-	
-    [SVGHelperUtilities parsePreserveAspectRatioFor:self];
 
-	if( stringWidth == nil || stringWidth.length < 1 )
-		self.width = nil; // i.e. undefined
-	else
-		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
-	    //osx logging
-#if TARGET_OS_IPHONE        
-        DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
-#else
-        //mac logging
-     DDLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
-#endif   
-	
+
+    /* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
+    if( self.width != nil && self.height != nil )
+        self.requestedViewport = SVGRectMake( 0, 0, [self.width pixelsValue], [self.height pixelsValue] );
+    else
+        self.requestedViewport = SVGRectUninitialized();
+
+
+    /**
+     NB: this is VERY CONFUSING due to badly written SVG Spec, but: the viewport MUST NOT be set by the parser,
+     it MUST ONLY be set by the "renderer" -- and the renderer MAY have decided to use a different viewport from
+     the one that the SVG file *implies* (e.g. if the user scales the SVG, the viewport WILL BE DIFFERENT,
+     by definition!
+
+     ...However: the renderer will ALWAYS start with the default viewport values (that are calcualted by the parsing process)
+     and it makes it much cleaner and safer to implement if we have the PARSER set the viewport initially
+
+     (and the renderer will IMMEDIATELY overwrite them once the parsing is finished IFF IT NEEDS TO)
+     */
+    self.viewport = self.requestedViewport; // renderer can/will change the .viewport, but .requestedViewport can only be set by the PARSER
+
+    [SVGHelperUtilities parsePreserveAspectRatioFor:self];
 }
 
 - (SVGElement *)findFirstElementOfClass:(Class)classParameter {
