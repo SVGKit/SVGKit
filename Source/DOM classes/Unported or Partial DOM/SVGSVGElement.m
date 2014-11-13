@@ -130,7 +130,17 @@
 	NSString* stringWidth = [self getAttribute:@"width"];
 	NSString* stringHeight = [self getAttribute:@"height"];
 	
-	if( stringWidth == nil || stringWidth.length < 1 )
+    /**
+     Ignore percetage width and heights which are only used when rendering in HTML
+     */
+
+    if ([stringWidth containsString:@"%"])
+        stringWidth = nil;
+
+    if ([stringHeight containsString:@"%"])
+        stringHeight = nil;
+
+    if( stringWidth == nil || stringWidth.length < 1 )
 		self.width = nil; // i.e. undefined
 	else
 		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
