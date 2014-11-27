@@ -14,7 +14,6 @@
 #error This test file must not be compiled with ARC.
 #endif
 
-
 @interface SVGKit_iOS_RetainTests : XCTestCase
 @property (retain) NSBundle *pathsToSVGs;
 @end
@@ -34,34 +33,41 @@
 }
 
 - (void)testReleasing {
-	XCTAssertNoThrow(^{
+	@try {
 		@autoreleasepool {
-			SVGKImage *image = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Note" ofType:@"svg"]];
+			SVGKImage *image = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Note" ofType:@"svg"]];
 
 			// Release the image
-			[image release];
+			XCTAssertNoThrow([image release]);
 		}
-	});
+		XCTAssertTrue(YES);
+	}
+	@catch (NSException *exception) {
+		XCTFail(@"Exception Thrown: %@", exception);
+	}
 }
 
 - (void)testReplacing {
 	@try {
-		SVGKImage *image = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"CurvedDiamond" ofType:@"svg"]];
-
-		// Release the image
-		[image release];
-
-		image = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Lion" ofType:@"svg"]];
-
+		@autoreleasepool {
+			SVGKImage *image = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"CurvedDiamond" ofType:@"svg"]];
+			
+			// Release the image
+			XCTAssertNoThrow([image release]);
+			
+			XCTAssertNoThrow(image = [SVGKImage imageWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Lion" ofType:@"svg"]]);
+			
+			NSLog(@"image description: %@", image.description);
+		}
 		XCTAssertTrue(YES);
 	}
 	@catch (NSException *exception) {
-		XCTFail(@"Exception Thrown");
+		XCTFail(@"Exception Thrown: %@", exception);
 	}
 }
 
 - (void)testSameFileTwice {
-    XCTAssertNoThrow(^{
+    @try {
         @autoreleasepool {
             SVGKImage *image = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Monkey" ofType:@"svg"]];
             SVGKImage *image2 = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Monkey" ofType:@"svg"]];
@@ -70,7 +76,11 @@
             [image release];
             [image2 release];
         }
-    });
+		XCTAssertTrue(YES);
+    }
+	@catch (NSException *exception) {
+		XCTFail(@"Exception Thrown: %@", exception);
+	}
 }
 
 @end
