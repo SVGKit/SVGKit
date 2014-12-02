@@ -22,10 +22,6 @@
 @synthesize nodeType;
 @synthesize parentNode;
 @synthesize childNodes;
-@synthesize firstChild;
-@synthesize lastChild;
-@synthesize previousSibling;
-@synthesize nextSibling;
 @synthesize attributes;
 
 // Modified in DOM Level 2:
