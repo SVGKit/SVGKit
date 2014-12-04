@@ -20,7 +20,9 @@
         self.mask = nil;
     }
     
-    [super renderInContext:ctx];
+    if (!CGRectIsEmpty(self.bounds)) {
+        [super renderInContext:ctx];
+    }
     
     if( mask != nil ) {
         self.mask = mask;
