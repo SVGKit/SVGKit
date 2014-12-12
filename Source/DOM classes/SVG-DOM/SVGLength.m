@@ -170,7 +170,8 @@ static float cachedDevicePixelsPerInch;
 	|| [platform hasPrefix:@"iPad2"])
 		return 132.0f;
 	if( [platform hasPrefix:@"iPad3"]
-	|| [platform hasPrefix:@"iPad4"])
+	|| [platform hasPrefix:@"iPad4"]
+	|| [platform hasPrefix:@"iPad5"])
 		return 264.0f;
 	if( [platform hasPrefix:@"iPad"]) // catch-all for higher-end devices not yet existing
 	{
