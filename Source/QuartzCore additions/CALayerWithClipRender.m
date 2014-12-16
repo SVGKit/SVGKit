@@ -15,13 +15,13 @@
 @implementation CALayerWithClipRender
 
 - (void)display {
-    // Awful lot of memory is wasted because SVG uses Layers for rendering, and layer
+    // Lot of memory is wasted because SVGKit uses Layers for rendering, and layer
     // is transformed by quartz into some sort of image due to backing store
     // In profiling i have 100 meg in CA::Render::Shmem::new_shmem(unsigned long)
     
     // Leaving this method empty makes no backing layer
     // This works only if this Layer is used only to do  renderInContext (which looks like it is)
-    // And might not happen until the svg has no image set.
+    // Issue might not happen if the svg has no size set.
 }
 
 
