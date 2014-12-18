@@ -715,11 +715,7 @@ static void	endElementSAX (void *ctx, const xmlChar *localname, const xmlChar *p
 }
 
 - (void)handleFoundCharacters:(const xmlChar *)chars length:(int)len {
-		char value[len + 1];
-		strncpy(value, (const char *) chars, len);
-		value[len] = '\0';
-		
-		[_storedChars appendString:[NSString stringWithUTF8String:value]];
+	[_storedChars appendString:[[[NSString alloc] initWithBytes:chars length:len encoding:NSUTF8StringEncoding] autorelease]];
 }
 
 static void cDataFoundSAX(void *ctx, const xmlChar *value, int len)
@@ -873,16 +869,13 @@ static NSMutableDictionary *NSDictionaryFromLibxmlAttributes (const xmlChar **at
 	for (int i = 0; i < attr_ct * 5; i += 5) {
 		const char *begin = (const char *) attrs[i + 3];
 		const char *end = (const char *) attrs[i + 4];
-		size_t vlen = strlen(begin) - strlen(end);
+		size_t len = end - begin;
 		
-		char val[vlen + 1];
-		strncpy(val, begin, vlen);
-		val[vlen] = '\0';
+		NSString* value = [[[NSString alloc] initWithBytes:begin length:len encoding:NSUTF8StringEncoding] autorelease];
 		
 		NSString* localName = NSStringFromLibxmlString(attrs[i]);
 		NSString* prefix = NSStringFromLibxmlString(attrs[i+1]);
 		NSString* uri = NSStringFromLibxmlString(attrs[i+2]);
-		NSString* value = [NSString stringWithUTF8String:val];
 		
 		NSString* qname = (prefix == nil) ? localName : [NSString stringWithFormat:@"%@:%@", prefix, localName];
 		
