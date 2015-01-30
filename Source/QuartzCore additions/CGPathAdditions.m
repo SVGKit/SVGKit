@@ -21,7 +21,7 @@ CGFloat fixInfinity(CGFloat inputFloat){
     return inputFloat;
 }
 
-CGPoint *fixPointsInfinity(CGPathElement *element){
+CGPoint *fixPointsInfinity(const CGPathElement *element){
     int i,total;
     
     switch (element->type) {
