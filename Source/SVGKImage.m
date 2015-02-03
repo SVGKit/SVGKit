@@ -7,6 +7,7 @@
 #import "SVGPathElement.h"
 #import "SVGUseElement.h"
 #import "SVGClipPathElement.h"
+#import "SVGDocument.h"
 
 #import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
 

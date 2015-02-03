@@ -7,6 +7,7 @@
 #import "SVGKImage.h"
 #import "SVGKSourceURL.h"
 #import "SVGKSourceNSData.h"
+#import "SVGSVGElement.h"
 
 #if TARGET_OS_IPHONE
 

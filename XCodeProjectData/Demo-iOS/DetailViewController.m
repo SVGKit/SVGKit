@@ -9,8 +9,6 @@
 
 #import "MasterViewController.h"
 
-#import "NodeList+Mutable.h"
-
 #import "SVGKFastImageView.h"
 #import "SVGKLayeredImageView.h"
 
@@ -487,7 +485,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 	else
 	{
-		if( document.parseErrorsAndWarnings.rootOfSVGTree != nil )
+		if( document.parseErrorsAndWarnings.hasSVGTree )
 		{
 			//NSLog(@"[%@] Freshly loaded document (name = %@) has size = %@", [self class], name, NSStringFromCGSize(document.size) );
 			
