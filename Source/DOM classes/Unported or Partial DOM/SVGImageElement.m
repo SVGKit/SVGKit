@@ -7,6 +7,7 @@
 #import "SVGKImage.h"
 #import "SVGKSourceURL.h"
 #import "SVGKSourceNSData.h"
+#import "SVGSVGElement.h"
 
 #if TARGET_OS_IPHONE
 
@@ -105,7 +106,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 	 */
 	AppleNativeImageRef image = [AppleNativeImage imageWithData:imageData];
 	
-    if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
+    if( image == nil && imageURL ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
     {
         SVGKImage *svg = nil;
         

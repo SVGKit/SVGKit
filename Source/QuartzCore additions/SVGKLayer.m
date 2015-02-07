@@ -6,7 +6,7 @@
 }
 
 @synthesize SVGImage = _SVGImage;
-@synthesize showBorder;
+@synthesize showBorder = _showBorder;
 
 //self.backgroundColor = [UIColor clearColor];
 
@@ -23,11 +23,10 @@
     if (self)
 	{
     	self.borderColor = [UIColor blackColor].CGColor;
-		
-		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )
@@ -55,10 +54,19 @@
 	}
 }
 
+- (void)setShowBorder:(BOOL)value {
+    _showBorder = value;
+    [self removeObserver:self forKeyPath:@"showBorder"];
+    if (value) {
+        [self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
+    }
+}
+
 - (void)dealloc
 {
-	//FIXME: Apple crashes on this line, even though BY DEFINITION Apple should not be crashing: [self removeObserver:self forKeyPath:@"showBorder"];
-	
+    if (_showBorder) {
+        [self removeObserver:self forKeyPath:@"showBorder"];
+    }
 	self.SVGImage = nil;
 	
     [super dealloc];

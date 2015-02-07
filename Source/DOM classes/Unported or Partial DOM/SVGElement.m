@@ -15,8 +15,9 @@
 #import "CSSRuleList+Mutable.h"
 
 #import "SVGGElement.h"
-
+#import "SVGSVGElement.h"
 #import "SVGRect.h"
+#import "NamedNodeMap.h"
 
 #import "SVGTransformable.h"
 
