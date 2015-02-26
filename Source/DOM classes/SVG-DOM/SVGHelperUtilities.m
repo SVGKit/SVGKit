@@ -461,7 +461,8 @@
 			SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
 			
 			DDLogCWarn(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
-			gradientLayer.mask =_shapeLayer;
+			gradientLayer.opacity = _shapeLayer.opacity;
+            gradientLayer.mask =_shapeLayer;
             gradientLayer.maskPath = pathToPlaceInLayer;
             CGPathRelease(pathToPlaceInLayer);
 			[_shapeLayer release]; // because it was created with a +1 retain count
