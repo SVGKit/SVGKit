@@ -62,6 +62,7 @@
             CGFloat radius = floorf(self.endPoint.x * self.bounds.size.width);
             CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, num_locations);
             
+            CGContextSetAlpha(ctx, self.opacity);
             CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);
             
             free(locations);
