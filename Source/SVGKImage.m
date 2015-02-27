@@ -330,7 +330,9 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-//SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+    @try{
+        [self removeObserver:self forKeyPath:@"DomTree.viewport" context:nil];
+    }@catch (NSException * __unused exception) {}
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
