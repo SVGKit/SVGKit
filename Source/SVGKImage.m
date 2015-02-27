@@ -268,6 +268,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	{
 		_internalSizeThatWasSetExplicitlyByUser = CGSizeZero; // mark it explicitly as "uninitialized" = this is important for the getSize method!
 		_scale = 0.0; // flags it as uninitialized (this is important to know later, when outputting rendered layers)
+
 		
 		self.parseErrorsAndWarnings = parseResult;
 		
@@ -282,6 +283,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 			self.DOMDocument = nil;
 			self.DOMTree = nil;
 		}
+		//This is to make dealloc happy
+		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
 		
 		if ( self.DOMDocument == nil )
 		{
@@ -289,7 +292,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 			self = nil;
 		}
 		
-		[self addObserver:self forKeyPath:@"DOMTree.viewport" options:NSKeyValueObservingOptionOld context:nil];
 		//		[self.DOMTree addObserver:self forKeyPath:@"viewport" options:NSKeyValueObservingOptionOld context:nil];
 	}
     return self;
@@ -330,7 +332,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-//SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+    [self removeObserver:self forKeyPath:@"DOMTree.viewport"];
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
