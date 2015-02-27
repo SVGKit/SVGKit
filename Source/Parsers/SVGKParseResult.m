@@ -2,7 +2,7 @@
 
 @implementation SVGKParseResult
 
-@synthesize libXMLFailed;
+@synthesize libXMLFailed, hasSVGTree;
 @synthesize parsedDocument, rootOfSVGTree, namespacesEncountered;
 @synthesize warnings, errorsRecoverable, errorsFatal;
 
@@ -86,5 +86,10 @@
 	return d;
 }
 #endif
+
+- (BOOL)hasSVGTree
+{
+    return rootOfSVGTree != nil;
+}
 
 @end

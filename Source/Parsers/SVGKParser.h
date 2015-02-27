@@ -37,13 +37,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SVGKSource.h"
 #import "SVGKParserExtension.h"
 #import "SVGKParseResult.h"
 
-#import "SVGElement.h"
-
-
+@class Attr;
 
 /*! RECOMMENDED: leave this set to 1 to get warnings about "legal, but poorly written" SVG */
 #define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1

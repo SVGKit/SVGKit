@@ -7,6 +7,7 @@
 #import "SVGPathElement.h"
 #import "SVGUseElement.h"
 #import "SVGClipPathElement.h"
+#import "SVGDocument.h"
 
 #import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
 
@@ -313,6 +314,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSParameterAssert(url != nil);
 	
 	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
+}
+
+- (id)initWithData:(NSData *)data {
+    NSAssert(false, @"Not implemented yet");
+    return nil;
 }
 
 - (void)dealloc

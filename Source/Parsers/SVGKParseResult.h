@@ -4,11 +4,7 @@
 #import <Foundation/Foundation.h>
 
 @class SVGSVGElement, SVGDocument;
-#import "SVGSVGElement.h"
-#import "SVGDocument.h"
-
 @protocol SVGKParserExtension;
-#import "SVGKParserExtension.h"
 
 @interface SVGKParseResult : NSObject
 
@@ -17,6 +13,7 @@
 /** 0.0 = no parsing done yet, 0.x = partially parsed, 1.0 = parse complete (no fatal errors) */
 @property(nonatomic) double parseProgressFractionApproximate;
 
+@property(nonatomic,readonly) BOOL         hasSVGTree;    /*< whether rootOfSVGTree is valid */
 @property(nonatomic,retain) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
 @property(nonatomic,retain) SVGDocument* parsedDocument; /*< both are needed, see spec */
 
