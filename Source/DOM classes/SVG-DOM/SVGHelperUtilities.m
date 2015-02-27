@@ -522,7 +522,8 @@
 {
     element.preserveAspectRatio = [[SVGAnimatedPreserveAspectRatio new] autorelease]; // automatically sets defaults
     
-    NSString* stringPreserveAspectRatio = [element getAttribute:@"preserveAspectRatio"];
+    Element* node = element;
+    NSString* stringPreserveAspectRatio = [node getAttribute:@"preserveAspectRatio"];
     NSArray* aspectRatioCommands = [stringPreserveAspectRatio componentsSeparatedByString:@" "];
     
     for( NSString* aspectRatioCommand in aspectRatioCommands )

@@ -200,7 +200,7 @@
     if( [self.childNodes length] < 1 )
         return nil;
     else
-        return [self.childNodes item: [self.childNodes length] - 1];
+        return [self.childNodes item: (int)[self.childNodes length] - 1];
 }
 
 -(Node *)previousSibling
@@ -209,7 +209,7 @@
         return nil;
     else
     {
-        NSUInteger indexInParent = [self.parentNode.childNodes.internalArray indexOfObject:self];
+        int indexInParent = (int)[self.parentNode.childNodes.internalArray indexOfObject:self];
         
         if( indexInParent < 1 )
             return nil;
@@ -229,7 +229,7 @@
         if( indexInParent >= [self.parentNode.childNodes length] )
             return nil;
         else
-            return [self.parentNode.childNodes item:indexInParent + 1];
+            return [self.parentNode.childNodes item:(int)indexInParent + 1];
     }
 }
 
