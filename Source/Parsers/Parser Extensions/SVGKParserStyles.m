@@ -10,6 +10,7 @@
 
 #import "CSSStyleSheet.h"
 #import "StyleSheetList+Mutable.h"
+#import "SVGDocument.h"
 
 @implementation SVGKParserStyles
 

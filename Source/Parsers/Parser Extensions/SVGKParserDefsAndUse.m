@@ -3,6 +3,7 @@
 #import "Node.h"
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
+#import "SVGDocument.h"
 
 #import "SVGDefsElement.h"
 #import "SVGUseElement.h"
