@@ -316,6 +316,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
 }
 
+- (id)initWithData:(NSData *)data {
+    NSAssert(false, @"Not implemented yet");
+    return nil;
+}
+
 - (void)dealloc
 {
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED

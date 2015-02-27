@@ -111,6 +111,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource; // if you have custom source's you want to use
 
 - (id)initWithContentsOfFile:(NSString *)path;
+- (id)initWithData:(NSData *)data;
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 
