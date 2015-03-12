@@ -12,6 +12,8 @@
 @implementation CAShapeLayerWithClipRender
 
 - (void)renderInContext:(CGContextRef)ctx {
+	if (CGRectIsEmpty(self.bounds)) return;
+
     CALayer *mask = nil;
     if( self.mask != nil ) {
         [CALayerWithClipRender maskLayer:self inContext:ctx];
