@@ -65,6 +65,10 @@ ImageAspectRatio.svg
      -- Created by author based on PreserveAspectRatio.svg from the SVG spec
      -- Snowman image Public Domain, http://www.publicdomainpictures.net/view-image.php?image=17565&picture=snowman-decoration
 
+radial-gradient-opacity.svg
+-- Public Domain, author: Tomás Silcher
+-- Created by author
+
 
 FILES TAKEN DIRECT FROM THE OFFICIAL SVG SPEC:
 -----------
