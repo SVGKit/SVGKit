@@ -372,6 +372,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	   [options.diskFilenameToLoad  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
 	   || [options.diskFilenameToLoad isEqualToString:@"RainbowWing"] // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
 	   || [options.diskFilenameToLoad isEqualToString:@"imagetag-layered"] // uses gradients for prettiness
+	   || [options.diskFilenameToLoad isEqualToString:@"parent-clip"] // uses layer animations
 	   )
 	{
 		/**
@@ -608,7 +609,9 @@ CATextLayer *textLayerForLastTappedLayer;
 - (IBAction)animate:(id)sender {
 	if ([_name isEqualToString:@"Monkey"]) {
 		[self shakeHead];
-	}
+    } else if ([_name isEqualToString:@"parent-clip"]) {
+        [self moveGreenSquare];
+    }
 }
 
 
@@ -623,6 +626,19 @@ CATextLayer *textLayerForLastTappedLayer;
 	animation.toValue = [NSNumber numberWithFloat:-0.1f];
 	
 	[layer addAnimation:animation forKey:@"shakingHead"];
+}
+
+- (void)moveGreenSquare {
+    CALayer *layer = [self.contentView.image layerWithIdentifier:@"greensquare"];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    animation.duration = 1;
+    animation.autoreverses = YES;
+    animation.repeatCount = 100000;
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(50, 50)];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake(-50, -50)];
+    
+    [layer addAnimation:animation forKey:@"moveGreenSquare"];
 }
 
 - (IBAction) showHideBorder:(id)sender
