@@ -74,6 +74,7 @@
 		9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9ED79A20179D83580048AA5B /* radialGradientTest.svg */; };
 		BD15857C199909B800461AA5 /* Coins.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD15857B199909B800461AA5 /* Coins.svg */; };
 		BD15857E199909C400461AA5 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = BD15857D199909C400461AA5 /* Coin.png */; };
+		BD54E3DB1AB7A13A001039C0 /* parent-clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */; };
 		BDC40146199AA41900DFEA27 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */; };
 		BDC40148199AA42C00DFEA27 /* Snowman.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC40147199AA42C00DFEA27 /* Snowman.png */; };
 		E203AF8D1A0AC14F000DE028 /* fillrule-evenodd.svg in Resources */ = {isa = PBXBuildFile; fileRef = E203AF8C1A0AC14F000DE028 /* fillrule-evenodd.svg */; };
@@ -178,6 +179,7 @@
 		9ED79A20179D83580048AA5B /* radialGradientTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = radialGradientTest.svg; sourceTree = "<group>"; };
 		BD15857B199909B800461AA5 /* Coins.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Coins.svg; sourceTree = "<group>"; };
 		BD15857D199909C400461AA5 /* Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coin.png; sourceTree = "<group>"; };
+		BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "parent-clip.svg"; sourceTree = "<group>"; };
 		BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ImageAspectRatio.svg; sourceTree = "<group>"; };
 		BDC40147199AA42C00DFEA27 /* Snowman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snowman.png; sourceTree = "<group>"; };
 		E203AF8C1A0AC14F000DE028 /* fillrule-evenodd.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "fillrule-evenodd.svg"; path = "../fillrule-evenodd.svg"; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */,
 				66E862861688BA510059C9C4 /* Monkey.svg */,
 				66E862871688BA510059C9C4 /* Note.svg */,
+				BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */,
 				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
 				66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */,
 				66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */,
@@ -481,6 +484,7 @@
 				66A09CA716CFE67B003CD5CD /* opacity01.svg in Resources */,
 				66A09CA816CFE67B003CD5CD /* PreserveAspectRatio.svg in Resources */,
 				66B695F3199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png in Resources */,
+				BD54E3DB1AB7A13A001039C0 /* parent-clip.svg in Resources */,
 				66A09CA916CFE67B003CD5CD /* StyleAttribute.svg in Resources */,
 				66B695F4199BFAC900F8E7EE /* imagetag-layer2-sun.svg in Resources */,
 				66A09CAA16CFE67B003CD5CD /* text01.svg in Resources */,
