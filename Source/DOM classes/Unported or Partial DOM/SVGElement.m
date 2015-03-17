@@ -488,6 +488,11 @@
 #pragma mark - CSS cascading special attributes
 -(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty
 {
+	return [self cascadedValueForStylableProperty:stylableProperty inherit:YES];
+}
+
+-(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty inherit:(BOOL)inherit
+{
 	/**
 	 This is the core implementation of Cascading Style Sheets, inside SVG.
 	 
@@ -539,25 +544,32 @@
 			
 			/** either there's no class *OR* it found no match for the class in the stylesheets */
 			
-			/** Finally: move up the tree until you find a <G> node, and ask it to provide the value
-			 OR: if you find an <SVG> tag before you find a <G> tag, give up
-			 */
-			
-			Node* parentElement = self.parentNode;
-			while( parentElement != nil
-				  && ! [parentElement isKindOfClass:[SVGGElement class]]
-				  && ! [parentElement isKindOfClass:[SVGSVGElement class]])
-			{
-				parentElement = parentElement.parentNode;
-			}
-			
-			if( parentElement == nil
-			   || [parentElement isKindOfClass:[SVGSVGElement class]] )
-				return nil; // give up!
-			else
-			{
-				return [((SVGElement*)parentElement) cascadedValueForStylableProperty:stylableProperty];
-			}
+            if( inherit )
+            {
+                /** Finally: move up the tree until you find a <G> node, and ask it to provide the value
+                 OR: if you find an <SVG> tag before you find a <G> tag, give up
+                 */
+                
+                Node* parentElement = self.parentNode;
+                while( parentElement != nil
+                      && ! [parentElement isKindOfClass:[SVGGElement class]]
+                      && ! [parentElement isKindOfClass:[SVGSVGElement class]])
+                {
+                    parentElement = parentElement.parentNode;
+                }
+                
+                if( parentElement == nil
+                   || [parentElement isKindOfClass:[SVGSVGElement class]] )
+                    return nil; // give up!
+                else
+                {
+                    return [((SVGElement*)parentElement) cascadedValueForStylableProperty:stylableProperty];
+                }
+            }
+            else
+            {
+                return nil;
+            }
 		}
 	}
 }
