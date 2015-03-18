@@ -129,7 +129,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 </g> \
 </svg>";
         
-		NSLog(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
+		DDLogInfo(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
 		
 		SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
 		

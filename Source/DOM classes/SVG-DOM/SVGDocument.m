@@ -180,7 +180,7 @@
 		}
 	}
 	
-	NSLog(@"Normalized prefixes:\n%@", normalizedPrefixesByNamespace );
+	DDLogVerbose(@"Normalized prefixes:\n%@", normalizedPrefixesByNamespace );
 	return normalizedPrefixesByNamespace;
 }
 
