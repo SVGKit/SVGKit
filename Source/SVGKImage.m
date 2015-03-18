@@ -331,6 +331,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
 	
 //SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	@try {
+		[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	}
+	@catch (NSException *exception) {
+		DDLogError(@"Exception removing DOMTree.viewport observer");
+	}
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
@@ -618,7 +624,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     /**
      Special handling for clip-path; need to create their children
      */
-    NSString* clipPath = [element cascadedValueForStylableProperty:@"clip-path"];
+    NSString* clipPath = [element cascadedValueForStylableProperty:@"clip-path" inherit:NO];
     if ( [clipPath hasPrefix:@"url"] )
     {
         NSRange idKeyRange = NSMakeRange(5, clipPath.length - 6);

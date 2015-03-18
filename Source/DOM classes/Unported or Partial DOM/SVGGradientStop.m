@@ -35,27 +35,14 @@
 	if( [self getAttribute:@"offset"].length > 0 )
         _offset = [[SVGLength svgLengthFromNSString:[self getAttribute:@"offset"]] numberValue];
     
-	/** First, process the style - if it has one! */
-    if( [self getAttribute:@"style"].length > 0 )
-    {
-        NSDictionary *styleDict = [SVGKParser NSDictionaryFromCSSAttributes:[self getAttributeNode:@"style"]];
-		
-		Attr* testObject = [styleDict objectForKey:@"stop-color"];
-        if( testObject != nil )
-            _stopColor = SVGColorFromString([testObject.value UTF8String]);
-        
-        testObject = [styleDict objectForKey:@"stop-opacity"];
-		if( testObject != nil )
-			_stopOpacity = [testObject.value floatValue];
-        _stopColor.a = (_stopOpacity * 255);
-    }
-	
 	/** Second, over-ride the style with any locally-specified values */
-	if( [self getAttribute:@"stop-color"].length > 0 )
-        _stopColor = SVGColorFromString( [[self getAttribute:@"stop-color"] UTF8String] );
+    NSString *stopColor = [self cascadedValueForStylableProperty:@"stop-color" inherit:NO];
+    if( stopColor.length > 0 )
+        _stopColor = SVGColorFromString( [stopColor UTF8String] );
 	
-	if( [self getAttribute:@"stop-opacity"].length > 0 )
-        _stopOpacity = [[self getAttribute:@"stop-opacity"] floatValue];
+    NSString *stopOpacity = [self cascadedValueForStylableProperty:@"stop-opacity" inherit:NO];
+    if( stopOpacity.length > 0 )
+        _stopOpacity = [stopOpacity floatValue];
 	
 	_stopColor.a = (_stopOpacity * 255);
 }
