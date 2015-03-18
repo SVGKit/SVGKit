@@ -135,9 +135,9 @@
         endPoint = [self normalizeGradientCoordinate:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.x]] y:[SVGLength svgLengthFromNSString:[NSString stringWithFormat:@"%f",endPoint.y]] rectToFill:rectForRelativeUnits];
         
 #ifdef SVG_DEBUG_GRADIENTS
-        NSLog(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+        DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
         
-        NSLog(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+        DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
         
         //    return gradientLayer;
