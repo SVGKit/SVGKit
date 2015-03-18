@@ -59,5 +59,6 @@
 #pragma mark - CSS cascading special attributes. c.f. full list here: http://www.w3.org/TR/SVG/propidx.html
 
 -(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty;
+-(NSString*) cascadedValueForStylableProperty:(NSString*) stylableProperty inherit:(BOOL)inherit;
 
 @end

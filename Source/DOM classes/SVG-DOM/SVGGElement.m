@@ -36,6 +36,12 @@
 	 AND: bottom-right-corner of this layer will be "the bottom-right corner of the convex-hull rect of all sublayers"
 	 */
 	layer.frame = mainRect;
+    
+    /**
+     If this group layer has a mask then since we've adjusted this layer's frame we need to offset the mask's frame by the opposite amount.
+     */
+    if (layer.mask)
+        layer.mask.frame = CGRectOffset(layer.mask.frame, -mainRect.origin.x, -mainRect.origin.y);
 
 	/** Changing THIS layer's frame now means all DIRECT sublayers are offset by too much (because when we change the offset
 	 of the parent frame (this.frame), Apple *does not* shift the sublayers around to keep them in same place.
