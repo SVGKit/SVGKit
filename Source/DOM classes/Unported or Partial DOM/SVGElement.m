@@ -361,20 +361,19 @@
 			}
 			else if( [command isEqualToString:@"skewX"] )
 			{
-				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
-				
-				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																			   @"transform=skewX is unsupported", NSLocalizedDescriptionKey,
-																			   nil]
-						]];
+                CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
+                CGFloat radians = degrees * M_PI / 180.0;
+                
+                CGAffineTransform nt = CGAffineTransformMake(1, 0, tan(radians), 1, 0, 0);
+                selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform );
 			}
 			else if( [command isEqualToString:@"skewY"] )
 			{
-				DDLogWarn(@"[%@] ERROR: skew is unsupported: %@", [self class], command );
-				[parseResult addParseErrorRecoverable: [NSError errorWithDomain:@"SVGKit" code:15184 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																			   @"transform=skewY is unsupported", NSLocalizedDescriptionKey,
-																			   nil]
-						]];
+                CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
+                CGFloat radians = degrees * M_PI / 180.0;
+                
+                CGAffineTransform nt = CGAffineTransformMake(1, tan(radians), 0, 1, 0, 0);
+                selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform );
 			}
 			else
 			{
