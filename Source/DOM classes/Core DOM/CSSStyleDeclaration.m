@@ -74,7 +74,7 @@
         /* SVG spec specifies some attribute lists might be delimited by white space.
          e.g. stroke-dasharray is 'A list of comma and/or white space separated <length>s'
          http://www.w3.org/TR/SVG/painting.html */
-		if (c == '\n' || c == '\t') {
+		if (isspace(c)) {
 			continue;
 		}
 		
