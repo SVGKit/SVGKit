@@ -61,6 +61,11 @@ typedef enum SVG_LENGTH_TYPE
 /** returns this SVGLength as if it had been converted to pixels, using [self convertToSpecifiedUnits:SVG_LENGTHTYPE_PX]
  */
 -(float) pixelsValue;
+
+/** to calculate relative values pass in the appropriate viewport dimension (width, height, or diagonal measure)
+*/
+-(float) pixelsValueWithDimension:(float)dimension;
+
 /** returns this SVGLength as if it had been converted to a raw number (USE pixelsValue instead, UNLESS you are dealing with something that you expect to be a percentage or
  similar non-pixel value), using [self convertToSpecifiedUnits:SVG_LENGTHTYPE_NUMBER]
  */
