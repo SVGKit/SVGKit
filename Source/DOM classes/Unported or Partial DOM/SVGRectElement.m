@@ -91,8 +91,12 @@ void CGPathAddRoundedRect (CGMutablePathRef path, CGRect rect, CGFloat radiusX, 
 	 Create a square OR rounded rectangle as a CGPath
 	 
 	 */
+
+    SVGRect r = parseResult.rootOfSVGTree.viewport;
+
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGRect rect = CGRectMake([_x pixelsValue], [_y pixelsValue], [_width pixelsValue], [_height pixelsValue]);
+    CGRect rect = CGRectMake([_x pixelsValueWithDimension:r.x], [_y pixelsValueWithDimension:r.y],
+                             [_width pixelsValueWithDimension:r.width], [_height pixelsValueWithDimension:r.height]);
 	
 	CGFloat radiusXPixels = _rx != nil ? [_rx pixelsValue] : 0;
 	CGFloat radiusYPixels = _ry != nil ? [_ry pixelsValue] : 0;

@@ -353,12 +353,23 @@
 	//DEBUG ONLY: CGRect shapeLayerFrame = _shapeLayer.frame;
 	
 	NSString* actualStroke = [svgElement cascadedValueForStylableProperty:@"stroke"];
+	if (!actualStroke)
+		actualStroke = @"none";
 	NSString* actualStrokeWidth = [svgElement cascadedValueForStylableProperty:@"stroke-width"];
-	if( actualStroke.length > 0
+
+	CGFloat strokeWidth = 1.0;
+	
+	if (actualStrokeWidth)
+	{
+		SVGRect r = ((SVGSVGElement*) svgElement.viewportElement).viewport;
+		
+		strokeWidth = [[SVGLength svgLengthFromNSString:actualStrokeWidth]
+							pixelsValueWithDimension: hypot(r.width, r.height)];
+	}
+	
+	if( strokeWidth > 0
 	   && (! [@"none" isEqualToString:actualStroke]) )
 	{
-		CGFloat strokeWidth = actualStrokeWidth.length > 0 ? [actualStrokeWidth floatValue] : 1.0f;
-		
 		/*
 		 We have to apply any scale-factor part of the affine transform to the stroke itself (this is bizarre and horrible, yes, but that's the spec for you!)
 		 */
