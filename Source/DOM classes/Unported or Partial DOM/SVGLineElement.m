@@ -21,17 +21,28 @@
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
+	SVGRect r = parseResult.rootOfSVGTree.viewport;
+
 	if( [[self getAttribute:@"x1"] length] > 0 )
-	_x1 = [[self getAttribute:@"x1"] floatValue];
-	
+	{
+		_x1 = [[SVGLength svgLengthFromNSString:[self getAttribute:@"x1"] ]
+				   pixelsValueWithDimension:r.width];
+	}
 	if( [[self getAttribute:@"y1"] length] > 0 )
-	_y1 = [[self getAttribute:@"y1"] floatValue];
-	
+	{
+		_y1 = [[SVGLength svgLengthFromNSString:[self getAttribute:@"y1"] ]
+			   pixelsValueWithDimension:r.height];
+	}
 	if( [[self getAttribute:@"x2"] length] > 0 )
-	_x2 = [[self getAttribute:@"x2"] floatValue];
-	
+	{
+		_x2 = [[SVGLength svgLengthFromNSString:[self getAttribute:@"x2"] ]
+			   pixelsValueWithDimension:r.width];
+	}
 	if( [[self getAttribute:@"y2"] length] > 0 )
-	_y2 = [[self getAttribute:@"y2"] floatValue];
+	{
+		_y2 = [[SVGLength svgLengthFromNSString:[self getAttribute:@"y2"] ]
+			   pixelsValueWithDimension:r.height];
+	}
 }
 
 -(CALayer *)newLayer
@@ -41,6 +52,10 @@
 	CGPathAddLineToPoint(path, NULL, _x2, _y2);
 	
 	CALayer* result = [SVGHelperUtilities newCALayerForPathBasedSVGElement:self withPath:path];
+	if (CGRectIsEmpty(result.bounds)) // empty rects don't get rendered
+	{
+		result.bounds = CGRectInset(result.bounds, -1.0, -1.0);
+	}
 	CGPathRelease(path);
 	return result;
 }
