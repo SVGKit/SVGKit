@@ -3,6 +3,7 @@
 #import "CSSValue.h"
 #import "CSSValueList.h"
 #import "CSSPrimitiveValue.h"
+#import "DDFileLogger.h"
 
 @interface CSSStyleDeclaration()
 
@@ -56,6 +57,7 @@
 
 -(NSMutableDictionary *) NSDictionaryFromCSSAttributes: (NSString *)css {
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSCharacterSet* trimChars = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	
 	const char *cstr = [css UTF8String];
 	size_t len = strlen(cstr);
@@ -71,15 +73,8 @@
 	for (size_t n = 0; n <= len; n++) {
 		char c = cstr[n];
 		
-        /* SVG spec specifies some attribute lists might be delimited by white space.
-         e.g. stroke-dasharray is 'A list of comma and/or white space separated <length>s'
-         http://www.w3.org/TR/SVG/painting.html */
-		if (isspace(c)) {
-			continue;
-		}
-		
 		if (c == ':') {
-			strcpy(name, accum);
+			strncpy(name, accum, MAX_NAME);
 			name[accumIdx] = '\0';
 			
 			bzero(accum, MAX_ACCUM);
@@ -92,15 +87,10 @@
             {
                 accum[accumIdx] = '\0';
                 
-                NSString *keyString = [[NSString alloc] initWithUTF8String:name]; //key is copied anyways, autoreleased object creates clutter
-				NSString *cssValueString = [NSString stringWithUTF8String:accum];
-				
-				NSMutableCharacterSet* trimmingSetForKey = [[[NSMutableCharacterSet alloc] init] autorelease];
-				/* add any extra characters to the trim-set if needed here; seems we're OK with the Apple provided whitespace set right now */
-				[trimmingSetForKey formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-				
-				[keyString autorelease]; // needed because Apple provides no direct method for the next line, so we have to release the variable we're about to overwrite
-				keyString = [keyString stringByTrimmingCharactersInSet:trimmingSetForKey];
+                NSString *keyString = [[NSString stringWithUTF8String:name]
+									   stringByTrimmingCharactersInSet:trimChars];
+				NSString *cssValueString = [[NSString stringWithUTF8String:accum]
+											stringByTrimmingCharactersInSet:trimChars];
 				
 				CSSValue *cssValue;
 				if( [cssValueString rangeOfString:@" "].length > 0 )
@@ -113,7 +103,7 @@
                          forKey:keyString];
                 
                 bzero(name, MAX_NAME);
-                
+				
                 bzero(accum, MAX_ACCUM);
                 accumIdx = 0;
             }
@@ -122,6 +112,10 @@
 		}
 		
 		accum[accumIdx++] = c;
+		if (accumIdx >= MAX_ACCUM) {
+			DDLogWarn(@"Buffer ovverun while parsing style sheet - skipping");
+			return [dict autorelease];
+		}
 	}
 	
 	return [dict autorelease];
