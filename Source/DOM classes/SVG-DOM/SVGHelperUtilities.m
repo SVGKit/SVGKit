@@ -318,20 +318,37 @@
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
+	NSString* actualStroke = [svgElement cascadedValueForStylableProperty:@"stroke"];
+	if (!actualStroke)
+		actualStroke = @"none";
+	NSString* actualStrokeWidth = [svgElement cascadedValueForStylableProperty:@"stroke-width"];
+	
+	CGFloat strokeWidth = 1.0;
+	
+	if (actualStrokeWidth)
+	{
+		SVGRect r = ((SVGSVGElement*) svgElement.viewportElement).viewport;
+		
+		strokeWidth = [[SVGLength svgLengthFromNSString:actualStrokeWidth]
+					   pixelsValueWithDimension: hypot(r.width, r.height)];
+	}
+	
 	/** transform our LOCAL path into ABSOLUTE space */
 	CGAffineTransform transformAbsolute = [self transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:svgElement];
-	CGMutablePathRef pathToPlaceInLayer = CGPathCreateMutable();
-	CGPathAddPath( pathToPlaceInLayer, &transformAbsolute, pathRelative);
+
+	// calculate the rendered dimensions of the path
+	CGRect r = CGRectInset(CGPathGetBoundingBox(pathRelative), -strokeWidth/2., -strokeWidth/2.);
+	CGRect transformedPathBB = CGRectApplyAffineTransform(r, transformAbsolute);
+	
+	CGPathRef pathToPlaceInLayer = CGPathCreateCopyByTransformingPath(pathRelative, &transformAbsolute);
 	
 	/** find out the ABSOLUTE BOUNDING BOX of our transformed path */
-    //BIZARRE: Apple sometimes gives a different value for this even when transformAbsolute == identity! : CGRect localPathBB = CGPathGetPathBoundingBox( _pathRelative );
-	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
-	CGRect transformedPathBB = CGPathGetBoundingBox( pathToPlaceInLayer );
+//	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
 
 #if IMPROVE_PERFORMANCE_BY_WORKING_AROUND_APPLE_FRAME_ALIGNMENT_BUG
 	transformedPathBB = CGRectIntegral( transformedPathBB ); // ridiculous but improves performance of apple's code by up to 50% !
 #endif
-	
+
 	/** NB: when we set the _shapeLayer.frame, it has a *side effect* of moving the path itself - so, in order to prevent that,
 	 because Apple didn't provide a BOOL to disable that "feature", we have to pre-shift the path forwards by the amount it
 	 will be shifted backwards */
@@ -352,20 +369,6 @@
 	
 	//DEBUG ONLY: CGRect shapeLayerFrame = _shapeLayer.frame;
 	
-	NSString* actualStroke = [svgElement cascadedValueForStylableProperty:@"stroke"];
-	if (!actualStroke)
-		actualStroke = @"none";
-	NSString* actualStrokeWidth = [svgElement cascadedValueForStylableProperty:@"stroke-width"];
-
-	CGFloat strokeWidth = 1.0;
-	
-	if (actualStrokeWidth)
-	{
-		SVGRect r = ((SVGSVGElement*) svgElement.viewportElement).viewport;
-		
-		strokeWidth = [[SVGLength svgLengthFromNSString:actualStrokeWidth]
-							pixelsValueWithDimension: hypot(r.width, r.height)];
-	}
 	
 	if( strokeWidth > 0
 	   && (! [@"none" isEqualToString:actualStroke]) )

@@ -52,10 +52,7 @@
 	CGPathAddLineToPoint(path, NULL, _x2, _y2);
 	
 	CALayer* result = [SVGHelperUtilities newCALayerForPathBasedSVGElement:self withPath:path];
-	if (CGRectIsEmpty(result.bounds)) // empty rects don't get rendered
-	{
-		result.bounds = CGRectInset(result.bounds, -1.0, -1.0);
-	}
+	
 	CGPathRelease(path);
 	return result;
 }
