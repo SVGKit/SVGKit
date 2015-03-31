@@ -19,12 +19,12 @@
     [super dealloc];
 }
 
--(Node*) item:(int) index
+-(Node*) item:(NSUInteger) index
 {
 	return [self.internalArray objectAtIndex:index];
 }
 
--(long)length
+-(NSUInteger)length
 {
 	return [self.internalArray count];
 }
