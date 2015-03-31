@@ -53,7 +53,7 @@
                                                               layer.bounds.size.height * scale,
                                                               8, 0,
                                                               colorSpace,
-                                                              kCGImageAlphaOnly);
+                                                              (CGBitmapInfo)kCGImageAlphaOnly);
         CGContextScaleCTM(offscreenContext, scale, scale);
         
         // render the mask to it, undoing the offset from SVGClipPathLayer.layoutLayer

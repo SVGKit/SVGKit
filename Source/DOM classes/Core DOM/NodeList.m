@@ -19,7 +19,7 @@
     [super dealloc];
 }
 
--(Node*) item:(int) index
+-(Node*) item:(long) index
 {
 	return [self.internalArray objectAtIndex:index];
 }

@@ -23,6 +23,6 @@
 
 @property(readonly) long length;
 
--(Node*) item:(int) index;
+-(Node*) item:(long) index;
 
 @end
