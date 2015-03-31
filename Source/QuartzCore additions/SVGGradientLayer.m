@@ -29,8 +29,11 @@
 
 - (void)renderInContext:(CGContextRef)ctx {
     CGContextSaveGState(ctx);
-    CGContextAddPath(ctx, maskPath);
-    CGContextClip(ctx);
+	if (maskPath)
+	{
+    	CGContextAddPath(ctx, maskPath);
+		CGContextClip(ctx);
+	}
     if ([self.type isEqualToString:kExt_CAGradientLayerRadial]) {
         
         size_t num_locations = self.locations.count;

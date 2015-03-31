@@ -33,18 +33,16 @@
     @public
     BOOL radial; /* FIXME: not in SVG Spec */
     
-    @protected
-    NSMutableArray *_stops; /* FIXME: not in SVG Spec */
-    
-    @private
-    NSArray *colors, *locations; /* FIXME: not in SVG Spec */
 }
 
-@property (readonly, retain)NSArray *stops; /* FIXME: not in SVG Spec */
+@property (readonly, retain) NSArray *stops; /* FIXME: not in SVG Spec */
+@property (readonly, retain) NSArray *locations; /* FIXME: not in SVG Spec */
+@property (readonly, retain) NSArray *colors; /* FIXME: not in SVG Spec */
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 
 
 -(SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect;
 
+- (void)synthesizeProperties; // resolve any xlink:hrefs to other gradients
 @end

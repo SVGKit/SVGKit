@@ -314,7 +314,7 @@
 
 +(CALayer *) newCALayerForPathBasedSVGElement:(SVGElement<SVGTransformable>*) svgElement withPath:(CGPathRef) pathRelative
 {
-	CAShapeLayer* _shapeLayer = [[CAShapeLayerWithHitTest layer] retain];
+	CAShapeLayer* _shapeLayer = [CAShapeLayerWithHitTest layer];
 	
 	[self configureCALayer:_shapeLayer usingElement:svgElement];
 	
@@ -343,7 +343,7 @@
 	CGPathRef pathToPlaceInLayer = CGPathCreateCopyByTransformingPath(pathRelative, &transformAbsolute);
 	
 	/** find out the ABSOLUTE BOUNDING BOX of our transformed path */
-//	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
+	//DEBUG ONLY: CGRect unTransformedPathBB = CGPathGetBoundingBox( _pathRelative );
 
 #if IMPROVE_PERFORMANCE_BY_WORKING_AROUND_APPLE_FRAME_ALIGNMENT_BUG
 	transformedPathBB = CGRectIntegral( transformedPathBB ); // ridiculous but improves performance of apple's code by up to 50% !
@@ -358,7 +358,7 @@
 	
 	_shapeLayer.path = finalPath;
 	CGPathRelease(finalPath);
-	//CGPathRelease(pathToPlaceInLayer);
+	CGPathRelease(pathToPlaceInLayer);
 	
 	/**
 	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
@@ -366,9 +366,11 @@
 	 */
 	_shapeLayer.frame = transformedPathBB;
 	
-	
+	CGRect localRect =  CGRectMake(0, 0, CGRectGetWidth(transformedPathBB), CGRectGetHeight(transformedPathBB));
+
 	//DEBUG ONLY: CGRect shapeLayerFrame = _shapeLayer.frame;
-	
+	CAShapeLayer* strokeLayer = _shapeLayer;
+	CAShapeLayer* fillLayer = _shapeLayer;
 	
 	if( strokeWidth > 0
 	   && (! [@"none" isEqualToString:actualStroke]) )
@@ -378,14 +380,14 @@
 		 */
 		CGSize fakeSize = CGSizeMake( strokeWidth, 0 );
 		fakeSize = CGSizeApplyAffineTransform( fakeSize, transformAbsolute );
-		_shapeLayer.lineWidth = fakeSize.width;
+		strokeLayer.lineWidth = fakeSize.width;
 		
 		SVGColor strokeColorAsSVGColor = SVGColorFromString([actualStroke UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
 		if( actualStrokeOpacity.length > 0 )
 			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
 		
-		_shapeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
+		strokeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
 		
         /**
          Stroke dash array
@@ -409,7 +411,7 @@
                     }
                 }
                 if( valid ){
-                    _shapeLayer.lineDashPattern = dashArray;
+                    strokeLayer.lineDashPattern = dashArray;
                 }
             }
         }
@@ -423,76 +425,120 @@
 		if( actualLineCap.length > 0 )
 		{
 			if( [actualLineCap isEqualToString:@"butt"] )
-				_shapeLayer.lineCap = kCALineCapButt;
+				strokeLayer.lineCap = kCALineCapButt;
 			else if( [actualLineCap isEqualToString:@"round"] )
-				_shapeLayer.lineCap = kCALineCapRound;
+				strokeLayer.lineCap = kCALineCapRound;
 			else if( [actualLineCap isEqualToString:@"square"] )
-				_shapeLayer.lineCap = kCALineCapSquare;
+				strokeLayer.lineCap = kCALineCapSquare;
 		}
 		if( actualLineJoin.length > 0 )
 		{
 			if( [actualLineJoin isEqualToString:@"miter"] )
-				_shapeLayer.lineJoin = kCALineJoinMiter;
+				strokeLayer.lineJoin = kCALineJoinMiter;
 			else if( [actualLineJoin isEqualToString:@"round"] )
-				_shapeLayer.lineJoin = kCALineJoinRound;
+				strokeLayer.lineJoin = kCALineJoinRound;
 			else if( [actualLineJoin isEqualToString:@"bevel"] )
-				_shapeLayer.lineJoin = kCALineJoinBevel;
+				strokeLayer.lineJoin = kCALineJoinBevel;
 		}
 		if( actualMiterLimit.length > 0 )
 		{
-			_shapeLayer.miterLimit = [actualMiterLimit floatValue];
+			strokeLayer.miterLimit = [actualMiterLimit floatValue];
 		}
+		if ( [actualStroke hasPrefix:@"url"] )
+		{
+			// need a new fill layer because the stroke layer is becoming a mask
+			fillLayer = [CAShapeLayerWithHitTest layer];
+			fillLayer.frame = strokeLayer.frame;
+			fillLayer.opacity = strokeLayer.opacity;
+			fillLayer.path = strokeLayer.path;
+			
+			NSRange idKeyRange = NSMakeRange(5, actualStroke.length - 6);
+			NSString* strokeId = [actualStroke substringWithRange:idKeyRange];
+
+			SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame];
+			
+			strokeLayer.frame = localRect;
+
+			strokeLayer.fillColor = nil;
+			strokeLayer.strokeColor = [UIColor blackColor].CGColor;
+
+			gradientLayer.mask = strokeLayer;
+			strokeLayer = (CAShapeLayer*) gradientLayer;
+		}
+		
 	}
 	else
 	{
 		if( [@"none" isEqualToString:actualStroke] )
 		{
-			_shapeLayer.strokeColor = nil; // This is how you tell Apple that the stroke is disabled; a strokewidth of 0 will NOT achieve this
-			_shapeLayer.lineWidth = 0.0f; // MUST set this explicitly, or Apple assumes 1.0
+			strokeLayer.strokeColor = nil; // This is how you tell Apple that the stroke is disabled; a strokewidth of 0 will NOT achieve this
+			strokeLayer.lineWidth = 0.0f; // MUST set this explicitly, or Apple assumes 1.0
 		}
 		else
 		{
-			_shapeLayer.lineWidth = 1.0f; // default value from SVG spec
+			strokeLayer.lineWidth = 1.0f; // default value from SVG spec
 		}
 	}
 	
 	NSString* actualFill = [svgElement cascadedValueForStylableProperty:@"fill"];
 	NSString* actualFillOpacity = [svgElement cascadedValueForStylableProperty:@"fill-opacity"];
+	
 	if ( [actualFill hasPrefix:@"url"] )
 	{
 		NSRange idKeyRange = NSMakeRange(5, actualFill.length - 6);
-		NSString* _fillId = [actualFill substringWithRange:idKeyRange];
+		NSString* fillId = [actualFill substringWithRange:idKeyRange];
 		
 		/** Replace the return layer with a special layer using the URL fill */
 		/** fetch the fill layer by URL using the DOM */
-		NSAssert( svgElement.rootOfCurrentDocumentFragment != nil, @"This SVG shape has a URL fill type; it needs to search for that URL (%@) inside its nearest-ancestor <SVG> node, but the rootOfCurrentDocumentFragment reference was nil (suggests the parser failed, or the SVG file is corrupt)", _fillId );
+		SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame];
+
+		CAShapeLayer* maskLayer = [CAShapeLayer layer];
+		maskLayer.frame = localRect;
+		maskLayer.path = fillLayer.path;
+		maskLayer.fillColor = [UIColor blackColor].CGColor;
+		maskLayer.strokeColor = nil;
+		gradientLayer.mask = maskLayer;
 		
-		SVGGradientElement* svgGradient = (SVGGradientElement*) [svgElement.rootOfCurrentDocumentFragment getElementById:_fillId];
-		NSAssert( svgGradient != nil, @"This SVG shape has a URL fill (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", _fillId );
-		
-		//if( _shapeLayer != nil && svgGradient != nil ) //this nil check here is distrubing but blocking
-		{
-			SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:_shapeLayer.frame viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
-			
-			DDLogCWarn(@"DOESNT WORK, APPLE's API APPEARS BROKEN???? - About to mask layer frame (%@) with a mask of frame (%@)", NSStringFromCGRect(gradientLayer.frame), NSStringFromCGRect(_shapeLayer.frame));
-			gradientLayer.opacity = _shapeLayer.opacity;
-            gradientLayer.mask =_shapeLayer;
-            gradientLayer.maskPath = pathToPlaceInLayer;
-            CGPathRelease(pathToPlaceInLayer);
-			[_shapeLayer release]; // because it was created with a +1 retain count
-			
-			return gradientLayer;
-		}
+		gradientLayer.frame = fillLayer.frame;
+		fillLayer = (CAShapeLayer* )gradientLayer;
 	}
 	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
 	{
-		_shapeLayer.fillColor = [self parseFillForElement:svgElement fromFill:actualFill andOpacity:actualFillOpacity];
+		fillLayer.fillColor = [self parseFillForElement:svgElement fromFill:actualFill andOpacity:actualFillOpacity];
 	}
     
 	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity" inherit:NO];
-	_shapeLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
-	CGPathRelease(pathToPlaceInLayer);
-	return _shapeLayer;
+	fillLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
+
+	if (strokeLayer == fillLayer)
+	{
+		return [strokeLayer retain];
+	}
+	CALayer* combined = [CALayer layer];
+	combined.frame = strokeLayer.frame;
+	strokeLayer.frame = localRect;
+	if ([strokeLayer isKindOfClass:[CAShapeLayer class]])
+		strokeLayer.fillColor = nil;
+	fillLayer.frame = localRect;
+	[combined addSublayer:fillLayer];
+	[combined addSublayer:strokeLayer];
+	return [combined retain];
+}
+
++ (SVGGradientLayer*)getGradientLayerWithId:(NSString*)gradId forElement:(SVGElement*)svgElement withRect:(CGRect)r
+{
+	/** Replace the return layer with a special layer using the URL fill */
+	/** fetch the fill layer by URL using the DOM */
+	NSAssert( svgElement.rootOfCurrentDocumentFragment != nil, @"This SVG shape has a URL fill type; it needs to search for that URL (%@) inside its nearest-ancestor <SVG> node, but the rootOfCurrentDocumentFragment reference was nil (suggests the parser failed, or the SVG file is corrupt)", gradId );
+	
+	SVGGradientElement* svgGradient = (SVGGradientElement*) [svgElement.rootOfCurrentDocumentFragment getElementById:gradId];
+	NSAssert( svgGradient != nil, @"This SVG shape has a URL fill (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", gradId );
+
+	[svgGradient synthesizeProperties];
+	
+	SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
+
+	return gradientLayer;
 }
 
 +(CGColorRef) parseFillForElement:(SVGElement *)svgElement
