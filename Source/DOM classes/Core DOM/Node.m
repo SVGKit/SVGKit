@@ -431,7 +431,7 @@
 		default:
 			nodeTypeName = @"N/A (DATA IS MISSING FROM NODE INSTANCE)";
 	}
-	return [NSString stringWithFormat:@"Node: %@ (%@) value:[%@] @@%ld attributes + %ld x children", self.nodeName, nodeTypeName, [self.nodeValue length]<11 ? self.nodeValue : [NSString stringWithFormat:@"%@...",[self.nodeValue substringToIndex:10]], self.attributes.length, self.childNodes.length];
+	return [NSString stringWithFormat:@"Node: %@ (%@) value:[%@] @@%ld attributes + %ld x children", self.nodeName, nodeTypeName, [self.nodeValue length]<11 ? self.nodeValue : [NSString stringWithFormat:@"%@...",[self.nodeValue substringToIndex:10]], self.attributes.length, (unsigned long)self.childNodes.length];
 }
 
 #pragma mark - Objective-C serialization method to serialize a DOM tree back to XML (used heavily in SVGKit's output/conversion features)
