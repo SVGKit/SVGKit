@@ -28,20 +28,32 @@
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
+	SVGRect r = parseResult.rootOfSVGTree.viewport;
+	
 	if( [[self getAttribute:@"cx"] length] > 0 )
-	self.cx = [[self getAttribute:@"cx"] floatValue];
-	
+	{
+		self.cx = [[SVGLength svgLengthFromNSString:[self getAttribute:@"cx"] ]
+		 			pixelsValueWithDimension:r.width];
+	}
 	if( [[self getAttribute:@"cy"] length] > 0 )
-	self.cy = [[self getAttribute:@"cy"] floatValue];
-	
+	{
+		self.cy = [[SVGLength svgLengthFromNSString:[self getAttribute:@"cy"] ]
+				   pixelsValueWithDimension:r.height];
+	}
 	if( [[self getAttribute:@"rx"] length] > 0 )
-	self.rx = [[self getAttribute:@"rx"] floatValue];
-	
+	{
+		self.rx  = [[SVGLength svgLengthFromNSString:[self getAttribute:@"rx"] ]
+					pixelsValueWithDimension:r.width];
+	}
 	if( [[self getAttribute:@"ry"] length] > 0 )
-	self.ry = [[self getAttribute:@"ry"] floatValue];
-	
+	{
+		self.ry =  [[SVGLength svgLengthFromNSString:[self getAttribute:@"ry"] ]
+					 pixelsValueWithDimension:r.height];
+	}
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
-		self.ry = self.rx = [[self getAttribute:@"r"] floatValue];
+		
+		self.ry = self.rx = [[SVGLength svgLengthFromNSString:[self getAttribute:@"r"] ]
+							 pixelsValueWithDimension:hypot(r.width, r.height)];
 	}
     
     CGMutablePathRef path = CGPathCreateMutable();
