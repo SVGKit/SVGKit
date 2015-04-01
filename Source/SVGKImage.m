@@ -190,7 +190,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     {
         cacheLine.numberOfInstances ++;
 		
-		blockCompleted( cacheLine.mainInstance );
+		blockCompleted( cacheLine.mainInstance, /** (TODO: add a way for parse-results to chain each other, and say "I'm the cached version of this OTHER parseresult") original parse result: */ cacheLine.mainInstance.parseErrorsAndWarnings );
         return nil;
     }
 #endif
@@ -225,7 +225,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 					   }
 #endif
 					   
-					   blockCompleted( finalImage );
+					   blockCompleted( finalImage, parsedSVG );
 				   });
 	
     return parser;
