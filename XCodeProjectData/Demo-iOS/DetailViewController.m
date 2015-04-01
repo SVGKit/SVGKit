@@ -14,6 +14,8 @@
 #import "SVGKFastImageView.h"
 #import "SVGKLayeredImageView.h"
 
+#import "SVGKSourceURL.h"
+
 @interface ImageLoadingOptions : NSObject
 @property(nonatomic) BOOL requiresLayeredImageView;
 @property(nonatomic) CGSize overrideImageSize;
@@ -415,8 +417,30 @@ CATextLayer *textLayerForLastTappedLayer;
 	self.startParseTime = [NSDate date];
 	if( [name hasPrefix:@"http://"])
 	{
+		@try
+		{
+			/**
+			 This would work, but won't let us read any errors:
+			 
 		document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
-		[self internalLoadedResource:name withOptions:loadingOptions parserOutput:(document==nil)?nil:document.parseErrorsAndWarnings  createImageViewFromDocument:document];
+			 
+			 so, instead, we create an SVGKSource explicitly (as this demo app is taking
+			 user-input, and we have no idea how valid it is!)
+			 
+			 
+			 */
+			SVGKSource* source = [SVGKSourceURL sourceFromURL:[NSURL URLWithString:name]];
+			document = [SVGKImage imageWithSource:source];
+			
+			[self internalLoadedResource:name withOptions:loadingOptions parserOutput:(document==nil)?nil:document.parseErrorsAndWarnings  createImageViewFromDocument:document];
+		}
+		@catch( NSException* e )
+		{
+			[[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Error = %@", e] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			
+			[self internalLoadedResource:name withOptions:loadingOptions parserOutput:nil createImageViewFromDocument:nil];
+		}
+		
 	}
 	else
 	{
