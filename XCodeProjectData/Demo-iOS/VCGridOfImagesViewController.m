@@ -28,6 +28,10 @@
 				[temp addObject:info];
 			}
 			
+			temp = [NSMutableArray arrayWithArray: [temp sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(id obj1, id obj2) {
+				return [((SampleFileInfo*)obj1).filename compare:((SampleFileInfo*)obj2).filename];
+			}]];
+			
 			[self.itemArraysBySectionName setObject:temp forKey:key];
 		}
 	}
@@ -45,6 +49,10 @@
 		SampleFileInfo* info = [SampleFileInfo sampleFileInfoWithFilename:subkey source:[NSURL URLWithString:[license objectForKey:@"Source URL"]]];
 		[temp addObject:info];
 	}
+	
+	temp = [NSMutableArray arrayWithArray: [temp sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(id obj1, id obj2) {
+		return [((SampleFileInfo*)obj1).filename compare:((SampleFileInfo*)obj2).filename];
+	}]];
 	
 	[self.itemArraysBySectionName setObject:temp forKey:sectionName];
 	self.title = sectionName;

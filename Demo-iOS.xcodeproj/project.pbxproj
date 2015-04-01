@@ -97,6 +97,8 @@
 		66B695F2199BFAC900F8E7EE /* imagetag-layered.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */; };
 		66B695F3199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 66B695F0199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png */; };
 		66B695F4199BFAC900F8E7EE /* imagetag-layer2-sun.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66B695F1199BFAC900F8E7EE /* imagetag-layer2-sun.svg */; };
+		66B86F881ACC686B00C18ECE /* NewTux.png in Resources */ = {isa = PBXBuildFile; fileRef = 66B86F871ACC686B00C18ECE /* NewTux.png */; };
+		66B86F8B1ACC687700C18ECE /* NewTux.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66B86F8A1ACC687700C18ECE /* NewTux.svg */; };
 		66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */; };
 		66E785AB171A228A001EF59D /* svg-with-explicit-width.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */; };
 		66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */; };
@@ -254,6 +256,8 @@
 		66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "imagetag-layered.svg"; sourceTree = "<group>"; };
 		66B695F0199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird-1382034603Euc-cropped.png"; sourceTree = "<group>"; };
 		66B695F1199BFAC900F8E7EE /* imagetag-layer2-sun.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "imagetag-layer2-sun.svg"; sourceTree = "<group>"; };
+		66B86F871ACC686B00C18ECE /* NewTux.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NewTux.png; sourceTree = "<group>"; };
+		66B86F8A1ACC687700C18ECE /* NewTux.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NewTux.svg; sourceTree = "<group>"; };
 		66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sakamura-default-fill-opacity-test.svg"; sourceTree = "<group>"; };
 		66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width.svg"; sourceTree = "<group>"; };
 		66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "svg-with-explicit-width-large.svg"; sourceTree = "<group>"; };
@@ -369,6 +373,7 @@
 				661EEAB71ACC3444007176B0 /* map-alaska-onlysimple.png */,
 				661EEAB81ACC3444007176B0 /* Map.png */,
 				661EEAB91ACC3444007176B0 /* MathCurve-optimized.png */,
+				66B86F871ACC686B00C18ECE /* NewTux.png */,
 				661EEABA1ACC3444007176B0 /* parent-clip.png */,
 				661EEABB1ACC3444007176B0 /* radial-gradient-opacity.png */,
 				661EEABC1ACC3444007176B0 /* radialGradientTest.png */,
@@ -526,6 +531,7 @@
 				66E862841688BA510059C9C4 /* Map.svg */,
 				66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */,
 				66E862861688BA510059C9C4 /* Monkey.svg */,
+				66B86F8A1ACC687700C18ECE /* NewTux.svg */,
 				66E862871688BA510059C9C4 /* Note.svg */,
 				BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */,
 				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
@@ -696,11 +702,13 @@
 				661EEA941ACC2FD4007176B0 /* cubic01.png in Resources */,
 				661EEAE51ACC3444007176B0 /* svg-with-explicit-width-large.png in Resources */,
 				663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */,
+				66B86F881ACC686B00C18ECE /* NewTux.png in Resources */,
 				663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */,
 				663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */,
 				661EEAD11ACC3444007176B0 /* Europe_states_reduced.png in Resources */,
 				66B695F2199BFAC900F8E7EE /* imagetag-layered.svg in Resources */,
 				663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */,
+				66B86F8B1ACC687700C18ECE /* NewTux.svg in Resources */,
 				661EEA9C1ACC2FD4007176B0 /* StyleAttribute.png in Resources */,
 				661EEA9B1ACC2FD4007176B0 /* radgrad01.png in Resources */,
 				661EEAD81ACC3444007176B0 /* Location_European_nation_states.png in Resources */,

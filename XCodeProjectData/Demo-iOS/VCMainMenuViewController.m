@@ -55,6 +55,10 @@
 	{
 		sectionName = @"Contributed";
 	}
+	else if( [segue.identifier isEqualToString:@"ViewSpecialTests"])
+	{
+		sectionName = @"Special";
+	}
 	
 	NSString* path = [[NSBundle mainBundle] pathForResource:@"Licenses" ofType:@"plist"];
 	

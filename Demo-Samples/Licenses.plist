@@ -2,12 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Special</key>
+	<dict>
+		<key>nil-demo-layered-imageview</key>
+		<dict>
+			<key>License</key>
+			<string>Special magic name that tests nil images</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+	</dict>
 	<key>Contributed</key>
 	<dict>
+		<key>NewTux.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Larry Ewing</string>
+			<key>Source URL</key>
+			<string>http://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg</string>
+		</dict>
 		<key>sakamura-default-fill-opacity-test.svg</key>
 		<dict>
 			<key>License</key>
-			<string>?</string>
+			<string></string>
 			<key>Source URL</key>
 			<string></string>
 		</dict>
