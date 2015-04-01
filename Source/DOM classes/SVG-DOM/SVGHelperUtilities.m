@@ -358,7 +358,6 @@
 	
 	_shapeLayer.path = finalPath;
 	CGPathRelease(finalPath);
-	CGPathRelease(pathToPlaceInLayer);
 	
 	/**
 	 NB: this line, by changing the FRAME of the layer, has the side effect of also changing the CGPATH's position in absolute
@@ -455,7 +454,8 @@
 			NSRange idKeyRange = NSMakeRange(5, actualStroke.length - 6);
 			NSString* strokeId = [actualStroke substringWithRange:idKeyRange];
 
-			SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame];
+			SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame
+											   transform:transformAbsolute];
 			
 			strokeLayer.frame = localRect;
 
@@ -490,15 +490,17 @@
 		
 		/** Replace the return layer with a special layer using the URL fill */
 		/** fetch the fill layer by URL using the DOM */
-		SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame];
-
+		SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame
+										   transform:transformAbsolute];
+		
 		CAShapeLayer* maskLayer = [CAShapeLayer layer];
 		maskLayer.frame = localRect;
 		maskLayer.path = fillLayer.path;
 		maskLayer.fillColor = [UIColor blackColor].CGColor;
 		maskLayer.strokeColor = nil;
 		gradientLayer.mask = maskLayer;
-		
+		if ( [gradientLayer.type isEqualToString:kExt_CAGradientLayerRadial])
+			gradientLayer.maskPath = pathToPlaceInLayer;
 		gradientLayer.frame = fillLayer.frame;
 		fillLayer = (CAShapeLayer* )gradientLayer;
 	}
@@ -506,7 +508,8 @@
 	{
 		fillLayer.fillColor = [self parseFillForElement:svgElement fromFill:actualFill andOpacity:actualFillOpacity];
 	}
-    
+	CGPathRelease(pathToPlaceInLayer);
+	
 	NSString* actualOpacity = [svgElement cascadedValueForStylableProperty:@"opacity" inherit:NO];
 	fillLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
 
@@ -515,6 +518,7 @@
 		return [strokeLayer retain];
 	}
 	CALayer* combined = [CALayer layer];
+	
 	combined.frame = strokeLayer.frame;
 	strokeLayer.frame = localRect;
 	if ([strokeLayer isKindOfClass:[CAShapeLayer class]])
@@ -525,7 +529,9 @@
 	return [combined retain];
 }
 
-+ (SVGGradientLayer*)getGradientLayerWithId:(NSString*)gradId forElement:(SVGElement*)svgElement withRect:(CGRect)r
++ (SVGGradientLayer*)getGradientLayerWithId:(NSString*)gradId forElement:(SVGElement*)svgElement
+								   withRect:(CGRect)r
+								  transform:(CGAffineTransform)transform
 {
 	/** Replace the return layer with a special layer using the URL fill */
 	/** fetch the fill layer by URL using the DOM */
@@ -536,7 +542,9 @@
 
 	[svgGradient synthesizeProperties];
 	
-	SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox];
+	SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r
+																	viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox
+																	   transform:transform];
 
 	return gradientLayer;
 }
