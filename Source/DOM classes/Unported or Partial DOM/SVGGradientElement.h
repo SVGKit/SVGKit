@@ -42,7 +42,8 @@
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 
 
--(SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect;
+-(SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect) objectRect viewportRect:(SVGRect) viewportRect
+										 transform:(CGAffineTransform)transform;
 
 - (void)synthesizeProperties; // resolve any xlink:hrefs to other gradients
 @end
