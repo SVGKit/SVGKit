@@ -1,0 +1,10 @@
+
+xcodeproj 'CustomFormatters'
+workspace '../Demos'
+
+target :CFo_osx do
+  platform :osx, '10.7'
+  link_with 'CustomFormatters'
+  pod 'CocoaLumberjack', :path => '../../'
+end
+

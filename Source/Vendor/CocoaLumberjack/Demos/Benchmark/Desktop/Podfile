@@ -1,0 +1,10 @@
+
+xcodeproj 'BenchmarkMac'
+workspace '../../Demos'
+
+target :BM_osx do
+  platform :osx, '10.7'
+  link_with 'BenchmarkMac'
+  pod 'CocoaLumberjack', :path => '../../../'
+end
+
