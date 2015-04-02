@@ -247,31 +247,7 @@
 		BD4C56DD199D55CC00AF04AD /* CAShapeLayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */; };
 		BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */; };
-		D320E7661ACCDB1800BD4E72 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5141ACCDB1700BD4E72 /* CLIColor.h */; };
-		D320E7671ACCDB1800BD4E72 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E5151ACCDB1700BD4E72 /* CLIColor.m */; };
-		D320E7681ACCDB1800BD4E72 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5161ACCDB1700BD4E72 /* CocoaLumberjack.h */; };
-		D320E76A1ACCDB1800BD4E72 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5181ACCDB1700BD4E72 /* DDAbstractDatabaseLogger.h */; };
-		D320E76B1ACCDB1800BD4E72 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E5191ACCDB1700BD4E72 /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E76C1ACCDB1800BD4E72 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E51A1ACCDB1700BD4E72 /* DDASLLogCapture.h */; };
-		D320E76D1ACCDB1800BD4E72 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E51B1ACCDB1700BD4E72 /* DDASLLogCapture.m */; };
-		D320E76E1ACCDB1800BD4E72 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E51C1ACCDB1700BD4E72 /* DDASLLogger.h */; };
-		D320E76F1ACCDB1800BD4E72 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E51D1ACCDB1700BD4E72 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E7701ACCDB1800BD4E72 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E51E1ACCDB1700BD4E72 /* DDAssertMacros.h */; };
-		D320E7711ACCDB1800BD4E72 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E51F1ACCDB1700BD4E72 /* DDFileLogger.h */; };
-		D320E7721ACCDB1800BD4E72 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E5201ACCDB1700BD4E72 /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E7731ACCDB1800BD4E72 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5211ACCDB1700BD4E72 /* DDLegacyMacros.h */; };
-		D320E7741ACCDB1800BD4E72 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5221ACCDB1700BD4E72 /* DDLog+LOGV.h */; };
-		D320E7751ACCDB1800BD4E72 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5231ACCDB1700BD4E72 /* DDLog.h */; };
-		D320E7761ACCDB1800BD4E72 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E5241ACCDB1700BD4E72 /* DDLog.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E7771ACCDB1800BD4E72 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5251ACCDB1700BD4E72 /* DDLogMacros.h */; };
-		D320E7781ACCDB1800BD4E72 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5261ACCDB1700BD4E72 /* DDTTYLogger.h */; };
-		D320E7791ACCDB1800BD4E72 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E5271ACCDB1700BD4E72 /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E77A1ACCDB1800BD4E72 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E5291ACCDB1700BD4E72 /* DDContextFilterLogFormatter.h */; };
-		D320E77B1ACCDB1800BD4E72 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E52A1ACCDB1700BD4E72 /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E77C1ACCDB1800BD4E72 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E52B1ACCDB1700BD4E72 /* DDDispatchQueueLogFormatter.h */; };
-		D320E77D1ACCDB1800BD4E72 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E52C1ACCDB1700BD4E72 /* DDDispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D320E77E1ACCDB1800BD4E72 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D320E52D1ACCDB1700BD4E72 /* DDMultiFormatter.h */; };
-		D320E77F1ACCDB1800BD4E72 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D320E52E1ACCDB1700BD4E72 /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		D320E8CC1ACCFA9300BD4E72 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,6 +257,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6639618D16145D0400E58CCA;
 			remoteInfo = "SVGKit-iOS";
+		};
+		D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2A37F97718E37270009FAAA7;
+			remoteInfo = CocoaLumberjack;
+		};
+		D320E8CA1ACCFA1F00BD4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2A37F9DA18E37536009FAAA7;
+			remoteInfo = LibTest;
+		};
+		D320E8CD1ACCFAA700BD4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
+			remoteInfo = CocoaLumberjack;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -542,31 +539,7 @@
 		BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAShapeLayerWithClipRender.m; sourceTree = "<group>"; };
 		BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TinySVGTextAreaElement.h; sourceTree = "<group>"; };
 		BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TinySVGTextAreaElement.m; sourceTree = "<group>"; };
-		D320E5141ACCDB1700BD4E72 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
-		D320E5151ACCDB1700BD4E72 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
-		D320E5161ACCDB1700BD4E72 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
-		D320E5181ACCDB1700BD4E72 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		D320E5191ACCDB1700BD4E72 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		D320E51A1ACCDB1700BD4E72 /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
-		D320E51B1ACCDB1700BD4E72 /* DDASLLogCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogCapture.m; sourceTree = "<group>"; };
-		D320E51C1ACCDB1700BD4E72 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
-		D320E51D1ACCDB1700BD4E72 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
-		D320E51E1ACCDB1700BD4E72 /* DDAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAssertMacros.h; sourceTree = "<group>"; };
-		D320E51F1ACCDB1700BD4E72 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
-		D320E5201ACCDB1700BD4E72 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
-		D320E5211ACCDB1700BD4E72 /* DDLegacyMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLegacyMacros.h; sourceTree = "<group>"; };
-		D320E5221ACCDB1700BD4E72 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
-		D320E5231ACCDB1700BD4E72 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
-		D320E5241ACCDB1700BD4E72 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
-		D320E5251ACCDB1700BD4E72 /* DDLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogMacros.h; sourceTree = "<group>"; };
-		D320E5261ACCDB1700BD4E72 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
-		D320E5271ACCDB1700BD4E72 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		D320E5291ACCDB1700BD4E72 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		D320E52A1ACCDB1700BD4E72 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		D320E52B1ACCDB1700BD4E72 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		D320E52C1ACCDB1700BD4E72 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		D320E52D1ACCDB1700BD4E72 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
-		D320E52E1ACCDB1700BD4E72 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = Source/Vendor/CocoaLumberjack/Framework/Mobile/Lumberjack.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,6 +556,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D320E8CC1ACCFA9300BD4E72 /* libCocoaLumberjack.a in Frameworks */,
 				6639634716148DEC00E58CCA /* CoreGraphics.framework in Frameworks */,
 				6639634216148CDF00E58CCA /* QuartzCore.framework in Frameworks */,
 				6639619216145D0400E58CCA /* Foundation.framework in Frameworks */,
@@ -592,14 +566,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E86D511741586600F0FA0A /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				D320E4FC1ACCDB1700BD4E72 /* CocoaLumberjack */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
 		55452BF219EC68A200B75A30 /* SVGKit-iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +638,7 @@
 		6639619016145D0400E58CCA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */,
 				6639633F16145DDC00E58CCA /* libxml2.dylib */,
 				6639634616148DEC00E58CCA /* CoreGraphics.framework */,
 				6639634116148CDF00E58CCA /* QuartzCore.framework */,
@@ -704,7 +671,6 @@
 				66E863901688C2780059C9C4 /* SVGKSource.m */,
 				66E863911688C2780059C9C4 /* UIKit additions */,
 				66E863981688C2780059C9C4 /* Unsorted */,
-				00E86D511741586600F0FA0A /* Vendor */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1006,60 +972,13 @@
 			path = Unsorted;
 			sourceTree = "<group>";
 		};
-		D320E4FC1ACCDB1700BD4E72 /* CocoaLumberjack */ = {
+		D320E8C41ACCFA1F00BD4E72 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D320E5121ACCDB1700BD4E72 /* Classes */,
+				D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */,
+				D320E8CB1ACCFA1F00BD4E72 /* LibTest.app */,
 			);
-			path = CocoaLumberjack;
-			sourceTree = "<group>";
-		};
-		D320E5121ACCDB1700BD4E72 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				D320E5131ACCDB1700BD4E72 /* CLI */,
-				D320E5161ACCDB1700BD4E72 /* CocoaLumberjack.h */,
-				D320E5181ACCDB1700BD4E72 /* DDAbstractDatabaseLogger.h */,
-				D320E5191ACCDB1700BD4E72 /* DDAbstractDatabaseLogger.m */,
-				D320E51A1ACCDB1700BD4E72 /* DDASLLogCapture.h */,
-				D320E51B1ACCDB1700BD4E72 /* DDASLLogCapture.m */,
-				D320E51C1ACCDB1700BD4E72 /* DDASLLogger.h */,
-				D320E51D1ACCDB1700BD4E72 /* DDASLLogger.m */,
-				D320E51E1ACCDB1700BD4E72 /* DDAssertMacros.h */,
-				D320E51F1ACCDB1700BD4E72 /* DDFileLogger.h */,
-				D320E5201ACCDB1700BD4E72 /* DDFileLogger.m */,
-				D320E5211ACCDB1700BD4E72 /* DDLegacyMacros.h */,
-				D320E5221ACCDB1700BD4E72 /* DDLog+LOGV.h */,
-				D320E5231ACCDB1700BD4E72 /* DDLog.h */,
-				D320E5241ACCDB1700BD4E72 /* DDLog.m */,
-				D320E5251ACCDB1700BD4E72 /* DDLogMacros.h */,
-				D320E5261ACCDB1700BD4E72 /* DDTTYLogger.h */,
-				D320E5271ACCDB1700BD4E72 /* DDTTYLogger.m */,
-				D320E5281ACCDB1700BD4E72 /* Extensions */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		D320E5131ACCDB1700BD4E72 /* CLI */ = {
-			isa = PBXGroup;
-			children = (
-				D320E5141ACCDB1700BD4E72 /* CLIColor.h */,
-				D320E5151ACCDB1700BD4E72 /* CLIColor.m */,
-			);
-			path = CLI;
-			sourceTree = "<group>";
-		};
-		D320E5281ACCDB1700BD4E72 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				D320E5291ACCDB1700BD4E72 /* DDContextFilterLogFormatter.h */,
-				D320E52A1ACCDB1700BD4E72 /* DDContextFilterLogFormatter.m */,
-				D320E52B1ACCDB1700BD4E72 /* DDDispatchQueueLogFormatter.h */,
-				D320E52C1ACCDB1700BD4E72 /* DDDispatchQueueLogFormatter.m */,
-				D320E52D1ACCDB1700BD4E72 /* DDMultiFormatter.h */,
-				D320E52E1ACCDB1700BD4E72 /* DDMultiFormatter.m */,
-			);
-			path = Extensions;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1083,21 +1002,17 @@
 				66372EEE1695F16A008C6C56 /* DocumentCSS.h in Headers */,
 				66E863AC1688C2780059C9C4 /* DocumentFragment.h in Headers */,
 				66372EEF1695F17F008C6C56 /* DocumentStyle.h in Headers */,
-				D320E7661ACCDB1800BD4E72 /* CLIColor.h in Headers */,
 				66E863AE1688C2780059C9C4 /* DocumentType.h in Headers */,
 				66E863B01688C2780059C9C4 /* DOMHelperUtilities.h in Headers */,
 				66E863B21688C2780059C9C4 /* Element.h in Headers */,
 				66E863B41688C2780059C9C4 /* EntityReference.h in Headers */,
-				D320E7681ACCDB1800BD4E72 /* CocoaLumberjack.h in Headers */,
 				66E863B61688C2780059C9C4 /* NamedNodeMap.h in Headers */,
 				66E863B81688C2780059C9C4 /* Node+Mutable.h in Headers */,
-				D320E77A1ACCDB1800BD4E72 /* DDContextFilterLogFormatter.h in Headers */,
 				66E863B91688C2780059C9C4 /* Node.h in Headers */,
 				66E863BB1688C2780059C9C4 /* NodeList+Mutable.h in Headers */,
 				66E863BC1688C2780059C9C4 /* NodeList.h in Headers */,
 				66E863BE1688C2780059C9C4 /* ProcessingInstruction.h in Headers */,
 				66E863C01688C2780059C9C4 /* Text.h in Headers */,
-				D320E7771ACCDB1800BD4E72 /* DDLogMacros.h in Headers */,
 				66E863C21688C2780059C9C4 /* SVGAngle.h in Headers */,
 				66E863C41688C2780059C9C4 /* SVGDefsElement.h in Headers */,
 				66E863C61688C2780059C9C4 /* SVGDocument.h in Headers */,
@@ -1107,7 +1022,6 @@
 				66E863CC1688C2780059C9C4 /* SVGElementInstanceList.h in Headers */,
 				66E863CE1688C2780059C9C4 /* SVGElementInstanceList_Internal.h in Headers */,
 				66E863CF1688C2780059C9C4 /* SVGLength.h in Headers */,
-				D320E7701ACCDB1800BD4E72 /* DDAssertMacros.h in Headers */,
 				66E863D11688C2780059C9C4 /* SVGMatrix.h in Headers */,
 				66E863D31688C2780059C9C4 /* SVGNumber.h in Headers */,
 				66E863D41688C2780059C9C4 /* SVGPoint.h in Headers */,
@@ -1117,8 +1031,6 @@
 				66E863D81688C2780059C9C4 /* SVGTransform.h in Headers */,
 				66E863DA1688C2780059C9C4 /* SVGUseElement.h in Headers */,
 				66E863DC1688C2780059C9C4 /* SVGUseElement_Mutable.h in Headers */,
-				D320E7711ACCDB1800BD4E72 /* DDFileLogger.h in Headers */,
-				D320E77E1ACCDB1800BD4E72 /* DDMultiFormatter.h in Headers */,
 				66E863DD1688C2780059C9C4 /* SVGViewSpec.h in Headers */,
 				66E863DE1688C2780059C9C4 /* SVGCircleElement.h in Headers */,
 				66E863E01688C2780059C9C4 /* SVGDescriptionElement.h in Headers */,
@@ -1126,7 +1038,6 @@
 				66E863E41688C2780059C9C4 /* SVGElement_ForParser.h in Headers */,
 				66E863E51688C2780059C9C4 /* SVGEllipseElement.h in Headers */,
 				66E863E71688C2780059C9C4 /* SVGGroupElement.h in Headers */,
-				D320E7751ACCDB1800BD4E72 /* DDLog.h in Headers */,
 				66E863E91688C2780059C9C4 /* SVGImageElement.h in Headers */,
 				668418BA1867457900C61EC2 /* SVGKImage+CGContext.h in Headers */,
 				66E863EC1688C2780059C9C4 /* SVGLineElement.h in Headers */,
@@ -1137,9 +1048,7 @@
 				66E863F61688C2780059C9C4 /* BaseClassForAllSVGBasicShapes.h in Headers */,
 				66E863F81688C2780059C9C4 /* SVGSVGElement.h in Headers */,
 				66E863FA1688C2780059C9C4 /* SVGTextElement.h in Headers */,
-				D320E7731ACCDB1800BD4E72 /* DDLegacyMacros.h in Headers */,
 				66E863FC1688C2780059C9C4 /* SVGTitleElement.h in Headers */,
-				D320E7741ACCDB1800BD4E72 /* DDLog+LOGV.h in Headers */,
 				66E863FE1688C2780059C9C4 /* CALayerExporter.h in Headers */,
 				66E864001688C2780059C9C4 /* SVGKParserDefsAndUse.h in Headers */,
 				66E864021688C2780059C9C4 /* SVGKParserDOM.h in Headers */,
@@ -1164,10 +1073,8 @@
 				66E864261688C2780059C9C4 /* SVGUtils.h in Headers */,
 				66EEE8521688CA8A002E2658 /* SVGKParserGradient.h in Headers */,
 				66EEE8571688CA94002E2658 /* SVGKParserStyles.h in Headers */,
-				D320E76E1ACCDB1800BD4E72 /* DDASLLogger.h in Headers */,
 				66EEE8601688CB37002E2658 /* SVGGradientElement.h in Headers */,
 				66EEE8621688CB37002E2658 /* SVGGradientStop.h in Headers */,
-				D320E76A1ACCDB1800BD4E72 /* DDAbstractDatabaseLogger.h in Headers */,
 				66EEE8641688CB37002E2658 /* SVGStyleCatcher.h in Headers */,
 				66EEE8651688CB37002E2658 /* SVGStyleElement.h in Headers */,
 				66372EF01695F193008C6C56 /* SVGStylable.h in Headers */,
@@ -1176,7 +1083,6 @@
 				66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */,
 				4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */,
 				66988DBB168A027E00EC93C7 /* CSSRule.h in Headers */,
-				D320E7781ACCDB1800BD4E72 /* DDTTYLogger.h in Headers */,
 				668418C018674A0300C61EC2 /* SVGKExporterNSData.h in Headers */,
 				66988DBF168A031200EC93C7 /* CSSStyleSheet.h in Headers */,
 				66988DC3168A038400EC93C7 /* CSSRuleList.h in Headers */,
@@ -1200,14 +1106,12 @@
 				6636CD8D175F54970072AAEF /* ConverterSVGToCALayer.h in Headers */,
 				66F33DD0182FE1C4004464AC /* SVGPreserveAspectRatio.h in Headers */,
 				66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */,
-				D320E77C1ACCDB1800BD4E72 /* DDDispatchQueueLogFormatter.h in Headers */,
 				9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */,
 				BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */,
 				BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */,
 				BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */,
 				BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */,
 				6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */,
-				D320E76C1ACCDB1800BD4E72 /* DDASLLogCapture.h in Headers */,
 				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */,
 			);
@@ -1247,6 +1151,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */,
 			);
 			name = "SVGKit-iOS";
 			productName = "SVGKit-iOS";
@@ -1278,6 +1183,12 @@
 			mainGroup = 6639618316145D0400E58CCA;
 			productRefGroup = 6639618F16145D0400E58CCA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D320E8C41ACCFA1F00BD4E72 /* Products */;
+					ProjectRef = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6639618D16145D0400E58CCA /* SVGKit-iOS */,
@@ -1285,6 +1196,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCocoaLumberjack.a;
+			remoteRef = D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D320E8CB1ACCFA1F00BD4E72 /* LibTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = LibTest.app;
+			remoteRef = D320E8CA1ACCFA1F00BD4E72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		55452BEF19EC68A200B75A30 /* Resources */ = {
@@ -1349,12 +1277,10 @@
 				66E863B71688C2780059C9C4 /* NamedNodeMap.m in Sources */,
 				66E863BA1688C2780059C9C4 /* Node.m in Sources */,
 				66E863BD1688C2780059C9C4 /* NodeList.m in Sources */,
-				D320E77B1ACCDB1800BD4E72 /* DDContextFilterLogFormatter.m in Sources */,
 				BD4C56DD199D55CC00AF04AD /* CAShapeLayerWithClipRender.m in Sources */,
 				66E863BF1688C2780059C9C4 /* ProcessingInstruction.m in Sources */,
 				66E863C11688C2780059C9C4 /* Text.m in Sources */,
 				66E863C31688C2780059C9C4 /* SVGAngle.m in Sources */,
-				D320E76F1ACCDB1800BD4E72 /* DDASLLogger.m in Sources */,
 				66E863C51688C2780059C9C4 /* SVGDefsElement.m in Sources */,
 				66E863C71688C2780059C9C4 /* SVGDocument.m in Sources */,
 				BD1585751996B17C00461AA5 /* NSData+NSInputStream.m in Sources */,
@@ -1362,13 +1288,9 @@
 				66E863CD1688C2780059C9C4 /* SVGElementInstanceList.m in Sources */,
 				668418C518674BF900C61EC2 /* SVGKExporterUIImage.m in Sources */,
 				66E863D01688C2780059C9C4 /* SVGLength.m in Sources */,
-				D320E76B1ACCDB1800BD4E72 /* DDAbstractDatabaseLogger.m in Sources */,
-				D320E77F1ACCDB1800BD4E72 /* DDMultiFormatter.m in Sources */,
 				66E863D21688C2780059C9C4 /* SVGMatrix.m in Sources */,
 				66E863D51688C2780059C9C4 /* SVGPoint.m in Sources */,
-				D320E76D1ACCDB1800BD4E72 /* DDASLLogCapture.m in Sources */,
 				66E863D91688C2780059C9C4 /* SVGTransform.m in Sources */,
-				D320E7791ACCDB1800BD4E72 /* DDTTYLogger.m in Sources */,
 				66E863DB1688C2780059C9C4 /* SVGUseElement.m in Sources */,
 				66E863DF1688C2780059C9C4 /* SVGCircleElement.m in Sources */,
 				BD2F8C52199D0897008AE06D /* SVGClipPathElement.m in Sources */,
@@ -1392,7 +1314,6 @@
 				66E864031688C2780059C9C4 /* SVGKParserDOM.m in Sources */,
 				66E864051688C2780059C9C4 /* SVGKParserPatternsAndGradients.m in Sources */,
 				66E864071688C2780059C9C4 /* SVGKParserSVG.m in Sources */,
-				D320E7671ACCDB1800BD4E72 /* CLIColor.m in Sources */,
 				66F33DD1182FE1C4004464AC /* SVGPreserveAspectRatio.m in Sources */,
 				66E864091688C2780059C9C4 /* SVGKParser.m in Sources */,
 				66E8640B1688C2780059C9C4 /* SVGKParseResult.m in Sources */,
@@ -1414,7 +1335,6 @@
 				66EEE8611688CB37002E2658 /* SVGGradientElement.m in Sources */,
 				66EEE8631688CB37002E2658 /* SVGGradientStop.m in Sources */,
 				66EEE8661688CB37002E2658 /* SVGStyleElement.m in Sources */,
-				D320E77D1ACCDB1800BD4E72 /* DDDispatchQueueLogFormatter.m in Sources */,
 				6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */,
 				66988DB4168A001400EC93C7 /* CSSStyleDeclaration.m in Sources */,
 				66988DB8168A004D00EC93C7 /* CSSValue.m in Sources */,
@@ -1423,7 +1343,6 @@
 				66988DC0168A031200EC93C7 /* CSSStyleSheet.m in Sources */,
 				66988DC4168A038400EC93C7 /* CSSRuleList.m in Sources */,
 				66988DCC168A0A2300EC93C7 /* CSSPrimitiveValue.m in Sources */,
-				D320E7721ACCDB1800BD4E72 /* DDFileLogger.m in Sources */,
 				668418C118674A0300C61EC2 /* SVGKExporterNSData.m in Sources */,
 				66988DD0168A129500EC93C7 /* CSSValueList.m in Sources */,
 				666674BB168A511400486B68 /* CSSStyleRule.m in Sources */,
@@ -1433,7 +1352,6 @@
 				666674CA168A561C00486B68 /* MediaList.m in Sources */,
 				66372F5A16960D4F008C6C56 /* SVGRect.m in Sources */,
 				663FD01516CAEF0D00CCBFB3 /* SVGHelperUtilities.m in Sources */,
-				D320E7761ACCDB1800BD4E72 /* DDLog.m in Sources */,
 				661ADBF316CC2FBE006F4BC3 /* SVGTextPositioningElement.m in Sources */,
 				661ADBF816CC2FCA006F4BC3 /* SVGTextContentElement.m in Sources */,
 				036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */,
@@ -1454,6 +1372,11 @@
 			isa = PBXTargetDependency;
 			target = 6639618D16145D0400E58CCA /* SVGKit-iOS */;
 			targetProxy = 55452BF819EC68A200B75A30 /* PBXContainerItemProxy */;
+		};
+		D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaLumberjack;
+			targetProxy = D320E8CD1ACCFAA700BD4E72 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
-    #import <CocoaLumberjack.h>
+    #import <CocoaLumberjack/CocoaLumberjack.h>
 
     #if DEBUG
     static const int ddLogLevel = DDLogLevelVerbose;
