@@ -247,39 +247,29 @@
 		BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */; };
 		D3352E261A390DDA0014B81D /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E0B1A390DDA0014B81D /* CLIColor.h */; };
 		D3352E271A390DDA0014B81D /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E0C1A390DDA0014B81D /* CLIColor.m */; };
-		D3352E281A390DDA0014B81D /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E0C1A390DDA0014B81D /* CLIColor.m */; };
 		D3352E291A390DDA0014B81D /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E0D1A390DDA0014B81D /* CocoaLumberjack.h */; };
 		D3352E2C1A390DDA0014B81D /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E0F1A390DDA0014B81D /* DDAbstractDatabaseLogger.h */; };
 		D3352E2D1A390DDA0014B81D /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E101A390DDA0014B81D /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E2E1A390DDA0014B81D /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E101A390DDA0014B81D /* DDAbstractDatabaseLogger.m */; };
 		D3352E2F1A390DDA0014B81D /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E111A390DDA0014B81D /* DDASLLogCapture.h */; };
 		D3352E301A390DDA0014B81D /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E121A390DDA0014B81D /* DDASLLogCapture.m */; };
-		D3352E311A390DDA0014B81D /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E121A390DDA0014B81D /* DDASLLogCapture.m */; };
 		D3352E321A390DDA0014B81D /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E131A390DDA0014B81D /* DDASLLogger.h */; };
 		D3352E331A390DDA0014B81D /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E141A390DDA0014B81D /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E341A390DDA0014B81D /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E141A390DDA0014B81D /* DDASLLogger.m */; };
 		D3352E351A390DDA0014B81D /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E151A390DDA0014B81D /* DDAssertMacros.h */; };
 		D3352E361A390DDA0014B81D /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E161A390DDA0014B81D /* DDFileLogger.h */; };
 		D3352E371A390DDA0014B81D /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E171A390DDA0014B81D /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E381A390DDA0014B81D /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E171A390DDA0014B81D /* DDFileLogger.m */; };
 		D3352E391A390DDA0014B81D /* DDLegacy.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E181A390DDA0014B81D /* DDLegacy.h */; };
 		D3352E3A1A390DDA0014B81D /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E191A390DDA0014B81D /* DDLog+LOGV.h */; };
 		D3352E3B1A390DDA0014B81D /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E1A1A390DDA0014B81D /* DDLog.h */; };
 		D3352E3C1A390DDA0014B81D /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E1B1A390DDA0014B81D /* DDLog.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E3D1A390DDA0014B81D /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E1B1A390DDA0014B81D /* DDLog.m */; };
 		D3352E3E1A390DDA0014B81D /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E1C1A390DDA0014B81D /* DDLogMacros.h */; };
 		D3352E3F1A390DDA0014B81D /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E1D1A390DDA0014B81D /* DDTTYLogger.h */; };
 		D3352E401A390DDA0014B81D /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E1E1A390DDA0014B81D /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E411A390DDA0014B81D /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E1E1A390DDA0014B81D /* DDTTYLogger.m */; };
 		D3352E421A390DDA0014B81D /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E201A390DDA0014B81D /* DDContextFilterLogFormatter.h */; };
 		D3352E431A390DDA0014B81D /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E211A390DDA0014B81D /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E441A390DDA0014B81D /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E211A390DDA0014B81D /* DDContextFilterLogFormatter.m */; };
 		D3352E451A390DDA0014B81D /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E221A390DDA0014B81D /* DDDispatchQueueLogFormatter.h */; };
 		D3352E461A390DDA0014B81D /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E231A390DDA0014B81D /* DDDispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E471A390DDA0014B81D /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E231A390DDA0014B81D /* DDDispatchQueueLogFormatter.m */; };
 		D3352E481A390DDA0014B81D /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3352E241A390DDA0014B81D /* DDMultiFormatter.h */; };
 		D3352E491A390DDA0014B81D /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E251A390DDA0014B81D /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		D3352E4A1A390DDA0014B81D /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3352E251A390DDA0014B81D /* DDMultiFormatter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1319,18 +1309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3352E311A390DDA0014B81D /* DDASLLogCapture.m in Sources */,
-				D3352E411A390DDA0014B81D /* DDTTYLogger.m in Sources */,
-				D3352E381A390DDA0014B81D /* DDFileLogger.m in Sources */,
-				D3352E441A390DDA0014B81D /* DDContextFilterLogFormatter.m in Sources */,
 				55825B3A19EC7B4700635497 /* SVGKit_iOS-RetainTests.m in Sources */,
 				55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */,
-				D3352E4A1A390DDA0014B81D /* DDMultiFormatter.m in Sources */,
-				D3352E281A390DDA0014B81D /* CLIColor.m in Sources */,
-				D3352E3D1A390DDA0014B81D /* DDLog.m in Sources */,
-				D3352E341A390DDA0014B81D /* DDASLLogger.m in Sources */,
-				D3352E2E1A390DDA0014B81D /* DDAbstractDatabaseLogger.m in Sources */,
-				D3352E471A390DDA0014B81D /* DDDispatchQueueLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
