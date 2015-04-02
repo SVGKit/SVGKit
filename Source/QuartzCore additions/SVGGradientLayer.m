@@ -29,8 +29,11 @@
 
 - (void)renderInContext:(CGContextRef)ctx {
     CGContextSaveGState(ctx);
-    CGContextAddPath(ctx, maskPath);
-    CGContextClip(ctx);
+	if (maskPath)
+	{
+    	CGContextAddPath(ctx, maskPath);
+		CGContextClip(ctx);
+	}
     if ([self.type isEqualToString:kExt_CAGradientLayerRadial]) {
         
         size_t num_locations = self.locations.count;
@@ -62,6 +65,7 @@
             CGFloat radius = floorf(self.endPoint.x * self.bounds.size.width);
             CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, num_locations);
             
+            CGContextSetAlpha(ctx, self.opacity);
             CGContextDrawRadialGradient(ctx, gradient, position, 0, position, radius, kCGGradientDrawsAfterEndLocation);
             
             free(locations);

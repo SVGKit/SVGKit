@@ -21,8 +21,8 @@
 
 @interface NodeList : NSObject <NSFastEnumeration>
 
-@property(readonly) long length;
+@property(readonly) NSUInteger length;
 
--(Node*) item:(int) index;
+-(Node*) item:(NSUInteger) index;
 
 @end

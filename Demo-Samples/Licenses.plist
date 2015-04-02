@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Special</key>
+	<dict>
+		<key>nil-demo-layered-imageview</key>
+		<dict>
+			<key>License</key>
+			<string>Special magic name that tests nil images</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+	</dict>
+	<key>Contributed</key>
+	<dict>
+		<key>NewTux.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Larry Ewing</string>
+			<key>Source URL</key>
+			<string>http://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg</string>
+		</dict>
+		<key>sakamura-default-fill-opacity-test.svg</key>
+		<dict>
+			<key>License</key>
+			<string></string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>svg-with-explicit-width-large.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>svg-with-explicit-width.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>test-stroke-dash-array.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: David Sweetman</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>test-wave-1.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Text.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>uk-only.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Creative Commons</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>voies.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Reinel_compass_rose-simplified-for-testing.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Creative Commons, adapted by Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Reinel_compass_rose.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Creative Commons</string>
+			<key>Source URL</key>
+			<string>http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg</string>
+		</dict>
+		<key>rotated-and-skewed-text.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>rounded-rects.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>RainbowWing.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>imagetag-layered.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>imageWithASinglePointPath.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Eric Shapiro (https://github.com/EricShapiro)</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Lion.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Unknown, probably Public Domain.</string>
+			<key>Source URL</key>
+			<string>http://www-archive.mozilla.org/projects/svg/lion.svg</string>
+		</dict>
+		<key>Location_European_nation_states.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Creative Commons</string>
+			<key>Source URL</key>
+			<string>http://en.wikipedia.org/wiki/File:Location_European_nation_states.svg</string>
+		</dict>
+		<key>map-alaska-onlysimple.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Map.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>MathCurve-optimized.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Monkey.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Note.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>parent-clip.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>radial-gradient-opacity.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Tomás Silcher</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>radialGradientTest.svg</key>
+		<dict>
+			<key>License</key>
+			<string>?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>australia_states_blank.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Creative Commons</string>
+			<key>Source URL</key>
+			<string>http://commons.wikimedia.org/wiki/File:Australia_states_blank.svg</string>
+		</dict>
+		<key>Blank_Map-Africa.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://en.wikipedia.org/wiki/File:Blank_Map-Africa.svg</string>
+		</dict>
+		<key>BlankMap-World6-Equirectangular.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://commons.wikimedia.org/wiki/File:BlankMap-World6-Equirectangular.svg</string>
+		</dict>
+		<key>breaking-1.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Coins.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain. Coins images Public Domain, http://pixabay.com/en/euro-2-coin-currency-europe-money-400287/</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>CurvedDiamond.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin (http://t-machine.org)</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>Europe_states_reduced.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain?</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>g-element-applies-rotation.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>groups-and-layers-test.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>ImageAspectRatio.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, Created by author based on PreserveAspectRatio.svg from the SVG spec. Snowman image Public Domain, http://www.publicdomainpictures.net/view-image.php?image=17565&amp;picture=snowman-decoration</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>imagetag-layer2-sun.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+	</dict>
+	<key>SVG Spec</key>
+	<dict>
+		<key>fillrule-evenodd.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/painting/fillrule-evenodd.svg</string>
+		</dict>
+		<key>radgrad01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>StyleAttribute.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/styling/StyleAttribute.svg</string>
+		</dict>
+		<key>text01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/text/text01.svg</string>
+		</dict>
+		<key>tspan01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/text/tspan01.svg</string>
+		</dict>
+		<key>opacity01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>pattern01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string></string>
+		</dict>
+		<key>PreserveAspectRatio.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG11/images/coords/PreserveAspectRatio.svg</string>
+		</dict>
+		<key>quad01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/paths/quad01.svg</string>
+		</dict>
+		<key>cubic01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/paths/cubic01.svg</string>
+		</dict>
+		<key>lingrad01.svg</key>
+		<dict>
+			<key>License</key>
+			<string>Public Domain</string>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/pservers/lingrad01.svg</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

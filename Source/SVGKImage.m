@@ -7,6 +7,7 @@
 #import "SVGPathElement.h"
 #import "SVGUseElement.h"
 #import "SVGClipPathElement.h"
+#import "SVGSwitchElement.h"
 
 #import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
 
@@ -189,7 +190,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     {
         cacheLine.numberOfInstances ++;
 		
-		blockCompleted( cacheLine.mainInstance );
+		blockCompleted( cacheLine.mainInstance, /** (TODO: add a way for parse-results to chain each other, and say "I'm the cached version of this OTHER parseresult") original parse result: */ cacheLine.mainInstance.parseErrorsAndWarnings );
         return nil;
     }
 #endif
@@ -224,7 +225,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 					   }
 #endif
 					   
-					   blockCompleted( finalImage );
+					   blockCompleted( finalImage, parsedSVG );
 				   });
 	
     return parser;
@@ -331,6 +332,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
 	
 //SOMETIMES CRASHES IN APPLE CODE, CAN'T WORK OUT WHY:	[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	@try {
+		[self removeObserver:self forKeyPath:@"DOMTree.viewport"];
+	}
+	@catch (NSException *exception) {
+		DDLogError(@"Exception removing DOMTree.viewport observer");
+	}
 	
     self.source = nil;
     self.parseErrorsAndWarnings = nil;
@@ -614,11 +621,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 		SVGUseElement* useElement = (SVGUseElement*) element;
 		childNodes = useElement.instanceRoot.correspondingElement.childNodes;
     }
-    
+    else
+    if ( [element isKindOfClass:[SVGSwitchElement class]] )
+    {
+        childNodes = [(SVGSwitchElement*) element visibleChildNodes];
+    }
     /**
      Special handling for clip-path; need to create their children
      */
-    NSString* clipPath = [element cascadedValueForStylableProperty:@"clip-path"];
+    NSString* clipPath = [element cascadedValueForStylableProperty:@"clip-path" inherit:NO];
     if ( [clipPath hasPrefix:@"url"] )
     {
         NSRange idKeyRange = NSMakeRange(5, clipPath.length - 6);

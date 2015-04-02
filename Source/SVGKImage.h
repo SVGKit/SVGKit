@@ -49,7 +49,7 @@
 @class SVGDefsElement;
 
 @class SVGKImage; // needed for typedef below
-typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage);
+typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVGKParseResult* parseResult );
 
 @interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
 {

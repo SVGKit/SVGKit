@@ -14,6 +14,8 @@
 #import "SVGKFastImageView.h"
 #import "SVGKLayeredImageView.h"
 
+#import "SVGKSourceURL.h"
+
 @interface ImageLoadingOptions : NSObject
 @property(nonatomic) BOOL requiresLayeredImageView;
 @property(nonatomic) CGSize overrideImageSize;
@@ -309,11 +311,15 @@ CATextLayer *textLayerForLastTappedLayer;
 		[self deselectTappedLayer]; // do this first because it DEPENDS UPON the type of self.contentView BEFORE the change in value
 		
 		[detailItem release];
+		
+		if( newDetailItem != nil )
+		{
 		detailItem = [newDetailItem retain];
 		
 		// FIXME: re-write this class so that this method does NOT require self.view to exist
 		[self view]; // Apple's design to trigger the creation of view. Original design of THIS class is that it breaks if view isn't already existing
 		[self loadResource:newDetailItem];
+		}
 	}
 	
 	if (self.popoverController) {
@@ -372,6 +378,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	   [options.diskFilenameToLoad  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
 	   || [options.diskFilenameToLoad isEqualToString:@"RainbowWing"] // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
 	   || [options.diskFilenameToLoad isEqualToString:@"imagetag-layered"] // uses gradients for prettiness
+	   || [options.diskFilenameToLoad isEqualToString:@"parent-clip"] // uses layer animations
 	   )
 	{
 		/**
@@ -403,10 +410,49 @@ CATextLayer *textLayerForLastTappedLayer;
 	
 	self.startParseTime = self.endParseTime = [NSDate date]; // reset them
 	
+	SVGKImage *document = nil;
+		ImageLoadingOptions* loadingOptions = [[[ImageLoadingOptions alloc] initWithName:name] autorelease];
+	
+	/** Detect URL vs file */
+	self.startParseTime = [NSDate date];
+	if( [name hasPrefix:@"http://"])
+	{
+		@try
+		{
+			/**
+			 This would work, but won't let us read any errors:
+			 
+		document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
+			 
+			 so, instead, we create an SVGKSource explicitly (as this demo app is taking
+			 user-input, and we have no idea how valid it is!)
+			 
+			 
+			 */
+			SVGKSource* source = [SVGKSourceURL sourceFromURL:[NSURL URLWithString:name]];
+			document = [SVGKImage imageWithSource:source];
+			
+			[self internalLoadedResource:name withOptions:loadingOptions parserOutput:(document==nil)?nil:document.parseErrorsAndWarnings  createImageViewFromDocument:document];
+		}
+		@catch( NSException* e )
+		{
+			[[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Error = %@", e] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			
+			[self internalLoadedResource:name withOptions:loadingOptions parserOutput:nil createImageViewFromDocument:nil];
+		}
+		
+	}
+	else
+	{
+	
+	/** this method requires there to be no file-extension before we start */
+	name = [name stringByDeletingPathExtension];
+	
+	
 	/** This demo shows different images being used in different ways.
 	 Here we setup special conditions based on the filename etc:
 	 */
-	ImageLoadingOptions* loadingOptions = [[[ImageLoadingOptions alloc] initWithName:name] autorelease];
+
 	[self preProcessImageFor2X:loadingOptions];
 	[self preProcessImageForAt160x240:loadingOptions];
 	[self preProcessImageCheckWorkaroundAppleBugInGradientImages:loadingOptions];
@@ -425,29 +471,19 @@ CATextLayer *textLayerForLastTappedLayer;
 		/**
 		 the actual loading of the SVG file
 		 */
+
 		
-		SVGKImage *document = nil;
-		
-		/** Detect URL vs file */
-		self.startParseTime = [NSDate date];
-		if( [name hasPrefix:@"http://"])
-		{
-			document = [SVGKImage imageWithContentsOfURL:[NSURL URLWithString:name]];
-			[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:document];
-		}
-		else
-		{
 #if LOAD_SYNCHRONOUSLY
 			document = [SVGKImage imageNamed:[name stringByAppendingPathExtension:@"svg"]];
 			[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:document];
 #else
 			SVGKParser* parser = [SVGKImage imageAsynchronouslyNamed:[name stringByAppendingPathExtension:@"svg"]
-			onCompletion:^(SVGKImage *loadedImage)
+			onCompletion:^(SVGKImage *loadedImage, SVGKParseResult* parseResult)
 			{
 				[self.tickerLoadingApplesNSTimerSucks invalidate];
 				dispatch_async(dispatch_get_main_queue(), ^{
 					// must be on main queue since this affects the UIKit GUI!
-					[self internalLoadedResource:name withOptions:loadingOptions createImageViewFromDocument:loadedImage];
+					[self internalLoadedResource:name withOptions:loadingOptions parserOutput:parseResult createImageViewFromDocument:loadedImage];
 				});
 			}];
 			self.tickerLoadingApplesNSTimerSucks = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(tickLoadingSVG:) userInfo:parser repeats:TRUE];
@@ -472,7 +508,7 @@ CATextLayer *textLayerForLastTappedLayer;
  Creates an appopriate SVGKImageView to display the loaded SVGKImage, and triggers the post-processing
  of on-screen displays
  */
--(void) internalLoadedResource:(NSString*) name withOptions:(ImageLoadingOptions*) loadingOptions createImageViewFromDocument:(SVGKImage*) document
+-(void) internalLoadedResource:(NSString*) name withOptions:(ImageLoadingOptions*) loadingOptions parserOutput:(SVGKParseResult*) parseResult createImageViewFromDocument:(SVGKImage*) document
 {
 	self.endParseTime = [NSDate date];
 	
@@ -482,7 +518,14 @@ CATextLayer *textLayerForLastTappedLayer;
 	
 	if( document == nil )
 	{
+		if( parseResult == nil )
+		{
 		[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		}
+		else
+		{
+		[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"Summary: %@",parseResult] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];			
+		}
 		newContentView = nil; // signals to the rest of this method: the load failed
 	}
 	else
@@ -509,9 +552,11 @@ CATextLayer *textLayerForLastTappedLayer;
 				((SVGKFastImageView*)newContentView).disableAutoRedrawAtHighestResolution = TRUE;
 			}
 		}
-		else
+		
+		if( parseResult.errorsFatal.count > 0 )
 		{
-			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%@",parseResult] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+//			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 			newContentView = nil; // signals to the rest of this method: the load failed
 			
 		}
@@ -608,7 +653,9 @@ CATextLayer *textLayerForLastTappedLayer;
 - (IBAction)animate:(id)sender {
 	if ([_name isEqualToString:@"Monkey"]) {
 		[self shakeHead];
-	}
+    } else if ([_name isEqualToString:@"parent-clip"]) {
+        [self moveGreenSquare];
+    }
 }
 
 
@@ -623,6 +670,19 @@ CATextLayer *textLayerForLastTappedLayer;
 	animation.toValue = [NSNumber numberWithFloat:-0.1f];
 	
 	[layer addAnimation:animation forKey:@"shakingHead"];
+}
+
+- (void)moveGreenSquare {
+    CALayer *layer = [self.contentView.image layerWithIdentifier:@"greensquare"];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    animation.duration = 1;
+    animation.autoreverses = YES;
+    animation.repeatCount = 100000;
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(50, 50)];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake(-50, -50)];
+    
+    [layer addAnimation:animation forKey:@"moveGreenSquare"];
 }
 
 - (IBAction) showHideBorder:(id)sender

@@ -10,6 +10,8 @@
 		00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D7317415AA000F0FA0A /* SVGKit.m */; };
 		036A524C16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
+		4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */; };
+		4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */; };
 		55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */; };
 		55452BF719EC68A200B75A30 /* libSVGKit-iOS.1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.1.2.0.a */; };
 		55452C0619EC6C9B00B75A30 /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */; };
@@ -298,6 +300,8 @@
 		00E86D7317415AA000F0FA0A /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKit.m; sourceTree = "<group>"; };
 		036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
+		4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSwitchElement.h; sourceTree = "<group>"; };
+		4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGSwitchElement.m; sourceTree = "<group>"; };
 		55452BF119EC68A200B75A30 /* SVGKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55452BF419EC68A200B75A30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKit_iOS_Tests.m; sourceTree = "<group>"; };
@@ -890,6 +894,8 @@
 				66E863681688C2770059C9C4 /* BaseClassForAllSVGBasicShapes.m */,
 				66E863691688C2770059C9C4 /* SVGSVGElement.h */,
 				66E8636A1688C2770059C9C4 /* SVGSVGElement.m */,
+				4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */,
+				4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */,
 				66E8636B1688C2770059C9C4 /* SVGTextElement.h */,
 				66E8636C1688C2770059C9C4 /* SVGTextElement.m */,
 				66E8636D1688C2770059C9C4 /* SVGTitleElement.h */,
@@ -1159,6 +1165,7 @@
 				6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */,
 				66988DB3168A001400EC93C7 /* CSSStyleDeclaration.h in Headers */,
 				66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */,
+				4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */,
 				66988DBB168A027E00EC93C7 /* CSSRule.h in Headers */,
 				668418C018674A0300C61EC2 /* SVGKExporterNSData.h in Headers */,
 				D3352E2C1A390DDA0014B81D /* DDAbstractDatabaseLogger.h in Headers */,
@@ -1427,6 +1434,7 @@
 				6636CD8B175F54680072AAEF /* CALayer+RecursiveClone.m in Sources */,
 				D3352E461A390DDA0014B81D /* DDDispatchQueueLogFormatter.m in Sources */,
 				9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */,
+				4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
