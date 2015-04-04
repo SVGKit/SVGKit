@@ -612,14 +612,21 @@ static NSMutableDictionary* globalSVGKImageCache;
 	//DEBUG: DDLogVerbose(@"[%@] DEBUG: converted SVG element (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([element class]), NSStringFromClass([layer class]), NSStringFromCGRect( layer.frame ), layer, element.identifier);
 	
 	NodeList* childNodes = element.childNodes;
-	
+	Node* saveParentNode = nil;
 	/**
 	 Special handling for <use> tags - they have to masquerade invisibly as the node they are referring to
 	 */
 	if( [element isKindOfClass:[SVGUseElement class]] )
 	{
-		SVGUseElement* useElement = (SVGUseElement*) element;
-		childNodes = useElement.instanceRoot.correspondingElement.childNodes;
+		if ( [element isKindOfClass:[SVGUseElement class]] )
+		{
+			SVGUseElement* useElement = (SVGUseElement*) element;
+			element = (SVGElement <ConverterSVGToCALayer> *)useElement.instanceRoot.correspondingElement;
+			
+			saveParentNode = element.parentNode;
+			element.parentNode = useElement;
+			childNodes = useElement.instanceRoot.correspondingElement.childNodes;
+		}
     }
     else
     if ( [element isKindOfClass:[SVGSwitchElement class]] )
@@ -685,6 +692,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 		}
 	}
 	
+	if (saveParentNode)
+		element.parentNode = saveParentNode;
 	/**
 	 If none of the child nodes return a CALayer, we're safe to early-out here (and in fact we need to because
 	 calling setNeedsDisplay on an image layer hides the image). We can't just check childNodes.count because
