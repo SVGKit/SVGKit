@@ -810,19 +810,18 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 
 	// end parsing
 
-	SVGCurve curve;
-	
-	curve.p = endPoint;
-
-	if (rx == 0 || ry == 0)
-	{
-		CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
-		return curve;
-	}
-	
 	CGFloat x2 = origin.x + endPoint.x;
 	CGFloat y2 = origin.y + endPoint.y;
 
+	SVGCurve curve;
+	
+	curve.p = CGPointMake(x2, y2);
+	
+	if (rx == 0 || ry == 0)
+	{
+		CGPathAddLineToPoint(path, NULL, curve.p.x, curve.p.y);
+		return curve;
+	}
 	CGFloat cosPhi = cos(phi);
 	CGFloat sinPhi = sin(phi);
 	
