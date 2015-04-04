@@ -4,11 +4,11 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
-    #import "DDLog.h"
+    #import <CocoaLumberjack/CocoaLumberjack.h>
 
     #if DEBUG
-    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+    static const int ddLogLevel = DDLogLevelVerbose;
     #else
-    static const int ddLogLevel = LOG_LEVEL_WARN;
+    static const int ddLogLevel = DDLogLevelWarning;
     #endif
 #endif

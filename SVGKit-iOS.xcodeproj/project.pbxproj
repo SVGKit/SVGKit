@@ -7,20 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E86D631741586600F0FA0A /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D531741586600F0FA0A /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D641741586600F0FA0A /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D541741586600F0FA0A /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		00E86D651741586600F0FA0A /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D551741586600F0FA0A /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D661741586600F0FA0A /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D561741586600F0FA0A /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		00E86D671741586600F0FA0A /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D571741586600F0FA0A /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D681741586600F0FA0A /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D581741586600F0FA0A /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		00E86D691741586600F0FA0A /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D591741586600F0FA0A /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D6A1741586600F0FA0A /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D5A1741586600F0FA0A /* DDLog.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		00E86D6B1741586600F0FA0A /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D5B1741586600F0FA0A /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D6C1741586600F0FA0A /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D5C1741586600F0FA0A /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		00E86D6D1741586600F0FA0A /* ContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D5E1741586600F0FA0A /* ContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D6E1741586600F0FA0A /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D5F1741586600F0FA0A /* ContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E86D601741586600F0FA0A /* DispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00E86D701741586600F0FA0A /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D7317415AA000F0FA0A /* SVGKit.m */; };
 		036A524C16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
@@ -261,6 +247,7 @@
 		BD4C56DD199D55CC00AF04AD /* CAShapeLayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */; };
 		BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */; };
+		D320E8CC1ACCFA9300BD4E72 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +257,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6639618D16145D0400E58CCA;
 			remoteInfo = "SVGKit-iOS";
+		};
+		D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2A37F97718E37270009FAAA7;
+			remoteInfo = CocoaLumberjack;
+		};
+		D320E8CA1ACCFA1F00BD4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2A37F9DA18E37536009FAAA7;
+			remoteInfo = LibTest;
+		};
+		D320E8CD1ACCFAA700BD4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
+			remoteInfo = CocoaLumberjack;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -286,21 +294,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00E86D531741586600F0FA0A /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		00E86D541741586600F0FA0A /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		00E86D551741586600F0FA0A /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
-		00E86D561741586600F0FA0A /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
-		00E86D571741586600F0FA0A /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
-		00E86D581741586600F0FA0A /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
-		00E86D591741586600F0FA0A /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
-		00E86D5A1741586600F0FA0A /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
-		00E86D5B1741586600F0FA0A /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
-		00E86D5C1741586600F0FA0A /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		00E86D5E1741586600F0FA0A /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		00E86D5F1741586600F0FA0A /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		00E86D601741586600F0FA0A /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		00E86D621741586600F0FA0A /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		00E86D7317415AA000F0FA0A /* SVGKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKit.m; sourceTree = "<group>"; };
 		036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; };
@@ -546,6 +539,7 @@
 		BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAShapeLayerWithClipRender.m; sourceTree = "<group>"; };
 		BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TinySVGTextAreaElement.h; sourceTree = "<group>"; };
 		BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TinySVGTextAreaElement.m; sourceTree = "<group>"; };
+		D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = Source/Vendor/CocoaLumberjack/Framework/Mobile/Lumberjack.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +556,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D320E8CC1ACCFA9300BD4E72 /* libCocoaLumberjack.a in Frameworks */,
 				6639634716148DEC00E58CCA /* CoreGraphics.framework in Frameworks */,
 				6639634216148CDF00E58CCA /* QuartzCore.framework in Frameworks */,
 				6639619216145D0400E58CCA /* Foundation.framework in Frameworks */,
@@ -571,44 +566,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E86D511741586600F0FA0A /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				00E86D521741586600F0FA0A /* Lumberjack */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		00E86D521741586600F0FA0A /* Lumberjack */ = {
-			isa = PBXGroup;
-			children = (
-				00E86D531741586600F0FA0A /* DDAbstractDatabaseLogger.h */,
-				00E86D541741586600F0FA0A /* DDAbstractDatabaseLogger.m */,
-				00E86D551741586600F0FA0A /* DDASLLogger.h */,
-				00E86D561741586600F0FA0A /* DDASLLogger.m */,
-				00E86D571741586600F0FA0A /* DDFileLogger.h */,
-				00E86D581741586600F0FA0A /* DDFileLogger.m */,
-				00E86D591741586600F0FA0A /* DDLog.h */,
-				00E86D5A1741586600F0FA0A /* DDLog.m */,
-				00E86D5B1741586600F0FA0A /* DDTTYLogger.h */,
-				00E86D5C1741586600F0FA0A /* DDTTYLogger.m */,
-				00E86D5D1741586600F0FA0A /* Extensions */,
-			);
-			path = Lumberjack;
-			sourceTree = "<group>";
-		};
-		00E86D5D1741586600F0FA0A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				00E86D5E1741586600F0FA0A /* ContextFilterLogFormatter.h */,
-				00E86D5F1741586600F0FA0A /* ContextFilterLogFormatter.m */,
-				00E86D601741586600F0FA0A /* DispatchQueueLogFormatter.h */,
-				00E86D611741586600F0FA0A /* DispatchQueueLogFormatter.m */,
-				00E86D621741586600F0FA0A /* README.txt */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		55452BF219EC68A200B75A30 /* SVGKit-iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,6 +638,7 @@
 		6639619016145D0400E58CCA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */,
 				6639633F16145DDC00E58CCA /* libxml2.dylib */,
 				6639634616148DEC00E58CCA /* CoreGraphics.framework */,
 				6639634116148CDF00E58CCA /* QuartzCore.framework */,
@@ -713,7 +671,6 @@
 				66E863901688C2780059C9C4 /* SVGKSource.m */,
 				66E863911688C2780059C9C4 /* UIKit additions */,
 				66E863981688C2780059C9C4 /* Unsorted */,
-				00E86D511741586600F0FA0A /* Vendor */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1015,6 +972,15 @@
 			path = Unsorted;
 			sourceTree = "<group>";
 		};
+		D320E8C41ACCFA1F00BD4E72 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */,
+				D320E8CB1ACCFA1F00BD4E72 /* LibTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1141,19 +1107,12 @@
 				66F33DD0182FE1C4004464AC /* SVGPreserveAspectRatio.h in Headers */,
 				66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */,
 				9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */,
-				00E86D631741586600F0FA0A /* DDAbstractDatabaseLogger.h in Headers */,
-				00E86D651741586600F0FA0A /* DDASLLogger.h in Headers */,
-				00E86D671741586600F0FA0A /* DDFileLogger.h in Headers */,
-				00E86D691741586600F0FA0A /* DDLog.h in Headers */,
-				00E86D6B1741586600F0FA0A /* DDTTYLogger.h in Headers */,
 				BD2F8C51199D0897008AE06D /* SVGClipPathElement.h in Headers */,
 				BD4C56DC199D55CC00AF04AD /* CAShapeLayerWithClipRender.h in Headers */,
 				BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */,
 				BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */,
 				6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */,
 				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
-				00E86D6D1741586600F0FA0A /* ContextFilterLogFormatter.h in Headers */,
-				00E86D6F1741586600F0FA0A /* DispatchQueueLogFormatter.h in Headers */,
 				BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1192,6 +1151,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */,
 			);
 			name = "SVGKit-iOS";
 			productName = "SVGKit-iOS";
@@ -1218,10 +1178,17 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 6639618316145D0400E58CCA;
 			productRefGroup = 6639618F16145D0400E58CCA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D320E8C41ACCFA1F00BD4E72 /* Products */;
+					ProjectRef = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6639618D16145D0400E58CCA /* SVGKit-iOS */,
@@ -1229,6 +1196,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCocoaLumberjack.a;
+			remoteRef = D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D320E8CB1ACCFA1F00BD4E72 /* LibTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = LibTest.app;
+			remoteRef = D320E8CA1ACCFA1F00BD4E72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		55452BEF19EC68A200B75A30 /* Resources */ = {
@@ -1371,13 +1355,6 @@
 				661ADBF316CC2FBE006F4BC3 /* SVGTextPositioningElement.m in Sources */,
 				661ADBF816CC2FCA006F4BC3 /* SVGTextContentElement.m in Sources */,
 				036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */,
-				00E86D641741586600F0FA0A /* DDAbstractDatabaseLogger.m in Sources */,
-				00E86D661741586600F0FA0A /* DDASLLogger.m in Sources */,
-				00E86D681741586600F0FA0A /* DDFileLogger.m in Sources */,
-				00E86D6A1741586600F0FA0A /* DDLog.m in Sources */,
-				00E86D6C1741586600F0FA0A /* DDTTYLogger.m in Sources */,
-				00E86D6E1741586600F0FA0A /* ContextFilterLogFormatter.m in Sources */,
-				00E86D701741586600F0FA0A /* DispatchQueueLogFormatter.m in Sources */,
 				00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */,
 				6636CD7F175F542A0072AAEF /* SVGKSourceLocalFile.m in Sources */,
 				6636CD81175F542A0072AAEF /* SVGKSourceString.m in Sources */,
@@ -1395,6 +1372,11 @@
 			isa = PBXTargetDependency;
 			target = 6639618D16145D0400E58CCA /* SVGKit-iOS */;
 			targetProxy = 55452BF819EC68A200B75A30 /* PBXContainerItemProxy */;
+		};
+		D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaLumberjack;
+			targetProxy = D320E8CD1ACCFAA700BD4E72 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1544,7 +1526,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Core\"",
@@ -1565,7 +1547,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Core\"",

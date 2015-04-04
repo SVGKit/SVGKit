@@ -3,7 +3,7 @@
 #import "CSSValue.h"
 #import "CSSValueList.h"
 #import "CSSPrimitiveValue.h"
-#import "DDFileLogger.h"
+#import "CocoaLumberjack/DDFileLogger.h"
 
 @interface CSSStyleDeclaration()
 
