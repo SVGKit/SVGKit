@@ -869,11 +869,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	
 	CGPoint arcPt1 = CGPointApplyAffineTransform(CGPointMake(x1, y1), tr);
 	CGPoint arcPt2 = CGPointApplyAffineTransform(CGPointMake(x2, y2), tr);
-	
-	CGMutablePathRef arcPath = CGPathCreateMutable();
-	
-	CGPathMoveToPoint(arcPath, NULL, arcPt1.x, arcPt1.y);
-	
+		
 	CGFloat startAngle = atan2(arcPt1.y, arcPt1.x);
 	CGFloat endAngle = atan2(arcPt2.y, arcPt2.x);
 	
@@ -889,22 +885,14 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 		if (angleDelta > 0)
 			angleDelta = angleDelta - 2 * M_PI;
 	}
-	
-	// create a circular arc
-	CGPathAddRelativeArc( arcPath, NULL, 0, 0, 1., startAngle, angleDelta);
-	
 	// construct the inverse transform
 	CGAffineTransform trInv = CGAffineTransformMakeTranslation( cx, cy);
 	
 	trInv = CGAffineTransformRotate(trInv, phi);
 	trInv = CGAffineTransformScale(trInv, rx, ry);
-	
-	CGPathRef finalPath = CGPathCreateCopyByTransformingPath(arcPath, &trInv);
-	
-	CGPathAddPath(path, NULL, finalPath);
-	
-	CGPathRelease(finalPath);
-	CGPathRelease(arcPath);
+
+	// add a inversely transformed circular arc to the current path
+	CGPathAddRelativeArc( path, &trInv, 0, 0, 1., startAngle, angleDelta);
 	
 	return curve;
 }
