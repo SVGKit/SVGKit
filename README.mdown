@@ -1,6 +1,6 @@
 # SVGKit
 
-SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful.
+SVGKit is a Cocoa framework for rendering SVG files natively: it's fast and powerful. Some additional info and links [are on the wiki](https://github.com/SVGKit/SVGKit/wiki)
 
 ## Versions:
 
@@ -9,12 +9,6 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
   - v2.x = current "in development" branch with latest changes, fixes, features
     - NB: this is now automatically selected in GitHub as the "default" branch when you visit SVGKit's project page
 
-
-# Apps that use SVGKit
-
-New for 2014 - we have a wiki page listing known apps that use SVGKit, and how they're using it:
-
-* https://github.com/SVGKit/SVGKit/wiki/Apps-using-SVGKit
 
 # Getting Started
 
