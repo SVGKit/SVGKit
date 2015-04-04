@@ -377,9 +377,9 @@
 		/*
 		 We have to apply any scale-factor part of the affine transform to the stroke itself (this is bizarre and horrible, yes, but that's the spec for you!)
 		 */
-		CGSize fakeSize = CGSizeMake( strokeWidth, 0 );
+		CGSize fakeSize = CGSizeMake( strokeWidth, strokeWidth );
 		fakeSize = CGSizeApplyAffineTransform( fakeSize, transformAbsolute );
-		strokeLayer.lineWidth = fakeSize.width;
+		strokeLayer.lineWidth = hypot(fakeSize.width, fakeSize.height)/M_SQRT2;
 		
 		SVGColor strokeColorAsSVGColor = SVGColorFromString([actualStroke UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
 		NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
@@ -500,7 +500,7 @@
 		maskLayer.strokeColor = nil;
 		gradientLayer.mask = maskLayer;
 		if ( [gradientLayer.type isEqualToString:kExt_CAGradientLayerRadial])
-			gradientLayer.maskPath = pathToPlaceInLayer;
+			gradientLayer.maskPath = fillLayer.path;
 		gradientLayer.frame = fillLayer.frame;
 		fillLayer = (CAShapeLayer* )gradientLayer;
 	}

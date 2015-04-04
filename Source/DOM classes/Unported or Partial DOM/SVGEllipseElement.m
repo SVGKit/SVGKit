@@ -53,7 +53,7 @@
 	if( [[self getAttribute:@"r"] length] > 0 ) { // circle
 		
 		self.ry = self.rx = [[SVGLength svgLengthFromNSString:[self getAttribute:@"r"] ]
-							 pixelsValueWithDimension:hypot(r.width, r.height)];
+							 pixelsValueWithDimension:hypot(r.width, r.height)/M_SQRT2];
 	}
     
     CGMutablePathRef path = CGPathCreateMutable();
