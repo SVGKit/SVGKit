@@ -618,15 +618,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 	 */
 	if( [element isKindOfClass:[SVGUseElement class]] )
 	{
-		if ( [element isKindOfClass:[SVGUseElement class]] )
-		{
-			SVGUseElement* useElement = (SVGUseElement*) element;
-			element = (SVGElement <ConverterSVGToCALayer> *)useElement.instanceRoot.correspondingElement;
-			
-			saveParentNode = element.parentNode;
-			element.parentNode = useElement;
-			childNodes = useElement.instanceRoot.correspondingElement.childNodes;
-		}
+		SVGUseElement* useElement = (SVGUseElement*) element;
+		element = (SVGElement <ConverterSVGToCALayer> *)useElement.instanceRoot.correspondingElement;
+		
+		saveParentNode = element.parentNode;
+		element.parentNode = useElement;
+		childNodes = useElement.instanceRoot.correspondingElement.childNodes;
     }
     else
     if ( [element isKindOfClass:[SVGSwitchElement class]] )
