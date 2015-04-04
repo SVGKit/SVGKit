@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
+		4FD822401AD057F000E419D3 /* arcs02.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223E1AD057F000E419D3 /* arcs02.svg */; };
+		4FD822441AD058AB00E419D3 /* arcs01.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822421AD058AB00E419D3 /* arcs01.png */; };
+		4FD822451AD058AB00E419D3 /* arcs02.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822431AD058AB00E419D3 /* arcs02.png */; };
 		556C405119A5122800733CBB /* test-stroke-dash-array.svg in Resources */ = {isa = PBXBuildFile; fileRef = 556C405019A5122800733CBB /* test-stroke-dash-array.svg */; };
 		661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DCE161727CF008D5FBE /* UIKit.framework */; };
 		661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A0DD0161727CF008D5FBE /* Foundation.framework */; };
@@ -163,6 +167,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FD8223D1AD057F000E419D3 /* arcs01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs01.svg; sourceTree = "<group>"; };
+		4FD8223E1AD057F000E419D3 /* arcs02.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs02.svg; sourceTree = "<group>"; };
+		4FD822421AD058AB00E419D3 /* arcs01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcs01.png; sourceTree = "<group>"; };
+		4FD822431AD058AB00E419D3 /* arcs02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcs02.png; sourceTree = "<group>"; };
 		556C405019A5122800733CBB /* test-stroke-dash-array.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "test-stroke-dash-array.svg"; sourceTree = "<group>"; };
 		661A0DCA161727CF008D5FBE /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		661A0DCE161727CF008D5FBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -360,6 +368,8 @@
 				661EEA881ACC2FD4007176B0 /* www.w3.org-TR-SVG */,
 				661EEAA81ACC3444007176B0 /* australia_states_blank.png */,
 				661EEAAA1ACC3444007176B0 /* Blank_Map-Africa.png */,
+				4FD822421AD058AB00E419D3 /* arcs01.png */,
+				4FD822431AD058AB00E419D3 /* arcs02.png */,
 				661EEAAB1ACC3444007176B0 /* BlankMap-World6-Equirectangular.png */,
 				661EEAAC1ACC3444007176B0 /* breaking-1.png */,
 				661EEAAD1ACC3444007176B0 /* Coins.png */,
@@ -401,6 +411,8 @@
 		661EEA711ACC2FBB007176B0 /* www.w3.org-TR-SVG */ = {
 			isa = PBXGroup;
 			children = (
+				4FD8223D1AD057F000E419D3 /* arcs01.svg */,
+				4FD8223E1AD057F000E419D3 /* arcs02.svg */,
 				661EEA721ACC2FBB007176B0 /* cubic01.svg */,
 				661EEA731ACC2FBB007176B0 /* fillrule-evenodd.svg */,
 				661EEA741ACC2FBB007176B0 /* lingrad01.svg */,
@@ -636,6 +648,7 @@
 				661EEAE01ACC3444007176B0 /* Reinel_compass_rose-simplified-for-testing.png in Resources */,
 				66E8626C1688BA0B0059C9C4 /* Default-568h@2x.png in Resources */,
 				661EEADE1ACC3444007176B0 /* radialGradientTest.png in Resources */,
+				4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */,
 				66E8626F1688BA0B0059C9C4 /* InfoPlist.strings in Resources */,
 				661EEAD51ACC3444007176B0 /* imagetag-layer2-sun.png in Resources */,
 				661EEAD31ACC3444007176B0 /* groups-and-layers-test.png in Resources */,
@@ -644,6 +657,7 @@
 				661EEA971ACC2FD4007176B0 /* opacity01.png in Resources */,
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
 				66E862731688BA0B0059C9C4 /* MasterViewController_iPhone.xib in Resources */,
+				4FD822451AD058AB00E419D3 /* arcs02.png in Resources */,
 				661EEAA41ACC3053007176B0 /* gradients.png in Resources */,
 				661EEAEB1ACC3444007176B0 /* voies.png in Resources */,
 				661EEA9D1ACC2FD4007176B0 /* text01.png in Resources */,
@@ -673,6 +687,7 @@
 				661EEADC1ACC3444007176B0 /* parent-clip.png in Resources */,
 				661EEAE61ACC3444007176B0 /* svg-with-explicit-width.png in Resources */,
 				661EEA411ACC02AF007176B0 /* SB~iphone.storyboard in Resources */,
+				4FD822401AD057F000E419D3 /* arcs02.svg in Resources */,
 				66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */,
 				661EEAA51ACC3053007176B0 /* shapes.png in Resources */,
 				66E862991688BA510059C9C4 /* Map.svg in Resources */,
@@ -743,6 +758,7 @@
 				661EEA811ACC2FBB007176B0 /* pattern01.svg in Resources */,
 				661EEA541ACC1723007176B0 /* Monkey.png in Resources */,
 				66E785AD171A2345001EF59D /* svg-with-explicit-width-large.svg in Resources */,
+				4FD822441AD058AB00E419D3 /* arcs01.png in Resources */,
 				9ED79A21179D83580048AA5B /* radialGradientTest.svg in Resources */,
 				66C43EA918398E6E00299662 /* sakamura-default-fill-opacity-test.svg in Resources */,
 			);

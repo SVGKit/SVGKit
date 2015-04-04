@@ -276,6 +276,20 @@
 	</dict>
 	<key>SVG Spec</key>
 	<dict>
+		<key>arcs01</key>
+		<dict>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/paths/arcs01.svg</string>
+			<key>License</key>
+			<string>Public Domain</string>
+		</dict>
+		<key>arcs02</key>
+		<dict>
+			<key>Source URL</key>
+			<string>http://www.w3.org/TR/SVG/images/paths/arcs02.svg</string>
+			<key>License</key>
+			<string>Public Domain</string>
+		</dict>
 		<key>fillrule-evenodd.svg</key>
 		<dict>
 			<key>License</key>
