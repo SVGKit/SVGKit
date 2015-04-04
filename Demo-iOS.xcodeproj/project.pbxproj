@@ -96,6 +96,12 @@
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
+		666D03161AD07CAE006ED358 /* Reinel_compass_rose-simplified-more.svg in Resources */ = {isa = PBXBuildFile; fileRef = 666D03151AD07CAE006ED358 /* Reinel_compass_rose-simplified-more.svg */; };
+		666D03191AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 666D03181AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png */; };
+		666D031B1AD07E2E006ED358 /* Reinel_compass_rose-simplified-evenmore.png in Resources */ = {isa = PBXBuildFile; fileRef = 666D031A1AD07E2E006ED358 /* Reinel_compass_rose-simplified-evenmore.png */; };
+		666D031D1AD07E3B006ED358 /* Reinel_compass_rose-simplified-evenmore.svg in Resources */ = {isa = PBXBuildFile; fileRef = 666D031C1AD07E3B006ED358 /* Reinel_compass_rose-simplified-evenmore.svg */; };
+		666D031F1AD080EF006ED358 /* Scale-Negative-Direction.svg in Resources */ = {isa = PBXBuildFile; fileRef = 666D031E1AD080EF006ED358 /* Scale-Negative-Direction.svg */; };
+		666D03211AD08116006ED358 /* Scale-Negative-Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = 666D03201AD08116006ED358 /* Scale-Negative-Direction.png */; };
 		667CA17C181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */; };
 		66A9F4441688C66E000D4A2E /* RainbowWing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66A9F4431688C66E000D4A2E /* RainbowWing.svg */; };
 		66B695F2199BFAC900F8E7EE /* imagetag-layered.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */; };
@@ -260,6 +266,12 @@
 		6649E10E1617578500AFE92A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
 		6661A77C1698BBE20061E349 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		666D03151AD07CAE006ED358 /* Reinel_compass_rose-simplified-more.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Reinel_compass_rose-simplified-more.svg"; sourceTree = "<group>"; };
+		666D03181AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Reinel_compass_rose-simplified-more.png"; sourceTree = "<group>"; };
+		666D031A1AD07E2E006ED358 /* Reinel_compass_rose-simplified-evenmore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Reinel_compass_rose-simplified-evenmore.png"; sourceTree = "<group>"; };
+		666D031C1AD07E3B006ED358 /* Reinel_compass_rose-simplified-evenmore.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Reinel_compass_rose-simplified-evenmore.svg"; sourceTree = "<group>"; };
+		666D031E1AD080EF006ED358 /* Scale-Negative-Direction.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Scale-Negative-Direction.svg"; sourceTree = "<group>"; };
+		666D03201AD08116006ED358 /* Scale-Negative-Direction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scale-Negative-Direction.png"; sourceTree = "<group>"; };
 		667CA17B181D552A00E49B68 /* BlankMap-World6-Equirectangular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BlankMap-World6-Equirectangular.svg"; sourceTree = "<group>"; };
 		66A9F4431688C66E000D4A2E /* RainbowWing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RainbowWing.svg; sourceTree = "<group>"; };
 		66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "imagetag-layered.svg"; sourceTree = "<group>"; };
@@ -366,6 +378,7 @@
 		661EEA511ACC1723007176B0 /* Saved Bitmaps */ = {
 			isa = PBXGroup;
 			children = (
+				666D03201AD08116006ED358 /* Scale-Negative-Direction.png */,
 				661EEA9F1ACC3053007176B0 /* apache-licensed-from-svg-android */,
 				661EEA881ACC2FD4007176B0 /* www.w3.org-TR-SVG */,
 				661EEAA81ACC3444007176B0 /* australia_states_blank.png */,
@@ -392,6 +405,8 @@
 				661EEABB1ACC3444007176B0 /* radial-gradient-opacity.png */,
 				661EEABC1ACC3444007176B0 /* radialGradientTest.png */,
 				661EEABD1ACC3444007176B0 /* RainbowWing.png */,
+				666D031A1AD07E2E006ED358 /* Reinel_compass_rose-simplified-evenmore.png */,
+				666D03181AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png */,
 				661EEABE1ACC3444007176B0 /* Reinel_compass_rose-simplified-for-testing.png */,
 				661EEABF1ACC3444007176B0 /* Reinel_compass_rose.png */,
 				661EEAC01ACC3444007176B0 /* rotated-and-skewed-text.png */,
@@ -552,9 +567,12 @@
 				66E862871688BA510059C9C4 /* Note.svg */,
 				BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */,
 				66A9F4431688C66E000D4A2E /* RainbowWing.svg */,
+				666D031C1AD07E3B006ED358 /* Reinel_compass_rose-simplified-evenmore.svg */,
+				666D03151AD07CAE006ED358 /* Reinel_compass_rose-simplified-more.svg */,
 				66E862881688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg */,
 				66E862891688BA510059C9C4 /* Reinel_compass_rose.svg */,
 				66C43EA818398E6E00299662 /* sakamura-default-fill-opacity-test.svg */,
+				666D031E1AD080EF006ED358 /* Scale-Negative-Direction.svg */,
 				66E785AA171A228A001EF59D /* svg-with-explicit-width.svg */,
 				66E785AC171A2345001EF59D /* svg-with-explicit-width-large.svg */,
 				66E8628A1688BA510059C9C4 /* test-wave-1.svg */,
@@ -657,6 +675,7 @@
 				66E862701688BA0B0059C9C4 /* iPadDetailViewController.xib in Resources */,
 				66E862711688BA0B0059C9C4 /* iPhoneDetailViewController.xib in Resources */,
 				661EEA971ACC2FD4007176B0 /* opacity01.png in Resources */,
+				666D03191AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png in Resources */,
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
 				66E862731688BA0B0059C9C4 /* MasterViewController_iPhone.xib in Resources */,
 				4FD822451AD058AB00E419D3 /* arcs02.png in Resources */,
@@ -683,6 +702,7 @@
 				661EEACF1ACC3444007176B0 /* Coins.png in Resources */,
 				661EEAEA1ACC3444007176B0 /* uk-only.png in Resources */,
 				66E862951688BA510059C9C4 /* Europe_states_reduced.svg in Resources */,
+				666D031F1AD080EF006ED358 /* Scale-Negative-Direction.svg in Resources */,
 				661EEADA1ACC3444007176B0 /* Map.png in Resources */,
 				66E862961688BA510059C9C4 /* imageWithASinglePointPath.svg in Resources */,
 				66E862971688BA510059C9C4 /* Lion.svg in Resources */,
@@ -725,6 +745,7 @@
 				663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */,
 				66B86F881ACC686B00C18ECE /* NewTux.png in Resources */,
 				663FCFF416C9AF1C00CCBFB3 /* transformations.svg in Resources */,
+				666D031D1AD07E3B006ED358 /* Reinel_compass_rose-simplified-evenmore.svg in Resources */,
 				663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */,
 				661EEAD11ACC3444007176B0 /* Europe_states_reduced.png in Resources */,
 				66B695F2199BFAC900F8E7EE /* imagetag-layered.svg in Resources */,
@@ -736,6 +757,7 @@
 				661EEA851ACC2FBB007176B0 /* StyleAttribute.svg in Resources */,
 				661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */,
 				661EEACC1ACC3444007176B0 /* Blank_Map-Africa.png in Resources */,
+				666D031B1AD07E2E006ED358 /* Reinel_compass_rose-simplified-evenmore.png in Resources */,
 				661EEA981ACC2FD4007176B0 /* pattern01.png in Resources */,
 				661EEAE31ACC3444007176B0 /* rounded-rects.png in Resources */,
 				661EEAE71ACC3444007176B0 /* test-stroke-dash-array.png in Resources */,
@@ -744,8 +766,10 @@
 				661EEAE11ACC3444007176B0 /* Reinel_compass_rose.png in Resources */,
 				661EEAE81ACC3444007176B0 /* test-wave-1.png in Resources */,
 				661EEAD21ACC3444007176B0 /* g-element-applies-rotation.png in Resources */,
+				666D03161AD07CAE006ED358 /* Reinel_compass_rose-simplified-more.svg in Resources */,
 				661EEAD41ACC3444007176B0 /* ImageAspectRatio.png in Resources */,
 				66B695F3199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png in Resources */,
+				666D03211AD08116006ED358 /* Scale-Negative-Direction.png in Resources */,
 				661EEA871ACC2FBB007176B0 /* tspan01.svg in Resources */,
 				661EEAE21ACC3444007176B0 /* rotated-and-skewed-text.png in Resources */,
 				BD54E3DB1AB7A13A001039C0 /* parent-clip.svg in Resources */,
