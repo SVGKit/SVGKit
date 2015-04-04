@@ -156,7 +156,17 @@
 																			relativeTo:CGPointZero
 																		 withPrevCurve:lastCurve];
                         lastCoordinate = lastCurve.p;
-                    } else {
+					} else if ([@"a" isEqualToString:command]) {
+						lastCurve 	=	[SVGKPointsAndPathsParser readEllipticalArcArguments:commandScanner
+																					 path:path relativeTo:lastCoordinate];
+						
+						lastCoordinate = lastCurve.p;
+						
+					}  else if ([@"A" isEqualToString:command]) {
+						lastCurve 	=	[SVGKPointsAndPathsParser readEllipticalArcArguments:commandScanner
+																					path:path relativeTo:CGPointZero];
+						lastCoordinate = lastCurve.p;
+					} else  {
                         DDLogWarn(@"unsupported command %@", command);
                     }
                 }
