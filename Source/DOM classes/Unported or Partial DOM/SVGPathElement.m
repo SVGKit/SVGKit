@@ -35,7 +35,7 @@
     SVGCurve lastCurve = SVGCurveZero;
     BOOL foundCmd;
     
-    NSCharacterSet *knownCommands = [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZzAa"];
+    NSCharacterSet *knownCommands = [NSCharacterSet characterSetWithCharactersInString:@"MmLlCcVvHhAaSsQqTtZz"];
     NSString* command;
     
     do {
