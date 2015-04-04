@@ -118,28 +118,79 @@
 	gradientLayer.frame = objectRect;
 	
 	if ([self.tagName isEqualToString:@"radialGradient"]) {
-        SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"cx"]];
-        SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"cy"]];
-        CGPoint startPoint = CGPointMake(svgX1.value, svgY1.value);
-        startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
-        gradientLayer.transform = CGAffineTransformMake(self.transform.a, self.transform.b, self.transform.c, self.transform.d, 0, 0);
-        
-        SVGLength* svgX2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"r"]];
-        SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"r"]];
-        
-        CGPoint endPoint = [self normalizeGradientCoordinate:svgX2 y:svgY2 rectToFill:rectForRelativeUnits];
-        
+ 		CGFloat x1;
+		CGFloat y1;
+		CGPoint startPoint;
+		SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"cx"]];
+		SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"cy"]];
+		SVGLength* svgR = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"r"]];
+		
+		CGFloat radius;
+		
+		if (!inUserSpace)
+		{
+			x1 = [svgX1 pixelsValueWithDimension:1.0]*CGRectGetWidth(objectRect);
+			y1 = [svgY1 pixelsValueWithDimension:1.0]*CGRectGetHeight(objectRect);
+			startPoint = CGPointMake(x1, y1);
+			radius = [svgR pixelsValueWithDimension:1.0]*MIN(CGRectGetWidth(objectRect),CGRectGetHeight(objectRect));
+		}
+		else
+		{
+			startPoint = CGPointMake(svgX1.value, svgY1.value);
+			radius = svgR.value;
+			CGRect rect = CGRectMake(startPoint.x, startPoint.y, radius*2, radius*2);
+			rect = CGRectApplyAffineTransform(rect, self.transform);
+			rect = CGRectApplyAffineTransform(rect, transformAbsolute);
+			radius =  CGRectGetHeight(rect)/2.;
+		}
+		CGPoint gradientPoint = CGPointApplyAffineTransform(startPoint, self.transform);
+		
+		if (inUserSpace)
+		{
+			gradientPoint = CGPointApplyAffineTransform(startPoint, transformAbsolute);
+			
+			gradientPoint.x -= CGRectGetMinX(objectRect);
+			gradientPoint.y -= CGRectGetMinY(objectRect);
+		}
+		else
+		{
+			if (CGRectGetWidth(objectRect) != CGRectGetHeight(objectRect))
+			{
+				CGAffineTransform tr = CGAffineTransformMakeTranslation(CGRectGetWidth(objectRect)/2., CGRectGetWidth(objectRect)/2.);
+				if (CGRectGetWidth(objectRect) > CGRectGetHeight(objectRect))
+					tr = CGAffineTransformScale(tr, CGRectGetWidth(objectRect)/CGRectGetHeight(objectRect), 1);
+				else
+					tr = CGAffineTransformScale(tr, 1, CGRectGetHeight(objectRect)/CGRectGetWidth(objectRect));
+				tr = CGAffineTransformTranslate(tr, -CGRectGetWidth(objectRect)/2., -CGRectGetWidth(objectRect)/2.);
+				gradientLayer.transform = tr;
+			}
+		}
+		gradientLayer.radius = radius;
+		
 #ifdef SVG_DEBUG_GRADIENTS
-    DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
-    
-    DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+		DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+		
+		DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
-        
-        //    return gradientLayer;
-        gradientLayer.startPoint = startPoint;
-        gradientLayer.endPoint = endPoint;
-        gradientLayer.type = kExt_CAGradientLayerRadial;
-    } else {
+		
+		gradientLayer.centerPoint = gradientPoint;
+		
+		gradientLayer.type = kExt_CAGradientLayerRadial;
+		
+		if (!inUserSpace) {
+			gradientLayer.frame = CGRectApplyAffineTransform(objectRect, transformAbsolute);
+			gradientLayer.radialTransform = transformAbsolute;
+			
+			/*
+			CGFloat rotation = atan2(transformAbsolute.b, transformAbsolute.d);
+			CGFloat scaleX = transformAbsolute.a;
+			CGFloat	scaleY = transform.d;
+			
+			if (fabs(rotation)>.01 || scaleX != 1 || scaleY != 1) {
+				*/
+				
+		}
+	} else {
         SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
         SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
 		CGFloat x1;
@@ -214,6 +265,14 @@
 #endif
         
         //    return gradientLayer;
+		CGFloat rotation = atan2(transformAbsolute.b, transformAbsolute.d);
+		if (fabs(rotation)>.01) {
+			CGAffineTransform tr = CGAffineTransformMakeTranslation(.5, .5);
+			tr = CGAffineTransformRotate(tr, rotation);
+			tr = CGAffineTransformTranslate(tr, -.5, -.5);
+			gradientStartPoint = CGPointApplyAffineTransform(gradientStartPoint, tr);
+			gradientEndPoint = CGPointApplyAffineTransform(gradientEndPoint, tr);
+		}
         gradientLayer.startPoint = gradientStartPoint;
         gradientLayer.endPoint = gradientEndPoint;
         gradientLayer.type = kCAGradientLayerAxial;
