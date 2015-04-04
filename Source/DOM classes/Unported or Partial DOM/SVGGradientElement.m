@@ -180,14 +180,6 @@
 		if (!inUserSpace) {
 			gradientLayer.frame = CGRectApplyAffineTransform(objectRect, transformAbsolute);
 			gradientLayer.radialTransform = transformAbsolute;
-			
-			/*
-			CGFloat rotation = atan2(transformAbsolute.b, transformAbsolute.d);
-			CGFloat scaleX = transformAbsolute.a;
-			CGFloat	scaleY = transform.d;
-			
-			if (fabs(rotation)>.01 || scaleX != 1 || scaleY != 1) {
-				*/
 				
 		}
 	} else {
