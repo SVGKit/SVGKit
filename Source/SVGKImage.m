@@ -8,6 +8,7 @@
 #import "SVGUseElement.h"
 #import "SVGClipPathElement.h"
 #import "SVGSwitchElement.h"
+#import "NodeList+Mutable.h"
 
 #import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
 
@@ -623,7 +624,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 		
 		saveParentNode = element.parentNode;
 		element.parentNode = useElement;
-		childNodes = useElement.instanceRoot.correspondingElement.childNodes;
+
+		NodeList* nodeList = [[NodeList alloc] init];
+		[nodeList.internalArray addObject:element];
+		childNodes = [nodeList autorelease];
     }
     else
     if ( [element isKindOfClass:[SVGSwitchElement class]] )
