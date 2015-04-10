@@ -156,13 +156,13 @@
 		{
 			if (CGRectGetWidth(objectRect) != CGRectGetHeight(objectRect))
 			{
-				CGAffineTransform tr = CGAffineTransformMakeTranslation(CGRectGetWidth(objectRect)/2., CGRectGetWidth(objectRect)/2.);
+				CGAffineTransform tr = CGAffineTransformMakeTranslation(gradientPoint.x, gradientPoint.y);
 				if (CGRectGetWidth(objectRect) > CGRectGetHeight(objectRect))
 					tr = CGAffineTransformScale(tr, CGRectGetWidth(objectRect)/CGRectGetHeight(objectRect), 1);
 				else
 					tr = CGAffineTransformScale(tr, 1, CGRectGetHeight(objectRect)/CGRectGetWidth(objectRect));
-				tr = CGAffineTransformTranslate(tr, -CGRectGetWidth(objectRect)/2., -CGRectGetWidth(objectRect)/2.);
-				gradientLayer.transform = tr;
+				tr = CGAffineTransformTranslate(tr, -gradientPoint.x, -gradientPoint.y);
+				gradientLayer.radialTransform = tr;
 			}
 		}
 		gradientLayer.radius = radius;
@@ -177,11 +177,6 @@
 		
 		gradientLayer.type = kExt_CAGradientLayerRadial;
 		
-		if (!inUserSpace) {
-			gradientLayer.frame = CGRectApplyAffineTransform(objectRect, transformAbsolute);
-			gradientLayer.radialTransform = transformAbsolute;
-				
-		}
 	} else {
         SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
         SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
