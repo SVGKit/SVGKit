@@ -120,6 +120,43 @@
 	[super postProcessAttributesAddingErrorsTo:parseResult];
 	
 	/**
+	 Rather unusually, the official SVG Spec uses an explicit "width=100% height=100%" on every
+	 root SVG tag on every TestSuite file - these ARE NOT PRESENT in any of the Spec examples!
+	 
+	 Only in the TestSuite!
+	 
+	 Net effect: we have a major problem with calculating the initial viewport. What does
+	 "100%" mean when you're parsing?
+	 
+	 Literally, from the spec: NOTHING. It's undefined! It's a hint that requires you to have
+	 a parsed SVG already. c.f. other doc notes below, this is complicated and very badly
+	 documented in the SVG Spec.
+	 
+	 -------------
+	 
+	 For now, we're going to:
+	 
+	 1. if width or height are percentages, set the viewport to "uninitialized", since they are indeed.
+	 
+	   --- within the spec, "100%" doesn't mean anything. Other percentages are horribly vague in what
+	 they might (or might not) mean. And different SVG renderers treat them differently. Because the
+	 Spec is so poor, probably.
+	 
+	 2. Assume that our post-parse renderer code (elsewhere in the library, in SVGKImage I believe)
+	 will correctly modify the viewport afterwards. It will lose the percentage, of course, but frankly
+	 this is enough of a brainfck already that any author who uses percentages in their SVG tag needs
+	 to be coached in better authoring anyway!
+	 
+	   --- i.e. their SVG isn't going to render reliably anyway. Whatever they're trying to do, they
+	 should probably do it a different way.
+	 
+	   --- and: it's so damn hard to get a working, non-crashing implmementation here htat handles all
+	 edge-cases, that ... screw it. Life's too short.
+	 
+	 */
+	
+	
+	/**
 	 If the width + height are missing, we have to get an image width+height from the USER before we even START parsing.
 	 
 	 There is NO SUPPORT IN THE SVG SPEC TO ALLOW THIS. This is strange, but they specified this part badly, so it's not a surprise.
@@ -142,6 +179,19 @@
 		self.height = nil; // i.e. undefined
 	else
 		self.height = [SVGLength svgLengthFromNSString:[self getAttribute:@"height"]];
+	
+	/**
+	 WARNING: SVG TestSuite sets SVG element width and height to 100%, which are meaningless
+	 and impossible to calculate at parsetime (they are defined as undefined until you "negotiate"
+	 with the OS / Application / etc -- which won't be possible until you've finished the parse).
+	 
+	 So ... they end up being 0 here. To workaround that, we set them to nil if they are percentages
+	 here. ONLY for the SVG tag though.
+	 */
+	if( self.width.unitType == SVG_LENGTHTYPE_PERCENTAGE )
+		self.width = nil;
+	if( self.height.unitType == SVG_LENGTHTYPE_PERCENTAGE )
+		self.height = nil;
 	
 	/* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
 	if( self.width != nil && self.height != nil )
@@ -167,9 +217,9 @@
 	{
 		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
 		if ([boxElements count] < 2) {
-            /* count should be 4 -- maybe they're comma separated like (x,y,w,h) */
-            boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
-        }
+			/* count should be 4 -- maybe they're comma separated like (x,y,w,h) */
+			boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
+		}
 		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
 	}
 	else

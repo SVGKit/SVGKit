@@ -88,6 +88,8 @@
 		6627019D1AD9579900B3AD03 /* Cycling_Lambie.png in Resources */ = {isa = PBXBuildFile; fileRef = 6627019C1AD9579900B3AD03 /* Cycling_Lambie.png */; };
 		6627019F1AD9585C00B3AD03 /* bike-frame.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6627019E1AD9585C00B3AD03 /* bike-frame.svg */; };
 		662701A11AD9587500B3AD03 /* bike-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 662701A01AD9587500B3AD03 /* bike-frame.png */; };
+		662701A41AD978A800B3AD03 /* VCAllSpecImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 662701A31AD978A800B3AD03 /* VCAllSpecImages.m */; };
+		662712641AD97D7600B3AD03 /* W3C_SVG_11_TestSuite in Resources */ = {isa = PBXBuildFile; fileRef = 662712631AD97D7500B3AD03 /* W3C_SVG_11_TestSuite */; };
 		66324BE216D24FA4001C1E83 /* rounded-rects.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66324BE116D24FA4001C1E83 /* rounded-rects.svg */; };
 		663FCFF116C9AF1C00CCBFB3 /* gradients.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFED16C9AF1C00CCBFB3 /* gradients.svg */; };
 		663FCFF216C9AF1C00CCBFB3 /* shapes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */; };
@@ -262,6 +264,9 @@
 		6627019C1AD9579900B3AD03 /* Cycling_Lambie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cycling_Lambie.png; sourceTree = "<group>"; };
 		6627019E1AD9585C00B3AD03 /* bike-frame.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "bike-frame.svg"; sourceTree = "<group>"; };
 		662701A01AD9587500B3AD03 /* bike-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bike-frame.png"; sourceTree = "<group>"; };
+		662701A21AD978A800B3AD03 /* VCAllSpecImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCAllSpecImages.h; sourceTree = "<group>"; };
+		662701A31AD978A800B3AD03 /* VCAllSpecImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCAllSpecImages.m; sourceTree = "<group>"; };
+		662712631AD97D7500B3AD03 /* W3C_SVG_11_TestSuite */ = {isa = PBXFileReference; lastKnownFileType = folder; path = W3C_SVG_11_TestSuite; sourceTree = "<group>"; };
 		66324BE116D24FA4001C1E83 /* rounded-rects.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "rounded-rects.svg"; sourceTree = "<group>"; };
 		663FCFED16C9AF1C00CCBFB3 /* gradients.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gradients.svg; sourceTree = "<group>"; };
 		663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shapes.svg; sourceTree = "<group>"; };
@@ -514,6 +519,8 @@
 				661EEA491ACC140F007176B0 /* SampleFileInfo.h */,
 				661EEA4A1ACC140F007176B0 /* SampleFileInfo.m */,
 				661EEA471ACC0667007176B0 /* VCGridOfImagesViewController.m */,
+				662701A21AD978A800B3AD03 /* VCAllSpecImages.h */,
+				662701A31AD978A800B3AD03 /* VCAllSpecImages.m */,
 				66E862591688BA0B0059C9C4 /* Default-568h@2x.png */,
 				66E8625A1688BA0B0059C9C4 /* Demo-iOS-Info.plist */,
 				66E8625B1688BA0B0059C9C4 /* Demo-iOS-Prefix.pch */,
@@ -538,6 +545,7 @@
 		66E862761688BA510059C9C4 /* Demo-Samples */ = {
 			isa = PBXGroup;
 			children = (
+				662712631AD97D7500B3AD03 /* W3C_SVG_11_TestSuite */,
 				661EEA511ACC1723007176B0 /* Saved Bitmaps */,
 				66E8627B1688BA510059C9C4 /* SVG */,
 				661EEA421ACC04F2007176B0 /* Licenses.plist */,
@@ -674,11 +682,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				662712641AD97D7600B3AD03 /* W3C_SVG_11_TestSuite in Resources */,
 				661EEA821ACC2FBB007176B0 /* PreserveAspectRatio.svg in Resources */,
 				661EEADB1ACC3444007176B0 /* MathCurve-optimized.png in Resources */,
 				8805045B1AA624F20089554C /* radial-gradient-opacity.svg in Resources */,
 				661EEAE01ACC3444007176B0 /* Reinel_compass_rose-simplified-for-testing.png in Resources */,
 				66E8626C1688BA0B0059C9C4 /* Default-568h@2x.png in Resources */,
+				661EEA971ACC2FD4007176B0 /* opacity01.png in Resources */,
 				661EEADE1ACC3444007176B0 /* radialGradientTest.png in Resources */,
 				4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */,
 				66E8626F1688BA0B0059C9C4 /* InfoPlist.strings in Resources */,
@@ -686,7 +696,6 @@
 				661EEAD31ACC3444007176B0 /* groups-and-layers-test.png in Resources */,
 				66E862701688BA0B0059C9C4 /* iPadDetailViewController.xib in Resources */,
 				66E862711688BA0B0059C9C4 /* iPhoneDetailViewController.xib in Resources */,
-				661EEA971ACC2FD4007176B0 /* opacity01.png in Resources */,
 				6627019D1AD9579900B3AD03 /* Cycling_Lambie.png in Resources */,
 				666D03191AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png in Resources */,
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
@@ -820,6 +829,7 @@
 				661EEA481ACC0667007176B0 /* VCGridOfImagesViewController.m in Sources */,
 				66E862741688BA0B0059C9C4 /* main.m in Sources */,
 				66E862751688BA0B0059C9C4 /* MasterViewController.m in Sources */,
+				662701A41AD978A800B3AD03 /* VCAllSpecImages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

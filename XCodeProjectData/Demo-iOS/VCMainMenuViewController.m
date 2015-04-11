@@ -4,6 +4,8 @@
 #import "DetailViewController.h" // for web loading directly
 #import "SVGKSourceURL.h" // for web loading directly
 
+#import "VCAllSpecImages.h" // spec images have special settings in their VC, to wokraround XCode Groups/Folder References/Virtual folder build bugs (UNFIXED BY APPLE FOR 8+  years!)
+
 @interface VCMainMenuViewController ()
 
 @end
@@ -44,11 +46,16 @@
 			nextVC.detailItem = [SVGKSourceURL sourceFromURL:[NSURL URLWithString:s]];
 		}
 	}
+	else if( [segue.identifier hasPrefix:@"W3CTestSuite"] )
+			  {
+				  VCAllSpecImages* nextVC = (VCAllSpecImages*) segue.destinationViewController;
+				  nextVC.pathInBundleToSVGSpecTestSuiteFolder = @"W3C_SVG_11_TestSuite";
+			  }
 	else if( [segue.identifier hasPrefix:@"View"] )
 	{
 	NSString* sectionName = nil;
 	
-	if( [segue.identifier isEqualToString:@"ViewSVGSpec"])
+		if( [segue.identifier isEqualToString:@"ViewSVGSpec"])
 	{
 		sectionName = @"SVG Spec";
 	}
