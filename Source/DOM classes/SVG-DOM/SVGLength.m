@@ -112,6 +112,18 @@ static float cachedDevicePixelsPerInch;
 	return result;
 }
 
++(SVGLength*) svgLengthFromNumber:(float) f
+{
+    CSSPrimitiveValue* pv = [[[CSSPrimitiveValue alloc] init] autorelease];
+
+    pv.pixelsPerInch = cachedDevicePixelsPerInch;
+    [pv setFloatValue:CSS_NUMBER floatValue:f];
+
+    SVGLength* result = [[[SVGLength alloc] initWithCSSPrimitiveValue:pv] autorelease];
+
+    return result;
+}
+
 -(float) pixelsValue
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:CSS_PX];

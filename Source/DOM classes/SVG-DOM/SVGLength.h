@@ -57,6 +57,7 @@ typedef enum SVG_LENGTH_TYPE
 
 +(SVGLength*) svgLengthZero;
 +(SVGLength*) svgLengthFromNSString:(NSString*) s;
++(SVGLength*) svgLengthFromNumber:(float) f;
 
 /** returns this SVGLength as if it had been converted to pixels, using [self convertToSpecifiedUnits:SVG_LENGTHTYPE_PX]
  */
