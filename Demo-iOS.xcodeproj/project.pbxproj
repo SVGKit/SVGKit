@@ -84,6 +84,10 @@
 		661EEAEB1ACC3444007176B0 /* voies.png in Resources */ = {isa = PBXBuildFile; fileRef = 661EEAC91ACC3444007176B0 /* voies.png */; };
 		661EEAEE1ACC3471007176B0 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 661EEAEC1ACC3471007176B0 /* Coin.png */; };
 		661EEAEF1ACC3471007176B0 /* Snowman.png in Resources */ = {isa = PBXBuildFile; fileRef = 661EEAED1ACC3471007176B0 /* Snowman.png */; };
+		6627019A1AD9567600B3AD03 /* Cycling_Lambie.svg in Resources */ = {isa = PBXBuildFile; fileRef = 662701991AD9567600B3AD03 /* Cycling_Lambie.svg */; };
+		6627019D1AD9579900B3AD03 /* Cycling_Lambie.png in Resources */ = {isa = PBXBuildFile; fileRef = 6627019C1AD9579900B3AD03 /* Cycling_Lambie.png */; };
+		6627019F1AD9585C00B3AD03 /* bike-frame.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6627019E1AD9585C00B3AD03 /* bike-frame.svg */; };
+		662701A11AD9587500B3AD03 /* bike-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 662701A01AD9587500B3AD03 /* bike-frame.png */; };
 		66324BE216D24FA4001C1E83 /* rounded-rects.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66324BE116D24FA4001C1E83 /* rounded-rects.svg */; };
 		663FCFF116C9AF1C00CCBFB3 /* gradients.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFED16C9AF1C00CCBFB3 /* gradients.svg */; };
 		663FCFF216C9AF1C00CCBFB3 /* shapes.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */; };
@@ -254,6 +258,10 @@
 		661EEAC91ACC3444007176B0 /* voies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voies.png; sourceTree = "<group>"; };
 		661EEAEC1ACC3471007176B0 /* Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coin.png; sourceTree = "<group>"; };
 		661EEAED1ACC3471007176B0 /* Snowman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snowman.png; sourceTree = "<group>"; };
+		662701991AD9567600B3AD03 /* Cycling_Lambie.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Cycling_Lambie.svg; sourceTree = "<group>"; };
+		6627019C1AD9579900B3AD03 /* Cycling_Lambie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cycling_Lambie.png; sourceTree = "<group>"; };
+		6627019E1AD9585C00B3AD03 /* bike-frame.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "bike-frame.svg"; sourceTree = "<group>"; };
+		662701A01AD9587500B3AD03 /* bike-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bike-frame.png"; sourceTree = "<group>"; };
 		66324BE116D24FA4001C1E83 /* rounded-rects.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "rounded-rects.svg"; sourceTree = "<group>"; };
 		663FCFED16C9AF1C00CCBFB3 /* gradients.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gradients.svg; sourceTree = "<group>"; };
 		663FCFEE16C9AF1C00CCBFB3 /* shapes.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shapes.svg; sourceTree = "<group>"; };
@@ -378,6 +386,8 @@
 		661EEA511ACC1723007176B0 /* Saved Bitmaps */ = {
 			isa = PBXGroup;
 			children = (
+				662701A01AD9587500B3AD03 /* bike-frame.png */,
+				6627019C1AD9579900B3AD03 /* Cycling_Lambie.png */,
 				666D03201AD08116006ED358 /* Scale-Negative-Direction.png */,
 				661EEA9F1ACC3053007176B0 /* apache-licensed-from-svg-android */,
 				661EEA881ACC2FD4007176B0 /* www.w3.org-TR-SVG */,
@@ -538,11 +548,13 @@
 		66E8627B1688BA510059C9C4 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				662701991AD9567600B3AD03 /* Cycling_Lambie.svg */,
 				661EEAEC1ACC3471007176B0 /* Coin.png */,
 				661EEAED1ACC3471007176B0 /* Snowman.png */,
 				663FCFEC16C9AF1C00CCBFB3 /* apache-licensed-from-svg-android */,
 				661EEA711ACC2FBB007176B0 /* www.w3.org-TR-SVG */,
 				66B695EF199BFAC900F8E7EE /* imagetag-layered.svg */,
+				6627019E1AD9585C00B3AD03 /* bike-frame.svg */,
 				66B695F0199BFAC900F8E7EE /* bird-1382034603Euc-cropped.png */,
 				66B695F1199BFAC900F8E7EE /* imagetag-layer2-sun.svg */,
 				663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */,
@@ -675,6 +687,7 @@
 				66E862701688BA0B0059C9C4 /* iPadDetailViewController.xib in Resources */,
 				66E862711688BA0B0059C9C4 /* iPhoneDetailViewController.xib in Resources */,
 				661EEA971ACC2FD4007176B0 /* opacity01.png in Resources */,
+				6627019D1AD9579900B3AD03 /* Cycling_Lambie.png in Resources */,
 				666D03191AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png in Resources */,
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
 				66E862731688BA0B0059C9C4 /* MasterViewController_iPhone.xib in Resources */,
@@ -740,6 +753,7 @@
 				661EEA9A1ACC2FD4007176B0 /* quad01.png in Resources */,
 				663FCFF216C9AF1C00CCBFB3 /* shapes.svg in Resources */,
 				661EEACE1ACC3444007176B0 /* breaking-1.png in Resources */,
+				6627019A1AD9567600B3AD03 /* Cycling_Lambie.svg in Resources */,
 				661EEA941ACC2FD4007176B0 /* cubic01.png in Resources */,
 				661EEAE51ACC3444007176B0 /* svg-with-explicit-width-large.png in Resources */,
 				663FCFF316C9AF1C00CCBFB3 /* strokes.svg in Resources */,
@@ -754,7 +768,9 @@
 				661EEA9C1ACC2FD4007176B0 /* StyleAttribute.png in Resources */,
 				661EEA9B1ACC2FD4007176B0 /* radgrad01.png in Resources */,
 				661EEAD81ACC3444007176B0 /* Location_European_nation_states.png in Resources */,
+				662701A11AD9587500B3AD03 /* bike-frame.png in Resources */,
 				661EEA851ACC2FBB007176B0 /* StyleAttribute.svg in Resources */,
+				6627019F1AD9585C00B3AD03 /* bike-frame.svg in Resources */,
 				661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */,
 				661EEACC1ACC3444007176B0 /* Blank_Map-Africa.png in Resources */,
 				666D031B1AD07E2E006ED358 /* Reinel_compass_rose-simplified-evenmore.png in Resources */,
