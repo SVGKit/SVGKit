@@ -55,6 +55,10 @@
 	{
 		sectionName = @"Contributed";
 	}
+	else if( [segue.identifier isEqualToString:@"ViewWeb"])
+	{
+		sectionName = @"Online / from Web";
+	}
 	else if( [segue.identifier isEqualToString:@"ViewSpecialTests"])
 	{
 		sectionName = @"Special";
@@ -67,7 +71,9 @@
 	if( sectionName == nil )
 		[((VCGridOfImagesViewController*)segue.destinationViewController)  displayAllSectionsFromDictionary:allLicenses];
 	else
+	{
 		[((VCGridOfImagesViewController*)segue.destinationViewController) displayOneSectionNamed:sectionName fromDictionary:[allLicenses objectForKey:sectionName]];
+	}
 	}
 }
 

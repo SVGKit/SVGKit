@@ -2,7 +2,22 @@
 
 @implementation SVGKSourceURL
 
+-(NSString *)keyForAppleDictionaries
+{
+	return [self.URL absoluteString];
+}
+
 + (SVGKSource*)sourceFromURL:(NSURL*)u {
+	NSInputStream* stream = [self internalCreateInputStreamFromURL:u];
+	
+	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithInputSteam:stream] autorelease];
+	s.URL = u;
+	
+	return s;
+}
+
++(NSInputStream*) internalCreateInputStreamFromURL:(NSURL*) u
+{
 	NSInputStream* stream = [NSInputStream inputStreamWithURL:u];
 	
 	if( stream == nil )
@@ -23,10 +38,23 @@
 	}
 	//DO NOT DO THIS: let the parser do it at last possible moment (Apple has threading problems otherwise!) [stream open];
 	
-	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithInputSteam:stream] autorelease];
-	s.URL = u;
+	return stream;
+}
+
+-(id)copyWithZone:(NSZone *)zone
+{
+	id copy = [super copyWithZone:zone];
 	
-	return s;
+	if( copy )
+	{	
+		/** clone bits */
+		[copy setURL:[self.URL copy]];
+		
+		/** Finally, manually intialize the input stream, as required by super class */
+		[copy setStream:[[self class] internalCreateInputStreamFromURL:((SVGKSourceURL*)copy).URL]];
+	}
+	
+	return copy;
 }
 
 - (SVGKSource *)sourceFromRelativePath:(NSString *)path {

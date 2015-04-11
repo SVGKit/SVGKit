@@ -86,54 +86,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
 
 #pragma mark - Convenience initializers
-+(SVGKSource*) internalSourceAnywhereInBundleUsingName:(NSString*) name
-{
-	NSParameterAssert(name != nil);
-	
-	/** Apple's File APIs are very very bad and require you to strip the extension HALF the time.
-	 
-	 The other HALF the time, they fail unless you KEEP the extension.
-	 
-	 It's a mess!
-	 */
-	NSString *newName = [name stringByDeletingPathExtension];
-	NSString *extension = [name pathExtension];
-    if ([@"" isEqualToString:extension]) {
-        extension = @"svg";
-    }
-	
-	/** First, try to find it in the project BUNDLE (this was HARD CODED at compile time; can never be changed!) */
-	NSString *pathToFileInBundle = nil;
-	NSBundle *bundle = [NSBundle mainBundle];
-	if( bundle != nil )
-	{
-		pathToFileInBundle = [bundle pathForResource:newName ofType:extension];
-	}
-	
-	/** Second, try to find it in the Documents folder (this is where Apple expects you to store custom files at runtime) */
-	NSString* pathToFileInDocumentsFolder = nil;
-	NSString* pathToDocumentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-	if( pathToDocumentsFolder != nil )
-	{
-		pathToFileInDocumentsFolder = [[pathToDocumentsFolder stringByAppendingPathComponent:newName] stringByAppendingPathExtension:extension];
-		if( [[NSFileManager defaultManager] fileExistsAtPath:pathToFileInDocumentsFolder])
-			;
-		else
-			pathToFileInDocumentsFolder = nil; // couldn't find a file there
-	}
-	
-	if( pathToFileInBundle == nil
-	   && pathToFileInDocumentsFolder == nil )
-	{
-		DDLogWarn(@"[%@] MISSING FILE (not found in App-bundle, not found in Documents folder), COULD NOT CREATE DOCUMENT: filename = %@, extension = %@", [self class], newName, extension);
-		return nil;
-	}
-	
-	/** Prefer the Documents-folder version over the Bundle version (allows you to have a default, and override at runtime) */
-	SVGKSourceLocalFile* source = [SVGKSourceLocalFile sourceFromFilename: pathToFileInDocumentsFolder == nil ? pathToFileInBundle : pathToFileInDocumentsFolder];
-	
-	return source;
-}
 
 + (SVGKImage *)imageNamed:(NSString *)name
 {	
@@ -179,6 +131,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
+{
+	return [self imageWithSource:[SVGKSourceLocalFile internalSourceAnywhereInBundleUsingName:name] onCompletion:blockCompleted];
+}
+
++(SVGKParser *) imageWithSource:(SVGKSource *)source onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
 {	
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     if( globalSVGKImageCache == nil )
@@ -186,7 +143,7 @@ static NSMutableDictionary* globalSVGKImageCache;
         globalSVGKImageCache = [NSMutableDictionary new];
     }
     
-    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
+    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:source.keyForAppleDictionaries];
     if( cacheLine != nil )
     {
         cacheLine.numberOfInstances ++;
@@ -195,8 +152,6 @@ static NSMutableDictionary* globalSVGKImageCache;
         return nil;
     }
 #endif
-	
-	SVGKSource* source = [self internalSourceAnywhereInBundleUsingName:name];
 	
 	/**
 	 Key moment: init and parse the SVGKImage
@@ -213,16 +168,16 @@ static NSMutableDictionary* globalSVGKImageCache;
 					   if( finalImage != nil )
 					   {
 						   finalImage->cameFromGlobalCache = TRUE;
-						   finalImage.nameUsedToInstantiate = name;
+						   finalImage.nameUsedToInstantiate = source.keyForAppleDictionaries;
 						   
 						   SVGKImageCacheLine* newCacheLine = [[[SVGKImageCacheLine alloc] init] autorelease];
 						   newCacheLine.mainInstance = finalImage;
 						   
-						   [globalSVGKImageCache setValue:newCacheLine forKey:name];
+						   [globalSVGKImageCache setValue:newCacheLine forKey:source.keyForAppleDictionaries];
 					   }
 					   else
 					   {
-						   NSLog(@"[%@] WARNING: not caching the output for new SVG image with name = %@, because it failed to load correctly", [self class], name );
+						   NSLog(@"[%@] WARNING: not caching the output for new SVG image with source = %@, because it failed to load correctly", [self class], source );
 					   }
 #endif
 					   

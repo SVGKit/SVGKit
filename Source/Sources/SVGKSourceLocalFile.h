@@ -10,4 +10,6 @@
 
 + (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p;
 
++ (SVGKSourceLocalFile*) internalSourceAnywhereInBundleUsingName:(NSString*) name;
+
 @end

@@ -22,7 +22,7 @@
 
 @interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) SVGKSource *sourceOfCurrentDocument;
 @property (nonatomic, retain) UITextView* exportText;
 @property (nonatomic, retain) NSMutableString* exportLog;
 @property (nonatomic, retain) CALayerExporter* layerExporter;

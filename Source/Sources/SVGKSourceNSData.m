@@ -4,6 +4,11 @@
 
 @implementation SVGKSourceNSData
 
+-(NSString *)keyForAppleDictionaries
+{
+	return [[[NSString alloc] initWithData:self.rawData encoding:NSUTF8StringEncoding] autorelease];
+}
+
 + (SVGKSource*)sourceFromData:(NSData*)data URLForRelativeLinks:(NSURL*) url
 {
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
@@ -13,6 +18,22 @@
 	s.rawData = data;
 	s.effectiveURL = url;
 	return s;
+}
+
+-(id)copyWithZone:(NSZone *)zone
+{
+	id copy = [super copyWithZone:zone];
+	
+	if( copy )
+	{	
+		/** clone bits */
+		[copy setRawData:[self.rawData copy]];
+		
+		/** Finally, manually intialize the input stream, as required by super class */
+		[copy setStream:[NSInputStream inputStreamWithData:((SVGKSourceNSData*)copy).rawData]];
+	}
+	
+	return copy;
 }
 
 -(SVGKSource *)sourceFromRelativePath:(NSString *)path

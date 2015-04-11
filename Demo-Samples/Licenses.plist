@@ -2,167 +2,183 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Online / from Web</key>
+	<dict>
+		<key>fcpx-shadow-f823057a</key>
+		<dict>
+			<key>License</key>
+			<string>n/a - linked</string>
+			<key>From webpage</key>
+			<string>http://voormedia.com/blog/2012/10/creating-svg-vector-graphics-for-maximum-browser-compatibility</string>
+			<key>Source URL</key>
+			<string>http://voormedia.com/blog/2012/10/creating-svg-vector-graphics-for-maximum-browser-compatibility/images/fcpx-shadow-f823057a.svg</string>
+		</dict>
+	</dict>
 	<key>Special</key>
 	<dict>
 		<key>nil-demo-layered-imageview</key>
 		<dict>
 			<key>License</key>
 			<string>Special magic name that tests nil images</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 	</dict>
 	<key>Contributed</key>
 	<dict>
-		<key>bike-frame.svg</key>
+		<key>bike-frame</key>
 		<dict>
 			<key>License</key>
 			<string>Public Domain, author: Vessi</string>
-			<key>Source URL</key>
-			<string></string>
+			<key>Source Local File</key>
+			<string>bike-frame.svg</string>
 		</dict>
-		<key>Cycling_Lambie.svg</key>
+		<key>Cycling_Lambie</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Cycling_Lambie.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Vessi</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>Scale-Negative-Direction.svg</key>
+		<key>Scale Negative Direction</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Scale-Negative-Direction.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>Reinel_compass_rose-simplified-evenmore.svg</key>
+		<key>Reinel simplified-evenmore</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Reinel_compass_rose-simplified-evenmore.svg</string>
 			<key>License</key>
 			<string>Creative Commons, adapted by Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>NewTux.svg</key>
+		<key>New Tux</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>NewTux.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Larry Ewing</string>
 			<key>Source URL</key>
 			<string>http://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg</string>
 		</dict>
-		<key>sakamura-default-fill-opacity-test.svg</key>
+		<key>sakamura opacity-test</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>sakamura-default-fill-opacity-test.svg</string>
 			<key>License</key>
 			<string></string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>svg-with-explicit-width-large.svg</key>
+		<key>explicit width (large)</key>
 		<dict>
-			<key>License</key>
-			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
-		</dict>
-		<key>svg-with-explicit-width.svg</key>
-		<dict>
+			<key>Source Local File</key>
+			<string>svg-with-explicit-width-large.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>test-stroke-dash-array.svg</key>
+		<key>explicit width</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>svg-with-explicit-width.svg</string>
+			<key>License</key>
+			<string>Public Domain, author: Adam Martin</string>
+		</dict>
+		<key>stroke-dash array</key>
+		<dict>
+			<key>Source Local File</key>
+			<string>test-stroke-dash-array.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: David Sweetman</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>test-wave-1.svg</key>
+		<key>wave-1</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>test-wave-1.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Text.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Text.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>uk-only.svg</key>
+		<key>UK only</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>uk-only.svg</string>
 			<key>License</key>
 			<string>Creative Commons</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>voies.svg</key>
+		<key>voies</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>voies.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>Reinel_compass_rose-simplified-more.svg</key>
+		<key>Reinel_compass_rose simplified more</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Reinel_compass_rose-simplified-more.svg</string>
 			<key>License</key>
 			<string>Creative Commons, adapted by Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>Reinel_compass_rose-simplified-for-testing.svg</key>
+		<key>Reinel_compass_rose simplified</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Reinel_compass_rose-simplified-for-testing.svg</string>
 			<key>License</key>
 			<string>Creative Commons, adapted by Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>Reinel_compass_rose.svg</key>
+		<key>Reinel_compass_rose</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Reinel_compass_rose.svg</string>
 			<key>License</key>
 			<string>Creative Commons</string>
 			<key>Source URL</key>
 			<string>http://commons.wikimedia.org/wiki/File:Reinel_compass_rose.svg</string>
 		</dict>
-		<key>rotated-and-skewed-text.svg</key>
+		<key>rotated-and-skewed-text</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>rotated-and-skewed-text.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
-		<key>rounded-rects.svg</key>
+		<key>rounded-rects</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>rounded-rects.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>RainbowWing.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>RainbowWing.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>imagetag-layered.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>imagetag-layered.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>imageWithASinglePointPath.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>imageWithASinglePointPath.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Eric Shapiro (https://github.com/EricShapiro)</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Lion.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Lion.svg</string>
 			<key>License</key>
 			<string>Unknown, probably Public Domain.</string>
 			<key>Source URL</key>
@@ -170,6 +186,8 @@
 		</dict>
 		<key>Location_European_nation_states.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Location_European_nation_states.svg</string>
 			<key>License</key>
 			<string>Creative Commons</string>
 			<key>Source URL</key>
@@ -177,62 +195,64 @@
 		</dict>
 		<key>map-alaska-onlysimple.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>map-alaska-onlysimple.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Map.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Map.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>MathCurve-optimized.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>MathCurve-optimized.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Monkey.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Monkey.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Note.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Note.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>parent-clip.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>parent-clip.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>radial-gradient-opacity.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>radial-gradient-opacity.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Tomás Silcher</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>radialGradientTest.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>radialGradientTest.svg</string>
 			<key>License</key>
 			<string>?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>australia_states_blank.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>australia_states_blank.svg</string>
 			<key>License</key>
 			<string>Creative Commons</string>
 			<key>Source URL</key>
@@ -240,6 +260,8 @@
 		</dict>
 		<key>Blank_Map-Africa.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Blank_Map-Africa.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -247,6 +269,8 @@
 		</dict>
 		<key>BlankMap-World6-Equirectangular.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>BlankMap-World6-Equirectangular.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -254,65 +278,67 @@
 		</dict>
 		<key>breaking-1.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>breaking-1.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Coins.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Coins.svg</string>
 			<key>License</key>
 			<string>Public Domain. Coins images Public Domain, http://pixabay.com/en/euro-2-coin-currency-europe-money-400287/</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>CurvedDiamond.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>CurvedDiamond.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin (http://t-machine.org)</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>Europe_states_reduced.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>Europe_states_reduced.svg</string>
 			<key>License</key>
 			<string>Public Domain?</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>g-element-applies-rotation.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>g-element-applies-rotation.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>groups-and-layers-test.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>groups-and-layers-test.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>ImageAspectRatio.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>ImageAspectRatio.svg</string>
 			<key>License</key>
 			<string>Public Domain, Created by author based on PreserveAspectRatio.svg from the SVG spec. Snowman image Public Domain, http://www.publicdomainpictures.net/view-image.php?image=17565&amp;picture=snowman-decoration</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>imagetag-layer2-sun.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>imagetag-layer2-sun.svg</string>
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 	</dict>
 	<key>SVG Spec</key>
 	<dict>
 		<key>arcs01</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>arcs01.svg</string>
 			<key>Source URL</key>
 			<string>http://www.w3.org/TR/SVG/images/paths/arcs01.svg</string>
 			<key>License</key>
@@ -320,6 +346,8 @@
 		</dict>
 		<key>arcs02</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>arcs02.svg</string>
 			<key>Source URL</key>
 			<string>http://www.w3.org/TR/SVG/images/paths/arcs02.svg</string>
 			<key>License</key>
@@ -327,6 +355,8 @@
 		</dict>
 		<key>fillrule-evenodd.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>fillrule-evenodd.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -334,13 +364,15 @@
 		</dict>
 		<key>radgrad01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>radgrad01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>StyleAttribute.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>StyleAttribute.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -348,6 +380,8 @@
 		</dict>
 		<key>text01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>text01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -355,6 +389,8 @@
 		</dict>
 		<key>tspan01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>tspan01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -362,20 +398,22 @@
 		</dict>
 		<key>opacity01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>opacity01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>pattern01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>pattern01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
-			<key>Source URL</key>
-			<string></string>
 		</dict>
 		<key>PreserveAspectRatio.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>PreserveAspectRatio.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -383,6 +421,8 @@
 		</dict>
 		<key>quad01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>quad01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -390,6 +430,8 @@
 		</dict>
 		<key>cubic01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>cubic01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>
@@ -397,6 +439,8 @@
 		</dict>
 		<key>lingrad01.svg</key>
 		<dict>
+			<key>Source Local File</key>
+			<string>lingrad01.svg</string>
 			<key>License</key>
 			<string>Public Domain</string>
 			<key>Source URL</key>

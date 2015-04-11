@@ -9,6 +9,16 @@
 
 @implementation VCGridOfImagesViewController
 
+-(SampleFileInfo*) sampleFileInfoFromDictionary:(NSDictionary*) license
+{
+	NSString* sourceURL = [license objectForKey:@"Source URL"];
+	NSString* sourceFilename = [license objectForKey:@"Source Local File"];
+	
+	SampleFileInfo* info = [SampleFileInfo sampleFileInfoWithFilename:sourceFilename URL:(sourceURL != nil) ? [NSURL URLWithString:sourceURL] : nil];
+	
+	return info;
+}
+
 -(void) displayAllSectionsFromDictionary:(NSDictionary*) inputDictionary
 {
 	self.itemArraysBySectionName = [NSMutableDictionary dictionary];
@@ -24,12 +34,11 @@
 			for( NSString* subkey in licensesInSection )
 			{
 				NSDictionary* license = [licensesInSection objectForKey:subkey];
-				SampleFileInfo* info = [SampleFileInfo sampleFileInfoWithFilename:subkey source:[NSURL URLWithString:[license objectForKey:@"Source URL"]]];
-				[temp addObject:info];
+				[temp addObject:[self sampleFileInfoFromDictionary:license]];
 			}
 			
 			temp = [NSMutableArray arrayWithArray: [temp sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(id obj1, id obj2) {
-				return [((SampleFileInfo*)obj1).filename compare:((SampleFileInfo*)obj2).filename];
+				return [((SampleFileInfo*)obj1).name compare:((SampleFileInfo*)obj2).name];
 			}]];
 			
 			[self.itemArraysBySectionName setObject:temp forKey:key];
@@ -46,12 +55,12 @@
 	for( NSString* subkey in licensesInSection )
 	{
 		NSDictionary* license = [licensesInSection objectForKey:subkey];
-		SampleFileInfo* info = [SampleFileInfo sampleFileInfoWithFilename:subkey source:[NSURL URLWithString:[license objectForKey:@"Source URL"]]];
-		[temp addObject:info];
+		
+		[temp addObject:[self sampleFileInfoFromDictionary:license]];
 	}
 	
 	temp = [NSMutableArray arrayWithArray: [temp sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(id obj1, id obj2) {
-		return [((SampleFileInfo*)obj1).filename compare:((SampleFileInfo*)obj2).filename];
+		return [((SampleFileInfo*)obj1).name compare:((SampleFileInfo*)obj2).name];
 	}]];
 	
 	[self.itemArraysBySectionName setObject:temp forKey:sectionName];
@@ -95,11 +104,10 @@
 	SampleFileInfo* item = [self itemAtIndexPath:indexPath];
 	
 	UILabel* l = (UILabel*) [cell viewWithTag:1];
-	l.text = item.filename;
+	l.text = item.name;
 	
 	UIImageView* iv = (UIImageView*) [cell viewWithTag:2];
-	NSString* filenameNoExtension = [item.filename stringByDeletingPathExtension];
-	UIImage* savedImage = [UIImage imageNamed:filenameNoExtension];
+	UIImage* savedImage = [UIImage imageNamed: item.savedBitmapFilename];
 	if( savedImage != nil )
 	{
 		iv.image = savedImage;
@@ -134,7 +142,7 @@
 		DetailViewController* nextVC = (DetailViewController*) segue.destinationViewController;
 		
 		SampleFileInfo* item = [self itemAtIndexPath:[self.collectionView indexPathsForSelectedItems][0]];
-		nextVC.detailItem = item.filename;
+		nextVC.detailItem = item.source;
 	}
 }
 
