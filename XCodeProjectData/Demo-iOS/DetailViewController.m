@@ -496,6 +496,12 @@ CATextLayer *textLayerForLastTappedLayer;
 #endif
 		}
 	}
+	else
+	{
+		[[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Unknown kind of source. Should be a recognized SVGKSource subclass. Was actually : %@", [svgSource class]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		
+		[self internalLoadedResource:nil withOptions:loadingOptions parserOutput:nil createImageViewFromDocument:nil];
+	}
 }
 
 /** Updates the on-screen loading bar */

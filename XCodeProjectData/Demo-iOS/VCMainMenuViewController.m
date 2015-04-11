@@ -2,6 +2,7 @@
 
 #import "VCGridOfImagesViewController.h"
 #import "DetailViewController.h" // for web loading directly
+#import "SVGKSourceURL.h" // for web loading directly
 
 @interface VCMainMenuViewController ()
 
@@ -40,7 +41,7 @@
 		{
 			DetailViewController* nextVC = (DetailViewController*)segue.destinationViewController;
 			
-			nextVC.detailItem = s;
+			nextVC.detailItem = [SVGKSourceURL sourceFromURL:[NSURL URLWithString:s]];
 		}
 	}
 	else if( [segue.identifier hasPrefix:@"View"] )
