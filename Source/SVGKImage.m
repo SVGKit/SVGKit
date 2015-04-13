@@ -14,8 +14,9 @@
 
 #import "SVGKParserSVG.h"
 
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceURL.h"
+#import "SVGKSourceLocalFile.h" // for convenience constructors that load from filename
+#import "SVGKSourceURL.h" // for convenience constructors that load from URL as string
+#import "SVGKSourceNSData.h" // for convenience constructors that load from raw incoming NSData
 
 #import "CALayer+RecursiveClone.h"
 
@@ -103,7 +104,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-	SVGKSource* source = [self internalSourceAnywhereInBundleUsingName:name];
+	SVGKSource* source = [SVGKSourceLocalFile internalSourceAnywhereInBundleUsingName:name];
 	
 	/**
 	 Key moment: init and parse the SVGKImage
@@ -270,6 +271,15 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSParameterAssert(url != nil);
 	
 	return [self initWithSource:[SVGKSourceURL sourceFromURL:url]];
+}
+
+- (id)initWithData:(NSData *)data
+{
+	NSParameterAssert(data != nil);
+	
+	DDLogWarn(@"Creating an SVG from raw data; this is not recommended: SVG requires knowledge of at least the URL where it came from (as it can contain relative file-links internally). You should use the method [SVGKImage initWithSource:] instead and specify an SVGKSource with more detail" );
+	
+	return [self initWithSource:[SVGKSourceNSData sourceFromData:data URLForRelativeLinks:nil]];
 }
 
 - (void)dealloc

@@ -52,6 +52,6 @@ This method ONLY looks at current node to establish the above two things, to do 
 
 +(CGColorRef) parseFillForElement:(SVGElement *)svgElement;
 
-+(void) parsePreserveAspectRatioFor:(id<SVGFitToViewBox>) element;
++(void) parsePreserveAspectRatioFor:(Element<SVGFitToViewBox>*) element;
 
 @end

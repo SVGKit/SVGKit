@@ -390,7 +390,7 @@
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@ %p | id=%@ | prefix:localName=%@:%@ | tagName=%@ | stringValue=%@ | children=%ld>", 
-			[self class], self, _identifier, self.prefix, self.localName, self.tagName, _stringValue, self.childNodes.length];
+			[self class], self, _identifier, self.prefix, self.localName, self.tagName, _stringValue, (unsigned long)self.childNodes.length];
 }
 
 #pragma mark - Objective-C init methods (not in SVG Spec - the official spec has no explicit way to create nodes, which is clearly a bug in the Spec. Until they fix the spec, we have to do something or else SVG would be unusable)
