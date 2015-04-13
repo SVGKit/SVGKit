@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg-root" viewBox="0 0 450 450" width="450" height="450">
+  <defs>
+    <rect id="rect1" width="120" height="120" fill="lime" stroke="lime" onclick="evt.target.correspondingElement.setAttribute('fill', 'red');"/>
+  </defs>
+	<g id="rects">
+		<rect id="rect2" width="450" height="450" fill="lime" stroke="lime" onclick="evt.target.correspondingElement.setAttribute('fill', 'red');"/>
+	</g>
+</svg>
+ 

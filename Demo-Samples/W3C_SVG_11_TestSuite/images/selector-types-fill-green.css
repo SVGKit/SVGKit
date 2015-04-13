@@ -1,0 +1,28 @@
+path
+{
+    fill: green;
+}
+g svg circle
+{
+    fill: green;
+}
+g > ellipse
+{
+    fill: green;
+}
+ellipse + circle
+{
+    fill: green;
+}
+[id=testAttributeSelector]
+{
+    fill: green;
+}
+#testIdSelector
+{
+    fill: green;
+}
+#testPseudoClassSelector:first-child
+{
+    fill: green;
+}

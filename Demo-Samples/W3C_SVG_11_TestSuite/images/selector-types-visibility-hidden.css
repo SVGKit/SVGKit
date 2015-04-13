@@ -1,0 +1,32 @@
+path
+{
+    visibility: hidden;
+}
+g svg circle
+{
+    visibility: hidden;
+}
+g > ellipse
+{
+    visibility: hidden;
+}
+ellipse + circle
+{
+    visibility: hidden;
+}
+[id=testAttributeSelector]
+{
+    visibility: hidden;
+}
+#testIdSelector
+{
+    visibility: hidden;
+}
+#testPseudoClassSelector:first-child
+{
+    visibility: hidden;
+}
+.reference
+{
+    visibility: visible !important;
+}

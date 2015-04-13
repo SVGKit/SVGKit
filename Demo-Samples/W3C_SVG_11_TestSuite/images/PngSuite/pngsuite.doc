@@ -1,0 +1,520 @@
+        PNGSUITE
+----------------
+
+        testset for PNG-(de)coders
+        created by Willem van Schaik
+------------------------------------
+
+This is a collection of graphics images created to test the png applications
+like viewers, converters and editors. All (as far as that is possible)
+formats supported by the PNG standard are represented.
+
+
+1.      INTRODUCTION
+--------------------
+
+1.1     PNG capabilities
+------------------------
+
+Supported color-types are:
+
+        -   grayscale
+        -   grayscale + alpha-channel
+        -   color palettes
+        -   rgb
+        -   rgb + alpha-channel
+
+Allowed bitdepths are depending on the color-type, but are in the range
+of 1-bit (grayscale, which is b&w) upto 16-bits.
+
+Special features are:
+
+        -   interlacing (Adam-7)
+        -   gamma-support
+        -   transparency (a poor-man's alpha solution)
+
+
+1.2     File naming
+-------------------
+
+Where possible, the testfiles are 32x32 bits icons. This results in a still
+reasonable size of the suite even with a large number of tests. The name
+of each test-file reflects thetype in the following way:
+
+        g04i2c08.png
+        || |||+---- bit-depth
+        || ||+----- color-type (descriptive)
+        || |+------ color-type (numerical)
+        || +------- interlaced or non-interlaced
+        |+--------- parameter of test (in this case gamma-value)
+        +---------- test feature (in this case gamma)
+
+
+1.3     PNG formats
+-------------------
+
+color-type:
+        0g          -   grayscale
+        2c          -   rgb color
+        3p          -   paletted
+        4a          -   grayscale + alpha channel
+        6a          -   rgb color + alpha channel
+
+bit-depth:
+        01          -   with color-type 0, 3
+        02          -   with color-type 0, 3
+        04          -   with color-type 0, 3
+        08          -   with color-type 0, 2, 3, 4, 6
+        16          -   with color-type 0, 2, 4, 6
+
+interlacing:
+        n           -   non-interlaced
+        i           -   interlaced
+
+
+2.      THE TESTS
+-----------------
+
+2.1     Sizes
+-------------
+
+These tests are there to check if your software handles pictures well, with
+picture sizes that are not a multiple of 8. This is particularly important
+with Adam-7 type interlacing. In the same way these tests check if pictures
+size 1x1 and similar are ok.
+
+        s01         -   1x1 pixel picture
+        s02         -   2x2 pixel picture
+        s03         -   3x3 pixel picture
+        s04         -   4x4 pixel picture
+        s05         -   5x5 pixel picture
+        s06         -   6x6 pixel picture
+        s07         -   7x7 pixel picture
+        s08         -   8x8 pixel picture
+        s09         -   9x9 pixel picture
+        s32         -   32x32 pixel picture
+        s33         -   33x33 pixel picture
+        s34         -   34x34 pixel picture
+        s35         -   35x35 pixel picture
+        s36         -   36x36 pixel picture
+        s37         -   37x37 pixel picture
+        s38         -   38x38 pixel picture
+        s39         -   39x39 pixel picture
+        s40         -   40x40 pixel picture
+
+
+2.2     Background
+------------------
+
+When the PNG file contains a background chunck, this should be used for
+pictures with alpha-channel or pictures with a transparency chunck. For
+pictures without this background-chunk, but with alpha, this testset
+assumes a black background.
+
+For the images in this test, the left-side should be 100% the background
+color, where moving to the right the color should gradually become the
+image pattern.
+
+        bga         -   alpha + no background
+        bgw         -   alpha + white background
+        bgg         -   alpha + gray background
+        bgb         -   alpha + black background
+        bgy         -   alpha + yellow background
+
+
+2.3     Transparency
+--------------------
+
+Transparency should be used together with a background chunk. To test the
+combination of the two the latter 4 tests are there. How to handle pictures
+with transparancy, but without a background, opinions can differ. Here we
+use black, but especially in the case of paletted images, the normal color
+would maybe even be better.
+
+        tp0         -   not transparent for reference
+        tp1         -   transparent, but no background chunk
+        tbw         -   transparent + white background
+        tbg         -   transparent + gray background
+        tbb         -   transparent + black background
+        tby         -   transparent + yellow background
+
+
+2.4     Gamma
+-------------
+
+To test if your viewer handles gamma-correction, 6 testfiles are available.
+They contain corrected color-ramps and a corresponding gamma-chunk with the
+file-gamma value. These are created in such a way that when the viewer does
+the gamma correction right, all 6 should be displayed identical.
+
+If they are different, probably the gamma correction is omitted. In that
+case, have a look at the two right coloumns in the 6 pictures. The image
+where those two look the same (when looked from far) reflects the gamma of
+your system. However, because of the limited size of the image, you should
+do more elaborate tests to determine your display gamma.
+
+        g03         -   file-gamma = 0.35, for display with gamma = 2.8
+        g04         -   file-gamma = 0.45, for display with gamma = 2.2 (PC)
+        g05         -   file-gamma = 0.55, for display with gamma = 1.8 (Mac)
+        g07         -   file-gamma = 0.70, for display with gamma = 1.4
+        g10         -   file-gamma = 1.00, for display with gamma = 1.0 (NeXT)
+        g25         -   file-gamma = 2.50, for display with gamma = 0.4
+
+
+2.5     Filtering
+-----------------
+
+PNG uses file-filtering, for optimal compression. Normally the type is of
+filtering is adjusted to the contents of the picture, but here each file
+has the same picture, with a different filtering.
+
+        f0          -   no filtering
+        f1          -   sub filtering
+        f2          -   up filtering
+        f3          -   average filtering
+        f4          -   paeth filtering
+
+
+2.6     Additional palettes
+---------------------------
+
+Besides the normal use of paletted images, palette chunks can in combination
+with true-color (and other) images also be used to select color lookup-tables
+when the video system is of limited capabilities. The suggested palette chunk
+is specially created for this purpose.
+
+        pp          -   normal palette chunk
+        ps          -   suggested palette chunk
+
+
+2.7     Ancillary chunks (under construction)
+------------------------
+
+To test the correct decoding of ancillary chunks, these test-files contain
+one or more examples of these chunkcs. Depending on the type of chunk, a
+number of typical values are selected to test. Unluckily, the testset can
+not contain all combinations, because that would be an endless set.
+
+The significant bits are used in files with the next higher bit-depth. They
+indicate howmany bits are valid.
+
+        cs3         -   3 significant bits
+        cs5         -   5 significant bits
+        cs8         -   8 significant bits (reference)
+        cs3         -   13 significant bits
+
+For the physical pixel dimensions, the result of each decoding should be
+a sqare picture. The first (cdf) image is an example of flat (horizontal)
+pixels, where the pHYS chunk (x is 1 per unit, y = 4 per unit) must take
+care of the correction. The second is just the other way round. The last
+example uses the unit specifier, for 1000 pixels per meter. This should
+result in a picture of 3.2 cm square.
+
+        cdf         -   physical pixel dimensions, 8x32 flat pixels
+        cdh         -   physical pixel dimensions, 32x8 high pixels
+        cds         -   physical pixel dimensions, 8x8 square pixels
+        cdu         -   physical pixel dimensions, with unit-specifier
+
+        ccw         -   primary chromaticities and white point
+
+        ch1         -   histogram 15 colors
+        ch2         -   histogram 256 colors
+
+        cm7         -   modification time, 01-jan-1970
+        cm9         -   modification time, 31-dec-1999
+        cm0         -   modification time, 01-jan-2000
+
+In the textual chunk, a number of the standard, and some non-standard
+text items are included.
+
+        ct0         -   no textual data
+        ct1         -   with textual data
+        ctz         -   with compressed textual data
+
+
+2.8     Chunk ordering (still under construction)
+----------------------
+
+These testfiles will test the obligatory ordering relations between various
+chunk types (not yet) as well as the number of data chunks used for the image.
+
+        oi1         -   mother image with 1 idat-chunk
+        oi2         -   image with 2 idat-chunks
+        oi4         -   image with 4 unequal sized idat-chunks
+        oi9         -   all idat-chunks of length one
+
+
+2.9     Compression level
+-------------------------
+
+Here you will find a set of images compressed by zlib, ranging from level 0 
+for no compression at maximum speed upto level 9 for maximum compression.
+
+        z00         -   zlib compression level 0 - none
+        z03         -   zlib compression level 3
+        z06         -   zlib compression level 6 - default
+        z09         -   zlib compression level 9 - maximum
+
+
+2.10     Corrupted files (under construction)
+-----------------------
+
+All these files are illegal. When decoding they should generate appropriate
+error-messages.
+
+        x00         -   empty IDAT chunk
+        xcr         -   added cr bytes
+        xlf         -   added lf bytes
+        xc0         -   color type 0
+        xc9         -   color type 9
+        xd0         -   bit-depth 0
+        xd3         -   bit-depth 3
+        xd9         -   bit-depth 99
+        xcs         -   incorrect IDAT checksum
+
+
+3.      TEST FILES
+------------------
+
+For each of the tests listed above, one or more test-files are created. A
+selection is made (for each test) for the color-type and bitdepth to be used
+for the tests. Further for a number of tests, both a non-interlaced as well
+as an interlaced version is available.
+
+
+3.1     Basic format test files (non-interlaced)
+------------------------------------------------
+
+        basn0g01    -   black & white
+        basn0g02    -   2 bit (4 level) grayscale
+        basn0g04    -   4 bit (16 level) grayscale
+        basn0g08    -   8 bit (256 level) grayscale
+        basn0g16    -   16 bit (64k level) grayscale
+        basn2c08    -   3x8 bits rgb color
+        basn2c16    -   3x16 bits rgb color
+        basn3p01    -   1 bit (2 color) paletted
+        basn3p02    -   2 bit (4 color) paletted
+        basn3p04    -   4 bit (16 color) paletted
+        basn3p08    -   8 bit (256 color) paletted
+        basn4a08    -   8 bit grayscale + 8 bit alpha-channel
+        basn4a16    -   16 bit grayscale + 16 bit alpha-channel
+        basn6a08    -   3x8 bits rgb color + 8 bit alpha-channel
+        basn6a16    -   3x16 bits rgb color + 16 bit alpha-channel
+
+
+3.2     Basic format test files (Adam-7 interlaced)
+---------------------------------------------------
+
+        basi0g01    -   black & white
+        basi0g02    -   2 bit (4 level) grayscale
+        basi0g04    -   4 bit (16 level) grayscale
+        basi0g08    -   8 bit (256 level) grayscale
+        basi0g16    -   16 bit (64k level) grayscale
+        basi2c08    -   3x8 bits rgb color
+        basi2c16    -   3x16 bits rgb color
+        basi3p01    -   1 bit (2 color) paletted
+        basi3p02    -   2 bit (4 color) paletted
+        basi3p04    -   4 bit (16 color) paletted
+        basi3p08    -   8 bit (256 color) paletted
+        basi4a08    -   8 bit grayscale + 8 bit alpha-channel
+        basi4a16    -   16 bit grayscale + 16 bit alpha-channel
+        basi6a08    -   3x8 bits rgb color + 8 bit alpha-channel
+        basi6a16    -   3x16 bits rgb color + 16 bit alpha-channel
+
+
+3.3     Sizes test files
+-----------------------
+
+        s01n3p01    -   1x1 paletted file, no interlacing
+        s02n3p01    -   2x2 paletted file, no interlacing
+        s03n3p01    -   3x3 paletted file, no interlacing
+        s04n3p01    -   4x4 paletted file, no interlacing
+        s05n3p02    -   5x5 paletted file, no interlacing
+        s06n3p02    -   6x6 paletted file, no interlacing
+        s07n3p02    -   7x7 paletted file, no interlacing
+        s08n3p02    -   8x8 paletted file, no interlacing
+        s09n3p02    -   9x9 paletted file, no interlacing
+        s32n3p04    -   32x32 paletted file, no interlacing
+        s33n3p04    -   33x33 paletted file, no interlacing
+        s34n3p04    -   34x34 paletted file, no interlacing
+        s35n3p04    -   35x35 paletted file, no interlacing
+        s36n3p04    -   36x36 paletted file, no interlacing
+        s37n3p04    -   37x37 paletted file, no interlacing
+        s38n3p04    -   38x38 paletted file, no interlacing
+        s39n3p04    -   39x39 paletted file, no interlacing
+        s40n3p04    -   40x40 paletted file, no interlacing
+
+        s01i3p01    -   1x1 paletted file, interlaced
+        s02i3p01    -   2x2 paletted file, interlaced
+        s03i3p01    -   3x3 paletted file, interlaced
+        s04i3p01    -   4x4 paletted file, interlaced
+        s05i3p02    -   5x5 paletted file, interlaced
+        s06i3p02    -   6x6 paletted file, interlaced
+        s07i3p02    -   7x7 paletted file, interlaced
+        s08i3p02    -   8x8 paletted file, interlaced
+        s09i3p02    -   9x9 paletted file, interlaced
+        s32i3p04    -   32x32 paletted file, interlaced
+        s33i3p04    -   33x33 paletted file, interlaced
+        s34i3p04    -   34x34 paletted file, interlaced
+        s35i3p04    -   35x35 paletted file, interlaced
+        s36i3p04    -   36x36 paletted file, interlaced
+        s37i3p04    -   37x37 paletted file, interlaced
+        s38i3p04    -   38x38 paletted file, interlaced
+        s39i3p04    -   39x39 paletted file, interlaced
+        s40i3p04    -   40x40 paletted file, interlaced
+
+
+3.4     Background test files (with alpha)
+------------------------------------------
+
+        bgai4a08    -   8 bit grayscale, alpha, no background chunk, interlaced
+        bgai4a16    -   16 bit grayscale, alpha, no background chunk, interlaced
+        bgan6a08    -   3x8 bits rgb color, alpha, no background chunk
+        bgan6a16    -   3x16 bits rgb color, alpha, no background chunk
+
+        bgbn4a08    -   8 bit grayscale, alpha, black background chunk
+        bggn4a16    -   16 bit grayscale, alpha, gray background chunk
+        bgwn6a08    -   3x8 bits rgb color, alpha, white background chunk
+        bgyn6a16    -   3x16 bits rgb color, alpha, yellow background chunk
+
+
+3.5     Transparency (and background) test files
+------------------------------------------------
+
+        tp0n1g08    -   not transparent for reference (logo on gray)
+        tbbn1g04    -   transparent, black background chunk
+        tbwn1g16    -   transparent, white background chunk
+        tp0n2c08    -   not transparent for reference (logo on gray)
+        tbrn2c08    -   transparent, red background chunk
+        tbgn2c16    -   transparent, green background chunk
+        tbbn2c16    -   transparent, blue background chunk
+        tp0n3p08    -   not transparent for reference (logo on gray)
+        tp1n3p08    -   transparent, but no background chunk
+        tbbn3p08    -   transparent, black background chunk
+        tbgn3p08    -   transparent, light-gray background chunk
+        tbwn3p08    -   transparent, white background chunk
+        tbyn3p08    -   transparent, yellow background chunk
+
+
+3.6     Gamma test files
+------------------------
+
+        g03n0g16    -   grayscale, file-gamma = 0.35
+        g04n0g16    -   grayscale, file-gamma = 0.45
+        g05n0g16    -   grayscale, file-gamma = 0.55
+        g07n0g16    -   grayscale, file-gamma = 0.70
+        g10n0g16    -   grayscale, file-gamma = 1.00
+        g25n0g16    -   grayscale, file-gamma = 2.50
+        g03n2c08    -   color, file-gamma = 0.35
+        g04n2c08    -   color, file-gamma = 0.45
+        g05n2c08    -   color, file-gamma = 0.55
+        g07n2c08    -   color, file-gamma = 0.70
+        g10n2c08    -   color, file-gamma = 1.00
+        g25n2c08    -   color, file-gamma = 2.50
+        g03n3p04    -   paletted, file-gamma = 0.35
+        g04n3p04    -   paletted, file-gamma = 0.45
+        g05n3p04    -   paletted, file-gamma = 0.55
+        g07n3p04    -   paletted, file-gamma = 0.70
+        g10n3p04    -   paletted, file-gamma = 1.00
+        g25n3p04    -   paletted, file-gamma = 2.50
+
+
+3.7     Filtering test files
+----------------------------
+
+        f00n0g08    -   grayscale, no interlacing, filter-type 0
+        f01n0g08    -   grayscale, no interlacing, filter-type 1
+        f02n0g08    -   grayscale, no interlacing, filter-type 2
+        f03n0g08    -   grayscale, no interlacing, filter-type 3
+        f04n0g08    -   grayscale, no interlacing, filter-type 4
+        f00n2c08    -   color, no interlacing, filter-type 0
+        f01n2c08    -   color, no interlacing, filter-type 1
+        f02n2c08    -   color, no interlacing, filter-type 2
+        f03n2c08    -   color, no interlacing, filter-type 3
+        f04n2c08    -   color, no interlacing, filter-type 4
+
+
+3.8     Additional palette chunk test files
+-------------------------------------------
+
+        pp0n2c16    -   six-cube palette-chunk in true-color image
+        pp0n6a08    -   six-cube palette-chunk in true-color+alpha image
+        ps1n0g08    -   six-cube suggested palette (1 byte) in grayscale image
+        ps1n2c16    -   six-cube suggested palette (1 byte) in true-color image
+        ps2n0g08    -   six-cube suggested palette (2 bytes) in grayscale image
+        ps2n2c16    -   six-cube suggested palette (2 bytes) in true-color image
+
+
+3.9     Ancillary chunks test files
+-----------------------------------
+
+        cs5n2c08    -   color, 5 significant bits
+        cs8n2c08    -   color, 8 significant bits (reference)
+        cs3n2c16    -   color, 13 significant bits
+        cs3n3p08    -   paletted, 3 significant bits
+        cs5n3p08    -   paletted, 5 significant bits
+        cs8n3p08    -   paletted, 8 significant bits (reference)
+
+        cdfn2c08    -   physical pixel dimensions, 8x32 flat pixels
+        cdhn2c08    -   physical pixel dimensions, 32x8 high pixels
+        cdsn2c08    -   physical pixel dimensions, 8x8 square pixels
+        cdun2c08    -   physical pixel dimensions, 1000 pixels per 1 meter
+
+        ccwn2c08    -   chroma chunk w:0.3127,0.3290 r:0.64,0.33 g:0.30,0.60 b:0.15,0.06
+        ccwn3p08    -   chroma chunk w:0.3127,0.3290 r:0.64,0.33 g:0.30,0.60 b:0.15,0.06
+
+        ch1n3p04    -   histogram 15 colors
+        ch2n3p08    -   histogram 256 colors
+
+        cm7n0g04    -   modification time, 01-jan-1970 00:00:00
+        cm9n0g04    -   modification time, 31-dec-1999 23:59:59
+        cm0n0g04    -   modification time, 01-jan-2000 12:34:56
+
+        ct0n0g04    -   no textual data
+        ct1n0g04    -   with textual data
+        ctzn0g04    -   with compressed textual data
+
+
+
+3.10    Chunk ordering
+----------------------
+
+        oi1n0g16    -   grayscale mother image with 1 idat-chunk
+        oi2n0g16    -   grayscale image with 2 idat-chunks
+        oi4n0g16    -   grayscale image with 4 unequal sized idat-chunks
+        oi9n0g16    -   grayscale image with all idat-chunks length one
+        oi1n2c16    -   color mother image with 1 idat-chunk
+        oi2n2c16    -   color image with 2 idat-chunks
+        oi4n2c16    -   color image with 4 unequal sized idat-chunks
+        oi9n2c16    -   color image with all idat-chunks length one
+
+
+
+3.11    Compression level
+-------------------------
+
+        z00n2c08    -   color, no interlacing, compression level 0 (none)
+        z03n2c08    -   color, no interlacing, compression level 3
+        z06n2c08    -   color, no interlacing, compression level 6 (default)
+        z09n2c08    -   color, no interlacing, compression level 9 (maximum)
+
+
+
+3.12     Currupted files
+-----------------------
+
+        x00n0g01    -   empty 0x0 grayscale file
+        xcrn0g04    -   added cr bytes
+        xlfn0g04    -   added lf bytes
+        xc0n0c08    -   color type 0
+        xc9n0c08    -   color type 9
+        xd0n2c00    -   bit-depth 0
+        xd3n2c03    -   bit-depth 3
+        xd9n2c99    -   bit-depth 99
+        xcsn2c08    -   incorrect IDAT checksum
+
+
+--------
+    (c) Willem van Schaik
+        willem@schaik.com
+        Singapore, October 1996

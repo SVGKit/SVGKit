@@ -1,0 +1,20 @@
+<svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+    <linearGradient id="lg1" gradientTransform="matrix(3.5462873,0,0,3.5462873,-877.27083,-952.49474)" x1="393.57144" y1="380.21933" x2="385.35715" y2="413.07648" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0.8" offset="0"/>
+      <stop stop-color="#fff" stop-opacity="0" offset="1"/>
+		</linearGradient>
+    <radialGradient id="rg1" r="32.259853" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-0.7006288,2.6147823,-3.0454274,-0.816019,1468.3216,-225.92549)" cx="303.21429" cy="312.8187" fx="303.21429" fy="312.8187">
+    	<stop stop-color="#ff0" offset="0"/>
+      <stop stop-color="#ff0" stop-opacity="0" offset="1"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(-349.57877,-377.71875)">
+    <path transform="matrix(3.5462873,0,0,3.5462873,-558.10497,-696.65544)" d="M 323,360 L 299,353 L 283,372 L 282,348 L 259,338 L 282,330 L 284,305 L 299,325 L 324,319 L 310,339 L 323,360 z" filter="url(#blur)"/>
+    <path transform="matrix(3.5462873,0,0,3.5462873,-558.10497,-696.65544)" fill="url(#rg1)" d="M 323,360 L 299,353 L 283,372 L 282,348 L 259,338 L 282,330 L 284,305 L 299,325 L 324,319 L 310,339 L 323,360 z"/>
+    <path fill="url(#lg1)" d="M 451,387 L 445,474 L 417,485 C 442,492 471,495 501,495 C 519,495 536,494 552,491 L 591,435 L 505,456 L 451,387 z"/>
+  </g>
+</svg>
