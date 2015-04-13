@@ -49,12 +49,12 @@
         
         size_t num_locations = self.locations.count;
         
-        size_t numbOfComponents = 0;
+        //NOT USED: size_t numbOfComponents = 0;
         CGColorSpaceRef colorSpace = NULL;
 		
         if (self.colors.count) {
             CGColorRef colorRef = (CGColorRef)[self.colors objectAtIndex:0];
-            numbOfComponents = CGColorGetNumberOfComponents(colorRef);
+            //NOT USED: numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
             
             CGFloat *locations = calloc(num_locations, sizeof(CGFloat));

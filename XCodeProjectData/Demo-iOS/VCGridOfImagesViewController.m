@@ -69,6 +69,8 @@
 
 -(void)viewDidLoad
 {
+	[super viewDidLoad];
+	
 	if( self.sectionNames == nil
 	|| self.itemArraysBySectionName == nil )
 	{

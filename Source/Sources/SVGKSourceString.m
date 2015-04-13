@@ -24,7 +24,7 @@
 	if( copy )
 	{	
 		/** clone bits */
-		[copy setRawString:[self.rawString copy]];
+		[copy setRawString:[[self.rawString copy] autorelease]];
 		
 		/** Finally, manually intialize the input stream, as required by super class */
 		[copy setStream:[NSInputStream inputStreamWithData:[((SVGKSourceString*)copy).rawString dataUsingEncoding:NSUTF8StringEncoding]]];

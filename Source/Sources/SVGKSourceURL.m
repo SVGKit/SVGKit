@@ -48,7 +48,7 @@
 	if( copy )
 	{	
 		/** clone bits */
-		[copy setURL:[self.URL copy]];
+		[copy setURL:[[self.URL copy] autorelease]];
 		
 		/** Finally, manually intialize the input stream, as required by super class */
 		[copy setStream:[[self class] internalCreateInputStreamFromURL:((SVGKSourceURL*)copy).URL]];

@@ -90,7 +90,7 @@
 	if( copy )
 	{	
 		/** clone bits */
-		[copy setFilePath:[self.filePath copy]];
+		[copy setFilePath:[[self.filePath copy] autorelease]];
 		[copy setWasRelative:self.wasRelative];
 		
 		/** Finally, manually intialize the input stream, as required by super class */

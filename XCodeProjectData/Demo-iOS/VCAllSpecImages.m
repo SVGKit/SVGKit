@@ -12,6 +12,8 @@
 
 -(void)viewDidLoad
 {
+	[super viewDidLoad];
+	
 	if( self.svgFileNames == nil )
 	{	
 		NSError *error = nil;

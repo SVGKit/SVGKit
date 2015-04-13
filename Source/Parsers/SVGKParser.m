@@ -368,7 +368,7 @@ SVGKParser* getCurrentlyParsingParser()
 {
     [src.stream open]; // if we do this, we CANNOT parse from this source again in future
     NSData *data = [NSData dataWithContentsOfStream:src.stream initialCapacity:4096 error:nil];
-    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 }
 
 - (void)handleProcessingInstruction:(NSString *)target withData:(NSString *) data

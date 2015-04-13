@@ -101,6 +101,8 @@
 
 -(void)viewDidLoad
 {
+	[super viewDidLoad];
+	
 	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
 											   [[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
 											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease],
@@ -357,7 +359,7 @@ CATextLayer *textLayerForLastTappedLayer;
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
 	if( [options.localFileSource.filePath hasSuffix:@"@2x"])
 	{
-		SVGKSourceLocalFile* modifiedSource = [options.localFileSource copy];
+		SVGKSourceLocalFile* modifiedSource = [[options.localFileSource copy] autorelease];
 		modifiedSource.filePath = [modifiedSource.filePath substringToIndex:modifiedSource.filePath.length - @"@2x".length];
 		options.overrideImageRenderScale = 2.0;
 		options.requiresLayeredImageView = true;
@@ -373,7 +375,7 @@ CATextLayer *textLayerForLastTappedLayer;
 {
 	if( [options.localFileSource.filePath hasSuffix:@"@160x240"]) // could be any 999x999 you want, up to you to implement!
 	{
-		SVGKSourceLocalFile* modifiedSource = [options.localFileSource copy];
+		SVGKSourceLocalFile* modifiedSource = [[options.localFileSource copy] autorelease];
 		
 		modifiedSource.filePath = [modifiedSource.filePath substringToIndex:modifiedSource.filePath.length - @"@160x240".length];
 		options.overrideImageSize = CGSizeMake( 160, 240 );
