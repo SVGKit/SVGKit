@@ -173,10 +173,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
                 // crop the image
                 CGRect cropRect = CGRectMake(0, 0, image.size.width, image.size.height);
                 cropRect = [self clipFrame:cropRect fromRatio:1.0 / ratioOfRatios];
-                
-                CGImageRef croppedRef = CGImageCreateWithImageInRect(imageRef, cropRect);
-                CGImageRelease(imageRef);
-                imageRef = croppedRef;
+                imageRef = CGImageCreateWithImageInRect(imageRef, cropRect);
             }
         }
         
