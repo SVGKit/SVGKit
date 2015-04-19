@@ -771,8 +771,8 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 #if DEBUG_PATH_CREATION
 	DDLogWarn(@"[%@] PATH: finished path", [SVGKPointsAndPathsParser class] );
 #endif
-    
-    return origin;
+
+	return CGPathGetCurrentPoint(path);
 }
 
 + (SVGCurve)readEllipticalArcArguments:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
