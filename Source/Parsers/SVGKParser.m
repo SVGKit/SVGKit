@@ -277,7 +277,7 @@ SVGKParser* getCurrentlyParsingParser()
 			@catch( NSException* e )
 			{
 				DDLogError( @"Exception while trying to parse SVG file, will store in parse results. Exception = %@", e);
-				[currentParseRun addParseErrorFatal:[NSError errorWithDomain:@"SVGK Parsing" code:@"32523432" userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Exception = %@", e]}]];
+				[currentParseRun addParseErrorFatal:[NSError errorWithDomain:@"SVGK Parsing" code:32523432 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Exception = %@", e]}]];
 			}
 			
 			if( [currentParseRun.errorsFatal count] > 0 )
