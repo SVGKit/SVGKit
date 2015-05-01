@@ -92,7 +92,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 	else
 	if( [_href hasPrefix:@"data:"])
 	{
-		_href = [_href stringByReplacingOccurrencesOfString:@"\\s+" 
+		self.href = [_href stringByReplacingOccurrencesOfString:@"\\s+"
 												 withString:@""
 													options:NSRegularExpressionSearch
 													  range:NSMakeRange(0, [_href length]) ];
