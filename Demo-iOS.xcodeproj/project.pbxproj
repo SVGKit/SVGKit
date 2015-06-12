@@ -152,6 +152,9 @@
 		BD15857C199909B800461AA5 /* Coins.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD15857B199909B800461AA5 /* Coins.svg */; };
 		BD54E3DB1AB7A13A001039C0 /* parent-clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */; };
 		BDC40146199AA41900DFEA27 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */; };
+		BDC7EAB41B2A5960001F3161 /* CSS.css in Resources */ = {isa = PBXBuildFile; fileRef = BDC7EAB21B2A5960001F3161 /* CSS.css */; };
+		BDC7EAB51B2A5960001F3161 /* CSS.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC7EAB31B2A5960001F3161 /* CSS.svg */; };
+		BDC7EAB81B2A7E4A001F3161 /* CSS.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7EAB71B2A7E4A001F3161 /* CSS.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,6 +337,9 @@
 		BD15857B199909B800461AA5 /* Coins.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Coins.svg; sourceTree = "<group>"; };
 		BD54E3DA1AB7A13A001039C0 /* parent-clip.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "parent-clip.svg"; sourceTree = "<group>"; };
 		BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ImageAspectRatio.svg; sourceTree = "<group>"; };
+		BDC7EAB21B2A5960001F3161 /* CSS.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = CSS.css; sourceTree = "<group>"; };
+		BDC7EAB31B2A5960001F3161 /* CSS.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CSS.svg; sourceTree = "<group>"; };
+		BDC7EAB71B2A7E4A001F3161 /* CSS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CSS.png; sourceTree = "<group>"; };
 		D320E8CF1ACCFAEE00BD4E72 /* libCocoaLumberjack.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocoaLumberjack.a; path = "Build/Products/Debug-iphoneos/libCocoaLumberjack.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -403,6 +409,7 @@
 				661EEAAB1ACC3444007176B0 /* BlankMap-World6-Equirectangular.png */,
 				661EEAAC1ACC3444007176B0 /* breaking-1.png */,
 				661EEAAD1ACC3444007176B0 /* Coins.png */,
+				BDC7EAB71B2A7E4A001F3161 /* CSS.png */,
 				661EEAAE1ACC3444007176B0 /* CurvedDiamond.png */,
 				661EEAAF1ACC3444007176B0 /* Europe_states_reduced.png */,
 				661EEAB01ACC3444007176B0 /* g-element-applies-rotation.png */,
@@ -603,6 +610,8 @@
 				BD15857B199909B800461AA5 /* Coins.svg */,
 				BDC40145199AA41900DFEA27 /* ImageAspectRatio.svg */,
 				8805045A1AA624F20089554C /* radial-gradient-opacity.svg */,
+				BDC7EAB21B2A5960001F3161 /* CSS.css */,
+				BDC7EAB31B2A5960001F3161 /* CSS.svg */,
 			);
 			path = SVG;
 			sourceTree = "<group>";
@@ -734,6 +743,7 @@
 				4FD822401AD057F000E419D3 /* arcs02.svg in Resources */,
 				66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */,
 				661EEAA51ACC3053007176B0 /* shapes.png in Resources */,
+				BDC7EAB41B2A5960001F3161 /* CSS.css in Resources */,
 				66E862991688BA510059C9C4 /* Map.svg in Resources */,
 				66E8629B1688BA510059C9C4 /* Monkey.svg in Resources */,
 				661EEA7F1ACC2FBB007176B0 /* lingrad01.svg in Resources */,
@@ -742,11 +752,13 @@
 				BD15857C199909B800461AA5 /* Coins.svg in Resources */,
 				661EEAE91ACC3444007176B0 /* Text.png in Resources */,
 				661EEAEE1ACC3471007176B0 /* Coin.png in Resources */,
+				BDC7EAB81B2A7E4A001F3161 /* CSS.png in Resources */,
 				661EEA961ACC2FD4007176B0 /* lingrad01.png in Resources */,
 				66E8629C1688BA510059C9C4 /* Note.svg in Resources */,
 				66E8629D1688BA510059C9C4 /* Reinel_compass_rose-simplified-for-testing.svg in Resources */,
 				661EEA431ACC04F2007176B0 /* Licenses.plist in Resources */,
 				66E8629E1688BA510059C9C4 /* Reinel_compass_rose.svg in Resources */,
+				BDC7EAB51B2A5960001F3161 /* CSS.svg in Resources */,
 				66E8629F1688BA510059C9C4 /* test-wave-1.svg in Resources */,
 				66E862A01688BA510059C9C4 /* Text.svg in Resources */,
 				66E862A11688BA510059C9C4 /* uk-only.svg in Resources */,

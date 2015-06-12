@@ -24,6 +24,13 @@
 	</dict>
 	<key>Contributed</key>
 	<dict>
+		<key>CSS.svg</key>
+		<dict>
+			<key>Source Local File</key>
+			<string>CSS.svg</string>
+			<key>License</key>
+			<string>Public Domain</string>
+		</dict>
 		<key>bike-frame</key>
 		<dict>
 			<key>License</key>
