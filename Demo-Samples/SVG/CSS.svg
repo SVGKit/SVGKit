@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no"?>
+<?xml-stylesheet href="CSS.css" type="text/css"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <defs>
+        <style type="text/css">
+            #useLocal {
+                fill: #00FF00;
+            }
+        </style>
+    </defs>
+    <g style="fill:#660000">
+        <path id="byId" d="M52.4811,12.7338L56.9958,17.2485L35.4022,38.8422L22.6607,26.1007L27.5928,21.1686L35.8195,29.3954L52.4811,12.7338Z" fill="#ff0000"/>
+        <path id="idRed" d="M112.653,12.7338L117.168,17.2485L95.5739,38.8422L82.8324,26.1007L87.7645,21.1686L95.9912,29.3954L112.653,12.7338Z" fill="#ff0000"/>
+        <path id="elementAndClass" class="red" d="M172.481,12.7338L176.996,17.2485L155.402,38.8422L142.661,26.1007L147.593,21.1686L155.82,29.3954L172.481,12.7338Z" fill="#ff0000"/>
+        <path id="filler" class="red" d="M52.4811,62.7338L56.9958,67.2485L35.4022,88.8422L22.6607,76.1007L27.5928,71.1686L35.8195,79.3954L52.4811,62.7338Z" fill="#ff0000"/>
+        <path id="idAndClass" class="red" d="M112.653,62.7338L117.168,67.2485L95.5739,88.8422L82.8324,76.1007L87.7645,71.1686L95.9912,79.3954L112.653,62.7338Z" fill="#ff0000"/>
+        <path id="useLocal" d="M172.481,62.7338L176.996,67.2485L155.402,88.8422L142.661,76.1007L147.593,71.1686L155.82,79.3954L172.481,62.7338Z" fill="#ff0000"/>
+        <path id="useLast" d="M52.4811,112.734L56.9958,117.249L35.4022,138.842L22.6607,126.101L27.5928,121.169L35.8195,129.395L52.4811,112.734Z" fill="#ff0000"/>
+        <path id="style" d="M112.653,112.734L117.168,117.249L95.5739,138.842L82.8324,126.101L87.7645,121.169L95.9912,129.395L112.653,112.734Z" fill="#ff0000" style="fill:#00cc00"/>
+        <path id="inheritGroup" d="M172.481,112.734L176.996,117.249L155.402,138.842L142.661,126.101L147.593,121.169L155.82,129.395L172.481,112.734Z" fill="#ff0000"/>
+    </g>
+</svg>

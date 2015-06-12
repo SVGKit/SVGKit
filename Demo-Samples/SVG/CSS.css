@@ -1,0 +1,20 @@
+/* Use these: */
+path {
+	fill: #006600;
+}
+#checkId {
+	fill: #00FF00;
+}
+#groupRed path, path.red, path#idRed, #idAndClass.red, #byId {
+	fill: #00FF00;
+}
+
+/* These should get overridden: */
+.red, #idRed, #style, #useLocal, #idAndClass, #useLast {
+	fill: #FF0000;
+}
+
+/* Use this: */
+#useLast {
+	fill: #00FF00;
+}
