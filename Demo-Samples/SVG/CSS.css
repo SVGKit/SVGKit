@@ -2,19 +2,19 @@
 path {
 	fill: #006600;
 }
-#checkId {
-	fill: #00FF00;
+#check-id {
+	fill: #00ff00;
 }
-#groupRed path, path.red, path#idRed, #idAndClass.red, #byId {
-	fill: #00FF00;
+#group-red path, path.red, path#id-red, #id-and-class.red, #by-id {
+	fill: #00ff00;
 }
 
 /* These should get overridden: */
-.red, #idRed, #style, #useLocal, #idAndClass, #useLast {
-	fill: #FF0000;
+.red, #id-red, #style, #use-local, #id-and-class, #use-last {
+	fill: #ff0000;
 }
 
 /* Use this: */
-#useLast {
-	fill: #00FF00;
+#use-last {
+	fill: #00ff00;
 }

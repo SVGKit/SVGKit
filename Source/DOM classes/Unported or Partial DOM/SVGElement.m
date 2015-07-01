@@ -452,7 +452,8 @@
 
 - (NSRange) nextSelectorRangeFromText:(NSString *) selectorText startFrom:(NSRange) previous
 {
-    NSCharacterSet *alphaNum = [NSCharacterSet alphanumericCharacterSet];
+    NSMutableCharacterSet *identifier = [NSMutableCharacterSet alphanumericCharacterSet];
+    [identifier addCharactersInString:@"-_"];
 	NSCharacterSet *selectorStart = [NSCharacterSet characterSetWithCharactersInString:@"#."];
     
     NSInteger start = -1;
@@ -467,7 +468,7 @@
             else
                 break;
         }
-        else if( [alphaNum characterIsMember:c] )
+        else if( [identifier characterIsMember:c] )
         {
             if( start == -1 )
                 start = i;
