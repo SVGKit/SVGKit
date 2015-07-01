@@ -8,6 +8,12 @@ path {
 #group-red path, path.red, path#id-red, #id-and-class.red, #by-id {
 	fill: #00ff00;
 }
+#hidden {
+	visibility: hidden;
+}
+#display-none {
+	display: none;
+}
 
 /* These should get overridden: */
 .red, #id-red, #style, #use-local, #id-and-class, #use-last {
