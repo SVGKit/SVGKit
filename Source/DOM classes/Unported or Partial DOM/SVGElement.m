@@ -490,10 +490,23 @@
 {
     if( [selector characterAtIndex:0] == '.' )
     {
-        if( element.className != nil && [element.className isEqualToString:[selector substringFromIndex:1]] )
+        if( element.className != nil )
         {
-            *specificity += 100;
-            return YES;
+            selector = [selector substringFromIndex:1];
+            __block BOOL matched = NO;
+            [element.className enumerateSubstringsInRange:NSMakeRange(0, element.className.length) options:NSStringEnumerationByWords usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop)
+             {
+                 if( [substring isEqualToString:selector] )
+                 {
+                     matched = YES;
+                     *stop = YES;
+                 }
+             }];
+            if( matched )
+            {
+                *specificity += 100;
+                return YES;
+            }
         }
     }
     else if( [selector characterAtIndex:0] == '#' )
