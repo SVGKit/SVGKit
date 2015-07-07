@@ -365,7 +365,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	DDLogWarn(@"[%@] PATH: LINE to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
 #endif
 	
-    [SVGKPointsAndPathsParser readWhitespace:scanner];
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
 	
 	while( ![scanner isAtEnd])
 	{
@@ -377,7 +377,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 		DDLogWarn(@"[%@] PATH: LINE to %2.2f, %2.2f", [SVGKPointsAndPathsParser class], coord.x, coord.y );
 #endif
 		
-		[SVGKPointsAndPathsParser readWhitespace:scanner];
+		[SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
 	}
     
     return coord;
