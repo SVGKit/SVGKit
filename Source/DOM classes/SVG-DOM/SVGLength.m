@@ -129,16 +129,21 @@ static float cachedDevicePixelsPerInch;
 	sysctlbyname("hw.machine", machine, &size, NULL, 0);
 	NSString *platform = [NSString stringWithUTF8String:machine];
 	free(machine);
-	
+    
 	if( [platform hasPrefix:@"iPhone1"]
 	|| [platform hasPrefix:@"iPhone2"]
 	|| [platform hasPrefix:@"iPhone3"])
 		return 163.0f;
 	
 	if( [platform hasPrefix:@"iPhone4"]
-	|| [platform hasPrefix:@"iPhone5"])
-		return 326.0f;
-	
+       || [platform hasPrefix:@"iPhone5"]
+       || [platform hasPrefix:@"iPhone6"] // 5s
+       || [platform hasPrefix:@"iPhone7,2"]) // 6
+        return 326.0f;
+    
+	if( [platform hasPrefix:@"iPhone7,1"]) // 6+
+        return 401.0f;
+    
 	if( [platform hasPrefix:@"iPhone"]) // catch-all for higher-end devices not yet existing
 	{
 		NSAssert(FALSE, @"Not supported yet: you are using an iPhone that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
