@@ -24,10 +24,20 @@
 	{
     	self.borderColor = [UIColor blackColor].CGColor;
 		
-		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
+        [self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
+
+- (void)dealloc
+{
+    @try{
+        [self removeObserver:self forKeyPath:@"showBorder"];
+    }@catch(id anException){
+        //do nothing, obviously it wasn't attached because an exception was thrown
+    }
+}
+
 -(void)setSVGImage:(SVGKImage *) newImage
 {
 	if( newImage == _SVGImage )
