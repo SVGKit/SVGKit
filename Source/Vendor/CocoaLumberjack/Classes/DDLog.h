@@ -72,7 +72,7 @@
  *
  * if (LOG_VERBOSE) {
  *     for (id sprocket in sprockets)
- *         SVGKitLogVerbose(@"sprocket: %@", [sprocket description])
+ *         DDLogVerbose(@"sprocket: %@", [sprocket description])
  * }
  *
  * -- Async --
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, DDLogLevel) {
  * The THIS_FILE macro gives you an NSString of the file name.
  * For simplicity and clarity, the file name does not include the full path or file extension.
  *
- * For example: SVGKitLogWarn(@"%@: Unable to find thingy", THIS_FILE) -> @"MyViewController: Unable to find thingy"
+ * For example: DDLogWarn(@"%@: Unable to find thingy", THIS_FILE) -> @"MyViewController: Unable to find thingy"
  **/
 
 NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
@@ -129,7 +129,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
 /**
  * The THIS_METHOD macro gives you the name of the current objective-c method.
  *
- * For example: SVGKitLogWarn(@"%@ - Requires non-nil strings", THIS_METHOD) -> @"setMake:model: requires non-nil strings"
+ * For example: DDLogWarn(@"%@ - Requires non-nil strings", THIS_METHOD) -> @"setMake:model: requires non-nil strings"
  *
  * Note: This does NOT work in straight C functions (non objective-c).
  * Instead you should use the predefined __FUNCTION__ macro.

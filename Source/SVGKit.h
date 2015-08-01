@@ -43,6 +43,17 @@
 #import "SVGKLayer.h"
 #import "TinySVGTextAreaElement.h"
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+#define SVGKIT_LOG_CONTEXT 556
+
+#define SVGKitLogError(frmt, ...)     SYNC_LOG_OBJC_MAYBE(ddLogLevel, DDLogFlagError,   SVGKIT_LOG_CONTEXT, frmt, ##__VA_ARGS__)
+#define SVGKitLogWarn(frmt, ...)     ASYNC_LOG_OBJC_MAYBE(ddLogLevel, DDLogFlagWarning,    SVGKIT_LOG_CONTEXT, frmt, ##__VA_ARGS__)
+#define SVGKitLogInfo(frmt, ...)     ASYNC_LOG_OBJC_MAYBE(ddLogLevel, DDLogFlagInfo,    SVGKIT_LOG_CONTEXT, frmt, ##__VA_ARGS__)
+#define SVGKitLogDebug(frmt, ...)    ASYNC_LOG_OBJC_MAYBE(ddLogLevel, DDLogFlagDebug,   SVGKIT_LOG_CONTEXT, frmt, ##__VA_ARGS__)
+#define SVGKitLogVerbose(frmt, ...)  ASYNC_LOG_OBJC_MAYBE(ddLogLevel, DDLogFlagVerbose, SVGKIT_LOG_CONTEXT, frmt, ##__VA_ARGS__)
+
+
 @interface SVGKit : NSObject
 
 + (void) enableLogging;
