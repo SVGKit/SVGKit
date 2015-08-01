@@ -180,7 +180,7 @@
 		}
 	}
 	
-	DDLogVerbose(@"Normalized prefixes:\n%@", normalizedPrefixesByNamespace );
+	SVGKitLogVerbose(@"Normalized prefixes:\n%@", normalizedPrefixesByNamespace );
 	return normalizedPrefixesByNamespace;
 }
 
