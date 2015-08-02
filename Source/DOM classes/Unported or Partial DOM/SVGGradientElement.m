@@ -168,9 +168,9 @@
 		gradientLayer.radius = radius;
 		
 #ifdef SVG_DEBUG_GRADIENTS
-		DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+		SVGKitLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
 		
-		DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+		SVGKitLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
 		
 		gradientLayer.centerPoint = gradientPoint;
@@ -246,9 +246,9 @@
 		}
 		
 #ifdef SVG_DEBUG_GRADIENTS
-        DDLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+        SVGKitLogVerbose(@"Gradient start point %@ end point %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
         
-        DDLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
+        SVGKitLogVerbose(@"SVGGradientElement gradientUnits == %@", gradientUnits);
 #endif
         
         //    return gradientLayer;
@@ -290,14 +290,14 @@
         _stops = nil;
     }
     
-//    DDLogVerbose(@"Setting gradient shiz");
+//    SVGKitLogVerbose(@"Setting gradient shiz");
     [gradientLayer setColors:_colors];
     [gradientLayer setLocations:_locations];
 	
-	DDLogVerbose(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
-	DDLogVerbose(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
-	DDLogVerbose(@"[%@] set gradient layer colors = %@", [self class], _colors);
-	DDLogVerbose(@"[%@] set gradient layer locations = %@", [self class], _locations);
+	SVGKitLogVerbose(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
+	SVGKitLogVerbose(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
+	SVGKitLogVerbose(@"[%@] set gradient layer colors = %@", [self class], _colors);
+	SVGKitLogVerbose(@"[%@] set gradient layer locations = %@", [self class], _locations);
 //    gradientLayer.colors = colors;
 //    gradientLayer.locations = locations;
     

@@ -73,7 +73,7 @@
 {
 	if( im == nil )
 	{
-		DDLogWarn(@"[%@] WARNING: you have initialized an [%@] with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class], [self class]);
+		SVGKitLogWarn(@"[%@] WARNING: you have initialized an [%@] with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class], [self class]);
 		
 		self.backgroundColor = [UIColor clearColor];
         
@@ -129,7 +129,7 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 </g> \
 </svg>";
         
-		DDLogInfo(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
+		SVGKitLogInfo(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
 		
 		SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
 		

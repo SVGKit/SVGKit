@@ -159,7 +159,7 @@
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
 	label.borderColor = [UIColor redColor].CGColor;
-	//DEBUG: DDLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
+	//DEBUG: SVGKitLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
 	*/
 	
     return label;

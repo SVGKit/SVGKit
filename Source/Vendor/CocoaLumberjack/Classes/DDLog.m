@@ -1033,10 +1033,10 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
     //
     // Furthermore, consider the following code:
     //
-    // DDLogVerbose(@"log msg 1");
-    // DDLogVerbose(@"log msg 2");
+    // SVGKitLogVerbose(@"log msg 1");
+    // SVGKitLogVerbose(@"log msg 2");
     // [logger setFormatter:myFormatter];
-    // DDLogVerbose(@"log msg 3");
+    // SVGKitLogVerbose(@"log msg 3");
     //
     // Our intuitive requirement means that the new formatter will only apply to the 3rd log message.
     // This must remain true even when using asynchronous logging.

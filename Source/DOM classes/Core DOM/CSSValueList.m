@@ -44,7 +44,7 @@
 	[_cssText retain];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
-	DDLogVerbose(@"[%@] received new CSS Text, need to split this and save as CSSValue instances: %@", [self class], _cssText);
+	SVGKitLogVerbose(@"[%@] received new CSS Text, need to split this and save as CSSValue instances: %@", [self class], _cssText);
 	
 	self.internalArray = [_cssText componentsSeparatedByString:@" "];
 }

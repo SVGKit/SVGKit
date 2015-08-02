@@ -43,6 +43,10 @@
 #import "SVGKLayer.h"
 #import "TinySVGTextAreaElement.h"
 
+#ifndef SVGKIT_LOG_CONTEXT
+    #define SVGKIT_LOG_CONTEXT 556
+#endif
+
 @interface SVGKit : NSObject
 
 + (void) enableLogging;
