@@ -1,0 +1,6 @@
+framework module DOMiOS {
+  umbrella header "DOMiOS.h"
+
+  export *
+  module * { export * }
+}

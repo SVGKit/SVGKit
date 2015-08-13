@@ -8,7 +8,7 @@
 #import "SVGUseElement.h"
 #import "SVGClipPathElement.h"
 #import "SVGSwitchElement.h"
-#import "NodeList+Mutable.h"
+#import <DOMiOS/NodeList+Mutable.h>
 
 #import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
 

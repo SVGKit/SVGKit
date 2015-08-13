@@ -1,6 +1,6 @@
 #import "SVGKParserDOM.h"
 
-#import "Node+Mutable.h"
+#import <DOMiOS/Node+Mutable.h>
 
 @implementation SVGKParserDOM
 

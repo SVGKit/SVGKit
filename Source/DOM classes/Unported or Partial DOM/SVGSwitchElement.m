@@ -2,7 +2,7 @@
 #import "SVGSwitchElement.h"
 #import "CALayerWithChildHitTest.h"
 #import "SVGHelperUtilities.h"
-#import "NodeList+Mutable.h"
+#import <DOMiOS/NodeList+Mutable.h>
 
 @implementation SVGSwitchElement
 

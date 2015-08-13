@@ -8,8 +8,8 @@
 
 #import "SVGKParserStyles.h"
 
-#import "CSSStyleSheet.h"
-#import "StyleSheetList+Mutable.h"
+#import <DOMiOS/DOMiOS.h>
+#import <DOMiOS/StyleSheetList+Mutable.h>
 
 @implementation SVGKParserStyles
 
