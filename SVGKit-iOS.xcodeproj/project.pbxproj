@@ -240,16 +240,12 @@
 		825CDAC91BDA4D09003C1C12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634116148CDF00E58CCA /* QuartzCore.framework */; };
 		825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639619116145D0400E58CCA /* Foundation.framework */; };
 		825CDACB1BDA4D14003C1C12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634616148DEC00E58CCA /* CoreGraphics.framework */; };
-		825CDACD1BDA4D20003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDACC1BDA4D20003C1C12 /* libxml2.tbd */; };
 		825CDAD61BDA4D38003C1C12 /* SVGKitFramework-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 825CDAD51BDA4D38003C1C12 /* SVGKitFramework-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDADD1BDA4D38003C1C12 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAD31BDA4D38003C1C12 /* SVGKit.framework */; };
 		825CDAE21BDA4D39003C1C12 /* SVGKitFramework_tvOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 825CDAE11BDA4D39003C1C12 /* SVGKitFramework_tvOSTests.m */; };
-		825CDAEC1BDA4D8B003C1C12 /* SVGKitFramework-tvOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 825CDAEB1BDA4D8B003C1C12 /* SVGKitFramework-tvOS-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDAEE1BDA4E07003C1C12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAED1BDA4E07003C1C12 /* QuartzCore.framework */; };
 		825CDAF01BDA4E0E003C1C12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAEF1BDA4E0E003C1C12 /* Foundation.framework */; };
 		825CDAF21BDA4E16003C1C12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF11BDA4E16003C1C12 /* CoreGraphics.framework */; };
-		825CDAF41BDA4E1F003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */; };
-		825CDAF61BDA4FE5003C1C12 /* SVGKitFramework-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 825CDAC61BDA4C4B003C1C12 /* SVGKitFramework-iOS-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDAF71BDA5057003C1C12 /* AppleSucksDOMImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDAF81BDA5057003C1C12 /* Attr.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863101688C2770059C9C4 /* Attr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDAF91BDA5057003C1C12 /* CDATASection.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E863121688C2770059C9C4 /* CDATASection.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -706,6 +702,10 @@
 		825CDCBC1BDA5144003C1C12 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
 		825CDCBD1BDA5144003C1C12 /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639C1688C2780059C9C4 /* SVGKPattern.m */; };
 		825CDCBE1BDA5144003C1C12 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639E1688C2780059C9C4 /* SVGUtils.m */; };
+		825CDCC31BDA5268003C1C12 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
+		825CDCC41BDA5271003C1C12 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
+		825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDACC1BDA4D20003C1C12 /* libxml2.tbd */; };
+		825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 		BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -743,6 +743,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 825CDAD21BDA4D38003C1C12;
 			remoteInfo = "SVGKitFramework-tvOS";
+		};
+		825CDCBF1BDA523B003C1C12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
+			remoteInfo = CocoaLumberjack;
+		};
+		825CDCC11BDA5242003C1C12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
+			remoteInfo = CocoaLumberjack;
 		};
 		D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1065,7 +1079,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825CDACD1BDA4D20003C1C12 /* libxml2.tbd in Frameworks */,
+				825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */,
+				825CDCC31BDA5268003C1C12 /* libCocoaLumberjack.a in Frameworks */,
 				825CDACB1BDA4D14003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */,
 				825CDAC91BDA4D09003C1C12 /* QuartzCore.framework in Frameworks */,
@@ -1084,7 +1099,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825CDAF41BDA4E1F003C1C12 /* libxml2.tbd in Frameworks */,
+				825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */,
+				825CDCC41BDA5271003C1C12 /* libCocoaLumberjack.a in Frameworks */,
 				825CDAF21BDA4E16003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDAF01BDA4E0E003C1C12 /* Foundation.framework in Frameworks */,
 				825CDAEE1BDA4E07003C1C12 /* QuartzCore.framework in Frameworks */,
@@ -1852,7 +1868,6 @@
 				825CDB741BDA5069003C1C12 /* NSData+NSInputStream.h in Headers */,
 				825CDB751BDA5069003C1C12 /* SVGKPattern.h in Headers */,
 				825CDB761BDA506A003C1C12 /* SVGUtils.h in Headers */,
-				825CDAF61BDA4FE5003C1C12 /* SVGKitFramework-iOS-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1860,7 +1875,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825CDAEC1BDA4D8B003C1C12 /* SVGKitFramework-tvOS-Prefix.pch in Headers */,
 				825CDB771BDA50B3003C1C12 /* AppleSucksDOMImplementation.h in Headers */,
 				825CDB781BDA50B3003C1C12 /* Attr.h in Headers */,
 				825CDB791BDA50B3003C1C12 /* CDATASection.h in Headers */,
@@ -2046,6 +2060,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				825CDCC01BDA523B003C1C12 /* PBXTargetDependency */,
 			);
 			name = "SVGKitFramework-iOS";
 			productName = "SVGKitFramework-iOS";
@@ -2082,6 +2097,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				825CDCC21BDA5242003C1C12 /* PBXTargetDependency */,
 			);
 			name = "SVGKitFramework-tvOS";
 			productName = "SVGKitFramework-tvOS";
@@ -2598,6 +2614,16 @@
 			target = 825CDAD21BDA4D38003C1C12 /* SVGKitFramework-tvOS */;
 			targetProxy = 825CDADE1BDA4D38003C1C12 /* PBXContainerItemProxy */;
 		};
+		825CDCC01BDA523B003C1C12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaLumberjack;
+			targetProxy = 825CDCBF1BDA523B003C1C12 /* PBXContainerItemProxy */;
+		};
+		825CDCC21BDA5242003C1C12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaLumberjack;
+			targetProxy = 825CDCC11BDA5242003C1C12 /* PBXContainerItemProxy */;
+		};
 		D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CocoaLumberjack;
@@ -2813,6 +2839,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "SVGKitFramework-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2860,6 +2887,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "SVGKitFramework-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2972,6 +3000,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "SVGKitFramework-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -3019,6 +3048,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "SVGKitFramework-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
