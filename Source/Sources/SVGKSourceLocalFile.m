@@ -6,6 +6,14 @@
 
 @implementation SVGKSourceLocalFile
 
+static NSBundle *_bundle;
+
++ (void)setBundle:(NSBundle *)bundle
+{
+    _bundle = bundle;
+}
+
+
 -(NSString *)keyForAppleDictionaries
 {
 	return self.filePath;
@@ -52,7 +60,14 @@
 	
 	/** First, try to find it in the project BUNDLE (this was HARD CODED at compile time; can never be changed!) */
 	NSString *pathToFileInBundle = nil;
-	NSBundle *bundle = [NSBundle mainBundle];
+    
+    NSBundle *bundle;
+    if (_bundle == nil) {
+        bundle = [NSBundle mainBundle];
+    } else {
+        bundle = _bundle;
+    }
+    
 	if( bundle != nil )
 	{
 		pathToFileInBundle = [bundle pathForResource:newName ofType:extension];
