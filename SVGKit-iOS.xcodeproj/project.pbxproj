@@ -234,13 +234,11 @@
 		66F33DD1182FE1C4004464AC /* SVGPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DCF182FE1C4004464AC /* SVGPreserveAspectRatio.m */; };
 		66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
-		825CDAB21BDA4BC0003C1C12 /* SVGKitFramework-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 825CDAB11BDA4BC0003C1C12 /* SVGKitFramework-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDAB91BDA4BC0003C1C12 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAAF1BDA4BC0003C1C12 /* SVGKit.framework */; };
 		825CDABE1BDA4BC0003C1C12 /* SVGKitFramework_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 825CDABD1BDA4BC0003C1C12 /* SVGKitFramework_iOSTests.m */; };
 		825CDAC91BDA4D09003C1C12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634116148CDF00E58CCA /* QuartzCore.framework */; };
 		825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639619116145D0400E58CCA /* Foundation.framework */; };
 		825CDACB1BDA4D14003C1C12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634616148DEC00E58CCA /* CoreGraphics.framework */; };
-		825CDAD61BDA4D38003C1C12 /* SVGKitFramework-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 825CDAD51BDA4D38003C1C12 /* SVGKitFramework-tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825CDADD1BDA4D38003C1C12 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAD31BDA4D38003C1C12 /* SVGKit.framework */; };
 		825CDAE21BDA4D39003C1C12 /* SVGKitFramework_tvOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 825CDAE11BDA4D39003C1C12 /* SVGKitFramework_tvOSTests.m */; };
 		825CDAEE1BDA4E07003C1C12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAED1BDA4E07003C1C12 /* QuartzCore.framework */; };
@@ -1739,7 +1737,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825CDAB21BDA4BC0003C1C12 /* SVGKitFramework-iOS.h in Headers */,
 				825CDAF71BDA5057003C1C12 /* AppleSucksDOMImplementation.h in Headers */,
 				825CDAF81BDA5057003C1C12 /* Attr.h in Headers */,
 				825CDAF91BDA5057003C1C12 /* CDATASection.h in Headers */,
@@ -2003,7 +2000,6 @@
 				825CDBF41BDA50C4003C1C12 /* NSData+NSInputStream.h in Headers */,
 				825CDBF51BDA50C5003C1C12 /* SVGKPattern.h in Headers */,
 				825CDBF61BDA50C5003C1C12 /* SVGUtils.h in Headers */,
-				825CDAD61BDA4D38003C1C12 /* SVGKitFramework-tvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3170,6 +3166,7 @@
 				825CDAC11BDA4BC0003C1C12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		825CDAC51BDA4BC0003C1C12 /* Build configuration list for PBXNativeTarget "SVGKitFramework-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -3178,6 +3175,7 @@
 				825CDAC31BDA4BC0003C1C12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		825CDAE41BDA4D39003C1C12 /* Build configuration list for PBXNativeTarget "SVGKitFramework-tvOS" */ = {
 			isa = XCConfigurationList;
@@ -3186,6 +3184,7 @@
 				825CDAE61BDA4D39003C1C12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		825CDAE71BDA4D39003C1C12 /* Build configuration list for PBXNativeTarget "SVGKitFramework-tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -3194,6 +3193,7 @@
 				825CDAE91BDA4D39003C1C12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
