@@ -133,7 +133,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 + (SVGKImage *)imageNamed:(NSString *)name
 {
-    [self imageNamed:name inBundle:[NSBundle mainBundle]];
+    return [self imageNamed:name inBundle:[NSBundle mainBundle]];
 }
 
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
