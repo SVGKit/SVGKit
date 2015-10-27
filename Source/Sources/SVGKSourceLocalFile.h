@@ -8,10 +8,9 @@
 @property (nonatomic, retain) NSString* filePath;
 @property (nonatomic, readonly) BOOL wasRelative;
 
-+ (void)setBundle:(NSBundle *)bundle;
-
 + (SVGKSourceLocalFile*)sourceFromFilename:(NSString*)p;
 
-+ (SVGKSourceLocalFile*) internalSourceAnywhereInBundleUsingName:(NSString*) name;
++ (SVGKSourceLocalFile*) internalSourceAnywhereInBundleUsingName:(NSString *) name;
++ (SVGKSourceLocalFile *)internalSourceAnywhereInBundle:(NSBundle *)bundle usingName:(NSString *)name;
 
 @end
