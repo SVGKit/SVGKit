@@ -205,7 +205,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	NSParameterAssert(newSource != nil);
 	@synchronized(self) {
-	return [[[[self class] alloc] initWithSource:newSource] autorelease];
+        return [[[[self class] alloc] initWithSource:newSource] autorelease];
     }
 }
 
