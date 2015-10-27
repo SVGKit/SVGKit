@@ -88,7 +88,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 #pragma mark - Convenience initializers
 
-+ (SVGKImage *)imageNamed:(NSString *)name
++ (SVGKImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle
 {	
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
     if( globalSVGKImageCache == nil )
@@ -104,7 +104,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 #endif
 	
-	SVGKSource* source = [SVGKSourceLocalFile internalSourceAnywhereInBundleUsingName:name];
+    SVGKSource *source = [SVGKSourceLocalFile internalSourceAnywhereInBundle:bundle usingName:name];
 	
 	/**
 	 Key moment: init and parse the SVGKImage
@@ -129,6 +129,11 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
     
     return result;
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name
+{
+    [self imageNamed:name inBundle:[NSBundle mainBundle]];
 }
 
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
