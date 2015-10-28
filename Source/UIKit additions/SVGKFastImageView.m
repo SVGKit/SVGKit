@@ -8,7 +8,7 @@
 
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
-@property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+@property (nonatomic, strong) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
 @end
 
 @implementation SVGKFastImageView
@@ -118,8 +118,7 @@
     if (_image) {
         [_image removeObserver:self forKeyPath:@"size" context:(__bridge void * _Nullable)(internalContextPointerBecauseApplesDemandsIt)];
     }
-    [_image release];
-    _image = [image retain];
+    _image = image;
     
     /** redraw-observers */
     if( self.disableAutoRedrawAtHighestResolution )
@@ -181,12 +180,8 @@
         [_image removeObserver:self forKeyPath:@"size" context:(__bridge void * _Nullable)(internalContextPointerBecauseApplesDemandsIt)];
     }
     
-    [_image release];
 	_image = nil;
-    self.startRenderTime = nil;
-    self.endRenderTime = nil;
 	
-    [super dealloc];
 }
 
 /** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */

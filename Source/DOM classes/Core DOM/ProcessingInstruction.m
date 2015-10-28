@@ -9,8 +9,8 @@
 #import "ProcessingInstruction.h"
 
 @interface ProcessingInstruction()
-@property(nonatomic,retain,readwrite) NSString* target;
-@property(nonatomic,retain,readwrite) NSString* data;
+@property(nonatomic,strong,readwrite) NSString* target;
+@property(nonatomic,strong,readwrite) NSString* data;
 @end
 
 @implementation ProcessingInstruction

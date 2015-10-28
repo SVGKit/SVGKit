@@ -22,12 +22,11 @@
 {
     if( _stops == nil )
 	{
-		_stops = [[NSArray arrayWithObject:gradientStop] retain];
+		_stops = [NSArray arrayWithObject:gradientStop];
 	}
 	else
 	{
-		[_stops autorelease];
-		_stops = [[_stops arrayByAddingObjectsFromArray:[NSArray arrayWithObject:gradientStop]] retain];
+		_stops = [_stops arrayByAddingObjectsFromArray:[NSArray arrayWithObject:gradientStop]];
 	}
 }
 
@@ -281,12 +280,9 @@
         }
         
         _colors = [[NSArray alloc] initWithArray:colorBuilder];
-        [colorBuilder release];
         
         _locations = [[NSArray alloc] initWithArray:locationBuilder];
-        [locationBuilder release];
         
-        [_stops release];
         _stops = nil;
     }
     
@@ -352,15 +348,5 @@
 	
 }
 
--(void)dealloc
-{
-    [_stops release];
-    _stops = nil;
-    
-    [_colors release];
-    [_locations release];
-    
-    [super dealloc];
-}
 
 @end

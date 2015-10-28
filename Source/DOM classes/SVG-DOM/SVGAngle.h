@@ -35,7 +35,7 @@ typedef enum SVGKAngleType
 @property(nonatomic, readonly) SVGKAngleType unitType;
 @property(nonatomic) float value;
 @property(nonatomic) float valueInSpecifiedUnits;
-@property(nonatomic,retain) NSString* valueAsString;
+@property(nonatomic,strong) NSString* valueAsString;
 
 -(void) newValueSpecifiedUnits:(SVGKAngleType) unitType valueInSpecifiedUnits:(float) valueInSpecifiedUnits;
 -(void) convertToSpecifiedUnits:(SVGKAngleType) unitType;

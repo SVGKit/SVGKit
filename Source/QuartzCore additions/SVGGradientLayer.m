@@ -25,8 +25,6 @@
 
 - (void)dealloc {
     CGPathRelease(maskPath);
-    [stopIdentifiers release];
-    [super dealloc];
 }
 
 - (void)setMaskPath:(CGPathRef)maskP {
@@ -53,7 +51,7 @@
         CGColorSpaceRef colorSpace = NULL;
 		
         if (self.colors.count) {
-            CGColorRef colorRef = (CGColorRef)[self.colors objectAtIndex:0];
+            CGColorRef colorRef = (__bridge CGColorRef)[self.colors objectAtIndex:0];
             //NOT USED: numbOfComponents = CGColorGetNumberOfComponents(colorRef);
             colorSpace = CGColorGetColorSpace(colorRef);
             

@@ -15,9 +15,6 @@
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (CALayer *) newLayer
 {
@@ -81,7 +78,7 @@
 	 3. Ask apple how big the final thing should be
 	 4. Use that to provide a layer.frame
 	 */
-	NSMutableAttributedString* tempString = [[[NSMutableAttributedString alloc] initWithString:effectiveText] autorelease];
+	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
 	[tempString addAttribute:(NSString *)kCTFontAttributeName
 					  value:(__bridge id)font
 					  range:NSMakeRange(0, tempString.string.length)];

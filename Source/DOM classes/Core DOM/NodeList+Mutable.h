@@ -6,6 +6,6 @@
 
 @interface NodeList()
 
-@property(nonatomic,retain) NSMutableArray* internalArray;
+@property(nonatomic,strong) NSMutableArray* internalArray;
 
 @end

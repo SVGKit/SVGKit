@@ -39,7 +39,7 @@ typedef enum SVGLengthAdjust
 
 @interface SVGTextContentElement : SVGElement <SVGStylable>
 	
-@property(nonatomic,readonly) SVGLength* /* FIXMED: should be SVGAnimatedLength*/ textLength;
+@property(weak, nonatomic,readonly) SVGLength* /* FIXMED: should be SVGAnimatedLength*/ textLength;
 /**FIXME: missing:	readonly attribute SVGAnimatedEnumeration lengthAdjust;*/
 
 /**FIXME: missing:	

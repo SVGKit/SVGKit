@@ -28,7 +28,7 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithFileAtPath:p];
 	//DO NOT DO THIS: let the parser do it at last possible moment (Apple has threading problems otherwise!) [stream open];
 	
-	SVGKSourceLocalFile* s = [[[SVGKSourceLocalFile alloc] initWithInputSteam:stream] autorelease];
+	SVGKSourceLocalFile* s = [[SVGKSourceLocalFile alloc] initWithInputSteam:stream];
 	s.filePath = p;
 	s.approximateLengthInBytesOr0 = [self sizeInBytesOfFilePath:p];
 	
@@ -96,7 +96,7 @@
 	if( copy )
 	{	
 		/** clone bits */
-		[copy setFilePath:[[self.filePath copy] autorelease]];
+		[copy setFilePath:[self.filePath copy]];
 		[copy setWasRelative:self.wasRelative];
 		
 		/** Finally, manually intialize the input stream, as required by super class */
@@ -123,9 +123,5 @@
 	return [NSString stringWithFormat:@"File: %@%@\"%@\" (%llu bytes)", self.wasRelative? @"(relative) " : @"", fileExists?@"":@"NOT FOUND!  ", self.filePath, self.approximateLengthInBytesOr0 ];
 }
 
-- (void)dealloc {
-	self.filePath = nil;
-	[super dealloc];
-}
 
 @end

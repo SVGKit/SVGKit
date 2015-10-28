@@ -73,7 +73,7 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
     if (self) {
         self.rootView = v;
         
-        propertyRegistry = [[NSMutableDictionary dictionary] retain];
+        propertyRegistry = [NSMutableDictionary dictionary];
         
         NSArray* CALayerProperties = [NSArray arrayWithObjects:@"name", @"bounds", @"frame", nil];
         [propertyRegistry setObject:CALayerProperties
@@ -86,10 +86,6 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
     return self;
 }
 
-- (void)dealloc {
-    [rootView release];
-    [super dealloc];
-}
 
 - (void)startExport
 {

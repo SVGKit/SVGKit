@@ -30,7 +30,7 @@ static NSDictionary *elementMap;
 	if (self) {
 		
 		if (!elementMap) {
-			elementMap = [[NSDictionary dictionaryWithObjectsAndKeys:
+			elementMap = [NSDictionary dictionaryWithObjectsAndKeys:
 						   [SVGSVGElement class], @"svg",
                           [SVGCircleElement class], @"circle",
                           [SVGDescriptionElement class], @"description",
@@ -47,16 +47,12 @@ static NSDictionary *elementMap;
                           [SVGTitleElement class], @"title",
                           [SVGTextElement class], @"text",
                           [TinySVGTextAreaElement class], @"textArea",
-						   nil] retain];
+						   nil];
 		}
 	}
 	return self;
 }
 
-- (void)dealloc {
-	
-	[super dealloc];
-}
 
 -(NSArray*) supportedNamespaces
 {
@@ -95,7 +91,7 @@ static NSDictionary *elementMap;
 		
 		NSString* qualifiedName = (prefix == nil) ? name : [NSString stringWithFormat:@"%@:%@", prefix, name];
 		/** NB: must supply a NON-qualified name if we have no specific prefix here ! */
-		SVGElement *element = [[[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes] autorelease];
+		SVGElement *element = [[elementClass alloc] initWithQualifiedName:qualifiedName inNameSpaceURI:XMLNSURI attributes:attributes];
 		
 		/** NB: all the interesting handling of shared / generic attributes - e.g. the whole of CSS styling etc - takes place in this method: */
 		[element postProcessAttributesAddingErrorsTo:parseResult];
@@ -168,7 +164,7 @@ static NSDictionary *elementMap;
 			{
 				NSAssert( [element isKindOfClass:[SVGSVGElement class]], @"Trying to create a new internal SVGDocument from a Node that is NOT of type SVGSVGElement (tag: svg). Node was of type: %@", NSStringFromClass([element class]));
 				
-				SVGDocument* newDocument = [[[SVGDocument alloc] init] autorelease];
+				SVGDocument* newDocument = [[SVGDocument alloc] init];
 				newDocument.rootElement = (SVGSVGElement*) element;
 				
 				if( overwriteRootSVGDocument )

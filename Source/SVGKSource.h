@@ -22,8 +22,8 @@
 
 @interface SVGKSource : NSObject <NSCopying>
 
-@property (nonatomic, retain) NSString* svgLanguageVersion; /*< <svg version=""> */
-@property (nonatomic, retain) NSInputStream* stream;
+@property (nonatomic, strong) NSString* svgLanguageVersion; /*< <svg version=""> */
+@property (nonatomic, strong) NSInputStream* stream;
 
 /** If known, the amount of data in bytes contained in this source (e.g. the filesize for a
  file, or the Content-Length header for a URL). Otherwise "0" for "unknown" */
@@ -32,7 +32,7 @@
 /** Apple's NSDictionary has major design bugs, it does NOT support OOP programming;
  it is implemented on top of a C/C++ basic Strings table, and if you want to put objects
  in as keys, you have to generate a unique-but-stable string from each instead */
-@property(nonatomic,retain) NSString* keyForAppleDictionaries;
+@property(nonatomic,strong) NSString* keyForAppleDictionaries;
 
 /** This should ONLY be used by subclasses that are implementing NSCopying methods. All other
  uses are discouraged / dangerous. If you use this, you MUST manually set self.stream correctly */
