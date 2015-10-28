@@ -276,7 +276,7 @@
             [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
 //            theColor = CGColorWithSVGColor([theStop stopColor]);
             //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-            [colorBuilder addObject:(id)CGColorWithSVGColor([theStop stopColor])];
+            [colorBuilder addObject:(__bridge id)CGColorWithSVGColor([theStop stopColor])];
             //        CGColorRelease(alphaColor);
         }
         

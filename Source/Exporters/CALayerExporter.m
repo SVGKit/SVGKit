@@ -9,8 +9,8 @@
 #import "CALayerExporter.h"
 
 typedef struct ExportPathCommandsContext {
-    NSString* pathName;
-    NSMutableString* pathCommands;
+    __unsafe_unretained NSString* pathName;
+    __unsafe_unretained NSMutableString* pathCommands;
 } ExportPathCommandsContext;
 
 void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *element)

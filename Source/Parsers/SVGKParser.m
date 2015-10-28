@@ -745,9 +745,9 @@ static void errorEncounteredSAX (void *ctx, const char *msg, ...) {
 	SVGKitLogWarn(@"Error encountered during parse: %s", msg);
 	SVGKParser* self = getCurrentlyParsingParser();
 	SVGKParseResult* parseResult = self.currentParseRun;
-	[parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																				  (NSString*) msg, NSLocalizedDescriptionKey,
-																				nil]]];
+    
+    NSString *messageString = [NSString stringWithUTF8String:msg];
+    [parseResult addSAXError:[NSError errorWithDomain:@"SVG-SAX" code:1 userInfo:@{ NSLocalizedDescriptionKey: messageString }]];
 }
 
 static void	unparsedEntityDeclaration(void * ctx,

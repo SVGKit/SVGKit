@@ -13,8 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class Node;
-@class MediaList;
+#import "Node.h"
+#import "MediaList.h"
 
 @interface StyleSheet : NSObject
 
