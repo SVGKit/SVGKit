@@ -44,9 +44,10 @@
  */
 -(void)setCssText:(NSString *)newCSSText
 {
-	[_cssText release];
-	_cssText = newCSSText;
-	[newCSSText retain];
+  NSString *oldCSSText = _cssText;
+  _cssText = newCSSText;
+  [_cssText retain];
+  [oldCSSText release];
 	
 	/** and now post-process it, *as required by* the CSS/DOM spec... */
 	NSMutableDictionary* processedStyles = [self NSDictionaryFromCSSAttributes:_cssText];

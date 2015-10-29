@@ -224,9 +224,10 @@
 
 -(void)setCssText:(NSString *)newCssText
 {
-	[_cssText release];
+  NSString *oldCSSText = _cssText;
 	_cssText = newCssText;
 	[_cssText retain];
+  [oldCSSText release];
 	
 	/** the css text value has been set, so we need to split the elements up and save them in the internal array */
 	if( _cssText == nil

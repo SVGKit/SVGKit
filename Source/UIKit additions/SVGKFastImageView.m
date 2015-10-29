@@ -118,8 +118,9 @@
     if (_image) {
         [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
     }
-    [_image release];
+    id temp = _image;
     _image = [image retain];
+    [temp release];
     
     /** redraw-observers */
     if( self.disableAutoRedrawAtHighestResolution )

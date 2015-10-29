@@ -43,9 +43,10 @@
 
 -(void)setRootElement:(SVGSVGElement *)rootElement
 {
-	[_rootElement release];
+  id oldRootElement = _rootElement;
 	_rootElement = rootElement;
 	[_rootElement retain];
+  [oldRootElement release];
 	
 	/*! SVG spec has two variables with same name, because DOM was written to support
 	 weak programming languages that don't provide full OOP polymorphism.
