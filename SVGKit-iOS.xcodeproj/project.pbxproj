@@ -702,10 +702,10 @@
 		825CDCBE1BDA5144003C1C12 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639E1688C2780059C9C4 /* SVGUtils.m */; };
 		825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDACC1BDA4D20003C1C12 /* libxml2.tbd */; };
 		825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */; };
-		8271B76E1BE1233700B9B34A /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271B7511BE122A700B9B34A /* CocoaLumberjack.framework */; };
-		8271B7701BE1235300B9B34A /* CocoaLumberjack.framework in Embed Framework */ = {isa = PBXBuildFile; fileRef = 8271B7511BE122A700B9B34A /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8271B7711BE1236400B9B34A /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271B75B1BE122A700B9B34A /* CocoaLumberjack.framework */; };
-		8271B7731BE1237800B9B34A /* CocoaLumberjack.framework in Embed Framework */ = {isa = PBXBuildFile; fileRef = 8271B75B1BE122A700B9B34A /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82E83E6C1BE36509003C865D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271B7511BE122A700B9B34A /* CocoaLumberjack.framework */; };
+		82E83E711BE3653E003C865D /* CocoaLumberjack.framework in Embed Framework */ = {isa = PBXBuildFile; fileRef = 8271B7511BE122A700B9B34A /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82E83E721BE3654C003C865D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271B75B1BE122A700B9B34A /* CocoaLumberjack.framework */; };
+		82E83E741BE3655F003C865D /* CocoaLumberjack.framework in Embed Framework */ = {isa = PBXBuildFile; fileRef = 8271B75B1BE122A700B9B34A /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 		BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -855,6 +855,20 @@
 			remoteGlobalIDString = 18F3BFF21A81E0C700692297;
 			remoteInfo = iOSLibStaticTest;
 		};
+		82E83E751BE36572003C865D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8271B7391BE122A700B9B34A /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 19FF46011B8B4CF400B43179;
+			remoteInfo = "CocoaLumberjack-iOS";
+		};
+		82E83E771BE36579003C865D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8271B7391BE122A700B9B34A /* Lumberjack.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 19D90B071BBFA9DB00947169;
+			remoteInfo = "CocoaLumberjack-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -873,7 +887,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8271B7701BE1235300B9B34A /* CocoaLumberjack.framework in Embed Framework */,
+				82E83E711BE3653E003C865D /* CocoaLumberjack.framework in Embed Framework */,
 			);
 			name = "Embed Framework";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -884,7 +898,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8271B7731BE1237800B9B34A /* CocoaLumberjack.framework in Embed Framework */,
+				82E83E741BE3655F003C865D /* CocoaLumberjack.framework in Embed Framework */,
 			);
 			name = "Embed Framework";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1183,7 +1197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8271B76E1BE1233700B9B34A /* CocoaLumberjack.framework in Frameworks */,
+				82E83E6C1BE36509003C865D /* CocoaLumberjack.framework in Frameworks */,
 				825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */,
 				825CDACB1BDA4D14003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */,
@@ -1203,7 +1217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8271B7711BE1236400B9B34A /* CocoaLumberjack.framework in Frameworks */,
+				82E83E721BE3654C003C865D /* CocoaLumberjack.framework in Frameworks */,
 				825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */,
 				825CDAF21BDA4E16003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDAF01BDA4E0E003C1C12 /* Foundation.framework in Frameworks */,
@@ -2177,6 +2191,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				82E83E761BE36572003C865D /* PBXTargetDependency */,
 			);
 			name = "SVGKitFramework-iOS";
 			productName = "SVGKitFramework-iOS";
@@ -2214,6 +2229,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				82E83E781BE36579003C865D /* PBXTargetDependency */,
 			);
 			name = "SVGKitFramework-tvOS";
 			productName = "SVGKitFramework-tvOS";
@@ -2835,6 +2851,16 @@
 			isa = PBXTargetDependency;
 			target = 825CDAD21BDA4D38003C1C12 /* SVGKitFramework-tvOS */;
 			targetProxy = 825CDADE1BDA4D38003C1C12 /* PBXContainerItemProxy */;
+		};
+		82E83E761BE36572003C865D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CocoaLumberjack-iOS";
+			targetProxy = 82E83E751BE36572003C865D /* PBXContainerItemProxy */;
+		};
+		82E83E781BE36579003C865D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CocoaLumberjack-tvOS";
+			targetProxy = 82E83E771BE36579003C865D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

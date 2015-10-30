@@ -42,6 +42,8 @@ typedef enum SVG_LENGTH_TYPE
 	 SVG_LENGTHTYPE_PC = 10
 } SVG_LENGTH_TYPE;
 
+// setting tvOS screen size default value
+static double tvScreenDiagonalSizeInInches = 32.0;
 
 @interface SVGLength : NSObject
 
