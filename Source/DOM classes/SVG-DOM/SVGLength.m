@@ -143,9 +143,15 @@ static float cachedDevicePixelsPerInch;
 	
 	if( [platform hasPrefix:@"iPhone4"]
 	|| [platform hasPrefix:@"iPhone5"]
-	|| [platform hasPrefix:@"iPhone6"])
+	|| [platform hasPrefix:@"iPhone6"]
+    || [platform hasPrefix:@"iPhone7,1"]
+    || [platform hasPrefix:@"iPhone8,1"])
 		return 326.0f;
 	
+    if( [platform hasPrefix:@"iPhone7,2"]
+    || [platform hasPrefix:@"iPhone8,2"])
+        return 401.0f;
+    
 	if( [platform hasPrefix:@"iPhone"]) // catch-all for higher-end devices not yet existing
 	{
 		NSAssert(FALSE, @"Not supported yet: you are using an iPhone that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
