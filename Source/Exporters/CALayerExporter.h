@@ -19,7 +19,7 @@
 }
 
 @property (readwrite,nonatomic,strong) UIView* rootView;
-@property (readwrite,nonatomic,weak) id<CALayerExporterDelegate> delegate;
+@property (readwrite,nonatomic,assign) id<CALayerExporterDelegate> delegate;
 
 - (CALayerExporter*) initWithView:(UIView*)v;
 - (void) startExport;
