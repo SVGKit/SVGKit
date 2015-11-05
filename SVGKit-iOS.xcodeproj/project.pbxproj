@@ -2268,7 +2268,6 @@
 					};
 					825CDAAE1BDA4BC0003C1C12 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 767S6EFMJ8;
 					};
 					825CDAB71BDA4BC0003C1C12 = {
 						CreatedOnToolsVersion = 7.1;
