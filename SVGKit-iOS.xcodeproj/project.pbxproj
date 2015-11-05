@@ -21,6 +21,7 @@
 		55452C0A19EC6C9B00B75A30 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0319EC6C9B00B75A30 /* Lion.svg */; };
 		55452C0B19EC6C9B00B75A30 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0419EC6C9B00B75A30 /* Monkey.svg */; };
 		55452C0C19EC6C9B00B75A30 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0519EC6C9B00B75A30 /* Note.svg */; };
+		55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639633F16145DDC00E58CCA /* libxml2.dylib */; };
 		55825B3A19EC7B4700635497 /* SVGKit_iOS-RetainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661ADBF316CC2FBE006F4BC3 /* SVGTextPositioningElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */; };
@@ -703,6 +704,7 @@
 		825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */; };
 		82E83E6C1BE36509003C865D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271B7511BE122A700B9B34A /* CocoaLumberjack.framework */; };
 		82E83E711BE3653E003C865D /* CocoaLumberjack.framework in Embed Framework */ = {isa = PBXBuildFile; fileRef = 8271B7511BE122A700B9B34A /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82E83E721BE3654C003C865D /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8271B75B1BE122A700B9B34A /* CocoaLumberjack.framework */; };
 		82E83E741BE3655F003C865D /* CocoaLumberjack.framework in Embed Framework */ = {isa = PBXBuildFile; fileRef = 8271B75B1BE122A700B9B34A /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
@@ -937,6 +939,7 @@
 		66372F5916960D4E008C6C56 /* SVGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGRect.m; sourceTree = "<group>"; };
 		6639618E16145D0400E58CCA /* libSVGKit-iOS.1.2.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSVGKit-iOS.1.2.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6639619116145D0400E58CCA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6639633F16145DDC00E58CCA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		6639634116148CDF00E58CCA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6639634616148DEC00E58CCA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		663FD01216CAEF0B00CCBFB3 /* SVGHelperUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGHelperUtilities.h; sourceTree = "<group>"; };
@@ -1175,6 +1178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */,
 				55452BF719EC68A200B75A30 /* libSVGKit-iOS.1.2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1213,6 +1217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82E83E721BE3654C003C865D /* CocoaLumberjack.framework in Frameworks */,
 				825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */,
 				825CDAF21BDA4E16003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDAF01BDA4E0E003C1C12 /* Foundation.framework in Frameworks */,
@@ -1317,6 +1322,7 @@
 				825CDAEF1BDA4E0E003C1C12 /* Foundation.framework */,
 				825CDAED1BDA4E07003C1C12 /* QuartzCore.framework */,
 				825CDACC1BDA4D20003C1C12 /* libxml2.tbd */,
+				6639633F16145DDC00E58CCA /* libxml2.dylib */,
 				6639634616148DEC00E58CCA /* CoreGraphics.framework */,
 				6639634116148CDF00E58CCA /* QuartzCore.framework */,
 				6639619116145D0400E58CCA /* Foundation.framework */,
@@ -3216,14 +3222,13 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3266,7 +3271,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3274,7 +3279,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
