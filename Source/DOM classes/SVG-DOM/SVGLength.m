@@ -134,7 +134,7 @@ static float cachedDevicePixelsPerInch;
 
 +(float) pixelsPerInchForCurrentDevice
 {
-	/** Using this as reference: http://en.wikipedia.org/wiki/Retina_Display 
+	/** Using this as reference: http://en.wikipedia.org/wiki/Retina_Display and https://www.theiphonewiki.com/wiki/Models
       */
 	
 	size_t size;
@@ -189,7 +189,8 @@ static float cachedDevicePixelsPerInch;
 		return 132.0f;
 	if( [platform hasPrefix:@"iPad3"]
 	|| [platform hasPrefix:@"iPad4"]
-    || [platform hasPrefix:@"iPad5"])
+	|| [platform hasPrefix:@"iPad5"]
+	|| [platform hasPrefix:@"iPad6"])
 		return 264.0f;
 	if( [platform hasPrefix:@"iPad"]) // catch-all for higher-end devices not yet existing
 	{
