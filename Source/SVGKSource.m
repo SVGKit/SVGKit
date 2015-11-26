@@ -46,10 +46,5 @@
 	return nil;
 }
 
-- (void)dealloc {
-	self.svgLanguageVersion = nil;
-	self.stream = nil;
-	[super dealloc];
-}
 
 @end

@@ -22,13 +22,13 @@
 @interface SVGRectElement : BaseClassForAllSVGBasicShapes <SVGStylable, SVGTransformable>
 { }
 
-@property (nonatomic, retain, readonly) SVGLength* x;
-@property (nonatomic, retain, readonly) SVGLength* y;
-@property (nonatomic, retain, readonly) SVGLength* width;
-@property (nonatomic, retain, readonly) SVGLength* height;
+@property (nonatomic, strong, readonly) SVGLength* x;
+@property (nonatomic, strong, readonly) SVGLength* y;
+@property (nonatomic, strong, readonly) SVGLength* width;
+@property (nonatomic, strong, readonly) SVGLength* height;
 
-@property (nonatomic, retain, readonly) SVGLength* rx;
-@property (nonatomic, retain, readonly) SVGLength* ry;
+@property (nonatomic, strong, readonly) SVGLength* rx;
+@property (nonatomic, strong, readonly) SVGLength* ry;
 
 #pragma mark - Properties not in spec but are needed by ObjectiveC implementation to maintain
 

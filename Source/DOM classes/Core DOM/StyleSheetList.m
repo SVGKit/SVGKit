@@ -14,10 +14,6 @@
     return self;
 }
 
-- (void)dealloc {
-    self.internalArray = nil;
-    [super dealloc];
-}
 
 -(unsigned long)length
 {

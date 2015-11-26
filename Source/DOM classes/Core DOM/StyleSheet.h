@@ -13,17 +13,17 @@
 
 #import <Foundation/Foundation.h>
 
-@class Node;
-@class MediaList;
+#import "Node.h"
+#import "MediaList.h"
 
 @interface StyleSheet : NSObject
 
-@property(nonatomic,retain) NSString* type;
+@property(nonatomic,strong) NSString* type;
 @property(nonatomic) BOOL disabled;
-@property(nonatomic,retain) Node* ownerNode;
-@property(nonatomic,retain) StyleSheet* parentStyleSheet;
-@property(nonatomic,retain) NSString* href;
-@property(nonatomic,retain) NSString* title;
-@property(nonatomic,retain) MediaList* media;
+@property(nonatomic,strong) Node* ownerNode;
+@property(nonatomic,strong) StyleSheet* parentStyleSheet;
+@property(nonatomic,strong) NSString* href;
+@property(nonatomic,strong) NSString* title;
+@property(nonatomic,strong) MediaList* media;
 
 @end

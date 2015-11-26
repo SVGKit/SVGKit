@@ -6,10 +6,6 @@
 @synthesize matrix;
 @synthesize angle;
 
-- (void)dealloc {
-  [matrix release];
-  [super dealloc];
-}
 
 -(void) setMatrix:(SVGMatrix*) matrix { NSAssert( FALSE, @"Not implemented yet" ); }
 -(void) setTranslate:(float) tx ty:(float) ty { NSAssert( FALSE, @"Not implemented yet" ); }

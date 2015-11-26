@@ -10,8 +10,8 @@
 #import "NamedNodeMap_Iterable.h"
 
 @interface NamedNodeMap()
-@property(nonatomic,retain) NSMutableDictionary* internalDictionary;
-@property(nonatomic,retain) NSMutableDictionary* internalDictionaryOfNamespaces;
+@property(nonatomic,strong) NSMutableDictionary* internalDictionary;
+@property(nonatomic,strong) NSMutableDictionary* internalDictionaryOfNamespaces;
 @end
 
 @implementation NamedNodeMap
@@ -28,12 +28,6 @@
     return self;
 }
 
-- (void)dealloc {
-    self.internalDictionary = nil;
-	self.internalDictionaryOfNamespaces = nil;
-	
-    [super dealloc];
-}
 
 -(Node*) getNamedItem:(NSString*) name
 {
@@ -200,8 +194,8 @@
 -(id)copyWithZone:(NSZone *)zone
 {
 	NamedNodeMap* clone = [[NamedNodeMap allocWithZone:zone] init];
-	clone.internalDictionary = [[self.internalDictionary copyWithZone:zone] autorelease];
-	clone.internalDictionaryOfNamespaces = [[self.internalDictionaryOfNamespaces copyWithZone:zone] autorelease];
+	clone.internalDictionary = [self.internalDictionary copyWithZone:zone];
+	clone.internalDictionaryOfNamespaces = [self.internalDictionaryOfNamespaces copyWithZone:zone];
 	
 	return clone;
 }

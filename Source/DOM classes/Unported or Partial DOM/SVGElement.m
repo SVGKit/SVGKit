@@ -187,14 +187,6 @@
             ((SVGElement *) child).viewportElement = viewport;
 }
 
-- (void)dealloc {
-	[_stringValue release];
-	[_identifier release];
-	[xmlbase release];
-	self.className = nil;
-    self.style = nil;
-	[super dealloc];
-}
 
 - (void)loadDefaults {
 	// to be overriden by subclasses
@@ -218,7 +210,7 @@
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{
-		self.style = [[[CSSStyleDeclaration alloc] init] autorelease];
+		self.style = [[CSSStyleDeclaration alloc] init];
 		self.style.cssText = [self getAttribute:@"style"]; // causes all the LOCALLY EMBEDDED style info to be parsed
 	}
 	if( [self getAttributeNode:@"class"])
