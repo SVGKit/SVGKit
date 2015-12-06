@@ -152,7 +152,7 @@
   if (!self.didRegisterInternalRedrawObservers) return;
 	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
-	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+  self.didRegisterInternalRedrawObservers = false;
 }
 
 -(void)setDisableAutoRedrawAtHighestResolution:(BOOL)newValue
