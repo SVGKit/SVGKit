@@ -9,7 +9,7 @@
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
 @property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
-@property (nonatomic) BOOL didResigesterObservers, didResigesterInternalRedrawObservers;
+@property (nonatomic) BOOL didRegisterObservers, didRegisterInternalRedrawObservers;
 
 @end
 
@@ -130,8 +130,8 @@
     }
     
     /** other obeservers */
-  if (!self.didResigesterObservers) {
-    self.didResigesterObservers = true;
+  if (!self.didRegisterObservers) {
+    self.didRegisterObservers = true;
     [self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
     [self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
     [self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
@@ -141,15 +141,15 @@
 
 -(void) addInternalRedrawOnResizeObservers
 {
-  if (self.didResigesterInternalRedrawObservers) return;
-  self.didResigesterInternalRedrawObservers = true;
+  if (self.didRegisterInternalRedrawObservers) return;
+  self.didRegisterInternalRedrawObservers = true;
 	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) removeInternalRedrawOnResizeObservers
 {
-  if (!self.didResigesterInternalRedrawObservers) return;
+  if (!self.didRegisterInternalRedrawObservers) return;
 	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
 	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
@@ -179,7 +179,7 @@
 	else
 		[self removeInternalRedrawOnResizeObservers];
 	
-  if (self.didResigesterObservers) {
+  if (self.didRegisterObservers) {
     [self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
     [self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
     [self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
