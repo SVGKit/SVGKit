@@ -47,6 +47,8 @@
 	}
 }
 
+
+
 - (void)testReplacing {
 	@try {
 		@autoreleasepool {
@@ -80,6 +82,24 @@
         }
 		XCTAssertTrue(YES);
     }
+	@catch (NSException *exception) {
+		XCTFail(@"Exception Thrown: %@", exception);
+	}
+}
+
+- (void)testSettingImageMultipleTimes {
+	@try {
+		@autoreleasepool {
+			
+			SVGKFastImageView *imageView = [[SVGKFastImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+			imageView.image = nil;
+			imageView.image = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Note" ofType:@"svg"]];
+			imageView.image = [[SVGKImage alloc] initWithContentsOfFile:[self.pathsToSVGs pathForResource:@"Note" ofType:@"svg"]];
+			// Yes, this is ARC, yes we do this to quiet a warning
+			XCTAssertNoThrow(imageView = nil);
+		}
+		XCTAssertTrue(YES);
+	}
 	@catch (NSException *exception) {
 		XCTFail(@"Exception Thrown: %@", exception);
 	}

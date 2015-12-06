@@ -9,6 +9,8 @@
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
 @property (nonatomic, retain) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+@property (nonatomic) BOOL didRegisterObservers, didRegisterInternalRedrawObservers;
+
 @end
 
 @implementation SVGKFastImageView
@@ -115,9 +117,7 @@
         internalContextPointerBecauseApplesDemandsIt = @"Apple wrote the addObserver / KVO notification API wrong in the first place and now requires developers to pass around pointers to fake objects to make up for the API deficicineces. You have to have one of these pointers per object, and they have to be internal and private. They serve no real value.";
     }
 	
-    if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
-    }
+    [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
     [_image release];
     _image = [image retain];
     
@@ -130,23 +130,29 @@
     }
     
     /** other obeservers */
+  if (!self.didRegisterObservers) {
+    self.didRegisterObservers = true;
     [self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
     [self addObserver:self forKeyPath:@"tileRatio" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
     [self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
+  }
+
 }
 
 -(void) addInternalRedrawOnResizeObservers
 {
+  if (self.didRegisterInternalRedrawObservers) return;
+  self.didRegisterInternalRedrawObservers = true;
 	[self addObserver:self forKeyPath:@"layer" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer addObserver:self forKeyPath:@"transform" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
-	//[self.image addObserver:self forKeyPath:@"size" options:NSKeyValueObservingOptionNew context:internalContextPointerBecauseApplesDemandsIt];
 }
 
 -(void) removeInternalRedrawOnResizeObservers
 {
+  if (!self.didRegisterInternalRedrawObservers) return;
 	[self removeObserver:self  forKeyPath:@"layer" context:internalContextPointerBecauseApplesDemandsIt];
 	[self.layer removeObserver:self forKeyPath:@"transform" context:internalContextPointerBecauseApplesDemandsIt];
-	//[self.image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+  self.didRegisterInternalRedrawObservers = false;
 }
 
 -(void)setDisableAutoRedrawAtHighestResolution:(BOOL)newValue
@@ -173,15 +179,16 @@
 	else
 		[self removeInternalRedrawOnResizeObservers];
 	
-	[self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
-	[self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
-	[self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
-    
-    if (_image) {
-        [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
-    }
-    
-    [_image release];
+  if (self.didRegisterObservers) {
+    [self removeObserver:self forKeyPath:@"image" context:internalContextPointerBecauseApplesDemandsIt];
+    [self removeObserver:self forKeyPath:@"tileRatio" context:internalContextPointerBecauseApplesDemandsIt];
+    [self removeObserver:self forKeyPath:@"showBorder" context:internalContextPointerBecauseApplesDemandsIt];
+  }
+
+
+  
+  [_image removeObserver:self forKeyPath:@"size" context:internalContextPointerBecauseApplesDemandsIt];
+  [_image release];
 	_image = nil;
     self.startRenderTime = nil;
     self.endRenderTime = nil;
