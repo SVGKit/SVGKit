@@ -121,10 +121,13 @@
 						 For MEET, we have to SHRINK the viewbox's contents if they aren't as wide:high as the viewport:
 						 */
 						CGAffineTransform catRestoreAspectRatio;
-						if( ratioOfRatios > 1 )
-							catRestoreAspectRatio = CGAffineTransformMakeScale( 1.0 / ratioOfRatios, 1.0 );
-						else
-							catRestoreAspectRatio = CGAffineTransformMakeScale( 1.0, 1.0 * ratioOfRatios );
+						if( ratioOfRatios > 1 ) {
+ 							catRestoreAspectRatio = CGAffineTransformMakeScale( 1.0 / ratioOfRatios, 1.0 );
+						} else if (ratioOfRatios != 0) {
+ 							catRestoreAspectRatio = CGAffineTransformMakeScale( 1.0, 1.0 * ratioOfRatios );
+						} else {
+							catRestoreAspectRatio = CGAffineTransformIdentity;
+						}
 						
 						double xTranslationRequired;
 						double yTranslationRequired;
