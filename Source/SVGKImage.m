@@ -655,7 +655,13 @@ static NSMutableDictionary* globalSVGKImageCache;
 		if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)]) {
 			
 			CALayer *sublayer = [[self newLayerWithElement:(SVGElement<ConverterSVGToCALayer> *)child] autorelease];
-			
+			 if (saveParentNode) {   // Use element (offsets) adjust sublayers.   TODO: Size adjustment.
+                CGRect lFrame = sublayer.frame; // https://github.com/SVGKit/SVGKit/issues/384#issuecomment-159151069
+                lFrame.origin = CGPointMake( lFrame.origin.x + layer.frame.origin.x, lFrame.origin.y + layer.frame.origin.y );
+                sublayer.frame = lFrame;
+                //DEBUG	SVGKitLogVerbose(@"\t[%@] DEBUG:  childern (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([child class]), NSStringFromClass([sublayer class]), NSStringFromCGRect( sublayer.frame ), sublayer, child.identifier);
+            }
+
 			if (!sublayer) {
 				continue;
 			}
