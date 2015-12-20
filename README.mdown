@@ -8,8 +8,11 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 
   - v2.x = current "in development" branch with latest changes, fixes, features
     - NB: this is now automatically selected in GitHub as the "default" branch when you visit SVGKit's project page
-
-
+    - Cocoapods users: It is recommended that you setup your podfile to get svgkit from this 2.x branch (or a local fork from the 2.x branch). To do this enter the following in your podfile:
+        ```
+        pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
+        ```
+        
 # Getting Started
 
 ## Run the Demo
