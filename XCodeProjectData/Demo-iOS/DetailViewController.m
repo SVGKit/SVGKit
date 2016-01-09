@@ -390,10 +390,10 @@ CATextLayer *textLayerForLastTappedLayer;
 -(void) preProcessImageCheckWorkaroundAppleBugInGradientImages:(ImageLoadingOptions*) options
 {
 	if(
-	   [options.localFileSource.filePath  isEqualToString:@"Monkey"] // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
-	   || [options.localFileSource.filePath isEqualToString:@"RainbowWing"] // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
-	   || [options.localFileSource.filePath isEqualToString:@"imagetag-layered"] // uses gradients for prettiness
-	   || [options.localFileSource.filePath isEqualToString:@"parent-clip"] // uses layer animations
+	   [options.localFileSource.filePath rangeOfString:@"/Monkey.svg"].location != NSNotFound // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
+	   || [options.localFileSource.filePath rangeOfString:@"/RainbowWing.svg"].location != NSNotFound // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
+	   || [options.localFileSource.filePath rangeOfString:@"/imagetag-layered.svg"].location != NSNotFound // uses gradients for prettiness
+	   || [options.localFileSource.filePath rangeOfString:@"/parent-clip.svg"].location != NSNotFound // uses layer animations
 	   )
 	{
 		/**
@@ -660,9 +660,9 @@ CATextLayer *textLayerForLastTappedLayer;
 }
 
 - (IBAction)animate:(id)sender {
-	if ([self.sourceOfCurrentDocument.keyForAppleDictionaries isEqualToString:@"Monkey"]) {
+	if ([self.sourceOfCurrentDocument.keyForAppleDictionaries rangeOfString:@"/Monkey.svg"].location != NSNotFound) {
 		[self shakeHead];
-    } else if ([self.sourceOfCurrentDocument.keyForAppleDictionaries isEqualToString:@"parent-clip"]) {
+    } else if ([self.sourceOfCurrentDocument.keyForAppleDictionaries rangeOfString:@"/parent-clip.svg"].location != NSNotFound) {
         [self moveGreenSquare];
     }
 }
