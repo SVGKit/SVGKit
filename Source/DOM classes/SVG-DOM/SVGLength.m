@@ -1,7 +1,7 @@
 #import "SVGLength.h"
 
-#import "CSSPrimitiveValue.h"
-#import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
+#import <DOMiOS/DOMiOS.h>
+#import <DOMiOS/CSSPrimitiveValue_ConfigurablePixelsPerInch.h>
 
 #import "SVGUtils.h"
 

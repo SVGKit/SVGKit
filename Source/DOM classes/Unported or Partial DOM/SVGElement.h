@@ -7,8 +7,8 @@
  */
 #import <QuartzCore/QuartzCore.h>
 
-#import "Element.h"
-#import "Node+Mutable.h"
+@import DOMiOS;
+#import "DOMiOS/Node+Mutable.h"
 #import "SVGStylable.h"
 #import "SVGLength.h"
 

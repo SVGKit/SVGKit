@@ -10,8 +10,7 @@
  */
 #import <Foundation/Foundation.h>
 
-#import "CSSStyleDeclaration.h"
-#import "CSSValue.h"
+#import <DOMiOS/DOMiOS.h>
 
 @protocol SVGStylable <NSObject>
 

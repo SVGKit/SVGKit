@@ -1,6 +1,6 @@
 #import "SVGKParserDefsAndUse.h"
 
-#import "Node.h"
+#import <DOMiOS/DOMiOS.h>
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 

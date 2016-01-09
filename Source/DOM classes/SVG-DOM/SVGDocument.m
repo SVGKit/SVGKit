@@ -6,12 +6,12 @@
  http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGDocument
  */
 
-#import "Document+Mutable.h"
+#import <DOMiOS/Document+Mutable.h>
 
 #import "SVGDocument.h"
 #import "SVGDocument_Mutable.h"
 
-#import "NamedNodeMap_Iterable.h" // needed for the allPrefixesByNamespace implementation
+#import <DOMiOS/NamedNodeMap_Iterable.h> // needed for the allPrefixesByNamespace implementation
 
 @implementation SVGDocument
 

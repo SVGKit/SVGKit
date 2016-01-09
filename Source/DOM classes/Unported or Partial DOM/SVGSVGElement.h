@@ -46,7 +46,7 @@
  Element getElementById(in DOMString elementId);
  */
 
-#import "DocumentCSS.h"
+#import <DOMiOS/DOMiOS.h>
 #import "SVGFitToViewBox.h"
 
 #import "SVGElement.h"
@@ -59,10 +59,6 @@
 #import "SVGPoint.h"
 #import "SVGRect.h"
 #import "SVGTransform.h"
-
-#pragma mark - a few raw DOM imports are required for SVG DOM, but not many
-#import "Element.h"
-#import "NodeList.h"
 
 #import "ConverterSVGToCALayer.h"
 #import "SVGKSource.h"

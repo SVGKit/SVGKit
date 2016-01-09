@@ -8,11 +8,9 @@
 #import "SVGElement.h"
 
 #import "SVGElement_ForParser.h" //.h" // to solve insane Xcode circular dependencies
-#import "StyleSheetList+Mutable.h"
+#import <DOMiOS/StyleSheetList+Mutable.h>
 
-#import "CSSStyleSheet.h"
-#import "CSSStyleRule.h"
-#import "CSSRuleList+Mutable.h"
+#import <DOMiOS/CSSRuleList+Mutable.h>
 
 #import "SVGGElement.h"
 

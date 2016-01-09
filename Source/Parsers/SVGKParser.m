@@ -23,12 +23,11 @@
 
 #import "SVGDocument_Mutable.h" // so we can modify the SVGDocuments we're parsing
 
-#import "Node.h"
+#import <DOMiOS/DOMiOS.h>
 
 #import "SVGKSourceString.h"
 #import "SVGKSourceURL.h"
-#import "CSSStyleSheet.h"
-#import "StyleSheetList+Mutable.h"
+#import <DOMiOS/StyleSheetList+Mutable.h>
 #import "NSData+NSInputStream.h"
 
 @interface SVGKParser()
