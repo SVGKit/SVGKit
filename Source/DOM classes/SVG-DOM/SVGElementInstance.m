@@ -5,8 +5,6 @@
 
 @implementation SVGElementInstance
 
-@synthesize correspondingElement;
-@synthesize correspondingUseElement;
 @synthesize parentNode;
 @synthesize childNodes;
 
