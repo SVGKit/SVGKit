@@ -27,6 +27,9 @@
 @property(nonatomic,retain) SVGKSourceLocalFile* localFileSource;
 - (id)initWithSource:(SVGKSource*) source;
 @end
+
+static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeIntervalForLastReRenderOfSVGFromMemory";
+
 @implementation ImageLoadingOptions
 - (id)initWithSource:(SVGKSource*) source
 {
@@ -107,6 +110,12 @@
 											   [[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
 											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease],
 											   nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.contentView removeObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory];
 }
 
 CALayer* lastTappedLayer;
@@ -631,7 +640,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.sourceOfCurrentDocument.keyForAppleDictionaries, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
 		
 		/** Fast image view renders asynchronously, so we have to wait for a callback that its finished a render... */
-		[self.contentView addObserver:self forKeyPath:@"timeIntervalForLastReRenderOfSVGFromMemory" options:0 context:nil];
+		[self.contentView addObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory options:0 context:nil];
 		
 		/**
 		 EXAMPLE:
@@ -651,11 +660,11 @@ CATextLayer *textLayerForLastTappedLayer;
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	
-	if( [keyPath isEqualToString:@"timeIntervalForLastReRenderOfSVGFromMemory" ] )
+	if( [keyPath isEqualToString:kTimeIntervalForLastReRenderOfSVGFromMemory ] )
 	{
 		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.sourceOfCurrentDocument.keyForAppleDictionaries, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
 		
-		[self.contentView removeObserver:self forKeyPath:@"timeIntervalForLastReRenderOfSVGFromMemory"];
+		[self.contentView removeObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory];
 	}
 }
 
