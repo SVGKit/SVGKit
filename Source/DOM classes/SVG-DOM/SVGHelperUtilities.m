@@ -545,9 +545,9 @@
 
 	[svgGradient synthesizeProperties];
 	
-	SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r
+	SVGGradientLayer *gradientLayer = [[svgGradient newGradientLayerForObjectRect:r
 																	viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox
-																	   transform:transform];
+																	   transform:transform] autorelease];
 
 	return gradientLayer;
 }
