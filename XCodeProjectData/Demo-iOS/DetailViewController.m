@@ -663,8 +663,6 @@ CATextLayer *textLayerForLastTappedLayer;
 	if( [keyPath isEqualToString:kTimeIntervalForLastReRenderOfSVGFromMemory ] )
 	{
 		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.sourceOfCurrentDocument.keyForAppleDictionaries, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
-		
-		[self.contentView removeObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory];
 	}
 }
 
