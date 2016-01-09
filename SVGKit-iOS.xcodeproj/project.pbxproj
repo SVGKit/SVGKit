@@ -10,7 +10,7 @@
 		00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D7317415AA000F0FA0A /* SVGKit.m */; };
 		036A524C16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
-		4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */; };
+		4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */; };
 		55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */; };
 		55452BF719EC68A200B75A30 /* libSVGKit-iOS.1.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.1.2.0.a */; };
@@ -1697,7 +1697,6 @@
 				6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */,
 				66988DB3168A001400EC93C7 /* CSSStyleDeclaration.h in Headers */,
 				66988DB7168A004D00EC93C7 /* CSSValue.h in Headers */,
-				4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */,
 				66988DBB168A027E00EC93C7 /* CSSRule.h in Headers */,
 				668418C018674A0300C61EC2 /* SVGKExporterNSData.h in Headers */,
 				66988DBF168A031200EC93C7 /* CSSStyleSheet.h in Headers */,
@@ -1729,6 +1728,7 @@
 				BD2F8C55199D14D6008AE06D /* CALayerWithClipRender.h in Headers */,
 				6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */,
 				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
+				4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */,
 				BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
