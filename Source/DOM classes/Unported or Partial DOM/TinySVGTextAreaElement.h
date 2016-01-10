@@ -10,7 +10,7 @@
 
 @interface TinySVGTextAreaElement : SVGTextElement
 
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ width;
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ height;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ width;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ height;
 
 @end

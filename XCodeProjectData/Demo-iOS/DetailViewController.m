@@ -24,7 +24,7 @@
 @property(nonatomic) BOOL requiresLayeredImageView;
 @property(nonatomic) CGSize overrideImageSize;
 @property(nonatomic) float overrideImageRenderScale; 
-@property(nonatomic,retain) SVGKSourceLocalFile* localFileSource;
+@property(nonatomic,strong) SVGKSourceLocalFile* localFileSource;
 - (id)initWithSource:(SVGKSource*) source;
 @end
 
@@ -49,9 +49,9 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 
 @interface DetailViewController ()
 
-@property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIPopoverController *popoverController;
 
-@property (nonatomic, retain) NSDate* startParseTime, * endParseTime;
+@property (nonatomic, strong) NSDate* startParseTime, * endParseTime;
 
 - (void)loadSVGFrom:(SVGKSource *) svgSource;
 - (void)shakeHead;
@@ -63,7 +63,7 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
  By storing this reference here, we can give a block a reference in advance, while also
  giving the block's output to the timer as .userinfo at creation time
  */
-@property (nonatomic, retain) NSTimer* tickerLoadingApplesNSTimerSucks;
+@property (nonatomic, strong) NSTimer* tickerLoadingApplesNSTimerSucks;
 
 @end
 
@@ -87,19 +87,9 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 }
 
 - (void)dealloc {
-	self.popoverController = nil;
-	self.toolbar = nil;
 	self.detailItem = nil;
 	
-	self.sourceOfCurrentDocument = nil;
-	self.exportText = nil;
-	self.exportLog = nil;
-	self.layerExporter = nil;
-	self.scrollViewForSVG = nil;
-	self.contentView = nil;
-	self.viewActivityIndicator = nil;
 	
-	[super dealloc];
 }
 
 -(void)viewDidLoad
@@ -107,8 +97,8 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 	[super viewDidLoad];
 	
 	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)] autorelease],
-											   [[[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)] autorelease],
+											   [[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)],
+											   [[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)],
 											   nil];
 }
 
@@ -231,7 +221,6 @@ CATextLayer *textLayerForLastTappedLayer;
 			
 			lastTappedLayer = [[CALayer alloc] init];
 			lastTappedLayer.frame = absolutePositionedCloneLayer.frame;
-			[absolutePositionedCloneLayer release];
 			
 			/**
 			 ALSO, because SVGKFastImageView DOES NOT ALTER the underlying layers when it zooms
@@ -264,7 +253,7 @@ CATextLayer *textLayerForLastTappedLayer;
 												 size:14.0f];
 			CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
 			
-			textLayerForLastTappedLayer = [[[CATextLayer alloc] init] autorelease];
+			textLayerForLastTappedLayer = [[CATextLayer alloc] init];
 			[textLayerForLastTappedLayer setFont:@"Helvetica"];
 			[textLayerForLastTappedLayer setFontSize:14.0f];
 			[textLayerForLastTappedLayer setFrame:CGRectMake(0, 0, sizeOfTextRect.width, sizeOfTextRect.height)];
@@ -328,11 +317,10 @@ CATextLayer *textLayerForLastTappedLayer;
 	if (detailItem != newDetailItem) {
 		[self deselectTappedLayer]; // do this first because it DEPENDS UPON the type of self.contentView BEFORE the change in value
 		
-		[detailItem release];
 		
 		if( newDetailItem != nil )
 		{
-		detailItem = [newDetailItem retain];
+		detailItem = newDetailItem;
 		
 		// FIXME: re-write this class so that this method does NOT require self.view to exist
 		[self view]; // Apple's design to trigger the creation of view. Original design of THIS class is that it breaks if view isn't already existing
@@ -368,7 +356,7 @@ CATextLayer *textLayerForLastTappedLayer;
 #if ALLOW_2X_STYLE_SCALING_OF_SVGS_AS_AN_EXAMPLE
 	if( [options.localFileSource.filePath hasSuffix:@"@2x"])
 	{
-		SVGKSourceLocalFile* modifiedSource = [[options.localFileSource copy] autorelease];
+		SVGKSourceLocalFile* modifiedSource = [options.localFileSource copy];
 		modifiedSource.filePath = [modifiedSource.filePath substringToIndex:modifiedSource.filePath.length - @"@2x".length];
 		options.overrideImageRenderScale = 2.0;
 		options.requiresLayeredImageView = true;
@@ -384,7 +372,7 @@ CATextLayer *textLayerForLastTappedLayer;
 {
 	if( [options.localFileSource.filePath hasSuffix:@"@160x240"]) // could be any 999x999 you want, up to you to implement!
 	{
-		SVGKSourceLocalFile* modifiedSource = [[options.localFileSource copy] autorelease];
+		SVGKSourceLocalFile* modifiedSource = [options.localFileSource copy];
 		
 		modifiedSource.filePath = [modifiedSource.filePath substringToIndex:modifiedSource.filePath.length - @"@160x240".length];
 		options.overrideImageSize = CGSizeMake( 160, 240 );
@@ -435,7 +423,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	self.startParseTime = self.endParseTime = [NSDate date]; // reset them
 	
 	SVGKImage *document = nil;
-		ImageLoadingOptions* loadingOptions = [[[ImageLoadingOptions alloc] initWithSource:svgSource] autorelease];
+		ImageLoadingOptions* loadingOptions = [[ImageLoadingOptions alloc] initWithSource:svgSource];
 	
 	/** Detect URL vs file */
 	self.startParseTime = [NSDate date];
@@ -459,7 +447,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		}
 		@catch( NSException* e )
 		{
-			[[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Error = %@", e] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Error = %@", e] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 			
 			[self internalLoadedResource:svgSource withOptions:loadingOptions parserOutput:nil createImageViewFromDocument:nil];
 		}
@@ -481,7 +469,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	{
 		/** This demonstrates / tests what happens if you create an SVGKLayeredImageView with a nil SVGKImage
 		 */
-		[self didLoadNewResourceCreatingImageView:[[[SVGKLayeredImageView alloc] initWithCoder:nil] autorelease]];
+		[self didLoadNewResourceCreatingImageView:[[SVGKLayeredImageView alloc] initWithCoder:nil]];
 	}
 	else
 	{
@@ -509,7 +497,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	}
 	else
 	{
-		[[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Unknown kind of source. Should be a recognized SVGKSource subclass. Was actually : %@", [svgSource class]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:@"SVG load failed" message:[NSString stringWithFormat:@"Unknown kind of source. Should be a recognized SVGKSource subclass. Was actually : %@", [svgSource class]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 		
 		[self internalLoadedResource:nil withOptions:loadingOptions parserOutput:nil createImageViewFromDocument:nil];
 	}
@@ -543,11 +531,11 @@ CATextLayer *textLayerForLastTappedLayer;
 	{
 		if( parseResult == nil )
 		{
-		[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:@"Total failure. See console log" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 		}
 		else
 		{
-		[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"Summary: %@",parseResult] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];			
+		[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"Summary: %@",parseResult] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];			
 		}
 		newContentView = nil; // signals to the rest of this method: the load failed
 	}
@@ -564,11 +552,11 @@ CATextLayer *textLayerForLastTappedLayer;
 			
 			if( loadingOptions.requiresLayeredImageView )
 			{
-				newContentView = [[[SVGKLayeredImageView alloc] initWithSVGKImage:document] autorelease];
+				newContentView = [[SVGKLayeredImageView alloc] initWithSVGKImage:document];
 			}
 			else
 			{
-				newContentView = [[[SVGKFastImageView alloc] initWithSVGKImage:document] autorelease];
+				newContentView = [[SVGKFastImageView alloc] initWithSVGKImage:document];
 				
 				NSLog(@"[%@] WARNING: workaround for Apple bugs: UIScrollView spams tiny changes to the transform to the content view; currently, we have NO WAY of efficiently measuring whether or not to re-draw the SVGKImageView. As a temporary solution, we are DISABLING the SVGKImageView's auto-redraw-at-higher-resolution code - in general, you do NOT want to do this", [self class]);
 				
@@ -578,7 +566,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		
 		if( parseResult.errorsFatal.count > 0 )
 		{
-			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%@",parseResult] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
+			[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%@",parseResult] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 //			[[[[UIAlertView alloc] initWithTitle:@"SVG parse failed" message:[NSString stringWithFormat:@"%i fatal errors, %i warnings. First fatal = %@",[document.parseErrorsAndWarnings.errorsFatal count],[document.parseErrorsAndWarnings.errorsRecoverable count]+[document.parseErrorsAndWarnings.warnings count], ((NSError*)[document.parseErrorsAndWarnings.errorsFatal objectAtIndex:0]).localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
 			newContentView = nil; // signals to the rest of this method: the load failed
 			
@@ -607,7 +595,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		
 		if( self.labelParseTime == nil )
 		{
-			self.labelParseTime = [[[UILabel alloc] init] autorelease];
+			self.labelParseTime = [[UILabel alloc] init];
 			self.labelParseTime.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 			self.labelParseTime.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
 			self.labelParseTime.textColor = [UIColor blackColor];
@@ -753,7 +741,7 @@ CATextLayer *textLayerForLastTappedLayer;
     _layerExporter.delegate = self;
     
     UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
-    UIViewController* textViewController = [[[UIViewController alloc] init] autorelease];
+    UIViewController* textViewController = [[UIViewController alloc] init];
     [textViewController setView:textView];
     UIPopoverController* exportPopover = [[UIPopoverController alloc] initWithContentViewController:textViewController];
     [exportPopover setDelegate:self];
@@ -782,13 +770,10 @@ CATextLayer *textLayerForLastTappedLayer;
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
 {
-    [_exportText release];
     _exportText = nil;
     
-    [_layerExporter release];
     _layerExporter = nil;
     
-    [pc release];
 }
 
 

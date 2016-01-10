@@ -24,10 +24,6 @@
 
 @implementation SVGKParserPatternsAndGradients
 
-- (void)dealloc {
-	
-	[super dealloc];
-}
 
 -(NSArray*) supportedNamespaces
 {

@@ -4,9 +4,9 @@
 
 @interface SampleFileInfo : NSObject
 
-@property(nonatomic,retain) NSString* author, * licenseType, * name;
+@property(nonatomic,strong) NSString* author, * licenseType, * name;
 
-@property(nonatomic,readonly) SVGKSource* source;
+@property(weak, nonatomic,readonly) SVGKSource* source;
 
 -(SVGKSource*) sourceFromWeb;
 -(SVGKSource*) sourceFromLocalFile;

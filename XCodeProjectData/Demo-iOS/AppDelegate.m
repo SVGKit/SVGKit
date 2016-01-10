@@ -17,13 +17,6 @@
 @synthesize navigationController = _navigationController;
 @synthesize splitViewController = _splitViewController;
 
-- (void)dealloc
-{
-	[_window release];
-	[_navigationController release];
-	[_splitViewController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

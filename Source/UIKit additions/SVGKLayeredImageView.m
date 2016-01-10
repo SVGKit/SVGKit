@@ -5,7 +5,7 @@
 #import "SVGKSourceString.h"
 
 @interface SVGKLayeredImageView()
-@property(nonatomic,retain) CAShapeLayer* internalBorderLayer;
+@property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end
 
 @implementation SVGKLayeredImageView
@@ -172,10 +172,5 @@ style=\"font-size:24px;fill:#fffc45;fill-opacity:1\">SVG</tspan></text> \
 	return[((SVGKLayer*)self.layer).endRenderTime timeIntervalSinceDate:((SVGKLayer*)self.layer).startRenderTime];
 }
 
-- (void)dealloc
-{
-	
-    [super dealloc];
-}
 
 @end

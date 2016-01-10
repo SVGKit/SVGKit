@@ -2,6 +2,6 @@
 
 @interface VCMainMenuViewController : UIViewController <UITextFieldDelegate>
 
-@property(nonatomic,retain) IBOutlet UITextField* textWebURL;
+@property(nonatomic,strong) IBOutlet UITextField* textWebURL;
 
 @end

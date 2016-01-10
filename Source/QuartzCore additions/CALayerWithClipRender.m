@@ -19,7 +19,7 @@
     if( self.mask != nil ) {
         [CALayerWithClipRender maskLayer:self inContext:ctx];
         
-        mask = [self.mask retain];
+        mask = self.mask;
         self.mask = nil;
     }
     
@@ -27,7 +27,6 @@
     
     if( mask != nil ) {
         self.mask = mask;
-        [mask release];
     }
 }
 

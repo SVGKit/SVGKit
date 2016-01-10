@@ -2,6 +2,6 @@
 
 @interface Document ()
 
-@property(nonatomic,retain,readwrite) Element*          documentElement;
+@property(nonatomic,strong,readwrite) Element*          documentElement;
 
 @end

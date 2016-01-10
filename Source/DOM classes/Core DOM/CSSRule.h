@@ -37,9 +37,9 @@ typedef enum CSSRuleType
 @interface CSSRule : NSObject
 
 @property(nonatomic) unsigned short type;
-@property(nonatomic,retain) NSString* cssText;
+@property(nonatomic,strong) NSString* cssText;
 
-@property(nonatomic,retain) CSSStyleSheet* parentStyleSheet;
-@property(nonatomic,retain) CSSRule* parentRule;
+@property(nonatomic,strong) CSSStyleSheet* parentStyleSheet;
+@property(nonatomic,strong) CSSRule* parentRule;
 	
 @end

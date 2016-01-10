@@ -17,7 +17,7 @@
  */
 @interface SVGKImageView : UIView
 
-@property(nonatomic,retain) SVGKImage* image;
+@property(nonatomic,strong) SVGKImage* image;
 @property(nonatomic) BOOL showBorder; /*< mostly for debugging - adds a coloured 1-pixel border around the image */
 
 @property(nonatomic,readonly) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;

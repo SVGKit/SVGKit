@@ -8,15 +8,10 @@
 
 @synthesize visibleChildNodes = _visibleChildNodes;
 
-- (void)dealloc
-{
-    [_visibleChildNodes release];
-    [super dealloc];
-}
 
 - (CALayer *) newLayer
 {
-    CALayer* _layer = [[CALayerWithChildHitTest layer] retain];
+    CALayer* _layer = [CALayerWithChildHitTest layer];
     
     [SVGHelperUtilities configureCALayer:_layer usingElement:self];
     

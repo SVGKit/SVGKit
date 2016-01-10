@@ -34,7 +34,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 }
 
 @interface SVGImageElement()
-@property (nonatomic, retain, readwrite) NSString *href;
+@property (nonatomic, strong, readwrite) NSString *href;
 @end
 
 @implementation SVGImageElement
@@ -50,11 +50,6 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 
 @synthesize href = _href;
 
-- (void)dealloc {
-    [_href release], _href = nil;
-
-    [super dealloc];
-}
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
 	[super postProcessAttributesAddingErrorsTo:parseResult];
@@ -80,7 +75,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 
 - (CALayer *) newLayer
 {
-	CALayer* newLayer = [[CALayerWithClipRender layer] retain];
+	CALayer* newLayer = [CALayerWithClipRender layer];
 	
 	[SVGHelperUtilities configureCALayer:newLayer usingElement:self];
 	
@@ -182,7 +177,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
         frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
         newLayer.frame = frame;
         
-        newLayer.contents = (id)imageRef;
+        newLayer.contents = (__bridge id)imageRef;
         if( imageRefHasBeenRetained )
             CGImageRelease( imageRef );
 	}

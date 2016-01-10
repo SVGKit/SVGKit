@@ -10,7 +10,7 @@
 #import "DetailViewController.h"
 
 @interface MasterViewController()
-@property(nonatomic,retain) NSString* nameOfBrokenSVGToLoad;
+@property(nonatomic,strong) NSString* nameOfBrokenSVGToLoad;
 @end
 
 @implementation MasterViewController
@@ -44,12 +44,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[_detailViewController release];
-	[_sampleNames release];
-	
-	[super dealloc];
-}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -72,8 +66,8 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if (!cell) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-									   reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+									   reuseIdentifier:CellIdentifier];
 	}
 	
 	cell.textLabel.text = [_sampleNames objectAtIndex:indexPath.row];
@@ -87,7 +81,7 @@
 	{
 		NSLog(@"*****************\n*   WARNING\n*\n* The sample 'Reinel_compass_rose' is currently unsupported;\n* it is included in this build so that people working on it can test it and see if it works yet\n*\n*\n*****************");
 		
-		[[[[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Reinel_compass_rose breaks SVGKit, it uses unsupported SVG commands; until we have added support for those commands, it's here as a test - but it WILL CRASH if you try to view it" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK, crash",nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:@"WARNING" message:@"Reinel_compass_rose breaks SVGKit, it uses unsupported SVG commands; until we have added support for those commands, it's here as a test - but it WILL CRASH if you try to view it" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK, crash",nil] show];
 		
 		self.nameOfBrokenSVGToLoad = [_sampleNames objectAtIndex:indexPath.row];
 		
@@ -96,7 +90,7 @@
 	
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 	    if (!self.detailViewController) {
-	        self.detailViewController = [[[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil] autorelease];
+	        self.detailViewController = [[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil];
 	    }
 	    [self.navigationController pushViewController:self.detailViewController animated:YES];
 		self.detailViewController.detailItem = [_sampleNames objectAtIndex:indexPath.row];
@@ -116,7 +110,7 @@
 	
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 	    if (!self.detailViewController) {
-	        self.detailViewController = [[[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil] autorelease];
+	        self.detailViewController = [[DetailViewController alloc] initWithNibName:@"iPhoneDetailViewController" bundle:nil];
 	    }
 	    [self.navigationController pushViewController:self.detailViewController animated:YES];
 		self.detailViewController.detailItem = self.nameOfBrokenSVGToLoad;

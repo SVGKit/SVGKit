@@ -158,6 +158,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		529DADF01C415FF00069B076 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 825CDAAF1BDA4BC0003C1C12;
+			remoteInfo = "SVGKitFramework-iOS";
+		};
+		529DADF21C415FF00069B076 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 825CDAB81BDA4BC0003C1C12;
+			remoteInfo = "SVGKitFramework-iOSTests";
+		};
+		529DADF41C415FF00069B076 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 825CDAD31BDA4D38003C1C12;
+			remoteInfo = "SVGKitFramework-tvOS";
+		};
+		529DADF61C415FF00069B076 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 825CDADC1BDA4D38003C1C12;
+			remoteInfo = "SVGKitFramework-tvOSTests";
+		};
 		6649E1091617574700AFE92A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
@@ -364,7 +392,6 @@
 		661A0DBF161727CF008D5FBE = {
 			isa = PBXGroup;
 			children = (
-				6661A77C1698BBE20061E349 /* CoreText.framework */,
 				66E862561688BA0B0059C9C4 /* Demo-iOS */,
 				66E862761688BA510059C9C4 /* Demo-Samples */,
 				6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */,
@@ -386,6 +413,7 @@
 			children = (
 				D320E8CF1ACCFAEE00BD4E72 /* libCocoaLumberjack.a */,
 				6649E10E1617578500AFE92A /* libxml2.dylib */,
+				6661A77C1698BBE20061E349 /* CoreText.framework */,
 				6649E0AC1617479200AFE92A /* QuartzCore.framework */,
 				661A0DCE161727CF008D5FBE /* UIKit.framework */,
 				661A0DD0161727CF008D5FBE /* Foundation.framework */,
@@ -513,6 +541,10 @@
 			children = (
 				6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */,
 				E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */,
+				529DADF11C415FF00069B076 /* SVGKit.framework */,
+				529DADF31C415FF00069B076 /* SVGKitFramework-iOSTests.xctest */,
+				529DADF51C415FF00069B076 /* SVGKit.framework */,
+				529DADF71C415FF00069B076 /* SVGKitFramework-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -670,6 +702,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		529DADF11C415FF00069B076 /* SVGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGKit.framework;
+			remoteRef = 529DADF01C415FF00069B076 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		529DADF31C415FF00069B076 /* SVGKitFramework-iOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SVGKitFramework-iOSTests.xctest";
+			remoteRef = 529DADF21C415FF00069B076 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		529DADF51C415FF00069B076 /* SVGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGKit.framework;
+			remoteRef = 529DADF41C415FF00069B076 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		529DADF71C415FF00069B076 /* SVGKitFramework-tvOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SVGKitFramework-tvOSTests.xctest";
+			remoteRef = 529DADF61C415FF00069B076 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		6649E10A1617574700AFE92A /* libSVGKit-iOS.1.2.0.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -905,6 +965,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -939,6 +1000,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
