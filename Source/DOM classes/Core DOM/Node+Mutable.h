@@ -4,23 +4,23 @@
 #import "Node.h"
 
 @interface Node()
-@property(nonatomic,retain,readwrite) NSString* nodeName;
-@property(nonatomic,retain,readwrite) NSString* nodeValue;
+@property(nonatomic,strong,readwrite) NSString* nodeName;
+@property(nonatomic,strong,readwrite) NSString* nodeValue;
 
 @property(nonatomic,readwrite) DOMNodeType nodeType;
-@property(nonatomic,assign,readwrite) Node* parentNode;
-@property(nonatomic,retain,readwrite) NodeList* childNodes;
-@property(nonatomic,retain,readwrite) NamedNodeMap* attributes;
+@property(nonatomic,weak,readwrite) Node* parentNode;
+@property(nonatomic,strong,readwrite) NodeList* childNodes;
+@property(nonatomic,strong,readwrite) NamedNodeMap* attributes;
 
-@property(nonatomic,assign,readwrite) Document* ownerDocument;
-
-// Introduced in DOM Level 2:
-@property(nonatomic,retain,readwrite) NSString* namespaceURI;
+@property(nonatomic,weak,readwrite) Document* ownerDocument;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readwrite) NSString* prefix;
+@property(nonatomic,strong,readwrite) NSString* namespaceURI;
 
 // Introduced in DOM Level 2:
-@property(nonatomic,retain,readwrite) NSString* localName;
+@property(nonatomic,strong,readwrite) NSString* prefix;
+
+// Introduced in DOM Level 2:
+@property(nonatomic,strong,readwrite) NSString* localName;
 
 @end

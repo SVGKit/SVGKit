@@ -14,10 +14,6 @@
 
 @synthesize length;
 
-- (void)dealloc {
-  [data release];
-  [super dealloc];
-}
 
 -(NSString*) substringData:(unsigned long) offset count:(unsigned long) count
 {

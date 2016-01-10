@@ -15,10 +15,10 @@
 
 @interface SVGTextPositioningElement : SVGTextContentElement
 
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ x;
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ y;
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ dx;
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ dy;
-@property(nonatomic,retain,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ rotate;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ x;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ y;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ dx;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ dy;
+@property(nonatomic,strong,readonly) SVGLength* /* FIXME: should be SVGAnimatedLengthList */ rotate;
 
 @end

@@ -4,17 +4,13 @@
 #import "DOMHelperUtilities.h"
 
 @interface Element()
-@property(nonatomic,retain,readwrite) NSString* tagName;
+@property(nonatomic,strong,readwrite) NSString* tagName;
 @end
 
 @implementation Element
 
 @synthesize tagName;
 
-- (void)dealloc {
-    self.tagName = nil;
-    [super dealloc];
-}
 
 - (id)initWithLocalName:(NSString*) n attributes:(NSMutableDictionary*) attributes {
     self = [super initType:DOMNodeType_ELEMENT_NODE name:n];
@@ -64,7 +60,7 @@
 
 -(void) setAttribute:(NSString*) name value:(NSString*) value
 {
-	Attr* att = [[[Attr alloc] initWithName:name value:value] autorelease];
+	Attr* att = [[Attr alloc] initWithName:name value:value];
 	
 	[self.attributes setNamedItem:att];
 }
@@ -101,7 +97,7 @@
 
 -(NodeList*) getElementsByTagName:(NSString*) name
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:name inNamespace:nil childrenOfElement:self addToList:accumulator];
 	
 	return accumulator;
@@ -121,7 +117,7 @@
 // Introduced in DOM Level 2:
 -(void) setAttributeNS:(NSString*) namespaceURI qualifiedName:(NSString*) qualifiedName value:(NSString*) value
 {
-	Attr* att = [[[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value] autorelease];
+	Attr* att = [[Attr alloc] initWithNamespace:namespaceURI qualifiedName:qualifiedName value:value];
 	
 	[self.attributes setNamedItemNS:att];
 }
@@ -150,7 +146,7 @@
 // Introduced in DOM Level 2:
 -(NodeList*) getElementsByTagNameNS:(NSString*) namespaceURI localName:(NSString*) localName
 {
-	NodeList* accumulator = [[[NodeList alloc] init] autorelease];
+	NodeList* accumulator = [[NodeList alloc] init];
 	[DOMHelperUtilities privateGetElementsByName:localName inNamespace:namespaceURI childrenOfElement:self addToList:accumulator];
 	
 	return accumulator;

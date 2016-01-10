@@ -22,22 +22,22 @@
 
 @interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, retain) SVGKSource *sourceOfCurrentDocument;
-@property (nonatomic, retain) UITextView* exportText;
-@property (nonatomic, retain) NSMutableString* exportLog;
-@property (nonatomic, retain) CALayerExporter* layerExporter;
-@property (nonatomic, retain) UITapGestureRecognizer* tapGestureRecognizer;
+@property (nonatomic, strong) SVGKSource *sourceOfCurrentDocument;
+@property (nonatomic, strong) UITextView* exportText;
+@property (nonatomic, strong) NSMutableString* exportLog;
+@property (nonatomic, strong) CALayerExporter* layerExporter;
+@property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
 
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollViewForSVG;
-@property (nonatomic, retain) IBOutlet SVGKImageView *contentView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
-@property (nonatomic, retain) IBOutlet UIProgressView* progressLoading;
-@property (nonatomic, retain) IBOutlet UIView* subViewLoadingPopup;
+@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollViewForSVG;
+@property (nonatomic, strong) IBOutlet SVGKImageView *contentView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *viewActivityIndicator;
+@property (nonatomic, strong) IBOutlet UIProgressView* progressLoading;
+@property (nonatomic, strong) IBOutlet UIView* subViewLoadingPopup;
 
-@property(nonatomic,retain) IBOutlet UILabel* labelParseTime;
+@property(nonatomic,strong) IBOutlet UILabel* labelParseTime;
 
-@property (nonatomic, retain) id detailItem;
+@property (nonatomic, strong) id detailItem;
 
 
 - (IBAction)animate:(id)sender;

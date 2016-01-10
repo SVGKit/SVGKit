@@ -10,16 +10,6 @@
 @synthesize extensionsData;
 #endif
 
--(void)dealloc {
-    self.warnings = nil;
-    self.errorsRecoverable = nil;
-    self.errorsFatal = nil;
-    self.namespacesEncountered = nil;
-    self.parsedDocument = nil;
-    self.rootOfSVGTree = nil;
-    
-    [super dealloc];
-}
 
 - (id)init
 {

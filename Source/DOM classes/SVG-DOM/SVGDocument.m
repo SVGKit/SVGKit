@@ -23,14 +23,6 @@
 @synthesize rootElement=_rootElement;
 
 
-- (void)dealloc {
-  [title release];
-  [referrer release];
-  [domain release];
-  [URL release];
-  [_rootElement release];
-  [super dealloc];
-}
 
 - (id)init
 {
@@ -43,9 +35,7 @@
 
 -(void)setRootElement:(SVGSVGElement *)rootElement
 {
-	[_rootElement release];
 	_rootElement = rootElement;
-	[_rootElement retain];
 	
 	/*! SVG spec has two variables with same name, because DOM was written to support
 	 weak programming languages that don't provide full OOP polymorphism.

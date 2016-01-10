@@ -77,9 +77,9 @@
 
 @interface Document : Node
 
-@property(nonatomic,retain,readonly) DocumentType*     doctype;
-@property(nonatomic,retain,readonly) AppleSucksDOMImplementation*  implementation;
-@property(nonatomic,retain,readonly) Element*          documentElement;
+@property(nonatomic,strong,readonly) DocumentType*     doctype;
+@property(nonatomic,strong,readonly) AppleSucksDOMImplementation*  implementation;
+@property(nonatomic,strong,readonly) Element*          documentElement;
 
 
 -(Element*) createElement:(NSString*) tagName __attribute__((ns_returns_retained));

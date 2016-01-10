@@ -4,8 +4,8 @@
 #import "SVGKSourceURL.h"
 
 @interface SampleFileInfo ()
-@property(nonatomic,retain) NSString* originalFilename;
-@property(nonatomic,retain) NSURL* originalURL;
+@property(nonatomic,strong) NSString* originalFilename;
+@property(nonatomic,strong) NSURL* originalURL;
 @end
 
 @implementation SampleFileInfo
@@ -27,7 +27,7 @@
 
 +(SampleFileInfo*) sampleFileInfoWithFilename:(NSString*) f URL:(NSURL*) s name:(NSString*) n
 {
-	SampleFileInfo* value = [[SampleFileInfo new] autorelease];
+	SampleFileInfo* value = [SampleFileInfo new];
 	
 	value.originalFilename = f;
 	value.originalURL = s;

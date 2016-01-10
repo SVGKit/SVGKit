@@ -3,8 +3,8 @@
 #import "SampleFileInfo.h"
 #import "DetailViewController.h"
 @interface VCGridOfImagesViewController ()
-@property(nonatomic,retain) NSMutableArray* sectionNames;
-@property(nonatomic,retain) NSMutableDictionary* itemArraysBySectionName;
+@property(nonatomic,strong) NSMutableArray* sectionNames;
+@property(nonatomic,strong) NSMutableDictionary* itemArraysBySectionName;
 @end
 
 @implementation VCGridOfImagesViewController

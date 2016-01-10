@@ -48,10 +48,6 @@
     return nil;
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-}
 
 /**
  The intrinsic sized of the image view.

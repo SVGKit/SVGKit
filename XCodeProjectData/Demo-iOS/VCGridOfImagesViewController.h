@@ -2,7 +2,7 @@
 
 @interface VCGridOfImagesViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property(nonatomic,retain) IBOutlet UICollectionView* collectionView;
+@property(nonatomic,strong) IBOutlet UICollectionView* collectionView;
 
 -(void) displayAllSectionsFromDictionary:(NSDictionary*) inputDictionary;
 -(void) displayOneSectionNamed:(NSString*) sectionName fromDictionary:(NSDictionary*) licensesInSection;

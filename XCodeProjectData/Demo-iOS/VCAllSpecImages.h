@@ -10,8 +10,8 @@
 
 @interface VCAllSpecImages : UIViewController
 
-@property(nonatomic,retain) IBOutlet UICollectionView* collectionView;
+@property(nonatomic,strong) IBOutlet UICollectionView* collectionView;
 
-@property(nonatomic,retain) NSString* pathInBundleToSVGSpecTestSuiteFolder;
+@property(nonatomic,strong) NSString* pathInBundleToSVGSpecTestSuiteFolder;
 
 @end

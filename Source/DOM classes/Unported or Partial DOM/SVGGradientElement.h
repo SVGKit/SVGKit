@@ -35,9 +35,9 @@
     
 }
 
-@property (readonly, retain) NSArray *stops; /* FIXME: not in SVG Spec */
-@property (readonly, retain) NSArray *locations; /* FIXME: not in SVG Spec */
-@property (readonly, retain) NSArray *colors; /* FIXME: not in SVG Spec */
+@property (readonly, strong) NSArray *stops; /* FIXME: not in SVG Spec */
+@property (readonly, strong) NSArray *locations; /* FIXME: not in SVG Spec */
+@property (readonly, strong) NSArray *colors; /* FIXME: not in SVG Spec */
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 

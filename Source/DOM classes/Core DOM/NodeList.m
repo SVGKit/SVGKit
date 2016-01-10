@@ -14,10 +14,6 @@
     return self;
 }
 
-- (void)dealloc {
-    self.internalArray = nil;
-    [super dealloc];
-}
 
 -(Node*) item:(NSUInteger) index
 {
@@ -31,7 +27,7 @@
 
 #pragma mark - ADDITIONAL to SVG Spec: Objective-C support for fast-iteration ("for * in ..." syntax)
 
--(NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id [])buffer count:(NSUInteger)len
+-(NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
 {
 	return [self.internalArray countByEnumeratingWithState:state objects:buffer count:len];
 }

@@ -10,7 +10,7 @@
 + (SVGKSource*)sourceFromURL:(NSURL*)u {
 	NSInputStream* stream = [self internalCreateInputStreamFromURL:u];
 	
-	SVGKSourceURL* s = [[[SVGKSourceURL alloc] initWithInputSteam:stream] autorelease];
+	SVGKSourceURL* s = [[SVGKSourceURL alloc] initWithInputSteam:stream];
 	s.URL = u;
 	
 	return s;
@@ -34,7 +34,7 @@
 			@throw [NSException exceptionWithName:@"NSDataCrashed" reason:[NSString stringWithFormat:@"Error internally in Apple's NSData trying to read from URL '%@'. Error = %@", u, errorWithNSData] userInfo:@{NSLocalizedDescriptionKey:errorWithNSData}];
 		}
 		else
-			stream = [[[NSInputStream alloc] initWithData:tempData] autorelease];
+			stream = [[NSInputStream alloc] initWithData:tempData];
 	}
 	//DO NOT DO THIS: let the parser do it at last possible moment (Apple has threading problems otherwise!) [stream open];
 	
@@ -48,7 +48,7 @@
 	if( copy )
 	{	
 		/** clone bits */
-		[copy setURL:[[self.URL copy] autorelease]];
+		[copy setURL:[self.URL copy]];
 		
 		/** Finally, manually intialize the input stream, as required by super class */
 		[copy setStream:[[self class] internalCreateInputStreamFromURL:((SVGKSourceURL*)copy).URL]];
@@ -67,9 +67,5 @@
 	return [NSString stringWithFormat:@"[SVGKSource: URL = \"%@\"]", self.URL ];
 }
 
-- (void)dealloc {
-	self.URL = nil;
-	[super dealloc];
-}
 
 @end

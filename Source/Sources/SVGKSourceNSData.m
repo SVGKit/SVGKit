@@ -6,7 +6,7 @@
 
 -(NSString *)keyForAppleDictionaries
 {
-	return [[[NSString alloc] initWithData:self.rawData encoding:NSUTF8StringEncoding] autorelease];
+	return [[NSString alloc] initWithData:self.rawData encoding:NSUTF8StringEncoding];
 }
 
 + (SVGKSource*)sourceFromData:(NSData*)data URLForRelativeLinks:(NSURL*) url
@@ -14,7 +14,7 @@
 	NSInputStream* stream = [NSInputStream inputStreamWithData:data];
 	//DO NOT DO THIS: let the parser do it at last possible moment (Apple has threading problems otherwise!) [stream open];
 	
-	SVGKSourceNSData* s = [[[SVGKSourceNSData alloc] initWithInputSteam:stream] autorelease];
+	SVGKSourceNSData* s = [[SVGKSourceNSData alloc] initWithInputSteam:stream];
 	s.rawData = data;
 	s.effectiveURL = url;
 	return s;
@@ -27,7 +27,7 @@
 	if( copy )
 	{	
 		/** clone bits */
-		[copy setRawData:[[self.rawData copy] autorelease]];
+		[copy setRawData:[self.rawData copy]];
 		
 		/** Finally, manually intialize the input stream, as required by super class */
 		[copy setStream:[NSInputStream inputStreamWithData:((SVGKSourceNSData*)copy).rawData]];
@@ -50,8 +50,4 @@
 	}
 }
 
-- (void)dealloc {
-	self.rawData = nil;
-	[super dealloc];
-}
 @end

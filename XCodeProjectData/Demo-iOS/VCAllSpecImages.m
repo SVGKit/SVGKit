@@ -4,8 +4,8 @@
 #import "SVGKSourceLocalFile.h"
 
 @interface VCAllSpecImages ()
-@property(nonatomic,retain) NSString* xcodeVirtualFolderPath;
-@property(nonatomic,retain) NSMutableArray* svgFileNames;
+@property(nonatomic,strong) NSString* xcodeVirtualFolderPath;
+@property(nonatomic,strong) NSMutableArray* svgFileNames;
 @end
 
 @implementation VCAllSpecImages
