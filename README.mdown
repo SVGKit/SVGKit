@@ -22,9 +22,33 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 1. Open up "Demo-iOS.xcodeproj", and run it (on simulator or device). Try different SVG's. Zoom, pan, and (with the Monkey only:) hit the "Animate" button. Tap the images to see bounding-boxes / hit dectection (might need you to hit the Debug button first)
 1. If you have ANY problems building the library and embedding it in your app, compare your build settings to the Demo-iOS build settings - if something's different, it's probably the problem.
 
+# Installation (add SVGKit to your app)
+
+## 2016: Use the Framework - drag, drop, done!
+
+1. Open "SVGKit-iOS.xcodeproj"
+1. In Project Navigator, expand the SVGKitFrameworks folder
+1. Find the Framework for your device (iOS, tvOS, or both)
+1. Drag/drop that Framework into your app-project
+
+NB: Frameworks are the preferred way to use libraries in Xcode. But this is a new feature, it might have bugs. If you have ANY problems, please create an Issue, but also try the Static Library method below
+
+You MAY also need to manually add the following Apple Frameworks to your app:
+  - CoreText
+  - CoreImage
+  - libxml2.dylib
+  - QuartzCore
+  - CoreGraphics
+  - UIKit
+
+You MAY also need to add the following 3rd party Frameworks to your app (included with SVGKit):
+  - CocoaLumberjack (in the SVGKit-iOS project, select the "3rd party frameworks" folder, and drag/drop whichever versions you need: iOS, tvOS, etc)
+
 ## Build the static library (automatic)
 
-We use this build script to automatically build ALL versions of the library at once, and ship them as a single file: http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4/3647187#3647187
+Until 2016, this was the PREFERRED way of shipping SVGKit.
+
+We have a build script that automatically builds ALL versions of the library at once, and ships them as a single file: http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4/3647187#3647187
 
 It's all setup already, all you need to do is:
 
@@ -46,14 +70,6 @@ It's all setup already, all you need to do is:
 
 
 Everything else is automatic.
-
-However, early versions of Xcode5 have a major bug, affecting all libraries:
-
-1. Xcode 5: Apple will create a hardlink to your local hard-disk, breaking your project for all your co-workers. This is a new bug added for Xcode5 :(
-2. Xcode5: in Build Settings, scroll down to the "Library Search Paths"
-3. Xcode5: double click it. If it has any absolute paths, chop off the start, and replace the start with ""$(SRCROOT)/"" (note the quotes inside are necessary - Apple's Xcode has another bug where it will fail to build if you have spaces in any of your folder names!)
-
-Instead of fixing the bug, in latest Xcode 5.0.2, Apple has simply made it allow two copies of every Search Path. Hmm.
 
 ## Recipes for using the library
 
