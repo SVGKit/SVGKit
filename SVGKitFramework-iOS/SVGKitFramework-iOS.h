@@ -14,6 +14,8 @@ FOUNDATION_EXPORT double SVGKitFramework_iOSVersionNumber;
 //! Project version string for SVGKitFramework-iOS.
 FOUNDATION_EXPORT const unsigned char SVGKitFramework_iOSVersionString[];
 
+#define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
+
 // In this header, you should import all the public headers of your framework using statements like #import <SVGKitFramework_iOS/PublicHeader.h>
 
 
@@ -105,7 +107,9 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_iOSVersionString[];
 #import "SVGSVGElement.h"
 #import "SVGTextElement.h"
 #import "SVGTitleElement.h"
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 #import "CALayerExporter.h"
+#endif
 #import "SVGKImage+CGContext.h"
 #import "SVGKExporterNSData.h"
 #import "SVGKExporterUIImage.h"

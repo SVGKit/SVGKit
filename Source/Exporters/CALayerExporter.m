@@ -1,3 +1,4 @@
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 //
 //  CALayerExporter.m
 //  SVGPad
@@ -277,3 +278,4 @@ void exportPathCommands(void *exportPathCommandsConextPtr, const CGPathElement *
 
 @end
 
+#endif

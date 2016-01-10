@@ -1,3 +1,4 @@
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 //
 //  CALayerExporter.h
 //  SVGPad
@@ -36,3 +37,4 @@
 - (void) layerExporterDidFinish:(CALayerExporter*)exporter;
 
 @end
+#endif

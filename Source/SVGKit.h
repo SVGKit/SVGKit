@@ -17,6 +17,8 @@
 
 #include "TargetConditionals.h"
 
+#define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
+
 #import "DOMHelperUtilities.h"
 #import "SVGCircleElement.h"
 #import "SVGClipPathElement.h"
@@ -158,7 +160,9 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "SVGSVGElement.h"
 #import "SVGTextElement.h"
 #import "SVGTitleElement.h"
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 #import "CALayerExporter.h"
+#endif
 #import "SVGKImage+CGContext.h"
 #import "SVGKExporterNSData.h"
 #import "SVGKExporterUIImage.h"

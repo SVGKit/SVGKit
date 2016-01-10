@@ -12,17 +12,13 @@
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
 		4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */; };
-		55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */; };
 		55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.0.0.a */; };
-		55452C0619EC6C9B00B75A30 /* CurvedDiamond.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */; };
-		55452C0719EC6C9B00B75A30 /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0019EC6C9B00B75A30 /* g-element-applies-rotation.svg */; };
-		55452C0819EC6C9B00B75A30 /* ImageAspectRatio.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0119EC6C9B00B75A30 /* ImageAspectRatio.svg */; };
-		55452C0919EC6C9B00B75A30 /* imagetag-layer2-sun.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0219EC6C9B00B75A30 /* imagetag-layer2-sun.svg */; };
-		55452C0A19EC6C9B00B75A30 /* Lion.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0319EC6C9B00B75A30 /* Lion.svg */; };
-		55452C0B19EC6C9B00B75A30 /* Monkey.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0419EC6C9B00B75A30 /* Monkey.svg */; };
-		55452C0C19EC6C9B00B75A30 /* Note.svg in Resources */ = {isa = PBXBuildFile; fileRef = 55452C0519EC6C9B00B75A30 /* Note.svg */; };
 		55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639633F16145DDC00E58CCA /* libxml2.dylib */; };
-		55825B3A19EC7B4700635497 /* SVGKit_iOS-RetainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		660D4FD31C428F3D004187D0 /* SVGKit_iOS-RetainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 660D4FD01C428F3D004187D0 /* SVGKit_iOS-RetainTests.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		660D4FD41C428F3D004187D0 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 660D4FD11C428F3D004187D0 /* SVGKit_iOS_Tests.m */; settings = {ASSET_TAGS = (); }; };
+		660D50011C4292A6004187D0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
+		660D50021C4292DB004187D0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
+		660D50031C429377004187D0 /* CocoaLumberjack.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
 		661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		661ADBF316CC2FBE006F4BC3 /* SVGTextPositioningElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */; };
 		661ADBF716CC2FCA006F4BC3 /* SVGTextContentElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -700,8 +696,6 @@
 		825CDCBC1BDA5144003C1C12 /* NSData+NSInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */; };
 		825CDCBD1BDA5144003C1C12 /* SVGKPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639C1688C2780059C9C4 /* SVGKPattern.m */; };
 		825CDCBE1BDA5144003C1C12 /* SVGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8639E1688C2780059C9C4 /* SVGUtils.m */; };
-		825CDCC31BDA5268003C1C12 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
-		825CDCC41BDA5271003C1C12 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
 		825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDACC1BDA4D20003C1C12 /* libxml2.tbd */; };
 		825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -717,7 +711,6 @@
 		BD4C56DD199D55CC00AF04AD /* CAShapeLayerWithClipRender.m in Sources */ = {isa = PBXBuildFile; fileRef = BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */; };
 		BDA133B719AD0E81003C9945 /* TinySVGTextAreaElement.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */; };
-		D320E8CC1ACCFA9300BD4E72 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -742,34 +735,6 @@
 			remoteGlobalIDString = 825CDAD21BDA4D38003C1C12;
 			remoteInfo = "SVGKitFramework-tvOS";
 		};
-		825CDCBF1BDA523B003C1C12 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
-			remoteInfo = CocoaLumberjack;
-		};
-		825CDCC11BDA5242003C1C12 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
-			remoteInfo = CocoaLumberjack;
-		};
-		D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2A37F97718E37270009FAAA7;
-			remoteInfo = CocoaLumberjack;
-		};
-		D320E8CD1ACCFAA700BD4E72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 2A37F97618E37270009FAAA7;
-			remoteInfo = CocoaLumberjack;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -779,6 +744,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				660D50031C429377004187D0 /* CocoaLumberjack.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,16 +757,22 @@
 		4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSwitchElement.h; sourceTree = "<group>"; };
 		4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGSwitchElement.m; sourceTree = "<group>"; };
 		55452BF119EC68A200B75A30 /* SVGKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		55452BF419EC68A200B75A30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKit_iOS_Tests.m; sourceTree = "<group>"; };
-		55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CurvedDiamond.svg; path = "Demo-Samples/SVG/CurvedDiamond.svg"; sourceTree = SOURCE_ROOT; };
-		55452C0019EC6C9B00B75A30 /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "g-element-applies-rotation.svg"; path = "Demo-Samples/SVG/g-element-applies-rotation.svg"; sourceTree = SOURCE_ROOT; };
-		55452C0119EC6C9B00B75A30 /* ImageAspectRatio.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ImageAspectRatio.svg; path = "Demo-Samples/SVG/ImageAspectRatio.svg"; sourceTree = SOURCE_ROOT; };
-		55452C0219EC6C9B00B75A30 /* imagetag-layer2-sun.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "imagetag-layer2-sun.svg"; path = "Demo-Samples/SVG/imagetag-layer2-sun.svg"; sourceTree = SOURCE_ROOT; };
-		55452C0319EC6C9B00B75A30 /* Lion.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Lion.svg; path = "Demo-Samples/SVG/Lion.svg"; sourceTree = SOURCE_ROOT; };
-		55452C0419EC6C9B00B75A30 /* Monkey.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Monkey.svg; path = "Demo-Samples/SVG/Monkey.svg"; sourceTree = SOURCE_ROOT; };
-		55452C0519EC6C9B00B75A30 /* Note.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Note.svg; path = "Demo-Samples/SVG/Note.svg"; sourceTree = SOURCE_ROOT; };
-		55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGKit_iOS-RetainTests.m"; sourceTree = "<group>"; };
+		660D4FCF1C428F3D004187D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		660D4FD01C428F3D004187D0 /* SVGKit_iOS-RetainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGKit_iOS-RetainTests.m"; sourceTree = "<group>"; };
+		660D4FD11C428F3D004187D0 /* SVGKit_iOS_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKit_iOS_Tests.m; sourceTree = "<group>"; };
+		660D4FEE1C42927A004187D0 /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap"; sourceTree = "<group>"; };
+		660D4FEF1C42927A004187D0 /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap"; sourceTree = "<group>"; };
+		660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
+		660D4FF11C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
+		660D4FF31C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
+		660D4FF41C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
+		660D4FF61C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
+		660D4FF71C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
+		660D4FF81C42927A004187D0 /* E9B622A7-31DB-3FAC-B8A7-AE481434C4FC.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "E9B622A7-31DB-3FAC-B8A7-AE481434C4FC.bcsymbolmap"; sourceTree = "<group>"; };
+		660D4FFA1C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
+		660D4FFB1C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
+		660D4FFC1C42927A004187D0 /* DCEDA482-0C15-3571-895F-92CBAC0041F5.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "DCEDA482-0C15-3571-895F-92CBAC0041F5.bcsymbolmap"; sourceTree = "<group>"; };
+		660D50041C42970A004187D0 /* SVGKit-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SVGKit-iOS-Prefix.pch"; sourceTree = "<group>"; };
 		661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextPositioningElement.h; sourceTree = "<group>"; };
 		661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextPositioningElement.m; sourceTree = "<group>"; };
 		661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextContentElement.h; sourceTree = "<group>"; };
@@ -825,7 +797,6 @@
 		663FD01316CAEF0C00CCBFB3 /* SVGHelperUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SVGHelperUtilities.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		663FD01716CAF05900CCBFB3 /* SVGTransformable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGTransformable.h; sourceTree = "<group>"; };
 		663FD01A16CBEF5C00CCBFB3 /* BaseClassForAllSVGBasicShapes_ForSubclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClassForAllSVGBasicShapes_ForSubclasses.h; sourceTree = "<group>"; };
-		6649E05F16172CE200AFE92A /* SVGKit-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKit-iOS-Prefix.pch"; sourceTree = "<group>"; };
 		666674B8168A511400486B68 /* CSSStyleRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSStyleRule.h; sourceTree = "<group>"; };
 		666674B9168A511400486B68 /* CSSStyleRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSStyleRule.m; sourceTree = "<group>"; };
 		666674BD168A536C00486B68 /* DocumentCSS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DocumentCSS.h; path = "Source/DOM classes/Core DOM/DocumentCSS.h"; sourceTree = SOURCE_ROOT; };
@@ -1049,7 +1020,6 @@
 		BD4C56DB199D55CC00AF04AD /* CAShapeLayerWithClipRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAShapeLayerWithClipRender.m; sourceTree = "<group>"; };
 		BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TinySVGTextAreaElement.h; sourceTree = "<group>"; };
 		BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TinySVGTextAreaElement.m; sourceTree = "<group>"; };
-		D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = Source/Vendor/CocoaLumberjack/Framework/Mobile/Lumberjack.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1057,6 +1027,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				660D50021C4292DB004187D0 /* CocoaLumberjack.framework in Frameworks */,
 				55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */,
 				55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.0.0.a in Frameworks */,
 			);
@@ -1066,7 +1037,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D320E8CC1ACCFA9300BD4E72 /* libCocoaLumberjack.a in Frameworks */,
+				660D50011C4292A6004187D0 /* CocoaLumberjack.framework in Frameworks */,
 				6639634716148DEC00E58CCA /* CoreGraphics.framework in Frameworks */,
 				6639634216148CDF00E58CCA /* QuartzCore.framework in Frameworks */,
 				6639619216145D0400E58CCA /* Foundation.framework in Frameworks */,
@@ -1078,7 +1049,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */,
-				825CDCC31BDA5268003C1C12 /* libCocoaLumberjack.a in Frameworks */,
 				825CDACB1BDA4D14003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */,
 				825CDAC91BDA4D09003C1C12 /* QuartzCore.framework in Frameworks */,
@@ -1098,7 +1068,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */,
-				825CDCC41BDA5271003C1C12 /* libCocoaLumberjack.a in Frameworks */,
 				825CDAF21BDA4E16003C1C12 /* CoreGraphics.framework in Frameworks */,
 				825CDAF01BDA4E0E003C1C12 /* Foundation.framework in Frameworks */,
 				825CDAEE1BDA4E07003C1C12 /* QuartzCore.framework in Frameworks */,
@@ -1116,38 +1085,74 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		55452BF219EC68A200B75A30 /* SVGKit-iOS Tests */ = {
+		660D4FCE1C428F3D004187D0 /* SVGKit-iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				55452BF519EC68A200B75A30 /* SVGKit_iOS_Tests.m */,
-				55825B3919EC7B4700635497 /* SVGKit_iOS-RetainTests.m */,
-				55452BF319EC68A200B75A30 /* Supporting Files */,
+				660D4FCF1C428F3D004187D0 /* Info.plist */,
+				660D4FD01C428F3D004187D0 /* SVGKit_iOS-RetainTests.m */,
+				660D4FD11C428F3D004187D0 /* SVGKit_iOS_Tests.m */,
 			);
-			path = "SVGKit-iOS Tests";
-			sourceTree = "<group>";
-			usesTabs = 1;
-		};
-		55452BF319EC68A200B75A30 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				55452BF419EC68A200B75A30 /* Info.plist */,
-				55452C0D19EC6CA400B75A30 /* Test SVGs */,
-			);
-			name = "Supporting Files";
+			name = "SVGKit-iOS Tests";
+			path = "XCodeProjectData/SVGKit-iOS Tests";
 			sourceTree = "<group>";
 		};
-		55452C0D19EC6CA400B75A30 /* Test SVGs */ = {
+		660D4FEB1C42927A004187D0 /* 3rd party frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55452BFF19EC6C9B00B75A30 /* CurvedDiamond.svg */,
-				55452C0019EC6C9B00B75A30 /* g-element-applies-rotation.svg */,
-				55452C0119EC6C9B00B75A30 /* ImageAspectRatio.svg */,
-				55452C0219EC6C9B00B75A30 /* imagetag-layer2-sun.svg */,
-				55452C0319EC6C9B00B75A30 /* Lion.svg */,
-				55452C0419EC6C9B00B75A30 /* Monkey.svg */,
-				55452C0519EC6C9B00B75A30 /* Note.svg */,
+				660D4FEC1C42927A004187D0 /* CocoaLumberjack-2.2.0 */,
 			);
-			name = "Test SVGs";
+			path = "3rd party frameworks";
+			sourceTree = "<group>";
+		};
+		660D4FEC1C42927A004187D0 /* CocoaLumberjack-2.2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FED1C42927A004187D0 /* iOS */,
+				660D4FF21C42927A004187D0 /* Mac */,
+				660D4FF51C42927A004187D0 /* tvOS */,
+				660D4FF91C42927A004187D0 /* watchOS */,
+			);
+			path = "CocoaLumberjack-2.2.0";
+			sourceTree = "<group>";
+		};
+		660D4FED1C42927A004187D0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FEE1C42927A004187D0 /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap */,
+				660D4FEF1C42927A004187D0 /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */,
+				660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */,
+				660D4FF11C42927A004187D0 /* CocoaLumberjack.framework.dSYM */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		660D4FF21C42927A004187D0 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FF31C42927A004187D0 /* CocoaLumberjack.framework */,
+				660D4FF41C42927A004187D0 /* CocoaLumberjack.framework.dSYM */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
+		660D4FF51C42927A004187D0 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FF61C42927A004187D0 /* CocoaLumberjack.framework */,
+				660D4FF71C42927A004187D0 /* CocoaLumberjack.framework.dSYM */,
+				660D4FF81C42927A004187D0 /* E9B622A7-31DB-3FAC-B8A7-AE481434C4FC.bcsymbolmap */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
+		660D4FF91C42927A004187D0 /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FFA1C42927A004187D0 /* CocoaLumberjack.framework */,
+				660D4FFB1C42927A004187D0 /* CocoaLumberjack.framework.dSYM */,
+				660D4FFC1C42927A004187D0 /* DCEDA482-0C15-3571-895F-92CBAC0041F5.bcsymbolmap */,
+			);
+			path = watchOS;
 			sourceTree = "<group>";
 		};
 		6636CD77175F542A0072AAEF /* Sources */ = {
@@ -1170,7 +1175,7 @@
 			children = (
 				6639633E16145D7700E58CCA /* EXTERNAL REFERENCES */,
 				6649E05E16172CE200AFE92A /* SVGKit-iOS */,
-				55452BF219EC68A200B75A30 /* SVGKit-iOS Tests */,
+				660D4FCE1C428F3D004187D0 /* SVGKit-iOS Tests */,
 				825CDAB01BDA4BC0003C1C12 /* SVGKitFramework-iOS */,
 				825CDABC1BDA4BC0003C1C12 /* SVGKitFramework-iOSTests */,
 				825CDAD41BDA4D38003C1C12 /* SVGKitFramework-tvOS */,
@@ -1201,7 +1206,6 @@
 				825CDAEF1BDA4E0E003C1C12 /* Foundation.framework */,
 				825CDAED1BDA4E07003C1C12 /* QuartzCore.framework */,
 				825CDACC1BDA4D20003C1C12 /* libxml2.tbd */,
-				D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */,
 				6639633F16145DDC00E58CCA /* libxml2.dylib */,
 				6639634616148DEC00E58CCA /* CoreGraphics.framework */,
 				6639634116148CDF00E58CCA /* QuartzCore.framework */,
@@ -1213,6 +1217,7 @@
 		6639633E16145D7700E58CCA /* EXTERNAL REFERENCES */ = {
 			isa = PBXGroup;
 			children = (
+				660D4FEB1C42927A004187D0 /* 3rd party frameworks */,
 				6649DF6B16172CCC00AFE92A /* Source */,
 			);
 			name = "EXTERNAL REFERENCES";
@@ -1241,7 +1246,7 @@
 		6649E05E16172CE200AFE92A /* SVGKit-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				6649E05F16172CE200AFE92A /* SVGKit-iOS-Prefix.pch */,
+				660D50041C42970A004187D0 /* SVGKit-iOS-Prefix.pch */,
 			);
 			name = "SVGKit-iOS";
 			path = "XCodeProjectData/SVGKit-iOS";
@@ -1587,14 +1592,6 @@
 				825CDAEB1BDA4D8B003C1C12 /* SVGKitFramework-tvOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D320E8C41ACCFA1F00BD4E72 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2037,7 +2034,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */,
 			);
 			name = "SVGKit-iOS";
 			productName = "SVGKit-iOS";
@@ -2056,7 +2052,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				825CDCC01BDA523B003C1C12 /* PBXTargetDependency */,
 			);
 			name = "SVGKitFramework-iOS";
 			productName = "SVGKitFramework-iOS";
@@ -2093,7 +2088,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				825CDCC21BDA5242003C1C12 /* PBXTargetDependency */,
 			);
 			name = "SVGKitFramework-tvOS";
 			productName = "SVGKitFramework-tvOS";
@@ -2155,12 +2149,6 @@
 			mainGroup = 6639618316145D0400E58CCA;
 			productRefGroup = 6639618F16145D0400E58CCA /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D320E8C41ACCFA1F00BD4E72 /* Products */;
-					ProjectRef = D320E8C31ACCFA1F00BD4E72 /* Lumberjack.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6639618D16145D0400E58CCA /* SVGKit-iOS */,
@@ -2173,28 +2161,11 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		D320E8C91ACCFA1F00BD4E72 /* libCocoaLumberjack.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libCocoaLumberjack.a;
-			remoteRef = D320E8C81ACCFA1F00BD4E72 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		55452BEF19EC68A200B75A30 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55452C0719EC6C9B00B75A30 /* g-element-applies-rotation.svg in Resources */,
-				55452C0619EC6C9B00B75A30 /* CurvedDiamond.svg in Resources */,
-				55452C0819EC6C9B00B75A30 /* ImageAspectRatio.svg in Resources */,
-				55452C0A19EC6C9B00B75A30 /* Lion.svg in Resources */,
-				55452C0C19EC6C9B00B75A30 /* Note.svg in Resources */,
-				55452C0919EC6C9B00B75A30 /* imagetag-layer2-sun.svg in Resources */,
-				55452C0B19EC6C9B00B75A30 /* Monkey.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2250,8 +2221,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55825B3A19EC7B4700635497 /* SVGKit_iOS-RetainTests.m in Sources */,
-				55452BF619EC68A200B75A30 /* SVGKit_iOS_Tests.m in Sources */,
+				660D4FD31C428F3D004187D0 /* SVGKit_iOS-RetainTests.m in Sources */,
+				660D4FD41C428F3D004187D0 /* SVGKit_iOS_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2610,21 +2581,6 @@
 			target = 825CDAD21BDA4D38003C1C12 /* SVGKitFramework-tvOS */;
 			targetProxy = 825CDADE1BDA4D38003C1C12 /* PBXContainerItemProxy */;
 		};
-		825CDCC01BDA523B003C1C12 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaLumberjack;
-			targetProxy = 825CDCBF1BDA523B003C1C12 /* PBXContainerItemProxy */;
-		};
-		825CDCC21BDA5242003C1C12 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaLumberjack;
-			targetProxy = 825CDCC11BDA5242003C1C12 /* PBXContainerItemProxy */;
-		};
-		D320E8CE1ACCFAA700BD4E72 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaLumberjack;
-			targetProxy = D320E8CD1ACCFAA700BD4E72 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -2641,13 +2597,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2657,14 +2608,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = (
 					"Source/**",
-					"calayer-exporter",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "SVGKit-iOS Tests/Info.plist";
+				INFOPLIST_FILE = "XCodeProjectData/SVGKit-iOS Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -2686,8 +2635,6 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2699,10 +2646,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = (
 					"Source/**",
-					"calayer-exporter",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "SVGKit-iOS Tests/Info.plist";
+				INFOPLIST_FILE = "XCodeProjectData/SVGKit-iOS Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2728,10 +2674,10 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lei Lei (JV5Y7A3TGE)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/3rd party frameworks/\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2750,7 +2696,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "B8829AC4-04C1-4193-8D27-8543F41E0D20";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2769,9 +2714,9 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lei Lei (JV5Y7A3TGE)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/3rd party frameworks/\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2782,7 +2727,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "B8829AC4-04C1-4193-8D27-8543F41E0D20";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2797,12 +2741,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Core\"",
 				);
-				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
 				SKIP_INSTALL = YES;
 			};
@@ -2814,16 +2756,13 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				DSTROOT = /tmp/SVGKit_iOS.dst;
 				DYLIB_CURRENT_VERSION = 2.0.0;
-				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCodeProjectData/SVGKit-iOS/SVGKit-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Core\"",
 				);
-				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME).${DYLIB_CURRENT_VERSION}";
 				SKIP_INSTALL = YES;
 			};

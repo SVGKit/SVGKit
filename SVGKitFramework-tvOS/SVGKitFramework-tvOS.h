@@ -14,8 +14,9 @@ FOUNDATION_EXPORT double SVGKitFramework_tvOSVersionNumber;
 //! Project version string for SVGKitFramework-tvOS.
 FOUNDATION_EXPORT const unsigned char SVGKitFramework_tvOSVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <SVGKitFramework_tvOS/PublicHeader.h>
+#define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
 
+// In this header, you should import all the public headers of your framework using statements like #import <SVGKitFramework_tvOS/PublicHeader.h>
 
 #import "AppleSucksDOMImplementation.h"
 #import "Attr.h"
@@ -105,7 +106,9 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_tvOSVersionString[];
 #import "SVGSVGElement.h"
 #import "SVGTextElement.h"
 #import "SVGTitleElement.h"
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 #import "CALayerExporter.h"
+#endif
 #import "SVGKImage+CGContext.h"
 #import "SVGKExporterNSData.h"
 #import "SVGKExporterUIImage.h"
