@@ -274,7 +274,8 @@
 				return;
 			}
 			NSString* command = [transformString substringToIndex:loc.location];
-			NSArray* parameterStrings = [[transformString substringFromIndex:loc.location+1] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]];
+            NSString* rawParametersString = [transformString substringFromIndex:loc.location+1];
+			NSArray* parameterStrings = [rawParametersString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]];
 			
 			/** if you get ", " (comma AND space), Apple sends you an extra 0-length match - "" - between your args. We strip that here */
 			parameterStrings = [parameterStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
