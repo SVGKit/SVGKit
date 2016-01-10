@@ -32,11 +32,11 @@
 
 
 /*The corresponding element to which this object is an instance. For example, if a ‘use’ element references a ‘rect’ element, then an SVGElementInstance is created, with its correspondingElement being the SVGRectElement object for the ‘rect’ element. */
-@property(nonatomic, weak /*weak*/, readonly) SVGElement* correspondingElement;
+@property(nonatomic, weak, readonly) SVGElement* correspondingElement;
 
 
 /* The corresponding ‘use’ element to which this SVGElementInstance object belongs. When ‘use’ elements are nested (e.g., a ‘use’ references another ‘use’ which references a graphics element such as a ‘rect’), then the correspondingUseElement is the outermost ‘use’ (i.e., the one which indirectly references the ‘rect’, not the one with the direct reference). */
-@property(nonatomic, weak /*weak*/, readonly) SVGUseElement* correspondingUseElement;
+@property(nonatomic, weak, readonly) SVGUseElement* correspondingUseElement;
 
 /* The parent of this SVGElementInstance within the instance tree. All SVGElementInstance objects have a parent except the SVGElementInstance which corresponds to the element which was directly referenced by the ‘use’ element, in which case parentNode is null. */
 @property(nonatomic,strong, readonly) SVGElementInstance* parentNode;
