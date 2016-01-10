@@ -159,7 +159,7 @@ static float cachedDevicePixelsPerInch;
 	
 	if( [platform hasPrefix:@"iPhone"]) // catch-all for higher-end devices not yet existing
 	{
-		NSAssert(FALSE, @"Not supported yet: you are using an iPhone that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
+		NSAssert(FALSE, @"Update your source code or disable assertions: you are using an iPhone that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
 		return 401.0f;
 	}
 	
@@ -175,23 +175,39 @@ static float cachedDevicePixelsPerInch;
 	
 	if( [platform hasPrefix:@"iPod"]) // catch-all for higher-end devices not yet existing
 	{
-		NSAssert(FALSE, @"Not supported yet: you are using an iPod that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
+		NSAssert(FALSE, @"Update your source code or disable assertions: you are using an iPod that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
 		return 326.0f;
 	}
 	
+    if( [platform hasPrefix:@"iPad5,1"]
+       || [platform hasPrefix:@"iPad5,2"])
+        return 326.0f;
+    
 	if( [platform hasPrefix:@"iPad1"]
 	|| [platform hasPrefix:@"iPad2"])
 		return 132.0f;
 	if( [platform hasPrefix:@"iPad3"]
 	|| [platform hasPrefix:@"iPad4"]
-	|| [platform hasPrefix:@"iPad5"]
-	|| [platform hasPrefix:@"iPad6"])
+	|| [platform hasPrefix:@"iPad5,3"]
+    || [platform hasPrefix:@"iPad5,4"]
+	|| [platform hasPrefix:@"iPad6"]
+    || [platform hasPrefix:@"iPad7"])
 		return 264.0f;
+    
 	if( [platform hasPrefix:@"iPad"]) // catch-all for higher-end devices not yet existing
 	{
-		NSAssert(FALSE, @"Not supported yet: you are using an iPad that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
+		NSAssert(FALSE, @"Update your source code or disable assertions: you are using an iPad that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
 		return 264.0f;
 	}
+    
+    if( [platform hasPrefix:@"iWatch1"])
+        return 326.0f;
+    
+    if( [platform hasPrefix:@"iWatch"]) // catch-all for higher-end devices not yet existing
+    {
+        NSAssert(FALSE, @"Update your source code or disable assertions: you are using an iWatch that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
+        return 326.0f;
+    }
 	
 	if( [platform hasPrefix:@"x86_64"])
 	{
