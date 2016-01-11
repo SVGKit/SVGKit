@@ -76,16 +76,15 @@
 		66988DCF168A129500EC93C7 /* CSSValueList.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DCD168A129500EC93C7 /* CSSValueList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66988DD0168A129500EC93C7 /* CSSValueList.m in Sources */ = {isa = PBXBuildFile; fileRef = 66988DCE168A129500EC93C7 /* CSSValueList.m */; };
 		66988DD3168A13BD00EC93C7 /* CSSValue_ForSubclasses.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DD1168A13BC00EC93C7 /* CSSValue_ForSubclasses.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66DBE4DF1C42A00000A0F0B7 /* SVGKit-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE4DE1C42A00000A0F0B7 /* SVGKit-iOS-Prefix.pch */; settings = {ASSET_TAGS = (); }; };
-		66DBE4E41C42A00C00A0F0B7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 66DBE4E11C42A00C00A0F0B7 /* Info.plist */; settings = {ASSET_TAGS = (); }; };
+		66DBE4DF1C42A00000A0F0B7 /* SVGKit-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE4DE1C42A00000A0F0B7 /* SVGKit-iOS-Prefix.pch */; };
 		66DBE4E51C42A00C00A0F0B7 /* SVGKit_iOS-RetainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE4E21C42A00C00A0F0B7 /* SVGKit_iOS-RetainTests.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		66DBE4E61C42A00C00A0F0B7 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE4E31C42A00C00A0F0B7 /* SVGKit_iOS_Tests.m */; settings = {ASSET_TAGS = (); }; };
-		66DBE4FB1C42A0C100A0F0B7 /* SVGKitFramework-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE4F81C42A0C100A0F0B7 /* SVGKitFramework-iOS-Prefix.pch */; settings = {ASSET_TAGS = (); }; };
-		66DBE4FC1C42A0C100A0F0B7 /* SVGKitFramework-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE4F91C42A0C100A0F0B7 /* SVGKitFramework-iOS.h */; settings = {ASSET_TAGS = (); }; };
-		66DBE5011C42A0C900A0F0B7 /* SVGKitFramework_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE4FF1C42A0C900A0F0B7 /* SVGKitFramework_iOSTests.m */; settings = {ASSET_TAGS = (); }; };
-		66DBE5071C42A0D200A0F0B7 /* SVGKitFramework-tvOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE5041C42A0D200A0F0B7 /* SVGKitFramework-tvOS-Prefix.pch */; settings = {ASSET_TAGS = (); }; };
-		66DBE5081C42A0D200A0F0B7 /* SVGKitFramework-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE5051C42A0D200A0F0B7 /* SVGKitFramework-tvOS.h */; settings = {ASSET_TAGS = (); }; };
-		66DBE50D1C42A0D800A0F0B7 /* SVGKitFramework_tvOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE50B1C42A0D800A0F0B7 /* SVGKitFramework_tvOSTests.m */; settings = {ASSET_TAGS = (); }; };
+		66DBE4E61C42A00C00A0F0B7 /* SVGKit_iOS_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE4E31C42A00C00A0F0B7 /* SVGKit_iOS_Tests.m */; };
+		66DBE4FB1C42A0C100A0F0B7 /* SVGKitFramework-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE4F81C42A0C100A0F0B7 /* SVGKitFramework-iOS-Prefix.pch */; };
+		66DBE4FC1C42A0C100A0F0B7 /* SVGKitFramework-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE4F91C42A0C100A0F0B7 /* SVGKitFramework-iOS.h */; };
+		66DBE5011C42A0C900A0F0B7 /* SVGKitFramework_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE4FF1C42A0C900A0F0B7 /* SVGKitFramework_iOSTests.m */; };
+		66DBE5071C42A0D200A0F0B7 /* SVGKitFramework-tvOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE5041C42A0D200A0F0B7 /* SVGKitFramework-tvOS-Prefix.pch */; };
+		66DBE5081C42A0D200A0F0B7 /* SVGKitFramework-tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 66DBE5051C42A0D200A0F0B7 /* SVGKitFramework-tvOS.h */; };
+		66DBE50D1C42A0D800A0F0B7 /* SVGKitFramework_tvOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBE50B1C42A0D800A0F0B7 /* SVGKitFramework_tvOSTests.m */; };
 		66E4E5C4188EF5D3007DFCAA /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD78175F542A0072AAEF /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E4E5C5188EF5D3007DFCAA /* SVGKSourceString.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD7A175F542A0072AAEF /* SVGKSourceString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66E4E5C6188EF5D3007DFCAA /* SVGKSourceURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD7C175F542A0072AAEF /* SVGKSourceURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1096,7 +1095,8 @@
 			children = (
 				660D4FEC1C42927A004187D0 /* CocoaLumberjack-2.2.0 */,
 			);
-			path = "3rd party frameworks";
+			name = "3rd party frameworks";
+			path = "3rd-party-frameworks";
 			sourceTree = "<group>";
 		};
 		660D4FEC1C42927A004187D0 /* CocoaLumberjack-2.2.0 */ = {
@@ -2127,7 +2127,7 @@
 		6639618516145D0400E58CCA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = na;
 				TargetAttributes = {
 					55452BF019EC68A200B75A30 = {
@@ -2175,7 +2175,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66DBE4E41C42A00C00A0F0B7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2628,6 +2627,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.MaddTheSane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2666,6 +2666,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.MaddTheSane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2674,7 +2675,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -2687,7 +2687,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/3rd party frameworks/\"/**";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/3rd-party-frameworks/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2713,7 +2713,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -2725,7 +2724,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/3rd party frameworks/\"/**";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/3rd-party-frameworks/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2743,7 +2742,6 @@
 		6639619D16145D0400E58CCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DSTROOT = /tmp/SVGKit_iOS.dst;
 				DYLIB_CURRENT_VERSION = 2.0.0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2762,7 +2760,6 @@
 		6639619E16145D0400E58CCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DSTROOT = /tmp/SVGKit_iOS.dst;
 				DYLIB_CURRENT_VERSION = 2.0.0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2794,6 +2791,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "SVGKitFrameworks/SVGKitFramework-iOS/SVGKitFramework-iOS-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2832,6 +2833,10 @@
 				DYLIB_CURRENT_VERSION = 2;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "SVGKitFrameworks/SVGKitFramework-iOS/SVGKitFramework-iOS-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
