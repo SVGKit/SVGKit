@@ -74,7 +74,9 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 @synthesize toolbar, popoverController, contentView, detailItem;
 @synthesize viewActivityIndicator;
 @synthesize exportText = _exportText;
-@synthesize layerExporter = _layerExporter;
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
+	@synthesize layerExporter = _layerExporter;
+#endif
 @synthesize tapGestureRecognizer = _tapGestureRecognizer;
 @synthesize exportLog = _exportLog;
 
@@ -733,6 +735,7 @@ CATextLayer *textLayerForLastTappedLayer;
 #pragma mark Export
 
 
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 - (IBAction)exportLayers:(id)sender {
     if (_layerExporter) {
         return;
@@ -773,8 +776,8 @@ CATextLayer *textLayerForLastTappedLayer;
     _exportText = nil;
     
     _layerExporter = nil;
-    
 }
+#endif
 
 
 - (void)viewDidUnload {

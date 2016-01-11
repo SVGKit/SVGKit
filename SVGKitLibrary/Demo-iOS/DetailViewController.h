@@ -20,12 +20,18 @@
 
 #define SHOW_DEBUG_INFO_ON_EACH_TAPPED_LAYER 1 // each time you tap and select a layer, that layer's info is displayed on-screen
 
-@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate , CALayerExporterDelegate, UIScrollViewDelegate>
+@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate,
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
+        CALayerExporterDelegate,
+#endif
+UIScrollViewDelegate>
 
 @property (nonatomic, strong) SVGKSource *sourceOfCurrentDocument;
 @property (nonatomic, strong) UITextView* exportText;
 @property (nonatomic, strong) NSMutableString* exportLog;
-@property (nonatomic, strong) CALayerExporter* layerExporter;
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
+    @property (nonatomic, strong) CALayerExporter* layerExporter;
+#endif
 @property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
 
 @property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
@@ -41,7 +47,9 @@
 
 
 - (IBAction)animate:(id)sender;
-- (IBAction)exportLayers:(id)sender;
+#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
+    - (IBAction)exportLayers:(id)sender;
+#endif
 
 - (IBAction) showHideBorder:(id)sender;
 

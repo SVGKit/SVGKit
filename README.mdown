@@ -42,7 +42,8 @@ You MAY also need to manually add the following Apple Frameworks to your app:
   - UIKit
 
 You MAY also need to add the following 3rd party Frameworks to your app (included with SVGKit):
-  - CocoaLumberjack (in the SVGKit-iOS project, select the "3rd party frameworks" folder, and drag/drop whichever versions you need: iOS, tvOS, etc)
+  - CocoaLumberjack (in the SVGKit-iOS project, select the "3rd-party-frameworks" folder, and drag/drop whichever versions you need: iOS, tvOS, etc)
+    Remember to embed the library too (should show under Target -> General -> Embedded Binaries)
 
 ## Build the static library (automatic)
 
