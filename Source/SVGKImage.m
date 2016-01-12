@@ -786,6 +786,24 @@ static NSMutableDictionary* globalSVGKImageCache;
     return layersByElementId;
 }
 
+- (NSArray*) arrayOfLayers
+{
+	NSMutableArray* layers = [NSMutableArray new];
+
+	CALayer* rootLayer = self.CALayerTree;
+
+	[self recurseAddCALayersToArray:rootLayer array:layers];
+
+	return layers;
+}
+
+- (void) recurseAddCALayersToArray:(CALayer*)parentLayer array:(NSMutableArray*)array {
+	[array addObject:parentLayer];
+	for (CALayer* layer in parentLayer.sublayers) {
+		[self recurseAddCALayersToArray:layer array:array];
+	}
+}
+
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
 
 -(void) scaleToFitInside:(CGSize) maxSize

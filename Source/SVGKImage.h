@@ -12,7 +12,7 @@
  (each time you zoom in, we want to re-render the SVG as a higher-resolution set of pixels)
  
  We use the exact same method names as UIImage, and try to be literally as identical as possible.
- 
+
  Creating an SVGKImage:
  
  - PREFERRED: use the "imageNamed:" method
@@ -289,6 +289,9 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
 
 /*! returns all the individual CALayer's in the full layer tree, indexed by the SVG identifier of the SVG node that created that layer */
 - (NSDictionary*) dictionaryOfLayers;
+
+/*! returns all the individual CALayer's in the full layer tree as an array */
+- (NSArray*) arrayOfLayers;
 
 #pragma mark - Useful bonus methods, will probably move to a different class at some point
 
