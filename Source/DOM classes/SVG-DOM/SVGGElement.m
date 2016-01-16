@@ -30,6 +30,13 @@
 		mainRect = CGRectUnion(mainRect, subLayerFrame);
 	}
 	
+    NSAssert(!CGRectIsNull(mainRect), @"A G element has been generated with non-existent size and no contents. Apple cannot cope with this. As a workaround, we are resetting your layer to empty, but this may have unwanted side-effects (hard to test)" );
+    if (CGRectIsNull(mainRect))
+    {
+        return;
+    }
+    else
+    {
 	/** use mainrect (union of all sub-layer bounds) this layer's FRAME
 	 
 	 i.e. top-left-corner of this layer will be "the top left corner of the convex-hull rect of all sublayers"
@@ -51,9 +58,7 @@
 	 calls where it appears someone at Apple forgot how their API works, and tried to do the offsetting automatically. "Paved
 	 with good intentions...".
 	 	 */
-    if (CGRectIsNull(mainRect)) {
-        // TODO what to do when mainRect is null rect? i.e. no sublayer or all sublayers have null rect frame
-    } else {
+    
         for (CALayer *currentLayer in [layer sublayers]) {
             CGRect frame = currentLayer.frame;
             frame.origin.x -= mainRect.origin.x;
