@@ -27,9 +27,9 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 ## 2016: Use the Framework - drag, drop, done!
 
 1. Open "SVGKit-iOS.xcodeproj"
-1. In Project Navigator, expand the SVGKitFrameworks folder
-1. Find the Framework for your device (iOS, tvOS, or both)
-1. Drag/drop that Framework into your app-project
+1. Build the project once
+1. In Project Navigator, expand the Products folder
+1. Drag/drop SVGKit.framework into your app-project
 
 NB: Frameworks are the preferred way to use libraries in Xcode. But this is a new feature, it might have bugs. If you have ANY problems, please create an Issue, but also try the Static Library method below
 
