@@ -24,7 +24,15 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 
 # Installation (add SVGKit to your app)
 
-## 2016: Use the Framework - drag, drop, done!
+You have 3 main options for installing SVGKit:
+
+1. Drag/drop the .framework file into your project <-- PREFERRED / RECOMMENDED
+1. Drag/drop the static library into your project, and configure the build settings in your project
+1. Use CocoaPods (not supported, but we try to update the podspec when people submit Pull Requests for it)
+
+NB: the "static library" is our backwards-compatible, manual install that always works if you have problems either with CocoaPods or with the Framework. But the other two are a lot quicker/easier.
+
+## Use the Framework - drag, drop, done!
 
 1. Open "SVGKit-iOS.xcodeproj"
 1. Build the project once
@@ -45,7 +53,7 @@ You MAY also need to add the following 3rd party Frameworks to your app (include
   - CocoaLumberjack (in the SVGKit-iOS project, select the "3rd-party-frameworks" folder, and drag/drop whichever versions you need: iOS, tvOS, etc)
     Remember to embed the library too (should show under Target -> General -> Embedded Binaries)
 
-## Build the static library (automatic)
+## Build the static library
 
 Until 2016, this was the PREFERRED way of shipping SVGKit.
 
