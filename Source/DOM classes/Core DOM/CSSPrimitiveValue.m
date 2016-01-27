@@ -65,7 +65,7 @@
 		case CSS_PT:
 		case CSS_PC:
 		{
-			float valueAsInches = 0;
+			float valueAsInches;
 			switch( self.primitiveType )
 			{
 				case CSS_CM:
@@ -91,6 +91,7 @@
 					
 				default:
 				{
+					valueAsInches = 0;
 					NSAssert( FALSE, @"This line is impossible but Apple's compiler is crap" );
 				}
 			}
