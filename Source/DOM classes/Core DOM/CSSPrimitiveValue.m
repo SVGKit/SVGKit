@@ -65,7 +65,7 @@
 		case CSS_PT:
 		case CSS_PC:
 		{
-			float valueAsInches;
+			float valueAsInches = 0;
 			switch( self.primitiveType )
 			{
 				case CSS_CM:
