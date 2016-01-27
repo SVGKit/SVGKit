@@ -91,6 +91,7 @@
 					
 				default:
 				{
+					valueAsInches = 0;
 					NSAssert( FALSE, @"This line is impossible but Apple's compiler is crap" );
 				}
 			}
