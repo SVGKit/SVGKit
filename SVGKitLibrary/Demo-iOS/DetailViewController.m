@@ -280,12 +280,10 @@ CATextLayer *textLayerForLastTappedLayer;
 
 		[CATransaction begin];
 		[CATransaction setDisableActions:YES];
-		for (CALayer* layer in [((SVGKLayeredImageView*)view).image arrayOfLayers]) {
-			if ([layer isKindOfClass:[CATextLayer class]]){
-				layer.actions = newActions;
-				layer.contentsScale = finalScale;
-			}
-		}
+
+		// Override actions to prevent implicit CALayer animations that happen when setting scale
+		[self setActions:newActions andUpdateScale:finalScale onTextSublayersOf:((SVGKLayeredImageView*)view).image.CALayerTree];
+
 		[CATransaction commit];
 	}
 	else
@@ -317,6 +315,17 @@ CATextLayer *textLayerForLastTappedLayer;
          */
 		self.scrollViewForSVG.minimumZoomScale /= finalScale;
 		self.scrollViewForSVG.maximumZoomScale /= finalScale;
+	}
+}
+
+- (void) setActions:(NSMutableDictionary*)actions andUpdateScale:(float)scale onTextSublayersOf:(CALayer*)layer {
+	if ([layer isKindOfClass:[CATextLayer class]]){
+		layer.actions = actions;
+		layer.contentsScale = scale;
+	}
+
+	for (CALayer* sublayer in layer.sublayers) {
+		[self setActions:actions andUpdateScale:scale onTextSublayersOf:sublayer];
 	}
 }
 
