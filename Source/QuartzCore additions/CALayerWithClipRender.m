@@ -16,17 +16,37 @@
 
 - (void)renderInContext:(CGContextRef)ctx {
     CALayer *mask = nil;
-    if( self.mask != nil ) {
-        [CALayerWithClipRender maskLayer:self inContext:ctx];
+    @try {
+        [CALayerWithClipRender patchInfiniteLayer:self];
         
-        mask = self.mask;
-        self.mask = nil;
+        if( self.mask != nil ) {
+            [CALayerWithClipRender maskLayer:self inContext:ctx];
+            
+            mask = self.mask;
+            self.mask = nil;
+        }
+        
+        [super renderInContext:ctx];
     }
-    
-    [super renderInContext:ctx];
-    
-    if( mask != nil ) {
-        self.mask = mask;
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
+    @finally {
+        if( mask != nil ) {
+            self.mask = mask;
+        }
+    }
+}
+
++ (void)patchInfiniteLayer:(CALayer*)layer {
+    if (CGRectIsNull(layer.frame)) {
+        layer.frame = CGRectZero;
+    }
+    for (CALayer *child in layer.sublayers) {
+        if (CGRectIsNull(child.frame)) {
+            child.frame = CGRectZero;
+        }
+        [CALayerWithClipRender patchInfiniteLayer:child];
     }
 }
 
