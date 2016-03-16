@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CALayerWithClipRender.H"
+#import "CALayerWithClipRender.h"
 
 /*!
  * Overrides Apple's CALayer purely to change one method, so that hit-testing
