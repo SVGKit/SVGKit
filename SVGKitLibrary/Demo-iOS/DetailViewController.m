@@ -7,19 +7,6 @@
 //
 #import "DetailViewController.h"
 
-#import "MasterViewController.h"
-
-#import "NodeList+Mutable.h"
-
-#import "SVGKFastImageView.h"
-#import "SVGKLayeredImageView.h"
-
-#import "SVGKSourceURL.h"
-#import "SVGKSourceLocalFile.h"
-#import "SVGKSourceNSData.h"
-#import "SVGKSourceString.h"
-
-
 @interface ImageLoadingOptions : NSObject
 @property(nonatomic) BOOL requiresLayeredImageView;
 @property(nonatomic) CGSize overrideImageSize;
@@ -77,8 +64,6 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 #if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 	@synthesize layerExporter = _layerExporter;
 #endif
-@synthesize tapGestureRecognizer = _tapGestureRecognizer;
-@synthesize exportLog = _exportLog;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,6 +82,7 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
+	self.scrollViewForSVG.delegate = self;
 	
 	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
 											   [[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)],
@@ -147,7 +133,7 @@ CATextLayer *textLayerForLastTappedLayer;
  */
 -(void) handleTapGesture:(UITapGestureRecognizer*) recognizer
 {
-	CGPoint p = [recognizer locationInView:self.contentView];
+	CGPoint p = [recognizer locationInView:self.scrollViewForSVG];
 	
 #if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
 	SVGKImage* svgImage = nil; // ONLY used for the hacky code below that demonstrates how complex hit-testing is on an SVGKFastImageView
@@ -200,8 +186,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	
 	if( hitLayer == lastTappedLayer )
 		[self deselectTappedLayer]; // do this both ways, but have to do it AFTER the if-test because it nil's one of the if-phrases!
-	else
-	{
+	else {
 		[self deselectTappedLayer]; // do this both ways, but have to do it AFTER the if-test because it nil's one of the if-phrases!
 	
 #if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
@@ -276,41 +261,72 @@ CATextLayer *textLayerForLastTappedLayer;
 
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)finalScale
 {
-	/** NB: very important! The "finalScale" paramter to this method is SLIGHTLY DIFFERENT from the scale that Apple reports in the other delegate methods
+	/** NB: very important! The "finalScale" parameter to this method is SLIGHTLY DIFFERENT from the scale that Apple reports in the other delegate methods
 	 
 	 This is very confusing, clearly it's bit of a hack - the other methods get called
 	 at slightly the wrong time, and so their data is slightly wrong (out-by-one animation step).
 	 
 	 ONLY the values passed as params to this method are correct!
 	 */
-	
+
 	/**
-	 
-	 Apple's implementation of zooming is EXTREMELY poorly designed; it's a hack onto a class
-	 that was only designed to do panning (hence the name: uiSCROLLview)
-	 
-	 So ... "zooming" via a UIScrollView is NOT integrated with UIView
-	 rendering - in a UIView subclass, you CANNOT KNOW whether you have been "zoomed"
-	 (i.e.: had your view contents ruined horribly by Apple's class)
-	 
-	 The three lines that follow are - allegedly - Apple's preferred way of handling
-	 the situation. Note that we DO NOT SET view.frame! According to official docs,
-	 view.frame is UNDEFINED (this is very worrying, breaks a huge amount of UIKit-related code,
-	 but that's how Apple has documented / implemented it!)
+	 * If we use the SVGKLayeredImageView then there is no need to redraw the image - only update scale on text elements
 	 */
-	view.transform = CGAffineTransformIdentity; // this alters view.frame! But *not* view.bounds
-	view.bounds = CGRectApplyAffineTransform( view.bounds, CGAffineTransformMakeScale(finalScale, finalScale));
-	[view setNeedsDisplay];
-	
-	/**
-	 Workaround for another bug in Apple's hacks for UIScrollView:
-	 
-	  - when you reset the transform, as advised by Apple, you "break" Apple's memory of the scroll factor.
-	     ... because they "forgot" to store it anywhere (they read your view.transform as if it were a private
-			 variable inside UIScrollView! This causes MANY bugs in applications :( )
-	 */
-	self.scrollViewForSVG.minimumZoomScale /= finalScale;
-	self.scrollViewForSVG.maximumZoomScale /= finalScale;
+	if ([self.contentView isKindOfClass:[SVGKLayeredImageView class]]) {
+		finalScale *= [UIScreen mainScreen].scale;
+
+		NSMutableDictionary
+				* newActions = [@{kCAOnOrderIn : [NSNull null], kCAOnOrderOut : [NSNull null], @"sublayers" : [NSNull null], @"contents" : [NSNull null], @"bounds" : [NSNull null]} mutableCopy];
+
+		[CATransaction begin];
+		[CATransaction setDisableActions:YES];
+
+		// Override actions to prevent implicit CALayer animations that happen when setting scale
+		[self setActions:newActions andUpdateScale:finalScale onTextSublayersOf:((SVGKLayeredImageView*)view).image.CALayerTree];
+
+		[CATransaction commit];
+	}
+	else
+	{
+		/**
+
+         Apple's implementation of zooming is EXTREMELY poorly designed; it's a hack onto a class
+         that was only designed to do panning (hence the name: uiSCROLLview)
+
+         So ... "zooming" via a UIScrollView is NOT integrated with UIView
+         rendering - in a UIView subclass, you CANNOT KNOW whether you have been "zoomed"
+         (i.e.: had your view contents ruined horribly by Apple's class)
+
+         The three lines that follow are - allegedly - Apple's preferred way of handling
+         the situation. Note that we DO NOT SET view.frame! According to official docs,
+         view.frame is UNDEFINED (this is very worrying, breaks a huge amount of UIKit-related code,
+         but that's how Apple has documented / implemented it!)
+         */
+		view.transform = CGAffineTransformIdentity; // this alters view.frame! But *not* view.bounds
+		view.bounds = CGRectApplyAffineTransform(view.bounds, CGAffineTransformMakeScale(finalScale, finalScale));
+		[view setNeedsDisplay];
+
+		/**
+         Workaround for another bug in Apple's hacks for UIScrollView:
+
+          - when you reset the transform, as advised by Apple, you "break" Apple's memory of the scroll factor.
+             ... because they "forgot" to store it anywhere (they read your view.transform as if it were a private
+                 variable inside UIScrollView! This causes MANY bugs in applications :( )
+         */
+		self.scrollViewForSVG.minimumZoomScale /= finalScale;
+		self.scrollViewForSVG.maximumZoomScale /= finalScale;
+	}
+}
+
+- (void) setActions:(NSMutableDictionary*)actions andUpdateScale:(float)scale onTextSublayersOf:(CALayer*)layer {
+	if ([layer isKindOfClass:[CATextLayer class]]){
+		layer.actions = actions;
+		layer.contentsScale = scale;
+	}
+
+	for (CALayer* sublayer in layer.sublayers) {
+		[self setActions:actions andUpdateScale:scale onTextSublayersOf:sublayer];
+	}
 }
 
 #pragma mark - rest of class
@@ -518,7 +534,7 @@ CATextLayer *textLayerForLastTappedLayer;
 }
 
 /**
- Creates an appopriate SVGKImageView to display the loaded SVGKImage, and triggers the post-processing
+ Creates an appropriate SVGKImageView to display the loaded SVGKImage, and triggers the post-processing
  of on-screen displays
  */
 -(void) internalLoadedResource:(SVGKSource*) source withOptions:(ImageLoadingOptions*) loadingOptions parserOutput:(SVGKParseResult*) parseResult createImageViewFromDocument:(SVGKImage*) document

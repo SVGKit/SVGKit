@@ -12,7 +12,7 @@
  (each time you zoom in, we want to re-render the SVG as a higher-resolution set of pixels)
  
  We use the exact same method names as UIImage, and try to be literally as identical as possible.
- 
+
  Creating an SVGKImage:
  
  - PREFERRED: use the "imageNamed:" method
