@@ -50,6 +50,8 @@
 		666674CA168A561C00486B68 /* MediaList.m in Sources */ = {isa = PBXBuildFile; fileRef = 666674C8168A561B00486B68 /* MediaList.m */; };
 		6668E2081688D3CF00F774A6 /* SVGGElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 6668E2061688D3CF00F774A6 /* SVGGElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6668E2071688D3CF00F774A6 /* SVGGElement.m */; };
+		6681C5151CBF07CA00272CCC /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h in Headers */ = {isa = PBXBuildFile; fileRef = 66988DD9168A2F4200EC93C7 /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6681C5161CBF07FB00272CCC /* StyleSheetList+Mutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 666674CB168A58D000486B68 /* StyleSheetList+Mutable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		668418BA1867457900C61EC2 /* SVGKImage+CGContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 668418B81867457900C61EC2 /* SVGKImage+CGContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		668418BB1867457900C61EC2 /* SVGKImage+CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 668418B91867457900C61EC2 /* SVGKImage+CGContext.m */; };
 		668418C018674A0300C61EC2 /* SVGKExporterNSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 668418BE18674A0300C61EC2 /* SVGKExporterNSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1607,6 +1609,8 @@
 			files = (
 				66E8639F1688C2780059C9C4 /* AppleSucksDOMImplementation.h in Headers */,
 				66E4E5C4188EF5D3007DFCAA /* SVGKSourceLocalFile.h in Headers */,
+				6681C5161CBF07FB00272CCC /* StyleSheetList+Mutable.h in Headers */,
+				6681C5151CBF07CA00272CCC /* CSSPrimitiveValue_ConfigurablePixelsPerInch.h in Headers */,
 				66E4E5C5188EF5D3007DFCAA /* SVGKSourceString.h in Headers */,
 				66E4E5C6188EF5D3007DFCAA /* SVGKSourceURL.h in Headers */,
 				66849FAD18393EC600AE4F28 /* NamedNodeMap_Iterable.h in Headers */,
