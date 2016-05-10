@@ -101,6 +101,21 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate) blockCompleted;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
 
+
+/**
+ PREFERABLY: these are our only method, apart from the convenience "imageNamed"
+ 
+ Creating an SVG from raw data; this is not recommended: SVG requires knowledge 
+ of at least the URL where it came from (as it can contain relative file-links internally).
+
+ If you need to create an SVG e.g. directly from raw bytes, then you MUST use
+ this method and ADDITIONALLY wrap your data into an SVGKSource.
+ 
+ This is because SVG's cannot parse correctly without the metadata about where
+ the file came from: e.g. they cannot process relative links, cross-references, etc.
+ */
++(SVGKImage*) imageWithData:(NSData *)newNSData; // if you have custom source's you want to use
+
 /**
  PREFERABLY: these are our only method, apart from the convenience "imageNamed"
  

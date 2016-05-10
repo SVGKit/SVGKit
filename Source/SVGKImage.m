@@ -214,6 +214,14 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
++ (SVGKImage*) imageWithData:(NSData *)newNSData
+{
+	NSParameterAssert(newNSData != nil);
+	@synchronized(self) {
+        return [[[self class] alloc] initWithData:newNSData];
+    }
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	/** Remove and release (if appropriate) all cached render-output */
