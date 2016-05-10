@@ -216,7 +216,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 + (SVGKImage*) imageWithData:(NSData *)newNSData
 {
-	NSParameterAssert(newSource != nil);
+	NSParameterAssert(newNSData != nil);
 	@synchronized(self) {
         return [[[self class] alloc] initWithData:newNSData];
     }
