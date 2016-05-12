@@ -567,9 +567,9 @@
 	 
 	 http://www.w3.org/TR/SVG/propidx.html
 	 
-	 For each of those, the implementaiton is the same.
+	 For each of those, the implementation is the same.
 	 
-	 ********* WAWRNING: THE CURRENT IMPLEMENTATION BELOW IS VEYR MUCH INCOMPLETE, BUT IT WORKS FOR VERY SIMPLE SVG'S ************
+	 ********* WAWRNING: THE CURRENT IMPLEMENTATION BELOW IS VERY MUCH INCOMPLETE, BUT IT WORKS FOR VERY SIMPLE SVG'S ************
 	 */
     NSString* localStyleValue = [self.style getPropertyValue:stylableProperty];
     
@@ -621,8 +621,7 @@
     
     if( inherit )
     {
-        /** Finally: move up the tree until you find a <G> node, and ask it to provide the value
-         OR: if you find an <SVG> tag before you find a <G> tag, give up
+        /** Finally: move up the tree until you find a <G> or <SVG> node, and ask it to provide the value
          */
         
         Node* parentElement = self.parentNode;
@@ -633,9 +632,10 @@
             parentElement = parentElement.parentNode;
         }
         
-        if( parentElement == nil
-           || [parentElement isKindOfClass:[SVGSVGElement class]] )
+        if( parentElement == nil )
+        {
             return nil; // give up!
+        }
         else
         {
             return [((SVGElement*)parentElement) cascadedValueForStylableProperty:stylableProperty];
