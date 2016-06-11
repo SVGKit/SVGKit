@@ -26,3 +26,6 @@ xcuserdata
 profile
 *.moved-aside
 build
+
+#VScode
+.vscode
