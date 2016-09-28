@@ -158,7 +158,7 @@ static float cachedDevicePixelsPerInch;
     if ( [platform hasPrefix:@"iPhone7,1"]
        || [platform hasPrefix:@"iPhone8,2"]
        || [platform hasPrefix:@"iPhone9,2"]
-       || [platform hasPrefix:@"iPhone9,4") {
+       || [platform hasPrefix:@"iPhone9,4"]) {
         return 401.0f;
     }
 	
