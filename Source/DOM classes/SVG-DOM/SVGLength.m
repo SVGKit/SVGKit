@@ -149,12 +149,16 @@ static float cachedDevicePixelsPerInch;
        || [platform hasPrefix:@"iPhone6"]
        || [platform hasPrefix:@"iPhone7,2"]
        || [platform hasPrefix:@"iPhone8,1"]
-       || [platform hasPrefix:@"iPhone8,4"]) {
+       || [platform hasPrefix:@"iPhone8,4"]
+       || [platform hasPrefix:@"iPhone9,1"]
+       || [platform hasPrefix:@"iPhone9,3"]) {
         return 326.0f;
     }
     
     if ( [platform hasPrefix:@"iPhone7,1"]
-       || [platform hasPrefix:@"iPhone8,2"]) {
+       || [platform hasPrefix:@"iPhone8,2"]
+       || [platform hasPrefix:@"iPhone9,2"]
+       || [platform hasPrefix:@"iPhone9,4"]) {
         return 401.0f;
     }
 	

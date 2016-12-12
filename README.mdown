@@ -65,7 +65,7 @@ We have a build script that automatically builds ALL versions of the library at 
 
 It's all setup already, all you need to do is:
 
-1. Open "SVGKit-iOS.xcodeproj", and Build it (cmd-B)
+1. Open "SVGKit-iOS.xcodeproj", switch to "SVGKit-iOS" target and Build it (cmd-B)
 3. in left navbar, scroll to bottom, and open the "Products" section
 4. right click the library ("libSVGKitBLAHBLAH.a") and select "show in finder"
 5. GO UP ONE FOLDER
