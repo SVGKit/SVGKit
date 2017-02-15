@@ -29,7 +29,4 @@ But there's a couple of hard and fast rules, to protect all of us:
 
 We have very few rules for coding style. But there are a couple of things that affect other programmers:
 
-1. Don't convert the project to ARC - there are forks for that, if you really want it. We're planning promoting them to default in the future
 1. Don't reformat existing code unless it's VERY badly formatted - it makes it TEN TIMES HARDER for us to check your changes (it will mess up all the diff's)
-1. Don't use autoboxing ( the "@()/@[]/@{}" syntax ) - some devs are still using old versions of Xcode
-1. With @property, add an explicity @synthesize for each new property - again: some devs have old versions of Xcode
