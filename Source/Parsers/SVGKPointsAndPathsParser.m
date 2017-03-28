@@ -318,11 +318,13 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 + (void) readCoordinate:(NSScanner*)scanner intoFloat:(CGFloat*) floatPointer
 {
 #if CGFLOAT_IS_DOUBLE
-	if( ! [scanner scanDouble:floatPointer] )
+    
+    if( ![scanner scanDouble:floatPointer])
 		NSAssert(FALSE, @"invalid coord");
 #else
-	if( ! [scanner scanFloat:floatPointer] )
+    if( ![scanner scanFloat:floatPointer]){
 		NSAssert(FALSE, @"invalid coord");
+    }
 #endif
 }
 
@@ -793,6 +795,8 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	CGFloat rx = fabs(radii.x);
 	CGFloat ry = fabs(radii.y);
 	
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
+    
 	CGFloat phi;
 	
 	[SVGKPointsAndPathsParser readCoordinate:scanner intoFloat:&phi];
@@ -800,12 +804,16 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	phi *= M_PI/180.;
 	
 	phi = fmod(phi, 2 * M_PI);
+    
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
 	
 	CGPoint flags = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
 	
 	BOOL largeArcFlag = flags.x != 0.;
 	BOOL sweepFlag = flags.y != 0.;
-
+    
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
+    
 	CGPoint endPoint = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
 
 	// end parsing
