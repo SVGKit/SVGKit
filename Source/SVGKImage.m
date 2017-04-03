@@ -206,7 +206,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKImage*) imageWithContentsOfFileAsynchronously:(NSString *)aPath onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted {
++ (SVGKParser*) imageParserWithContentsOfFileAsynchronously:(NSString *)aPath onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted {
 	return [self imageWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath] onCompletion:blockCompleted];
 }
 
@@ -226,7 +226,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKImage*) imageWithDataAsynchronously:(NSData *)newNSData onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
++ (SVGKParser*) imageParserWithDataAsynchronously:(NSData *)newNSData onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
 {
 	NSParameterAssert(newNSData != nil);
 	SVGKitLogWarn(@"Creating an SVG from raw data; this is not recommended: SVG requires knowledge of at least the URL where it came from (as it can contain relative file-links internally). You should use the method [SVGKImage initWithSource:] instead and specify an SVGKSource with more detail" );
