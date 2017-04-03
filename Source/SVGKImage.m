@@ -206,8 +206,18 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKParser*) imageParserWithContentsOfFileAsynchronously:(NSString *)aPath onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted {
-	return [self imageWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath] onCompletion:blockCompleted];
++ (SVGKImage*) imageParserWithContentsOfFileAsynchronously:(NSString *)aPath onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted {
+
+    __block SVGKImage *image;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self imageWithSource:[SVGKSourceLocalFile sourceFromFilename:aPath] onCompletion:^(SVGKImage *loadedImage, SVGKParseResult *parseResult) {
+        image = loadedImage;
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return image;
 }
 
 + (SVGKImage*) imageWithSource:(SVGKSource *)newSource
@@ -226,12 +236,21 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKParser*) imageParserWithDataAsynchronously:(NSData *)newNSData onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
++ (SVGKImage*) imageParserWithDataAsynchronously:(NSData *)newNSData onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
 {
 	NSParameterAssert(newNSData != nil);
 	SVGKitLogWarn(@"Creating an SVG from raw data; this is not recommended: SVG requires knowledge of at least the URL where it came from (as it can contain relative file-links internally). You should use the method [SVGKImage initWithSource:] instead and specify an SVGKSource with more detail" );
 
-	return [self imageWithSource:[SVGKSourceNSData sourceFromData:newNSData URLForRelativeLinks:nil] onCompletion:blockCompleted];
+    __block SVGKImage *image;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self imageWithSource:[SVGKSourceNSData sourceFromData:newNSData URLForRelativeLinks:nil] onCompletion:^(SVGKImage *loadedImage, SVGKParseResult *parseResult) {
+        image = loadedImage;
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    return image;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
