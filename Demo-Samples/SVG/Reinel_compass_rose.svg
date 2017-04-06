@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="440" height="590" viewBox="-220 -370 440 590">
 <defs>
 <g id="r5"><g id="r4"><g id="r3"><g id="r2">
-<path d="M0 h94 m9 h49 m12 h51" stroke-width="1.5" fill="none" id="r1"/>
+<path xd="M0 h94 m9 h49 m12 h51" stroke-width="1.5" fill="none" id="r1"/>
 <use xlink:href="#r1" transform="scale(-1)"/>
 </g>
 <use xlink:href="#r2" transform="rotate(90)"/>
