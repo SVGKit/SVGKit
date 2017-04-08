@@ -30,7 +30,7 @@
 		mainRect = CGRectUnion(mainRect, subLayerFrame);
 	}
 	
-    NSAssert(!CGRectIsNull(mainRect), @"A G element has been generated with non-existent size and no contents. Apple cannot cope with this. As a workaround, we are resetting your layer to empty, but this may have unwanted side-effects (hard to test)" );
+    //NSAssert(!CGRectIsNull(mainRect), @"A G element has been generated with non-existent size and no contents. Apple cannot cope with this. As a workaround, we are resetting your layer to empty, but this may have unwanted side-effects (hard to test)" );
     if (CGRectIsNull(mainRect))
     {
         return;
