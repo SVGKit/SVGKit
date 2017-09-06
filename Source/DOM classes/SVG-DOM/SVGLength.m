@@ -14,10 +14,6 @@
 
 @implementation SVGLength
 
-@synthesize unitType;
-@synthesize value;
-@synthesize valueInSpecifiedUnits;
-@synthesize valueAsString;
 @synthesize internalCSSPrimitiveValue;
 
 
