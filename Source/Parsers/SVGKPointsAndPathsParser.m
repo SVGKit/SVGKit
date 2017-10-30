@@ -781,7 +781,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	return CGPathGetCurrentPoint(path);
 }
 
-+ (SVGCurve)readEllipticalArcArguments:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
++ (SVGCurve)readEllipticalArcArguments:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Aa"];
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:nil];
@@ -791,8 +791,9 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     
     SVGCurve curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:origin];
     
-    if (![scanner isAtEnd]) {
-        curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:curve.p];
+    while (![scanner isAtEnd]) {
+        CGPoint newOrigin = isRelative ? curve.p : origin;
+        curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:newOrigin];
     }
     
     return curve;

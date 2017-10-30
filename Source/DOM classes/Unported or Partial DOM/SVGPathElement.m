@@ -160,13 +160,17 @@
                         lastCoordinate = lastCurve.p;
 					} else if ([@"a" isEqualToString:command]) {
 						lastCurve 	=	[SVGKPointsAndPathsParser readEllipticalArcArguments:commandScanner
-																					 path:path relativeTo:lastCoordinate];
+																					 path:path
+                                                                               relativeTo:lastCoordinate
+                                                                               isRelative:TRUE];
 						
 						lastCoordinate = lastCurve.p;
 						
 					}  else if ([@"A" isEqualToString:command]) {
 						lastCurve 	=	[SVGKPointsAndPathsParser readEllipticalArcArguments:commandScanner
-																					path:path relativeTo:CGPointZero];
+                                                                                     path:path
+                                                                               relativeTo:CGPointZero
+                                                                               isRelative:FALSE];
 						lastCoordinate = lastCurve.p;
 					} else  {
                         SVGKitLogWarn(@"unsupported command %@", command);
