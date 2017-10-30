@@ -777,10 +777,24 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 
 + (SVGCurve)readEllipticalArcArguments:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
-	NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Aa"];
-	
-	[scanner scanCharactersFromSet:cmdFormat intoString:nil];
+    NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Aa"];
+    BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:nil];
+    
+    NSAssert(ok, @"failed to scan arc to command");
+    if (!ok) return SVGCurveZero;
+    
+    SVGCurve curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:origin];
+    
+    if (![scanner isAtEnd]) {
+        curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:curve.p];
+    }
+    
+    return curve;
+}
 
++ (SVGCurve)readEllipticalArcArgumentsSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
+{
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
 	// need to find the center point of the ellipse from the two points and an angle
 	// see http://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes for these calculations
 	
