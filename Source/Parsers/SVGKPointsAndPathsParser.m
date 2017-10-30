@@ -649,7 +649,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
     SVGCurve thisCurve;
     if (SVGCurveEqualToCurve(SVGCurveZero, prevCurve)) {
         // assume control point is coincident with the current point
-        thisCurve = SVGCurveMake(coord1.x, coord1.y, coord2.x, coord2.y, coord1.x, coord1.y);
+        thisCurve = SVGCurveMake(origin.x, origin.y, coord1.x, coord1.y, coord2.x, coord2.y);
     } else {
         // calculate the mirror of the previous control point
         CGPoint currentPoint = prevCurve.p;
