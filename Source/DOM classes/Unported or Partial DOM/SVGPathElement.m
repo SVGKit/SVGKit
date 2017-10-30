@@ -124,13 +124,15 @@
                         lastCurve = [SVGKPointsAndPathsParser readSmoothCurvetoCommand:commandScanner
                                                               path:path
                                                         relativeTo:lastCoordinate
-                                                     withPrevCurve:lastCurve];
+                                                     withPrevCurve:lastCurve
+                                                        isRelative:TRUE];
                         lastCoordinate = lastCurve.p;
                     } else if ([@"S" isEqualToString:command]) {
                         lastCurve = [SVGKPointsAndPathsParser readSmoothCurvetoCommand:commandScanner
                                                               path:path
                                                         relativeTo:CGPointZero
-                                                     withPrevCurve:lastCurve];
+                                                     withPrevCurve:lastCurve
+                                                        isRelative:FALSE];
                         lastCoordinate = lastCurve.p;
                     } else if ([@"q" isEqualToString:command]) {
                         lastCurve = [SVGKPointsAndPathsParser readQuadraticCurvetoCommand:commandScanner
