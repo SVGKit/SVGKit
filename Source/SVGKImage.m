@@ -50,8 +50,6 @@
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
-typedef void (^LoadImageBlock)(BOOL state);
-
 @end
 
 #pragma mark - main class
@@ -201,7 +199,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKImage*) imageWithContentsOfURL:(NSURL *)url completion:(LoadImageBlock)completion{
++ (SVGKImage*) imageWithContentsOfURL:(NSURL *)url completion:(SVGKImageLoadContentsDelegate)completion{
     NSParameterAssert(url != nil);
     BOOL state = YES;
     SVGKImage *img = nil;
@@ -226,7 +224,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath completion:(LoadImageBlock)completion{
++ (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath completion:(SVGKImageLoadContentsDelegate)completion{
     BOOL state = YES;
     @synchronized(self) {
         SVGKImage *img = nil;
