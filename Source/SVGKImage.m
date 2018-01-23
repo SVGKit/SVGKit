@@ -199,7 +199,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKImage*) imageWithContentsOfURL:(NSURL *)url completion:(SVGKImageLoadContentsDelegate)completion{
++ (void) imageWithContentsOfURL:(NSURL *)url completion:(SVGKImageLoadContentsDelegate)completion{
     NSParameterAssert(url != nil);
     BOOL state = YES;
     SVGKImage *img = nil;
@@ -208,13 +208,12 @@ static NSMutableDictionary* globalSVGKImageCache;
             img = [[[self class] alloc] initWithContentsOfURL:url];
         }@catch(NSException *exception){
             state = NO;
-            SVGKitLogWarn(@"%@",exception.description);
+            SVGKitLogVerbose(@"%@",exception.description);
         }@finally{
             if(!completion){
-                completion(state);
+                completion(state,img);
             }
         }
-        return img;
     }
 }
 
@@ -224,7 +223,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     }
 }
 
-+ (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath completion:(SVGKImageLoadContentsDelegate)completion{
++ (void) imageWithContentsOfFile:(NSString *)aPath completion:(SVGKImageLoadContentsDelegate)completion{
     BOOL state = YES;
     @synchronized(self) {
         SVGKImage *img = nil;
@@ -232,13 +231,12 @@ static NSMutableDictionary* globalSVGKImageCache;
             img = [[[self class] alloc] initWithContentsOfFile:aPath];
         }@catch(NSException *exception){
             state = NO;
-            SVGKitLogWarn(@"%@",exception.description);
+            SVGKitLogVerbose(@"%@",exception.description);
         }@finally{
             if(!completion){
-                completion(state);
+                completion(state,img);
             }
         }
-        return img;
     }
 }
 
