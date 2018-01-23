@@ -781,25 +781,25 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	return CGPathGetCurrentPoint(path);
 }
 
-+ (SVGCurve)readEllipticalArcArguments:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
++ (CGPoint)readEllipticalArcArguments:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin isRelative:(BOOL) isRelative
 {
     NSCharacterSet* cmdFormat = [NSCharacterSet characterSetWithCharactersInString:@"Aa"];
     BOOL ok = [scanner scanCharactersFromSet:cmdFormat intoString:nil];
     
     NSAssert(ok, @"failed to scan arc to command");
-    if (!ok) return SVGCurveZero;
+    if (!ok) return origin;
     
-    SVGCurve curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:origin];
+    CGPoint endPoint = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:origin];
     
     while (![scanner isAtEnd]) {
-        CGPoint newOrigin = isRelative ? curve.p : origin;
-        curve = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:newOrigin];
+        CGPoint newOrigin = isRelative ? endPoint : origin;
+        endPoint = [SVGKPointsAndPathsParser readEllipticalArcArgumentsSequence:scanner path:path relativeTo:newOrigin];
     }
     
-    return curve;
+    return endPoint;
 }
 
-+ (SVGCurve)readEllipticalArcArgumentsSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
++ (CGPoint)readEllipticalArcArgumentsSequence:(NSScanner*)scanner path:(CGMutablePathRef)path relativeTo:(CGPoint)origin
 {
     [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
 	// need to find the center point of the ellipse from the two points and an angle
@@ -840,14 +840,10 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	CGFloat x2 = origin.x + endPoint.x;
 	CGFloat y2 = origin.y + endPoint.y;
 
-	SVGCurve curve;
-	
-	curve.p = CGPointMake(x2, y2);
-	
 	if (rx == 0 || ry == 0)
 	{
-		CGPathAddLineToPoint(path, NULL, curve.p.x, curve.p.y);
-		return curve;
+		CGPathAddLineToPoint(path, NULL, x2, y2);
+		return CGPointMake(x2, y2);
 	}
 	CGFloat cosPhi = cos(phi);
 	CGFloat sinPhi = sin(phi);
@@ -920,7 +916,7 @@ inline BOOL SVGCurveEqualToCurve(SVGCurve curve1, SVGCurve curve2)
 	// add a inversely transformed circular arc to the current path
 	CGPathAddRelativeArc( path, &trInv, 0, 0, 1., startAngle, angleDelta);
 	
-	return curve;
+	return CGPointMake(x2, y2);
 }
 
 @end
