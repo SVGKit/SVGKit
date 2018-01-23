@@ -50,6 +50,7 @@
 
 #pragma mark - UIImage methods cloned and re-implemented as SVG intelligent methods
 //NOT DEFINED: what is the scale for a SVGKImage? @property(nonatomic,readwrite) CGFloat            scale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
+typedef void (^LoadImageBlock)(BOOL state);
 
 @end
 
@@ -196,13 +197,50 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage*) imageWithContentsOfURL:(NSURL *)url {
 	NSParameterAssert(url != nil);
 	@synchronized(self) {
-	return [[[self class] alloc] initWithContentsOfURL:url];
+        return [[[self class] alloc] initWithContentsOfURL:url];
     }
 }
 
-+ (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath {
++ (SVGKImage*) imageWithContentsOfURL:(NSURL *)url completion:(LoadImageBlock)completion{
+    NSParameterAssert(url != nil);
+    BOOL state = YES;
+    SVGKImage *img = nil;
+    @synchronized(self) {
+        @try{
+            img = [[[self class] alloc] initWithContentsOfURL:url];
+        }@catch(NSException *exception){
+            state = NO;
+            SVGKitLogWarn(@"%@",exception.description);
+        }@finally{
+            if(!completion){
+                completion(state);
+            }
+        }
+        return img;
+    }
+}
+
++ (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath  {
     @synchronized(self) {
 	return [[[self class] alloc] initWithContentsOfFile:aPath];
+    }
+}
+
++ (SVGKImage*) imageWithContentsOfFile:(NSString *)aPath completion:(LoadImageBlock)completion{
+    BOOL state = YES;
+    @synchronized(self) {
+        SVGKImage *img = nil;
+        @try{
+            img = [[[self class] alloc] initWithContentsOfFile:aPath];
+        }@catch(NSException *exception){
+            state = NO;
+            SVGKitLogWarn(@"%@",exception.description);
+        }@finally{
+            if(!completion){
+                completion(state);
+            }
+        }
+        return img;
     }
 }
 
