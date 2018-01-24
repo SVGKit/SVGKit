@@ -83,6 +83,13 @@
 	}
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self.collectionView selectItemAtIndexPath:nil animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+}
+
 -(NSArray*) sectionAtIndex:(NSInteger) index
 {
 	NSString* sectionName = [self.sectionNames objectAtIndex:index];
