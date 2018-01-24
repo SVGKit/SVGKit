@@ -4,7 +4,9 @@
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
+@import CocoaLumberjack;
+//Note: Use below import if SVGKit is added via Cocoapods w/o using frameworks.
+//#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define SVGKIT_LOG_CONTEXT 556
 
