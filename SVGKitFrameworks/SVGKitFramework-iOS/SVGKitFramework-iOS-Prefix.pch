@@ -12,19 +12,38 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
-    #import <CocoaLumberjack/CocoaLumberjack.h>
+// *****************    NOTE            ****************************************
+//
+// @alan:
+// Disabled lumberjack so that it can be used within lumositymobile and the
+// quaisylumberjack version it already contains.
+// Using lumberjack here would require to carthage the whole framework and it's
+// 3MB size increase.
+// That's a bump in size the app can't take right now.
+
+
+    // Stealing this from lumberjack so it's possible to null the logging calls.
+    #define LOG_MACRO(isAsynchronous, lvl, flg, ctx, atag, fnct, frmt, ...)
+    // NOOP
+
+    #define LOG_MAYBE(async, lvl, flg, ctx, tag, fnct, frmt, ...) \
+    do { if(lvl & flg) LOG_MACRO(async, lvl, flg, ctx, tag, fnct, frmt, ##__VA_ARGS__); } while(0)
+
 
     #define SVGKIT_LOG_CONTEXT 556
 
-    #define SVGKitLogError(frmt, ...)   LOG_MAYBE(NO,                LOG_LEVEL_DEF, DDLogFlagError,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-    #define SVGKitLogWarn(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-    #define SVGKitLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,    SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-    #define SVGKitLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-    #define SVGKitLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+    #define SVGKitLogError(frmt, ...)   LOG_MAYBE(NO,                0, 0,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+    #define SVGKitLogWarn(frmt, ...)    LOG_MAYBE(NO, 0, 0, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+    #define SVGKitLogInfo(frmt, ...)    LOG_MAYBE(NO, 0, 0,    SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+    #define SVGKitLogDebug(frmt, ...)   LOG_MAYBE(NO, 0, 0,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+    #define SVGKitLogVerbose(frmt, ...) LOG_MAYBE(NO, 0, 0, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 
+/*
     #if DEBUG
         static const int ddLogLevel = DDLogLevelVerbose;
     #else
         static const int ddLogLevel = DDLogLevelWarning;
     #endif
+*/
+
 #endif
