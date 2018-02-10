@@ -6,12 +6,10 @@
 }
 
 @synthesize SVGImage = _SVGImage;
-@synthesize showBorder;
-
-//self.backgroundColor = [UIColor clearColor];
+@synthesize showBorder = _showBorder;
 
 /** Apple requires this to be implemented by CALayer subclasses */
-+(id)layer
++ (id)layer
 {
 	SVGKLayer* layer = [[SVGKLayer alloc] init];
 	return layer;
@@ -23,12 +21,10 @@
     if (self)
 	{
     	self.borderColor = [UIColor blackColor].CGColor;
-		
-		[self addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
--(void)setSVGImage:(SVGKImage *) newImage
+- (void)setSVGImage:(SVGKImage *)newImage
 {
 	if( newImage == _SVGImage )
 		return;
@@ -53,36 +49,16 @@
 	}
 }
 
-- (void)dealloc
+- (void)setShowBorder:(BOOL)shouldShow
 {
-	//FIXME: Apple crashes on this line, even though BY DEFINITION Apple should not be crashing: [self removeObserver:self forKeyPath:@"showBorder"];
-	@try {
-		[self removeObserver:self forKeyPath:@"showBorder"];
-	}
-	@catch (NSException *exception) {
-		SVGKitLogError(@"Exception removing showBorder observer");
-	}
-	
-	self.SVGImage = nil;
-	
+    _showBorder = shouldShow;
+    self.borderWidth = shouldShow ? 1.0f : 0.0f;
+    [self setNeedsDisplay];
 }
 
-/** Trigger a call to re-display (at higher or lower draw-resolution) (get Apple to call drawRect: again) */
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)dealloc
 {
-	if( [keyPath isEqualToString:@"showBorder"] )
-	{
-		if( self.showBorder )
-		{
-			self.borderWidth = 1.0f;
-		}
-		else
-		{
-			self.borderWidth = 0.0f;
-		}
-		
-		[self setNeedsDisplay];
-	}
+	self.SVGImage = nil;
 }
 
 @end
