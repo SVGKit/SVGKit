@@ -264,7 +264,8 @@ SVGColor SVGColorMake (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 
 typedef enum {
 	PhaseNone = 0,
-	PhaseRGB
+	PhaseRGB,
+    PhaseRGBA
 } Phase;
 
 SVGColor SVGColorFromString (const char *string) {
@@ -274,7 +275,7 @@ SVGColor SVGColorFromString (const char *string) {
 	
 	color.a = 0xFF;
 	
-	if (!strncmp(string, "rgb(", 4)) {
+	if (!strncmp(string, "rgb(", 4) || !strncmp(string, "rgba(", 5)) {
 		size_t len = strlen(string);
 		
 		char accum[MAX_ACCUM];
@@ -290,18 +291,18 @@ SVGColor SVGColorFromString (const char *string) {
 				continue;
 			}
 			
-			if (!strcmp(accum, "rgb")) {
+            if (!strcmp(accum, "rgba(")) {
+                phase = PhaseRGBA;
+                bzero(accum, MAX_ACCUM);
+                accumIdx = 0;
+            } else if (!strcmp(accum, "rgb(")) {
 				phase = PhaseRGB;
+                bzero(accum, MAX_ACCUM);
+                accumIdx = 0;
 			}
 			
-			if (phase == PhaseRGB) {
-				if (c == '(') {
-					bzero(accum, MAX_ACCUM);
-					accumIdx = 0;
-					
-					continue;
-				}
-				else if (c == ',') {
+			if (phase == PhaseRGB || phase == PhaseRGBA) {
+				if (c == ',') {
 					if (currComponent == 0) {
 						color.r = atoi(accum);
 						currComponent++;
@@ -310,16 +311,23 @@ SVGColor SVGColorFromString (const char *string) {
 						color.g = atoi(accum);
 						currComponent++;
 					}
-					
+                    else if (phase == PhaseRGBA && currComponent == 2) {
+                        color.b = atoi(accum);
+                        currComponent++;
+                    }
 					bzero(accum, MAX_ACCUM);
 					accumIdx = 0;
 					
 					continue;
 				}
-				else if (c == ')' && currComponent == 2) {
-					color.b = atoi(accum);
-					break;
-				}
+                else if (c == ')' && currComponent == 2) {
+                    color.b = atoi(accum);
+                    break;
+                }
+                else if (c == ')' && currComponent == 3) {
+                    color.a = (uint8_t)lround(atof(accum) * 255.0f);
+                    break;
+                }
 			}
 			
 			accum[accumIdx++] = c;
