@@ -50,6 +50,7 @@
 
 @class SVGKImage; // needed for typedef below
 typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVGKParseResult* parseResult );
+typedef void (^SVGKImageLoadContentsDelegate)(BOOL state, SVGKImage* loadedImage);
 
 @interface SVGKImage : NSObject // doesn't extend UIImage because Apple made UIImage immutable
 {
@@ -100,6 +101,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
  */
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate) blockCompleted;
 + (SVGKImage *)imageWithContentsOfFile:(NSString *)path;
++ (void) imageWithContentsOfFile:(NSString *)aPath completion:(SVGKImageLoadContentsDelegate)completion;
 + (SVGKParser*) imageParserWithContentsOfFileAsynchronously:(NSString *)aPath onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted;
 + (SVGKImage*) imageWithContentsOfFileAsynchronously:(NSString *)aPath onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted;
 
@@ -230,6 +232,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
 #pragma mark ---------end of unsupported items
 
 + (SVGKImage*)imageWithContentsOfURL:(NSURL *)url;
++ (void)imageWithContentsOfURL:(NSURL *)url completion:(SVGKImageLoadContentsDelegate)completion;
 
 #pragma mark - core methods for interacting with an SVG image usefully (not from UIImage)
 
