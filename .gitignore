@@ -29,3 +29,8 @@ build
 
 #VScode
 .vscode
+
+# Carthage
+Carthage/Checkouts
+Carthage/Build
+*.zip
