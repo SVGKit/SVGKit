@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
-@import CocoaLumberjack;
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define SVGKIT_LOG_CONTEXT 556
 
