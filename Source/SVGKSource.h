@@ -22,7 +22,7 @@
 
 @interface SVGKSource : NSObject <NSCopying>
 
-@property (nonatomic, strong) NSString* svgLanguageVersion; /*< <svg version=""> */
+@property (nonatomic, strong) NSString* svgLanguageVersion; /**< <svg version=""> */
 @property (nonatomic, strong) NSInputStream* stream;
 
 /** If known, the amount of data in bytes contained in this source (e.g. the filesize for a
