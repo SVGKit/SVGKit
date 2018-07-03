@@ -35,7 +35,6 @@
 {
 	CGMutablePathRef path = CGPathCreateMutable();
     NSScanner* dataScanner = [NSScanner scannerWithString:data];
-    CGPoint lastCoordinate = CGPointZero;
     
 	NSCharacterSet* knownCommands = [NSCharacterSet characterSetWithCharactersInString:@""];
 	
@@ -47,15 +46,14 @@
 	NSScanner* commandScanner = [NSScanner scannerWithString:commandWithParameters];
 	
 	
-	lastCoordinate = [SVGKPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
-													path:path
-											  relativeTo:CGPointZero
-											  isRelative:FALSE];
-	
+    SVGCurve lastCurve = [SVGKPointsAndPathsParser readMovetoDrawtoCommandGroups:commandScanner
+                                                                            path:path
+                                                                      relativeTo:CGPointZero
+                                                                      isRelative:FALSE];
     
-	[SVGKPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
-									   path:path
-								 relativeTo:lastCoordinate];
+    [SVGKPointsAndPathsParser readCloseCommand:[NSScanner scannerWithString:@"z"]
+                                          path:path
+                                    relativeTo:lastCurve.p];
 	
 	self.pathForShapeInRelativeCoords = path;
 	CGPathRelease(path);
