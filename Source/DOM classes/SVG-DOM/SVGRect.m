@@ -5,7 +5,7 @@ BOOL SVGRectIsInitialized( SVGRect rect )
 	return rect.x != -1 || rect.y != -1 || rect.width != -1 || rect.height != -1;
 }
 
-SVGRect SVGRectUninitialized()
+SVGRect SVGRectUninitialized( void )
 {
 	return SVGRectMake( -1, -1, -1, -1 );
 }
