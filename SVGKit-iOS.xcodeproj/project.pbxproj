@@ -2799,10 +2799,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "SVGKitFrameworks/SVGKitFramework-iOS/SVGKitFramework-iOS-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2841,10 +2838,7 @@
 				DYLIB_CURRENT_VERSION = 2;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "SVGKitFrameworks/SVGKitFramework-iOS/SVGKitFramework-iOS-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2943,6 +2937,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/tvOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "SVGKitFrameworks/SVGKitFramework-tvOS/SVGKitFramework-tvOS-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2981,6 +2976,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/tvOS";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "SVGKitFrameworks/SVGKitFramework-tvOS/SVGKitFramework-tvOS-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
