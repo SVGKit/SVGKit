@@ -11,9 +11,7 @@ Pod::Spec.new do |s|
                  'Joshua May'      => 'notjosh@gmail.com',
                  'Eric Man'        => 'meric.au@gmail.com',
                  'Matt Rajca'      => 'matt.rajca@me.com',
-                 'Moritz Pfeiffer' => 'moritz.pfeiffer@alp-phone.ch',
-                 'Steven Fusco'    => 'sfusco@spiral.local',
-                 'Eric Man'        => 'Eric@eric-mans-macbook-2.local' }
+                 'Moritz Pfeiffer' => 'moritz.pfeiffer@alp-phone.ch' }
   s.source   = { :git => 'https://github.com/SVGKit/SVGKit.git', :branch => "2.x" }
 
   s.ios.source_files = 'Source/*{.h,m}', 'Source/DOM classes/**/*.{h,m}', 'Source/Exporters/*.{h,m}', 'Source/Parsers/**/*.{h,m}', 'Source/QuartzCore additions/**/*.{h,m}', 'Source/Sources/**/*.{h,m}', 'Source/UIKit additions/**/*.{h,m}', 'Source/Unsorted/**/*.{h,m}'
