@@ -8,7 +8,7 @@
 
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
-@property (nonatomic, strong) NSDate* startRenderTime, * endRenderTime; /*< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
+@property (nonatomic, strong) NSDate* startRenderTime, * endRenderTime; /**< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
 @property (nonatomic) BOOL didRegisterObservers, didRegisterInternalRedrawObservers;
 
 @end
