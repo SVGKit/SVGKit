@@ -18,14 +18,13 @@ Pod::Spec.new do |s|
 
   s.ios.source_files = 'Source/*{.h,m}', 'Source/DOM classes/**/*.{h,m}', 'Source/Exporters/*.{h,m}', 'Source/Parsers/**/*.{h,m}', 'Source/QuartzCore additions/**/*.{h,m}', 'Source/Sources/**/*.{h,m}', 'Source/UIKit additions/**/*.{h,m}', 'Source/Unsorted/**/*.{h,m}'
   s.tvos.deployment_target = '9.0'
-  s.libraries = 'xml2'
+  s.libraries = 'xml2', 'c++'
   s.framework = 'QuartzCore', 'CoreText'
   s.dependency 'CocoaLumberjack', '~> 3.x'
   s.prefix_header_file = 'SVGKitLibrary/SVGKit-iOS/SVGKit-iOS-Prefix.pch'
   s.requires_arc = true
-  s.xcconfig = {
+  s.pod_target_xcconfig = {
     'CLANG_CXX_LANGUAGE_STANDARD' => 'gnu++11',
-    'CLANG_CXX_LIBRARY' => 'libc++',
     'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2'
   }
 end
