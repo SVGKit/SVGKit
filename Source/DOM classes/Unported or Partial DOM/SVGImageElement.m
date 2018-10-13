@@ -8,28 +8,13 @@
 #import "SVGKSourceURL.h"
 #import "SVGKSourceNSData.h"
 
-#if TARGET_OS_IPHONE
-
-#import <UIKit/UIKit.h>
-
-#else
-#endif
-
-#if TARGET_OS_IPHONE
-#define AppleNativeImage UIImage
-#else
-#define AppleNativeImage CIImage
-#endif
-
-#define AppleNativeImageRef AppleNativeImage*
-
-CGImageRef SVGImageCGImage(AppleNativeImageRef img)
+CGImageRef SVGImageCGImage(UIImage *img)
 {
 #if TARGET_OS_IPHONE
     return img.CGImage;
 #else
-    NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCIImage:img] autorelease];
-    return rep.CGImage;
+    CGImageRef cgImage = [img CGImageForProposedRect:NULL context:nil hints:nil];
+    return cgImage;
 #endif
 }
 
@@ -108,7 +93,7 @@ CGImageRef SVGImageCGImage(AppleNativeImageRef img)
 	/** Now we have some raw bytes, try to load using Apple's image loaders
 	 (will fail if the image is an SVG file)
 	 */
-	AppleNativeImageRef image = [AppleNativeImage imageWithData:imageData];
+	UIImage *image = [[UIImage alloc] initWithData:imageData];
 	
     if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
     {

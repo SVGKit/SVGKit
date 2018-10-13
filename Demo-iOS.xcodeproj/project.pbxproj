@@ -10,6 +10,8 @@
 		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
 		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
 		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
+		32AF7BBE217389FD00142396 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529DADF11C415FF00069B076 /* SVGKit.framework */; };
+		32AF7BC021738A0300142396 /* SVGKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 529DADF11C415FF00069B076 /* SVGKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
 		4FD822401AD057F000E419D3 /* arcs02.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223E1AD057F000E419D3 /* arcs02.svg */; };
 		4FD822441AD058AB00E419D3 /* arcs01.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822421AD058AB00E419D3 /* arcs01.png */; };
@@ -167,6 +169,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		32AF7BBC217389FD00142396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 321EAA622171EC8700640504;
+			remoteInfo = "SVGKitFramework-OSX";
+		};
+		32AF7BC121738A0300142396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 825CDAAE1BDA4BC0003C1C12;
+			remoteInfo = "SVGKitFramework-iOS";
+		};
 		529DADF01C415FF00069B076 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
@@ -225,6 +241,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				32AF7BC021738A0300142396 /* SVGKit.framework in Embed Frameworks */,
 				FA5DF7271C434D54005CF231 /* CocoaLumberjack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -406,6 +423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32AF7BBE217389FD00142396 /* SVGKit.framework in Frameworks */,
 				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
 				FA5DF7261C434D54005CF231 /* CocoaLumberjack.framework in Frameworks */,
@@ -579,6 +597,7 @@
 				529DADF31C415FF00069B076 /* SVGKitFramework-iOSTests.xctest */,
 				529DADF51C415FF00069B076 /* SVGKit.framework */,
 				529DADF71C415FF00069B076 /* SVGKitFramework-tvOSTests.xctest */,
+				32AF7BBD217389FD00142396 /* SVGKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -702,6 +721,7 @@
 			);
 			dependencies = (
 				66E785A9171A1208001EF59D /* PBXTargetDependency */,
+				32AF7BC221738A0300142396 /* PBXTargetDependency */,
 			);
 			name = "Demo-iOS";
 			productName = iOSDemo;
@@ -714,7 +734,7 @@
 		661A0DC1161727CF008D5FBE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = na;
 			};
 			buildConfigurationList = 661A0DC4161727CF008D5FBE /* Build configuration list for PBXProject "Demo-iOS" */;
@@ -741,6 +761,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		32AF7BBD217389FD00142396 /* SVGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGKit.framework;
+			remoteRef = 32AF7BBC217389FD00142396 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		529DADF11C415FF00069B076 /* SVGKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -954,6 +981,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		32AF7BC221738A0300142396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SVGKitFramework-iOS";
+			targetProxy = 32AF7BC121738A0300142396 /* PBXContainerItemProxy */;
+		};
 		66E785A9171A1208001EF59D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SVGKit-iOS";
@@ -1043,7 +1075,7 @@
 					"../../iOS/**",
 					"../../Core/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1081,7 +1113,7 @@
 					"../../iOS/**",
 					"../../Core/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -24,31 +24,35 @@
 @synthesize timeIntervalForLastReRenderOfSVGFromMemory = _timeIntervalForLastReRenderOfSVGFromMemory;
 
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-+(BOOL) svgImageHasNoGradients:(SVGKImage*) image
++(BOOL)svgImageHasNoGradients:(SVGKImage*)image
 {
-	return [self svgElementAndDescendentsHaveNoGradients:image.DOMTree];
+    return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGGradientElement class]];
 }
 
-+(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
++ (BOOL)svgImageHasNoText:(SVGKImage*)image
 {
-	if( [element isKindOfClass:[SVGGradientElement class]])
-		return FALSE;
-	else
-	{
-		for( Node* n in element.childNodes )
-		{
-			if( [n isKindOfClass:[SVGElement class]])
-			{
-				if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
-					;
-				else
-					return FALSE;
-			}
-				
-		}
-	}
-	
-	return TRUE;
+    return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGTextElement class]];
+}
+
++ (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
+{
+    if( [element isKindOfClass:theClass])
+        return NO;
+    else
+    {
+        for( Node* n in element.childNodes )
+        {
+            if( [n isKindOfClass:[SVGElement class]])
+            {
+                if( [self svgElementAndDescendents:(SVGElement*)n haveNoClass:theClass])
+                    ;
+                else
+                    return NO;
+            }
+        }
+    }
+    
+    return YES;
 }
 #endif
 
@@ -74,7 +78,12 @@
 	self = [super initWithFrame:frame];
 	if( self )
 	{
+#if SVGKIT_UIKIT
 		self.backgroundColor = [UIColor clearColor];
+#else
+        self.layer.backgroundColor = [NSColor clearColor].CGColor;
+#endif
+        
 	}
 	return self;
 }
@@ -99,7 +108,11 @@
     self.image = im;
     self.frame = CGRectMake( 0,0, im.size.width, im.size.height ); // NB: this uses the default SVG Viewport; an ImageView can theoretically calc a new viewport (but its hard to get right!)
     self.tileRatio = CGSizeZero;
+#if SVGKIT_UIKIT
     self.backgroundColor = [UIColor clearColor];
+#else
+    self.layer.backgroundColor = [NSColor clearColor].CGColor;
+#endif
 }
 
 - (void)setImage:(SVGKImage *)image {
@@ -199,7 +212,11 @@
 		/*SVGKitLogVerbose(@"transform changed. Setting layer scale: %2.2f --> %2.2f", self.layer.contentsScale, self.transform.a);
 		 self.layer.contentsScale = self.transform.a;*/
 		[self.image.CALayerTree removeFromSuperlayer]; // force apple to redraw?
+#if SVGKIT_UIKIT
 		[self setNeedsDisplay];
+#else
+        [self setNeedsDisplay:YES];
+#endif
 	}
 	else
 	{
@@ -208,7 +225,11 @@
 			;
 		else
 		{
+#if SVGKIT_UIKIT
 			[self setNeedsDisplay];
+#else
+            [self setNeedsDisplay:YES];
+#endif
 		}
 	}
 }
@@ -277,7 +298,7 @@
 	
 	//DEBUG: SVGKitLogVerbose(@"cols, rows: %i, %i ... scaleConvert: %@ ... tilesize: %@", cols, rows, NSStringFromCGSize(scaleConvertImageToView), NSStringFromCGSize(tileSize) );
 	/** To support tiling, and to allow internal shrinking, we use renderInContext */
-	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextRef context = SVGGraphicsGetCurrentContext();
 	for( int k=0; k<rows; k++ )
 		for( int i=0; i<cols; i++ )
 		{

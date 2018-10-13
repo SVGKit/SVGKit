@@ -49,6 +49,22 @@
 #define SVGKIT_WATCH 0
 #endif
 
+#if SVGKIT_MAC
+    #import <AppKit/AppKit.h>
+    #ifndef UIImage
+        #define UIImage NSImage
+    #endif
+    #ifndef UIImageView
+        #define UIImageView NSImageView
+    #endif
+    #ifndef UIView
+        #define UIView NSView
+    #endif
+    #ifndef UIColor
+        #define UIColor NSColor
+    #endif
+#endif
+
 #if DEBUG
 static const int ddLogLevel = DDLogLevelVerbose;
 #else

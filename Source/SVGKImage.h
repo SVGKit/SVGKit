@@ -35,7 +35,11 @@
  
  */
 
+#if SVGKIT_MAC
+#import <AppKit/AppKit.h>
+#else
 #import <UIKit/UIKit.h>
+#endif
 
 #import "SVGKParser.h" // needed for asynchronous loading method-signature
 
@@ -63,6 +67,9 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
  NB you can get MUCH BETTER performance using the methods such as exportUIImageAntiAliased and exportNSDataAntiAliased
  */
 @property (weak, nonatomic, readonly) UIImage* UIImage;
+#if SVGKIT_MAC
+@property (copy, nonatomic, readonly) NSBitmapImageRep *bitmapImageRep;
+#endif
 
 @property (nonatomic, strong, readonly) SVGKSource* source;
 @property (nonatomic, strong, readonly) SVGKParseResult* parseErrorsAndWarnings;
@@ -137,6 +144,7 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
  */
 +(SVGKParser *) imageWithSource:(SVGKSource *)source onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted;
 
+- (id)initWithContentsOfURL:(NSURL *)url;
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithData:(NSData *)data;
 

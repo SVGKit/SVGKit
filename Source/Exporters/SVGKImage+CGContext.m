@@ -45,7 +45,7 @@
 	startTime = [NSDate date];
 	
 	if( SVGRectIsInitialized(self.DOMTree.viewport) )
-		SVGKitLogInfo(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromCGRect(CGRectFromSVGRect(self.DOMTree.viewport)) );
+		SVGKitLogInfo(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromSVGRect(self.DOMTree.viewport) );
 	
 	/** Typically a 10% performance improvement right here */
 	if( !shouldAntialias )

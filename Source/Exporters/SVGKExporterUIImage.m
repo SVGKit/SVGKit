@@ -1,5 +1,5 @@
 #import "SVGKExporterUIImage.h"
-
+#import "SVGUtils.h"
 #import "SVGKImage+CGContext.h" // needed for Context calls
 
 @implementation SVGKExporterUIImage
@@ -14,14 +14,19 @@
 	if( [image hasSize] )
 	{
 		SVGKitLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], image.size.width, image.size.height);
-		
-		UIGraphicsBeginImageContextWithOptions( image.size, FALSE, [UIScreen mainScreen].scale );
-		CGContextRef context = UIGraphicsGetCurrentContext();
+
+#if SVGKIT_MAC
+        CGFloat scale = [NSScreen mainScreen].backingScaleFactor;
+#else
+        CGFloat scale = [UIScreen mainScreen].scale;
+#endif
+		SVGGraphicsBeginImageContextWithOptions( image.size, FALSE, scale);
+		CGContextRef context = SVGGraphicsGetCurrentContext();
 		
 		[image renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
 		
-		UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
+		UIImage* result = SVGGraphicsGetImageFromCurrentImageContext();
+		SVGGraphicsEndImageContext();
 		
 		
 		return result;

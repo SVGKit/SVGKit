@@ -60,8 +60,11 @@
 
 
 // MARK: - Framework Header File Content
-
+#if SVGKIT_MAC
+#import <AppKit/AppKit.h>
+#else
 #import <UIKit/UIKit.h>
+#endif
 
 //! Project version number for SVGKitFramework-iOS.
 FOUNDATION_EXPORT double SVGKitFramework_VersionNumber;
@@ -195,7 +198,9 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "SVGKLayeredImageView.h"
 #import "SVGKPattern.h"
 #import "SVGUtils.h"
-
+#if SVGKIT_MAC
+#import "SVGKImageRep.h"
+#endif
 #import "NSData+NSInputStream.h"
 #import "SVGKSourceNSData.h"
 #import "SVGSwitchElement.h"

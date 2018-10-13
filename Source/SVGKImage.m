@@ -71,8 +71,10 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	if( self == [SVGKImage class]) // Have to protect against subclasses ADDITIONALLY calling this, as a "[super initialize] line
 	{
+#if SVGKIT_UIKIT
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningOrBackgroundNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningOrBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+#endif
 	}
 }
 
@@ -475,6 +477,19 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	return [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 }
+#if SVGKIT_MAC
+- (NSBitmapImageRep *)bitmapImageRep
+{
+    NSImage *image = [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
+    NSImageRep *imageRep = image.representations.firstObject;
+    if ([imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        return (NSBitmapImageRep *)imageRep;
+    } else {
+        SVGKitLogWarn(@"[%@] export bitmapImageRep failed.", [self class]);
+        return nil;
+    }
+}
+#endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 

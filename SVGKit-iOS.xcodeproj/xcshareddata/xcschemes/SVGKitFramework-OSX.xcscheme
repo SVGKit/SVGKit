@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "321EAA612171EC8700640504"
-               BuildableName = "SVGKitFramework_OSX.framework"
+               BuildableName = "SVGKit.framework"
                BlueprintName = "SVGKitFramework-OSX"
                ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "321EAA612171EC8700640504"
-            BuildableName = "SVGKitFramework_OSX.framework"
+            BuildableName = "SVGKit.framework"
             BlueprintName = "SVGKitFramework-OSX"
             ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "321EAA612171EC8700640504"
-            BuildableName = "SVGKitFramework_OSX.framework"
+            BuildableName = "SVGKit.framework"
             BlueprintName = "SVGKitFramework-OSX"
             ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
          </BuildableReference>
