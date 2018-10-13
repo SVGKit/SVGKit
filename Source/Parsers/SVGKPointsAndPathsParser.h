@@ -13,12 +13,7 @@
  
  */
 #import <Foundation/Foundation.h>
-
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#else
 #import <QuartzCore/QuartzCore.h>
-#endif
 
 /**
  * Partially spammy; not as spammy as DEBUG_PATH_CREATION

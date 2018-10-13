@@ -19,8 +19,11 @@
 #import "SVGKSourceNSData.h" // for convenience constructors that load from raw incoming NSData
 
 #import "CALayer+RecursiveClone.h"
-
+#if SVGKIT_MAC
+#import "SVGKExporterNSImage.h" // needed for .NSImage property
+#else
 #import "SVGKExporterUIImage.h" // needed for .UIImage property
+#endif
 
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
@@ -475,21 +478,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 
 -(UIImage *)UIImage
 {
-	return [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
-}
 #if SVGKIT_MAC
-- (NSBitmapImageRep *)bitmapImageRep
-{
-    NSImage *image = [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
-    NSImageRep *imageRep = image.representations.firstObject;
-    if ([imageRep isKindOfClass:[NSBitmapImageRep class]]) {
-        return (NSBitmapImageRep *)imageRep;
-    } else {
-        SVGKitLogWarn(@"[%@] export bitmapImageRep failed.", [self class]);
-        return nil;
-    }
-}
+	return [SVGKExporterNSImage exportAsNSImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
+#else
+    return [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 #endif
+}
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
@@ -518,7 +512,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );
 }
 
-#if TARGET_OS_IPHONE
+#if SVGKIT_UIKIT
 + (UIImage *)animatedImageNamed:(NSString *)name duration:(NSTimeInterval)duration  // read sequnce of files with suffix starting at 0 or 1
 {
 	NSAssert( FALSE, @"Method unsupported / not yet implemented by SVGKit" );

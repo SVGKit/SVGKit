@@ -6,12 +6,7 @@
 //
 
 #import <CoreFoundation/CoreFoundation.h>
-
-#if TARGET_OS_IPHONE
-
-#import <UIKit/UIKit.h>
-
-#endif
+#import <CoreGraphics/CoreGraphics.h>
 
 #define RGB_N(v) (v) / 255.0f
 
@@ -29,10 +24,3 @@ CGFloat SVGPercentageFromString (const char *string);
 
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close);
 CGColorRef CGColorWithSVGColor (SVGColor color);
-
-void SVGGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat scale);
-CGContextRef SVGGraphicsGetCurrentContext(void);
-UIImage * SVGGraphicsGetImageFromCurrentImageContext(void);
-void SVGGraphicsEndImageContext(void);
-
-NSString * __nonnull SVGKGetDefaultImageStringContents(void);

@@ -40,9 +40,18 @@
  */
 +(BOOL)svgImageHasNoGradients:(SVGKImage*)image;
 
-/** The text implementation on OS X is different between CALayers and NSViews. If the CALayer is made in
- SVGKLayeredImageView, it renders right-side up. Otherwise, it is upside-down.
+/** Apple has a bug in CALayer where their renderInContext: method does not respect Apple's own mask layers.
+ 
+ The text implementation on OS X is different between CALayers and NSViews. If the CALayer is made in SVGKLayeredImageView, it renders right-side up. Otherwise, it is upside-down.
  */
 +(BOOL)svgImageHasNoText:(SVGKImage*)image;
+
+/** Apple has a bug in CALayer where their renderInContext: method does not respect Apple's own mask layers.
+ 
+ This is required to render SVGGradientElement's, and it is NOT a bug in SVGKit - it's in Apple's code. Until we
+ can invent a workaround (or Apple fixes their bug), it's best to warn developers that their SVG will NOT render
+ correctly
+ */
++(BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*)element;
 
 @end

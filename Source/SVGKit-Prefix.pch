@@ -50,7 +50,6 @@
 #endif
 
 #if SVGKIT_MAC
-    #import <AppKit/AppKit.h>
     #ifndef UIImage
         #define UIImage NSImage
     #endif

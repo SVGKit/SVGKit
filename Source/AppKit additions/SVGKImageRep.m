@@ -16,6 +16,8 @@
 #import "SVGKImage+CGContext.h"
 #include <tgmath.h>
 
+#define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
+
 @interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
 @property (nonatomic, assign) BOOL antiAlias;
@@ -28,7 +30,11 @@
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
 {
 	self.image.size = theSize;
-	return [self.image.bitmapImageRep TIFFRepresentation];
+    NSImageRep *imageRep = self.image.NSImage.representations.firstObject;
+    if (![imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        return nil;
+    }
+	return [(NSBitmapImageRep *)imageRep TIFFRepresentation];
 }
 
 - (NSData *)TIFFRepresentation
@@ -44,7 +50,11 @@
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize
 {
 	self.image.size = asize;
-	return [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
+    NSImageRep *imageRep = self.image.NSImage.representations.firstObject;
+    if (![imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        return nil;
+    }
+    return [(NSBitmapImageRep *)imageRep TIFFRepresentation];
 }
 
 + (NSArray<NSString *> *)imageUnfilteredTypes {
@@ -140,7 +150,8 @@
 		}
 		
 		self.image = theImage;
-		
+        
+#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
 		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
 		
@@ -163,6 +174,7 @@
 			
 			DDLogWarn(@"[%@] The image \"%@\" might have problems rendering correctly due to %@.", [self class], [self image], errstuff);
 		}
+#endif
 		
 		if (![self.image hasSize]) {
 			self.image.size = CGSizeMake(32, 32);
@@ -186,7 +198,9 @@
 
 - (instancetype)init
 {
-    return self = [self initWithSVGString:SVGKGetDefaultImageStringContents()];
+    NSAssert(NO, @"init not supported, use initWithData:");
+    
+    return nil;
 }
 
 - (void)setSize:(NSSize)aSize
@@ -274,11 +288,6 @@
 	
 	return YES;
 }
-
-//- (CGImageRef)CGImageForProposedRect:(NSRect *)proposedDestRect context:(NSGraphicsContext *)context hints:(NSDictionary *)hints
-//{
-//
-//}
 
 #pragma mark - Inherited protocols
 

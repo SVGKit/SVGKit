@@ -1,11 +1,11 @@
 #import "SVGTextElement.h"
 
 #import <CoreText/CoreText.h>
-
-#if TARGET_OS_IPHONE
+#if SVGKIT_MAC
+#import <AppKit/AppKit.h>
+#else
 #import <UIKit/UIKit.h>
 #endif
-
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
 #import "SVGHelperUtilities.h"
@@ -149,7 +149,9 @@
     label.alignmentMode = kCAAlignmentLeft;
     
     label.foregroundColor = [SVGHelperUtilities parseFillForElement:self];
-#if TARGET_OS_IPHONE
+#if SVGKIT_MAC
+    label.contentsScale = [[NSScreen mainScreen] backingScaleFactor];
+#else
     label.contentsScale = [[UIScreen mainScreen] scale];
 #endif
 

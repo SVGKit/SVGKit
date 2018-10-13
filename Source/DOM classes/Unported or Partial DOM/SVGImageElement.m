@@ -10,7 +10,7 @@
 
 CGImageRef SVGImageCGImage(UIImage *img)
 {
-#if TARGET_OS_IPHONE
+#if SVGKIT_UIKIT
     return img.CGImage;
 #else
     CGImageRef cgImage = [img CGImageForProposedRect:NULL context:nil hints:nil];

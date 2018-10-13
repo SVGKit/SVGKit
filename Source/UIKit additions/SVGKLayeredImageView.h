@@ -18,6 +18,9 @@
    - SVGKLayeredImageView *skv = [[SVGKLayeredImageView alloc] initWithSVGKImage: [SVGKImage imageNamed:@"image.svg"]];
    - SVGKLayer* layer = (SVGKLayer*) skv.layer;
  
+ For Mac user:
+    `SVGKLayeredImageView` is a layer-hosting view. It uses the `SVGKLayer` layer class for rendering.
+ 
  */
 
 @interface SVGKLayeredImageView : SVGKImageView

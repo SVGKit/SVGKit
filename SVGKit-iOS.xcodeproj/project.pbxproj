@@ -192,8 +192,6 @@
 		321EAB0E2171ED8200640504 /* SVGKImage+CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 668418B91867457900C61EC2 /* SVGKImage+CGContext.m */; };
 		321EAB0F2171ED8200640504 /* SVGKExporterNSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 668418BE18674A0300C61EC2 /* SVGKExporterNSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		321EAB102171ED8200640504 /* SVGKExporterNSData.m in Sources */ = {isa = PBXBuildFile; fileRef = 668418BF18674A0300C61EC2 /* SVGKExporterNSData.m */; };
-		321EAB112171ED8200640504 /* SVGKExporterUIImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 668418C218674BF900C61EC2 /* SVGKExporterUIImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		321EAB122171ED8200640504 /* SVGKExporterUIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 668418C318674BF900C61EC2 /* SVGKExporterUIImage.m */; };
 		321EAB132171ED8700640504 /* SVGKSourceLocalFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 6636CD78175F542A0072AAEF /* SVGKSourceLocalFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		321EAB142171ED8700640504 /* SVGKSourceLocalFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6636CD79175F542A0072AAEF /* SVGKSourceLocalFile.m */; };
 		321EAB152171ED8700640504 /* SVGKSourceNSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 6694B5DB199C10400028CFF6 /* SVGKSourceNSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -260,6 +258,8 @@
 		321EAB692172029800640504 /* SVGKFastImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863931688C2780059C9C4 /* SVGKFastImageView.m */; };
 		321EAB6A2172029800640504 /* SVGKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863951688C2780059C9C4 /* SVGKImageView.m */; };
 		321EAB6B2172029800640504 /* SVGKLayeredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863971688C2780059C9C4 /* SVGKLayeredImageView.m */; };
+		32F206DB217324BB00427F24 /* SVGKExporterNSImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 32F206D9217324BB00427F24 /* SVGKExporterNSImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32F206DC217324BB00427F24 /* SVGKExporterNSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F206DA217324BB00427F24 /* SVGKExporterNSImage.m */; };
 		4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */; };
 		55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.0.0.a */; };
@@ -1019,6 +1019,8 @@
 		321EAA622171EC8700640504 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		321EAB5B2171FB8100640504 /* SVGKImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageRep.m; sourceTree = "<group>"; };
 		321EAB5D2171FB8100640504 /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
+		32F206D9217324BB00427F24 /* SVGKExporterNSImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKExporterNSImage.h; sourceTree = "<group>"; };
+		32F206DA217324BB00427F24 /* SVGKExporterNSImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKExporterNSImage.m; sourceTree = "<group>"; };
 		4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSwitchElement.h; sourceTree = "<group>"; };
 		4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGSwitchElement.m; sourceTree = "<group>"; };
 		55452BF119EC68A200B75A30 /* SVGKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1811,6 +1813,8 @@
 				668418BF18674A0300C61EC2 /* SVGKExporterNSData.m */,
 				668418C218674BF900C61EC2 /* SVGKExporterUIImage.h */,
 				668418C318674BF900C61EC2 /* SVGKExporterUIImage.m */,
+				32F206D9217324BB00427F24 /* SVGKExporterNSImage.h */,
+				32F206DA217324BB00427F24 /* SVGKExporterNSImage.m */,
 			);
 			path = Exporters;
 			sourceTree = "<group>";
@@ -1947,7 +1951,6 @@
 				321EAAE02171ED7E00640504 /* SVGGradientElement.h in Headers */,
 				321EAA9D2171ED6900640504 /* Element.h in Headers */,
 				321EAB452171ED9E00640504 /* NSCharacterSet+SVGKExtensions.h in Headers */,
-				321EAB112171ED8200640504 /* SVGKExporterUIImage.h in Headers */,
 				321EAB362171ED9600640504 /* CALayerWithChildHitTest.h in Headers */,
 				321EAB032171ED7E00640504 /* SVGSwitchElement.h in Headers */,
 				321EAAFF2171ED7E00640504 /* BaseClassForAllSVGBasicShapes_ForSubclasses.h in Headers */,
@@ -2022,6 +2025,7 @@
 				321EAAC32171ED6F00640504 /* SVGLength.h in Headers */,
 				321EAB672171FC0700640504 /* SVGKLayeredImageView.h in Headers */,
 				321EAACA2171ED6F00640504 /* SVGPreserveAspectRatio.h in Headers */,
+				32F206DB217324BB00427F24 /* SVGKExporterNSImage.h in Headers */,
 				321EAAE72171ED7E00640504 /* SVGCircleElement.h in Headers */,
 				321EAADB2171ED6F00640504 /* SVGTextContentElement.h in Headers */,
 				321EAAFA2171ED7E00640504 /* SVGPolylineElement.h in Headers */,
@@ -2702,6 +2706,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32F206DC217324BB00427F24 /* SVGKExporterNSImage.m in Sources */,
 				321EAB692172029800640504 /* SVGKFastImageView.m in Sources */,
 				321EAB6A2172029800640504 /* SVGKImageView.m in Sources */,
 				321EAB6B2172029800640504 /* SVGKLayeredImageView.m in Sources */,
@@ -2792,7 +2797,6 @@
 				321EAAC22171ED6F00640504 /* SVGGElement.m in Sources */,
 				321EAAF12171ED7E00640504 /* SVGGroupElement.m in Sources */,
 				321EAA812171ED6900640504 /* CSSRuleList.m in Sources */,
-				321EAB122171ED8200640504 /* SVGKExporterUIImage.m in Sources */,
 				321EAAE12171ED7E00640504 /* SVGGradientElement.m in Sources */,
 				321EAA6F2171ED6900640504 /* AppleSucksDOMImplementation.m in Sources */,
 				321EAAFD2171ED7E00640504 /* SVGRectElement.m in Sources */,
