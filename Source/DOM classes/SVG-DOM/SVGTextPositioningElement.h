@@ -8,7 +8,6 @@
  readonly attribute SVGAnimatedLengthList dy;
  readonly attribute SVGAnimatedNumberList rotate;
  */
-#import <UIKit/UIKit.h>
 
 #import "SVGTextContentElement.h"
 #import "SVGLength.h"
