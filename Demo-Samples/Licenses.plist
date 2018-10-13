@@ -24,6 +24,13 @@
 	</dict>
 	<key>Contributed</key>
 	<dict>
+		<key>M-to-S-to-T</key>
+		<dict>
+			<key>Source Local File</key>
+			<string>M-to-S-to-T.svg</string>
+			<key>License</key>
+			<string>Public Domain</string>
+		</dict>
 		<key>heart</key>
 		<dict>
 			<key>Source Local File</key>
