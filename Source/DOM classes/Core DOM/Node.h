@@ -111,7 +111,7 @@ typedef enum DOMNodeType
 @property(nonatomic,weak,readonly) Node* lastChild;
 @property(nonatomic,weak,readonly) Node* previousSibling;
 @property(nonatomic,weak,readonly) Node* nextSibling;
-@property(nonatomic,strong,readonly) NamedNodeMap* attributes; /*< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
+@property(nonatomic,strong,readonly) NamedNodeMap* attributes; /**< NB: according to DOM Spec, this is null if the Node is NOT subclassed as an Element */
 
 // Modified in DOM Level 2:
 @property(nonatomic,weak,readonly) Document* ownerDocument;

@@ -17,8 +17,8 @@
 /** 0.0 = no parsing done yet, 0.x = partially parsed, 1.0 = parse complete (no fatal errors) */
 @property(nonatomic) double parseProgressFractionApproximate;
 
-@property(nonatomic,strong) SVGSVGElement* rootOfSVGTree; /*< both are needed, see spec */
-@property(nonatomic,strong) SVGDocument* parsedDocument; /*< both are needed, see spec */
+@property(nonatomic,strong) SVGSVGElement* rootOfSVGTree; /**< both are needed, see spec */
+@property(nonatomic,strong) SVGDocument* parsedDocument; /**< both are needed, see spec */
 
 @property(nonatomic,strong) NSMutableDictionary* namespacesEncountered; /**< maps "prefix" to "uri" */
 

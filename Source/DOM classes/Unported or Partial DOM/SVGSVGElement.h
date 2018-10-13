@@ -118,7 +118,7 @@
 
 #pragma mark - below here VIOLATES THE STANDARD, but needs to be CAREFULLY merged with spec
 
-- (SVGElement *)findFirstElementOfClass:(Class)classParameter; /*< temporary convenience method until SVGDocument support is complete */
+- (SVGElement *)findFirstElementOfClass:(Class)classParameter; /**< temporary convenience method until SVGDocument support is complete */
 
 #pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
 
