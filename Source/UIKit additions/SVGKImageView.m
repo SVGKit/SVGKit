@@ -64,4 +64,10 @@
     return CGSizeZero;
 }
 
+#if SVGKIT_MAC
+- (BOOL)isFlipped {
+    return YES;
+}
+#endif
+
 @end

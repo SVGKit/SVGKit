@@ -104,7 +104,7 @@
 			//This should also take care of the default use case, which uses the main bundle
 			theImage = [SVGKImage imageNamed:tmpObj.fullFileName inBundle:((SKSVGBundleObject*)tmpObj).theBundle];
 		} else {
-			theImage = [[SVGKImage alloc] initWithContentsOfURL:[tmpObj svgURL]];
+			theImage = [SVGKImage imageWithContentsOfURL:[tmpObj svgURL]];
 		}
 		
 		if (![theImage hasSize]) {

@@ -1,10 +1,9 @@
-//
-//  SVGKDefine.h
-//  SVGKit-iOS
-//
-//  Created by lizhuoli on 2018/10/14.
-//  Copyright © 2018年 na. All rights reserved.
-//
+/**
+ SVGKDefine.h
+ 
+ SVGKDefine define some common macro used for public header or private header.
+ Currently here are some platform define to allow us to simply write code cross Apple's platforms.
+ */
 
 #ifndef SVGKDefine_h
 #define SVGKDefine_h

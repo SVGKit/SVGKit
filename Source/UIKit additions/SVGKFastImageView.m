@@ -23,39 +23,31 @@
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 @synthesize timeIntervalForLastReRenderOfSVGFromMemory = _timeIntervalForLastReRenderOfSVGFromMemory;
 
-+(BOOL)svgImageHasNoGradients:(SVGKImage*)image
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
 {
-    return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGGradientElement class]];
+    return [self svgElementAndDescendentsHaveNoGradients:image.DOMTree];
 }
 
-+ (BOOL)svgImageHasNoText:(SVGKImage*)image
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
 {
-    return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGTextElement class]];
-}
-
-+ (BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*)element {
-    return [self svgElementAndDescendents:element haveNoClass:[SVGGradientElement class]];
-}
-
-+ (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
-{
-    if( [element isKindOfClass:theClass])
-        return NO;
+    if( [element isKindOfClass:[SVGGradientElement class]])
+        return FALSE;
     else
     {
         for( Node* n in element.childNodes )
         {
             if( [n isKindOfClass:[SVGElement class]])
             {
-                if( [self svgElementAndDescendents:(SVGElement*)n haveNoClass:theClass])
+                if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
                     ;
                 else
-                    return NO;
+                    return FALSE;
             }
+            
         }
     }
     
-    return YES;
+    return TRUE;
 }
 
 - (id)init
@@ -102,6 +94,10 @@
 
 - (void)populateFromImage:(SVGKImage*) im
 {
+#if SVGKIT_MAC && USE_SUBLAYERS_INSTEAD_OF_BLIT
+    // setup layer-hosting view
+    self.wantsLayer = YES;
+#endif
 	if( im == nil )
 	{
 		SVGKitLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
@@ -313,7 +309,7 @@
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
-			[self.image.CALayerTree renderInContext:context];
+            [self.image renderInContext:context];
 			
 			CGContextRestoreGState(context);
 		}
@@ -328,11 +324,5 @@
 	self.endRenderTime = [NSDate date];
 	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
-
-#if SVGKIT_MAC
-- (BOOL)isFlipped {
-    return YES;
-}
-#endif
 
 @end

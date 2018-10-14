@@ -4,10 +4,6 @@
 
 #import "SVGKSourceString.h"
 
-#define SetupNSViewLayerClass() \
-self.layer = [[SVGKLayer alloc] init]; \
-self.wantsLayer = YES;
-
 @interface SVGKLayeredImageView()
 @property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end
@@ -80,7 +76,9 @@ self.wantsLayer = YES;
 - (void)populateFromImage:(SVGKImage*) im
 {
 #if SVGKIT_MAC
-    SetupNSViewLayerClass();
+    // setup layer-backed view
+    self.layer = [[SVGKLayer alloc] init];
+    self.wantsLayer = YES;
 #endif
 	if( im == nil )
 	{
@@ -102,11 +100,6 @@ self.wantsLayer = YES;
 		SVGKitLogInfo(@"About to make a blank image using the inlined SVG = %@", svgStringDefaultContents);
 		
 		SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
-#if SVGKIT_UIKIT
-        self.backgroundColor = [UIColor cyanColor];
-#else
-        self.layer.backgroundColor = [NSColor cyanColor].CGColor;
-#endif
 		
 		((SVGKLayer*) self.layer).SVGImage = defaultBlankImage;
 #endif
@@ -149,6 +142,5 @@ self.wantsLayer = YES;
 {
 	return[((SVGKLayer*)self.layer).endRenderTime timeIntervalSinceDate:((SVGKLayer*)self.layer).startRenderTime];
 }
-
 
 @end
