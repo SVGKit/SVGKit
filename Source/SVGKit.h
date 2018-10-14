@@ -16,6 +16,7 @@
  */
 
 #include "TargetConditionals.h"
+#import "SVGKDefine.h"
 
 #define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
 

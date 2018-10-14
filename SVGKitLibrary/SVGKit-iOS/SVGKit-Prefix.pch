@@ -5,6 +5,7 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import "SVGKDefine.h"
 
 #define SVGKIT_LOG_CONTEXT 556
 
@@ -13,56 +14,6 @@
 #define SVGKitLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,    SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 #define SVGKitLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 #define SVGKitLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-
-// Apple's defines from TargetConditionals.h are a bit weird.
-// Seems like TARGET_OS_MAC is always defined (on all platforms).
-// To determine if we are running on OSX, we can only rely on TARGET_OS_IPHONE=0 and all the other platforms
-#if !TARGET_OS_IPHONE && !TARGET_OS_IOS && !TARGET_OS_TV && !TARGET_OS_WATCH
-#define SVGKIT_MAC 1
-#else
-#define SVGKIT_MAC 0
-#endif
-
-// iOS and tvOS are very similar, UIKit exists on both platforms
-// Note: watchOS also has UIKit, but it's very limited
-#if TARGET_OS_IOS || TARGET_OS_TV
-#define SVGKIT_UIKIT 1
-#else
-#define SVGKIT_UIKIT 0
-#endif
-
-#if TARGET_OS_IOS
-#define SVGKIT_IOS 1
-#else
-#define SVGKIT_IOS 0
-#endif
-
-#if TARGET_OS_TV
-#define SVGKIT_TV 1
-#else
-#define SVGKIT_TV 0
-#endif
-
-#if TARGET_OS_WATCH
-#define SVGKIT_WATCH 1
-#else
-#define SVGKIT_WATCH 0
-#endif
-
-#if SVGKIT_MAC
-    #ifndef UIImage
-        #define UIImage NSImage
-    #endif
-    #ifndef UIImageView
-        #define UIImageView NSImageView
-    #endif
-    #ifndef UIView
-        #define UIView NSView
-    #endif
-    #ifndef UIColor
-        #define UIColor NSColor
-    #endif
-#endif
 
 #if DEBUG
 static const int ddLogLevel = DDLogLevelVerbose;

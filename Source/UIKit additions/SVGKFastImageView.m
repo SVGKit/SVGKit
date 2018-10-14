@@ -329,4 +329,10 @@
 	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
 
+#if SVGKIT_MAC
+- (BOOL)isFlipped {
+    return YES;
+}
+#endif
+
 @end

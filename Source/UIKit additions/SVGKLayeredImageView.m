@@ -103,7 +103,7 @@ self.wantsLayer = YES;
 		
 		SVGKImage* defaultBlankImage = [SVGKImage imageWithSource:[SVGKSourceString sourceFromContentsOfString:svgStringDefaultContents]];
 #if SVGKIT_UIKIT
-		self.backgroundColor = [UIColor cyanColor];
+        self.backgroundColor = [UIColor cyanColor];
 #else
         self.layer.backgroundColor = [NSColor cyanColor].CGColor;
 #endif
