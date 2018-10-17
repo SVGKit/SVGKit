@@ -457,7 +457,7 @@
 			NSRange idKeyRange = NSMakeRange(5, actualStroke.length - 6);
 			NSString* strokeId = [actualStroke substringWithRange:idKeyRange];
 
-			SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame
+			CAGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame
 											   transform:transformAbsolute];
 			
 			strokeLayer.frame = localRect;
@@ -493,7 +493,7 @@
 		
 		/** Replace the return layer with a special layer using the URL fill */
 		/** fetch the fill layer by URL using the DOM */
-		SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame
+		CAGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame
 										   transform:transformAbsolute];
 		
 		CAShapeLayer* maskLayer = [CAShapeLayer layer];
@@ -502,8 +502,6 @@
 		maskLayer.fillColor = [UIColor blackColor].CGColor;
 		maskLayer.strokeColor = nil;
 		gradientLayer.mask = maskLayer;
-		if ( [gradientLayer.type isEqualToString:kExt_CAGradientLayerRadial])
-			gradientLayer.maskPath = fillLayer.path;
 		gradientLayer.frame = fillLayer.frame;
 		fillLayer = (CAShapeLayer* )gradientLayer;
 	}
@@ -532,9 +530,10 @@
 	return combined;
 }
 
-+ (SVGGradientLayer*)getGradientLayerWithId:(NSString*)gradId forElement:(SVGElement*)svgElement
-								   withRect:(CGRect)r
-								  transform:(CGAffineTransform)transform
++ (CAGradientLayer*)getGradientLayerWithId:(NSString*)gradId
+                                forElement:(SVGElement*)svgElement
+                                  withRect:(CGRect)r
+                                 transform:(CGAffineTransform)transform
 {
 	/** Replace the return layer with a special layer using the URL fill */
 	/** fetch the fill layer by URL using the DOM */
@@ -545,7 +544,7 @@
 
 	[svgGradient synthesizeProperties];
 	
-	SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r
+	CAGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r
 																	viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox
 																	   transform:transform];
 
