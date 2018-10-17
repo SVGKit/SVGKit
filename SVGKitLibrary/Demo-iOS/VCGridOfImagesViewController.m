@@ -1,8 +1,8 @@
 #import "VCGridOfImagesViewController.h"
-
+#import "VCImageCollectionViewCell.h"
 #import "SampleFileInfo.h"
 #import "DetailViewController.h"
-@interface VCGridOfImagesViewController ()
+@interface VCGridOfImagesViewController () <VCImageCollectionViewCellDelegate>
 @property(nonatomic,strong) NSMutableArray* sectionNames;
 @property(nonatomic,strong) NSMutableDictionary* itemArraysBySectionName;
 @end
@@ -81,6 +81,10 @@
 		NSDictionary* allLicenses = [NSDictionary dictionaryWithContentsOfFile:path];
 		[self displayAllSectionsFromDictionary:allLicenses];
 	}
+    
+    UIMenuItem *menuItem1 = [[UIMenuItem alloc] initWithTitle:@"Layer" action:@selector(toggleLayerImageView:)];
+    UIMenuItem *menuItem2 = [[UIMenuItem alloc] initWithTitle:@"Fast" action:@selector(toggleFastImageView:)];
+    [[UIMenuController sharedMenuController] setMenuItems:@[menuItem1, menuItem2]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -108,7 +112,8 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+	VCImageCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.delegate = self;
 	
 	SampleFileInfo* item = [self itemAtIndexPath:indexPath];
 	
@@ -144,6 +149,29 @@
 	[self performSegueWithIdentifier:@"ViewSVG" sender:nil];
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    if (action == @selector(toggleLayerImageView:)) {
+        return YES;
+    } else if (action == @selector(toggleFastImageView:)) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    
+}
+
+#pragma mark - VCImageCollectionViewCellDelegate
+- (void)collectionViewCell:(VCImageCollectionViewCell *)cell toggleLayerImageView:(BOOL)requiresLayeredImageView {
+    SampleFileInfo* item = [self itemAtIndexPath:[self.collectionView indexPathForCell:cell]];
+    item.requiresLayeredImageView = requiresLayeredImageView;
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if( [segue.destinationViewController isKindOfClass:[DetailViewController class]])
@@ -152,6 +180,7 @@
 		
 		SampleFileInfo* item = [self itemAtIndexPath:[self.collectionView indexPathsForSelectedItems][0]];
 		nextVC.detailItem = item.source;
+        nextVC.requiresLayeredImageView = item.requiresLayeredImageView;
 	}
 }
 

@@ -8,7 +8,6 @@
 #import "DetailViewController.h"
 
 @interface ImageLoadingOptions : NSObject
-@property(nonatomic) BOOL requiresLayeredImageView;
 @property(nonatomic) CGSize overrideImageSize;
 @property(nonatomic) float overrideImageRenderScale; 
 @property(nonatomic,strong) SVGKSourceLocalFile* localFileSource;
@@ -259,7 +258,7 @@ CATextLayer *textLayerForLastTappedLayer;
 
 #pragma mark - CRITICAL: this method makes Apple render SVGs in sharp focus
 
--(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)finalScale
+-(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)finalScale
 {
 	/** NB: very important! The "finalScale" parameter to this method is SLIGHTLY DIFFERENT from the scale that Apple reports in the other delegate methods
 	 
@@ -377,7 +376,6 @@ CATextLayer *textLayerForLastTappedLayer;
 		SVGKSourceLocalFile* modifiedSource = [options.localFileSource copy];
 		modifiedSource.filePath = [modifiedSource.filePath substringToIndex:modifiedSource.filePath.length - @"@2x".length];
 		options.overrideImageRenderScale = 2.0;
-		options.requiresLayeredImageView = true;
 		options.localFileSource = modifiedSource;
 	}
 #endif
@@ -429,7 +427,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
 		 
 		 */
-		options.requiresLayeredImageView = true;
+		self.requiresLayeredImageView = true;
 	}
 }
 
@@ -487,7 +485,7 @@ CATextLayer *textLayerForLastTappedLayer;
 	{
 		/** This demonstrates / tests what happens if you create an SVGKLayeredImageView with a nil SVGKImage
 		 */
-		[self didLoadNewResourceCreatingImageView:[[SVGKLayeredImageView alloc] initWithCoder:nil]];
+        [self didLoadNewResourceCreatingImageView:[[SVGKLayeredImageView alloc] init]];
 	}
 	else
 	{
@@ -568,7 +566,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			if( ! CGSizeEqualToSize( CGSizeZero, loadingOptions.overrideImageSize ) )
 				document.size = loadingOptions.overrideImageSize; // preferred way to scale an SVG! (standards compliant!)
 			
-			if( loadingOptions.requiresLayeredImageView )
+			if( self.requiresLayeredImageView )
 			{
 				newContentView = [[SVGKLayeredImageView alloc] initWithSVGKImage:document];
 			}
@@ -642,7 +640,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		self.scrollViewForSVG.minimumZoomScale = MIN( 1, screenToDocumentSizeRatio );
 		self.scrollViewForSVG.maximumZoomScale = MAX( 1, screenToDocumentSizeRatio );
 		
-		self.title = self.sourceOfCurrentDocument.keyForAppleDictionaries;
+        self.title = [self.contentView isKindOfClass:[SVGKFastImageView class]] ? @"FastImageView" : @"LayeredImageView";
 		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.sourceOfCurrentDocument.keyForAppleDictionaries, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
 		
 		/** Fast image view renders asynchronously, so we have to wait for a callback that its finished a render... */

@@ -42,7 +42,7 @@ UIScrollViewDelegate>
 @property (nonatomic, strong) IBOutlet UIView* subViewLoadingPopup;
 
 @property(nonatomic,strong) IBOutlet UILabel* labelParseTime;
-
+@property(nonatomic) BOOL requiresLayeredImageView;
 @property (nonatomic, strong) id detailItem;
 
 
