@@ -457,7 +457,7 @@
 			NSRange idKeyRange = NSMakeRange(5, actualStroke.length - 6);
 			NSString* strokeId = [actualStroke substringWithRange:idKeyRange];
 
-			CAGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame
+			SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame
 											   transform:transformAbsolute];
 			
 			strokeLayer.frame = localRect;
@@ -493,7 +493,7 @@
 		
 		/** Replace the return layer with a special layer using the URL fill */
 		/** fetch the fill layer by URL using the DOM */
-		CAGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame
+		SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame
 										   transform:transformAbsolute];
 		
 		CAShapeLayer* maskLayer = [CAShapeLayer layer];
@@ -530,7 +530,7 @@
 	return combined;
 }
 
-+ (CAGradientLayer*)getGradientLayerWithId:(NSString*)gradId
++ (SVGGradientLayer*)getGradientLayerWithId:(NSString*)gradId
                                 forElement:(SVGElement*)svgElement
                                   withRect:(CGRect)r
                                  transform:(CGAffineTransform)transform
@@ -544,7 +544,7 @@
 
 	[svgGradient synthesizeProperties];
 	
-	CAGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r
+	SVGGradientLayer *gradientLayer = [svgGradient newGradientLayerForObjectRect:r
 																	viewportRect:svgElement.rootOfCurrentDocumentFragment.viewBox
 																	   transform:transform];
 

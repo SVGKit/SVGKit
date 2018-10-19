@@ -22,7 +22,6 @@
  */
 
 #import "SVGElement.h"
-
 #import "SVGRect.h"
 #import "SVGGradientStop.h"
 #import "SVGTransformable.h"
@@ -36,6 +35,7 @@ typedef NS_ENUM(NSUInteger, SVGSpreadMethod) {
     SVGSpreadMethodRepeat = 3
 };
 
+@class SVGGradientLayer;
 @interface SVGGradientElement : SVGElement <SVGTransformable> /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
 
 @property (readonly, strong) NSArray *stops; /* FIXME: not in SVG Spec */
@@ -49,9 +49,9 @@ typedef NS_ENUM(NSUInteger, SVGSpreadMethod) {
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */
 
 -(NSString*) getAttributeInheritedIfNil:(NSString*)attrName;
--(CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect
-                                     viewportRect:(SVGRect)viewportRect
-                                        transform:(CGAffineTransform)transform;
+-(SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect
+                                      viewportRect:(SVGRect)viewportRect
+                                         transform:(CGAffineTransform)transform;
 
 - (void)synthesizeProperties; // resolve any xlink:hrefs to other gradients
 @end
