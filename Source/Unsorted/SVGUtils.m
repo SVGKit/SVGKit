@@ -8,7 +8,7 @@
 #import "SVGUtils.h"
 
 #define MAX_ACCUM 64
-#define NUM_COLORS 147
+#define NUM_COLORS 148
 
 
 SVGColor ColorValueWithName (const char *name);
@@ -160,7 +160,9 @@ static const char *gColorNames[NUM_COLORS] = {
 	"white",
 	"whitesmoke",
 	"yellow",
-	"yellowgreen"
+	"yellowgreen",
+    // CSS Color
+    "transparent"
 };
 
 static const SVGColor gColorValues[NUM_COLORS] = {
@@ -237,7 +239,9 @@ static const SVGColor gColorValues[NUM_COLORS] = {
 	(SVGColor) { 64,224,208,255 }, (SVGColor) { 238,130,238,255 },
 	(SVGColor) { 245,222,179,255 }, (SVGColor) { 255,255,255,255 },
 	(SVGColor) { 245,245,245,255 }, (SVGColor) { 255,255,0,255 },
-	(SVGColor) { 154,205,50,255 }
+	(SVGColor) { 154,205,50,255 },
+    // CSS Color
+    (SVGColor) { 0, 0, 0, 0}
 };
 
 SVGColor ColorValueWithName (const char *name) {
