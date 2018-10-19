@@ -31,62 +31,43 @@
     
     NSString *attrX1 = [self getAttributeInheritedIfNil:@"x1"];
     NSString *attrY1 = [self getAttributeInheritedIfNil:@"y1"];
+    NSString* attrX2 = [self getAttributeInheritedIfNil:@"x2"];
+    NSString* attrY2 = [self getAttributeInheritedIfNil:@"y2"];
     SVGLength* svgX1 = [SVGLength svgLengthFromNSString:attrX1.length > 0 ? attrX1 : @"0%"];
     SVGLength* svgY1 = [SVGLength svgLengthFromNSString:attrY1.length > 0 ? attrY1 : @"0%"];
+    SVGLength* svgX2 = [SVGLength svgLengthFromNSString:attrX2.length > 0 ? attrX2 : @"100%"];
+    SVGLength* svgY2 = [SVGLength svgLengthFromNSString:attrY2.length > 0 ? attrY2 : @"0%"];
     self.x1 = svgX1;
     self.y1 = svgY1;
+    self.x2 = svgX2;
+    self.y2 = svgY2;
     
-    // This is a ugly fix. The SVG spec doesn't says, however, most of broswer treat 0.5 as as 50% for point value in <radialGradient> or <linearGradient>, so we keep the same behavior.
-    CGFloat x1 = (svgX1.value < 1.f) ? svgX1.value : [svgX1 pixelsValueWithDimension:1.0];
-    CGFloat y1 = (svgY1.value < 1.f) ? svgY1.value : [svgY1 pixelsValueWithDimension:1.0];
-    
-    CGPoint startPoint;
-    
-    // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse)
-    x1 = x1 * CGRectGetWidth(rectForRelativeUnits);
-    y1 = y1 * CGRectGetHeight(rectForRelativeUnits);
-    startPoint = CGPointMake(x1, y1);
+    // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse), but we simplify the logic using `rectForRelativeUnits`
+    CGFloat x1 = [svgX1 pixelsValueWithGradientDimension:CGRectGetWidth(rectForRelativeUnits)];
+    CGFloat y1 = [svgY1 pixelsValueWithGradientDimension:CGRectGetHeight(rectForRelativeUnits)];
+    CGFloat x2 = [svgX2 pixelsValueWithGradientDimension:CGRectGetWidth(rectForRelativeUnits)];
+    CGFloat y2 = [svgY2 pixelsValueWithGradientDimension:CGRectGetHeight(rectForRelativeUnits)];
+    CGPoint startPoint = CGPointMake(x1, y1);
+    CGPoint endPoint = CGPointMake(x2, y2);
     
     startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
+    endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
     if (inUserSpace)
     {
         startPoint = CGPointApplyAffineTransform(startPoint, absoluteTransform);
         startPoint.x = startPoint.x - CGRectGetMinX(objectRect);
         startPoint.y = startPoint.y - CGRectGetMinY(objectRect);
-    }
-    CGPoint gradientStartPoint = startPoint;
-    
-    // convert to percent
-    gradientStartPoint.x = startPoint.x / CGRectGetWidth(objectRect);
-    gradientStartPoint.y = startPoint.y / CGRectGetHeight(objectRect);
-    
-    NSString* attrX2 = [self getAttributeInheritedIfNil:@"x2"];
-    NSString* attrY2 = [self getAttributeInheritedIfNil:@"y2"];
-    SVGLength* svgX2 = [SVGLength svgLengthFromNSString:attrX2.length > 0 ? attrX2 : @"100%"];
-    SVGLength* svgY2 = [SVGLength svgLengthFromNSString:attrY2.length > 0 ? attrY2 : @"0%"];
-    self.x2 = svgX2;
-    self.y2 = svgY2;
-    
-    // This is a ugly fix. The SVG spec doesn't says, however, most of broswer treat 0.5 as as 50% for point value in <radialGradient> or <linearGradient>, so we keep the same behavior.
-    CGFloat x2 = (svgX2.value < 1.f) ? svgX2.value : [svgX2 pixelsValueWithDimension:1.0];
-    CGFloat y2 = (svgY2.value < 1.f) ? svgY2.value : [svgY2 pixelsValueWithDimension:1.0];
-    CGPoint endPoint;
-    
-    // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse)
-    x2 = x2 * CGRectGetWidth(rectForRelativeUnits);
-    y2 = y2 * CGRectGetHeight(rectForRelativeUnits);
-    endPoint = CGPointMake(x2, y2);
-    
-    endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
-    if (inUserSpace)
-    {
         endPoint = CGPointApplyAffineTransform(endPoint, absoluteTransform);
         endPoint.x = endPoint.x - CGRectGetMaxX(objectRect) + CGRectGetWidth(objectRect);
         endPoint.y = endPoint.y - CGRectGetMaxY(objectRect) + CGRectGetHeight(objectRect);
     }
+    
+    CGPoint gradientStartPoint = startPoint;
     CGPoint gradientEndPoint = endPoint;
     
     // convert to percent
+    gradientStartPoint.x = startPoint.x / CGRectGetWidth(objectRect);
+    gradientStartPoint.y = startPoint.y / CGRectGetHeight(objectRect);
     gradientEndPoint.x = endPoint.x / CGRectGetWidth(objectRect);
     gradientEndPoint.y = endPoint.y / CGRectGetHeight(objectRect);
     

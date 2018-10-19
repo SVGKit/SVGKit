@@ -67,21 +67,24 @@
     CGRect objectRect = self.objectRect;
     CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( self.viewportRect ) : objectRect;
     
-    CGPoint gradientStartPoint = CGPointZero;
-    CGPoint gradientEndPoint = CGPointZero;
-    CGFloat x1 = (gradientElement.x1.value < 1.f) ? gradientElement.x1.value : [gradientElement.x1 pixelsValueWithDimension:1.0];
-    CGFloat y1 = (gradientElement.y1.value < 1.f) ? gradientElement.y1.value : [gradientElement.y1 pixelsValueWithDimension:1.0];
-    CGFloat x2 = (gradientElement.x2.value < 1.f) ? gradientElement.x2.value : [gradientElement.x2 pixelsValueWithDimension:1.0];
-    CGFloat y2 = (gradientElement.y2.value < 1.f) ? gradientElement.y2.value : [gradientElement.y2 pixelsValueWithDimension:1.0];
+    CGFloat width = CGRectGetWidth(rectForRelativeUnits);
+    CGFloat height = CGRectGetHeight(rectForRelativeUnits);
+    CGFloat x1 = [gradientElement.x1 pixelsValueWithGradientDimension:width];
+    CGFloat y1 = [gradientElement.y1 pixelsValueWithGradientDimension:height];
+    CGFloat x2 = [gradientElement.x2 pixelsValueWithGradientDimension:width];
+    CGFloat y2 = [gradientElement.y2 pixelsValueWithGradientDimension:height];
+    CGPoint gradientStartPoint = CGPointMake(x1, y1);
+    CGPoint gradientEndPoint = CGPointMake(x2, y2);
     
     // transforms
     CGAffineTransform selfTransform = gradientElement.transform;
-    CGAffineTransform absoluteTransform = self.absoluteTransform;
+    CGAffineTransform trans = CGAffineTransformMakeTranslation(-CGRectGetMinX(objectRect),
+                                                               -CGRectGetMinY(objectRect));
+    CGAffineTransform absoluteTransform = CGAffineTransformConcat(self.absoluteTransform,trans);
     
     // CGGradient
     CGGradientRef gradient = [self createCGGradient];
     
-#pragma mark User Space On Use
     CGContextSaveGState(ctx);
     {
         // clip the mask
@@ -90,22 +93,11 @@
             [CALayerWithClipRender maskLayer:self inContext:ctx];
         }
         if(inUserSpace == YES) {
-            CGFloat width = CGRectGetWidth(rectForRelativeUnits);
-            CGFloat height = CGRectGetHeight(rectForRelativeUnits);
-            gradientStartPoint = CGPointMake(x1 * width, y1 * height);
-            gradientEndPoint = CGPointMake(x2 * width, y2 * height);
-            
+#pragma mark User Space On Use
             // transform absolute - due to user space
-            CGAffineTransform trans = CGAffineTransformMakeTranslation(-CGRectGetMinX(objectRect),
-                                                                       -CGRectGetMinY(objectRect));
-            absoluteTransform = CGAffineTransformConcat(absoluteTransform,trans);
             CGContextConcatCTM(ctx, absoluteTransform);
         } else {
 #pragma mark Object Bounding Box
-            CGFloat width = CGRectGetWidth(rectForRelativeUnits);
-            CGFloat height = CGRectGetHeight(rectForRelativeUnits);
-            gradientStartPoint = CGPointMake(x1 * width, y1 * height);
-            gradientEndPoint = CGPointMake(x2 * width, y2 * height);
         }
         
         // set the opacity
@@ -129,24 +121,29 @@
     SVGRadialGradientElement *gradientElement = (SVGRadialGradientElement *)self.gradientElement;
     BOOL inUserSpace = gradientElement.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
     CGRect objectRect = self.objectRect;
-//    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( self.viewportRect ) : objectRect;
+    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( self.viewportRect ) : objectRect;
     
-    CGFloat radius;
-    CGFloat focalRadius;
-    CGPoint startPoint = CGPointZero;
-    CGPoint gradientStartPoint = CGPointZero;
-    CGPoint gradientEndPoint = CGPointZero;
+    CGFloat width = CGRectGetWidth(rectForRelativeUnits);
+    CGFloat height = CGRectGetHeight(rectForRelativeUnits);
+    CGFloat cx = [gradientElement.cx pixelsValueWithGradientDimension:width];
+    CGFloat cy = [gradientElement.cy pixelsValueWithGradientDimension:height];
+    CGPoint startPoint = CGPointMake(cx, cy);
     
-    CGFloat cx = (gradientElement.cx.value < 1.f) ? gradientElement.cx.value : [gradientElement.cx pixelsValueWithDimension:1.0];
-    CGFloat cy = (gradientElement.cy.value < 1.f) ? gradientElement.cy.value : [gradientElement.cy pixelsValueWithDimension:1.0];
-    CGFloat r = (gradientElement.r.value < 1.f) ? gradientElement.r.value : [gradientElement.r pixelsValueWithDimension:1.0];
-    CGFloat fx = (gradientElement.fx.value < 1.f) ? gradientElement.fx.value : [gradientElement.fx pixelsValueWithDimension:1.0];
-    CGFloat fy = (gradientElement.fy.value < 1.f) ? gradientElement.fy.value : [gradientElement.fy pixelsValueWithDimension:1.0];
-    CGFloat fr = (gradientElement.fr.value < 1.f) ? gradientElement.fr.value : [gradientElement.fr pixelsValueWithDimension:1.0];
+    CGFloat val = MIN(width, height);
+    CGFloat radius = [gradientElement.r pixelsValueWithGradientDimension:val];
+    CGFloat focalRadius = [gradientElement.fr pixelsValueWithGradientDimension:val];
+    
+    CGFloat fx = [gradientElement.fx pixelsValueWithGradientDimension:width];
+    CGFloat fy = [gradientElement.fy pixelsValueWithGradientDimension:height];
+    
+    CGPoint gradientEndPoint = CGPointMake(fx, fy);
+    CGPoint gradientStartPoint = startPoint;
     
     // transforms
     CGAffineTransform selfTransform = gradientElement.transform;
-    CGAffineTransform absoluteTransform = self.absoluteTransform;
+    CGAffineTransform trans = CGAffineTransformMakeTranslation(-CGRectGetMinX(objectRect),
+                                                               -CGRectGetMinY(objectRect));
+    CGAffineTransform absoluteTransform = CGAffineTransformConcat(self.absoluteTransform,trans);
     
     // CGGradient
     CGGradientRef gradient = [self createCGGradient];
@@ -160,41 +157,17 @@
         }
 #pragma mark User Space On Use
         if(inUserSpace == YES) {
-            radius = r;
-            focalRadius = fr;
-            CGFloat rad = radius*2.f;
-            startPoint = CGPointMake(cx, cy);
-            
             // work out the new radius
+            CGFloat rad = 2 * radius;
             CGRect rect = CGRectMake(startPoint.x, startPoint.y, rad, rad);
             rect = CGRectApplyAffineTransform(rect, selfTransform);
             rect = CGRectApplyAffineTransform(rect, absoluteTransform);
             radius = CGRectGetHeight(rect)/2.f;
             
-            gradientStartPoint = startPoint;
-            gradientEndPoint = CGPointMake(fx, fy);
-            
             // transform absolute - due to user space
-            CGAffineTransform trans = CGAffineTransformMakeTranslation(-CGRectGetMinX(objectRect),
-                                                                       -CGRectGetMinY(objectRect));
-            absoluteTransform = CGAffineTransformConcat(absoluteTransform,trans);
             CGContextConcatCTM(ctx, absoluteTransform);
         } else {
 #pragma mark Object Bounding Box
-            // compute size based on percentages
-            CGFloat x = cx * CGRectGetWidth(objectRect);
-            CGFloat y = cy * CGRectGetHeight(objectRect);
-            startPoint = CGPointMake(x, y);
-            CGFloat val = MIN(CGRectGetWidth(objectRect), CGRectGetHeight(objectRect));
-            radius = r * val;
-            focalRadius = fr * val;
-            
-            CGFloat ex = fx * CGRectGetWidth(objectRect);
-            CGFloat ey = fy * CGRectGetHeight(objectRect);
-            
-            gradientEndPoint = CGPointMake(ex, ey);
-            gradientStartPoint = startPoint;
-            
             // transform if width or height is not equal
             if(CGRectGetWidth(objectRect) != CGRectGetHeight(objectRect)) {
                 CGAffineTransform tr = CGAffineTransformMakeTranslation(gradientStartPoint.x,
