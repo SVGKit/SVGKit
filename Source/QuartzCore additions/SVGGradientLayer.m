@@ -174,7 +174,10 @@
             gradientStartPoint = startPoint;
             gradientEndPoint = CGPointMake(fx, fy);
             
-            // apply the absolute position
+            // transform absolute - due to user space
+            CGAffineTransform trans = CGAffineTransformMakeTranslation(-CGRectGetMinX(objectRect),
+                                                                       -CGRectGetMinY(objectRect));
+            absoluteTransform = CGAffineTransformConcat(absoluteTransform,trans);
             CGContextConcatCTM(ctx, absoluteTransform);
         } else {
 #pragma mark Object Bounding Box
