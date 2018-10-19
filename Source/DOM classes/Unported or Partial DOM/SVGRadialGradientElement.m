@@ -45,6 +45,7 @@
     SVGLength* svgFX = fxAttr.length > 0 ? [SVGLength svgLengthFromNSString:fxAttr] : svgCX;
     SVGLength* svgFY = fyAttr.length > 0 ? [SVGLength svgLengthFromNSString:fyAttr] : svgCY;
     SVGLength* svgFR = [SVGLength svgLengthFromNSString:frAttr.length > 0 ? frAttr : @"0%"];
+    // This is a tempory workaround. Apple's `CAGradientLayer` does not support focal point for radial gradient. We have to use the low-level API `CGContextDrawRadialGradient` and using custom software-render for focal point. So it does not works for `SVGLayredView` which is hardware-render by CA render server.
     if (fxAttr.length > 0 || fyAttr.length > 0 || frAttr.length > 0) {
         SVGKitLogVerbose(@"The radialGradient element #%@ contains focal value: (fx:%@, fy: %@, fr:%@). The focul value is only supported on `SVGFastimageView` and it will be ignored when rendering in SVGLayredView.", [self getAttribute:@"id"], fxAttr, fyAttr, frAttr);
     }
@@ -55,43 +56,46 @@
     self.fy = svgFY;
     self.fr = svgFR;
     
+    // This is a ugly fix. The SVG spec doesn't says, however, most of broswer treat 0.5 as as 50% for point value in <radialGradient> or <linearGradient>, so we keep the same behavior.
+    CGFloat cx = (svgCX.value < 1.f) ? svgCX.value : [svgCX pixelsValueWithDimension:1.0];
+    CGFloat cy = (svgCY.value < 1.f) ? svgCY.value : [svgCY pixelsValueWithDimension:1.0];
+    CGFloat r = (svgR.value < 1.f) ? svgR.value : [svgR pixelsValueWithDimension:1.0];
+    CGFloat fx = (svgFX.value < 1.f) ? svgFX.value : [svgFX pixelsValueWithDimension:1.0];
+    CGFloat fy = (svgFY.value < 1.f) ? svgFY.value : [svgFY pixelsValueWithDimension:1.0];
+    
     CGFloat radius;
-    CGFloat focalRadius;
     CGPoint gradientStartPoint = CGPointZero;
     CGPoint gradientEndPoint = CGPointZero;
     
     if (!inUserSpace)
     {
         // compute size based on percentages
-        CGFloat x = [svgCX pixelsValueWithDimension:1.0]*CGRectGetWidth(objectRect);
-        CGFloat y = [svgCY pixelsValueWithDimension:1.0]*CGRectGetHeight(objectRect);
+        CGFloat x = cx * CGRectGetWidth(objectRect);
+        CGFloat y = cy * CGRectGetHeight(objectRect);
         CGPoint startPoint = CGPointMake(x, y);
         CGFloat val = MIN(CGRectGetWidth(objectRect), CGRectGetHeight(objectRect));
-        radius = [svgR pixelsValueWithDimension:1.0]*val;
+        radius = r * val;
         
-        CGFloat ex = [svgFX pixelsValueWithDimension:1.0]*CGRectGetWidth(objectRect);
-        CGFloat ey = [svgFY pixelsValueWithDimension:1.0]*CGRectGetHeight(objectRect);
-        CGFloat er = [svgFR pixelsValueWithDimension:1.0]*val;
+        CGFloat ex = fx * CGRectGetWidth(objectRect);
+        CGFloat ey = fy * CGRectGetHeight(objectRect);
         
         gradientStartPoint = startPoint;
         gradientEndPoint = CGPointMake(ex, ey);
-        focalRadius = er;
     }
     else
     {
-        radius = [svgR pixelsValueWithDimension:1.0];
-        CGFloat rad = radius*2.f;
-        CGPoint startPoint = CGPointMake([svgCX pixelsValueWithDimension:1.0], [svgCY pixelsValueWithDimension:1.0]);
+        radius = r;
+        CGPoint startPoint = CGPointMake(cx, cy);
         
         // work out the new radius
+        CGFloat rad = radius * 2.f;
         CGRect rect = CGRectMake(startPoint.x, startPoint.y, rad, rad);
         rect = CGRectApplyAffineTransform(rect, self.transform);
         rect = CGRectApplyAffineTransform(rect, absoluteTransform);
-        radius = CGRectGetHeight(rect)/2.f;
+        radius = CGRectGetHeight(rect) / 2.f;
         
         gradientStartPoint = startPoint;
-        gradientEndPoint = CGPointMake([svgFX pixelsValueWithDimension:1.0], [svgFY pixelsValueWithDimension:1.0]);
-        focalRadius = [svgFR pixelsValueWithDimension:1.0];
+        gradientEndPoint = CGPointMake(fx, fy);
     }
     
     if (inUserSpace)
@@ -159,7 +163,7 @@
                 for (SVGGradientStop* stop in baseGradient.stops)
                     [self addStop:stop];
             }
-            NSArray *keys = [NSArray arrayWithObjects:@"cx", @"cy", @"r", @"fx", @"fy", @"fr", @"gradientUnits", @"gradientTransform", nil];
+            NSArray *keys = [NSArray arrayWithObjects:@"cx", @"cy", @"r", @"fx", @"fy", @"fr", @"gradientUnits", @"gradientTransform", @"spreadMethod", nil];
             
             for (NSString* key in keys)
             {

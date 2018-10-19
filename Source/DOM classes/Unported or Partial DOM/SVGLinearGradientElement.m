@@ -8,6 +8,7 @@
 
 #import "SVGLinearGradientElement.h"
 #import "SVGElement_ForParser.h"
+#import "SVGGradientLayer.h"
 
 @interface SVGLinearGradientElement ()
 
@@ -21,8 +22,8 @@
 
 @implementation SVGLinearGradientElement
 
-- (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)transformAbsolute {
-    CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+- (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)absoluteTransform {
+    SVGGradientLayer *gradientLayer = [[SVGGradientLayer alloc] init];
     BOOL inUserSpace = self.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
     CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( viewportRect ) : objectRect;
     
@@ -34,83 +35,70 @@
     SVGLength* svgY1 = [SVGLength svgLengthFromNSString:attrY1.length > 0 ? attrY1 : @"0%"];
     self.x1 = svgX1;
     self.y1 = svgY1;
-    CGFloat x1;
-    CGFloat y1;
+    
+    // This is a ugly fix. The SVG spec doesn't says, however, most of broswer treat 0.5 as as 50% for point value in <radialGradient> or <linearGradient>, so we keep the same behavior.
+    CGFloat x1 = (svgX1.value < 1.f) ? svgX1.value : [svgX1 pixelsValueWithDimension:1.0];
+    CGFloat y1 = (svgY1.value < 1.f) ? svgY1.value : [svgY1 pixelsValueWithDimension:1.0];
+    
+    CGPoint startPoint;
     
     // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse)
-    if (!inUserSpace)
-    {
-        x1 = [svgX1 pixelsValueWithDimension:1.0];
-        y1 = [svgY1 pixelsValueWithDimension:1.0];
-    }
-    else
-    {
-        x1 = [svgX1 pixelsValueWithDimension:CGRectGetWidth(rectForRelativeUnits)];
-        y1 = [svgY1 pixelsValueWithDimension:CGRectGetHeight(rectForRelativeUnits)];
-    }
-    
-    CGPoint startPoint = CGPointMake(x1, y1);
+    x1 = x1 * CGRectGetWidth(rectForRelativeUnits);
+    y1 = y1 * CGRectGetHeight(rectForRelativeUnits);
+    startPoint = CGPointMake(x1, y1);
     
     startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
     if (inUserSpace)
     {
-        startPoint = CGPointApplyAffineTransform(startPoint, transformAbsolute);
+        startPoint = CGPointApplyAffineTransform(startPoint, absoluteTransform);
+        startPoint.x = startPoint.x - CGRectGetMinX(objectRect);
+        startPoint.y = startPoint.y - CGRectGetMinY(objectRect);
     }
     CGPoint gradientStartPoint = startPoint;
     
-    if (inUserSpace)
-    {
-        gradientStartPoint.x = (startPoint.x - CGRectGetMinX(objectRect))/CGRectGetWidth(objectRect);
-        gradientStartPoint.y = (startPoint.y - CGRectGetMinY(objectRect))/CGRectGetHeight(objectRect);
-    }
+    // convert to percent
+    gradientStartPoint.x = startPoint.x / CGRectGetWidth(objectRect);
+    gradientStartPoint.y = startPoint.y / CGRectGetHeight(objectRect);
     
     NSString* attrX2 = [self getAttributeInheritedIfNil:@"x2"];
-    NSString *attrY2 = [self getAttributeInheritedIfNil:@"y2"];
+    NSString* attrY2 = [self getAttributeInheritedIfNil:@"y2"];
     SVGLength* svgX2 = [SVGLength svgLengthFromNSString:attrX2.length > 0 ? attrX2 : @"100%"];
     SVGLength* svgY2 = [SVGLength svgLengthFromNSString:attrY2.length > 0 ? attrY2 : @"0%"];
     self.x2 = svgX2;
     self.y2 = svgY2;
-    CGFloat x2;
-    CGFloat y2;
     
-    if (!inUserSpace)
-    {
-        x2 = [svgX2 pixelsValueWithDimension:1.0];
-        y2 = [svgY2 pixelsValueWithDimension:1.0];
-    }
-    else
-    {
-        x2 = [svgX2 pixelsValueWithDimension:CGRectGetWidth(rectForRelativeUnits)];
-        y2 = [svgY2 pixelsValueWithDimension:CGRectGetHeight(rectForRelativeUnits)];
-    }
+    // This is a ugly fix. The SVG spec doesn't says, however, most of broswer treat 0.5 as as 50% for point value in <radialGradient> or <linearGradient>, so we keep the same behavior.
+    CGFloat x2 = (svgX2.value < 1.f) ? svgX2.value : [svgX2 pixelsValueWithDimension:1.0];
+    CGFloat y2 = (svgY2.value < 1.f) ? svgY2.value : [svgY2 pixelsValueWithDimension:1.0];
+    CGPoint endPoint;
     
+    // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse)
+    x2 = x2 * CGRectGetWidth(rectForRelativeUnits);
+    y2 = y2 * CGRectGetHeight(rectForRelativeUnits);
+    endPoint = CGPointMake(x2, y2);
     
-    CGPoint endPoint = CGPointMake(x2, y2);
     endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
     if (inUserSpace)
     {
-        endPoint = CGPointApplyAffineTransform(endPoint, transformAbsolute);
+        endPoint = CGPointApplyAffineTransform(endPoint, absoluteTransform);
+        endPoint.x = endPoint.x - CGRectGetMaxX(objectRect) + CGRectGetWidth(objectRect);
+        endPoint.y = endPoint.y - CGRectGetMaxY(objectRect) + CGRectGetHeight(objectRect);
     }
     CGPoint gradientEndPoint = endPoint;
     
-    if (inUserSpace)
-    {
-        gradientEndPoint.x = ((endPoint.x - CGRectGetMaxX(objectRect))/CGRectGetWidth(objectRect))+1;
-        gradientEndPoint.y = ((endPoint.y - CGRectGetMaxY(objectRect))/CGRectGetHeight(objectRect))+1;
-    }
+    // convert to percent
+    gradientEndPoint.x = endPoint.x / CGRectGetWidth(objectRect);
+    gradientEndPoint.y = endPoint.y / CGRectGetHeight(objectRect);
     
-    //    return gradientLayer;
-    CGFloat rotation = atan2(transformAbsolute.b, transformAbsolute.d);
-    if (fabs(rotation)>.01) {
-        CGAffineTransform tr = CGAffineTransformMakeTranslation(.5, .5);
-        tr = CGAffineTransformRotate(tr, rotation);
-        tr = CGAffineTransformTranslate(tr, -.5, -.5);
-        gradientStartPoint = CGPointApplyAffineTransform(gradientStartPoint, tr);
-        gradientEndPoint = CGPointApplyAffineTransform(gradientEndPoint, tr);
-    }
+    // Suck on iOS. When using `SVGFastImageView`, the layer software-rendering `drawInContext:` will contains strange boundingRect, while it works fine on macOS. So we need to use custom soft-rendering as well.
     gradientLayer.startPoint = gradientStartPoint;
     gradientLayer.endPoint = gradientEndPoint;
     gradientLayer.type = kCAGradientLayerAxial;
+    // custom value (match the SVG spec)
+    gradientLayer.gradientElement = self;
+    gradientLayer.objectRect = objectRect;
+    gradientLayer.viewportRect = viewportRect;
+    gradientLayer.absoluteTransform = absoluteTransform;
     
     [gradientLayer setColors:self.colors];
     [gradientLayer setLocations:self.locations];
