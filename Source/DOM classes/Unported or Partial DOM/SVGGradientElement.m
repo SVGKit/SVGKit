@@ -104,59 +104,6 @@
 		return [self getAttribute:attrName]; // will return blank if there was no value AND no parent value
 }
 
--(CGPoint) normalizeGradientCoordinate:(SVGLength*) x y:(SVGLength*) y rectToFill:(CGRect) rectToFill
-{
-	CGFloat xNormalized, yNormalized;
-	
-	if( x.value == 0 )
-		xNormalized = 0;
-	else
-	switch( x.unitType )  // SVG needs gradients measured in percent...
-	{
-		case SVG_LENGTHTYPE_PERCENTAGE:
-		{
-			 xNormalized = [x numberValue]; // will convert the percent into [0,1]
-		}break;
-			
-		case SVG_LENGTHTYPE_NUMBER:
-		case SVG_LENGTHTYPE_PX:
-		{
-			xNormalized = (([x pixelsValue] - rectToFill.origin.x) / rectToFill.size.width);
-		} break;
-			
-		default:
-		{
-			NSAssert( FALSE, @"Unsupported input units in the SVGLength variable passed in for 'x': %i", x.unitType );
-			xNormalized = 0;
-		}
-	}
-	
-	if( y.value == 0 )
-		yNormalized = 0;
-	else
-	switch( y.unitType )  // SVG needs gradients measured in percent...
-	{
-		case SVG_LENGTHTYPE_PERCENTAGE:
-		{
-			yNormalized = [y numberValue]; // will convert the percent into [0,1]
-		}break;
-			
-		case SVG_LENGTHTYPE_NUMBER:
-		case SVG_LENGTHTYPE_PX:
-		{
-			yNormalized = (([y pixelsValue] - rectToFill.origin.y) / rectToFill.size.height);
-		}break;
-			
-		default:
-		{
-			NSAssert( FALSE, @"Unsupported input units in the SVGLength variable passed in for 'y': %i", y.unitType );
-			yNormalized = 0;
-		}
-	}
-	
-	return CGPointMake( xNormalized, yNormalized );
-}
-
 - (SVGGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)transform {
     return nil;
 }
