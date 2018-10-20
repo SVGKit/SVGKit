@@ -49,7 +49,7 @@
 	[super viewDidLoad];
 	
 	self.clearsSelectionOnViewWillAppear = NO;
-	self.contentSizeForViewInPopover = CGSizeMake(320.0f, 600.0f);
+	self.preferredContentSize = CGSizeMake(320.0f, 600.0f);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

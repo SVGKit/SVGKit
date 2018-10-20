@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
-		32D3D5EF2176F39E00ED20D8 /* VCImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5EE2176F39E00ED20D8 /* VCImageCollectionViewCell.m */; };
 		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
 		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
 		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
@@ -235,8 +234,6 @@
 
 /* Begin PBXFileReference section */
 		32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mozilla_Firefox_logo_2013.svg; sourceTree = "<group>"; };
-		32D3D5ED2176F39E00ED20D8 /* VCImageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCImageCollectionViewCell.h; sourceTree = "<group>"; };
-		32D3D5EE2176F39E00ED20D8 /* VCImageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCImageCollectionViewCell.m; sourceTree = "<group>"; };
 		32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mozilla_Firefox_logo_2013.png; sourceTree = "<group>"; };
 		32D42244217AED3900CFD064 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FD8223D1AD057F000E419D3 /* arcs01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs01.svg; sourceTree = "<group>"; };
@@ -593,8 +590,6 @@
 				66E862581688BA0B0059C9C4 /* AppDelegate.m */,
 				661EEA461ACC0667007176B0 /* VCGridOfImagesViewController.h */,
 				661EEA471ACC0667007176B0 /* VCGridOfImagesViewController.m */,
-				32D3D5ED2176F39E00ED20D8 /* VCImageCollectionViewCell.h */,
-				32D3D5EE2176F39E00ED20D8 /* VCImageCollectionViewCell.m */,
 				661EEA491ACC140F007176B0 /* SampleFileInfo.h */,
 				661EEA4A1ACC140F007176B0 /* SampleFileInfo.m */,
 				662701A21AD978A800B3AD03 /* VCAllSpecImages.h */,
@@ -952,7 +947,6 @@
 				661EEA481ACC0667007176B0 /* VCGridOfImagesViewController.m in Sources */,
 				66E862741688BA0B0059C9C4 /* main.m in Sources */,
 				66E862751688BA0B0059C9C4 /* MasterViewController.m in Sources */,
-				32D3D5EF2176F39E00ED20D8 /* VCImageCollectionViewCell.m in Sources */,
 				662701A41AD978A800B3AD03 /* VCAllSpecImages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

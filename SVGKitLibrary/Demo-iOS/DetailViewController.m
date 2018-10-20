@@ -74,25 +74,18 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 
 - (void)dealloc {
 	self.detailItem = nil;
-	
-	
+    self.contentView = nil;
 }
 
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
 	self.scrollViewForSVG.delegate = self;
-	
-	self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-											   [[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStyleBordered target:self action:@selector(showHideBorder:)],
-											   [[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStyleBordered target:self action:@selector(animate:)],
-											   nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self.contentView removeObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setupNavigationBar];
 }
 
 CALayer* lastTappedLayer;
@@ -120,6 +113,14 @@ CATextLayer *textLayerForLastTappedLayer;
 		
 		lastTappedLayer = nil;
 	}
+}
+
+- (void)setupNavigationBar {
+    NSString *renderTitle = self.requiresLayeredImageView ? @"LayeredImageView" : @"FastImageView";
+    UIBarButtonItem *renderItem = [[UIBarButtonItem alloc] initWithTitle:renderTitle style:UIBarButtonItemStylePlain target:self action:@selector(toggleRender:)];
+    UIBarButtonItem *debugItem = [[UIBarButtonItem alloc] initWithTitle:@"Debug" style:UIBarButtonItemStylePlain target:self action:@selector(showHideBorder:)];
+    UIBarButtonItem *animateItem = [[UIBarButtonItem alloc] initWithTitle:@"Animate" style:UIBarButtonItemStylePlain target:self action:@selector(animate:)];
+    self.navigationItem.rightBarButtonItems = @[renderItem, debugItem, animateItem];
 }
 
 -(NSString*) layerInfo:(CALayer*) l
@@ -189,13 +190,12 @@ CATextLayer *textLayerForLastTappedLayer;
 		[self deselectTappedLayer]; // do this both ways, but have to do it AFTER the if-test because it nil's one of the if-phrases!
 	
 #if ALLOW_SVGKFASTIMAGEVIEW_TO_DO_HIT_TESTING // look how much code this requires! It's insane! Use SVGKLayeredImageView instead if you need hit-testing!
-		self.title = @""; // reset it so that we can conditionally set it - but also ensuring this code is included in the #if
 		if( [self.contentView isKindOfClass:[SVGKFastImageView class]])
 		{
 			/** NEVER DO THIS - this is a proof-of-concept, but instead you should ALWAYS
 			 use SVGKLayeredImageView if you want to do hit-testing!
 			 */
-			self.title = @"WARNING: don't use SVGKFastImageView for hit-testing";
+            NSLog(@"WARNING: don't use SVGKFastImageView for hit-testing");
 			
 			/**
 			 Because SVGKFastImageView "hides" the layers, any visual changes we make
@@ -237,7 +237,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			
 			UIFont* fontToDraw = [UIFont fontWithName:@"Helvetica"
 												 size:14.0f];
-			CGSize sizeOfTextRect = [textToDraw sizeWithFont:fontToDraw];
+            CGSize sizeOfTextRect = [textToDraw sizeWithAttributes:@{NSFontAttributeName: fontToDraw}];
 			
 			textLayerForLastTappedLayer = [[CATextLayer alloc] init];
 			[textLayerForLastTappedLayer setFont:@"Helvetica"];
@@ -332,22 +332,36 @@ CATextLayer *textLayerForLastTappedLayer;
 
 - (void)setDetailItem:(id)newDetailItem {
 	if (detailItem != newDetailItem) {
-		[self deselectTappedLayer]; // do this first because it DEPENDS UPON the type of self.contentView BEFORE the change in value
-		
-		
-		if( newDetailItem != nil )
-		{
-		detailItem = newDetailItem;
-		
-		// FIXME: re-write this class so that this method does NOT require self.view to exist
-		[self view]; // Apple's design to trigger the creation of view. Original design of THIS class is that it breaks if view isn't already existing
-		[self loadSVGFrom:newDetailItem];
-		}
+        detailItem = newDetailItem;
+        [self reload];
 	}
 	
 	if (self.popoverController) {
 		[self.popoverController dismissPopoverAnimated:YES];
 	}
+}
+
+- (void)setContentView:(SVGKImageView *)newContentView {
+    if (contentView == newContentView) {
+        return;
+    }
+    if (contentView) {
+        [contentView removeObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory];
+    }
+    if (newContentView) {
+        /** Fast image view renders asynchronously, so we have to wait for a callback that its finished a render... */
+        [newContentView addObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory options:0 context:nil];
+    }
+    contentView = newContentView;
+}
+
+-(void)reload {
+    [self deselectTappedLayer]; // do this first because it DEPENDS UPON the type of self.contentView BEFORE the change in value
+    // FIXME: re-write this class so that this method does NOT require self.view to exist
+    [self view]; // Apple's design to trigger the creation of view. Original design of THIS class is that it breaks if view isn't already existing
+    if (self.detailItem) {
+        [self loadSVGFrom:self.detailItem];
+    }
 }
 
 -(void) willLoadNewResource
@@ -394,40 +408,6 @@ CATextLayer *textLayerForLastTappedLayer;
 		options.overrideImageSize = CGSizeMake( 160, 240 );
 		
 		options.localFileSource = modifiedSource;
-	}
-}
-
-/**
- Sometimes you HAVE to use an SVGKLayeredImageView...
- */
--(void) preProcessImageCheckWorkaroundAppleBugInGradientImages:(ImageLoadingOptions*) options
-{
-	if(
-	   [options.localFileSource.filePath rangeOfString:@"/Monkey.svg"].location != NSNotFound // Monkey uses layer-animations, so REQUIRES the layered version of SVGKImageView
-	   || [options.localFileSource.filePath rangeOfString:@"/RainbowWing.svg"].location != NSNotFound // RainbowWing uses gradient-fills, so REQUIRES the layered version of SVGKImageView
-	   || [options.localFileSource.filePath rangeOfString:@"/imagetag-layered.svg"].location != NSNotFound // uses gradients for prettiness
-	   || [options.localFileSource.filePath rangeOfString:@"/parent-clip.svg"].location != NSNotFound // uses layer animations
-	   )
-	{
-		/**
-		 
-		 NB: special-case handling here -- this is included AS AN EXAMPLE so you can see the differences.
-		 
-		 MONKEY.SVG -- CAAnimation of layers
-		 -----
-		 The problem: Apple's code doesn't allow us to support CoreAnimation *and* make image loading easy.
-		 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that supports CoreAnimation"
-		 
-		 In this demo, we setup the Monkey.SVG to allow layer-based animation...
-		 
-		 
-		 RAINBOWWING.SVG -- Gradient-fills of shapes
-		 -----
-		 The problem: Apple's renderInContext has a major bug where it ignores CALayer masks
-		 The solution: there are two versions of SVGKImageView - a "normal" one, and a "weaker one that doesnt use renderInContext"
-		 
-		 */
-		self.requiresLayeredImageView = true;
 	}
 }
 
@@ -478,7 +458,6 @@ CATextLayer *textLayerForLastTappedLayer;
 
 	[self preProcessImageFor2X:loadingOptions];
 	[self preProcessImageForAt160x240:loadingOptions];
-	[self preProcessImageCheckWorkaroundAppleBugInGradientImages:loadingOptions];
 	
 	/** Detect the magic name(s) for the nil-demos */
 	if( svgSource == nil )
@@ -617,8 +596,7 @@ CATextLayer *textLayerForLastTappedLayer;
 			self.labelParseTime.textColor = [UIColor blackColor];
 			self.labelParseTime.text = @"(parsing)";
 		}
-		/** Workaround for Apple 10 years old bug in OS X that they ported to iOS :( */
-		self.labelParseTime.frame = CGRectMake( 0, 0, self.contentView.bounds.size.width, 20.0 );
+        self.labelParseTime.frame = CGRectMake(0, 0, self.view.bounds.size.width, 20);
 		
 		[self.contentView addSubview:self.labelParseTime];
 	
@@ -640,11 +618,7 @@ CATextLayer *textLayerForLastTappedLayer;
 		self.scrollViewForSVG.minimumZoomScale = MIN( 1, screenToDocumentSizeRatio );
 		self.scrollViewForSVG.maximumZoomScale = MAX( 1, screenToDocumentSizeRatio );
 		
-        self.title = [self.contentView isKindOfClass:[SVGKFastImageView class]] ? @"FastImageView" : @"LayeredImageView";
-		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.sourceOfCurrentDocument.keyForAppleDictionaries, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
-		
-		/** Fast image view renders asynchronously, so we have to wait for a callback that its finished a render... */
-		[self.contentView addObserver:self forKeyPath:kTimeIntervalForLastReRenderOfSVGFromMemory options:0 context:nil];
+		self.labelParseTime.text = [NSString stringWithFormat:@"(parsed: %.2f secs, rendered: %.2f secs)", [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
 		
 		/**
 		 EXAMPLE:
@@ -666,8 +640,18 @@ CATextLayer *textLayerForLastTappedLayer;
 	
 	if( [keyPath isEqualToString:kTimeIntervalForLastReRenderOfSVGFromMemory ] )
 	{
-		self.labelParseTime.text = [NSString stringWithFormat:@"%@ (parsed: %.2f secs, rendered: %.2f secs)", self.sourceOfCurrentDocument.keyForAppleDictionaries, [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
+		self.labelParseTime.text = [NSString stringWithFormat:@"(parsed: %.2f secs, rendered: %.2f secs)", [self.endParseTime timeIntervalSinceDate:self.startParseTime], self.contentView.timeIntervalForLastReRenderOfSVGFromMemory ];
 	}
+}
+
+- (IBAction)toggleRender:(id)sender {
+    if (self.requiresLayeredImageView) {
+        self.requiresLayeredImageView = NO;
+    } else {
+        self.requiresLayeredImageView = YES;
+    }
+    [self setupNavigationBar];
+    [self reload];
 }
 
 - (IBAction)animate:(id)sender {
@@ -792,12 +776,6 @@ CATextLayer *textLayerForLastTappedLayer;
     _layerExporter = nil;
 }
 #endif
-
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
 
 
 @end

@@ -1,10 +1,8 @@
 #import "VCAllSpecImages.h"
-#import "VCImageCollectionViewCell.h"
 #import "DetailViewController.h"
 #import "SVGKSourceLocalFile.h"
-#import <objc/runtime.h>
 
-@interface VCAllSpecImages () <VCImageCollectionViewCellDelegate>
+@interface VCAllSpecImages ()
 @property(nonatomic,strong) NSString* xcodeVirtualFolderPath;
 @property(nonatomic,strong) NSMutableArray* svgFileNames;
 @end
@@ -27,10 +25,6 @@
 		
 		self.svgFileNames = [NSMutableArray arrayWithArray: xcodeVirtualFolderSVGContents];
 	}
-    
-    UIMenuItem *menuItem1 = [[UIMenuItem alloc] initWithTitle:@"Layer" action:@selector(toggleLayerImageView:)];
-    UIMenuItem *menuItem2 = [[UIMenuItem alloc] initWithTitle:@"Fast" action:@selector(toggleFastImageView:)];
-    [[UIMenuController sharedMenuController] setMenuItems:@[menuItem1, menuItem2]];
 }
 
 -(NSArray*) sectionAtIndex:(NSInteger) index
@@ -49,8 +43,7 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	VCImageCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.delegate = self;
+	UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	
 	NSString* filename = [self filenameAtIndexPath:indexPath];
 	
@@ -92,31 +85,6 @@
 	[self performSegueWithIdentifier:@"ViewSVG" sender:nil];
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    if (action == @selector(toggleLayerImageView:)) {
-        return YES;
-    } else if (action == @selector(toggleFastImageView:)) {
-        return YES;
-    }
-    return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    
-}
-
-#pragma mark - VCImageCollectionViewCellDelegate
-- (void)collectionViewCell:(VCImageCollectionViewCell *)cell toggleLayerImageView:(BOOL)requiresLayeredImageView {
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    NSString* filename = [self filenameAtIndexPath:indexPath];
-    objc_setAssociatedObject(filename, @selector(requiresLayeredImageView), @(requiresLayeredImageView), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if( [segue.destinationViewController isKindOfClass:[DetailViewController class]])
@@ -125,7 +93,6 @@
 		
 		NSString* filename = [self filenameAtIndexPath:[self.collectionView indexPathsForSelectedItems][0]];
 		nextVC.detailItem = [SVGKSourceLocalFile sourceFromFilename:[[self.xcodeVirtualFolderPath stringByAppendingPathComponent:@"svg"] stringByAppendingPathComponent:filename]];
-        nextVC.requiresLayeredImageView = [objc_getAssociatedObject(filename, @selector(requiresLayeredImageView)) boolValue];
 	}
 }
 
