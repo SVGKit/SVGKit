@@ -10,6 +10,7 @@
 		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
 		32D3D5EF2176F39E00ED20D8 /* VCImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5EE2176F39E00ED20D8 /* VCImageCollectionViewCell.m */; };
 		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
+		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
 		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
 		4FD822401AD057F000E419D3 /* arcs02.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223E1AD057F000E419D3 /* arcs02.svg */; };
 		4FD822441AD058AB00E419D3 /* arcs01.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822421AD058AB00E419D3 /* arcs01.png */; };
@@ -237,6 +238,7 @@
 		32D3D5ED2176F39E00ED20D8 /* VCImageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCImageCollectionViewCell.h; sourceTree = "<group>"; };
 		32D3D5EE2176F39E00ED20D8 /* VCImageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCImageCollectionViewCell.m; sourceTree = "<group>"; };
 		32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mozilla_Firefox_logo_2013.png; sourceTree = "<group>"; };
+		32D42244217AED3900CFD064 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FD8223D1AD057F000E419D3 /* arcs01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs01.svg; sourceTree = "<group>"; };
 		4FD8223E1AD057F000E419D3 /* arcs02.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs02.svg; sourceTree = "<group>"; };
 		4FD822421AD058AB00E419D3 /* arcs01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcs01.png; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				661EEA6E1ACC2E31007176B0 /* VCMainMenuViewController.h */,
 				661EEA6F1ACC2E31007176B0 /* VCMainMenuViewController.m */,
 				661EEA401ACC02AF007176B0 /* SB~iphone.storyboard */,
+				32D42244217AED3900CFD064 /* LaunchScreen.storyboard */,
 			);
 			name = "Demo-iOS";
 			path = "SVGKitLibrary/Demo-iOS";
@@ -845,6 +848,7 @@
 				661EEAE61ACC3444007176B0 /* svg-with-explicit-width.png in Resources */,
 				661EEA411ACC02AF007176B0 /* SB~iphone.storyboard in Resources */,
 				4FD822401AD057F000E419D3 /* arcs02.svg in Resources */,
+				32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */,
 				66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */,
 				D0B21B532016B17D00974D0A /* heart.svg in Resources */,
 				661EEAA51ACC3053007176B0 /* shapes.png in Resources */,
