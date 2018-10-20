@@ -1,5 +1,4 @@
 #import "VCAllSpecImages.h"
-
 #import "DetailViewController.h"
 #import "SVGKSourceLocalFile.h"
 
@@ -23,8 +22,11 @@
 		
 		NSArray  *xcodeVirtualFolderSVGContents = [[NSFileManager defaultManager] 
 										contentsOfDirectoryAtPath:[self.xcodeVirtualFolderPath stringByAppendingPathComponent:@"svg"] error:&error];
+        NSMutableArray *svgFileNames = [xcodeVirtualFolderSVGContents mutableCopy];
+        // Sort by name because by default it's not sorted
+        [svgFileNames sortUsingSelector:@selector(caseInsensitiveCompare:)];
 		
-		self.svgFileNames = [NSMutableArray arrayWithArray: xcodeVirtualFolderSVGContents];
+        self.svgFileNames = svgFileNames;
 	}
 }
 

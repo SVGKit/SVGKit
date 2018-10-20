@@ -353,6 +353,15 @@
 			<key>License</key>
 			<string>Public Domain, author: Adam Martin</string>
 		</dict>
+		<key>Mozilla_Firefox_logo_2013.svg</key>
+		<dict>
+			<key>Source Local File</key>
+			<string>Mozilla_Firefox_logo_2013.svg</string>
+			<key>License</key>
+			<string>Public Domain, author: Sean Martell for Mozilla</string>
+			<key>Source URL</key>
+			<string>https://upload.wikimedia.org/wikipedia/commons/7/76/Mozilla_Firefox_logo_2013.svg</string>
+		</dict>
 	</dict>
 	<key>SVG Spec</key>
 	<dict>

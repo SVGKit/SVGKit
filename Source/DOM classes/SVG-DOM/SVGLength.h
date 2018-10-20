@@ -66,6 +66,11 @@ typedef enum SVG_LENGTH_TYPE
 */
 -(float) pixelsValueWithDimension:(float)dimension;
 
+/** to calculate relative gradient values pass in the appropriate viewport dimension (width, height)
+ *  the different between this and `pixelsValueWithDimension` is that this one will treat number value which (0 <= value <= 1.0) as percent value and calculate the result. (used by gradient)
+ */
+-(float) pixelsValueWithGradientDimension:(float)dimension;
+
 /** returns this SVGLength as if it had been converted to a raw number (USE pixelsValue instead, UNLESS you are dealing with something that you expect to be a percentage or
  similar non-pixel value), using [self convertToSpecifiedUnits:SVG_LENGTHTYPE_NUMBER]
  */

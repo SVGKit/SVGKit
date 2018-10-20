@@ -5,7 +5,7 @@
 @interface SampleFileInfo : NSObject
 
 @property(nonatomic,strong) NSString* author, * licenseType, * name;
-
+@property(nonatomic, assign) BOOL requiresLayeredImageView;
 @property(weak, nonatomic,readonly) SVGKSource* source;
 
 -(SVGKSource*) sourceFromWeb;

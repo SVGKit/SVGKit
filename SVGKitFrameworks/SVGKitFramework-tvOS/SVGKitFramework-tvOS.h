@@ -87,6 +87,8 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_tvOSVersionString[];
 #import "ConverterSVGToCALayer.h"
 #import "SVGGradientElement.h"
 #import "SVGGradientStop.h"
+#import "SVGLinearGradientElement.h"
+#import "SVGRadialGradientElement.h"
 #import "SVGStyleCatcher.h"
 #import "SVGStyleElement.h"
 #import "SVGCircleElement.h"

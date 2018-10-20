@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
+		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
+		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
 		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
 		4FD822401AD057F000E419D3 /* arcs02.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223E1AD057F000E419D3 /* arcs02.svg */; };
 		4FD822441AD058AB00E419D3 /* arcs01.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822421AD058AB00E419D3 /* arcs01.png */; };
@@ -230,6 +233,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mozilla_Firefox_logo_2013.svg; sourceTree = "<group>"; };
+		32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mozilla_Firefox_logo_2013.png; sourceTree = "<group>"; };
+		32D42244217AED3900CFD064 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FD8223D1AD057F000E419D3 /* arcs01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs01.svg; sourceTree = "<group>"; };
 		4FD8223E1AD057F000E419D3 /* arcs02.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs02.svg; sourceTree = "<group>"; };
 		4FD822421AD058AB00E419D3 /* arcs01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcs01.png; sourceTree = "<group>"; };
@@ -473,6 +479,7 @@
 				661EEAB41ACC3444007176B0 /* imageWithASinglePointPath.png */,
 				661EEAB51ACC3444007176B0 /* Lion.png */,
 				661EEAB61ACC3444007176B0 /* Location_European_nation_states.png */,
+				32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */,
 				D0D29C9320EC441F0003CE47 /* M-to-S-to-T.png */,
 				661EEAB71ACC3444007176B0 /* map-alaska-onlysimple.png */,
 				661EEAB81ACC3444007176B0 /* Map.png */,
@@ -582,9 +589,9 @@
 				66E862571688BA0B0059C9C4 /* AppDelegate.h */,
 				66E862581688BA0B0059C9C4 /* AppDelegate.m */,
 				661EEA461ACC0667007176B0 /* VCGridOfImagesViewController.h */,
+				661EEA471ACC0667007176B0 /* VCGridOfImagesViewController.m */,
 				661EEA491ACC140F007176B0 /* SampleFileInfo.h */,
 				661EEA4A1ACC140F007176B0 /* SampleFileInfo.m */,
-				661EEA471ACC0667007176B0 /* VCGridOfImagesViewController.m */,
 				662701A21AD978A800B3AD03 /* VCAllSpecImages.h */,
 				662701A31AD978A800B3AD03 /* VCAllSpecImages.m */,
 				66E862591688BA0B0059C9C4 /* Default-568h@2x.png */,
@@ -603,6 +610,7 @@
 				661EEA6E1ACC2E31007176B0 /* VCMainMenuViewController.h */,
 				661EEA6F1ACC2E31007176B0 /* VCMainMenuViewController.m */,
 				661EEA401ACC02AF007176B0 /* SB~iphone.storyboard */,
+				32D42244217AED3900CFD064 /* LaunchScreen.storyboard */,
 			);
 			name = "Demo-iOS";
 			path = "SVGKitLibrary/Demo-iOS";
@@ -646,6 +654,7 @@
 				66E862811688BA510059C9C4 /* imageWithASinglePointPath.svg */,
 				66E862821688BA510059C9C4 /* Lion.svg */,
 				66E862831688BA510059C9C4 /* Location_European_nation_states.svg */,
+				32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */,
 				D0D29C9120EC44080003CE47 /* M-to-S-to-T.svg */,
 				66E862841688BA510059C9C4 /* Map.svg */,
 				66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */,
@@ -796,6 +805,7 @@
 				661EEAD31ACC3444007176B0 /* groups-and-layers-test.png in Resources */,
 				66E862701688BA0B0059C9C4 /* iPadDetailViewController.xib in Resources */,
 				66E862711688BA0B0059C9C4 /* iPhoneDetailViewController.xib in Resources */,
+				32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */,
 				6627019D1AD9579900B3AD03 /* Cycling_Lambie.png in Resources */,
 				666D03191AD07CC2006ED358 /* Reinel_compass_rose-simplified-more.png in Resources */,
 				66E862721688BA0B0059C9C4 /* MasterViewController_iPad.xib in Resources */,
@@ -821,6 +831,7 @@
 				66E862941688BA510059C9C4 /* CurvedDiamond.svg in Resources */,
 				556C405119A5122800733CBB /* test-stroke-dash-array.svg in Resources */,
 				66B86F8D1ACC6E7000C18ECE /* MathCurve-optimized.svg in Resources */,
+				32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */,
 				661EEACF1ACC3444007176B0 /* Coins.png in Resources */,
 				661EEAEA1ACC3444007176B0 /* uk-only.png in Resources */,
 				66E862951688BA510059C9C4 /* Europe_states_reduced.svg in Resources */,
@@ -832,6 +843,7 @@
 				661EEAE61ACC3444007176B0 /* svg-with-explicit-width.png in Resources */,
 				661EEA411ACC02AF007176B0 /* SB~iphone.storyboard in Resources */,
 				4FD822401AD057F000E419D3 /* arcs02.svg in Resources */,
+				32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */,
 				66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */,
 				D0B21B532016B17D00974D0A /* heart.svg in Resources */,
 				661EEAA51ACC3053007176B0 /* shapes.png in Resources */,
@@ -1093,10 +1105,7 @@
 				INFOPLIST_FILE = "SVGKitLibrary/Demo-iOS/Demo-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
 				WRAPPER_EXTENSION = app;
@@ -1119,10 +1128,7 @@
 				INFOPLIST_FILE = "SVGKitLibrary/Demo-iOS/Demo-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Demo-iOS";
 				WRAPPER_EXTENSION = app;

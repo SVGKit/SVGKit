@@ -120,6 +120,19 @@ static float cachedDevicePixelsPerInch;
     return [self pixelsValue];
 }
 
+-(float) pixelsValueWithGradientDimension:(float)dimension
+{
+    if (self.internalCSSPrimitiveValue.primitiveType == CSS_PERCENTAGE) {
+        return dimension * self.value / 100.0;
+    } else if (self.internalCSSPrimitiveValue.primitiveType == CSS_NUMBER) {
+        if (self.value >= 0 && self.value <= 1) {
+            return dimension * self.value;
+        }
+    }
+    
+    return [self pixelsValue];
+}
+
 -(float) numberValue
 {
 	return [self.internalCSSPrimitiveValue getFloatValue:CSS_NUMBER];

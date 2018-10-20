@@ -1,5 +1,4 @@
 #import "VCGridOfImagesViewController.h"
-
 #import "SampleFileInfo.h"
 #import "DetailViewController.h"
 @interface VCGridOfImagesViewController ()
