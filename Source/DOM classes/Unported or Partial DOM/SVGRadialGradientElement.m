@@ -105,7 +105,11 @@
     {
         // apply the absolute position
         startPoint = CGPointApplyAffineTransform(startPoint, absoluteTransform);
+        startPoint.x = startPoint.x - CGRectGetMinX(objectRect);
+        startPoint.y = startPoint.y - CGRectGetMinY(objectRect);
         endPoint = CGPointApplyAffineTransform(endPoint, absoluteTransform);
+        endPoint.x = endPoint.x - CGRectGetMaxX(objectRect) + CGRectGetWidth(objectRect);
+        endPoint.y = endPoint.y - CGRectGetMaxY(objectRect) + CGRectGetHeight(objectRect);
         size = CGSizeApplyAffineTransform(size, selfTransform);
     }
     
