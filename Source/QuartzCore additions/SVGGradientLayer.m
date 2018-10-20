@@ -168,7 +168,7 @@
             CGContextConcatCTM(ctx, absoluteTransform);
         } else {
 #pragma mark Object Bounding Box
-            // transform if width or height is not equal
+            // SVG spec: transform if width or height is not equal
             if(CGRectGetWidth(objectRect) != CGRectGetHeight(objectRect)) {
                 CGAffineTransform tr = CGAffineTransformMakeTranslation(gradientStartPoint.x,
                                                                         gradientStartPoint.y);

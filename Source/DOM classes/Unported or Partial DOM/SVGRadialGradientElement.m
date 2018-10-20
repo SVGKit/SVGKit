@@ -69,6 +69,7 @@
     
     CGPoint startPoint = CGPointMake(cx, cy);
     CGPoint endPoint = CGPointMake(fx, fy);
+    CGAffineTransform selfTransform = self.transform;
     
     if (inUserSpace)
     {
@@ -80,11 +81,32 @@
         radius = CGRectGetHeight(rect) / 2.f;
     }
     
+    if (!inUserSpace)
+    {
+        // SVG spec: transform if width or height is not equal
+        if(CGRectGetWidth(objectRect) != CGRectGetHeight(objectRect)) {
+            CGAffineTransform tr = CGAffineTransformMakeTranslation(startPoint.x,
+                                                                    startPoint.y);
+            if(CGRectGetWidth(objectRect) > CGRectGetHeight(objectRect)) {
+                tr = CGAffineTransformScale(tr, CGRectGetWidth(objectRect)/CGRectGetHeight(objectRect), 1);
+            } else {
+                tr = CGAffineTransformScale(tr, 1.f, CGRectGetHeight(objectRect)/CGRectGetWidth(objectRect));
+            }
+            tr = CGAffineTransformTranslate(tr, -startPoint.x, -startPoint.y);
+            selfTransform = CGAffineTransformConcat(tr, selfTransform);
+        }
+    }
+    
+    CGSize size = CGSizeMake(radius, radius);
+    startPoint = CGPointApplyAffineTransform(startPoint, selfTransform);
+    endPoint = CGPointApplyAffineTransform(endPoint, selfTransform);
+    size = CGSizeApplyAffineTransform(size, selfTransform);
     if (inUserSpace)
     {
         // apply the absolute position
         startPoint = CGPointApplyAffineTransform(startPoint, absoluteTransform);
         endPoint = CGPointApplyAffineTransform(endPoint, absoluteTransform);
+        size = CGSizeApplyAffineTransform(size, selfTransform);
     }
     
     CGPoint gradientStartPoint = startPoint;
@@ -93,7 +115,7 @@
     // convert to percent
     CGPoint centerPoint = gradientStartPoint;
     gradientStartPoint = CGPointMake((centerPoint.x) / CGRectGetWidth(objectRect), centerPoint.y / CGRectGetHeight(objectRect));
-    gradientEndPoint = CGPointMake((centerPoint.x + radius) / CGRectGetWidth(objectRect), (centerPoint.y + radius) / CGRectGetHeight(objectRect));
+    gradientEndPoint = CGPointMake((centerPoint.x + size.width) / CGRectGetWidth(objectRect), (centerPoint.y + size.height) / CGRectGetHeight(objectRect));
 
     // Suck. When using `SVGLayredImageView`, the layer rendering is submitted to CA render server, and your custom `renderInContex:` code will not work. So we just set both built-in value (CAGradientLayer property) && custom value (SVGGradientLayer property)
     // FIX-ME: built-in value (not match the SVG spec, all the focal value will be ignored)
