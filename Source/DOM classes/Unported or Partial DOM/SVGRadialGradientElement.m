@@ -128,8 +128,8 @@
     gradientLayer.viewportRect = viewportRect;
     gradientLayer.absoluteTransform = absoluteTransform;
     
-    if (svgR.value <= 0) {
-        //  Spec: <r> A value of lower or equal to zero will cause the area to be painted as a single color using the color and opacity of the last gradient <stop>.
+    if (svgR.value <= 0 || self.colors.count == 1) {
+        //  SVG spec: <r> A value of lower or equal to zero will cause the area to be painted as a single color using the color and opacity of the last gradient <stop>.
         SVGGradientStop *lastStop = self.stops.lastObject;
         gradientLayer.backgroundColor = CGColorWithSVGColor(lastStop.stopColor);
         gradientLayer.opacity = lastStop.stopOpacity;

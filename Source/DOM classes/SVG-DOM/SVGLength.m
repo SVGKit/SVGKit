@@ -125,7 +125,7 @@ static float cachedDevicePixelsPerInch;
     if (self.internalCSSPrimitiveValue.primitiveType == CSS_PERCENTAGE) {
         return dimension * self.value / 100.0;
     } else if (self.internalCSSPrimitiveValue.primitiveType == CSS_NUMBER) {
-        if (self.value > 0 && self.value < 1) {
+        if (self.value >= 0 && self.value <= 1) {
             return dimension * self.value;
         }
     }

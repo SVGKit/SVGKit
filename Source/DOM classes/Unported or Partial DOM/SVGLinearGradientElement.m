@@ -81,8 +81,16 @@
     gradientLayer.viewportRect = viewportRect;
     gradientLayer.absoluteTransform = absoluteTransform;
     
-    [gradientLayer setColors:self.colors];
-    [gradientLayer setLocations:self.locations];
+    if (self.colors.count == 1) {
+        // SVG Spec: It is necessary that at least two stops defined to have a gradient effect. If no stops are defined, then painting shall occur as if 'none' were specified as the paint style. If one stop is defined, then paint with the solid color fill using the color defined for that gradient stop.
+        // However, `CAGradientLayer` will show empty when `colors.count` <= 1
+        SVGGradientStop *lastStop = self.stops.lastObject;
+        gradientLayer.backgroundColor = CGColorWithSVGColor(lastStop.stopColor);
+        gradientLayer.opacity = lastStop.stopOpacity;
+    } else {
+        [gradientLayer setColors:self.colors];
+        [gradientLayer setLocations:self.locations];
+    }
     
     SVGKitLogVerbose(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
     SVGKitLogVerbose(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));

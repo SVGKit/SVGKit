@@ -53,9 +53,24 @@
             return nil;
         }
         NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
-        for (SVGGradientStop *theStop in self.stops)
-        {
-            [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
+        CGFloat previousOffset = 0;
+        for (int i = 0; i < self.stops.count; i++) {
+            SVGGradientStop *theStop = self.stops[i];
+            // SVG spec: Gradient offset values less than 0 (or less than 0%) are rounded up to 0%. Gradient offset values greater than 1 (or greater than 100%) are rounded down to 100%.
+            CGFloat offset = MIN(MAX(0.0, theStop.offset), 1.0);
+            // SVG spec: Each gradient offset value is required to be equal to or greater than the previous gradient stop's offset value. If a given gradient stop's offset value is not equal to or greater than all previous offset values, then the offset value is adjusted to be equal to the largest of all previous offset values.
+            if (offset < previousOffset) {
+                offset = previousOffset;
+            }
+            // SVG spec: If two gradient stops have the same offset value, then the latter gradient stop controls the color value at the overlap point.
+            if (offset == previousOffset) {
+                if (offset != 0) {
+                    CGFloat adjustedOffset = previousOffset - 0.0000000001;
+                    [locationBuilder replaceObjectAtIndex:(i - 1) withObject:@(adjustedOffset)];
+                }
+            }
+            previousOffset = offset;
+            [locationBuilder addObject:[NSNumber numberWithFloat:offset]];
         }
         
         _locations = [[NSArray alloc] initWithArray:locationBuilder];
