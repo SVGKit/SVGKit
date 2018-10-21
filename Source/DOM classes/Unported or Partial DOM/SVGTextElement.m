@@ -47,24 +47,14 @@
 	 
 	 But its the easiest way to get FULL control over size/position/rotation/etc in a CALayer
 	 */
-	NSString* actualSize = [self cascadedValueForStylableProperty:@"font-size"];
-	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
     
-    // TODO `font-family` is an array, parse it and loop all posible value until we get a font which match the correct name (or all failed fallback)
+    /**
+     Create font based on many information (font-family, font-weight, etc), fallback to system font when there are no available font matching the information.
+     */
+    UIFont *font = [SVGTextElement matchedFontWithElement:self];
 	
-	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize floatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
 //	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
-	
-	/** find a valid font reference, or Apple's APIs will break later */
-	/** undocumented Apple bug: CTFontCreateWithName cannot accept nil input*/
-	CTFontRef font = NULL;
-	if( actualFamily != nil)
-		font = CTFontCreateWithName( (CFStringRef)actualFamily, effectiveFontSize, NULL);
-	if( font == NULL ) {
-		// Spec says to use "whatever default font-family is normal for your system". Use HelveticaNeue, the default since iOS 7.
-		font = CTFontCreateWithName( (CFStringRef) @"HelveticaNeue", effectiveFontSize, NULL);
-	}
 
 	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
 	
@@ -102,9 +92,9 @@
 	 */
 	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
     NSRange stringRange = NSMakeRange(0, attributedString.string.length);
-	[attributedString addAttribute:(NSString *)NSFontAttributeName
-					  value:(__bridge id)font
-					  range:stringRange];
+	[attributedString addAttribute:NSFontAttributeName
+                             value:font
+                             range:stringRange];
     if (fillColor) {
         [attributedString addAttribute:NSForegroundColorAttributeName
                                  value:(__bridge id)fillColor
@@ -228,6 +218,149 @@
     fillLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
 
     return fillLayer;
+}
+
+/**
+ Return the best matched font with all posible CSS font property (like `font-family`, `font-size`, etc)
+
+ @param svgElement svgElement
+ @return The matched font, or fallback to system font, non-nil
+ */
++ (UIFont *)matchedFontWithElement:(SVGElement *)svgElement {
+    // Using top-level API to walkthough all availble font-family
+    NSString *actualSize = [svgElement cascadedValueForStylableProperty:@"font-size"];
+    NSString *actualFamily = [svgElement cascadedValueForStylableProperty:@"font-family"];
+    // TODO- Using font descriptor to match best font consider `font-style`, `font-weight`
+    NSString *actualFontStyle = [svgElement cascadedValueForStylableProperty:@"font-style"];
+    NSString *actualFontWeight = [svgElement cascadedValueForStylableProperty:@"font-weight"];
+    NSString *actualFontStretch = [svgElement cascadedValueForStylableProperty:@"font-stretch"];
+    
+    CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize floatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
+    
+    NSArray<NSString *> *actualFontFamilies = [SVGTextElement fontFamiliesWithCSSValue:actualFamily];
+    NSString *matchedFontFamily;
+    if (actualFontFamilies) {
+        // walkthrough all available font-families to find the best matched one
+        NSSet<NSString *> *availableFontFamilies = [NSSet setWithArray:UIFont.familyNames];
+        for (NSString *fontFamily in actualFontFamilies) {
+            if ([availableFontFamilies containsObject:fontFamily]) {
+                matchedFontFamily = fontFamily;
+                break;
+            }
+        }
+    }
+    
+    // we provide enough hint information, let Core Text using their algorithm to detect which fontName should be used
+    // if `matchedFontFamily` is nil, use the system default font family instead (allows `font-weight` these information works)
+    NSDictionary *attributes = [self fontAttributesWithFontFamily:matchedFontFamily fontStyle:actualFontStyle fontWeight:actualFontWeight fontStretch:actualFontStretch];
+    CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
+    CTFontRef fontRef = CTFontCreateWithFontDescriptor(descriptor, effectiveFontSize, NULL);
+    UIFont *font = (__bridge_transfer UIFont *)fontRef;
+    
+    return font;
+}
+
+/**
+ Convert CSS font detailed information into Core Text descriptor attributes (determine the best matched font).
+
+ @param fontFamily fontFamily
+ @param fontStyle fontStyle
+ @param fontWeight fontWeight
+ @param fontStretch fontStretch
+ @return Core Text descriptor attributes
+ */
++ (NSDictionary *)fontAttributesWithFontFamily:(NSString *)fontFamily fontStyle:(NSString *)fontStyle fontWeight:(NSString *)fontWeight fontStretch:(NSString *)fontStretch {
+    // Default value
+    if (!fontFamily.length) fontFamily = [self systemDefaultFontFamily];
+    if (!fontStyle.length) fontStyle = @"normal";
+    if (!fontWeight.length) fontWeight = @"normal";
+    if (!fontStretch.length) fontStretch = @"normal";
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    attributes[(__bridge NSString *)kCTFontFamilyNameAttribute] = fontFamily;
+    // font-weight is in the sub-dictionary
+    NSMutableDictionary *traits = [NSMutableDictionary dictionary];
+    // CSS font weight is from 0-1000
+    CGFloat weight;
+    if ([fontWeight isEqualToString:@"normal"]) {
+        weight = 400;
+    } else if ([fontWeight isEqualToString:@"bold"]) {
+        weight = 700;
+    } else if ([fontWeight isEqualToString:@"bolder"]) {
+        weight = 900;
+    } else if ([fontWeight isEqualToString:@"lighter"]) {
+        weight = 100;
+    } else {
+        CGFloat value = [fontWeight doubleValue];
+        weight = MIN(MAX(value, 1), 1000);
+    }
+    // map from CSS [1, 1000] to Core Text [-1.0, 1.0], 400 represent 0.0
+    CGFloat coreTextFontWeight;
+    if (weight < 400) {
+        coreTextFontWeight = (weight - 400) / 1000 * (1 / 0.4);
+    } else {
+        coreTextFontWeight = (weight - 400) / 1000 * (1 / 0.6);
+    }
+    
+    // CSS font style
+    CTFontSymbolicTraits style = 0;
+    if ([fontStyle isEqualToString:@"normal"]) {
+        style |= 0;
+    } else if ([fontStyle isEqualToString:@"italic"] || [fontStyle containsString:@"oblique"]) {
+        // Actually we can control the detailed slant degree via `kCTFontSlantTrait`, but it's rare usage so treat them the same, TODO in the future
+        style |= kCTFontItalicTrait;
+    }
+    
+    // CSS font stretch
+    if ([fontStretch containsString:@"condensed"]) {
+        // Actually we can control the detailed percent via `kCTFontWidthTrait`, but it's rare usage so treat them the same, TODO in the future
+        style |= kCTFontTraitCondensed;
+    } else if ([fontStretch containsString:@"expanded"]) {
+        style |= kCTFontTraitExpanded;
+    }
+    
+    traits[(__bridge NSString *)kCTFontSymbolicTrait] = @(style);
+    traits[(__bridge NSString *)kCTFontWeightTrait] = @(coreTextFontWeight);
+    attributes[(__bridge NSString *)kCTFontTraitsAttribute] = [traits copy];
+    
+    return [attributes copy];
+}
+
+/**
+ Parse the `font-family` CSS value into array of font-family name
+
+ @param value value
+ @return array of font-family name
+ */
++ (NSArray<NSString *> *)fontFamiliesWithCSSValue:(NSString *)value {
+    if (value.length == 0) {
+        return nil;
+    }
+    NSArray<NSString *> *args = [value componentsSeparatedByString:@","];
+    if (args.count == 0) {
+        return nil;
+    }
+    NSMutableArray<NSString *> *fontFamilies = [NSMutableArray arrayWithCapacity:args.count];
+    for (NSString *arg in args) {
+        // parse: font-family: "Goudy Bookletter 1911", sans-serif;
+        // delete ""
+        NSString *fontFamily = [arg stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        // trim white space
+        [fontFamily stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        [fontFamilies addObject:fontFamily];
+    }
+    
+    return [fontFamilies copy];
+}
+
++ (NSString *)systemDefaultFontFamily {
+    static dispatch_once_t onceToken;
+    static NSString *fontFamily;
+    dispatch_once(&onceToken, ^{
+        UIFont *font = [UIFont systemFontOfSize:12.f];
+        fontFamily = font.familyName;
+    });
+    return fontFamily;
 }
 
 - (void)layoutLayer:(CALayer *)layer
