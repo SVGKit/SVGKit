@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 #endif
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
-
+#import "SVGGradientLayer.h"
 #import "SVGHelperUtilities.h"
 #import "SVGUtils.h"
 
@@ -49,6 +49,8 @@
 	 */
 	NSString* actualSize = [self cascadedValueForStylableProperty:@"font-size"];
 	NSString* actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
+    
+    // TODO `font-family` is an array, parse it and loop all posible value until we get a font which match the correct name (or all failed fallback)
 	
 	CGFloat effectiveFontSize = (actualSize.length > 0) ? [actualSize floatValue] : 12; // I chose 12. I couldn't find an official "default" value in the SVG spec.
 	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
@@ -70,6 +72,26 @@
 	
 	effectiveText = [effectiveText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	effectiveText = [effectiveText stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    
+    /**
+     Stroke color && stroke width
+     Apple's `CATextLayer` can not stroke gradient on the layer (we can only fill the layer)
+     */
+    CGColorRef strokeColor = [SVGHelperUtilities parseStrokeForElement:self];
+    CGFloat strokeWidth = 0;
+    NSString* actualStrokeWidth = [self cascadedValueForStylableProperty:@"stroke-width"];
+    if (actualStrokeWidth)
+    {
+        SVGRect r = ((SVGSVGElement*)self.viewportElement).viewport;
+        strokeWidth = [[SVGLength svgLengthFromNSString:actualStrokeWidth]
+                       pixelsValueWithDimension: hypot(r.width, r.height)];
+    }
+    
+    /**
+     Fill color
+     Apple's `CATextLayer` can be filled using mask.
+     */
+    CGColorRef fillColor = [SVGHelperUtilities parseFillForElement:self];
 	
 	/** Calculate 
 	 
@@ -78,11 +100,31 @@
 	 3. Ask apple how big the final thing should be
 	 4. Use that to provide a layer.frame
 	 */
-	NSMutableAttributedString* tempString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
-	[tempString addAttribute:(NSString *)kCTFontAttributeName
+	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
+    NSRange stringRange = NSMakeRange(0, attributedString.string.length);
+	[attributedString addAttribute:(NSString *)NSFontAttributeName
 					  value:(__bridge id)font
-					  range:NSMakeRange(0, tempString.string.length)];
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+					  range:stringRange];
+    if (fillColor) {
+        [attributedString addAttribute:NSForegroundColorAttributeName
+                                 value:(__bridge id)fillColor
+                                 range:stringRange];
+    }
+    if (strokeWidth != 0 && strokeColor) {
+        [attributedString addAttribute:NSStrokeColorAttributeName
+                                 value:(__bridge id)strokeColor
+                                 range:stringRange];
+        // If both fill && stroke, pass negative value; only fill, pass positive value
+        // A typical value for outlined text is 3.0. Actually this is not so accurate, but until we directly draw the text glyph using Core Text, we cat not control the detailed stroke width follow SVG spec
+        CGFloat strokeValue = strokeWidth / 3.0;
+        if (fillColor) {
+            strokeValue = -strokeValue;
+        }
+        [attributedString addAttribute:NSStrokeWidthAttributeName
+                                 value:@(strokeValue)
+                                 range:stringRange];
+    }
+	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) attributedString );
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
 	
@@ -93,9 +135,6 @@
 	
     CATextLayer *label = [[CATextLayer alloc] init];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
-	
-    label.font = font; /** WARNING: Apple docs say you "CANNOT" assign a UIFont instance here, for some reason they didn't bridge it with CGFont */
-  CFRelease(font);
 	
 	/** This is complicated for three reasons.
 	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
@@ -125,7 +164,7 @@
 	 
 	 If/when Apple fixes their bugs - or if you know enough about their API's to workaround the bugs, feel free to fix this code.
 	 */
-    CTLineRef line = CTLineCreateWithAttributedString( (CFMutableAttributedStringRef) tempString );
+    CTLineRef line = CTLineCreateWithAttributedString( (CFMutableAttributedStringRef) attributedString );
     CGFloat ascent = 0;
     CTLineGetTypographicBounds(line, &ascent, NULL, NULL);
     CFRelease(line);
@@ -144,24 +183,51 @@
         label.anchorPoint = CGPointZero; // WARNING: SVG applies transforms around the top-left as origin, whereas Apple defaults to center as origin, so we tell Apple to work "like SVG" here.
     
 	label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
-	label.fontSize = effectiveFontSize;
-    label.string = effectiveText;
+    label.string = [attributedString copy];
     label.alignmentMode = kCAAlignmentLeft;
     
-    label.foregroundColor = [SVGHelperUtilities parseFillForElement:self];
 #if SVGKIT_MAC
     label.contentsScale = [[NSScreen mainScreen] backingScaleFactor];
 #else
     label.contentsScale = [[UIScreen mainScreen] scale];
 #endif
+    
+    return [self newCALayerForTextLayer:label transformAbsolute:textTransformAbsolute];
 
 	/** VERY USEFUL when trying to debug text issues:
 	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
 	label.borderColor = [UIColor redColor].CGColor;
 	//DEBUG: SVGKitLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
 	*/
-	
-    return label;
+}
+
+-(CALayer *) newCALayerForTextLayer:(CATextLayer *)label transformAbsolute:(CGAffineTransform)transformAbsolute
+{
+    CALayer *fillLayer = label;
+    NSString* actualFill = [self cascadedValueForStylableProperty:@"fill"];
+
+    if ( [actualFill hasPrefix:@"url"] )
+    {
+        NSArray *fillArgs = [actualFill componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSString *fillIdArg = fillArgs.firstObject;
+        NSRange idKeyRange = NSMakeRange(5, fillIdArg.length - 6);
+        NSString* fillId = [fillIdArg substringWithRange:idKeyRange];
+
+        /** Replace the return layer with a special layer using the URL fill */
+        /** fetch the fill layer by URL using the DOM */
+        SVGGradientLayer *gradientLayer = [SVGHelperUtilities getGradientLayerWithId:fillId forElement:self withRect:label.frame transform:transformAbsolute];
+        if (gradientLayer) {
+            gradientLayer.mask = label;
+            fillLayer = gradientLayer;
+        } else {
+            // no gradient, fallback
+        }
+    }
+
+    NSString* actualOpacity = [self cascadedValueForStylableProperty:@"opacity" inherit:NO];
+    fillLayer.opacity = actualOpacity.length > 0 ? [actualOpacity floatValue] : 1; // unusually, the "opacity" attribute defaults to 1, not 0
+
+    return fillLayer;
 }
 
 - (void)layoutLayer:(CALayer *)layer

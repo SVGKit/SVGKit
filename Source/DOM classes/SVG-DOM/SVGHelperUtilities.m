@@ -580,6 +580,13 @@
     return [self parsePaintColorForElement:svgElement paintColor:actualFill paintOpacity:actualFillOpacity defaultColor:@"black"];
 }
 
++(CGColorRef) parseStrokeForElement:(SVGElement *)svgElement
+{
+    NSString* actualStroke = [svgElement cascadedValueForStylableProperty:@"stroke"];
+    NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
+    return [self parseStrokeForElement:svgElement fromStroke:actualStroke andOpacity:actualStrokeOpacity];
+}
+
 +(CGColorRef) parseStrokeForElement:(SVGElement *)svgElement fromStroke:(NSString *)actualStroke andOpacity:(NSString *)actualStrokeOpacity
 {
     return [self parsePaintColorForElement:svgElement paintColor:actualStroke paintOpacity:actualStrokeOpacity defaultColor:@"none"];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3242C36E217CF0CD0013765F /* Blocky.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3242C368217CF0CD0013765F /* Blocky.ttf */; };
 		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
 		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
 		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
@@ -250,6 +251,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3242C368217CF0CD0013765F /* Blocky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Blocky.ttf; sourceTree = "<group>"; };
 		32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mozilla_Firefox_logo_2013.svg; sourceTree = "<group>"; };
 		32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mozilla_Firefox_logo_2013.png; sourceTree = "<group>"; };
 		32D42244217AED3900CFD064 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -438,6 +440,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3242C367217CF0CD0013765F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3242C368217CF0CD0013765F /* Blocky.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		661A0DBF161727CF008D5FBE = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +651,7 @@
 				662712631AD97D7500B3AD03 /* W3C_SVG_11_TestSuite */,
 				661EEA511ACC1723007176B0 /* Saved Bitmaps */,
 				66E8627B1688BA510059C9C4 /* SVG */,
+				3242C367217CF0CD0013765F /* Fonts */,
 				661EEA421ACC04F2007176B0 /* Licenses.plist */,
 			);
 			path = "Demo-Samples";
@@ -849,6 +860,7 @@
 				66E862921688BA510059C9C4 /* Blank_Map-Africa.svg in Resources */,
 				661EEAA71ACC3053007176B0 /* transformations.png in Resources */,
 				661EEAE41ACC3444007176B0 /* sakamura-default-fill-opacity-test.png in Resources */,
+				3242C36E217CF0CD0013765F /* Blocky.ttf in Resources */,
 				661EEA991ACC2FD4007176B0 /* PreserveAspectRatio.png in Resources */,
 				66E862931688BA510059C9C4 /* breaking-1.svg in Resources */,
 				661EEA861ACC2FBB007176B0 /* text01.svg in Resources */,
