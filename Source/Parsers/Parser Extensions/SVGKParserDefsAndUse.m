@@ -83,8 +83,13 @@
 			if( [hrefAttribute length] > 0 )
 			{
 				NSString* linkHref = [((Attr*)[attributes valueForKey:@"xlink:href"]) value];
-				
-				NSAssert( [linkHref hasPrefix:@"#"], @"Not supported: <use> tags that declare an href to something that DOESN'T begin with #. Href supplied = %@", linkHref );
+                /** support `url(#id) funcIRI as well to follow SVG spec` */
+                if ([linkHref hasPrefix:@"url"]) {
+                    NSRange range = NSMakeRange(4, linkHref.length - 5);
+                    linkHref = [linkHref substringWithRange:range];
+                }
+                 
+                NSAssert( [linkHref hasPrefix:@"#"], @"Not supported: <use> tags that declare an href to something that DOESN'T begin with #. Href supplied = %@", linkHref );
 				
 				linkHref = [linkHref substringFromIndex:1];
 				
