@@ -15,49 +15,13 @@
  
  */
 
-#include "TargetConditionals.h"
 #import "SVGKDefine.h"
 
 #define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
 
-#import "DOMHelperUtilities.h"
-#import "SVGCircleElement.h"
-#import "SVGClipPathElement.h"
-#import "SVGDefsElement.h"
-#import "SVGDescriptionElement.h"
-#import "SVGKImage.h"
-#import "SVGElement.h"
-#import "SVGEllipseElement.h"
-#import "SVGGElement.h"
-#import "SVGImageElement.h"
-#import "SVGLineElement.h"
-#import "SVGPathElement.h"
-#import "SVGPolygonElement.h"
-#import "SVGPolylineElement.h"
-#import "SVGRectElement.h"
-#import "BaseClassForAllSVGBasicShapes.h"
-#import "SVGKSource.h"
-#import "SVGTitleElement.h"
-#import "SVGUtils.h"
-#import "SVGKPattern.h"
-#import "SVGKImageView.h"
-#import "SVGKFastImageView.h"
-#import "SVGKLayeredImageView.h"
-#import "SVGKLayer.h"
-#import "TinySVGTextAreaElement.h"
-
 #ifndef SVGKIT_LOG_CONTEXT
     #define SVGKIT_LOG_CONTEXT 556
 #endif
-
-@interface SVGKit : NSObject
-
-+ (void) enableLogging;
-
-@end
-
-
-
 
 
 // MARK: - Framework Header File Content
@@ -67,6 +31,12 @@
 #import <UIKit/UIKit.h>
 #endif
 
+@interface SVGKit : NSObject
+
++ (void) enableLogging;
+
+@end
+
 //! Project version number for SVGKitFramework-iOS.
 FOUNDATION_EXPORT double SVGKitFramework_VersionNumber;
 
@@ -75,7 +45,7 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SVGKitFramework_iOS/PublicHeader.h>
 
-
+// Core DOM
 #import "AppleSucksDOMImplementation.h"
 #import "Attr.h"
 #import "CDATASection.h"
@@ -114,6 +84,8 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "ProcessingInstruction.h"
 #import "Text.h"
 #import "DOMGlobalSettings.h"
+
+// SVG DOM
 #import "SVGAngle.h"
 #import "SVGAnimatedPreserveAspectRatio.h"
 #import "SVGDefsElement.h"
@@ -166,6 +138,12 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "SVGSVGElement.h"
 #import "SVGTextElement.h"
 #import "SVGTitleElement.h"
+#import "SVGSwitchElement.h"
+#import "SVGClipPathElement.h"
+#import "TinySVGTextAreaElement.h"
+
+// Parser
+
 #if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
 #import "CALayerExporter.h"
 #endif
@@ -208,4 +186,3 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #endif
 #import "NSData+NSInputStream.h"
 #import "SVGKSourceNSData.h"
-#import "SVGSwitchElement.h"

@@ -8,6 +8,8 @@
 #ifndef SVGKDefine_h
 #define SVGKDefine_h
 
+#include "TargetConditionals.h"
+
 // Apple's defines from TargetConditionals.h are a bit weird.
 // Seems like TARGET_OS_MAC is always defined (on all platforms).
 // To determine if we are running on OSX, we can only rely on TARGET_OS_IPHONE=0 and all the other platforms
