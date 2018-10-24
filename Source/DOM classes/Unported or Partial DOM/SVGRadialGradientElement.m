@@ -11,6 +11,11 @@
 #import "SVGUtils.h"
 #import "SVGGradientLayer.h"
 
+// `kCAGradientLayerRadial` this symbol is available since iOS 3.2, but it's not externed to public header until Xcode 10 with iOS 12 SDK, so we define it for user who still use old SDK version.
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED && __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_12_0)
+NSString * const kCAGradientLayerRadial = @"radial";
+#endif
+
 @interface SVGRadialGradientElement ()
 
 @property (nonatomic) BOOL hasSynthesizedProperties;
