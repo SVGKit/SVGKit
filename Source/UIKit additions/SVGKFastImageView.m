@@ -299,7 +299,7 @@
 #if SVGKIT_UIKIT
     CGContextRef context = UIGraphicsGetCurrentContext();
 #else
-    CGContextRef context = NSGraphicsContext.currentContext.CGContext;
+    CGContextRef context = SVGKGraphicsGetCurrentContext();
 #endif
 	for( int k=0; k<rows; k++ )
 		for( int i=0; i<cols; i++ )
@@ -324,5 +324,19 @@
 	self.endRenderTime = [NSDate date];
 	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
+
+#if SVGKIT_MAC
+static CGContextRef SVGKGraphicsGetCurrentContext(void) {
+    NSGraphicsContext *context = NSGraphicsContext.currentContext;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
+    if ([context respondsToSelector:@selector(CGContext)]) {
+        return context.CGContext;
+    } else {
+        return context.graphicsPort;
+    }
+#pragma clang diagnostic pop
+}
+#endif
 
 @end

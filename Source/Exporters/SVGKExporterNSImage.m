@@ -64,7 +64,15 @@ static void SVGKGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, C
     if (!context) {
         return;
     }
-    NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
+    NSGraphicsContext *graphicsContext;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
+    if ([NSGraphicsContext respondsToSelector:@selector(graphicsContextWithGraphicsPort:flipped:)]) {
+        graphicsContext = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
+    } else {
+        graphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO];
+    }
+#pragma clang diagnostic pop
     objc_setAssociatedObject(graphicsContext, &kNSGraphicsContextScaleFactorKey, @(scale), OBJC_ASSOCIATION_RETAIN);
     CGContextRelease(context);
     [NSGraphicsContext saveGraphicsState];
@@ -72,7 +80,15 @@ static void SVGKGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, C
 }
 
 static CGContextRef SVGKGraphicsGetCurrentContext(void) {
-    return NSGraphicsContext.currentContext.CGContext;
+    NSGraphicsContext *context = NSGraphicsContext.currentContext;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
+    if ([context respondsToSelector:@selector(CGContext)]) {
+        return context.CGContext;
+    } else {
+        return context.graphicsPort;
+    }
+#pragma clang diagnostic pop
 }
 
 static void SVGKGraphicsEndImageContext(void) {
@@ -81,7 +97,15 @@ static void SVGKGraphicsEndImageContext(void) {
 
 static NSImage * SVGKGraphicsGetImageFromCurrentImageContext(void) {
     NSGraphicsContext *context = NSGraphicsContext.currentContext;
-    CGContextRef contextRef = context.CGContext;
+    CGContextRef contextRef;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
+    if ([context respondsToSelector:@selector(CGContext)]) {
+        contextRef = context.CGContext;
+    } else {
+        contextRef = context.graphicsPort;
+    }
+#pragma clang diagnostic pop
     if (!contextRef) {
         return nil;
     }
