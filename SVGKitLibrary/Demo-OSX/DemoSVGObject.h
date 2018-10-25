@@ -1,5 +1,5 @@
 //
-//  SKSVGObject.h
+//  DemoSVGObject.h
 //  Demo-OSX
 //
 //  Created by C.W. Betts on 6/7/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SKSVGObject <NSObject>
+@protocol DemoSVGObject <NSObject>
 
 - (NSURL *)svgURL;
 - (NSString *)fileName;
@@ -16,13 +16,13 @@
 
 @end
 
-@interface SKSVGObject : NSObject <SKSVGObject>
+@interface DemoSVGObject : NSObject <DemoSVGObject>
 
 - (BOOL)isEqualToURL:(NSURL*)theURL;
 
 @end
 
-@interface SKSVGBundleObject : SKSVGObject <SKSVGObject>
+@interface DemoSVGBundleObject : DemoSVGObject <DemoSVGObject>
 
 @property (readonly, strong) NSBundle *theBundle;
 @property (readonly, copy) NSString* fullFileName;
@@ -31,7 +31,7 @@
 
 @end
 
-@interface SKSVGURLObject : SKSVGObject <SKSVGObject>
+@interface DemoSVGURLObject : DemoSVGObject <DemoSVGObject>
 
 @property (strong, readonly) NSURL *svgURL;
 

@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 C.W. Betts. All rights reserved.
 //
 
-#import "SKAppDelegate.h"
-#import "SKSVGObject.h"
+#import "AppDelegate.h"
+#import "DemoSVGObject.h"
 
 #ifndef DEBUG
 #define DEBUG 0
@@ -16,7 +16,7 @@
 @interface RoseReturnFunc : NSObject
 
 @property (weak) SVGKImageView *theView;
-@property (strong) NSObject<SKSVGObject> *imagePath;
+@property (strong) NSObject<DemoSVGObject> *imagePath;
 
 @end
 
@@ -24,11 +24,11 @@
 
 @end
 
-@interface SKAppDelegate ()
+@interface AppDelegate ()
 @property (readwrite, strong) NSArray *svgArray;
 @end
 
-@implementation SKAppDelegate
+@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -48,14 +48,14 @@
 			continue;
 		}
 		if (NSOrderedSame == [[[pname lastPathComponent] pathExtension] caseInsensitiveCompare:@"svg"]) {
-			SKSVGObject *tmpObj = [[SKSVGBundleObject alloc] initWithName:[pname lastPathComponent]];
+			DemoSVGObject *tmpObj = [[DemoSVGBundleObject alloc] initWithName:[pname lastPathComponent]];
 			if (![tmpArray containsObject:tmpObj]) {
 				[tmpArray addObject:tmpObj];
 			}
 		}
 	}
 	
-	//[tmpArray addObject:[[SKSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
+	//[tmpArray addObject:[[DemoSVGURLObject alloc] initWithURL:[NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/f/f9/BlankMap-Africa.svg"]]];
 	
 	@autoreleasepool {
 		[tmpArray sortUsingComparator:^NSComparisonResult(id rhs, id lhs) {
@@ -74,7 +74,7 @@
 	NSTableView *tmpView = [notification object];
 	NSInteger selRow = [tmpView selectedRow];
 	if (selRow > -1 && selRow < [self.svgArray count]) {
-		NSObject<SKSVGObject> *tmpObj = (self.svgArray)[selRow];
+		NSObject<DemoSVGObject> *tmpObj = (self.svgArray)[selRow];
 		SVGKImage *theImage;
 		SVGKImageView *theImageView;
 		NSWindow *imageWindow;
@@ -100,9 +100,9 @@
 			return;
 		}
 		
-		if ([tmpObj isKindOfClass:[SKSVGBundleObject class]]) {
+		if ([tmpObj isKindOfClass:[DemoSVGBundleObject class]]) {
 			//This should also take care of the default use case, which uses the main bundle
-			theImage = [SVGKImage imageNamed:tmpObj.fullFileName inBundle:((SKSVGBundleObject*)tmpObj).theBundle];
+			theImage = [SVGKImage imageNamed:tmpObj.fullFileName inBundle:((DemoSVGBundleObject*)tmpObj).theBundle];
 		} else {
 			theImage = [SVGKImage imageWithContentsOfURL:[tmpObj svgURL]];
 		}

@@ -1,20 +1,20 @@
 //
-//  SKSVGObject.m
+//  DemoSVGObject.m
 //  Demo-OSX
 //
 //  Created by C.W. Betts on 6/7/13.
 //  Copyright (c) 2013 C.W. Betts. All rights reserved.
 //
 
-#import "SKSVGObject.h"
+#import "DemoSVGObject.h"
 
-@implementation SKSVGObject
+@implementation DemoSVGObject
 
 #define NotImplemented() \
-if ([self isMemberOfClass:[SKSVGObject class]]) { \
+if ([self isMemberOfClass:[DemoSVGObject class]]) { \
 NSLog(@"The class %@ is meant to be subclassed, and not accessed directly.", [self class]); \
 } else { \
-NSLog(@"The subclass %@ of class %@ should implement %s.", [self class], [SKSVGObject class], sel_getName(_cmd)); \
+NSLog(@"The subclass %@ of class %@ should implement %s.", [self class], [DemoSVGObject class], sel_getName(_cmd)); \
 } \
 [self doesNotRecognizeSelector:_cmd]; \
 return nil
@@ -63,12 +63,12 @@ return nil
 
 @end
 
-@interface SKSVGBundleObject ()
+@interface DemoSVGBundleObject ()
 @property (readwrite, copy) NSString* fullFileName;
 @property (readwrite, strong) NSBundle *theBundle;
 @end
 
-@implementation SKSVGBundleObject
+@implementation DemoSVGBundleObject
 
 - (id)initWithName:(NSString *)theName
 {
@@ -117,10 +117,10 @@ return nil
 
 - (BOOL)isEqual:(id)object
 {
-	if ([object isKindOfClass:[SKSVGBundleObject class]]) {
-		SKSVGBundleObject* bundObj = object;
+	if ([object isKindOfClass:[DemoSVGBundleObject class]]) {
+		DemoSVGBundleObject* bundObj = object;
 		return [bundObj.fullFileName isEqualToString:self.fullFileName] && [bundObj.theBundle isEqual:self.theBundle];
-	} else if ([object conformsToProtocol:@protocol(SKSVGObject)] || [object isKindOfClass:[SKSVGObject class]]) {
+	} else if ([object conformsToProtocol:@protocol(DemoSVGObject)] || [object isKindOfClass:[DemoSVGObject class]]) {
 		return [self isEqualToURL:[object svgURL]];
 	} else {
 		return NO;
@@ -129,11 +129,11 @@ return nil
 
 @end
 
-@interface SKSVGURLObject ()
+@interface DemoSVGURLObject ()
 @property (strong, readwrite) NSURL *svgURL;
 @end
 
-@implementation SKSVGURLObject
+@implementation DemoSVGURLObject
 
 - (id)initWithURL:(NSURL *)aURL
 {
@@ -152,7 +152,7 @@ return nil
 		NSError *err;
 		if([tmpURL getResourceValue:&val forKey:NSURLLocalizedNameKey error:&err] == NO)
 		{
-			NSLog(@"SKSVGObject: Could not find out if extension is hidden in file \"%@\", error: %@", [tmpURL path], [err localizedDescription]);
+			NSLog(@"DemoSVGObject: Could not find out if extension is hidden in file \"%@\", error: %@", [tmpURL path], [err localizedDescription]);
 			return [tmpURL lastPathComponent];
 		} else {
 			return val;
@@ -168,7 +168,7 @@ return nil
 
 - (BOOL)isEqual:(id)object
 {
-	if (/*[object isKindOfClass:[SKSVGURLObject class]] ||*/ [object conformsToProtocol:@protocol(SKSVGObject)] || [object isKindOfClass:[SKSVGObject class]]) {
+	if (/*[object isKindOfClass:[DemoSVGURLObject class]] ||*/ [object conformsToProtocol:@protocol(DemoSVGObject)] || [object isKindOfClass:[DemoSVGObject class]]) {
 		return [self isEqualToURL:[object svgURL]];
 	} else {
 		return NO;

@@ -84,9 +84,9 @@
 		55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
 		55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3017628A71009C25F1 /* InfoPlist.strings */; };
 		55D8EE3417628A71009C25F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3317628A71009C25F1 /* main.m */; };
-		55D8EE3B17628A71009C25F1 /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */; };
+		55D8EE3B17628A71009C25F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* AppDelegate.m */; };
 		55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3C17628A71009C25F1 /* MainMenu.xib */; };
-		55D8EE4F17628FBC009C25F1 /* SKSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */; };
+		55D8EE4F17628FBC009C25F1 /* DemoSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -365,11 +365,11 @@
 		55D8EE3117628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55D8EE3317628A71009C25F1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55D8EE3517628A71009C25F1 /* Demo-OSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-OSX-Prefix.pch"; sourceTree = "<group>"; };
-		55D8EE3917628A71009C25F1 /* SKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SKAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKAppDelegate.m; sourceTree = "<group>"; };
+		55D8EE3917628A71009C25F1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		55D8EE3A17628A71009C25F1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		55D8EE3D17628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		55D8EE4D17628FBC009C25F1 /* SKSVGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSVGObject.h; sourceTree = "<group>"; };
-		55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSVGObject.m; sourceTree = "<group>"; };
+		55D8EE4D17628FBC009C25F1 /* DemoSVGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSVGObject.h; sourceTree = "<group>"; };
+		55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoSVGObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,11 +562,11 @@
 		55D8EE2D17628A71009C25F1 /* Demo-OSX */ = {
 			isa = PBXGroup;
 			children = (
-				55D8EE3917628A71009C25F1 /* SKAppDelegate.h */,
-				55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */,
+				55D8EE3917628A71009C25F1 /* AppDelegate.h */,
+				55D8EE3A17628A71009C25F1 /* AppDelegate.m */,
 				55D8EE3C17628A71009C25F1 /* MainMenu.xib */,
-				55D8EE4D17628FBC009C25F1 /* SKSVGObject.h */,
-				55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */,
+				55D8EE4D17628FBC009C25F1 /* DemoSVGObject.h */,
+				55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */,
 				55D8EE2E17628A71009C25F1 /* Supporting Files */,
 			);
 			name = "Demo-OSX";
@@ -904,8 +904,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				55D8EE3417628A71009C25F1 /* main.m in Sources */,
-				55D8EE3B17628A71009C25F1 /* SKAppDelegate.m in Sources */,
-				55D8EE4F17628FBC009C25F1 /* SKSVGObject.m in Sources */,
+				55D8EE3B17628A71009C25F1 /* AppDelegate.m in Sources */,
+				55D8EE4F17628FBC009C25F1 /* DemoSVGObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

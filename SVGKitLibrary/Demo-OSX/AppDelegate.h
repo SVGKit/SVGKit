@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <SVGKit/SVGKit.h>
 
-@interface SKAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
 
 @property (readonly, strong) NSArray *svgArray;
 
