@@ -58,7 +58,7 @@
 #import "Node.h"
 @class Element;
 #import "Element.h"
-@class Comment;
+//@class Comment;
 #import "Comment.h"
 @class CDATASection;
 #import "CDATASection.h"

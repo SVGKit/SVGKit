@@ -30,7 +30,10 @@
 
 - (void)renderInContext:(CGContextRef)ctx
 {
-	[self.CALayerTree renderInContext:ctx];
+    CALayer *layerTree = self.CALayerTree;
+    [self temporaryWorkaroundPreprocessRenderingLayerTree:layerTree];
+	[layerTree renderInContext:ctx];
+    [self temporaryWorkaroundPostProcessRenderingLayerTree:layerTree];
 }
 
 /**
@@ -45,7 +48,7 @@
 	startTime = [NSDate date];
 	
 	if( SVGRectIsInitialized(self.DOMTree.viewport) )
-		SVGKitLogInfo(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromCGRect(CGRectFromSVGRect(self.DOMTree.viewport)) );
+		SVGKitLogInfo(@"[%@] DEBUG: rendering to CGContext using the current root-object's viewport (may have been overridden by user code): %@", [self class], NSStringFromSVGRect(self.DOMTree.viewport) );
 	
 	/** Typically a 10% performance improvement right here */
 	if( !shouldAntialias )
@@ -93,6 +96,53 @@
 		[perfImprovements appendString:@"NONE"];
 	
 	SVGKitLogVerbose(@"[%@] renderToContext: time taken to render CALayers to CGContext (perf improvements:%@): %2.3f seconds)", [self class], perfImprovements, -1.0f * [startTime timeIntervalSinceNow] );
+}
+
+/**
+ macOS (at least macOS 10.13 still exist) contains bug in `-[CALayer renderInContext:]` method for `CATextLayer` or `CALayer` with CGImage contents
+ which will use flipped coordinate system to draw text/image content. However, iOS/tvOS works fine. We have to hack to fix it. :)
+ note when using sublayer drawing (`USE_SUBLAYERS_INSTEAD_OF_BLIT` = 1) this issue disappear
+
+ @param layerTree layerTree
+ */
+- (void)temporaryWorkaroundPreprocessRenderingLayerTree:(CALayer *)layerTree {
+#if SVGKIT_MAC
+    BOOL fixFlip = NO;
+    if ([layerTree isKindOfClass:[CATextLayer class]]) {
+        fixFlip = YES;
+    } else if (layerTree.contents != nil) {
+        fixFlip = YES;
+    }
+    if (fixFlip) {
+        // Hack to apply flip for content
+        NSAffineTransform *flip = [NSAffineTransform transform];
+        [flip translateXBy:0 yBy:layerTree.bounds.size.height];
+        [flip scaleXBy:1.0 yBy:-1.0];
+        [layerTree setValue:flip forKey:@"contentsTransform"];
+    }
+    for (CALayer *layer in layerTree.sublayers) {
+        [self temporaryWorkaroundPreprocessRenderingLayerTree:layer];
+    }
+#endif
+}
+
+- (void)temporaryWorkaroundPostProcessRenderingLayerTree:(CALayer *)layerTree {
+#if SVGKIT_MAC
+    BOOL fixFlip = NO;
+    if ([layerTree isKindOfClass:[CATextLayer class]]) {
+        fixFlip = YES;
+    } else if (layerTree.contents != nil) {
+        fixFlip = YES;
+    }
+    if (fixFlip) {
+        // Hack to recover flip for content
+        NSAffineTransform *flip = [NSAffineTransform transform];
+        [layerTree setValue:flip forKey:@"contentsTransform"];
+    }
+    for (CALayer *layer in layerTree.sublayers) {
+        [self temporaryWorkaroundPostProcessRenderingLayerTree:layer];
+    }
+#endif
 }
 
 @end

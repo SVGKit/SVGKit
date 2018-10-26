@@ -1,18 +1,11 @@
 //
-//  SVGKitFramework-tvOS-Prefix.pch
-//  SVGKit-iOS
-//
-//  Created by Cihat Gündüz on 23.10.15.
-//  Copyright © 2015 na. All rights reserved.
-//
-
-//
-// Prefix header for all source files of the 'SVGKitFramwork-tvOS' target in the 'SVGKit-tvOS' project
+// Prefix header for all source files of the 'SVGKit-iOS' target in the 'SVGKit-iOS' project
 //
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import "SVGKDefine.h"
 
 #define SVGKIT_LOG_CONTEXT 556
 

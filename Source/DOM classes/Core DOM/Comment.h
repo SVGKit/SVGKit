@@ -10,7 +10,10 @@
 #import <Foundation/Foundation.h>
 
 #import "CharacterData.h"
-
+#ifdef __CARBONCORE__
+// macOS's out-of-date Carbon API defined the `Comment` struct and cause naming conflict, so we need re-define it and use macro to avoid changing exist API
+#define Comment SVGKComment
+#endif
 @interface Comment : CharacterData
 
 - (id)initWithValue:(NSString*) v;

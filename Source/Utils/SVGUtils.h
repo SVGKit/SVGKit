@@ -6,12 +6,7 @@
 //
 
 #import <CoreFoundation/CoreFoundation.h>
-
-#if TARGET_OS_IPHONE
-
-#import <UIKit/UIKit.h>
-
-#endif
+#import <CoreGraphics/CoreGraphics.h>
 
 #define RGB_N(v) (v) / 255.0f
 

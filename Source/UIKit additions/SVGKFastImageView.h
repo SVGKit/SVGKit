@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 #import "SVGKImageView.h"
 #import "SVGKit.h"
 

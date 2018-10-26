@@ -9,8 +9,6 @@
  SVGTransformable {
  */
 
-#import <UIKit/UIKit.h>
-
 #import "SVGElement.h"
 #import "SVGElement_ForParser.h"
 

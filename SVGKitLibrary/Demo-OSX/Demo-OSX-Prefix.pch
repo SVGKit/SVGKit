@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'Demo-OSX' target in the 'Demo-OSX' project
+//
+
+#import <Availability.h>
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

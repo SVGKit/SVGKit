@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "825CDAD21BDA4D38003C1C12"
+               BlueprintIdentifier = "321EAA612171EC8700640504"
                BuildableName = "SVGKit.framework"
-               BlueprintName = "SVGKitFramework-tvOS"
+               BlueprintName = "SVGKitFramework-OSX"
                ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "825CDADB1BDA4D38003C1C12"
-               BuildableName = "SVGKitFramework-tvOSTests.xctest"
-               BlueprintName = "SVGKitFramework-tvOSTests"
-               ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "825CDAD21BDA4D38003C1C12"
-            BuildableName = "SVGKit.framework"
-            BlueprintName = "SVGKitFramework-tvOS"
-            ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "825CDAD21BDA4D38003C1C12"
+            BlueprintIdentifier = "321EAA612171EC8700640504"
             BuildableName = "SVGKit.framework"
-            BlueprintName = "SVGKitFramework-tvOS"
+            BlueprintName = "SVGKitFramework-OSX"
             ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "825CDAD21BDA4D38003C1C12"
+            BlueprintIdentifier = "321EAA612171EC8700640504"
             BuildableName = "SVGKit.framework"
-            BlueprintName = "SVGKitFramework-tvOS"
+            BlueprintName = "SVGKitFramework-OSX"
             ReferencedContainer = "container:SVGKit-iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

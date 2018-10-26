@@ -7,10 +7,6 @@
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#endif
-
 @interface SVGSVGElement()
 #pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
 @property(nonatomic,readwrite) SVGRect requestedViewport;
@@ -221,14 +217,8 @@
 		self.width = nil; // i.e. undefined
 	else
 		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
-	    //osx logging
-#if TARGET_OS_IPHONE        
-        SVGKitLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromCGRect( CGRectFromSVGRect(self.viewBox)));
-#else
-        //mac logging
-     SVGKitLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromRect(self.viewBox));
-#endif   
-	
+    // logging
+    SVGKitLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromSVGRect(self.viewBox));
 }
 
 - (SVGElement *)findFirstElementOfClass:(Class)classParameter {

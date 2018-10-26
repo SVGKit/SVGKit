@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-#import <UIKit/UIKit.h>
 #import "SVGKImage.h" // cannot import "SVGKit.h" because that would cause ciruclar imports
 
 /**
