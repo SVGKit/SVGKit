@@ -16,8 +16,6 @@
 #import "SVGKImage+CGContext.h"
 #include <tgmath.h>
 
-#define TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD 1 // ONLY needed as temporary workaround for Apple's renderInContext bug breaking various bits of rendering: Gradients, Scaling, etc
-
 @interface SVGKImageRep ()
 @property (nonatomic, strong, readwrite, setter = setTheSVG:) SVGKImage *image;
 @property (nonatomic, assign) BOOL antiAlias;
@@ -150,25 +148,6 @@
 		}
 		
 		self.image = theImage;
-        
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
-		
-		if (hasGrad) {
-			NSString *errstuff;
-			
-			if (hasGrad) {
-				errstuff = @"gradients";
-			}
-			
-			if (errstuff == nil) {
-				//We shouldn't get here!
-				errstuff = @"";
-			}
-			
-			DDLogWarn(@"[%@] The image \"%@\" might have problems rendering correctly due to %@.", [self class], [self image], errstuff);
-		}
-#endif
 		
 		if (![self.image hasSize]) {
 			self.image.size = CGSizeMake(32, 32);

@@ -384,12 +384,8 @@
 		fakeSize = CGSizeApplyAffineTransform( fakeSize, transformAbsolute );
 		strokeLayer.lineWidth = hypot(fakeSize.width, fakeSize.height)/M_SQRT2;
 		
-		SVGColor strokeColorAsSVGColor = SVGColorFromString([actualStroke UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
-		NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
-		if( actualStrokeOpacity.length > 0 )
-			strokeColorAsSVGColor.a = (uint8_t) ([actualStrokeOpacity floatValue] * 0xFF);
-		
-		strokeLayer.strokeColor = CGColorWithSVGColor( strokeColorAsSVGColor );
+        NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
+        strokeLayer.strokeColor = [self parseStrokeForElement:svgElement fromStroke:actualStroke andOpacity:actualStrokeOpacity];
 		
         /**
          Stroke dash array
@@ -454,19 +450,32 @@
 			fillLayer.opacity = strokeLayer.opacity;
 			fillLayer.path = strokeLayer.path;
 			
-			NSRange idKeyRange = NSMakeRange(5, actualStroke.length - 6);
-			NSString* strokeId = [actualStroke substringWithRange:idKeyRange];
-
-			SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:strokeLayer.frame
-											   transform:transformAbsolute];
-			
-			strokeLayer.frame = localRect;
-
-			strokeLayer.fillColor = nil;
-			strokeLayer.strokeColor = [UIColor blackColor].CGColor;
-
-			gradientLayer.mask = strokeLayer;
-			strokeLayer = (CAShapeLayer*) gradientLayer;
+            NSArray *strokeArgs = [actualStroke componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSString *strokeIdArg = strokeArgs.firstObject;
+			NSRange idKeyRange = NSMakeRange(5, strokeIdArg.length - 6);
+			NSString* strokeId = [strokeIdArg substringWithRange:idKeyRange];
+            
+            // SVG spec: Vertical and horizontal lines don't have a boundingbox, since they are one-dimensional, even though the stroke-width makes it look like they should have a boundingbox with non-zero width and height.
+            CGRect boundingBox = strokeLayer.frame;
+            CGRect pathBoundingBox = CGPathGetPathBoundingBox(pathRelative);
+            if (!CGRectIsEmpty(pathBoundingBox)) {
+                // apply gradient
+                SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:strokeId forElement:svgElement withRect:boundingBox transform:transformAbsolute];
+                
+                if (gradientLayer) {
+                    strokeLayer.frame = localRect;
+                    
+                    strokeLayer.fillColor = nil;
+                    strokeLayer.strokeColor = [UIColor blackColor].CGColor;
+                    
+                    gradientLayer.mask = strokeLayer;
+                    strokeLayer = (CAShapeLayer*) gradientLayer;
+                } else {
+                    // no gradient, fallback
+                }
+            } else {
+                // no boundingBox, fallback
+            }
 		}
 		
 	}
@@ -488,22 +497,27 @@
 	
 	if ( [actualFill hasPrefix:@"url"] )
 	{
-		NSRange idKeyRange = NSMakeRange(5, actualFill.length - 6);
-		NSString* fillId = [actualFill substringWithRange:idKeyRange];
+        NSArray *fillArgs = [actualFill componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSString *fillIdArg = fillArgs.firstObject;
+		NSRange idKeyRange = NSMakeRange(5, fillIdArg.length - 6);
+		NSString* fillId = [fillIdArg substringWithRange:idKeyRange];
 		
 		/** Replace the return layer with a special layer using the URL fill */
 		/** fetch the fill layer by URL using the DOM */
 		SVGGradientLayer *gradientLayer = [self getGradientLayerWithId:fillId forElement:svgElement withRect:fillLayer.frame
 										   transform:transformAbsolute];
-		
-		CAShapeLayer* maskLayer = [CAShapeLayer layer];
-		maskLayer.frame = localRect;
-		maskLayer.path = fillLayer.path;
-		maskLayer.fillColor = [UIColor blackColor].CGColor;
-		maskLayer.strokeColor = nil;
-		gradientLayer.mask = maskLayer;
-		gradientLayer.frame = fillLayer.frame;
-		fillLayer = (CAShapeLayer* )gradientLayer;
+        if (gradientLayer) {
+            CAShapeLayer* maskLayer = [CAShapeLayer layer];
+            maskLayer.frame = localRect;
+            maskLayer.path = fillLayer.path;
+            maskLayer.fillColor = [UIColor blackColor].CGColor;
+            maskLayer.strokeColor = nil;
+            gradientLayer.mask = maskLayer;
+            gradientLayer.frame = fillLayer.frame;
+            fillLayer = (CAShapeLayer* )gradientLayer;
+        } else {
+            // no gradient, fallback
+        }
 	}
 	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
 	{
@@ -540,7 +554,10 @@
 	NSAssert( svgElement.rootOfCurrentDocumentFragment != nil, @"This SVG shape has a URL fill type; it needs to search for that URL (%@) inside its nearest-ancestor <SVG> node, but the rootOfCurrentDocumentFragment reference was nil (suggests the parser failed, or the SVG file is corrupt)", gradId );
 	
 	SVGGradientElement* svgGradient = (SVGGradientElement*) [svgElement.rootOfCurrentDocumentFragment getElementById:gradId];
-	NSAssert( svgGradient != nil, @"This SVG shape has a URL fill (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", gradId );
+    if (svgGradient == nil) {
+        // SVG spec allows referenced gradient not exist and will use fallback color
+        SVGKitLogWarn(@"This SVG shape has a URL fill (%@), but could not find an XML Node with that ID inside the DOM tree (suggests the parser failed, or the SVG file is corrupt)", gradId );
+    }
 
 	[svgGradient synthesizeProperties];
 	
@@ -560,32 +577,77 @@
 
 +(CGColorRef) parseFillForElement:(SVGElement *)svgElement fromFill:(NSString *)actualFill andOpacity:(NSString *)actualFillOpacity
 {
-	CGColorRef fillColor = nil;
-	if ( [actualFill hasPrefix:@"none"])
-	{
-		fillColor = nil;
-	}
-	else if( actualFill.length > 0 || actualFillOpacity.length > 0 )
-	{
-		SVGColor fillColorAsSVGColor = ( actualFill.length > 0 ) ?
-		SVGColorFromString([actualFill UTF8String]) // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
-		: SVGColorMake(0, 0, 0, 0);
-		
-        if( actualFillOpacity.length > 0 )
-            fillColorAsSVGColor.a = (uint8_t) ([actualFillOpacity floatValue] * 0xFF);
-		
-        fillColor = CGColorWithSVGColor(fillColorAsSVGColor);
-	}
-	else
-	{
-#if SVGKIT_UIKIT
-		fillColor = [UIColor blackColor].CGColor;
-#else
-		fillColor = CGColorGetConstantColor(kCGColorBlack);
-#endif
-	}
+    return [self parsePaintColorForElement:svgElement paintColor:actualFill paintOpacity:actualFillOpacity defaultColor:@"black"];
+}
 
-	return fillColor;
++(CGColorRef) parseStrokeForElement:(SVGElement *)svgElement
+{
+    NSString* actualStroke = [svgElement cascadedValueForStylableProperty:@"stroke"];
+    NSString* actualStrokeOpacity = [svgElement cascadedValueForStylableProperty:@"stroke-opacity"];
+    return [self parseStrokeForElement:svgElement fromStroke:actualStroke andOpacity:actualStrokeOpacity];
+}
+
++(CGColorRef) parseStrokeForElement:(SVGElement *)svgElement fromStroke:(NSString *)actualStroke andOpacity:(NSString *)actualStrokeOpacity
+{
+    return [self parsePaintColorForElement:svgElement paintColor:actualStroke paintOpacity:actualStrokeOpacity defaultColor:@"none"];
+}
+
+/**
+ Spec: https://www.w3.org/TR/SVG11/painting.html#SpecifyingPaint
+ `fill` or `stroke` allows paint color. This should actually be a <paint> interface.
+ `fill` default color is `black`, while `stroke` default color is `none`
+ */
++(CGColorRef)parsePaintColorForElement:(SVGElement *)svgElement paintColor:(NSString *)paintColor paintOpacity:(NSString *)paintOpacity defaultColor:(NSString *)defaultColor {
+    CGColorRef colorRef = NULL;
+    if (!paintColor) {
+        paintColor = @"none";
+    }
+    if ([paintColor isEqualToString:@"none"])
+    {
+        return NULL;
+    }
+    // there may be a url before the actual color like `url(#grad) #0f0`, parse it
+    NSString *actualPaintColor;
+    NSString *actualPaintOpacity = paintOpacity;
+    NSArray *paintArgs = [paintColor componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+    if ([paintColor hasPrefix:@"url"]) {
+        if (paintArgs.count > 1) {
+            actualPaintColor = paintArgs[1];
+        }
+    } else {
+        actualPaintColor = paintColor;
+    }
+    if( actualPaintColor.length > 0 || actualPaintOpacity.length > 0 ) {
+        SVGColor paintColorSVGColor;
+        if (actualPaintColor.length > 0) {
+            if (![actualPaintColor isEqualToString:@"none"]) {
+                paintColorSVGColor = SVGColorFromString([actualPaintColor UTF8String]); // have to use the intermediate of an SVGColor so that we can over-ride the ALPHA component in next line
+            } else {
+                return NULL;
+            }
+        } else {
+            if (![defaultColor isEqualToString:@"none"]) {
+                paintColorSVGColor = SVGColorFromString([actualPaintColor UTF8String]);
+            } else {
+                return NULL;
+            }
+        }
+        
+        if( actualPaintOpacity.length > 0 )
+            paintColorSVGColor.a = (uint8_t) ([actualPaintOpacity floatValue] * 0xFF);
+        
+        colorRef = CGColorWithSVGColor(paintColorSVGColor);
+    }
+    else
+    {
+        if (![defaultColor isEqualToString:@"none"]) {
+            colorRef = CGColorWithSVGColor(SVGColorFromString([defaultColor UTF8String]));
+        } else {
+            return NULL;
+        }
+    }
+    
+    return colorRef;
 }
 
 +(void) parsePreserveAspectRatioFor:(Element<SVGFitToViewBox>*) element
