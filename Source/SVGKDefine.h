@@ -58,6 +58,9 @@
 #ifndef UIColor
 #define UIColor NSColor
 #endif
+#ifndef UIFont
+#define UIFont NSFont
+#endif
 #endif
 
 #endif /* SVGKDefine_h */

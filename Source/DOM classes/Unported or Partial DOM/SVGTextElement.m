@@ -241,7 +241,12 @@
     NSString *matchedFontFamily;
     if (actualFontFamilies) {
         // walkthrough all available font-families to find the best matched one
-        NSSet<NSString *> *availableFontFamilies = [NSSet setWithArray:UIFont.familyNames];
+        NSSet<NSString *> *availableFontFamilies;
+#if SVGKIT_MAC
+        availableFontFamilies = [NSSet setWithArray:NSFontManager.sharedFontManager.availableFontFamilies];
+#else
+        availableFontFamilies = [NSSet setWithArray:UIFont.familyNames];
+#endif
         for (NSString *fontFamily in actualFontFamilies) {
             if ([availableFontFamilies containsObject:fontFamily]) {
                 matchedFontFamily = fontFamily;
@@ -306,16 +311,16 @@
     CTFontSymbolicTraits style = 0;
     if ([fontStyle isEqualToString:@"normal"]) {
         style |= 0;
-    } else if ([fontStyle isEqualToString:@"italic"] || [fontStyle containsString:@"oblique"]) {
+    } else if ([fontStyle isEqualToString:@"italic"] || [fontStyle rangeOfString:@"oblique"].location != NSNotFound) {
         // Actually we can control the detailed slant degree via `kCTFontSlantTrait`, but it's rare usage so treat them the same, TODO in the future
         style |= kCTFontItalicTrait;
     }
     
     // CSS font stretch
-    if ([fontStretch containsString:@"condensed"]) {
+    if ([fontStretch rangeOfString:@"condensed"].location != NSNotFound) {
         // Actually we can control the detailed percent via `kCTFontWidthTrait`, but it's rare usage so treat them the same, TODO in the future
         style |= kCTFontTraitCondensed;
-    } else if ([fontStretch containsString:@"expanded"]) {
+    } else if ([fontStretch rangeOfString:@"expanded"].location != NSNotFound) {
         style |= kCTFontTraitExpanded;
     }
     
