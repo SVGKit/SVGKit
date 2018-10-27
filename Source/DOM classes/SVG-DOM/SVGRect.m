@@ -1,7 +1,4 @@
 #import "SVGRect.h"
-#if SVGKIT_UIKIT
-#import <UIKit/UIKit.h>
-#endif
 
 BOOL SVGRectIsInitialized( SVGRect rect )
 {
@@ -41,17 +38,3 @@ NSString * NSStringFromSVGRect( SVGRect rect ) {
     return NSStringFromCGRect(cgRect);
 #endif
 }
-
-#if SVGKIT_MAC
-NSString * NSStringFromCGRect( CGRect rect ) {
-    return NSStringFromRect(rect);
-}
-
-NSString * _Nonnull NSStringFromCGSize( CGSize size ) {
-    return NSStringFromSize(size);
-}
-
-NSString * NSStringFromCGPoint( CGPoint point ) {
-    return NSStringFromPoint(point);
-}
-#endif

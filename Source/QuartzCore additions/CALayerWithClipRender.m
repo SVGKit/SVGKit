@@ -7,11 +7,6 @@
 //
 
 #import "CALayerWithClipRender.h"
-#if SVGKIT_MAC
-#import <AppKit/AppKit.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
 
 @implementation CALayerWithClipRender
 

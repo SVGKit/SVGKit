@@ -1,10 +1,5 @@
 #import <Foundation/Foundation.h>
-
-#if SVGKIT_UIKIT
-#import <UIKit/UIKit.h>
-#else
-#import <AppKit/AppKit.h>
-#endif
+#import "SVGKDefine.h"
 
 /** lightweight wrapper for UIColor so that we can draw with fill patterns */
 @interface SVGKPattern : NSObject

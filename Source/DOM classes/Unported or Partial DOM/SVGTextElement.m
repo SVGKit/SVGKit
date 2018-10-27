@@ -1,11 +1,6 @@
 #import "SVGTextElement.h"
 
 #import <CoreText/CoreText.h>
-#if SVGKIT_MAC
-#import <AppKit/AppKit.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 #import "SVGGradientLayer.h"
 #import "SVGHelperUtilities.h"

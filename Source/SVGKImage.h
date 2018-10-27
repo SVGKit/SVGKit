@@ -35,12 +35,7 @@
  
  */
 
-#if SVGKIT_MAC
-#import <AppKit/AppKit.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
-
+#import "SVGKDefine.h"
 #import "SVGKParser.h" // needed for asynchronous loading method-signature
 
 @class SVGDocument;
