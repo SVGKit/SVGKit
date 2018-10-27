@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "SVGKit.h"
-#import "CALayerExporter.h"
 #import "SVGKImage.h"
 
 #define LOAD_SYNCHRONOUSLY 0 // Synchronous load is less code, easier to write - but poor for large images
@@ -20,18 +19,11 @@
 
 #define SHOW_DEBUG_INFO_ON_EACH_TAPPED_LAYER 1 // each time you tap and select a layer, that layer's info is displayed on-screen
 
-@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate,
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-        CALayerExporterDelegate,
-#endif
-UIScrollViewDelegate>
+@interface DetailViewController : UIViewController < UIPopoverControllerDelegate, UISplitViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) SVGKSource *sourceOfCurrentDocument;
 @property (nonatomic, strong) UITextView* exportText;
 @property (nonatomic, strong) NSMutableString* exportLog;
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-    @property (nonatomic, strong) CALayerExporter* layerExporter;
-#endif
 @property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
 
 @property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
@@ -47,9 +39,6 @@ UIScrollViewDelegate>
 
 
 - (IBAction)animate:(id)sender;
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-    - (IBAction)exportLayers:(id)sender;
-#endif
 
 - (IBAction) showHideBorder:(id)sender;
 

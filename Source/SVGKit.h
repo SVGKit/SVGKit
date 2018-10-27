@@ -17,8 +17,6 @@
 
 #import "SVGKDefine.h"
 
-#define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
-
 
 // MARK: - Framework Header File Content
 
@@ -135,9 +133,6 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 
 // Parser
 
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-#import "CALayerExporter.h"
-#endif
 #import "SVGKImage+CGContext.h"
 #import "SVGKExporterNSData.h"
 #if SVGKIT_MAC

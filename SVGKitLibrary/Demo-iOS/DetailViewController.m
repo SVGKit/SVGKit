@@ -60,9 +60,6 @@ static NSString * const kTimeIntervalForLastReRenderOfSVGFromMemory = @"timeInte
 @synthesize toolbar, popoverController, contentView, detailItem;
 @synthesize viewActivityIndicator;
 @synthesize exportText = _exportText;
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-	@synthesize layerExporter = _layerExporter;
-#endif
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -729,53 +726,6 @@ CATextLayer *textLayerForLastTappedLayer;
 {
     return self.contentView;
 }
-
-#pragma mark Export
-
-
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-- (IBAction)exportLayers:(id)sender {
-    if (_layerExporter) {
-        return;
-    }
-    _layerExporter = [[CALayerExporter alloc] initWithView:contentView];
-    _layerExporter.delegate = self;
-    
-    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
-    UIViewController* textViewController = [[UIViewController alloc] init];
-    [textViewController setView:textView];
-    UIPopoverController* exportPopover = [[UIPopoverController alloc] initWithContentViewController:textViewController];
-    [exportPopover setDelegate:self];
-    [exportPopover presentPopoverFromBarButtonItem:sender
-						  permittedArrowDirections:UIPopoverArrowDirectionAny
-										  animated:YES];
-    
-    _exportText = textView;
-    _exportText.text = @"exporting...";
-    
-    _exportLog = [[NSMutableString alloc] init];
-    [_layerExporter startExport];
-}
-
-- (void) layerExporter:(CALayerExporter*)exporter didParseLayer:(CALayer*)layer withStatement:(NSString*)statement
-{
-    //NSLog(@"%@", statement);
-    [_exportLog appendString:statement];
-    [_exportLog appendString:@"\n"];
-}
-
-- (void)layerExporterDidFinish:(CALayerExporter *)exporter
-{
-    _exportText.text = _exportLog;
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)pc
-{
-    _exportText = nil;
-    
-    _layerExporter = nil;
-}
-#endif
 
 
 @end
