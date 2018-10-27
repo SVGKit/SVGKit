@@ -17,19 +17,8 @@
 
 #import "SVGKDefine.h"
 
-#define V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS 0
-
-#ifndef SVGKIT_LOG_CONTEXT
-    #define SVGKIT_LOG_CONTEXT 556
-#endif
-
 
 // MARK: - Framework Header File Content
-#if SVGKIT_MAC
-#import <AppKit/AppKit.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
 
 @interface SVGKit : NSObject
 
@@ -144,9 +133,6 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 
 // Parser
 
-#if V_1_COMPATIBILITY_COMPILE_CALAYEREXPORTER_CLASS
-#import "CALayerExporter.h"
-#endif
 #import "SVGKImage+CGContext.h"
 #import "SVGKExporterNSData.h"
 #if SVGKIT_MAC

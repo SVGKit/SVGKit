@@ -62,7 +62,7 @@
 - (void)populateFromImage:(SVGKImage*) im
 {
 #if SVGKIT_MAC && USE_SUBLAYERS_INSTEAD_OF_BLIT
-    // setup layer-hosting view
+    // setup layer-backed view
     self.wantsLayer = YES;
 #endif
 	if( im == nil )

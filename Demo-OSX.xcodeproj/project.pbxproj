@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32488DA12183500500179930 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32488D9F2183500500179930 /* Mozilla_Firefox_logo_2013.svg */; };
+		323C2E29218437C600741D80 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 323C2E28218437C600741D80 /* Mozilla_Firefox_logo_2013.svg */; };
 		32B5A1E4217333C200CAA60C /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5A1DD217333C200CAA60C /* CocoaLumberjack.framework */; };
 		32B5A1E6217333C800CAA60C /* CocoaLumberjack.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5A1DD217333C200CAA60C /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		32C4FD3A2173976C00FBEDBF /* radialGradientTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */; };
@@ -283,7 +283,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		32488D9F2183500500179930 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Mozilla_Firefox_logo_2013.svg; path = "../../../SVGKit-2.x/Demo-Samples/SVG/Mozilla_Firefox_logo_2013.svg"; sourceTree = "<group>"; };
+		323C2E28218437C600741D80 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mozilla_Firefox_logo_2013.svg; sourceTree = "<group>"; };
 		32B5A1DD217333C200CAA60C /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = "3rd-party-frameworks/CocoaLumberjack-2.2.0/Mac/CocoaLumberjack.framework"; sourceTree = "<group>"; };
 		32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = radialGradientTest.svg; sourceTree = "<group>"; };
 		32C4FCF62173976C00FBEDBF /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
@@ -390,7 +390,7 @@
 		32C4FCF42173976B00FBEDBF /* SVG */ = {
 			isa = PBXGroup;
 			children = (
-				32488D9F2183500500179930 /* Mozilla_Firefox_logo_2013.svg */,
+				323C2E28218437C600741D80 /* Mozilla_Firefox_logo_2013.svg */,
 				32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */,
 				32C4FCF62173976C00FBEDBF /* g-element-applies-rotation.svg */,
 				32C4FCF72173976C00FBEDBF /* Blank_Map-Africa.svg */,
@@ -832,7 +832,6 @@
 				55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */,
 				32C4FD602173976C00FBEDBF /* pattern01.svg in Resources */,
 				32C4FD5C2173976C00FBEDBF /* arcs02.svg in Resources */,
-				32488DA12183500500179930 /* Mozilla_Firefox_logo_2013.svg in Resources */,
 				32C4FD5F2173976C00FBEDBF /* lingrad01.svg in Resources */,
 				32C4FD402173976C00FBEDBF /* parent-clip.svg in Resources */,
 				32C4FD6B2173976C00FBEDBF /* Snowman.png in Resources */,
@@ -845,6 +844,7 @@
 				32C4FD782173976C00FBEDBF /* Coin.png in Resources */,
 				32C4FD6A2173976C00FBEDBF /* Monkey.svg in Resources */,
 				32C4FD662173976C00FBEDBF /* Reinel_compass_rose-simplified-for-testing.svg in Resources */,
+				323C2E29218437C600741D80 /* Mozilla_Firefox_logo_2013.svg in Resources */,
 				32C4FD622173976C00FBEDBF /* radgrad01.svg in Resources */,
 				32C4FD442173976C00FBEDBF /* bird-1382034603Euc-cropped.png in Resources */,
 				32C4FD4F2173976C00FBEDBF /* ImageAspectRatio.svg in Resources */,

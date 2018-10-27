@@ -1,11 +1,6 @@
 #import "SVGTextElement.h"
 
 #import <CoreText/CoreText.h>
-#if SVGKIT_MAC
-#import <AppKit/AppKit.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 #import "SVGGradientLayer.h"
 #import "SVGHelperUtilities.h"
@@ -105,7 +100,7 @@
                                  value:(__bridge id)strokeColor
                                  range:stringRange];
         // If both fill && stroke, pass negative value; only fill, pass positive value
-        // A typical value for outlined text is 3.0. Actually this is not so accurate, but until we directly draw the text glyph using Core Text, we cat not control the detailed stroke width follow SVG spec
+        // A typical value for outlined text is 3.0. Actually this is not so accurate, but until we directly draw the text glyph using Core Text, we can not control the detailed stroke width follow SVG spec
         CGFloat strokeValue = strokeWidth / 3.0;
         if (fillColor) {
             strokeValue = -strokeValue;

@@ -10,16 +10,9 @@
 #import "SVGElement_ForParser.h"
 #import "SVGUtils.h"
 #import "SVGGradientLayer.h"
-#if SVGKIT_UIKIT
-#import <UIKit/UIKit.h>
-#else
-#import <AppKit/AppKit.h>
-#endif
 
 // `kCAGradientLayerRadial` this symbol is available since iOS 3.2/tvOS 9.0/macOS 10.6, but it's not externed to public header until Xcode 10 with iOS 12 SDK, so we define it for user who still use old SDK version.
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED && __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_12_0) || (__TV_OS_VERSION_MAX_ALLOWED && __TV_OS_VERSION_MAX_ALLOWED < __TVOS_12_0) || (__MAC_OS_X_VERSION_MAX_ALLOWED && __MAC_OS_X_VERSION_MAX_ALLOWED < __MAC_10_14)
-NSString * const kCAGradientLayerRadial = @"radial";
-#endif
+#define kCAGradientLayerRadial @"radial"
 
 @interface SVGRadialGradientElement ()
 

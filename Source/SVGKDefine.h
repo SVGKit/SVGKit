@@ -63,4 +63,10 @@
 #endif
 #endif
 
+#if SVGKIT_MAC
+#import <AppKit/AppKit.h>
+#else
+#import <UIKit/UIKit.h>
+#endif
+
 #endif /* SVGKDefine_h */
