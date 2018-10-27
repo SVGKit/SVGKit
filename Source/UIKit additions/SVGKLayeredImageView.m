@@ -76,7 +76,7 @@
 - (void)populateFromImage:(SVGKImage*) im
 {
 #if SVGKIT_MAC
-    // setup layer-backed view
+    // setup layer-hosting view
     self.layer = [[SVGKLayer alloc] init];
     self.wantsLayer = YES;
 #endif
