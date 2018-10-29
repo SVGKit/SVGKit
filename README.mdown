@@ -12,14 +12,10 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 
   - v2.x = current "in development" branch with latest changes, fixes, features
     - NB: this is now automatically selected in GitHub as the "default" branch when you visit SVGKit's project page
-    - CocoaPods users: It is recommended that you setup your podfile to get svgkit from this 2.x branch (or a local fork from the 2.x branch). To do this enter the following in your podfile:
-        ```
-        pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
-        ```
         
 # Getting Started
 
-## Run the Demo
+## Run the Demo - iOS
 
   NB: April 2015: new Demo app, many more features, may have teething troubles with this one.
 
@@ -31,8 +27,9 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 You have 3 main options for installing SVGKit:
 
 1. Drag/drop the .framework file into your project <-- PREFERRED / RECOMMENDED
+1. Use CocoaPods
+1. Use Carthage
 1. Drag/drop the static library into your project, and configure the build settings in your project
-1. Use CocoaPods (not supported, but we try to update the podspec when people submit Pull Requests for it)
 
 NB: the "static library" is our backwards-compatible, manual install that always works if you have problems either with CocoaPods or with the Framework. But the other two are a lot quicker/easier.
 
@@ -56,6 +53,32 @@ You MAY also need to manually add the following Apple Frameworks to your app:
 You MAY also need to add the following 3rd party Frameworks to your app (included with SVGKit):
   - CocoaLumberjack (in the SVGKit-iOS project, select the "3rd-party-frameworks" folder, and drag/drop whichever versions you need: iOS, tvOS, etc)
     Remember to embed the library too (should show under Target -> General -> Embedded Binaries)
+    
+## Using CocoaPods
+[CocoaPods](https://github.com/CocoaPods/CocoaPods) is a dependency manager for CocoaTouch. To do CocoaPods, adding the following in your podfile:
+
+```
+pod 'SVGKit'
+```
+
+It is also recommended that you setup your podfile to get SVGKit from this 2.x branch.
+
+```
+pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
+```
+
+## Using Carthage
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Cocoa. To use Carthage, adding the following in your Cartfile:
+
+```
+github 'SVGKit/SVGKit'
+```
+
+It is also recommended that you setup your Cartfile to get SVGKit from this 2.x branch.
+
+```
+github "SVGKit/SVGKit" "2.x"
+```
 
 ## Build the static library
 
@@ -84,6 +107,14 @@ It's all setup already, all you need to do is:
 
 Everything else is automatic.
 
+## Usage - OS X
+
+SVG add the support for macOS from SVGKit 2.1.0.
+
+You can use nearly the same API like iOS. Including `SVGKFastImageView`, `SVGKLayeredImageView`, and you can use `SVGKImage.NSImage` to export SVG layer to bitmap image.
+
+We also provide a macOS demo for SVGKit. To run the Demo, open `Demo-OSX.xcodeproj` and built to run. You can browser the different SVG files using those two different type of view to check the compatibility.
+
 ## Recipes for using the library
 
 Here are some posts on using SVGKit, with advice on which methods to use and why:
@@ -105,11 +136,4 @@ If you get this error:
 ... you're probably building the Static Library, but forgot to do the step below:
 
 "Edit your build settings and add "Other Linker Flags" = "-ObjC""
-
-
-## Usage - OS X
-
-We need someone to integrate the OS X fork into the main project - please help.
-
-The fork is over here: https://github.com/MaddTheSane/SVGKit/tree/master
 
