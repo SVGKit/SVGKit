@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3242C36E217CF0CD0013765F /* Blocky.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3242C368217CF0CD0013765F /* Blocky.ttf */; };
+		32AF7BBE217389FD00142396 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529DADF11C415FF00069B076 /* SVGKit.framework */; };
+		32AF7BC021738A0300142396 /* SVGKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 529DADF11C415FF00069B076 /* SVGKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
 		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
 		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
-		32AF7BBE217389FD00142396 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529DADF11C415FF00069B076 /* SVGKit.framework */; };
-		32AF7BC021738A0300142396 /* SVGKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 529DADF11C415FF00069B076 /* SVGKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
 		4FD822401AD057F000E419D3 /* arcs02.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223E1AD057F000E419D3 /* arcs02.svg */; };
 		4FD822441AD058AB00E419D3 /* arcs01.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822421AD058AB00E419D3 /* arcs01.png */; };
@@ -104,7 +104,6 @@
 		663FCFF616C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663FCFF516C9AF3C00CCBFB3 /* Sample Licenses from svg-android project.txt */; };
 		663FD00416CAB16B00CCBFB3 /* groups-and-layers-test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 663FD00316CAB16B00CCBFB3 /* groups-and-layers-test.svg */; };
 		6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E0AC1617479200AFE92A /* QuartzCore.framework */; };
-		6649E10D1617577000AFE92A /* libSVGKit-iOS.2.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10A1617574700AFE92A /* libSVGKit-iOS.2.0.0.a */; };
 		6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6649E10E1617578500AFE92A /* libxml2.dylib */; };
 		665E07F316CE81DD00D6934D /* g-element-applies-rotation.svg in Resources */ = {isa = PBXBuildFile; fileRef = 665E07F216CE81DD00D6934D /* g-element-applies-rotation.svg */; };
 		6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6661A77C1698BBE20061E349 /* CoreText.framework */; };
@@ -183,6 +182,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 825CDAAE1BDA4BC0003C1C12;
 			remoteInfo = "SVGKitFramework-iOS";
+		};
+		32FBF095218757490043050B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32A1F09C21746F4700ABFCE1;
+			remoteInfo = "SVGKitFramework-OSXTests";
 		};
 		529DADF01C415FF00069B076 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -429,7 +435,6 @@
 				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
 				FA5DF7261C434D54005CF231 /* CocoaLumberjack.framework in Frameworks */,
-				6649E10D1617577000AFE92A /* libSVGKit-iOS.2.0.0.a in Frameworks */,
 				6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */,
 				661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */,
 				661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */,
@@ -601,13 +606,13 @@
 		6649E1031617574600AFE92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6649E10A1617574700AFE92A /* libSVGKit-iOS.2.0.0.a */,
 				E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */,
 				529DADF11C415FF00069B076 /* SVGKit.framework */,
 				529DADF31C415FF00069B076 /* SVGKitFramework-iOSTests.xctest */,
 				529DADF51C415FF00069B076 /* SVGKit.framework */,
 				529DADF71C415FF00069B076 /* SVGKitFramework-tvOSTests.xctest */,
 				32AF7BBD217389FD00142396 /* SVGKit.framework */,
+				32FBF096218757490043050B /* SVGKitFramework-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -779,6 +784,13 @@
 			remoteRef = 32AF7BBC217389FD00142396 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		32FBF096218757490043050B /* SVGKitFramework-OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SVGKitFramework-OSXTests.xctest";
+			remoteRef = 32FBF095218757490043050B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		529DADF11C415FF00069B076 /* SVGKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -805,13 +817,6 @@
 			fileType = wrapper.cfbundle;
 			path = "SVGKitFramework-tvOSTests.xctest";
 			remoteRef = 529DADF61C415FF00069B076 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6649E10A1617574700AFE92A /* libSVGKit-iOS.2.0.0.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libSVGKit-iOS.2.0.0.a";
-			remoteRef = 6649E1091617574700AFE92A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */ = {
