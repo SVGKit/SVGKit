@@ -270,7 +270,7 @@
 		32F206DC217324BB00427F24 /* SVGKExporterNSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F206DA217324BB00427F24 /* SVGKExporterNSImage.m */; };
 		4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */; };
-		55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.0.0.a */; };
+		55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.1.0.a */; };
 		55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639633F16145DDC00E58CCA /* libxml2.dylib */; };
 		660D50011C4292A6004187D0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
 		660D50021C4292DB004187D0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
@@ -1064,7 +1064,7 @@
 		6636CD89175F54680072AAEF /* CALayer+RecursiveClone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+RecursiveClone.m"; sourceTree = "<group>"; };
 		6636CD8C175F54970072AAEF /* ConverterSVGToCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConverterSVGToCALayer.h; sourceTree = "<group>"; };
 		66372F5916960D4E008C6C56 /* SVGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGRect.m; sourceTree = "<group>"; };
-		6639618E16145D0400E58CCA /* libSVGKit-iOS.2.0.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSVGKit-iOS.2.0.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6639618E16145D0400E58CCA /* libSVGKit-iOS.2.1.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSVGKit-iOS.2.1.0.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6639619116145D0400E58CCA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6639633F16145DDC00E58CCA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		6639634116148CDF00E58CCA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1321,7 +1321,7 @@
 			files = (
 				660D50021C4292DB004187D0 /* CocoaLumberjack.framework in Frameworks */,
 				55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */,
-				55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.0.0.a in Frameworks */,
+				55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.1.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1503,7 +1503,7 @@
 		6639618F16145D0400E58CCA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6639618E16145D0400E58CCA /* libSVGKit-iOS.2.0.0.a */,
+				6639618E16145D0400E58CCA /* libSVGKit-iOS.2.1.0.a */,
 				55452BF119EC68A200B75A30 /* SVGKit-iOS Tests.xctest */,
 				825CDAAF1BDA4BC0003C1C12 /* SVGKit.framework */,
 				825CDAB81BDA4BC0003C1C12 /* SVGKitFramework-iOSTests.xctest */,
@@ -2558,7 +2558,7 @@
 			);
 			name = "SVGKit-iOS";
 			productName = "SVGKit-iOS";
-			productReference = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.0.0.a */;
+			productReference = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.1.0.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		825CDAAE1BDA4BC0003C1C12 /* SVGKitFramework-iOS */ = {
@@ -3610,7 +3610,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/SVGKit_iOS.dst;
-				DYLIB_CURRENT_VERSION = 2.0.0;
+				DYLIB_CURRENT_VERSION = 2.1.0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
@@ -3635,7 +3635,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DSTROOT = /tmp/SVGKit_iOS.dst;
-				DYLIB_CURRENT_VERSION = 2.0.0;
+				DYLIB_CURRENT_VERSION = 2.1.0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
