@@ -10,7 +10,7 @@ We have a Twitter account http://twitter.com/SVGKit_free  you can follow for rel
 
 Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 
-  - v2.x = current "in development" branch with latest changes, fixes, features
+  - v3.x = current "in development" branch with latest changes, fixes, features
     - NB: this is now automatically selected in GitHub as the "default" branch when you visit SVGKit's project page
         
 # Getting Started
