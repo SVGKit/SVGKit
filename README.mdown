@@ -14,8 +14,6 @@ Latest info at: https://github.com/SVGKit/SVGKit/wiki/Versions
 
 ## Run the Demo - iOS
 
-  NB: April 2015: new Demo app, many more features, may have teething troubles with this one.
-
 1. Open up "Demo-iOS.xcodeproj", and run it (on simulator or device). Try different SVG's. Zoom, pan, and (with the Monkey only:) hit the "Animate" button. Tap the images to see bounding-boxes / hit dectection (might need you to hit the Debug button first)
 1. If you have ANY problems building the library and embedding it in your app, compare your build settings to the Demo-iOS build settings - if something's different, it's probably the problem.
 
@@ -28,9 +26,9 @@ You have 3 main options for installing SVGKit:
 1. Use Carthage
 1. Drag/drop the static library into your project, and configure the build settings in your project
 
-NB: the "static library" is our backwards-compatible, manual install that always works if you have problems either with CocoaPods or with the Framework. But the other two are a lot quicker/easier.
+NB: the "static library" is our backwards-compatible, manual install that always works if you have problems with CocoaPods/Carthage/Framework.
 
-## Use the Framework - drag, drop, done!
+## OPTION 1: Use the Framework - drag, drop, done!
 
 1. Open "SVGKit-iOS.xcodeproj"
 1. Build the project once
@@ -51,7 +49,7 @@ You MAY also need to add the following 3rd party Frameworks to your app (include
   - CocoaLumberjack (in the SVGKit-iOS project, select the "3rd-party-frameworks" folder, and drag/drop whichever versions you need: iOS, tvOS, etc)
     Remember to embed the library too (should show under Target -> General -> Embedded Binaries)
     
-## Using CocoaPods
+## OPTION 2: Using CocoaPods
 [CocoaPods](https://github.com/CocoaPods/CocoaPods) is a dependency manager for CocoaTouch. To do CocoaPods, adding the following in your podfile:
 
 ```
@@ -64,7 +62,7 @@ It is also recommended that you setup your podfile to get SVGKit from this 2.x b
 pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
 ```
 
-## Using Carthage
+## OPTION 3: Using Carthage
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Cocoa. To use Carthage, adding the following in your Cartfile:
 
 ```
@@ -77,9 +75,7 @@ It is also recommended that you setup your Cartfile to get SVGKit from this 2.x 
 github "SVGKit/SVGKit" "2.x"
 ```
 
-## Build the static library
-
-Until 2016, this was the PREFERRED way of shipping SVGKit.
+## OPTION 4: Build the static library
 
 We have a build script that automatically builds ALL versions of the library at once, and ships them as a single file: http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4/3647187#3647187
 
@@ -106,7 +102,7 @@ Everything else is automatic.
 
 ## Usage - OS X
 
-SVG add the support for macOS from SVGKit 2.1.0.
+Added in version 2.1.0 / Autumn 2018: support for macOS.
 
 You can use nearly the same API like iOS. Including `SVGKFastImageView`, `SVGKLayeredImageView`, and you can use `SVGKImage.NSImage` to export SVG layer to bitmap image.
 
@@ -114,7 +110,7 @@ We also provide a macOS demo for SVGKit. To run the Demo, open `Demo-OSX.xcodepr
 
 ## Recipes for using the library
 
-Here are some posts on using SVGKit, with advice on which methods to use and why:
+Here are some old posts (some of these APIs have changed slightly since they were written) on using SVGKit, with advice on which methods to use and why:
 
   - GETTING STARTED, plus NEW FEATURES:  http://t-machine.org/index.php/2012/12/31/svgkit-2013-usage/
   - QUICK RECIPES for common uses:  http://t-machine.org/index.php/2013/01/02/svgkit-2013-recipes/
@@ -122,15 +118,3 @@ Here are some posts on using SVGKit, with advice on which methods to use and why
   - CONTRIBUTING to the project, CORE ARCHITECTURE: http://t-machine.org/index.php/2012/12/31/svgkit-2013-development/
  
   - (November 2013): New (experimental) feature - writing SVG's out to disk, preserving any changes you made programmatically: http://t-machine.org/index.php/2013/11/17/svgkit-programmatic-editing-of-svg-files-on-ios/
-
-
-### I get a crash with "unrecognized selector" ?
-
-If you get this error:
-
-"+[NSCharacterSet SVGWhitespaceCharacterSet]: unrecognized selector sent to class "
-
-... you're probably building the Static Library, but forgot to do the step below:
-
-"Edit your build settings and add "Other Linker Flags" = "-ObjC""
-
