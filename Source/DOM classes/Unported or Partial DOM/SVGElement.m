@@ -481,16 +481,24 @@
     {
         if( element.className != nil )
         {
+            NSScanner *classNameScanner = [NSScanner scannerWithString:element.className];
+            NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceCharacterSet];
+            NSString *substring;
+			
             selector = [selector substringFromIndex:1];
             __block BOOL matched = NO;
-            [element.className enumerateSubstringsInRange:NSMakeRange(0, element.className.length) options:NSStringEnumerationByWords usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop)
-             {
-                 if( [substring isEqualToString:selector] )
-                 {
-                     matched = YES;
-                     *stop = YES;
-                 }
-             }];
+
+            while ([classNameScanner scanUpToCharactersFromSet:whitespaceSet intoString:&substring])
+            {
+                if( [substring isEqualToString:selector] )
+                {
+                    matched = YES;
+                    break;
+                }
+				
+                if (!classNameScanner.isAtEnd)
+                    classNameScanner.scanLocation = classNameScanner.scanLocation+1L;
+            }
             if( matched )
             {
                 *specificity += 100;

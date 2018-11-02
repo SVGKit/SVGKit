@@ -87,6 +87,7 @@
 		55D8EE3B17628A71009C25F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* AppDelegate.m */; };
 		55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3C17628A71009C25F1 /* MainMenu.xib */; };
 		55D8EE4F17628FBC009C25F1 /* DemoSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */; };
+		E0060539218BEBF300FC58FE /* shapes2.svg in Resources */ = {isa = PBXBuildFile; fileRef = E0060531218BEBF300FC58FE /* shapes2.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -370,6 +371,7 @@
 		55D8EE3D17628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		55D8EE4D17628FBC009C25F1 /* DemoSVGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSVGObject.h; sourceTree = "<group>"; };
 		55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoSVGObject.m; sourceTree = "<group>"; };
+		E0060531218BEBF300FC58FE /* shapes2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shapes2.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +474,7 @@
 			children = (
 				32C4FD2E2173976C00FBEDBF /* strokes.svg */,
 				32C4FD2F2173976C00FBEDBF /* shapes.svg */,
+				E0060531218BEBF300FC58FE /* shapes2.svg */,
 				32C4FD302173976C00FBEDBF /* transformations.svg */,
 				32C4FD312173976C00FBEDBF /* Sample Licenses from svg-android project.txt */,
 				32C4FD322173976C00FBEDBF /* gradients.svg */,
@@ -893,6 +896,7 @@
 				32C4FD762173976C00FBEDBF /* svg-with-explicit-width.svg in Resources */,
 				32C4FD502173976C00FBEDBF /* test-wave-1.svg in Resources */,
 				32C4FD3F2173976C00FBEDBF /* Map.svg in Resources */,
+				E0060539218BEBF300FC58FE /* shapes2.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
