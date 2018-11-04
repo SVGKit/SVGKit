@@ -482,13 +482,14 @@
         if( element.className != nil )
         {
             NSScanner *classNameScanner = [NSScanner scannerWithString:element.className];
-            NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceCharacterSet];
+            NSMutableCharacterSet *whitespaceAndCommaSet = [NSMutableCharacterSet whitespaceCharacterSet];
             NSString *substring;
-			
+            
+            [whitespaceAndCommaSet addCharactersInString:@","];
             selector = [selector substringFromIndex:1];
             __block BOOL matched = NO;
 
-            while ([classNameScanner scanUpToCharactersFromSet:whitespaceSet intoString:&substring])
+            while ([classNameScanner scanUpToCharactersFromSet:whitespaceAndCommaSet intoString:&substring])
             {
                 if( [substring isEqualToString:selector] )
                 {
