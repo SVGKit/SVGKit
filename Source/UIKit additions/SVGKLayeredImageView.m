@@ -46,7 +46,11 @@
 	self = [super initWithFrame:frame];
 	if( self )
 	{
-        [self populateFromImage:nil];
+#if SVGKIT_UIKIT
+		self.backgroundColor = [UIColor clearColor];
+#else
+        self.layer.backgroundColor = [NSColor clearColor].CGColor;
+#endif
 	}
 	return self;
 }
