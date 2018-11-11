@@ -250,6 +250,14 @@
 		327B2897217DAC77004D27FC /* SVGRadialGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5DE2176E01400ED20D8 /* SVGRadialGradientElement.m */; };
 		32A1F09F21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1F09E21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m */; };
 		32A1F0A121746F4700ABFCE1 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321EAA622171EC8700640504 /* SVGKit.framework */; };
+		32C4891E21916F3D007B1F29 /* SVGTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C4891C21916F3D007B1F29 /* SVGTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32C4891F21916F3D007B1F29 /* SVGTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C4891C21916F3D007B1F29 /* SVGTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32C4892021916F3D007B1F29 /* SVGTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C4891C21916F3D007B1F29 /* SVGTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32C4892121916F3D007B1F29 /* SVGTextLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C4891C21916F3D007B1F29 /* SVGTextLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32C4892221916F3D007B1F29 /* SVGTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4891D21916F3D007B1F29 /* SVGTextLayer.m */; };
+		32C4892321916F3D007B1F29 /* SVGTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4891D21916F3D007B1F29 /* SVGTextLayer.m */; };
+		32C4892421916F3D007B1F29 /* SVGTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4891D21916F3D007B1F29 /* SVGTextLayer.m */; };
+		32C4892521916F3D007B1F29 /* SVGTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4891D21916F3D007B1F29 /* SVGTextLayer.m */; };
 		32D3D5D72176E00E00ED20D8 /* SVGLinearGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5D52176E00D00ED20D8 /* SVGLinearGradientElement.m */; };
 		32D3D5D82176E00E00ED20D8 /* SVGLinearGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5D52176E00D00ED20D8 /* SVGLinearGradientElement.m */; };
 		32D3D5D92176E00E00ED20D8 /* SVGLinearGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5D52176E00D00ED20D8 /* SVGLinearGradientElement.m */; };
@@ -1027,6 +1035,8 @@
 		32A1F09C21746F4700ABFCE1 /* SVGKitFramework-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKitFramework-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32A1F09E21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKitFramework_OSXTests.m; sourceTree = "<group>"; };
 		32A1F0A021746F4700ABFCE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32C4891C21916F3D007B1F29 /* SVGTextLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGTextLayer.h; sourceTree = "<group>"; };
+		32C4891D21916F3D007B1F29 /* SVGTextLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGTextLayer.m; sourceTree = "<group>"; };
 		32D3D5D52176E00D00ED20D8 /* SVGLinearGradientElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGLinearGradientElement.m; sourceTree = "<group>"; };
 		32D3D5D62176E00D00ED20D8 /* SVGLinearGradientElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGLinearGradientElement.h; sourceTree = "<group>"; };
 		32D3D5DD2176E01400ED20D8 /* SVGRadialGradientElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGRadialGradientElement.h; sourceTree = "<group>"; };
@@ -1889,6 +1899,8 @@
 				6636CD89175F54680072AAEF /* CALayer+RecursiveClone.m */,
 				9ED79A22179D87790048AA5B /* SVGGradientLayer.h */,
 				9ED79A23179D87790048AA5B /* SVGGradientLayer.m */,
+				32C4891C21916F3D007B1F29 /* SVGTextLayer.h */,
+				32C4891D21916F3D007B1F29 /* SVGTextLayer.m */,
 				BD2F8C53199D14D6008AE06D /* CALayerWithClipRender.h */,
 				BD2F8C54199D14D6008AE06D /* CALayerWithClipRender.m */,
 				BD4C56DA199D55CC00AF04AD /* CAShapeLayerWithClipRender.h */,
@@ -1939,6 +1951,7 @@
 				321EAA7C2171ED6900640504 /* CSSStyleSheet.h in Headers */,
 				321EAAD82171ED6F00640504 /* SVGFitToViewBox.h in Headers */,
 				321EAB4D2171ED9E00640504 /* NSData+NSInputStream.h in Headers */,
+				32C4892121916F3D007B1F29 /* SVGTextLayer.h in Headers */,
 				321EAB1B2171ED8D00640504 /* SVGKParserDefsAndUse.h in Headers */,
 				321EAAB32171ED6F00640504 /* SVGClipPathElement.h in Headers */,
 				321EAAC52171ED6F00640504 /* SVGMatrix.h in Headers */,
@@ -2093,6 +2106,7 @@
 				66E863AC1688C2780059C9C4 /* DocumentFragment.h in Headers */,
 				66372EEF1695F17F008C6C56 /* DocumentStyle.h in Headers */,
 				66E863AE1688C2780059C9C4 /* DocumentType.h in Headers */,
+				32C4891E21916F3D007B1F29 /* SVGTextLayer.h in Headers */,
 				66E863B01688C2780059C9C4 /* DOMHelperUtilities.h in Headers */,
 				66E863B21688C2780059C9C4 /* Element.h in Headers */,
 				66E863B41688C2780059C9C4 /* EntityReference.h in Headers */,
@@ -2231,6 +2245,7 @@
 				825CDB061BDA5057003C1C12 /* CSSValue.h in Headers */,
 				32D3D5DB2176E00E00ED20D8 /* SVGLinearGradientElement.h in Headers */,
 				825CDB071BDA5057003C1C12 /* Document+Mutable.h in Headers */,
+				32C4891F21916F3D007B1F29 /* SVGTextLayer.h in Headers */,
 				825CDB081BDA5057003C1C12 /* Document.h in Headers */,
 				825CDB091BDA5057003C1C12 /* DocumentCSS.h in Headers */,
 				825CDB0A1BDA5057003C1C12 /* DocumentStyle.h in Headers */,
@@ -2369,6 +2384,7 @@
 				825CDB861BDA50B3003C1C12 /* CSSValue.h in Headers */,
 				32D3D5DC2176E00E00ED20D8 /* SVGLinearGradientElement.h in Headers */,
 				825CDB871BDA50B3003C1C12 /* Document+Mutable.h in Headers */,
+				32C4892021916F3D007B1F29 /* SVGTextLayer.h in Headers */,
 				825CDB881BDA50B3003C1C12 /* Document.h in Headers */,
 				825CDB891BDA50B3003C1C12 /* DocumentCSS.h in Headers */,
 				825CDB8A1BDA50B3003C1C12 /* DocumentStyle.h in Headers */,
@@ -2771,6 +2787,7 @@
 				321EAB692172029800640504 /* SVGKFastImageView.m in Sources */,
 				321EAB6A2172029800640504 /* SVGKImageView.m in Sources */,
 				321EAB6B2172029800640504 /* SVGKLayeredImageView.m in Sources */,
+				32C4892521916F3D007B1F29 /* SVGTextLayer.m in Sources */,
 				321EAADA2171ED6F00640504 /* SVGTextPositioningElement.m in Sources */,
 				321EAAC42171ED6F00640504 /* SVGLength.m in Sources */,
 				321EAB0A2171ED7E00640504 /* TinySVGTextAreaElement.m in Sources */,
@@ -2900,6 +2917,7 @@
 				66E863A61688C2780059C9C4 /* CharacterData.m in Sources */,
 				66E863A81688C2780059C9C4 /* Comment.m in Sources */,
 				66E863AB1688C2780059C9C4 /* Document.m in Sources */,
+				32C4892221916F3D007B1F29 /* SVGTextLayer.m in Sources */,
 				66E863AD1688C2780059C9C4 /* DocumentFragment.m in Sources */,
 				66E863AF1688C2780059C9C4 /* DocumentType.m in Sources */,
 				66E863B11688C2780059C9C4 /* DOMHelperUtilities.m in Sources */,
@@ -3008,6 +3026,7 @@
 				825CDBFB1BDA511C003C1C12 /* Comment.m in Sources */,
 				825CDBFC1BDA511C003C1C12 /* CSSStyleDeclaration.m in Sources */,
 				825CDBFD1BDA511C003C1C12 /* CSSRule.m in Sources */,
+				32C4892321916F3D007B1F29 /* SVGTextLayer.m in Sources */,
 				825CDBFE1BDA511C003C1C12 /* CSSStyleRule.m in Sources */,
 				825CDBFF1BDA511C003C1C12 /* CSSStyleSheet.m in Sources */,
 				825CDC001BDA511C003C1C12 /* CSSRuleList.m in Sources */,
@@ -3124,6 +3143,7 @@
 				825CDC5F1BDA5144003C1C12 /* Comment.m in Sources */,
 				825CDC601BDA5144003C1C12 /* CSSStyleDeclaration.m in Sources */,
 				825CDC611BDA5144003C1C12 /* CSSRule.m in Sources */,
+				32C4892421916F3D007B1F29 /* SVGTextLayer.m in Sources */,
 				825CDC621BDA5144003C1C12 /* CSSStyleRule.m in Sources */,
 				825CDC631BDA5144003C1C12 /* CSSStyleSheet.m in Sources */,
 				825CDC641BDA5144003C1C12 /* CSSRuleList.m in Sources */,

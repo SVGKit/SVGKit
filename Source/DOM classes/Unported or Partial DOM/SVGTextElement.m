@@ -5,6 +5,7 @@
 #import "SVGGradientLayer.h"
 #import "SVGHelperUtilities.h"
 #import "SVGUtils.h"
+#import "SVGTextLayer.h"
 
 @implementation SVGTextElement
 
@@ -118,7 +119,7 @@
 											  suggestedUntransformedSize.width,
 											  suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
 	
-    CATextLayer *label = [[CATextLayer alloc] init];
+    CATextLayer *label = [SVGTextLayer layer];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
 	
 	/** This is complicated for three reasons.

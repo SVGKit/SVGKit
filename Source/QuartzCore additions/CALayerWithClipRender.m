@@ -8,6 +8,12 @@
 
 #import "CALayerWithClipRender.h"
 
+@interface CALayer (ContentsTransform)
+
+@property CGAffineTransform contentsTransform;
+
+@end
+
 @implementation CALayerWithClipRender
 
 - (void)renderInContext:(CGContextRef)ctx {
@@ -19,7 +25,19 @@
         self.mask = nil;
     }
     
+    // We use the flipped coordinate system on macOS, to match the behavior of iOS. However, the `contents` (which is a CGImageRef) bitmap provided by image element is not been flipped as we want. The `renderInContext:` which used by `SVGKFastImageView` will not correct this coordinate system issue, only `SVGKLayeredImageView` do. So we use the `contentsTransform` to manually fix it.
+#if SVGKIT_MAC
+    // If already flipped, which should be handled by Core Animation itself, ignore
+    if (self.contentsAreFlipped) {
+        [super renderInContext:ctx];
+    } else {
+        self.contentsTransform = CGAffineTransformMake(1, 0, 0, -1, 0, self.bounds.size.height);
+        [super renderInContext:ctx];
+        self.contentsTransform = CGAffineTransformIdentity;
+    }
+#else
     [super renderInContext:ctx];
+#endif
     
     if( mask != nil ) {
         self.mask = mask;
