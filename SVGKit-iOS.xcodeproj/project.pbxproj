@@ -244,6 +244,14 @@
 		321EAB692172029800640504 /* SVGKFastImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863931688C2780059C9C4 /* SVGKFastImageView.m */; };
 		321EAB6A2172029800640504 /* SVGKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863951688C2780059C9C4 /* SVGKImageView.m */; };
 		321EAB6B2172029800640504 /* SVGKLayeredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863971688C2780059C9C4 /* SVGKLayeredImageView.m */; };
+		322A5B7D218BF990003D9CF1 /* SVGKInlineResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 322A5B7B218BF990003D9CF1 /* SVGKInlineResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		322A5B7E218BF990003D9CF1 /* SVGKInlineResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */; };
+		322A5B80218BFE0F003D9CF1 /* SVGKInlineResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 322A5B7B218BF990003D9CF1 /* SVGKInlineResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		322A5B81218BFE10003D9CF1 /* SVGKInlineResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 322A5B7B218BF990003D9CF1 /* SVGKInlineResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		322A5B82218BFE11003D9CF1 /* SVGKInlineResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 322A5B7B218BF990003D9CF1 /* SVGKInlineResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		322A5B84218BFF75003D9CF1 /* SVGKInlineResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */; };
+		322A5B85218BFF76003D9CF1 /* SVGKInlineResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */; };
+		322A5B86218BFF77003D9CF1 /* SVGKInlineResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */; };
 		327B2892217DABED004D27FC /* SVGLinearGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3D5D62176E00D00ED20D8 /* SVGLinearGradientElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		327B2893217DABF3004D27FC /* SVGRadialGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 32D3D5DD2176E01400ED20D8 /* SVGRadialGradientElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		327B2896217DAC73004D27FC /* SVGLinearGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D3D5D52176E00D00ED20D8 /* SVGLinearGradientElement.m */; };
@@ -1032,6 +1040,8 @@
 		321EAA622171EC8700640504 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		321EAB5B2171FB8100640504 /* SVGKImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageRep.m; sourceTree = "<group>"; };
 		321EAB5D2171FB8100640504 /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
+		322A5B7B218BF990003D9CF1 /* SVGKInlineResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGKInlineResource.h; sourceTree = "<group>"; };
+		322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKInlineResource.m; sourceTree = "<group>"; };
 		32A1F09C21746F4700ABFCE1 /* SVGKitFramework-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKitFramework-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32A1F09E21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKitFramework_OSXTests.m; sourceTree = "<group>"; };
 		32A1F0A021746F4700ABFCE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1937,6 +1947,8 @@
 				66E8639C1688C2780059C9C4 /* SVGKPattern.m */,
 				66E8639D1688C2780059C9C4 /* SVGUtils.h */,
 				66E8639E1688C2780059C9C4 /* SVGUtils.m */,
+				322A5B7B218BF990003D9CF1 /* SVGKInlineResource.h */,
+				322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2072,6 +2084,7 @@
 				321EAACA2171ED6F00640504 /* SVGPreserveAspectRatio.h in Headers */,
 				32F206DB217324BB00427F24 /* SVGKExporterNSImage.h in Headers */,
 				321EAAE72171ED7E00640504 /* SVGCircleElement.h in Headers */,
+				322A5B82218BFE11003D9CF1 /* SVGKInlineResource.h in Headers */,
 				321EAADB2171ED6F00640504 /* SVGTextContentElement.h in Headers */,
 				321EAAFA2171ED7E00640504 /* SVGPolylineElement.h in Headers */,
 				321EAB2C2171ED9100640504 /* SVGKPointsAndPathsParser.h in Headers */,
@@ -2165,6 +2178,7 @@
 				66E8640F1688C2780059C9C4 /* CALayerWithChildHitTest.h in Headers */,
 				66E864111688C2780059C9C4 /* CAShapeLayerWithHitTest.h in Headers */,
 				663403A4188EFC8A0077005F /* CALayer+RecursiveClone.h in Headers */,
+				322A5B7D218BF990003D9CF1 /* SVGKInlineResource.h in Headers */,
 				66E864131688C2780059C9C4 /* CGPathAdditions.h in Headers */,
 				66E864151688C2780059C9C4 /* SVGKLayer.h in Headers */,
 				66E864171688C2780059C9C4 /* SVGKImage.h in Headers */,
@@ -2304,6 +2318,7 @@
 				825CDB3D1BDA505C003C1C12 /* SVGGradientStop.h in Headers */,
 				825CDB3E1BDA505C003C1C12 /* SVGStyleCatcher.h in Headers */,
 				825CDB3F1BDA505C003C1C12 /* SVGStyleElement.h in Headers */,
+				322A5B80218BFE0F003D9CF1 /* SVGKInlineResource.h in Headers */,
 				825CDB401BDA505C003C1C12 /* SVGCircleElement.h in Headers */,
 				825CDB411BDA505C003C1C12 /* SVGDescriptionElement.h in Headers */,
 				825CDB421BDA505C003C1C12 /* SVGElement.h in Headers */,
@@ -2443,6 +2458,7 @@
 				825CDBBD1BDA50B7003C1C12 /* SVGGradientStop.h in Headers */,
 				825CDBBE1BDA50B7003C1C12 /* SVGStyleCatcher.h in Headers */,
 				825CDBBF1BDA50B7003C1C12 /* SVGStyleElement.h in Headers */,
+				322A5B81218BFE10003D9CF1 /* SVGKInlineResource.h in Headers */,
 				825CDBC01BDA50B8003C1C12 /* SVGCircleElement.h in Headers */,
 				825CDBC11BDA50B8003C1C12 /* SVGDescriptionElement.h in Headers */,
 				825CDBC21BDA50B8003C1C12 /* SVGElement.h in Headers */,
@@ -2794,6 +2810,7 @@
 				321EAAB42171ED6F00640504 /* SVGClipPathElement.m in Sources */,
 				321EAAB02171ED6F00640504 /* SVGAngle.m in Sources */,
 				321EAA9A2171ED6900640504 /* DocumentType.m in Sources */,
+				322A5B86218BFF77003D9CF1 /* SVGKInlineResource.m in Sources */,
 				321EAB372171ED9600640504 /* CALayerWithChildHitTest.m in Sources */,
 				321EAAAB2171ED6900640504 /* ProcessingInstruction.m in Sources */,
 				321EAAC62171ED6F00640504 /* SVGMatrix.m in Sources */,
@@ -2988,6 +3005,7 @@
 				6668E2091688D3CF00F774A6 /* SVGGElement.m in Sources */,
 				66988DB4168A001400EC93C7 /* CSSStyleDeclaration.m in Sources */,
 				66988DB8168A004D00EC93C7 /* CSSValue.m in Sources */,
+				322A5B7E218BF990003D9CF1 /* SVGKInlineResource.m in Sources */,
 				66988DBC168A027E00EC93C7 /* CSSRule.m in Sources */,
 				BDA133B819AD0E81003C9945 /* TinySVGTextAreaElement.m in Sources */,
 				66988DC0168A031200EC93C7 /* CSSStyleSheet.m in Sources */,
@@ -3097,6 +3115,7 @@
 				825CDC401BDA511C003C1C12 /* SVGKParserDefsAndUse.m in Sources */,
 				825CDC411BDA511C003C1C12 /* SVGKParserDOM.m in Sources */,
 				825CDC421BDA511C003C1C12 /* SVGKParserGradient.m in Sources */,
+				322A5B84218BFF75003D9CF1 /* SVGKInlineResource.m in Sources */,
 				825CDC431BDA511C003C1C12 /* SVGKParserPatternsAndGradients.m in Sources */,
 				825CDC441BDA511C003C1C12 /* SVGKParserStyles.m in Sources */,
 				825CDC451BDA511C003C1C12 /* SVGKParserSVG.m in Sources */,
@@ -3214,6 +3233,7 @@
 				825CDCA41BDA5144003C1C12 /* SVGKParserDefsAndUse.m in Sources */,
 				825CDCA51BDA5144003C1C12 /* SVGKParserDOM.m in Sources */,
 				825CDCA61BDA5144003C1C12 /* SVGKParserGradient.m in Sources */,
+				322A5B85218BFF76003D9CF1 /* SVGKInlineResource.m in Sources */,
 				825CDCA71BDA5144003C1C12 /* SVGKParserPatternsAndGradients.m in Sources */,
 				825CDCA81BDA5144003C1C12 /* SVGKParserStyles.m in Sources */,
 				825CDCA91BDA5144003C1C12 /* SVGKParserSVG.m in Sources */,

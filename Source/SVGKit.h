@@ -173,3 +173,4 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #endif
 #import "NSData+NSInputStream.h"
 #import "SVGKSourceNSData.h"
+#import "SVGKInlineResource.h"

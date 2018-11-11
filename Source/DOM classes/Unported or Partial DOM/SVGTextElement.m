@@ -28,7 +28,8 @@
 	 
 	 NB: the local bits (x/y offset) have to be pre-transformed by
 	 */
-	CGAffineTransform textTransformAbsoluteWithLocalPositionOffset = CGAffineTransformConcat( CGAffineTransformMakeTranslation( [self.x pixelsValue], [self.y pixelsValue]), textTransformAbsolute);
+    CGRect viewport = CGRectFromSVGRect(self.rootOfCurrentDocumentFragment.viewBox);
+	CGAffineTransform textTransformAbsoluteWithLocalPositionOffset = CGAffineTransformConcat( CGAffineTransformMakeTranslation( [self.x pixelsValueWithDimension:viewport.size.width], [self.y pixelsValueWithDimension:viewport.size.height]), textTransformAbsolute);
 	
 	/**
 	 Apple's CATextLayer is poor - one of those classes Apple hasn't finished writing?
