@@ -56,10 +56,10 @@ You MAY also need to add the following 3rd party Frameworks to your app (include
 pod 'SVGKit'
 ```
 
-It is also recommended that you setup your podfile to get SVGKit from this 2.x branch.
+It is also recommended that you setup your podfile to get SVGKit from the latest branch (October 2018: currently 3.x).
 
 ```
-pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
+pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
 ```
 
 ## OPTION 3: Using Carthage
@@ -69,10 +69,10 @@ pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
 github 'SVGKit/SVGKit'
 ```
 
-It is also recommended that you setup your Cartfile to get SVGKit from this 2.x branch.
+It is also recommended that you setup your Cartfile to get SVGKit from the current version (October 2018: 3.x branch).
 
 ```
-github "SVGKit/SVGKit" "2.x"
+github "SVGKit/SVGKit" "3.x"
 ```
 
 ## OPTION 4: Build the static library
