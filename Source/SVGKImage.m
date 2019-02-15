@@ -81,27 +81,46 @@ static NSMutableDictionary* globalSVGKImageCache;
 	}
 }
 
++(void) clearCache {
+    [self didReceiveMemoryWarningOrBackgroundNotification: nil];
+}
+
 +(void) didReceiveMemoryWarningOrBackgroundNotification:(NSNotification*) notification
 {
 	if ([globalSVGKImageCache count] == 0) return;
 	
-	SVGKitLogWarn(@"[%@] Low-mem or background; purging cache of %lu SVGKImages...", self, (unsigned long)[globalSVGKImageCache count] );
+	SVGKitLogWarn(@"[%@] Low-mem, background or api clear; purging cache of %lu SVGKImages...", self, (unsigned long)[globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
 }
 #endif
 
 #pragma mark - Convenience initializers
++ (SVGKImage *)imageNamed:(NSString *)name
+{
+    return [self imageNamed:name inBundle:[NSBundle mainBundle] withCacheKey:@""];
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name withCacheKey:(NSString *)key
+{
+    return [self imageNamed:name inBundle:[NSBundle mainBundle] withCacheKey:key];
+}
 
 + (SVGKImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle
+{
+     return [self imageNamed:name inBundle:[NSBundle mainBundle] withCacheKey:@""];
+}
+
++ (SVGKImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle withCacheKey:(NSString *)key
 {	
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
+    NSString* cacheName = [name stringByAppendingString:key];
     if( globalSVGKImageCache == nil )
     {
         globalSVGKImageCache = [NSMutableDictionary new];
     }
     
-    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:name];
+    SVGKImageCacheLine* cacheLine = [globalSVGKImageCache valueForKey:cacheName];
     if( cacheLine != nil )
     {
         cacheLine.numberOfInstances ++;
@@ -120,12 +139,12 @@ static NSMutableDictionary* globalSVGKImageCache;
 	if( result != nil )
 	{
     result->cameFromGlobalCache = TRUE;
-    result.nameUsedToInstantiate = name;
+    result.nameUsedToInstantiate = cacheName;
     
     SVGKImageCacheLine* newCacheLine = [[SVGKImageCacheLine alloc] init];
     newCacheLine.mainInstance = result;
     
-    [globalSVGKImageCache setValue:newCacheLine forKey:name];
+    [globalSVGKImageCache setValue:newCacheLine forKey:cacheName];
 	}
 	else
 	{
@@ -134,11 +153,6 @@ static NSMutableDictionary* globalSVGKImageCache;
 #endif
     
     return result;
-}
-
-+ (SVGKImage *)imageNamed:(NSString *)name
-{
-    return [self imageNamed:name inBundle:[NSBundle mainBundle]];
 }
 
 +(SVGKParser *) imageAsynchronouslyNamed:(NSString *)name onCompletion:(SVGKImageAsynchronousLoadingDelegate)blockCompleted
