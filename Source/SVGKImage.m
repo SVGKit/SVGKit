@@ -82,16 +82,17 @@ static NSMutableDictionary* globalSVGKImageCache;
 }
 
 +(void) clearCache {
-    [self didReceiveMemoryWarningOrBackgroundNotification: nil];
-}
-
-+(void) didReceiveMemoryWarningOrBackgroundNotification:(NSNotification*) notification
-{
 	if ([globalSVGKImageCache count] == 0) return;
 	
 	SVGKitLogWarn(@"[%@] Low-mem, background or api clear; purging cache of %lu SVGKImages...", self, (unsigned long)[globalSVGKImageCache count] );
 	
 	[globalSVGKImageCache removeAllObjects]; // once they leave the cache, if they are no longer referred to, they should automatically dealloc
+    [self didReceiveMemoryWarningOrBackgroundNotification: nil];
+}
+
++(void) didReceiveMemoryWarningOrBackgroundNotification:(NSNotification*) notification
+{
+	[self clearCache];
 }
 #endif
 
@@ -114,7 +115,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 + (SVGKImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle withCacheKey:(NSString *)key
 {	
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
-    NSString* cacheName = [name stringByAppendingString:key];
+    NSString* cacheName = [key length] > 0 ? key : name;
     if( globalSVGKImageCache == nil )
     {
         globalSVGKImageCache = [NSMutableDictionary new];
