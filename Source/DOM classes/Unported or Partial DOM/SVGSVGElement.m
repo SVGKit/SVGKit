@@ -154,6 +154,19 @@
 	NSString* stringWidth = [self getAttribute:@"width"];
 	NSString* stringHeight = [self getAttribute:@"height"];
 	
+    NSString* pos_x = [self getAttribute:@"x"];
+    NSString* pos_y = [self getAttribute:@"y"];
+    
+    if (pos_x == nil || pos_x.length < 1)
+        self.x = nil;
+    else
+        self.x = [SVGLength svgLengthFromNSString:pos_x];
+    
+    if (pos_y == nil || pos_y.length < 1)
+        self.y = nil;
+    else
+        self.y = [SVGLength svgLengthFromNSString:pos_y];
+    
 	if( stringWidth == nil || stringWidth.length < 1 )
 		self.width = nil; // i.e. undefined
 	else
@@ -178,8 +191,12 @@
 		self.height = nil;
 	
 	/* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
-	if( self.width != nil && self.height != nil )
-		self.requestedViewport = SVGRectMake( 0, 0, [self.width pixelsValue], [self.height pixelsValue] );
+    if( self.width != nil && self.height != nil && self.x != nil && self.y != nil)
+        
+        self.requestedViewport = SVGRectMake([self.x pixelsValue],
+                                             [self.y pixelsValue],
+                                             [self.width pixelsValue],
+                                             [self.height pixelsValue]);
 	else
 		self.requestedViewport = SVGRectUninitialized();
 	
