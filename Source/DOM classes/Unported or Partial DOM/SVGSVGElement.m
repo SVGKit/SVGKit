@@ -158,12 +158,12 @@
     NSString* pos_y = [self getAttribute:@"y"];
     
     if (pos_x == nil || pos_x.length < 1)
-        self.x = nil;
+        self.x = 0; // i.e. undefined
     else
         self.x = [SVGLength svgLengthFromNSString:pos_x];
     
     if (pos_y == nil || pos_y.length < 1)
-        self.y = nil;
+        self.y = 0; // i.e. undefined
     else
         self.y = [SVGLength svgLengthFromNSString:pos_y];
     
