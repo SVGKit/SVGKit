@@ -191,7 +191,7 @@
 		self.height = nil;
 	
 	/* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
-    if( self.width != nil && self.height != nil && self.x != nil && self.y != nil)
+    if( self.width != nil && self.height != nil )
         
         self.requestedViewport = SVGRectMake([self.x pixelsValue],
                                              [self.y pixelsValue],
