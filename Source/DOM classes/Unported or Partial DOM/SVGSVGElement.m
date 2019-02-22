@@ -192,7 +192,7 @@
 	
     /* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
     if( self.width != nil && self.height != nil )
-        self.requestedViewport = SVGRectMake( 0, 0, [self.width pixelsValue], [self.height pixelsValue] );
+        self.requestedViewport = SVGRectMake( [self.x pixelsValue], [self.y pixelsValue], [self.width pixelsValue], [self.height pixelsValue] );
     else
         self.requestedViewport = SVGRectUninitialized();
 	
