@@ -88,7 +88,9 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
  - Creates an SVGKSource so that you can later inspect exactly where it found the file
  */
 + (SVGKImage *)imageNamed:(NSString *)name;
++ (SVGKImage *)imageNamed:(NSString *)name withCacheKey:(NSString *)key;
 + (SVGKImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle;
++ (SVGKImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle withCacheKey:(NSString *)key;
 /**
  Almost identical to imageNamed: except that it performs the parse in a separate thread.
  
@@ -310,5 +312,6 @@ typedef void (^SVGKImageAsynchronousLoadingDelegate)(SVGKImage* loadedImage, SVG
 
 /** alters the SVG image's size directly (by changing the viewport) so that it will fit inside the specifed area without stretching or deforming */
 -(void) scaleToFitInside:(CGSize) maxSize;
++(void) clearCache;
 
 @end
