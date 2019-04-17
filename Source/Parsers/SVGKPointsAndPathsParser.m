@@ -854,7 +854,11 @@ static inline CGPoint SVGCurveReflectedControlPoint(SVGCurve prevCurve)
 		
 		numerator = MAX(0, numerator);
 		
-		lhs = sign * sqrt(numerator/denom);
+        if (denom == 0) {
+            lhs = 0;
+         }else {
+             lhs = sign * sqrt(numerator/denom);
+         }
 	}
 	
 	CGFloat cxp = lhs * (rx*y1p)/ry;
