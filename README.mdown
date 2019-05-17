@@ -66,7 +66,7 @@ pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Cocoa. To use Carthage, adding the following in your Cartfile:
 
 ```
-github 'SVGKit/SVGKit'
+github "SVGKit/SVGKit"
 ```
 
 It is also recommended that you setup your Cartfile to get SVGKit from the current version (October 2018: 3.x branch).
