@@ -768,9 +768,14 @@
 		660D4FEF1C42927A004187D0 /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap"; sourceTree = "<group>"; };
 		660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
 		660D4FF11C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
+		660D4FF31C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
+		660D4FF41C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
 		660D4FF61C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
 		660D4FF71C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
 		660D4FF81C42927A004187D0 /* E9B622A7-31DB-3FAC-B8A7-AE481434C4FC.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "E9B622A7-31DB-3FAC-B8A7-AE481434C4FC.bcsymbolmap"; sourceTree = "<group>"; };
+		660D4FFA1C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
+		660D4FFB1C42927A004187D0 /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
+		660D4FFC1C42927A004187D0 /* DCEDA482-0C15-3571-895F-92CBAC0041F5.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "DCEDA482-0C15-3571-895F-92CBAC0041F5.bcsymbolmap"; sourceTree = "<group>"; };
 		661ADBF016CC2FBE006F4BC3 /* SVGTextPositioningElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextPositioningElement.h; sourceTree = "<group>"; };
 		661ADBF116CC2FBE006F4BC3 /* SVGTextPositioningElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGTextPositioningElement.m; sourceTree = "<group>"; };
 		661ADBF516CC2FCA006F4BC3 /* SVGTextContentElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGTextContentElement.h; sourceTree = "<group>"; };
@@ -1100,7 +1105,9 @@
 			isa = PBXGroup;
 			children = (
 				660D4FED1C42927A004187D0 /* iOS */,
+				660D4FF21C42927A004187D0 /* Mac */,
 				660D4FF51C42927A004187D0 /* tvOS */,
+				660D4FF91C42927A004187D0 /* watchOS */,
 			);
 			path = "CocoaLumberjack-2.2.0";
 			sourceTree = "<group>";
@@ -1116,6 +1123,15 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
+		660D4FF21C42927A004187D0 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FF31C42927A004187D0 /* CocoaLumberjack.framework */,
+				660D4FF41C42927A004187D0 /* CocoaLumberjack.framework.dSYM */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
 		660D4FF51C42927A004187D0 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,6 +1140,16 @@
 				660D4FF81C42927A004187D0 /* E9B622A7-31DB-3FAC-B8A7-AE481434C4FC.bcsymbolmap */,
 			);
 			path = tvOS;
+			sourceTree = "<group>";
+		};
+		660D4FF91C42927A004187D0 /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				660D4FFA1C42927A004187D0 /* CocoaLumberjack.framework */,
+				660D4FFB1C42927A004187D0 /* CocoaLumberjack.framework.dSYM */,
+				660D4FFC1C42927A004187D0 /* DCEDA482-0C15-3571-895F-92CBAC0041F5.bcsymbolmap */,
+			);
+			path = watchOS;
 			sourceTree = "<group>";
 		};
 		6636CD77175F542A0072AAEF /* Sources */ = {

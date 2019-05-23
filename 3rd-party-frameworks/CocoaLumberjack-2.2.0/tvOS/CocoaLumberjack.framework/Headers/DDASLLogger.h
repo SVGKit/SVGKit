@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2016, Deusty, LLC
+// Copyright (c) 2010-2015, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -48,7 +48,7 @@ extern const char* const kDDASLDDLogValue;
  *
  *  @return the shared instance
  */
-@property (class, readonly, strong) DDASLLogger *sharedInstance;
++ (instancetype)sharedInstance;
 
 // Inherited from DDAbstractLogger
 

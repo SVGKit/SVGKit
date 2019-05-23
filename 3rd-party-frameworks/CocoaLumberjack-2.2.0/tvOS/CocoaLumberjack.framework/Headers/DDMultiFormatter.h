@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2016, Deusty, LLC
+// Copyright (c) 2010-2015, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -31,22 +31,22 @@
 /**
  *  Array of chained formatters
  */
-@property (readonly) NSArray<id<DDLogFormatter>> *formatters;
+@property (readonly) NSArray *formatters;
 
 /**
  *  Add a new formatter
  */
-- (void)addFormatter:(id<DDLogFormatter>)formatter NS_SWIFT_NAME(add(_:));
+- (void)addFormatter:(id<DDLogFormatter>)formatter;
 
 /**
  *  Remove a formatter
  */
-- (void)removeFormatter:(id<DDLogFormatter>)formatter NS_SWIFT_NAME(remove(_:));
+- (void)removeFormatter:(id<DDLogFormatter>)formatter;
 
 /**
  *  Remove all existing formatters
  */
-- (void)removeAllFormatters NS_SWIFT_NAME(removeAll());
+- (void)removeAllFormatters;
 
 /**
  *  Check if a certain formatter is used
