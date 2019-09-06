@@ -16,24 +16,25 @@
 #import "SVGLinearGradientElement.h"
 #import "SVGRadialGradientElement.h"
 
+@interface SVGKParserGradient ()
+@property (nonatomic) NSArray *supportedNamespaces;
+@property (nonatomic) NSArray *supportedTags;
+@end
+
 @implementation SVGKParserGradient
 
-//-(NSSet*) supportedNamespaces
-//{
-//    if( self->_supportedNamespaces == nil )
-//        self->_supportedNamespaces = [[NSSet alloc] initWithObjects:
-//                        @"http://www.w3.org/2000/svg",
-//                        nil];
-//	return self->_supportedNamespaces;
-//}
-
-static NSSet *_svgGradientParserSupportedTags = nil;
--(NSSet *)supportedTags
+-(NSArray *)supportedNamespaces
 {
-//    static NSSet *supportedTags = nil;
-    if( _svgGradientParserSupportedTags == nil )
-        _svgGradientParserSupportedTags = [[NSSet alloc] initWithObjects:@"linearGradient", @"radialGradient", @"stop", nil];
-    return _svgGradientParserSupportedTags;
+    if( _supportedNamespaces == nil )
+        _supportedNamespaces = @[@"http://www.w3.org/2000/svg"];
+    return _supportedNamespaces;
+}
+
+-(NSArray *)supportedTags
+{
+    if( _supportedTags == nil )
+        _supportedTags = @[@"linearGradient", @"radialGradient", @"stop"];
+    return _supportedTags;
 }
 
 -(Node *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node *)parentNode
@@ -95,12 +96,6 @@ static NSSet *_svgGradientParserSupportedTags = nil;
 //    currentElement = nil;
 //    [super dealloc];
 //}
-
-
-+(void)trim
-{
-    _svgGradientParserSupportedTags = nil;
-}
 
 
 @end
