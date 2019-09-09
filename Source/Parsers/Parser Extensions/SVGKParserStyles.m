@@ -11,25 +11,25 @@
 #import "CSSStyleSheet.h"
 #import "StyleSheetList+Mutable.h"
 
+@interface SVGKParserStyles ()
+@property (nonatomic) NSArray *supportedNamespaces;
+@property (nonatomic) NSArray *supportedTags;
+@end
+
 @implementation SVGKParserStyles
 
-
-static NSSet *_svgParserStylesSupportedNamespaces = nil;
--(NSSet *) supportedNamespaces
+-(NSArray *)supportedNamespaces
 {
-    if( _svgParserStylesSupportedNamespaces == nil )
-        _svgParserStylesSupportedNamespaces = [[NSSet alloc] initWithObjects:
-        @"http://www.w3.org/2000/svg",
-        nil];
-	return _svgParserStylesSupportedNamespaces;
+    if( _supportedNamespaces == nil )
+        _supportedNamespaces = @[@"http://www.w3.org/2000/svg"];
+    return _supportedNamespaces;
 }
 
-static NSSet *_svgParserStylesSupportedTags = nil;
--(NSSet *)supportedTags
+-(NSArray *)supportedTags
 {
-    if( _svgParserStylesSupportedTags == nil )
-        _svgParserStylesSupportedTags = [[NSSet alloc] initWithObjects:@"style", nil];
-    return _svgParserStylesSupportedTags;
+    if( _supportedTags == nil )
+        _supportedTags = @[@"style"];
+    return _supportedTags;
 }
 
 -(Node *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node *)parentNode
@@ -69,14 +69,6 @@ static NSSet *_svgParserStylesSupportedTags = nil;
 			[parseResult.parsedDocument.rootElement.styleSheets.internalArray addObject:parsedStylesheet];
 		}
 
-}
-
-
-+(void)trim
-{
-    _svgParserStylesSupportedTags = nil;
-    
-    _svgParserStylesSupportedNamespaces = nil;
 }
 
 @end

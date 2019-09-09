@@ -21,57 +21,55 @@
 
 #import "SVGDocument_Mutable.h"
 
+@interface SVGKParserSVG ()
+@property (nonatomic) NSArray *supportedNamespaces;
+@property (nonatomic) NSDictionary *elementMap;
+@end
+
 @implementation SVGKParserSVG
 
-static NSDictionary *elementMap;
-
-- (id)init {
-	self = [super init];
-	if (self) {
-		
-		if (!elementMap) {
-			elementMap = [NSDictionary dictionaryWithObjectsAndKeys:
-						   [SVGSVGElement class], @"svg",
-                          [SVGCircleElement class], @"circle",
-                          [SVGDescriptionElement class], @"description",
-                          [SVGEllipseElement class], @"ellipse",
-                          [SVGGElement class], @"g",
-                          [SVGClipPathElement class], @"clipPath",
-                          [SVGImageElement class], @"image",
-                          [SVGLineElement class], @"line",
-                          [SVGPathElement class], @"path",
-                          [SVGPolygonElement class], @"polygon",
-                          [SVGPolylineElement class], @"polyline",
-                          [SVGRectElement class], @"rect",
-                          [SVGSwitchElement class], @"switch",
-                          [SVGTitleElement class], @"title",
-                          [SVGTextElement class], @"text",
-                          [TinySVGTextAreaElement class], @"textArea",
-						   nil];
-		}
-	}
-	return self;
+- (NSDictionary *)elementMap {
+    if (!_elementMap) {
+        _elementMap = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [SVGSVGElement class], @"svg",
+                      [SVGCircleElement class], @"circle",
+                      [SVGDescriptionElement class], @"description",
+                      [SVGEllipseElement class], @"ellipse",
+                      [SVGGElement class], @"g",
+                      [SVGClipPathElement class], @"clipPath",
+                      [SVGImageElement class], @"image",
+                      [SVGLineElement class], @"line",
+                      [SVGPathElement class], @"path",
+                      [SVGPolygonElement class], @"polygon",
+                      [SVGPolylineElement class], @"polyline",
+                      [SVGRectElement class], @"rect",
+                      [SVGSwitchElement class], @"switch",
+                      [SVGTitleElement class], @"title",
+                      [SVGTextElement class], @"text",
+                      [TinySVGTextAreaElement class], @"textArea",
+                      nil];
+    }
+    return _elementMap;
 }
 
-
--(NSArray*) supportedNamespaces
+-(NSArray *)supportedNamespaces
 {
-	return [NSArray arrayWithObjects:
-			 @"http://www.w3.org/2000/svg",
-			nil];
+    if( _supportedNamespaces == nil )
+        _supportedNamespaces = @[@"http://www.w3.org/2000/svg"];
+    return _supportedNamespaces;
 }
 
 /** "tags supported" is exactly the set of all SVGElement subclasses that already exist */
 -(NSArray*) supportedTags
 {
-	return [NSMutableArray arrayWithArray:[elementMap allKeys]];
+    return [self.elementMap allKeys];
 }
 
 - (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
 	{
-		Class elementClass = [elementMap objectForKey:name];
+		Class elementClass = [self.elementMap objectForKey:name];
 		
 		if (!elementClass) {
 			elementClass = [SVGElement class];
