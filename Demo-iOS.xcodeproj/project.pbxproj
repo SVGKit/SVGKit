@@ -13,6 +13,7 @@
 		32D3D5EC2176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */; };
 		32D3D5F12176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */; };
 		32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32D42244217AED3900CFD064 /* LaunchScreen.storyboard */; };
+		3E733DC423580F640082EA4C /* M-to-A.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3E733DBB23580F640082EA4C /* M-to-A.svg */; };
 		4FD8223F1AD057F000E419D3 /* arcs01.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223D1AD057F000E419D3 /* arcs01.svg */; };
 		4FD822401AD057F000E419D3 /* arcs02.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD8223E1AD057F000E419D3 /* arcs02.svg */; };
 		4FD822441AD058AB00E419D3 /* arcs01.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FD822421AD058AB00E419D3 /* arcs01.png */; };
@@ -261,6 +262,7 @@
 		32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mozilla_Firefox_logo_2013.svg; sourceTree = "<group>"; };
 		32D3D5F02176FA0700ED20D8 /* Mozilla_Firefox_logo_2013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mozilla_Firefox_logo_2013.png; sourceTree = "<group>"; };
 		32D42244217AED3900CFD064 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3E733DBB23580F640082EA4C /* M-to-A.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "M-to-A.svg"; sourceTree = "<group>"; };
 		4FD8223D1AD057F000E419D3 /* arcs01.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs01.svg; sourceTree = "<group>"; };
 		4FD8223E1AD057F000E419D3 /* arcs02.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arcs02.svg; sourceTree = "<group>"; };
 		4FD822421AD058AB00E419D3 /* arcs01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcs01.png; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 				66E862831688BA510059C9C4 /* Location_European_nation_states.svg */,
 				32D3D5E62176E3FA00ED20D8 /* Mozilla_Firefox_logo_2013.svg */,
 				D0D29C9120EC44080003CE47 /* M-to-S-to-T.svg */,
+				3E733DBB23580F640082EA4C /* M-to-A.svg */,
 				66E862841688BA510059C9C4 /* Map.svg */,
 				66F33DCC182FDE50004464AC /* map-alaska-onlysimple.svg */,
 				66B86F8C1ACC6E7000C18ECE /* MathCurve-optimized.svg */,
@@ -964,6 +967,7 @@
 				66B695F4199BFAC900F8E7EE /* imagetag-layer2-sun.svg in Resources */,
 				66324BE216D24FA4001C1E83 /* rounded-rects.svg in Resources */,
 				661EEAD91ACC3444007176B0 /* map-alaska-onlysimple.png in Resources */,
+				3E733DC423580F640082EA4C /* M-to-A.svg in Resources */,
 				661EEACA1ACC3444007176B0 /* australia_states_blank.png in Resources */,
 				661EEAD01ACC3444007176B0 /* CurvedDiamond.png in Resources */,
 				661EEAD61ACC3444007176B0 /* imageWithASinglePointPath.png in Resources */,
