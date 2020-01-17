@@ -506,6 +506,8 @@
 		66F33DD1182FE1C4004464AC /* SVGPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DCF182FE1C4004464AC /* SVGPreserveAspectRatio.m */; };
 		66F33DD4182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h in Headers */ = {isa = PBXBuildFile; fileRef = 66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66F33DD5182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */; };
+		6C58BC9323D1AE5300635897 /* SVGKImage+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C58BC9123D1AE5300635897 /* SVGKImage+CSS.m */; };
+		6C58BC9423D1AE5300635897 /* SVGKImage+CSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C58BC9223D1AE5300635897 /* SVGKImage+CSS.h */; };
 		825CDAB91BDA4BC0003C1C12 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAAF1BDA4BC0003C1C12 /* SVGKit.framework */; };
 		825CDAC91BDA4D09003C1C12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639634116148CDF00E58CCA /* QuartzCore.framework */; };
 		825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639619116145D0400E58CCA /* Foundation.framework */; };
@@ -1291,6 +1293,8 @@
 		66F33DCF182FE1C4004464AC /* SVGPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGPreserveAspectRatio.m; sourceTree = "<group>"; };
 		66F33DD2182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGAnimatedPreserveAspectRatio.h; sourceTree = "<group>"; };
 		66F33DD3182FE2C3004464AC /* SVGAnimatedPreserveAspectRatio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGAnimatedPreserveAspectRatio.m; sourceTree = "<group>"; };
+		6C58BC9123D1AE5300635897 /* SVGKImage+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVGKImage+CSS.m"; sourceTree = "<group>"; };
+		6C58BC9223D1AE5300635897 /* SVGKImage+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKImage+CSS.h"; sourceTree = "<group>"; };
 		825CDAAF1BDA4BC0003C1C12 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		825CDAB81BDA4BC0003C1C12 /* SVGKitFramework-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKitFramework-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		825CDACC1BDA4D20003C1C12 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -1567,6 +1571,8 @@
 		6649DF6B16172CCC00AFE92A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6C58BC9223D1AE5300635897 /* SVGKImage+CSS.h */,
+				6C58BC9123D1AE5300635897 /* SVGKImage+CSS.m */,
 				66E8630C1688C2770059C9C4 /* DOM classes */,
 				66E8636F1688C2770059C9C4 /* Exporters */,
 				6636CD77175F542A0072AAEF /* Sources */,
@@ -2182,6 +2188,7 @@
 				66E864131688C2780059C9C4 /* CGPathAdditions.h in Headers */,
 				66E864151688C2780059C9C4 /* SVGKLayer.h in Headers */,
 				66E864171688C2780059C9C4 /* SVGKImage.h in Headers */,
+				6C58BC9423D1AE5300635897 /* SVGKImage+CSS.h in Headers */,
 				66E864191688C2780059C9C4 /* SVGKit.h in Headers */,
 				66E8641A1688C2780059C9C4 /* SVGKSource.h in Headers */,
 				66E8641C1688C2780059C9C4 /* SVGKFastImageView.h in Headers */,
@@ -3027,6 +3034,7 @@
 				6636CD7F175F542A0072AAEF /* SVGKSourceLocalFile.m in Sources */,
 				6636CD81175F542A0072AAEF /* SVGKSourceString.m in Sources */,
 				6636CD83175F542A0072AAEF /* SVGKSourceURL.m in Sources */,
+				6C58BC9323D1AE5300635897 /* SVGKImage+CSS.m in Sources */,
 				6636CD8B175F54680072AAEF /* CALayer+RecursiveClone.m in Sources */,
 				9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */,
 				4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */,
