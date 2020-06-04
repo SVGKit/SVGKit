@@ -86,8 +86,10 @@
         
         // and mask with that
         CGContextClipToMask(ctx, layer.bounds, maskImage);
-        
-        CFRelease(maskImage);
+
+        if( maskImage != nil ) {
+            CFRelease(maskImage);
+        }
     }
 }
 
