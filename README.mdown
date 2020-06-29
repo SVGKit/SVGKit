@@ -118,3 +118,5 @@ Here are some old posts (some of these APIs have changed slightly since they wer
   - CONTRIBUTING to the project, CORE ARCHITECTURE: http://t-machine.org/index.php/2012/12/31/svgkit-2013-development/
  
   - (November 2013): New (experimental) feature - writing SVG's out to disk, preserving any changes you made programmatically: http://t-machine.org/index.php/2013/11/17/svgkit-programmatic-editing-of-svg-files-on-ios/
+
+  - Using SVGFastImageView in SwiftUI: https://gist.github.com/ozgurshn/c816a035ff4722dc26650f4a4ed40105
