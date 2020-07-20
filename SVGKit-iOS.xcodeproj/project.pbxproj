@@ -10,9 +10,6 @@
 		00E86D7417415AA000F0FA0A /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D7317415AA000F0FA0A /* SVGKit.m */; };
 		036A524C16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		036A524D16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
-		321EAA4D2171E51800640504 /* SVGKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 321EAA4C2171E51800640504 /* SVGKit-Prefix.pch */; };
-		321EAA4E2171E51800640504 /* SVGKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 321EAA4C2171E51800640504 /* SVGKit-Prefix.pch */; };
-		321EAA4F2171E51800640504 /* SVGKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 321EAA4C2171E51800640504 /* SVGKit-Prefix.pch */; };
 		321EAA6A2171ECDE00640504 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 321EAA542171E72900640504 /* libxml2.tbd */; };
 		321EAA6B2171ECE200640504 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321EAA582171E73800640504 /* Foundation.framework */; };
 		321EAA6C2171ECE700640504 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321EAA562171E73100640504 /* CoreGraphics.framework */; };
@@ -227,7 +224,6 @@
 		321EAB412171ED9900640504 /* SVGKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E86D7317415AA000F0FA0A /* SVGKit.m */; };
 		321EAB422171ED9900640504 /* SVGKSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E8638F1688C2780059C9C4 /* SVGKSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		321EAB432171ED9900640504 /* SVGKSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863901688C2780059C9C4 /* SVGKSource.m */; };
-		321EAB442171ED9900640504 /* SVGKit-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 321EAA4C2171E51800640504 /* SVGKit-Prefix.pch */; };
 		321EAB452171ED9E00640504 /* NSCharacterSet+SVGKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		321EAB462171ED9E00640504 /* NSCharacterSet+SVGKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */; };
 		321EAB4D2171ED9E00640504 /* NSData+NSInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1032,7 +1028,6 @@
 		036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+SVGKExtensions.h"; sourceTree = "<group>"; };
 		036A524B16E87693008C1140 /* NSCharacterSet+SVGKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSCharacterSet+SVGKExtensions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		321EAA3B2171E2C800640504 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		321EAA4C2171E51800640504 /* SVGKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGKit-Prefix.pch"; sourceTree = "<group>"; };
 		321EAA542171E72900640504 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
 		321EAA562171E73100640504 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		321EAA582171E73800640504 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1603,7 +1598,6 @@
 		66DBE4DD1C42A00000A0F0B7 /* SVGKit-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				321EAA4C2171E51800640504 /* SVGKit-Prefix.pch */,
 			);
 			path = "SVGKit-iOS";
 			sourceTree = "<group>";
@@ -1977,7 +1971,6 @@
 				321EAB342171ED9600640504 /* CAShapeLayerWithClipRender.h in Headers */,
 				321EAAC72171ED6F00640504 /* SVGNumber.h in Headers */,
 				321EAA7A2171ED6900640504 /* CSSRule.h in Headers */,
-				321EAB442171ED9900640504 /* SVGKit-Prefix.pch in Headers */,
 				321EAAC12171ED6F00640504 /* SVGStylable.h in Headers */,
 				321EAB682172025200640504 /* SVGKImageView.h in Headers */,
 				321EAA802171ED6900640504 /* CSSRuleList.h in Headers */,
@@ -2220,7 +2213,6 @@
 				663FD01416CAEF0D00CCBFB3 /* SVGHelperUtilities.h in Headers */,
 				663FD01B16CBEF5E00CCBFB3 /* BaseClassForAllSVGBasicShapes_ForSubclasses.h in Headers */,
 				661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */,
-				321EAA4D2171E51800640504 /* SVGKit-Prefix.pch in Headers */,
 				661ADBF716CC2FCA006F4BC3 /* SVGTextContentElement.h in Headers */,
 				661ADBFC16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h in Headers */,
 				661AE44916D13DA8005E69D9 /* SVGTransformable.h in Headers */,
@@ -2302,7 +2294,6 @@
 				32EE37982173441400A23278 /* SVGKDefine.h in Headers */,
 				825CDB2B1BDA505A003C1C12 /* SVGNumber.h in Headers */,
 				825CDB2C1BDA505A003C1C12 /* SVGPoint.h in Headers */,
-				321EAA4E2171E51800640504 /* SVGKit-Prefix.pch in Headers */,
 				825CDB2D1BDA505A003C1C12 /* SVGPreserveAspectRatio.h in Headers */,
 				825CDB2E1BDA505A003C1C12 /* SVGRect.h in Headers */,
 				825CDB2F1BDA505A003C1C12 /* SVGSVGElement_Mutable.h in Headers */,
@@ -2442,7 +2433,6 @@
 				32EE37992173441400A23278 /* SVGKDefine.h in Headers */,
 				825CDBAB1BDA50B5003C1C12 /* SVGNumber.h in Headers */,
 				825CDBAC1BDA50B5003C1C12 /* SVGPoint.h in Headers */,
-				321EAA4F2171E51800640504 /* SVGKit-Prefix.pch in Headers */,
 				825CDBAD1BDA50B5003C1C12 /* SVGPreserveAspectRatio.h in Headers */,
 				825CDBAE1BDA50B5003C1C12 /* SVGRect.h in Headers */,
 				825CDBAF1BDA50B5003C1C12 /* SVGSVGElement_Mutable.h in Headers */,
@@ -3338,7 +3328,6 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -3397,7 +3386,6 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -3660,7 +3648,6 @@
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -3686,7 +3673,6 @@
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -3721,7 +3707,6 @@
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -3765,7 +3750,6 @@
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -3867,7 +3851,6 @@
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -3909,7 +3892,6 @@
 					"$(PROJECT_DIR)/3rd-party-frameworks/CocoaLumberjack-2.2.0/tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "SVGKitLibrary/SVGKit-iOS/SVGKit-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;

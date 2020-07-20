@@ -1,9 +1,0 @@
-//
-// Prefix header for all source files of the 'SVGKit-iOS' target in the 'SVGKit-iOS' project
-//
-
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#import "SVGKDefine_Private.h"
-#endif
