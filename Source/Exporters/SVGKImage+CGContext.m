@@ -11,6 +11,8 @@
 #import "SVGRect.h"
 #import "SVGSVGElement.h"
 
+#import "SVGKDefine_Private.h"
+
 @implementation SVGKImage (CGContext)
 
 -(CGContextRef) newCGContextAutosizedToFit

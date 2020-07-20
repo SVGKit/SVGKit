@@ -5,6 +5,8 @@
 #import "CSSPrimitiveValue.h"
 #import "CocoaLumberjack/DDFileLogger.h"
 
+#import "SVGKDefine_Private.h"
+
 @interface CSSStyleDeclaration()
 
 @property(nonatomic,strong) NSMutableDictionary* internalDictionaryOfStylesByCSSClass;

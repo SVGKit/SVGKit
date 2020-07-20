@@ -6,6 +6,7 @@
 #import "SVGHelperUtilities.h"
 #import "SVGUtils.h"
 #import "SVGTextLayer.h"
+#import "SVGKDefine_Private.h"
 
 @implementation SVGTextElement
 

@@ -9,6 +9,8 @@
 #import "SVGSVGElement.h"
 #import "SVGGradientLayer.h"
 
+#import "SVGKDefine_Private.h"
+
 @implementation SVGHelperUtilities
 
 

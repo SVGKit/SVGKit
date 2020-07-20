@@ -7,7 +7,7 @@
 //
 
 #import "NSData+NSInputStream.h"
-
+#import "SVGKDefine_Private.h"
 
 #define BUFSIZE 65536U
 

@@ -10,6 +10,7 @@
 #import "SVGElement_ForParser.h"
 #import "SVGUtils.h"
 #import "SVGGradientLayer.h"
+#import "SVGKDefine_Private.h"
 
 // `kCAGradientLayerRadial` this symbol is available since iOS 3.2/tvOS 9.0/macOS 10.6, but it's not externed to public header until Xcode 10 with iOS 12 SDK, so we define it for user who still use old SDK version.
 #define kCAGradientLayerRadial @"radial"

@@ -1,11 +1,14 @@
-//
-// Prefix header for all source files of the 'SVGKit-iOS' target in the 'SVGKit-iOS' project
-//
+/**
+SVGKDefine_Private.h
 
-#ifdef __OBJC__
-#import <Foundation/Foundation.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
+SVGKDefine define some common macro used for private header.
+*/
+
+#ifndef SVGKDefine_Private_h
+#define SVGKDefine_Private_h
+
 #import "SVGKDefine.h"
+@import CocoaLumberjack;
 
 // These macro is only used inside framework project, does not expose to public header and effect user's define
 
@@ -28,4 +31,5 @@ static const int ddLogLevel = DDLogLevelWarning;
 #define NSStringFromCGSize(size) NSStringFromSize(size)
 #define NSStringFromCGPoint(point) NSStringFromPoint(point)
 #endif
-#endif
+
+#endif /* SVGKDefine_Private_h */

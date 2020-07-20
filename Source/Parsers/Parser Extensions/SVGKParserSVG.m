@@ -21,6 +21,8 @@
 
 #import "SVGDocument_Mutable.h"
 
+#import "SVGKDefine_Private.h"
+
 @interface SVGKParserSVG ()
 @property (nonatomic) NSArray *supportedNamespaces;
 @property (nonatomic) NSDictionary *elementMap;

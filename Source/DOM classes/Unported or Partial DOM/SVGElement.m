@@ -20,6 +20,8 @@
 
 #import "SVGTransformable.h"
 
+#import "SVGKDefine_Private.h"
+
 @interface SVGElement ()
 
 @property (nonatomic, copy) NSString *stringValue;
