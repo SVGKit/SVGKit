@@ -7,11 +7,12 @@
 //
 
 #import "SVGKit.h"
+
+#if SVGKIT_MAC
 #import "SVGKSourceNSData.h"
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceURL.h"
 #import "SVGKSourceString.h"
-#import "SVGKFastImageView.h"
 #import "SVGKImageRep.h"
 #import "SVGKImage+CGContext.h"
 #include <tgmath.h>
@@ -288,3 +289,5 @@
 }
 
 @end
+
+#endif /* SVGKIT_MAC */

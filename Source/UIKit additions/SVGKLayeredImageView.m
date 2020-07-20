@@ -5,6 +5,8 @@
 #import "SVGKSourceString.h"
 #import "SVGKInlineResource.h"
 
+#import "SVGKDefine_Private.h"
+
 @interface SVGKLayeredImageView()
 @property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end

@@ -9,6 +9,8 @@
 #import "SVGKSourceNSData.h"
 #import "SVGKInlineResource.h"
 
+#import "SVGKDefine_Private.h"
+
 CGImageRef SVGImageCGImage(UIImage *img)
 {
 #if SVGKIT_UIKIT

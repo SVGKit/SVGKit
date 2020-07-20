@@ -6,6 +6,9 @@
 //
 //
 
+#import "SVGKDefine.h"
+
+#if SVGKIT_MAC
 #import <Cocoa/Cocoa.h>
 @class SVGKImage;
 @class SVGKSource;
@@ -36,3 +39,5 @@
 + (void)unloadSVGKImageRep;
 
 @end
+
+#endif /* SVGKIT_MAC */

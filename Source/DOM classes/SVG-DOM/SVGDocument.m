@@ -13,6 +13,8 @@
 
 #import "NamedNodeMap_Iterable.h" // needed for the allPrefixesByNamespace implementation
 
+#import "SVGKDefine_Private.h"
+
 @implementation SVGDocument
 
 

@@ -4,6 +4,7 @@
 #import "CSSPrimitiveValue_ConfigurablePixelsPerInch.h"
 
 #import "SVGUtils.h"
+#import "SVGKDefine_Private.h"
 
 #include <sys/types.h>
 #include <sys/sysctl.h>

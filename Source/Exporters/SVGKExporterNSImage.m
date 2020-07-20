@@ -1,4 +1,6 @@
 #import "SVGKExporterNSImage.h"
+
+#if SVGKIT_MAC
 #import "SVGUtils.h"
 #import "SVGKImage+CGContext.h" // needed for Context calls
 #import <objc/runtime.h>
@@ -133,3 +135,5 @@ static NSImage * SVGKGraphicsGetImageFromCurrentImageContext(void) {
 }
 
 @end
+
+#endif /* SVGKIT_MAC */

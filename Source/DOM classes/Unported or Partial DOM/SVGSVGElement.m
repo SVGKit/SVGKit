@@ -7,6 +7,8 @@
 
 #import "SVGElement_ForParser.h" // to resolve Xcode circular dependencies; in long term, parsing SHOULD NOT HAPPEN inside any class whose name starts "SVG" (because those are reserved classes for the SVG Spec)
 
+#import "SVGKDefine_Private.h"
+
 @interface SVGSVGElement()
 #pragma mark - elements REQUIRED to implement the spec but not included in SVG Spec due to bugs in the spec writing!
 @property(nonatomic,readwrite) SVGRect requestedViewport;

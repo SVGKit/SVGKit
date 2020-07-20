@@ -1,4 +1,5 @@
 #import "SVGKFastImageView.h"
+#import "SVGKDefine_Private.h"
 
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;

@@ -7,6 +7,7 @@
 //
 
 #import "NSCharacterSet+SVGKExtensions.h"
+#import "SVGKDefine_Private.h"
 
 @implementation NSCharacterSet (SVGKExtensions)
 

@@ -1,4 +1,5 @@
 #import "SVGKSourceLocalFile.h"
+#import "SVGKDefine_Private.h"
 
 @interface SVGKSourceLocalFile()
 @property (nonatomic, readwrite) BOOL wasRelative;

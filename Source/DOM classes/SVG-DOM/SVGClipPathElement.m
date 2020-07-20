@@ -4,6 +4,8 @@
 
 #import "SVGHelperUtilities.h"
 
+#import "SVGKDefine_Private.h"
+
 @implementation SVGClipPathElement
 
 @synthesize clipPathUnits;

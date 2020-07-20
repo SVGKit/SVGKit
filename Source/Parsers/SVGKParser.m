@@ -31,6 +31,8 @@
 #import "StyleSheetList+Mutable.h"
 #import "NSData+NSInputStream.h"
 
+#import "SVGKDefine_Private.h"
+
 @interface SVGKParser()
 @property(nonatomic,strong, readwrite) SVGKSource* source;
 @property(nonatomic,strong, readwrite) NSMutableArray* externalStylesheets;
