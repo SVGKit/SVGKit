@@ -12,6 +12,10 @@ let package = Package(
         .library(
             name: "SVGKit",
             targets: ["SVGKit"]
+        ),
+        .library(
+            name: "SVGKitSwift",
+            targets: ["SVGKitSwift"]
         )
     ],
     dependencies: [
@@ -26,24 +30,14 @@ let package = Package(
             path: "Source",
             exclude: [
                 "SwiftUI additions"
-            ],
-            publicHeadersPath: ".",
-            cSettings: [
-                .headerSearchPath("."),
-                .headerSearchPath("AppKit additions", .when(platforms: [.macOS])),
-                .headerSearchPath("DOM classes"),
-                .headerSearchPath("DOM classes/Core DOM"),
-                .headerSearchPath("DOM classes/SVG-DOM"),
-                .headerSearchPath("DOM classes/Unported or Partial DOM"),
-                .headerSearchPath("Exporters"),
-                .headerSearchPath("Foundation additions"),
-                .headerSearchPath("Parsers"),
-                .headerSearchPath("Parsers/Parser Extensions"),
-                .headerSearchPath("QuartzCore additions"),
-                .headerSearchPath("Sources"),
-                .headerSearchPath("UIKit additions", .when(platforms: [.iOS, .tvOS])),
-                .headerSearchPath("Utils")
             ]
+        ),
+        .target(
+            name: "SVGKitSwift",
+            dependencies: [
+                "SVGKit"
+            ],
+            path: "Source/SwiftUI additions"
         )
     ]
 )

@@ -1,0 +1,1 @@
+../AppKit additions/SVGKImageRep.h

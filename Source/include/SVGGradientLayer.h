@@ -1,0 +1,1 @@
+../QuartzCore additions/SVGGradientLayer.h

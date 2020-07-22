@@ -1297,6 +1297,7 @@
 		825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
 		8A10E6DD24C57B6D005BB692 /* SVGKDefine_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGKDefine_Private.h; sourceTree = "<group>"; };
 		8A10E6E024C5A233005BB692 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		8AF4AD7024C7A72400999866 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9ED79A22179D87790048AA5B /* SVGGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientLayer.h; sourceTree = "<group>"; };
 		9ED79A23179D87790048AA5B /* SVGGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientLayer.m; sourceTree = "<group>"; };
 		BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSInputStream.h"; sourceTree = "<group>"; };
@@ -1565,6 +1566,7 @@
 		6649DF6B16172CCC00AFE92A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8AF4AD6F24C7A5B400999866 /* include */,
 				66E8630C1688C2770059C9C4 /* DOM classes */,
 				66E8636F1688C2770059C9C4 /* Exporters */,
 				6636CD77175F542A0072AAEF /* Sources */,
@@ -1949,6 +1951,14 @@
 				322A5B7C218BF990003D9CF1 /* SVGKInlineResource.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		8AF4AD6F24C7A5B400999866 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				8AF4AD7024C7A72400999866 /* README.md */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
