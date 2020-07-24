@@ -17,9 +17,7 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/SVGKit/SVGKit.git', :tag => s.version.to_s }
 
   s.source_files = 'Source/*.{h,m}', 'Source/**/*.{h,m}'
-  s.ios.exclude_files = 'Source/AppKit additions/*.{h,m}', 'Source/Exporters/SVGKExporterNSImage.{h,m}'
-  s.tvos.exclude_files = 'Source/AppKit additions/*.{h,m}', 'Source/Exporters/SVGKExporterNSImage.{h,m}'
-  s.osx.exclude_files = 'Source/Exporters/SVGKExporterUIImage.{h,m}'
+  s.exclude_files = 'Source/include/*.h'
   s.libraries = 'xml2'
   s.framework = 'QuartzCore', 'CoreText'
   s.dependency 'CocoaLumberjack', '~> 3.0'
