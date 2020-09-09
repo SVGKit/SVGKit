@@ -1569,11 +1569,11 @@
 				8AF4AD6F24C7A5B400999866 /* include */,
 				66E8630C1688C2770059C9C4 /* DOM classes */,
 				66E8636F1688C2770059C9C4 /* Exporters */,
+				66E863911688C2780059C9C4 /* ImageViews */,
 				6636CD77175F542A0072AAEF /* Sources */,
 				66E863721688C2770059C9C4 /* Parsers */,
 				66E863831688C2770059C9C4 /* QuartzCore additions */,
 				321EAB532171F97800640504 /* Foundation additions */,
-				66E863911688C2780059C9C4 /* UIKit additions */,
 				321EAB582171FB8100640504 /* AppKit additions */,
 				66E863981688C2780059C9C4 /* Utils */,
 				66E8638C1688C2780059C9C4 /* SVGKImage.h */,
@@ -1927,7 +1927,7 @@
 			path = "QuartzCore additions";
 			sourceTree = "<group>";
 		};
-		66E863911688C2780059C9C4 /* UIKit additions */ = {
+		66E863911688C2780059C9C4 /* ImageViews */ = {
 			isa = PBXGroup;
 			children = (
 				66E863921688C2780059C9C4 /* SVGKFastImageView.h */,
@@ -1937,7 +1937,7 @@
 				66E863961688C2780059C9C4 /* SVGKLayeredImageView.h */,
 				66E863971688C2780059C9C4 /* SVGKLayeredImageView.m */,
 			);
-			path = "UIKit additions";
+			path = ImageViews;
 			sourceTree = "<group>";
 		};
 		66E863981688C2780059C9C4 /* Utils */ = {
