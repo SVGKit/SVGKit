@@ -52,6 +52,9 @@
  
  */
 
+#ifndef SVGKit_Document_h
+#define SVGKit_Document_h
+
 #import <Foundation/Foundation.h>
 
 /** ObjectiveC won't allow this: @class Node; */
@@ -109,3 +112,5 @@
 -(Element*) getElementById:(NSString*) elementId;
 
 @end
+
+#endif
