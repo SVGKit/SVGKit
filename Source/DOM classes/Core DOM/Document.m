@@ -1,4 +1,4 @@
-#import "Document.h"
+#import "DOM classes/Core DOM/Document.h"
 #import "Document+Mutable.h"
 
 #import "DOMHelperUtilities.h"
