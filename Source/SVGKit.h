@@ -163,11 +163,9 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "SVGKImage.h"
 #import "SVGKSource.h"
 #import "NSCharacterSet+SVGKExtensions.h"
-#if SVGKIT_UIKIT
 #import "SVGKFastImageView.h"
 #import "SVGKImageView.h"
 #import "SVGKLayeredImageView.h"
-#endif
 #import "SVGKPattern.h"
 #import "SVGUtils.h"
 #if SVGKIT_MAC
