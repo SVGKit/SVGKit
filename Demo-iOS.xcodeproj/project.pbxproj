@@ -218,18 +218,18 @@
 			remoteGlobalIDString = 825CDADC1BDA4D38003C1C12;
 			remoteInfo = "SVGKitFramework-tvOSTests";
 		};
-		6649E1091617574700AFE92A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6639618E16145D0400E58CCA;
-			remoteInfo = "SVGKit-iOS";
-		};
 		66E785A8171A1208001EF59D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 6639618D16145D0400E58CCA;
+			remoteInfo = "SVGKit-iOS";
+		};
+		DA02919A25AC893D00297579 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6649E1021617574600AFE92A /* SVGKit-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6639618E16145D0400E58CCA;
 			remoteInfo = "SVGKit-iOS";
 		};
 		E203AF8F1A0AC14F000DE028 /* PBXContainerItemProxy */ = {
@@ -386,10 +386,6 @@
 		66E8625C1688BA0B0059C9C4 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		66E8625D1688BA0B0059C9C4 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		66E8625F1688BA0B0059C9C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		66E862611688BA0B0059C9C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/iPadDetailViewController.xib; sourceTree = "<group>"; };
-		66E862631688BA0B0059C9C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/iPhoneDetailViewController.xib; sourceTree = "<group>"; };
-		66E862651688BA0B0059C9C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController_iPad.xib; sourceTree = "<group>"; };
-		66E862671688BA0B0059C9C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController_iPhone.xib; sourceTree = "<group>"; };
 		66E862681688BA0B0059C9C4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66E862691688BA0B0059C9C4 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		66E8626A1688BA0B0059C9C4 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
@@ -423,6 +419,10 @@
 		D0B21B542016BD8A00974D0A /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		D0D29C9120EC44080003CE47 /* M-to-S-to-T.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "M-to-S-to-T.svg"; sourceTree = "<group>"; };
 		D0D29C9320EC441F0003CE47 /* M-to-S-to-T.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-to-S-to-T.png"; sourceTree = "<group>"; };
+		DA0291AC25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iPadDetailViewController.xib; sourceTree = "<group>"; };
+		DA0291AD25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iPhoneDetailViewController.xib; sourceTree = "<group>"; };
+		DA0291AE25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController_iPad.xib; sourceTree = "<group>"; };
+		DA0291AF25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController_iPhone.xib; sourceTree = "<group>"; };
 		FA5DF7241C434C58005CF231 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = "3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS/CocoaLumberjack.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -606,6 +606,7 @@
 		6649E1031617574600AFE92A /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				DA02919B25AC893D00297579 /* libSVGKit-iOS.2.1.0.a */,
 				E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */,
 				529DADF11C415FF00069B076 /* SVGKit.framework */,
 				529DADF31C415FF00069B076 /* SVGKitFramework-iOSTests.xctest */,
@@ -750,15 +751,16 @@
 		661A0DC1161727CF008D5FBE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = na;
 			};
 			buildConfigurationList = 661A0DC4161727CF008D5FBE /* Build configuration list for PBXProject "Demo-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 661A0DBF161727CF008D5FBE;
 			productRefGroup = 661A0DCB161727CF008D5FBE /* Products */;
@@ -817,6 +819,13 @@
 			fileType = wrapper.cfbundle;
 			path = "SVGKitFramework-tvOSTests.xctest";
 			remoteRef = 529DADF61C415FF00069B076 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DA02919B25AC893D00297579 /* libSVGKit-iOS.2.1.0.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libSVGKit-iOS.2.1.0.a";
+			remoteRef = DA02919A25AC893D00297579 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		E203AF901A0AC14F000DE028 /* SVGKit-iOS Tests.xctest */ = {
@@ -1022,7 +1031,7 @@
 		66E862601688BA0B0059C9C4 /* iPadDetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				66E862611688BA0B0059C9C4 /* en */,
+				DA0291AC25AC8BBA00297579 /* Base */,
 			);
 			name = iPadDetailViewController.xib;
 			sourceTree = "<group>";
@@ -1030,7 +1039,7 @@
 		66E862621688BA0B0059C9C4 /* iPhoneDetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				66E862631688BA0B0059C9C4 /* en */,
+				DA0291AD25AC8BBA00297579 /* Base */,
 			);
 			name = iPhoneDetailViewController.xib;
 			sourceTree = "<group>";
@@ -1038,7 +1047,7 @@
 		66E862641688BA0B0059C9C4 /* MasterViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				66E862651688BA0B0059C9C4 /* en */,
+				DA0291AE25AC8BBA00297579 /* Base */,
 			);
 			name = MasterViewController_iPad.xib;
 			sourceTree = "<group>";
@@ -1046,7 +1055,7 @@
 		66E862661688BA0B0059C9C4 /* MasterViewController_iPhone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				66E862671688BA0B0059C9C4 /* en */,
+				DA0291AF25AC8BBA00297579 /* Base */,
 			);
 			name = MasterViewController_iPhone.xib;
 			sourceTree = "<group>";
@@ -1058,13 +1067,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1092,12 +1113,13 @@
 					"../../iOS/**",
 					"../../Core/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -1105,13 +1127,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1130,11 +1164,12 @@
 					"../../iOS/**",
 					"../../Core/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
@@ -1152,11 +1187,13 @@
 					"calayer-exporter",
 				);
 				INFOPLIST_FILE = "SVGKitLibrary/Demo-iOS/Demo-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "na.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Demo-iOS";
+				VALIDATE_WORKSPACE = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1175,11 +1212,13 @@
 					"calayer-exporter",
 				);
 				INFOPLIST_FILE = "SVGKitLibrary/Demo-iOS/Demo-iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "na.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Demo-iOS";
+				VALIDATE_WORKSPACE = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
