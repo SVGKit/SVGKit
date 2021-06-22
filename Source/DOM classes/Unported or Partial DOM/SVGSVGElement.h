@@ -59,7 +59,7 @@
 #import "SVGPoint.h"
 #import "SVGRect.h"
 #import "SVGTransform.h"
-
+#import "SVGTransformable.h"
 #pragma mark - a few raw DOM imports are required for SVG DOM, but not many
 #import "Element.h"
 #import "NodeList.h"
@@ -67,7 +67,7 @@
 #import "ConverterSVGToCALayer.h"
 #import "SVGKSource.h"
 
-@interface SVGSVGElement : SVGElement < DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
+@interface SVGSVGElement : SVGElement <SVGTransformable, DocumentCSS, SVGFitToViewBox, /* FIXME: refactor and delete this, it's in violation of the spec: */ ConverterSVGToCALayer >
 
 
 
