@@ -1075,7 +1075,7 @@
 		663FD01A16CBEF5C00CCBFB3 /* BaseClassForAllSVGBasicShapes_ForSubclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClassForAllSVGBasicShapes_ForSubclasses.h; sourceTree = "<group>"; };
 		666674B8168A511400486B68 /* CSSStyleRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSStyleRule.h; sourceTree = "<group>"; };
 		666674B9168A511400486B68 /* CSSStyleRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSStyleRule.m; sourceTree = "<group>"; };
-		666674BD168A536C00486B68 /* DocumentCSS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DocumentCSS.h; path = "Source/DOM classes/Core DOM/DocumentCSS.h"; sourceTree = SOURCE_ROOT; };
+		666674BD168A536C00486B68 /* DocumentCSS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DocumentCSS.h; path = "Source/DOMClasses/CoreDOM/DocumentCSS.h"; sourceTree = SOURCE_ROOT; };
 		666674BE168A551300486B68 /* DocumentStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocumentStyle.h; sourceTree = "<group>"; };
 		666674BF168A556200486B68 /* StyleSheetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleSheetList.h; sourceTree = "<group>"; };
 		666674C0168A556300486B68 /* StyleSheetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleSheetList.m; sourceTree = "<group>"; };
@@ -1385,7 +1385,7 @@
 			path = "SVGKitFramework-OSX";
 			sourceTree = "<group>";
 		};
-		321EAB532171F97800640504 /* Foundation additions */ = {
+		321EAB532171F97800640504 /* FoundationAdditions */ = {
 			isa = PBXGroup;
 			children = (
 				036A524A16E87693008C1140 /* NSCharacterSet+SVGKExtensions.h */,
@@ -1393,16 +1393,16 @@
 				BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */,
 				BD1585741996B17C00461AA5 /* NSData+NSInputStream.m */,
 			);
-			path = "Foundation additions";
+			path = "FoundationAdditions";
 			sourceTree = "<group>";
 		};
-		321EAB582171FB8100640504 /* AppKit additions */ = {
+		321EAB582171FB8100640504 /* AppKitAdditions */ = {
 			isa = PBXGroup;
 			children = (
 				321EAB5D2171FB8100640504 /* SVGKImageRep.h */,
 				321EAB5B2171FB8100640504 /* SVGKImageRep.m */,
 			);
-			path = "AppKit additions";
+			path = "AppKitAdditions";
 			sourceTree = "<group>";
 		};
 		32A1F09D21746F4700ABFCE1 /* SVGKitFramework-OSXTests */ = {
@@ -1547,14 +1547,14 @@
 		6649DF6B16172CCC00AFE92A /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				66E8630C1688C2770059C9C4 /* DOM classes */,
+				66E8630C1688C2770059C9C4 /* DOMClasses */,
 				66E8636F1688C2770059C9C4 /* Exporters */,
 				6636CD77175F542A0072AAEF /* Sources */,
 				66E863721688C2770059C9C4 /* Parsers */,
-				66E863831688C2770059C9C4 /* QuartzCore additions */,
-				321EAB532171F97800640504 /* Foundation additions */,
-				66E863911688C2780059C9C4 /* UIKit additions */,
-				321EAB582171FB8100640504 /* AppKit additions */,
+				66E863831688C2770059C9C4 /* QuartzCoreAdditions */,
+				321EAB532171F97800640504 /* FoundationAdditions */,
+				66E863911688C2780059C9C4 /* UIKitAdditions */,
+				321EAB582171FB8100640504 /* AppKitAdditions */,
 				66E863981688C2780059C9C4 /* Utils */,
 				66E8638C1688C2780059C9C4 /* SVGKImage.h */,
 				66E8638D1688C2780059C9C4 /* SVGKImage.m */,
@@ -1641,17 +1641,17 @@
 			path = "SVGKitFramework-tvOSTests";
 			sourceTree = "<group>";
 		};
-		66E8630C1688C2770059C9C4 /* DOM classes */ = {
+		66E8630C1688C2770059C9C4 /* DOMClasses */ = {
 			isa = PBXGroup;
 			children = (
-				66E8630D1688C2770059C9C4 /* Core DOM */,
+				66E8630D1688C2770059C9C4 /* CoreDOM */,
 				66E863311688C2770059C9C4 /* SVG-DOM */,
-				66E8634E1688C2770059C9C4 /* Unported or Partial DOM */,
+				66E8634E1688C2770059C9C4 /* UnportedOrPartialDOM */,
 			);
-			path = "DOM classes";
+			path = "DOMClasses";
 			sourceTree = "<group>";
 		};
-		66E8630D1688C2770059C9C4 /* Core DOM */ = {
+		66E8630D1688C2770059C9C4 /* CoreDOM */ = {
 			isa = PBXGroup;
 			children = (
 				66E8630E1688C2770059C9C4 /* AppleSucksDOMImplementation.h */,
@@ -1720,7 +1720,7 @@
 				66E863301688C2770059C9C4 /* Text.m */,
 				6694BB7A16967407007D0947 /* DOMGlobalSettings.h */,
 			);
-			path = "Core DOM";
+			path = "CoreDOM";
 			sourceTree = "<group>";
 		};
 		66E863311688C2770059C9C4 /* SVG-DOM */ = {
@@ -1778,7 +1778,7 @@
 			path = "SVG-DOM";
 			sourceTree = "<group>";
 		};
-		66E8634E1688C2770059C9C4 /* Unported or Partial DOM */ = {
+		66E8634E1688C2770059C9C4 /* UnportedOrPartialDOM */ = {
 			isa = PBXGroup;
 			children = (
 				6636CD8C175F54970072AAEF /* ConverterSVGToCALayer.h */,
@@ -1830,7 +1830,7 @@
 				BDA133B519AD0E81003C9945 /* TinySVGTextAreaElement.h */,
 				BDA133B619AD0E81003C9945 /* TinySVGTextAreaElement.m */,
 			);
-			path = "Unported or Partial DOM";
+			path = "UnportedOrPartialDOM";
 			sourceTree = "<group>";
 		};
 		66E8636F1688C2770059C9C4 /* Exporters */ = {
@@ -1851,7 +1851,7 @@
 		66E863721688C2770059C9C4 /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
-				66E863731688C2770059C9C4 /* Parser Extensions */,
+				66E863731688C2770059C9C4 /* ParserExtensions */,
 				66E8637C1688C2770059C9C4 /* SVGKParser.h */,
 				66E8637D1688C2770059C9C4 /* SVGKParser.m */,
 				66E8637E1688C2770059C9C4 /* SVGKParseResult.h */,
@@ -1863,7 +1863,7 @@
 			path = Parsers;
 			sourceTree = "<group>";
 		};
-		66E863731688C2770059C9C4 /* Parser Extensions */ = {
+		66E863731688C2770059C9C4 /* ParserExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				66E863741688C2770059C9C4 /* SVGKParserDefsAndUse.h */,
@@ -1879,10 +1879,10 @@
 				66E8637A1688C2770059C9C4 /* SVGKParserSVG.h */,
 				66E8637B1688C2770059C9C4 /* SVGKParserSVG.m */,
 			);
-			path = "Parser Extensions";
+			path = "ParserExtensions";
 			sourceTree = "<group>";
 		};
-		66E863831688C2770059C9C4 /* QuartzCore additions */ = {
+		66E863831688C2770059C9C4 /* QuartzCoreAdditions */ = {
 			isa = PBXGroup;
 			children = (
 				6636CD88175F54680072AAEF /* CALayer+RecursiveClone.h */,
@@ -1902,10 +1902,10 @@
 				66E8638A1688C2780059C9C4 /* SVGKLayer.h */,
 				66E8638B1688C2780059C9C4 /* SVGKLayer.m */,
 			);
-			path = "QuartzCore additions";
+			path = "QuartzCoreAdditions";
 			sourceTree = "<group>";
 		};
-		66E863911688C2780059C9C4 /* UIKit additions */ = {
+		66E863911688C2780059C9C4 /* UIKitAdditions */ = {
 			isa = PBXGroup;
 			children = (
 				66E863921688C2780059C9C4 /* SVGKFastImageView.h */,
@@ -1915,7 +1915,7 @@
 				66E863961688C2780059C9C4 /* SVGKLayeredImageView.h */,
 				66E863971688C2780059C9C4 /* SVGKLayeredImageView.m */,
 			);
-			path = "UIKit additions";
+			path = "UIKitAdditions";
 			sourceTree = "<group>";
 		};
 		66E863981688C2780059C9C4 /* Utils */ = {
