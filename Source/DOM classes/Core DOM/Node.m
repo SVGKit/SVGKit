@@ -278,6 +278,10 @@
 
 -(Node*) appendChild:(Node*) newChild
 {
+    if (!newChild) {
+        [NSException raise:@"newChild is null" format:@"object cannot be nil"];
+    }
+    
 	[self.childNodes.internalArray removeObject:newChild]; // required by spec
 	[self.childNodes.internalArray addObject:newChild];
 	
