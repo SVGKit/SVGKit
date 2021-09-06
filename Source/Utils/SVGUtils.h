@@ -21,6 +21,7 @@ typedef struct {
 SVGColor SVGColorMake (uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 SVGColor SVGColorFromString (const char *string);
 
+CGFloat SVGHSLColorToRGB (CGFloat p, CGFloat q, CGFloat t);
 CGFloat SVGPercentageFromString (const char *string);
 
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close);

@@ -270,7 +270,9 @@ SVGColor SVGColorMake (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 typedef enum {
 	PhaseNone = 0,
 	PhaseRGB,
-    PhaseRGBA
+    PhaseRGBA,
+    PhaseHSL,
+    PhaseHSLA
 } Phase;
 
 SVGColor SVGColorFromString (const char *string) {
@@ -338,6 +340,82 @@ SVGColor SVGColorFromString (const char *string) {
 			accum[accumIdx++] = c;
 		}
 	}
+    else if (!strncmp(string, "hsl(", 4) || !strncmp(string, "hsla(", 5)) {
+        CGFloat h; CGFloat s; CGFloat l;
+        
+        size_t len = strlen(string);
+        
+        char accum[MAX_ACCUM];
+        bzero(accum, MAX_ACCUM);
+        
+        int accumIdx = 0, currComponent = 0;
+        Phase phase = PhaseNone;
+        
+        for (size_t n = 0; n < len; n++) {
+            char c = string[n];
+            
+            if (c == '\n' || c == '\t' || c == ' ') {
+                continue;
+            }
+            
+            if (!strcmp(accum, "hsla(")) {
+                phase = PhaseHSLA;
+                bzero(accum, MAX_ACCUM);
+                accumIdx = 0;
+            } else if (!strcmp(accum, "hsl(")) {
+                phase = PhaseHSL;
+                bzero(accum, MAX_ACCUM);
+                accumIdx = 0;
+            }
+            
+            if (phase == PhaseHSL || phase == PhaseHSLA) {
+                if (c == ',') {
+                    if (currComponent == 0) {
+                        h = atof(accum) / 360.0f;
+                        currComponent++;
+                    }
+                    else if (currComponent == 1) {
+                        s = SVGPercentageFromString(accum);
+                        currComponent++;
+                    }
+                    else if (phase == PhaseHSLA && currComponent == 2) {
+                        l = SVGPercentageFromString(accum);
+                        currComponent++;
+                    }
+                    bzero(accum, MAX_ACCUM);
+                    accumIdx = 0;
+                    
+                    continue;
+                }
+                else if (c == ')' && currComponent == 2) {
+                    l = SVGPercentageFromString(accum);
+                    break;
+                }
+                else if (c == ')' && currComponent == 3) {
+                    if (atof(accum) > 1.0f) {
+                        color.a = 255.0f;
+                    } else {
+                        color.a = (uint8_t)lround(atof(accum) * 255.0f);
+                    }
+                    break;
+                }
+            }
+            
+            accum[accumIdx++] = c;
+        }
+        
+        // hsla to rbg
+        if(s == 0.0f){
+            color.r = color.g = color.b = l; // achromatic
+        }else{
+            CGFloat q; CGFloat p;
+            q = l < 0.5f ? l * (1.0f + s) : l + s - l * s;
+            p = 2.0f * l - q;
+            color.r = (uint8_t)lround(SVGHSLColorToRGB(p, q, h + 0.33f) * 255.0f);
+            color.g = (uint8_t)lround(SVGHSLColorToRGB(p, q, h) * 255.0f);
+            color.b = (uint8_t)lround(SVGHSLColorToRGB(p, q, h - 0.33f) * 255.0f);
+        }
+    }
 	else if (!strncmp(string, "#", 1)) {
 		const char *hexString = string + 1;
 		
@@ -383,6 +461,15 @@ SVGColor SVGColorFromString (const char *string) {
 	}
 	
 	return color;
+}
+
+CGFloat SVGHSLColorToRGB (CGFloat p, CGFloat q, CGFloat t) {
+    if(t < 0.0f) t += 1.0f;
+    if(t > 1.0f) t -= 1.0f;
+    if(t < 0.166f) return p + (q - p) * 6.0f * t;
+    if(t < 0.5f) return q;
+    if(t < 0.66f) return p + (q - p) * (0.66f - t) * 6.0f;
+    return p;
 }
 
 CGFloat SVGPercentageFromString (const char *string) {
