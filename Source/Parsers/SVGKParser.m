@@ -478,6 +478,8 @@ static void processingInstructionSAX (void * ctx,
 			
 			/** Parser Extenstion creates a node for us */
 			Node* subParserResult = [subParser handleStartElement:name document:source namePrefix:prefix namespaceURI:XMLNSURI attributes:attributeObjects parseResult:self.currentParseRun parentNode:_parentOfCurrentNode];
+            NSAssert( subParserResult != nil, @"Found a tag (prefix:%@ name:%@) that is failing to return a valid node", prefix, name );
+            
 			
 #if DEBUG_XML_PARSER
 			SVGKitLogVerbose(@"[%@] tag: <%@:%@> id=%@ -- handled by subParser: %@", [self class], prefix, name, ([((Attr*)[attributeObjects objectForKey:@"id"]) value] != nil?[((Attr*)[attributeObjects objectForKey:@"id"]) value]:@"(none)"), subParser );
@@ -516,6 +518,7 @@ static void processingInstructionSAX (void * ctx,
 	
 	/** Parser Extenstion creates a node for us */
 	Node* subParserResult = [eventualParser handleStartElement:name document:source namePrefix:prefix namespaceURI:XMLNSURI attributes:attributeObjects parseResult:self.currentParseRun parentNode:_parentOfCurrentNode];
+    NSAssert( subParserResult != nil, @"Found a tag (prefix:%@ name:%@) that is failing to return a valid node", prefix, name );
 	
 #if DEBUG_XML_PARSER
 	SVGKitLogVerbose(@"[%@] tag: <%@:%@> id=%@ -- handled by subParser: %@", [self class], prefix, name, ([((Attr*)[attributeObjects objectForKey:@"id"]) value] != nil?[((Attr*)[attributeObjects objectForKey:@"id"]) value]:@"(none)"), eventualParser );
