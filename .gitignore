@@ -33,3 +33,6 @@ Carthage/Build
 
 #VScode
 .vscode
+
+# Swift packages
+.build

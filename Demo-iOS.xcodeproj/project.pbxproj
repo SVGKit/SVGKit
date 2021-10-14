@@ -164,8 +164,6 @@
 		D0B21B552016BD8A00974D0A /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B21B542016BD8A00974D0A /* heart.png */; };
 		D0D29C9220EC44080003CE47 /* M-to-S-to-T.svg in Resources */ = {isa = PBXBuildFile; fileRef = D0D29C9120EC44080003CE47 /* M-to-S-to-T.svg */; };
 		D0D29C9420EC441F0003CE47 /* M-to-S-to-T.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D29C9320EC441F0003CE47 /* M-to-S-to-T.png */; };
-		FA5DF7261C434D54005CF231 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5DF7241C434C58005CF231 /* CocoaLumberjack.framework */; };
-		FA5DF7271C434D54005CF231 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA5DF7241C434C58005CF231 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,7 +247,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				32AF7BC021738A0300142396 /* SVGKit.framework in Embed Frameworks */,
-				FA5DF7271C434D54005CF231 /* CocoaLumberjack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,7 +420,6 @@
 		DA0291AD25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iPhoneDetailViewController.xib; sourceTree = "<group>"; };
 		DA0291AE25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController_iPad.xib; sourceTree = "<group>"; };
 		DA0291AF25AC8BBA00297579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController_iPhone.xib; sourceTree = "<group>"; };
-		FA5DF7241C434C58005CF231 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = "3rd-party-frameworks/CocoaLumberjack-2.2.0/iOS/CocoaLumberjack.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,7 +430,6 @@
 				32AF7BBE217389FD00142396 /* SVGKit.framework in Frameworks */,
 				6661A77D1698BBE20061E349 /* CoreText.framework in Frameworks */,
 				6649E10F1617578500AFE92A /* libxml2.dylib in Frameworks */,
-				FA5DF7261C434D54005CF231 /* CocoaLumberjack.framework in Frameworks */,
 				6649E0AD1617479200AFE92A /* QuartzCore.framework in Frameworks */,
 				661A0DCF161727CF008D5FBE /* UIKit.framework in Frameworks */,
 				661A0DD1161727CF008D5FBE /* Foundation.framework in Frameworks */,
@@ -475,7 +470,6 @@
 		661A0DCD161727CF008D5FBE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA5DF7241C434C58005CF231 /* CocoaLumberjack.framework */,
 				6649E10E1617578500AFE92A /* libxml2.dylib */,
 				6661A77C1698BBE20061E349 /* CoreText.framework */,
 				6649E0AC1617479200AFE92A /* QuartzCore.framework */,
