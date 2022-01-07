@@ -214,7 +214,7 @@
 	
 	if( [[self getAttribute:@"viewBox"] length] > 0 )
 	{
-		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
+        NSArray* boxElements = [[[[[self getAttribute:@"viewBox"] stringByReplacingOccurrencesOfString:@", " withString:@" "] stringByReplacingOccurrencesOfString:@" ," withString:@" "] stringByReplacingOccurrencesOfString:@"," withString:@" "] componentsSeparatedByString:@" "];
 		if ([boxElements count] < 2) {
 			/* count should be 4 -- maybe they're comma separated like (x,y,w,h) */
 			boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
