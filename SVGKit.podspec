@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = 'SVGKit'
-  s.version     = '2.1.0'
+  s.version     = '3.0.0'
   s.license     = 'MIT'
   s.osx.deployment_target = '10.9'
   s.ios.deployment_target = '5.0'
