@@ -80,7 +80,19 @@ CGImageRef SVGImageCGImage(UIImage *img)
 													options:NSRegularExpressionSearch
 													  range:NSMakeRange(0, [_href length]) ];
 		
-		imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+		// use the format defined at: https://www.rfc-editor.org/rfc/rfc2397
+		NSRange base64Range = [_href rangeOfString: @";base64,"];
+		if (base64Range.location != NSNotFound)
+		{
+			// initialize image data directly from the base64 string if the herf is an inline image encoded as base64.
+			// This will fix the warnings shown console:
+			// nil host used in call to allowsSpecificHTTPSCertificateForHost
+			// nil host used in call to allowsAnyHTTPSCertificateForHost
+			imageData = [[NSData alloc] initWithBase64EncodedString: [_href substringFromIndex:base64Range.location + base64Range.length] options:0];
+		} else
+		{
+			imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+		}
 	}
 	else
 	{
