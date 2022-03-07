@@ -160,6 +160,8 @@
 		BDC7EAB41B2A5960001F3161 /* CSS.css in Resources */ = {isa = PBXBuildFile; fileRef = BDC7EAB21B2A5960001F3161 /* CSS.css */; };
 		BDC7EAB51B2A5960001F3161 /* CSS.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDC7EAB31B2A5960001F3161 /* CSS.svg */; };
 		BDC7EAB81B2A7E4A001F3161 /* CSS.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7EAB71B2A7E4A001F3161 /* CSS.png */; };
+		CC1AFFDA27D6C4EF007547A2 /* SquareBlocks.svg in Resources */ = {isa = PBXBuildFile; fileRef = CC1AFFD927D6C4EF007547A2 /* SquareBlocks.svg */; };
+		CC1AFFDC27D6C639007547A2 /* SquareBlocks.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1AFFDB27D6C639007547A2 /* SquareBlocks.png */; };
 		D0B21B532016B17D00974D0A /* heart.svg in Resources */ = {isa = PBXBuildFile; fileRef = D0B21B4D2016B17C00974D0A /* heart.svg */; };
 		D0B21B552016BD8A00974D0A /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B21B542016BD8A00974D0A /* heart.png */; };
 		D0D29C9220EC44080003CE47 /* M-to-S-to-T.svg in Resources */ = {isa = PBXBuildFile; fileRef = D0D29C9120EC44080003CE47 /* M-to-S-to-T.svg */; };
@@ -408,6 +410,8 @@
 		BDC7EAB21B2A5960001F3161 /* CSS.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = CSS.css; sourceTree = "<group>"; };
 		BDC7EAB31B2A5960001F3161 /* CSS.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CSS.svg; sourceTree = "<group>"; };
 		BDC7EAB71B2A7E4A001F3161 /* CSS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CSS.png; sourceTree = "<group>"; };
+		CC1AFFD927D6C4EF007547A2 /* SquareBlocks.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = SquareBlocks.svg; sourceTree = "<group>"; };
+		CC1AFFDB27D6C639007547A2 /* SquareBlocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SquareBlocks.png; sourceTree = "<group>"; };
 		D0B21B4D2016B17C00974D0A /* heart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = heart.svg; sourceTree = "<group>"; };
 		D0B21B542016BD8A00974D0A /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		D0D29C9120EC44080003CE47 /* M-to-S-to-T.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "M-to-S-to-T.svg"; sourceTree = "<group>"; };
@@ -530,6 +534,7 @@
 				661EEAC81ACC3444007176B0 /* uk-only.png */,
 				661EEAC91ACC3444007176B0 /* voies.png */,
 				661EEA521ACC1723007176B0 /* Monkey.png */,
+				CC1AFFDB27D6C639007547A2 /* SquareBlocks.png */,
 				661EEA531ACC1723007176B0 /* Note.png */,
 			);
 			path = "Saved Bitmaps";
@@ -711,6 +716,7 @@
 				8805045A1AA624F20089554C /* radial-gradient-opacity.svg */,
 				BDC7EAB21B2A5960001F3161 /* CSS.css */,
 				BDC7EAB31B2A5960001F3161 /* CSS.svg */,
+				CC1AFFD927D6C4EF007547A2 /* SquareBlocks.svg */,
 			);
 			path = SVG;
 			sourceTree = "<group>";
@@ -891,6 +897,7 @@
 				32D42245217AED3900CFD064 /* LaunchScreen.storyboard in Resources */,
 				66E862981688BA510059C9C4 /* Location_European_nation_states.svg in Resources */,
 				D0B21B532016B17D00974D0A /* heart.svg in Resources */,
+				CC1AFFDA27D6C4EF007547A2 /* SquareBlocks.svg in Resources */,
 				661EEAA51ACC3053007176B0 /* shapes.png in Resources */,
 				BDC7EAB41B2A5960001F3161 /* CSS.css in Resources */,
 				66E862991688BA510059C9C4 /* Map.svg in Resources */,
@@ -940,6 +947,7 @@
 				661EEA9B1ACC2FD4007176B0 /* radgrad01.png in Resources */,
 				661EEAD81ACC3444007176B0 /* Location_European_nation_states.png in Resources */,
 				662701A11AD9587500B3AD03 /* bike-frame.png in Resources */,
+				CC1AFFDC27D6C639007547A2 /* SquareBlocks.png in Resources */,
 				661EEA851ACC2FBB007176B0 /* StyleAttribute.svg in Resources */,
 				6627019F1AD9585C00B3AD03 /* bike-frame.svg in Resources */,
 				661ADBFA16CC3399006F4BC3 /* rotated-and-skewed-text.svg in Resources */,
