@@ -59,7 +59,16 @@
 		    size of the rendered SVG)
 		 */
 		SVGRect frameViewBox = svgSVGElement.viewBox; // the ACTUAL viewbox (may be Uninitalized if none specified in SVG file)
-		SVGRect frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
+		
+		SVGRect frameActualViewport;
+		
+		if ([transformableOrSVGSVGElement isKindOfClass:[SVGSVGElement class]] && [svgSVGElement.parentNode isKindOfClass:[SVGSVGElement class]]) {
+			frameActualViewport = ((SVGSVGElement*)svgSVGElement.parentNode).viewBox;
+		}
+		else {
+			frameActualViewport = svgSVGElement.viewport; // the ACTUAL viewport (dictated by the graphics engine; may be Uninitialized if the renderer has too little info to decide on a viewport at all!)
+		}
+		
 		SVGRect frameRequestedViewport = svgSVGElement.requestedViewport; // the default viewport requested in the SVG source file (may be Uninitialized if no svg width or height params in original source file)
 		
 		if( ! SVGRectIsInitialized(frameActualViewport))
@@ -74,7 +83,7 @@
 		{
 			CGAffineTransform transformRealViewportToSVGViewport;
 			CGAffineTransform transformSVGViewportToSVGViewBox;
-		
+			
 			/** Transform part 1: from REAL viewport to EXPECTED viewport */
 			SVGRect viewportForViewBoxToRelateTo;
 			if( SVGRectIsInitialized( frameRequestedViewport ))
