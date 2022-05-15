@@ -325,6 +325,23 @@ static inline CGPoint SVGCurveReflectedControlPoint(SVGCurve prevCurve)
 #endif
 }
 
++ (void) readCoordinateOneNumber:(NSScanner*)scanner intoInt:(NSInteger*) floatPointer
+{
+    if ([scanner isAtEnd]) {
+        return;
+    }
+    NSString *string = [scanner.string substringWithRange:NSMakeRange(scanner.scanLocation, 1)];
+    while (string.length == 0 || [string isEqualToString:@" "]) {
+        scanner.scanLocation += 1;
+        if ([scanner isAtEnd]) {
+            break;
+        }
+        string = [scanner.string substringWithRange:NSMakeRange(scanner.scanLocation, 1)];
+    }
+    *floatPointer = string.integerValue;
+    scanner.scanLocation += 1;
+}
+
 /** 
  lineto:
  ( "L" | "l" ) wsp* lineto-argument-sequence
@@ -831,12 +848,19 @@ static inline CGPoint SVGCurveReflectedControlPoint(SVGCurve prevCurve)
 	phi = fmod(phi, 2 * M_PI);
     
     [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
-	
-	CGPoint flags = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
-	
-	BOOL largeArcFlag = flags.x != 0.;
-	BOOL sweepFlag = flags.y != 0.;
-    
+//    CGPoint flags = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
+//    BOOL largeArcFlag = flags.x != 0.;
+//    BOOL sweepFlag = flags.y != 0.;
+
+    NSInteger largeArcFlagNum = 0;
+    NSInteger sweepNum = 0;
+    [SVGKPointsAndPathsParser readCoordinateOneNumber:scanner intoInt:&largeArcFlagNum];
+    [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
+    [SVGKPointsAndPathsParser readCoordinateOneNumber:scanner intoInt:&sweepNum];
+
+    BOOL largeArcFlag = largeArcFlagNum != 0;
+    BOOL sweepFlag = sweepNum != 0;
+
     [SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
     
 	CGPoint endPoint = [SVGKPointsAndPathsParser readCoordinatePair:scanner];
