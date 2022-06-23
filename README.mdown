@@ -100,6 +100,11 @@ It's all setup already, all you need to do is:
 
 Everything else is automatic.
 
+## OPTION 5: Using Swift Package Manager
+
+In XCode go to `File` -> `Add Packages...` and provide URL to this repository in the search bar. Choose `Dependency Role` and select apropriate project. 
+
+
 ## Usage - OS X
 
 Added in version 2.1.0 / Autumn 2018: support for macOS.
