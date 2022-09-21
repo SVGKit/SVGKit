@@ -1,6 +1,5 @@
 /**
 SVGKDefine_Private.h
-
 SVGKDefine define some common macro used for private header.
 */
 
@@ -13,16 +12,16 @@ SVGKDefine define some common macro used for private header.
 
 #define SVGKIT_LOG_CONTEXT 556
 
-#define SVGKitLogError(frmt, ...)   DLog(frmt, ##__VA_ARGS__)
-#define SVGKitLogWarn(frmt, ...)    DLog(frmt, ##__VA_ARGS__)
-#define SVGKitLogInfo(frmt, ...)    DLog(frmt, ##__VA_ARGS__)
-#define SVGKitLogDebug(frmt, ...)   DLog(frmt, ##__VA_ARGS__)
-#define SVGKitLogVerbose(frmt, ...) DLog(frmt, ##__VA_ARGS__)
+#define SVGKitLogError(frmt, ...)   LOG_MAYBE(NO,                LOG_LEVEL_DEF, DDLogFlagError,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define SVGKitLogWarn(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define SVGKitLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,    SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define SVGKitLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define SVGKitLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, SVGKIT_LOG_CONTEXT, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 
-#ifdef DEBUG
-    #define DLog(frmt, ...) NSLog(frmt, ##__VA_ARGS__)
+#if DEBUG
+static const int ddLogLevel = DDLogLevelVerbose;
 #else
-    #define DLog(...)
+static const int ddLogLevel = DDLogLevelWarning;
 #endif
 
 #if SVGKIT_MAC
