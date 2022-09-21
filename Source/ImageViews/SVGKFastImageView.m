@@ -226,6 +226,7 @@
 	
 	CGSize scaleConvertImageToView;
 	CGSize tileSize;
+  CGSize translateSize;
 	if( cols == 1 && rows == 1 ) // if we are NOT tiling, then obey the UIViewContentMode as best we can!
 	{
 #ifdef USE_SUBLAYERS_INSTEAD_OF_BLIT
@@ -240,15 +241,47 @@
 			return; // we've added the layer - let Apple take care of the rest!
 		}
 #else
-		scaleConvertImageToView = CGSizeMake( self.bounds.size.width / imageBounds.size.width, self.bounds.size.height / imageBounds.size.height );
-		tileSize = self.bounds.size;
+    switch (self.contentMode) {
+      case UIViewContentModeScaleAspectFit:{
+        CGFloat nativeAspectRatio = imageBounds.size.width / imageBounds.size.height;
+        CGFloat boundedAspectRatio = self.bounds.size.width / self.bounds.size.height;
+        if (nativeAspectRatio >= boundedAspectRatio) {
+          scaleConvertImageToView = CGSizeMake( self.bounds.size.width / imageBounds.size.width, self.bounds.size.width *  nativeAspectRatio / imageBounds.size.height );
+          translateSize = CGSizeMake(0, (self.bounds.size.height - self.bounds.size.width)/2.0f);
+ } else {
+          scaleConvertImageToView = CGSizeMake( self.bounds.size.height *  nativeAspectRatio / imageBounds.size.width, self.bounds.size.height / imageBounds.size.height );
+   translateSize = CGSizeMake((self.bounds.size.width - self.bounds.size.height)/2.0f, 0);
+        }
+        break;
+      }
+      case UIViewContentModeScaleAspectFill:{
+        CGFloat nativeAspectRatio = imageBounds.size.width / imageBounds.size.height;
+        CGFloat boundedAspectRatio = self.bounds.size.width / self.bounds.size.height;
+        if (nativeAspectRatio >= boundedAspectRatio) {
+          scaleConvertImageToView = CGSizeMake( self.bounds.size.height *  nativeAspectRatio / imageBounds.size.width, self.bounds.size.height / imageBounds.size.height );
+   translateSize = CGSizeMake((self.bounds.size.width - self.bounds.size.height)/2.0f, 0);
+ } else {
+   scaleConvertImageToView = CGSizeMake( self.bounds.size.width / imageBounds.size.width, self.bounds.size.width *  nativeAspectRatio / imageBounds.size.height );
+   translateSize = CGSizeMake(0, (self.bounds.size.height - self.bounds.size.width)/2.0f);
+          
+        }
+        break;
+      }
+      default: {
+        scaleConvertImageToView = CGSizeMake( self.bounds.size.width / imageBounds.size.width, self.bounds.size.height / imageBounds.size.height );
+        translateSize = CGSizeZero;
+        break;
+      }
+        
+  }
 #endif
 	}
 	else
 	{
 		scaleConvertImageToView = CGSizeMake( self.bounds.size.width / (self.tileRatio.width * imageBounds.size.width), self.bounds.size.height / ( self.tileRatio.height * imageBounds.size.height) );
 		tileSize = CGSizeMake( self.bounds.size.width / self.tileRatio.width, self.bounds.size.height / self.tileRatio.height );
-	}
+    translateSize = CGSizeZero;
+}
 	
 	//DEBUG: SVGKitLogVerbose(@"cols, rows: %i, %i ... scaleConvert: %@ ... tilesize: %@", cols, rows, NSStringFromCGSize(scaleConvertImageToView), NSStringFromCGSize(tileSize) );
 	/** To support tiling, and to allow internal shrinking, we use renderInContext */
@@ -263,7 +296,8 @@
 			CGContextSaveGState(context);
 			
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
-			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
+      CGContextTranslateCTM(context, translateSize.width, translateSize.height );
+      CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
             [self.image renderInContext:context];
 			
