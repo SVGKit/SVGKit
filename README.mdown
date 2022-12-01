@@ -25,6 +25,7 @@ You have 3 main options for installing SVGKit:
 1. Use CocoaPods
 1. Use Carthage
 1. Drag/drop the static library into your project, and configure the build settings in your project
+1. Use Swift Package Manager
 
 NB: the "static library" is our backwards-compatible, manual install that always works if you have problems with CocoaPods/Carthage/Framework.
 
