@@ -8,7 +8,7 @@ SVGKDefine define some common macro used for private header.
 #define SVGKDefine_Private_h
 
 #import "SVGKDefine.h"
-#import <CocoaLumberjack/CocoaLumberjack.h>
+@import CocoaLumberjack;
 
 // These macro is only used inside framework project, does not expose to public header and effect user's define
 
