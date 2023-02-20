@@ -240,6 +240,9 @@
 			[self.layer addSublayer:self.image.CALayerTree];
 			return; // we've added the layer - let Apple take care of the rest!
 		}
+#elif SVGKIT_MAC
+        scaleConvertImageToView = CGSizeMake( self.bounds.size.width / imageBounds.size.width, self.bounds.size.height / imageBounds.size.height );
+        translateSize = self.bounds.size;
 #else
     switch (self.contentMode) {
       case UIViewContentModeScaleAspectFit:{
