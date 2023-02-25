@@ -40,21 +40,21 @@ CGImageRef SVGImageCGImage(UIImage *img)
 
 
 - (void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult {
-	[super postProcessAttributesAddingErrorsTo:parseResult];
+    [super postProcessAttributesAddingErrorsTo:parseResult];
 
-	if( [[self getAttribute:@"x"] length] > 0 )
-	_x = [[self getAttribute:@"x"] floatValue];
+    if( [[self getAttribute:@"x"] length] > 0 )
+    _x = [[self getAttribute:@"x"] floatValue];
 
-	if( [[self getAttribute:@"y"] length] > 0 )
-	_y = [[self getAttribute:@"y"] floatValue];
+    if( [[self getAttribute:@"y"] length] > 0 )
+    _y = [[self getAttribute:@"y"] floatValue];
 
-	if( [[self getAttribute:@"width"] length] > 0 )
-	_width = [[self getAttribute:@"width"] floatValue];
+    if( [[self getAttribute:@"width"] length] > 0 )
+    _width = [[self getAttribute:@"width"] floatValue];
 
-	if( [[self getAttribute:@"height"] length] > 0 )
-	_height = [[self getAttribute:@"height"] floatValue];
+    if( [[self getAttribute:@"height"] length] > 0 )
+    _height = [[self getAttribute:@"height"] floatValue];
 
-	if( [[self getAttribute:@"href"] length] > 0 )
+    if( [[self getAttribute:@"href"] length] > 0 )
         self.href = [self getAttribute:@"href"];
     
     [SVGHelperUtilities parsePreserveAspectRatioFor:self];
@@ -63,29 +63,30 @@ CGImageRef SVGImageCGImage(UIImage *img)
 
 - (CALayer *) newLayer
 {
-	CALayer* newLayer = [CALayerWithClipRender layer];
-	
-	[SVGHelperUtilities configureCALayer:newLayer usingElement:self];
-	
-	NSData *imageData;
-	NSURL* imageURL = [NSURL URLWithString:_href];
-	SVGKSource* effectiveSource = nil;
-	if ([_href hasPrefix:@"http:"] || [_href hasPrefix:@"https:"] )
-		imageData = [NSData dataWithContentsOfURL:imageURL];
-	else
-	if( [_href hasPrefix:@"data:"])
-	{
-		self.href = [_href stringByReplacingOccurrencesOfString:@"\\s+"
-												 withString:@""
-													options:NSRegularExpressionSearch
-													  range:NSMakeRange(0, [_href length]) ];
-		
-		imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
-	}
-	else
-	{
-		effectiveSource = [self.rootOfCurrentDocumentFragment.source sourceFromRelativePath:_href];
-		NSInputStream *stream = effectiveSource.stream;
+    CALayer* newLayer = [CALayerWithClipRender layer];
+    
+    [SVGHelperUtilities configureCALayer:newLayer usingElement:self];
+    
+    [newLayer setValue:[self cascadedValueForStylableProperty:@"isImage"] forKey:@"isImage"];
+    NSData *imageData;
+    NSURL* imageURL = [NSURL URLWithString:_href];
+    SVGKSource* effectiveSource = nil;
+    if ([_href hasPrefix:@"http:"] || [_href hasPrefix:@"https:"] )
+        imageData = [NSData dataWithContentsOfURL:imageURL];
+    else
+    if( [_href hasPrefix:@"data:"])
+    {
+        self.href = [_href stringByReplacingOccurrencesOfString:@"\\s+"
+                                                 withString:@""
+                                                    options:NSRegularExpressionSearch
+                                                      range:NSMakeRange(0, [_href length]) ];
+        
+        imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
+    }
+    else
+    {
+        effectiveSource = [self.rootOfCurrentDocumentFragment.source sourceFromRelativePath:_href];
+        NSInputStream *stream = effectiveSource.stream;
         if (stream) {
             [stream open]; // if we do this, we CANNOT parse from this source again in future
             NSError *error = nil;
@@ -95,13 +96,13 @@ CGImageRef SVGImageCGImage(UIImage *img)
         } else {
             SVGKitLogError(@"[%@] ERROR: unable to load the source from URL: %@", [self class], _href);
         }
-	}
-	
-	/** Now we have some raw bytes, try to load using Apple's image loaders
-	 (will fail if the image is an SVG file)
-	 */
-	UIImage *image = [[UIImage alloc] initWithData:imageData];
-	
+    }
+    
+    /** Now we have some raw bytes, try to load using Apple's image loaders
+     (will fail if the image is an SVG file)
+     */
+    UIImage *image = [[UIImage alloc] initWithData:imageData];
+    
     if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
     {
         SVGKImage *svg = nil;
@@ -139,8 +140,8 @@ CGImageRef SVGImageCGImage(UIImage *img)
         }
     }
     
-	if( image != nil )
-	{
+    if( image != nil )
+    {
         CGRect frame = CGRectMake(_x, _y, _width, _height);
         
         if( imageData )
@@ -174,20 +175,23 @@ CGImageRef SVGImageCGImage(UIImage *img)
         frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
         newLayer.frame = frame;
         
+        
+        
+        
         newLayer.contents = (__bridge id)imageRef;
         if( imageRefHasBeenRetained )
             CGImageRelease( imageRef );
-	}
-		
+    }
+        
 #if OLD_CODE
-	__block CALayer *layer = [[CALayer layer] retain];
+    __block CALayer *layer = [[CALayer layer] retain];
 
-	layer.name = self.identifier;
-	[layer setValue:self.identifier forKey:kSVGElementIdentifier];
-	
-	CGRect frame = CGRectMake(_x, _y, _width, _height);
-	frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
-	layer.frame = frame;
+    layer.name = self.identifier;
+    [layer setValue:self.identifier forKey:kSVGElementIdentifier];
+    
+    CGRect frame = CGRectMake(_x, _y, _width, _height);
+    frame = CGRectApplyAffineTransform(frame, [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self]);
+    layer.frame = frame;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_href]];
@@ -204,8 +208,8 @@ CGImageRef SVGImageCGImage(UIImage *img)
 
     return layer;
 #endif
-	
-	return newLayer;
+    
+    return newLayer;
 }
 
 - (CGRect)clipFrame:(CGRect)frame fromRatio:(double)ratioOfRatios
@@ -276,3 +280,5 @@ CGImageRef SVGImageCGImage(UIImage *img)
 }
 
 @end
+
+

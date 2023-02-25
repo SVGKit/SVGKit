@@ -272,19 +272,12 @@
 				SVGKitLogError(@"[%@] ERROR: input file is illegal, has an item in the SVG transform attribute which has no open-bracket. Item = %@, transform attribute value = %@", [self class], transformString, value );
 				return;
 			}
-            NSString* command = [transformString substringToIndex:loc.location];
+			NSString* command = [transformString substringToIndex:loc.location];
             NSString* rawParametersString = [transformString substringFromIndex:loc.location+1];
-            NSMutableArray *parameterStrings = [NSMutableArray array];
-            NSScanner *scanner = [[NSScanner alloc] initWithString:rawParametersString];
-            CGFloat currentValue;
-
-            NSCharacterSet *commaAndWhitespace = [NSCharacterSet characterSetWithCharactersInString:@", "];
-            while (![scanner isAtEnd]) {
-                if ([scanner scanDouble:&currentValue]) {
-                    [parameterStrings addObject:[@(currentValue) stringValue]];
-                }
-                [scanner scanCharactersFromSet:commaAndWhitespace intoString:NULL];
-            }
+			NSArray* parameterStrings = [rawParametersString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]];
+			
+			/** if you get ", " (comma AND space), Apple sends you an extra 0-length match - "" - between your args. We strip that here */
+			parameterStrings = [parameterStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
 			
 			//EXTREME DEBUG: SVGKitLogVerbose(@"[%@] DEBUG: found parameters = %@", [self class], parameterStrings);
 			
@@ -322,6 +315,9 @@
 			}
 			else if( [command isEqualToString:@"rotate"] )
 			{
+                
+                
+                
 				/**
 				 This section merged from warpflyght's commit:
 				 
@@ -332,6 +328,7 @@
 				{
 					CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
 					CGFloat radians = degrees * M_PI / 180.0;
+                    
                     
 					selfTransformable.transform = CGAffineTransformRotate(selfTransformable.transform, radians);
 //					CGAffineTransform nt = CGAffineTransformMakeRotation(radians);

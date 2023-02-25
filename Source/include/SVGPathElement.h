@@ -1,1 +1,0 @@
-../DOM classes/Unported or Partial DOM/SVGPathElement.h

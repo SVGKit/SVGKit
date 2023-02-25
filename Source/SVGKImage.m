@@ -677,10 +677,7 @@ static NSMutableDictionary* globalSVGKImageCache;
     /**
      Special handling for clip-path; need to create their children
      */
-    NSString* clipPath;
-    if ([element isKindOfClass:[SVGElement class]]) {
-        clipPath = [element cascadedValueForStylableProperty:@"clip-path" inherit:NO];
-    }
+    NSString* clipPath = [element cascadedValueForStylableProperty:@"clip-path" inherit:NO];
     if ( [clipPath hasPrefix:@"url"] )
     {
         NSRange idKeyRange = NSMakeRange(5, clipPath.length - 6);
