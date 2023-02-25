@@ -15,51 +15,55 @@
 
 - (CALayer *) newLayer
 {
-	/**
-	 BY DESIGN: we work out the positions of all text in ABSOLUTE space, and then construct the Apple CALayers and CATextLayers around
-	 them, as required.
-	 
-	 Because: Apple's classes REQUIRE us to provide a lot of this info up-front. Sigh
-	 And: SVGKit works by pre-baking everything into position (its faster, and avoids Apple's broken CALayer.transform property)
-	 */
-	CGAffineTransform textTransformAbsolute = [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self];
-	/** add on the local x,y that will NOT BE iNCLUDED IN THE TRANSFORM
-	 AUTOMATICALLY BECAUSE THEY ARE NOT TRANSFORM COMMANDS IN SVG SPEC!!
-	 -- but they ARE part of the "implicit transform" of text elements!! (bad SVG Spec design :( )
-	 
-	 NB: the local bits (x/y offset) have to be pre-transformed by
-	 */
+    /**
+     BY DESIGN: we work out the positions of all text in ABSOLUTE space, and then construct the Apple CALayers and CATextLayers around
+     them, as required.
+     
+     Because: Apple's classes REQUIRE us to provide a lot of this info up-front. Sigh
+     And: SVGKit works by pre-baking everything into position (its faster, and avoids Apple's broken CALayer.transform property)
+     */
+    CGAffineTransform textTransformAbsolute = [SVGHelperUtilities transformAbsoluteIncludingViewportForTransformableOrViewportEstablishingElement:self];
+    
+   
+    /** add on the local x,y that will NOT BE iNCLUDED IN THE TRANSFORM
+     AUTOMATICALLY BECAUSE THEY ARE NOT TRANSFORM COMMANDS IN SVG SPEC!!
+     -- but they ARE part of the "implicit transform" of text elements!! (bad SVG Spec design :( )
+     
+     NB: the local bits (x/y offset) have to be pre-transformed by
+     */
     CGRect viewport = CGRectFromSVGRect(self.rootOfCurrentDocumentFragment.viewBox);
-	CGAffineTransform textTransformAbsoluteWithLocalPositionOffset = CGAffineTransformConcat( CGAffineTransformMakeTranslation( [self.x pixelsValueWithDimension:viewport.size.width], [self.y pixelsValueWithDimension:viewport.size.height]), textTransformAbsolute);
-	
-	/**
-	 Apple's CATextLayer is poor - one of those classes Apple hasn't finished writing?
-	 
-	 It's incompatible with UIFont (Apple states it is so), and it DOES NOT WORK by default:
-	 
-	 If you assign a font, and a font size, and text ... you get a blank empty layer of
-	 size 0,0
-	 
-	 Because Apple requires you to ALSO do all the work of calculating the font size, shape,
-	 position etc.
-	 
-	 But its the easiest way to get FULL control over size/position/rotation/etc in a CALayer
-	 */
+    CGAffineTransform textTransformAbsoluteWithLocalPositionOffset = CGAffineTransformConcat( CGAffineTransformMakeTranslation( [self.x pixelsValueWithDimension:viewport.size.width], [self.y pixelsValueWithDimension:viewport.size.height]), textTransformAbsolute);
+    
+    /**
+     Apple's CATextLayer is poor - one of those classes Apple hasn't finished writing?
+     
+     It's incompatible with UIFont (Apple states it is so), and it DOES NOT WORK by default:
+     
+     If you assign a font, and a font size, and text ... you get a blank empty layer of
+     size 0,0
+     
+     Because Apple requires you to ALSO do all the work of calculating the font size, shape,
+     position etc.
+     
+     But its the easiest way to get FULL control over size/position/rotation/etc in a CALayer
+     */
     
     /**
      Create font based on many information (font-family, font-weight, etc), fallback to system font when there are no available font matching the information.
      */
+    NSString *actualFamily = [self cascadedValueForStylableProperty:@"font-family"];
+    NSArray<NSString *> *actualFontFamilies = [SVGTextElement fontFamiliesWithCSSValue:actualFamily];
     UIFont *font = [SVGTextElement matchedFontWithElement:self];
-	
-	/** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
-//	effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
+    
+    /** Convert the size down using the SVG transform at this point, before we calc the frame size etc */
+//    effectiveFontSize = CGSizeApplyAffineTransform( CGSizeMake(0,effectiveFontSize), textTransformAbsolute ).height; // NB important that we apply a transform to a "CGSize" here, so that Apple's library handles worrying about whether to ignore skew transforms etc
 
-	/** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
-	
-	NSString* effectiveText = self.textContent; // FIXME: this is a TEMPORARY HACK, UNTIL PROPER PARSING OF <TSPAN> ELEMENTS IS ADDED
-	
-	effectiveText = [effectiveText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	effectiveText = [effectiveText stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    /** Convert all whitespace to spaces, and trim leading/trailing (SVG doesn't support leading/trailing whitespace, and doesnt support CR LF etc) */
+    
+    NSString* effectiveText = self.textContent; // FIXME: this is a TEMPORARY HACK, UNTIL PROPER PARSING OF <TSPAN> ELEMENTS IS ADDED
+    
+    effectiveText = [effectiveText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    effectiveText = [effectiveText stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     
     /**
      Stroke color && stroke width
@@ -80,17 +84,17 @@
      Apple's `CATextLayer` can be filled using mask.
      */
     CGColorRef fillColor = [SVGHelperUtilities parseFillForElement:self];
-	
-	/** Calculate 
-	 
-	 1. Create an attributed string (Apple's APIs are hard-coded to require this)
-	 2. Set the font to be the correct one + correct size for whole string, inside the string
-	 3. Ask apple how big the final thing should be
-	 4. Use that to provide a layer.frame
-	 */
-	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
+    
+    /** Calculate
+     
+     1. Create an attributed string (Apple's APIs are hard-coded to require this)
+     2. Set the font to be the correct one + correct size for whole string, inside the string
+     3. Ask apple how big the final thing should be
+     4. Use that to provide a layer.frame
+     */
+    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:effectiveText];
     NSRange stringRange = NSMakeRange(0, attributedString.string.length);
-	[attributedString addAttribute:NSFontAttributeName
+    [attributedString addAttribute:NSFontAttributeName
                              value:font
                              range:stringRange];
     if (fillColor) {
@@ -112,55 +116,55 @@
                                  value:@(strokeValue)
                                  range:stringRange];
     }
-	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) attributedString );
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString( (CFMutableAttributedStringRef) attributedString );
     CGSize suggestedUntransformedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX), NULL);
     CFRelease(framesetter);
-	
-	CGRect unTransformedFinalBounds = CGRectMake( 0,
-											  0,
-											  suggestedUntransformedSize.width,
-											  suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
-	
+    
+    CGRect unTransformedFinalBounds = CGRectMake( 0,
+                                              0,
+                                              suggestedUntransformedSize.width,
+                                              suggestedUntransformedSize.height); // everything's been pre-scaled by [self transformAbsolute]
+    
     CATextLayer *label = [SVGTextLayer layer];
     [SVGHelperUtilities configureCALayer:label usingElement:self];
-	
-	/** This is complicated for three reasons.
-	 Partly: Apple and SVG use different defitions for the "origin" of a piece of text
-	 Partly: Bugs in Apple's CoreText
-	 Partly: flaws in Apple's CALayer's handling of frame,bounds,position,anchorPoint,affineTransform
-	 
-	 1. CALayer.frame DOES NOT EXIST AS A REAL PROPERTY - if you read Apple's docs you eventually realise it is fake. Apple explicitly says it is "not defined". They should DELETE IT from their API!
-	 2. CALayer.bounds and .position ARE NOT AFFECTED BY .affineTransform - only the contents of the layer is affected
-	 3. SVG defines two SEMI-INCOMPATIBLE ways of positioning TEXT objects, that we have to correctly combine here.
-	 4. So ... to apply a transform to the layer text:
-	     i. find the TRANSFORM
-	     ii. merge it with the local offset (.x and .y from SVG) - which defaults to (0,0)
-	     iii. apply that to the layer
-	     iv. set the position to 0
-	     v. BECAUSE SVG AND APPLE DEFINE ORIGIN DIFFERENTLY: subtract the "untransformed" height of the font ... BUT: pre-transformed ONLY BY the 'multiplying (non-translating)' part of the TRANSFORM.
-	     vi. set the bounds to be (whatever Apple's CoreText says is necessary to render TEXT at FONT SIZE, with NO TRANSFORMS)
-	 */
+    
+    /** This is complicated for three reasons.
+     Partly: Apple and SVG use different defitions for the "origin" of a piece of text
+     Partly: Bugs in Apple's CoreText
+     Partly: flaws in Apple's CALayer's handling of frame,bounds,position,anchorPoint,affineTransform
+     
+     1. CALayer.frame DOES NOT EXIST AS A REAL PROPERTY - if you read Apple's docs you eventually realise it is fake. Apple explicitly says it is "not defined". They should DELETE IT from their API!
+     2. CALayer.bounds and .position ARE NOT AFFECTED BY .affineTransform - only the contents of the layer is affected
+     3. SVG defines two SEMI-INCOMPATIBLE ways of positioning TEXT objects, that we have to correctly combine here.
+     4. So ... to apply a transform to the layer text:
+         i. find the TRANSFORM
+         ii. merge it with the local offset (.x and .y from SVG) - which defaults to (0,0)
+         iii. apply that to the layer
+         iv. set the position to 0
+         v. BECAUSE SVG AND APPLE DEFINE ORIGIN DIFFERENTLY: subtract the "untransformed" height of the font ... BUT: pre-transformed ONLY BY the 'multiplying (non-translating)' part of the TRANSFORM.
+         vi. set the bounds to be (whatever Apple's CoreText says is necessary to render TEXT at FONT SIZE, with NO TRANSFORMS)
+     */
     label.bounds = unTransformedFinalBounds;
-	
-	/** NB: specific to Apple: the "origin" is the TOP LEFT corner of first line of text, whereas SVG uses the font's internal origin
-	 (which is BOTTOM LEFT CORNER OF A LETTER SUCH AS 'a' OR 'x' THAT SITS ON THE BASELINE ... so we have to make the FRAME start "font leading" higher up
-	 
-	 WARNING: Apple's font-rendering system has some nasty bugs (c.f. StackOverflow)
-	 
-	 We TRIED to use the font's built-in numbers to correct the position, but Apple's own methods often report incorrect values,
-	 and/or Apple has deprecated REQUIRED methods in their API (with no explanation - e.g. "font leading")
-	 
-	 If/when Apple fixes their bugs - or if you know enough about their API's to workaround the bugs, feel free to fix this code.
-	 */
+    
+    /** NB: specific to Apple: the "origin" is the TOP LEFT corner of first line of text, whereas SVG uses the font's internal origin
+     (which is BOTTOM LEFT CORNER OF A LETTER SUCH AS 'a' OR 'x' THAT SITS ON THE BASELINE ... so we have to make the FRAME start "font leading" higher up
+     
+     WARNING: Apple's font-rendering system has some nasty bugs (c.f. StackOverflow)
+     
+     We TRIED to use the font's built-in numbers to correct the position, but Apple's own methods often report incorrect values,
+     and/or Apple has deprecated REQUIRED methods in their API (with no explanation - e.g. "font leading")
+     
+     If/when Apple fixes their bugs - or if you know enough about their API's to workaround the bugs, feel free to fix this code.
+     */
     CTLineRef line = CTLineCreateWithAttributedString( (CFMutableAttributedStringRef) attributedString );
     CGFloat ascent = 0;
     CTLineGetTypographicBounds(line, &ascent, NULL, NULL);
     CFRelease(line);
-	CGFloat offsetToConvertSVGOriginToAppleOrigin = -ascent;
-	CGSize fakeSizeToApplyNonTranslatingPartsOfTransform = CGSizeMake( 0, offsetToConvertSVGOriginToAppleOrigin);
-	
-	label.position = CGPointMake( 0,
-								 0 + CGSizeApplyAffineTransform( fakeSizeToApplyNonTranslatingPartsOfTransform, textTransformAbsoluteWithLocalPositionOffset).height);
+    CGFloat offsetToConvertSVGOriginToAppleOrigin = -ascent;
+    CGSize fakeSizeToApplyNonTranslatingPartsOfTransform = CGSizeMake( 0, offsetToConvertSVGOriginToAppleOrigin);
+    
+    label.position = CGPointMake( 0,
+                                 0 + CGSizeApplyAffineTransform( fakeSizeToApplyNonTranslatingPartsOfTransform, textTransformAbsoluteWithLocalPositionOffset).height);
     
     NSString *textAnchor = [self cascadedValueForStylableProperty:@"text-anchor"];
     if( [@"middle" isEqualToString:textAnchor] )
@@ -170,7 +174,51 @@
     else
         label.anchorPoint = CGPointZero; // WARNING: SVG applies transforms around the top-left as origin, whereas Apple defaults to center as origin, so we tell Apple to work "like SVG" here.
     
-	label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
+   // label.anchorPoint = CGPointMake(0.5, 0.0);
+    
+    
+   
+    CGFloat angle = atan2f(textTransformAbsoluteWithLocalPositionOffset.b, textTransformAbsoluteWithLocalPositionOffset.a);
+   // label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
+   // label.affineTransform = textTransformAbsoluteWithLocalPositionOffset;
+    CGAffineTransform  newTrans = CGAffineTransformRotate(textTransformAbsoluteWithLocalPositionOffset, -angle);
+
+//    CGFloat scale = sqrt(newTrans.a * newTrans.a + newTrans.c * newTrans.c);
+//    CGFloat x1 = newTrans.tx;
+//    CGFloat y1 = newTrans.ty;
+//
+//    CGFloat xc = ( label.frame.size.width / 2) * scale;
+//    CGFloat yc = ( label.frame.size.height / 2) * scale ;
+//
+//    CGFloat xt = x1 - xc;
+//    CGFloat yt = y1 - yc;
+//
+//    CGFloat c = cos(-angle); // compute trig. functions only once
+//    CGFloat s = sin(-angle);
+//
+//    CGFloat xr = xt * c - yt * s;
+//    CGFloat yr = xt * s + yt * c;
+//
+//    CGFloat x2 = xr + xc;
+//    CGFloat y2 = yr + yc;
+    
+//    x2 = x2 - x2 * scale;
+//    y2 = y2 - y2 * scale;
+    
+   // "matrix(sx, 0, 0, sy, cx-sx*cx, cy-sy*cy)"
+    
+    
+    
+   // newTrans.tx = x2 ;
+   // newTrans.ty = y2 ;
+   
+   // newTrans = CGAffineTransformRotate(newTrans, -angle);
+    
+    //[label setAnchorPoint:CGPointMake(0.5, 0.5)];
+    label.affineTransform = newTrans;
+    
+    
+    
     label.string = [attributedString copy];
     label.alignmentMode = kCAAlignmentLeft;
     
@@ -180,13 +228,32 @@
     label.contentsScale = [[UIScreen mainScreen] scale];
 #endif
     
-    return [self newCALayerForTextLayer:label transformAbsolute:textTransformAbsolute];
+    CALayer *finalLayer = [self newCALayerForTextLayer:label transformAbsolute:textTransformAbsolute];
 
-	/** VERY USEFUL when trying to debug text issues:
-	label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
-	label.borderColor = [UIColor redColor].CGColor;
-	//DEBUG: SVGKitLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
-	*/
+    
+        [finalLayer setValue:[self cascadedValueForStylableProperty:@"customRotate"] forKey:@"customRotate"];
+        [finalLayer setValue:[self cascadedValueForStylableProperty:@"customX"] forKey:@"customX"];
+        [finalLayer setValue:[self cascadedValueForStylableProperty:@"customY"] forKey:@"customY"];
+    
+    //[finalLayer setValue:[self cascadedValueForStylableProperty:@"CUSTOMANGLE"] forKey:@"customRotat"];
+    
+    //if( [self cascadedValueForStylableProperty:@"customRotat"] == nil){
+      //  if (angle != 0) {
+//            [finalLayer setValue: @(angle).stringValue forKey:@"customRotat"];
+//            [finalLayer setValue: @"left" forKey:@"layerAncher"];
+        //}
+ //   }
+    
+    [finalLayer setValue:actualFontFamilies.firstObject forKey:@"actualFont"];
+    
+        return finalLayer;
+    //return [self newCALayerForTextLayer:label transformAbsolute:textTransformAbsolute];
+
+    /** VERY USEFUL when trying to debug text issues:
+    label.backgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0 alpha:0.5].CGColor;
+    label.borderColor = [UIColor redColor].CGColor;
+    //DEBUG: SVGKitLogVerbose(@"font size %2.1f at %@ ... final frame of layer = %@", effectiveFontSize, NSStringFromCGPoint(transformedOrigin), NSStringFromCGRect(label.frame));
+    */
 }
 
 -(CALayer *) newCALayerForTextLayer:(CATextLayer *)label transformAbsolute:(CGAffineTransform)transformAbsolute
@@ -241,16 +308,24 @@
         // walkthrough all available font-families to find the best matched one
         NSSet<NSString *> *availableFontFamilies;
 #if SVGKIT_MAC
-        availableFontFamilies = [NSSet setWithArray:NSFontManager.sharedFontManager.availableFontFamilies];
-#else
-        availableFontFamilies = [NSSet setWithArray:UIFont.familyNames];
-#endif
+        availableFontFamilies = [NSSet setWithArray:NSFontManager.sharedFontManager.availableFonts];
         for (NSString *fontFamily in actualFontFamilies) {
-            if ([availableFontFamilies containsObject:fontFamily]) {
-                matchedFontFamily = fontFamily;
+            
+            NSString *trimmedFontFamily = [fontFamily stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+            if ([availableFontFamilies containsObject:trimmedFontFamily]) {
+                matchedFontFamily = trimmedFontFamily;
                 break;
             }
+
+
         }
+#else
+        availableFontFamilies = [NSSet setWithArray:UIFont.familyNames];
+        matchedFontFamily = actualFontFamilies.firstObject;
+        
+#endif
+ 
     }
     
     // we provide enough hint information, let Core Text using their algorithm to detect which fontName should be used
@@ -258,9 +333,14 @@
     NSDictionary *attributes = [self fontAttributesWithFontFamily:matchedFontFamily fontStyle:actualFontStyle fontWeight:actualFontWeight fontStretch:actualFontStretch];
     CTFontDescriptorRef descriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
     CTFontRef fontRef = CTFontCreateWithFontDescriptor(descriptor, effectiveFontSize, NULL);
-    UIFont *font = (__bridge_transfer UIFont *)fontRef;
+    //UIFont *font = (__bridge_transfer UIFont *)fontRef;
+    UIFont *font = [UIFont fontWithName:matchedFontFamily size: effectiveFontSize];
+    if (font != nil) {
+        return font;
+    }else {
+        return  [UIFont systemFontOfSize:effectiveFontSize];
+    }
     
-    return font;
 }
 
 /**
@@ -368,7 +448,9 @@
 
 - (void)layoutLayer:(CALayer *)layer
 {
-	
+    
 }
 
 @end
+
+
