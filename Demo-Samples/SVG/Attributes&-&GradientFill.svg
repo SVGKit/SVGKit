@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Icons_Light" data-name="Icons Light" xmlns="http://www.w3.org/2000/svg" width="26" height="20" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 26 20">
+  <defs>
+    <linearGradient id="linear-gradient" x1=".49" y1="10" x2="13.49" y2="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+  </defs>
+  <path d="M.96,16.5c-.26,0-.47-.21-.47-.47V3.97c0-.26,.21-.47,.47-.47H13.02c.26,0,.47,.21,.47,.47V15.83c0,.37-.3,.67-.67,.67H.96Z" fill="url(#linear-gradient)"/>
+  <path d="M12.99,4V15.83c0,.09-.07,.17-.17,.17l-11.83,.03-.03-12.03H12.99m.03-1H.96C.42,3,0,3.43,0,3.97v12.06c0,.53,.43,.97,.97,.97H12.82c.64,0,1.17-.52,1.17-1.17V3.97c0-.53-.43-.97-.97-.97h0Z" fill="#2e2e2e"/>
+</svg>

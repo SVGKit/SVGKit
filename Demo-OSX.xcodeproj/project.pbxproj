@@ -87,6 +87,9 @@
 		55D8EE3B17628A71009C25F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* AppDelegate.m */; };
 		55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3C17628A71009C25F1 /* MainMenu.xib */; };
 		55D8EE4F17628FBC009C25F1 /* DemoSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */; };
+		D3FD0CDB2A0A7DED0028E15E /* Hoehenpunkte be CW.svg in Resources */ = {isa = PBXBuildFile; fileRef = D3FD0CD92A0A7DED0028E15E /* Hoehenpunkte be CW.svg */; };
+		D3FD0CEA2A0A87680028E15E /* Link2R_Mac.svg in Resources */ = {isa = PBXBuildFile; fileRef = D3FD0CE22A0A87680028E15E /* Link2R_Mac.svg */; };
+		D3FD0D062A0A8E190028E15E /* Attributes&-&GradientFill.svg in Resources */ = {isa = PBXBuildFile; fileRef = D3FD0D042A0A8E180028E15E /* Attributes&-&GradientFill.svg */; };
 		E0060539218BEBF300FC58FE /* shapes2.svg in Resources */ = {isa = PBXBuildFile; fileRef = E0060531218BEBF300FC58FE /* shapes2.svg */; };
 /* End PBXBuildFile section */
 
@@ -371,6 +374,9 @@
 		55D8EE3D17628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		55D8EE4D17628FBC009C25F1 /* DemoSVGObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSVGObject.h; sourceTree = "<group>"; };
 		55D8EE4E17628FBC009C25F1 /* DemoSVGObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoSVGObject.m; sourceTree = "<group>"; };
+		D3FD0CD92A0A7DED0028E15E /* Hoehenpunkte be CW.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Hoehenpunkte be CW.svg"; sourceTree = "<group>"; };
+		D3FD0CE22A0A87680028E15E /* Link2R_Mac.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Link2R_Mac.svg; sourceTree = "<group>"; };
+		D3FD0D042A0A8E180028E15E /* Attributes&-&GradientFill.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Attributes&-&GradientFill.svg"; sourceTree = "<group>"; };
 		E0060531218BEBF300FC58FE /* shapes2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shapes2.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -392,6 +398,9 @@
 		32C4FCF42173976B00FBEDBF /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				D3FD0D042A0A8E180028E15E /* Attributes&-&GradientFill.svg */,
+				D3FD0CE22A0A87680028E15E /* Link2R_Mac.svg */,
+				D3FD0CD92A0A7DED0028E15E /* Hoehenpunkte be CW.svg */,
 				323C2E28218437C600741D80 /* Mozilla_Firefox_logo_2013.svg */,
 				32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */,
 				32C4FCF62173976C00FBEDBF /* g-element-applies-rotation.svg */,
@@ -840,6 +849,7 @@
 				32C4FD6B2173976C00FBEDBF /* Snowman.png in Resources */,
 				32C4FD752173976C00FBEDBF /* gradients.svg in Resources */,
 				32C4FD642173976C00FBEDBF /* StyleAttribute.svg in Resources */,
+				D3FD0CEA2A0A87680028E15E /* Link2R_Mac.svg in Resources */,
 				32C4FD672173976C00FBEDBF /* svg-with-explicit-width-large.svg in Resources */,
 				32C4FD5B2173976C00FBEDBF /* arcs01.svg in Resources */,
 				32C4FD732173976C00FBEDBF /* transformations.svg in Resources */,
@@ -873,6 +883,7 @@
 				32C4FD692173976C00FBEDBF /* uk-only.svg in Resources */,
 				32C4FD432173976C00FBEDBF /* Lion.svg in Resources */,
 				32C4FD7C2173976C00FBEDBF /* heart.svg in Resources */,
+				D3FD0CDB2A0A7DED0028E15E /* Hoehenpunkte be CW.svg in Resources */,
 				32C4FD5A2173976C00FBEDBF /* fillrule-evenodd.svg in Resources */,
 				55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */,
 				32C4FD612173976C00FBEDBF /* quad01.svg in Resources */,
@@ -891,6 +902,7 @@
 				32C4FD3C2173976C00FBEDBF /* Blank_Map-Africa.svg in Resources */,
 				32C4FD3E2173976C00FBEDBF /* imageWithASinglePointPath.svg in Resources */,
 				32C4FD722173976C00FBEDBF /* shapes.svg in Resources */,
+				D3FD0D062A0A8E190028E15E /* Attributes&-&GradientFill.svg in Resources */,
 				32C4FD792173976C00FBEDBF /* BlankMap-World6-Equirectangular.svg in Resources */,
 				32C4FD6E2173976C00FBEDBF /* Cycling_Lambie.svg in Resources */,
 				32C4FD762173976C00FBEDBF /* svg-with-explicit-width.svg in Resources */,

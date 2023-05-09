@@ -44,10 +44,10 @@
     self.y2 = svgY2;
     
     // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse), but we simplify the logic using `rectForRelativeUnits`
-    CGFloat x1 = [svgX1 pixelsValueWithGradientDimension:CGRectGetWidth(rectForRelativeUnits)];
-    CGFloat y1 = [svgY1 pixelsValueWithGradientDimension:CGRectGetHeight(rectForRelativeUnits)];
-    CGFloat x2 = [svgX2 pixelsValueWithGradientDimension:CGRectGetWidth(rectForRelativeUnits)];
-    CGFloat y2 = [svgY2 pixelsValueWithGradientDimension:CGRectGetHeight(rectForRelativeUnits)];
+	CGFloat x1 = [svgX1 pixelsValueWithGradientDimension:CGRectGetWidth(rectForRelativeUnits) treatAsPercentage:!inUserSpace];
+    CGFloat y1 = [svgY1 pixelsValueWithGradientDimension:CGRectGetHeight(rectForRelativeUnits) treatAsPercentage:!inUserSpace];
+    CGFloat x2 = [svgX2 pixelsValueWithGradientDimension:CGRectGetWidth(rectForRelativeUnits) treatAsPercentage:!inUserSpace];
+    CGFloat y2 = [svgY2 pixelsValueWithGradientDimension:CGRectGetHeight(rectForRelativeUnits) treatAsPercentage:!inUserSpace];
     CGPoint startPoint = CGPointMake(x1, y1);
     CGPoint endPoint = CGPointMake(x2, y2);
     

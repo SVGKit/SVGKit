@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20">
+  <g id="b" data-name="Icons_Light">
+    <polygon points="6.5 5.5 3.5 17.5 21.5 17.5 6.5 5.5" style="fill: none; stroke: #2e2e2e; stroke-linecap: round; stroke-linejoin: round;"/>
+  </g>
+  <g id="m" data-name="Icons_Dark">
+    <g>
+      <path d="m23,14h0m0,0l-2.5,5-2.5-5h5m0-1h-5c-.35,0-.67.18-.85.47-.18.29-.2.66-.04.97l2.5,5c.17.34.52.55.89.55s.73-.21.89-.55l2.47-4.95c.09-.15.13-.32.13-.5,0-.55-.45-1-1-1h0Zm0,2h0,0Z" style="fill: #2e2e2e;"/>
+      <polygon points="18.81 14.5 22.19 14.5 20.5 17.88 18.81 14.5" style="fill: #e8e8e8;"/>
+      <path d="m21.38,15l-.88,1.76-.88-1.76h1.76m1.62-1h0,0Zm0,0h-5l2.5,5,2.5-5h0Z" style="fill: #e8e8e8;"/>
+    </g>
+    <g>
+      <path d="m6,14h0m0,0l-2.5,5-2.5-5h5m0-1H1c-.35,0-.67.18-.85.47-.18.29-.2.66-.04.97l2.5,5c.17.34.52.55.89.55s.73-.21.89-.55l2.47-4.95c.09-.15.13-.32.13-.5,0-.55-.45-1-1-1h0Zm0,2h0,0Z" style="fill: #2e2e2e;"/>
+      <polygon points="1.81 14.5 5.19 14.5 3.5 17.88 1.81 14.5" style="fill: #e8e8e8;"/>
+      <path d="m4.38,15l-.88,1.76-.88-1.76h1.76m1.62-1h0,0Zm0,0H1l2.5,5,2.5-5h0Z" style="fill: #e8e8e8;"/>
+    </g>
+    <g>
+      <path d="m9,3h0m0,0l-2.5,5-2.5-5h5m0-1h-5c-.35,0-.67.18-.85.47-.18.29-.2.66-.04.97l2.5,5c.17.34.52.55.89.55s.73-.21.89-.55l2.47-4.95c.09-.15.13-.32.13-.5,0-.55-.45-1-1-1h0Zm0,2h0,0Z" style="fill: #2e2e2e;"/>
+      <polygon points="4.81 3.5 8.19 3.5 6.5 6.88 4.81 3.5" style="fill: #e8e8e8;"/>
+      <path d="m7.38,4l-.88,1.76-.88-1.76h1.76m1.62-1h0,0Zm0,0h-5l2.5,5,2.5-5h0Z" style="fill: #e8e8e8;"/>
+    </g>
+    <rect x="21.5" y="5.5" width="3" height="5" rx="1.5" ry="1.5" style="fill: none; stroke: #2e2e2e; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.03px;"/>
+    <rect x="15.5" y=".5" width="3" height="5" rx="1.5" ry="1.5" style="fill: none; stroke: #2e2e2e; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.03px;"/>
+    <line x1="23.2" y1="1.5" x2="16.8" y2="9.5" style="fill: none; stroke: #2e2e2e; stroke-linecap: round; stroke-linejoin: round; stroke-width: .76px;"/>
+    <line x1="23.4" y1="1.25" x2="16.6" y2="9.75" style="fill: none; stroke: #2e2e2e; stroke-linecap: round; stroke-linejoin: round;"/>
+  </g>
+</svg>

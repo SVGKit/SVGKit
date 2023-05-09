@@ -1,5 +1,5 @@
 #import "SVGKPointsAndPathsParser.h"
-
+#import "SVGKDefine_Private.h"
 #import "NSCharacterSet+SVGKExtensions.h"
 
 
@@ -745,6 +745,8 @@ static inline CGPoint SVGCurveReflectedControlPoint(SVGCurve prevCurve)
     CGPathAddLineToPoint(path, NULL, coord.x, coord.y);
 
     while (![scanner isAtEnd]) {
+		[SVGKPointsAndPathsParser readCommaAndWhitespace:scanner];
+		
         origin = isRelative ? coord : origin;
         [SVGKPointsAndPathsParser readCoordinate:scanner intoFloat:&xValue];
         horizCoord = CGPointMake(origin.x+xValue, origin.y);
