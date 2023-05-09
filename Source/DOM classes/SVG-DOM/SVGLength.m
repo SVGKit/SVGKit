@@ -121,11 +121,11 @@ static float cachedDevicePixelsPerInch;
     return [self pixelsValue];
 }
 
--(float) pixelsValueWithGradientDimension:(float)dimension
+-(float) pixelsValueWithGradientDimension:(float)dimension treatAsPercentage:(BOOL)treatAsPercentage
 {
     if (self.internalCSSPrimitiveValue.primitiveType == CSS_PERCENTAGE) {
         return dimension * self.value / 100.0;
-    } else if (self.internalCSSPrimitiveValue.primitiveType == CSS_NUMBER) {
+    } else if (treatAsPercentage && self.internalCSSPrimitiveValue.primitiveType == CSS_NUMBER) {
         if (self.value >= 0 && self.value <= 1) {
             return dimension * self.value;
         }

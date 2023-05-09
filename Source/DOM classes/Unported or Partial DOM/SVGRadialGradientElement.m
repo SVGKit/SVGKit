@@ -63,13 +63,13 @@
     // these should really be two separate code paths (objectBoundingBox and userSpaceOnUse), but we simplify the logic using `rectForRelativeUnits`
     CGFloat width = CGRectGetWidth(rectForRelativeUnits);
     CGFloat height = CGRectGetHeight(rectForRelativeUnits);
-    CGFloat cx = [svgCX pixelsValueWithGradientDimension:width];
-    CGFloat cy = [svgCY pixelsValueWithGradientDimension:height];
+    CGFloat cx = [svgCX pixelsValueWithGradientDimension:width treatAsPercentage:!inUserSpace];
+    CGFloat cy = [svgCY pixelsValueWithGradientDimension:height treatAsPercentage:!inUserSpace];
     CGFloat val = MIN(width, height);
-    CGFloat radius = [svgR pixelsValueWithGradientDimension:val];
+    CGFloat radius = [svgR pixelsValueWithGradientDimension:val treatAsPercentage:!inUserSpace];
     
-    CGFloat fx = [svgFX pixelsValueWithGradientDimension:width];
-    CGFloat fy = [svgFY pixelsValueWithGradientDimension:height];
+    CGFloat fx = [svgFX pixelsValueWithGradientDimension:width treatAsPercentage:!inUserSpace];
+    CGFloat fy = [svgFY pixelsValueWithGradientDimension:height treatAsPercentage:!inUserSpace];
     
     CGPoint startPoint = CGPointMake(cx, cy);
     CGPoint endPoint = CGPointMake(fx, fy);

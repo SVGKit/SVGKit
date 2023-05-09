@@ -70,10 +70,10 @@
     
     CGFloat width = CGRectGetWidth(rectForRelativeUnits);
     CGFloat height = CGRectGetHeight(rectForRelativeUnits);
-    CGFloat x1 = [gradientElement.x1 pixelsValueWithGradientDimension:width];
-    CGFloat y1 = [gradientElement.y1 pixelsValueWithGradientDimension:height];
-    CGFloat x2 = [gradientElement.x2 pixelsValueWithGradientDimension:width];
-    CGFloat y2 = [gradientElement.y2 pixelsValueWithGradientDimension:height];
+    CGFloat x1 = [gradientElement.x1 pixelsValueWithGradientDimension:width treatAsPercentage:!inUserSpace];
+    CGFloat y1 = [gradientElement.y1 pixelsValueWithGradientDimension:height treatAsPercentage:!inUserSpace];
+    CGFloat x2 = [gradientElement.x2 pixelsValueWithGradientDimension:width treatAsPercentage:!inUserSpace];
+    CGFloat y2 = [gradientElement.y2 pixelsValueWithGradientDimension:height treatAsPercentage:!inUserSpace];
     CGPoint gradientStartPoint = CGPointMake(x1, y1);
     CGPoint gradientEndPoint = CGPointMake(x2, y2);
     
@@ -126,16 +126,16 @@
     
     CGFloat width = CGRectGetWidth(rectForRelativeUnits);
     CGFloat height = CGRectGetHeight(rectForRelativeUnits);
-    CGFloat cx = [gradientElement.cx pixelsValueWithGradientDimension:width];
-    CGFloat cy = [gradientElement.cy pixelsValueWithGradientDimension:height];
+    CGFloat cx = [gradientElement.cx pixelsValueWithGradientDimension:width treatAsPercentage:!inUserSpace];
+    CGFloat cy = [gradientElement.cy pixelsValueWithGradientDimension:height treatAsPercentage:!inUserSpace];
     CGPoint startPoint = CGPointMake(cx, cy);
     
     CGFloat val = MIN(width, height);
-    CGFloat radius = [gradientElement.r pixelsValueWithGradientDimension:val];
-    CGFloat focalRadius = [gradientElement.fr pixelsValueWithGradientDimension:val];
+    CGFloat radius = [gradientElement.r pixelsValueWithGradientDimension:val treatAsPercentage:!inUserSpace];
+    CGFloat focalRadius = [gradientElement.fr pixelsValueWithGradientDimension:val treatAsPercentage:!inUserSpace];
     
-    CGFloat fx = [gradientElement.fx pixelsValueWithGradientDimension:width];
-    CGFloat fy = [gradientElement.fy pixelsValueWithGradientDimension:height];
+    CGFloat fx = [gradientElement.fx pixelsValueWithGradientDimension:width treatAsPercentage:!inUserSpace];
+    CGFloat fy = [gradientElement.fy pixelsValueWithGradientDimension:height treatAsPercentage:!inUserSpace];
     
     CGPoint gradientEndPoint = CGPointMake(fx, fy);
     CGPoint gradientStartPoint = startPoint;
