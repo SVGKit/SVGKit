@@ -112,7 +112,9 @@ CGImageRef SVGImageCGImage(UIImage *img)
 	/** Now we have some raw bytes, try to load using Apple's image loaders
 	 (will fail if the image is an SVG file)
 	 */
-	UIImage *image = [[UIImage alloc] initWithData:imageData];
+	UIImage *image;
+	if (imageData)
+		image = [[UIImage alloc] initWithData:imageData];
 	
     if( image == nil ) // NSData doesn't contain an imageformat Apple supports; might be an SVG instead
     {
