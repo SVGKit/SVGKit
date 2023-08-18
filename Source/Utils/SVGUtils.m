@@ -484,54 +484,56 @@ CGFloat SVGPercentageFromString (const char *string) {
 }
 
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close) {
-	CGMutablePathRef path = CGPathCreateMutable();
-	
-	size_t len = strlen(string);
-	
-	char accum[MAX_ACCUM];
-	bzero(accum, MAX_ACCUM);
-	
-	int accumIdx = 0, currComponent = 0;
-	
-	for (size_t n = 0; n <= len; n++) {
-		char c = string[n];
-		
-		if (c == '\n' || c == '\t' || c == ' ' || c == ',' || c == '\0') {
-			accum[accumIdx] = '\0';
-			
-			static float x, y;
-			
-			if (currComponent == 0 && accumIdx != 0) {
-				sscanf( accum, "%g", &x );
-				currComponent++;
-			}
-			else if (currComponent == 1) {
-				
-				sscanf( accum, "%g", &y );
-				
-				if (CGPathIsEmpty(path)) {
-					CGPathMoveToPoint(path, NULL, x, y);
-				}
-				else {
-					CGPathAddLineToPoint(path, NULL, x, y);
-				}
-				
-				currComponent = 0;
-			}
-			
-			bzero(accum, MAX_ACCUM);
-			accumIdx = 0;
-		}
-		else if (isdigit(c) || c == '-' || c == '.') { // is digit or decimal separator OR A MINUS SIGN!!! ?
-			accum[accumIdx++] = c;
-		}
-	}
-	
-	if (close) {
-		CGPathCloseSubpath(path);
-	}
-	
-	return path;
+    CGMutablePathRef path = CGPathCreateMutable();
+    const char *progressPtr = string;
+    boolean_t xScanned = false;
+    boolean_t commaScanned = false;
+    float x = 0.0;
+    
+    while (*progressPtr) {
+        if (isspace(*progressPtr)) {
+            progressPtr++;
+            continue;
+        }
+        
+        // There may or may not be a single comma between coordinates or coordinate pairs
+        if (!commaScanned && *progressPtr == ',') {
+            progressPtr++;
+            commaScanned = true;
+            continue;
+        }
+        
+        // Attempt to scan a float coordinate value
+        errno = 0;
+        const char *floatPtr = progressPtr;
+        float nextCoordinate = strtof(floatPtr, (char**)&progressPtr);
+        if (errno != 0 || floatPtr == progressPtr) {
+            SVGKitLogError(@"Unable to parse float from path: \"%s\" errno: %d", string, errno);
+            return path;
+        }
+        
+        // If we have a coordinate pair update the path, otherwise continue scanning
+        if (xScanned) {
+            if (CGPathIsEmpty(path)) {
+                CGPathMoveToPoint(path, NULL, x, nextCoordinate);
+            }
+            else {
+                CGPathAddLineToPoint(path, NULL, x, nextCoordinate);
+            }
+            xScanned = false;
+        }
+        else {
+            x = nextCoordinate;
+            xScanned = true;
+        }
+        commaScanned = false;
+    }
+    
+    if (close) {
+        CGPathCloseSubpath(path);
+    }
+    
+    return path;
 }
 
 CGColorRef CGColorWithSVGColor (SVGColor color) {
