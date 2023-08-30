@@ -38,7 +38,7 @@
 		
 		if( tempData == nil )
 		{
-            SVGKitLogError(@"Error internally in Apple's NSData trying to read from URL '%@'. Error = %@", u, errorWithNSData);
+            SVGKitLogError("Error internally in Apple's NSData trying to read from URL '%@'. Error = %@", u, errorWithNSData);
 		}
 		else
 			stream = [[NSInputStream alloc] initWithData:tempData];

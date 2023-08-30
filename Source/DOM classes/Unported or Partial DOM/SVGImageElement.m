@@ -103,9 +103,9 @@ CGImageRef SVGImageCGImage(UIImage *img)
             NSError *error = nil;
             imageData = [NSData dataWithContentsOfStream:stream initialCapacity:NSUIntegerMax error:&error];
             if( error )
-                SVGKitLogError(@"[%@] ERROR: unable to read stream from %@ into NSData: %@", [self class], _href, error);
+                SVGKitLogError("[%@] ERROR: unable to read stream from %@ into NSData: %@", [self class], _href, error);
         } else {
-            SVGKitLogError(@"[%@] ERROR: unable to load the source from URL: %@", [self class], _href);
+            SVGKitLogError("[%@] ERROR: unable to load the source from URL: %@", [self class], _href);
         }
 	}
 	
@@ -125,7 +125,7 @@ CGImageRef SVGImageCGImage(UIImage *img)
         
         if( effectiveSource != nil )
         {
-            SVGKitLogInfo(@"Attempting to interpret the image at URL as an embedded SVG link (Apple failed to parse it): %@", _href );
+            SVGKitLogInfo("Attempting to interpret the image at URL as an embedded SVG link (Apple failed to parse it): %@", _href );
             if( imageData != nil )
             {
                 /** NB: sources can only be used once; we've already opened the stream for the source

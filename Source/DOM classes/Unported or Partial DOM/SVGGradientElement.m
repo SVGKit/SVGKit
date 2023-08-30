@@ -87,7 +87,7 @@
     } else if ([gradientUnits isEqualToString:@"userSpaceOnUse"]) {
         return SVG_UNIT_TYPE_USERSPACEONUSE;
     } else {
-        SVGKitLogWarn(@"Unsupported gradientUnits: %@", gradientUnits);
+        SVGKitLogWarn("Unsupported gradientUnits: %@", gradientUnits);
         return SVG_UNIT_TYPE_UNKNOWN;
     }
 }
@@ -102,7 +102,7 @@
     } else if ([spreadMethod isEqualToString:@"repeat"]) {
         return SVGSpreadMethodRepeat;
     } else {
-        SVGKitLogWarn(@"Unsupported spreadMethod: %@", spreadMethod);
+        SVGKitLogWarn("Unsupported spreadMethod: %@", spreadMethod);
         return SVGSpreadMethodUnkown;
     }
 }

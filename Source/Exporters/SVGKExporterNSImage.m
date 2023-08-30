@@ -17,7 +17,7 @@
 {
 	if( [image hasSize] )
 	{
-		SVGKitLogVerbose(@"[%@] DEBUG: Generating a NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], image.size.width, image.size.height);
+		SVGKitLogVerbose("[%@] DEBUG: Generating a NSImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], image.size.width, image.size.height);
 
 		SVGKGraphicsBeginImageContextWithOptions( image.size, FALSE, [NSScreen mainScreen].backingScaleFactor);
 		CGContextRef context = SVGKGraphicsGetCurrentContext();

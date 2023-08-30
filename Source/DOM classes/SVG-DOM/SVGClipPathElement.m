@@ -28,7 +28,7 @@
         else if( [units isEqualToString:@"objectBoundingBox"] )
             clipPathUnits = SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
         else {
-            SVGKitLogWarn(@"Unknown clipPathUnits value %@", units);
+            SVGKitLogWarn("Unknown clipPathUnits value %@", units);
             NSError *error = [NSError errorWithDomain:@"SVGKit" code:1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                                  [NSString stringWithFormat:@"Unknown clipPathUnits value %@", units], NSLocalizedDescriptionKey,
                                                                                  nil]];

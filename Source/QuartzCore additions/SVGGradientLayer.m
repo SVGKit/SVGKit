@@ -38,11 +38,11 @@
     NSArray *colors = gradientElement.colors;
     NSArray *locations = gradientElement.locations;
     if (colors.count == 0) {
-        SVGKitLogWarn(@"[%@] colors count is zero", [self class]);
+        SVGKitLogWarn("[%@] colors count is zero", [self class]);
         return NULL;
     }
     if (colors.count != locations.count) {
-        SVGKitLogWarn(@"[%@] colors count : %lu != locations count : %lu", [self class], (unsigned long)colors.count, (unsigned long)locations.count);
+        SVGKitLogWarn("[%@] colors count : %lu != locations count : %lu", [self class], (unsigned long)colors.count, (unsigned long)locations.count);
         return NULL;
     }
     CGFloat locations_array[locations.count];
