@@ -3,7 +3,6 @@
 #import "CSSValue.h"
 #import "CSSValueList.h"
 #import "CSSPrimitiveValue.h"
-#import "CocoaLumberjack/DDFileLogger.h"
 
 #import "SVGKDefine_Private.h"
 
