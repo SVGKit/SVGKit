@@ -51,7 +51,7 @@
     SVGLength* svgFR = [SVGLength svgLengthFromNSString:frAttr.length > 0 ? frAttr : @"0%"];
     // This is a tempory workaround. Apple's `CAGradientLayer` does not support focal point for radial gradient. We have to use the low-level API `CGContextDrawRadialGradient` and using custom software-render for focal point. So it does not works for `SVGLayredView` which is hardware-render by CA render server.
     if (fxAttr.length > 0 || fyAttr.length > 0 || frAttr.length > 0) {
-        SVGKitLogWarn(@"The radialGradient element #%@ contains focal value: (fx:%@, fy: %@, fr:%@). The focul value is only supported on `SVGFastimageView` and it will be ignored when rendering in SVGLayredView.", [self getAttribute:@"id"], fxAttr, fyAttr, frAttr);
+        SVGKitLogWarn("The radialGradient element #%@ contains focal value: (fx:%@, fy: %@, fr:%@). The focul value is only supported on `SVGFastimageView` and it will be ignored when rendering in SVGLayredView.", [self getAttribute:@"id"], fxAttr, fyAttr, frAttr);
     }
     self.cx = svgCX;
     self.cy = svgCY;
@@ -146,10 +146,10 @@
         [gradientLayer setLocations:self.locations];
     }
     
-    SVGKitLogVerbose(@"[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
-    SVGKitLogVerbose(@"[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
-    SVGKitLogVerbose(@"[%@] set gradient layer colors = %@", [self class], self.colors);
-    SVGKitLogVerbose(@"[%@] set gradient layer locations = %@", [self class], self.locations);
+    SVGKitLogVerbose("[%@] set gradient layer start = %@", [self class], NSStringFromCGPoint(gradientLayer.startPoint));
+    SVGKitLogVerbose("[%@] set gradient layer end = %@", [self class], NSStringFromCGPoint(gradientLayer.endPoint));
+    SVGKitLogVerbose("[%@] set gradient layer colors = %@", [self class], self.colors);
+    SVGKitLogVerbose("[%@] set gradient layer locations = %@", [self class], self.locations);
     
     return gradientLayer;
 }
