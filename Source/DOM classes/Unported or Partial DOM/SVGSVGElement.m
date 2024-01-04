@@ -192,6 +192,40 @@
 	if( self.height.unitType == SVG_LENGTHTYPE_PERCENTAGE )
 		self.height = nil;
 	
+    if( [[self getAttribute:@"viewBox"] length] > 0 )
+    {
+        NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
+        if ([boxElements count] < 2) {
+            /* count should be 4 -- maybe they're comma separated like (x,y,w,h) */
+            boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
+        }
+        _viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
+    }
+    else
+    {
+        self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !
+    }
+    
+    /**
+     #802: If we have value `auto`for  width or height, and its `viewBox` has a large size, i.e. viewBox="0 0 10000 8500", app could crash due to Out Of Memory issue.
+     To fix it, we assign a proper value for its viewport, i.e. restricted to a viewport sized 1000x1000 should be fine for most  devices
+     */
+    if (self.width == nil || self.height == nil) {
+        if (SVGRectIsInitialized(_viewBox) && _viewBox.width > 0 && _viewBox.height > 0) {
+            CGFloat maxLength = 1000.0;
+            
+            if (_viewBox.width > maxLength || _viewBox.height > maxLength) {
+                CGFloat aspectRatio = 1000 / MAX(_viewBox.width, _viewBox.height);
+                
+                self.width = [SVGLength svgLengthFromNSString: [NSString stringWithFormat:@"%.0f", _viewBox.width * aspectRatio]];
+                self.height = [SVGLength svgLengthFromNSString: [NSString stringWithFormat:@"%.0f", _viewBox.height * aspectRatio]];
+            } else {
+                self.width = [SVGLength svgLengthFromNSString: [NSString stringWithFormat:@"%.0f", _viewBox.width]];
+                self.height = [SVGLength svgLengthFromNSString: [NSString stringWithFormat:@"%.0f", _viewBox.height]];
+            }
+        }
+    }
+    
     /* set the frameRequestedViewport appropriately (NB: spec doesn't allow for this but it REQUIRES it to be done and saved!) */
     if( self.width != nil && self.height != nil )
         self.requestedViewport = SVGRectMake( [self.x pixelsValue], [self.y pixelsValue], [self.width pixelsValue], [self.height pixelsValue] );
@@ -212,26 +246,8 @@
 	 */
 	self.viewport = self.requestedViewport; // renderer can/will change the .viewport, but .requestedViewport can only be set by the PARSER
 	
-	if( [[self getAttribute:@"viewBox"] length] > 0 )
-	{
-		NSArray* boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@" "];
-		if ([boxElements count] < 2) {
-			/* count should be 4 -- maybe they're comma separated like (x,y,w,h) */
-			boxElements = [[self getAttribute:@"viewBox"] componentsSeparatedByString:@","];
-		}
-		_viewBox = SVGRectMake([[boxElements objectAtIndex:0] floatValue], [[boxElements objectAtIndex:1] floatValue], [[boxElements objectAtIndex:2] floatValue], [[boxElements objectAtIndex:3] floatValue]);
-	}
-	else
-	{
-		self.viewBox = SVGRectUninitialized(); // VERY IMPORTANT: we MUST make it clear this was never initialized, instead of saying its 0,0,0,0 !		
-	}
-	
     [SVGHelperUtilities parsePreserveAspectRatioFor:self];
 
-	if( stringWidth == nil || stringWidth.length < 1 )
-		self.width = nil; // i.e. undefined
-	else
-		self.width = [SVGLength svgLengthFromNSString:[self getAttribute:@"width"]];
     // logging
     SVGKitLogVerbose(@"[%@] DEBUG INFO: set document viewBox = %@", [self class], NSStringFromSVGRect(self.viewBox));
 }
