@@ -284,6 +284,10 @@
 		4FD821F11AC69F6600E419D3 /* SVGSwitchElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */; };
 		55452BF719EC68A200B75A30 /* libSVGKit-iOS.2.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639618E16145D0400E58CCA /* libSVGKit-iOS.2.1.0.a */; };
 		55452C0E19EC6EC600B75A30 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6639633F16145DDC00E58CCA /* libxml2.dylib */; };
+		61E314DB2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 61E314DA2B455FDA009BDDBC /* SVGKDefine_Private.h */; };
+		61E314DC2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 61E314DA2B455FDA009BDDBC /* SVGKDefine_Private.h */; };
+		61E314DD2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 61E314DA2B455FDA009BDDBC /* SVGKDefine_Private.h */; };
+		61E314DE2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 61E314DA2B455FDA009BDDBC /* SVGKDefine_Private.h */; };
 		660D50011C4292A6004187D0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
 		660D50021C4292DB004187D0 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
 		660D50031C429377004187D0 /* CocoaLumberjack.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */; };
@@ -1052,6 +1056,7 @@
 		4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSwitchElement.h; sourceTree = "<group>"; };
 		4FD821EF1AC69F6600E419D3 /* SVGSwitchElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGSwitchElement.m; sourceTree = "<group>"; };
 		55452BF119EC68A200B75A30 /* SVGKit-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKit-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61E314DA2B455FDA009BDDBC /* SVGKDefine_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKDefine_Private.h; sourceTree = "<group>"; };
 		660D4FEE1C42927A004187D0 /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap"; sourceTree = "<group>"; };
 		660D4FEF1C42927A004187D0 /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap"; sourceTree = "<group>"; };
 		660D4FF01C42927A004187D0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
@@ -1295,7 +1300,6 @@
 		825CDAEF1BDA4E0E003C1C12 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		825CDAF11BDA4E16003C1C12 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
-		8A10E6DD24C57B6D005BB692 /* SVGKDefine_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGKDefine_Private.h; sourceTree = "<group>"; };
 		8A10E6E024C5A233005BB692 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		8AF4AD7024C7A72400999866 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9ED79A22179D87790048AA5B /* SVGGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientLayer.h; sourceTree = "<group>"; };
@@ -1432,6 +1436,14 @@
 			path = "SVGKitFramework-OSXTests";
 			sourceTree = "<group>";
 		};
+		61E314D92B455FDA009BDDBC /* privateHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				61E314DA2B455FDA009BDDBC /* SVGKDefine_Private.h */,
+			);
+			path = privateHeaders;
+			sourceTree = "<group>";
+		};
 		660D4FEB1C42927A004187D0 /* 3rd party frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1566,6 +1578,7 @@
 		6649DF6B16172CCC00AFE92A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				61E314D92B455FDA009BDDBC /* privateHeaders */,
 				8AF4AD6F24C7A5B400999866 /* include */,
 				66E8630C1688C2770059C9C4 /* DOM classes */,
 				66E8636F1688C2770059C9C4 /* Exporters */,
@@ -1583,7 +1596,6 @@
 				66E8638F1688C2780059C9C4 /* SVGKSource.h */,
 				66E863901688C2780059C9C4 /* SVGKSource.m */,
 				32EE37962173441400A23278 /* SVGKDefine.h */,
-				8A10E6DD24C57B6D005BB692 /* SVGKDefine_Private.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -2000,6 +2012,7 @@
 				321EAA912171ED6900640504 /* StyleSheetList.h in Headers */,
 				321EAADD2171ED6F00640504 /* SVGTextPositioningElement_Mutable.h in Headers */,
 				321EAAFE2171ED7E00640504 /* BaseClassForAllSVGBasicShapes.h in Headers */,
+				61E314DE2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */,
 				321EAB1D2171ED8D00640504 /* SVGKParserDOM.h in Headers */,
 				321EAABF2171ED6F00640504 /* SVGElementInstanceList_Internal.h in Headers */,
 				321EAA952171ED6900640504 /* MediaList.h in Headers */,
@@ -2222,6 +2235,7 @@
 				6694BB7B16967407007D0947 /* DOMGlobalSettings.h in Headers */,
 				663FD01416CAEF0D00CCBFB3 /* SVGHelperUtilities.h in Headers */,
 				663FD01B16CBEF5E00CCBFB3 /* BaseClassForAllSVGBasicShapes_ForSubclasses.h in Headers */,
+				61E314DB2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */,
 				661ADBF216CC2FBE006F4BC3 /* SVGTextPositioningElement.h in Headers */,
 				661ADBF716CC2FCA006F4BC3 /* SVGTextContentElement.h in Headers */,
 				661ADBFC16CC364F006F4BC3 /* SVGTextPositioningElement_Mutable.h in Headers */,
@@ -2361,6 +2375,7 @@
 				825CDB631BDA5063003C1C12 /* SVGKParserExtension.h in Headers */,
 				825CDB641BDA5064003C1C12 /* SVGKPointsAndPathsParser.h in Headers */,
 				825CDB651BDA5064003C1C12 /* CALayer+RecursiveClone.h in Headers */,
+				61E314DC2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */,
 				825CDB661BDA5064003C1C12 /* SVGGradientLayer.h in Headers */,
 				825CDB671BDA5064003C1C12 /* CALayerWithClipRender.h in Headers */,
 				825CDB681BDA5065003C1C12 /* CAShapeLayerWithClipRender.h in Headers */,
@@ -2500,6 +2515,7 @@
 				825CDBE31BDA50BF003C1C12 /* SVGKParserExtension.h in Headers */,
 				825CDBE41BDA50BF003C1C12 /* SVGKPointsAndPathsParser.h in Headers */,
 				825CDBE51BDA50BF003C1C12 /* CALayer+RecursiveClone.h in Headers */,
+				61E314DD2B455FDA009BDDBC /* SVGKDefine_Private.h in Headers */,
 				825CDBE61BDA50C0003C1C12 /* SVGGradientLayer.h in Headers */,
 				825CDBE71BDA50C0003C1C12 /* CALayerWithClipRender.h in Headers */,
 				825CDBE81BDA50C0003C1C12 /* CAShapeLayerWithClipRender.h in Headers */,

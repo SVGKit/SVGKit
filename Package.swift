@@ -30,6 +30,10 @@ let package = Package(
             path: "Source",
             exclude: [
                 "SwiftUI additions"
+            ],
+            publicHeadersPath: "include",
+            cSettings: [
+                .headerSearchPath("privateHeaders")
             ]
         ),
         .target(
