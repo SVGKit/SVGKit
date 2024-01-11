@@ -5,7 +5,7 @@
  */
 #import <Foundation/Foundation.h>
 
-#if !SVGKIT_MAC
+#if !(SVGKIT_MAC)
 #import "SVGKImage.h"
 
 @interface SVGKExporterUIImage : NSObject
