@@ -16,17 +16,36 @@
 	if( [image hasSize] )
 	{
 		SVGKitLogVerbose(@"[%@] DEBUG: Generating a UIImage using the current root-object's viewport (may have been overridden by user code): {0,0,%2.3f,%2.3f}", [self class], image.size.width, image.size.height);
-		
-		UIGraphicsBeginImageContextWithOptions( image.size, FALSE, [UIScreen mainScreen].scale );
-		CGContextRef context = UIGraphicsGetCurrentContext();
-		
-		[image renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
-		
-		UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-		
-		
-		return result;
+		/**
+         #802: Some SVG files may lead to app crash issue when using UIGraphicsBeginImageContextWithOptions on iOS 17 or later,
+         Use UIGraphicsImageRenderer when possible
+         */
+        if (@available(iOS 10.0, *)) {
+            UIGraphicsImageRendererFormat * rendererFormat = [[UIGraphicsImageRendererFormat alloc] init];
+            rendererFormat.opaque = NO;
+            rendererFormat.scale = [UIScreen mainScreen].scale;
+            
+            UIGraphicsImageRenderer * render = [[UIGraphicsImageRenderer alloc] initWithSize:image.size format:rendererFormat];
+            
+            UIImage* result = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+                CGContextRef context = rendererContext.CGContext;
+                
+                [image renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
+            }];
+            
+            return result;
+        } else {
+            UIGraphicsBeginImageContextWithOptions( image.size, FALSE, [UIScreen mainScreen].scale );
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            
+            [image renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
+            
+            UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            
+            return result;
+        }
 	}
 	else
 	{
