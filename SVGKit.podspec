@@ -17,10 +17,7 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/SVGKit/SVGKit.git', :tag => s.version.to_s }
   s.source_files = 'Source/*.{h,m}', 'Source/**/*.{h,m}'
   s.exclude_files = 'Source/include/*.h'
-  s.private_header_files = 'Source/SVGKDefine_Private.h'
-  s.ios.private_header_files = 'Source/AppKit additions/SVGKImageRep.h', 'Source/Exporters/SVGKExporterNSImage.h'
-  s.tvos.private_header_files = 'Source/AppKit additions/SVGKImageRep.h', 'Source/Exporters/SVGKExporterNSImage.h'
-  s.osx.private_header_files = 'Source/Exporters/SVGKExporterUIImage.h'
+  s.private_header_files = 'Source/privateHeaders/SVGKDefine_Private.h'
   s.libraries = 'xml2'
   s.framework = 'QuartzCore', 'CoreText'
   s.dependency 'CocoaLumberjack', '~> 3.0'
