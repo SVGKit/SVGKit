@@ -271,13 +271,14 @@
 		 1. It's a pure number, no units (in CSS, that's rare - but in SVG it's common, and defined by Spec to be "the same as PX")
 		 2. It's a string, one of many different CSS string types
 		 3. It's a corrupt file
+         4. It's a string, the x or y value of text is multi-valued. For example, x= '30 60 90 120'.
 		 */
 		
 		/**
 		 NSScaner is an Apple class that SPECIFICALLY will refuse to return a number if there are any non-numberic characters in the string */
 		NSScanner *scanner = [NSScanner scannerWithString: _cssText];
 		float floatToHoldTheOutput;
-		if( [scanner scanFloat:&floatToHoldTheOutput])
+		if( [scanner scanFloat:&floatToHoldTheOutput] && ![_cssText containsString:@" "])
 		{
 			/* Option 1: it's a pure number */
 			[self setFloatValue:CSS_NUMBER floatValue:floatToHoldTheOutput];

@@ -42,6 +42,11 @@
 	return [self.internalCSSPrimitiveValue getFloatValue:self.internalCSSPrimitiveValue.primitiveType];
 }
 
+-(NSString *)valueAsString
+{
+    return [self.internalCSSPrimitiveValue getStringValue];
+}
+
 -(SVG_LENGTH_TYPE)unitType
 {
 	switch( self.internalCSSPrimitiveValue.primitiveType )
