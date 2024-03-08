@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
                  'Moritz Pfeiffer' => 'moritz.pfeiffer@alp-phone.ch' }
   s.source   = { :git => 'https://github.com/SVGKit/SVGKit.git', :tag => s.version.to_s }
   s.source_files = 'Source/*.{h,m}', 'Source/**/*.{h,m}'
+  s.resources = 'SVGKit/Source/Resources/PrivacyInfo.xcprivacy'
   s.exclude_files = 'Source/include/*.h'
   s.private_header_files = 'Source/privateHeaders/SVGKDefine_Private.h'
   s.libraries = 'xml2'
