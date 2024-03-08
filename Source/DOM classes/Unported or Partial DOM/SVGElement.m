@@ -309,13 +309,29 @@
 			}
 			else if( [command isEqualToString:@"matrix"] )
 			{
-				CGFloat a = [(NSString*)[parameterStrings objectAtIndex:0] floatValue];
-				CGFloat b = [(NSString*)[parameterStrings objectAtIndex:1] floatValue];
-				CGFloat c = [(NSString*)[parameterStrings objectAtIndex:2] floatValue];
-				CGFloat d = [(NSString*)[parameterStrings objectAtIndex:3] floatValue];
-				CGFloat tx = [(NSString*)[parameterStrings objectAtIndex:4] floatValue];
-				CGFloat ty = [(NSString*)[parameterStrings objectAtIndex:5] floatValue];
-				
+				CGFloat a = 0,b = 0,c = 0,d = 0,tx = 0,ty = 0;
+				if (parameterStrings.count > 0) {
+				    a = [(NSString*)[parameterStrings objectAtIndex:0] floatValue];
+				}
+				if (parameterStrings.count > 1) {
+				    b = [(NSString*)[parameterStrings objectAtIndex:1] floatValue];
+				}
+				if (parameterStrings.count > 2) {
+				    c = [(NSString*)[parameterStrings objectAtIndex:2] floatValue];
+				}
+
+				if (parameterStrings.count > 3) {
+				    d = [(NSString*)[parameterStrings objectAtIndex:3] floatValue];
+				}
+
+				if (parameterStrings.count > 4) {
+				    tx = [(NSString*)[parameterStrings objectAtIndex:4] floatValue];
+				}
+
+				if (parameterStrings.count > 5) {
+				    ty = [(NSString*)[parameterStrings objectAtIndex:5] floatValue];
+				}
+                
 				CGAffineTransform nt = CGAffineTransformMake(a, b, c, d, tx, ty );
 				selfTransformable.transform = CGAffineTransformConcat( nt, selfTransformable.transform ); // Apple's method appears to be backwards, and not doing what Apple's docs state
 				
@@ -360,7 +376,11 @@
 			}
 			else if( [command isEqualToString:@"skewX"] )
 			{
-                CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
+                CGFloat degrees = 0;
+                if (parameterStrings.count > 0) {
+                    degrees = [[parameterStrings objectAtIndex:0] floatValue];
+                }
+
                 CGFloat radians = degrees * M_PI / 180.0;
                 
                 CGAffineTransform nt = CGAffineTransformMake(1, 0, tan(radians), 1, 0, 0);
@@ -368,7 +388,11 @@
 			}
 			else if( [command isEqualToString:@"skewY"] )
 			{
-                CGFloat degrees = [[parameterStrings objectAtIndex:0] floatValue];
+                CGFloat degrees = 0;
+                if (parameterStrings.count > 0) {
+                    degrees = [[parameterStrings objectAtIndex:0] floatValue];
+                }
+
                 CGFloat radians = degrees * M_PI / 180.0;
                 
                 CGAffineTransform nt = CGAffineTransformMake(1, tan(radians), 0, 1, 0, 0);
