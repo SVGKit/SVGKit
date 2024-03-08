@@ -129,8 +129,12 @@
             
             for (NSString* key in keys)
             {
-                if (![self hasAttribute:key] && [baseGradient hasAttribute:key])
+                if (![self hasAttribute:key] && [baseGradient hasAttribute:key]) {
                     [self setAttributeNS:svgNamespace qualifiedName:key value:[baseGradient getAttribute:key]];
+
+                    if (key == @"gradientTransform")
+                        self.transform = baseGradient.transform;
+                }
             }
             
         }
