@@ -24,6 +24,13 @@
 	</dict>
 	<key>Contributed</key>
 	<dict>
+		<key>SquareBlocks</key>
+		<dict>
+			<key>SquareBlocks</key>
+			<string>Public Domain</string>
+			<key>Source Local File</key>
+			<string>SquareBlocks.svg</string>
+		</dict>
 		<key>M-to-S-to-T</key>
 		<dict>
 			<key>Source Local File</key>

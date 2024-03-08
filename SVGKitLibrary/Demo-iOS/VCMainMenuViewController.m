@@ -32,7 +32,7 @@
 	
 	return TRUE;
 }
-		
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if( [segue.identifier isEqualToString:@"ViewURL"])
@@ -47,41 +47,41 @@
 		}
 	}
 	else if( [segue.identifier hasPrefix:@"W3CTestSuite"] )
-			  {
-				  VCAllSpecImages* nextVC = (VCAllSpecImages*) segue.destinationViewController;
-				  nextVC.pathInBundleToSVGSpecTestSuiteFolder = @"W3C_SVG_11_TestSuite";
-			  }
+	{
+		VCAllSpecImages* nextVC = (VCAllSpecImages*) segue.destinationViewController;
+		nextVC.pathInBundleToSVGSpecTestSuiteFolder = @"W3C_SVG_11_TestSuite";
+	}
 	else if( [segue.identifier hasPrefix:@"View"] )
 	{
-	NSString* sectionName = nil;
-	
+		NSString* sectionName = nil;
+		
 		if( [segue.identifier isEqualToString:@"ViewSVGSpec"])
-	{
-		sectionName = @"SVG Spec";
-	}
-	else if( [segue.identifier isEqualToString:@"ViewContributed"])
-	{
-		sectionName = @"Contributed";
-	}
-	else if( [segue.identifier isEqualToString:@"ViewWeb"])
-	{
-		sectionName = @"Online / from Web";
-	}
-	else if( [segue.identifier isEqualToString:@"ViewSpecialTests"])
-	{
-		sectionName = @"Special";
-	}
-	
-	NSString* path = [[NSBundle mainBundle] pathForResource:@"Licenses" ofType:@"plist"];
-	
-	NSDictionary* allLicenses = [NSDictionary dictionaryWithContentsOfFile:path];
-	
-	if( sectionName == nil )
-		[((VCGridOfImagesViewController*)segue.destinationViewController)  displayAllSectionsFromDictionary:allLicenses];
-	else
-	{
-		[((VCGridOfImagesViewController*)segue.destinationViewController) displayOneSectionNamed:sectionName fromDictionary:[allLicenses objectForKey:sectionName]];
-	}
+		{
+			sectionName = @"SVG Spec";
+		}
+		else if( [segue.identifier isEqualToString:@"ViewContributed"])
+		{
+			sectionName = @"Contributed";
+		}
+		else if( [segue.identifier isEqualToString:@"ViewWeb"])
+		{
+			sectionName = @"Online / from Web";
+		}
+		else if( [segue.identifier isEqualToString:@"ViewSpecialTests"])
+		{
+			sectionName = @"Special";
+		}
+		
+		NSString* path = [[NSBundle mainBundle] pathForResource:@"Licenses" ofType:@"plist"];
+		
+		NSDictionary* allLicenses = [NSDictionary dictionaryWithContentsOfFile:path];
+		
+		if( sectionName == nil )
+			[((VCGridOfImagesViewController*)segue.destinationViewController)  displayAllSectionsFromDictionary:allLicenses];
+		else
+		{
+			[((VCGridOfImagesViewController*)segue.destinationViewController) displayOneSectionNamed:sectionName fromDictionary:[allLicenses objectForKey:sectionName]];
+		}
 	}
 }
 
