@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Node.h"
+#import <Node.h>
 #import "Node+Mutable.h"
 
 #import "NodeList+Mutable.h"

@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 
 @class Node;
-#import "Node.h"
+#import <Node.h>
 
 @interface NamedNodeMap : NSObject </** needed so we can output SVG text in the [Node appendToXML:..] methods */ NSCopying>
 

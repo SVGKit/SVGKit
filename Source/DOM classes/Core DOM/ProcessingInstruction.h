@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import "Node.h"
+#import <Node.h>
 
 @interface ProcessingInstruction : Node
 @property(nonatomic,strong,readonly) NSString* target;
