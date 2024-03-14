@@ -67,7 +67,7 @@
     return [self.elementMap allKeys];
 }
 
-- (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
+- (DomNode*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(DomNode*) parentNode
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
 	{
@@ -186,7 +186,7 @@
 	return nil;
 }
 
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+-(void)handleEndElement:(DomNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	
 }
