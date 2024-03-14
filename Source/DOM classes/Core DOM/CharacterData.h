@@ -31,9 +31,9 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node;*/
-#import <Node.h>
+#import "DomNode.h"
 
-@interface CharacterData : Node
+@interface CharacterData : DomNode
 
 @property(nonatomic,strong,readonly) NSString* data;
 	

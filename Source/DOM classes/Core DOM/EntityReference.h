@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 /** objc won't allow this: @class Node; */
-#import <Node.h>
+#import "DomNode.h"
 
-@interface EntityReference : Node
+@interface EntityReference : DomNode
 
 @end

@@ -23,7 +23,7 @@
 
 #import "SVGDocument_Mutable.h" // so we can modify the SVGDocuments we're parsing
 
-#import <Node.h>
+#import "DomNode.h"
 
 #import "SVGKSourceString.h"
 #import "SVGKSourceURL.h"
