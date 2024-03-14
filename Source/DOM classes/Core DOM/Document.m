@@ -69,7 +69,7 @@
 }
 
 // Introduced in DOM Level 2:
--(Node*) importNode:(Node*) importedNode deep:(BOOL) deep
+-(DomNode*) importNode:(DomNode*) importedNode deep:(BOOL) deep
 {
 	NSAssert( FALSE, @"Not implemented." );
 	return nil;
