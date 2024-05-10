@@ -439,6 +439,22 @@ static float cachedDevicePixelsPerInch;
         @"iPad14,5": @264,
         @"iPad14,6": @264,
         
+        // iPad Air 11-inch (M2)
+        @"iPad14,8": @264,
+        @"iPad14,9": @264,
+        
+        // iPad Air 13-inch (M2)
+        @"iPad14,10": @264,
+        @"iPad14,11": @264,
+        
+        // iPad Pro 11-inch (M4)
+        @"iPad16,3": @264,
+        @"iPad16,4": @264,
+        
+        // iPad Pro 13-inch (M4)
+        @"iPad16,5": @264,
+        @"iPad16,6": @264,
+
         /// iPod
         // iPod Touch 1st Gen
         @"iPod1,1": @163,
