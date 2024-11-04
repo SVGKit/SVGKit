@@ -22,6 +22,8 @@
 
 #import "SVGKDefine_Private.h"
 
+#import "NSCharacterSet+SVGKExtensions.h"
+
 @interface SVGElement ()
 
 @property (nonatomic, copy) NSString *stringValue;
@@ -450,8 +452,7 @@
 
 - (NSRange) nextSelectorRangeFromText:(NSString *) selectorText startFrom:(NSRange) previous
 {
-    NSMutableCharacterSet *identifier = [NSMutableCharacterSet alphanumericCharacterSet];
-    [identifier addCharactersInString:@"-_"];
+    NSCharacterSet *identifier = [NSCharacterSet SVGAlphanumericAndDashesCharacterSet];
 	NSCharacterSet *selectorStart = [NSCharacterSet characterSetWithCharactersInString:@"#."];
     
     NSInteger start = -1;
@@ -491,10 +492,9 @@
         if( element.className != nil )
         {
             NSScanner *classNameScanner = [NSScanner scannerWithString:element.className];
-            NSMutableCharacterSet *whitespaceAndCommaSet = [NSMutableCharacterSet whitespaceCharacterSet];
+            NSCharacterSet *whitespaceAndCommaSet = [NSCharacterSet SVGWhitespaceAndCommaCharacterSet];
             NSString *substring;
             
-            [whitespaceAndCommaSet addCharactersInString:@","];
             selector = [selector substringFromIndex:1];
             __block BOOL matched = NO;
 

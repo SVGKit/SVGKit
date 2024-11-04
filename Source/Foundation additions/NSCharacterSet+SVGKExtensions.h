@@ -11,5 +11,7 @@
 @interface NSCharacterSet (SVGKExtensions)
 
 + (NSCharacterSet *)SVGWhitespaceCharacterSet;
++ (NSCharacterSet *)SVGWhitespaceAndCommaCharacterSet;
++ (NSCharacterSet *)SVGAlphanumericAndDashesCharacterSet;
 
 @end

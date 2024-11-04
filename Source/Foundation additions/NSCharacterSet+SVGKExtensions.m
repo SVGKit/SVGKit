@@ -15,8 +15,7 @@
  wsp:
  (#x20 | #x9 | #xD | #xA)
  */
-+ (NSCharacterSet *)SVGWhitespaceCharacterSet;
-{
++ (NSCharacterSet *)SVGWhitespaceCharacterSet {
 	static NSCharacterSet *sWhitespaceCharacterSet = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -28,4 +27,32 @@
     return sWhitespaceCharacterSet;
 }
 
+/**
+ Returns Apple's whitespace character set with an added comma.
+ It's expensive to both create and modify NSCharacterSet, so we ensure it is only done once since this set is used frequently.
+ */
++ (NSCharacterSet *)SVGWhitespaceAndCommaCharacterSet {
+    static NSCharacterSet *sWhitespaceAndCommaCharacterSet = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet *whitespaceSet = [NSMutableCharacterSet whitespaceCharacterSet];
+        [whitespaceSet addCharactersInString:@","];
+        sWhitespaceAndCommaCharacterSet = whitespaceSet;
+    });
+    return sWhitespaceAndCommaCharacterSet;
+}
+/**
+ Returns Apple's alphanumeric character set with an added dash and underscore.
+ It's expensive to both create and modify NSCharacterSet, so we ensure it is only done once since this set is used frequently.
+ */
++ (NSCharacterSet *)SVGAlphanumericAndDashesCharacterSet {
+    static NSCharacterSet *sAlphanumericAndDashesCharacterSet = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet *alphanumerics = [NSMutableCharacterSet alphanumericCharacterSet];
+        [alphanumerics addCharactersInString:@"-_"];
+        sAlphanumericAndDashesCharacterSet = alphanumerics;
+    });
+    return sAlphanumericAndDashesCharacterSet;
+}
 @end
