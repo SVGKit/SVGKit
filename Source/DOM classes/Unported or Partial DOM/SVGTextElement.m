@@ -424,7 +424,7 @@
         // delete ""
         NSString *fontFamily = [arg stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         // trim white space
-        [fontFamily stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        fontFamily = [fontFamily stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
         [fontFamilies addObject:fontFamily];
     }
     
