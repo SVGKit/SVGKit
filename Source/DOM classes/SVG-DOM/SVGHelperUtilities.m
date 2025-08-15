@@ -629,7 +629,7 @@
             }
         } else {
             if (![defaultColor isEqualToString:@"none"]) {
-                paintColorSVGColor = SVGColorFromString([actualPaintColor UTF8String]);
+                paintColorSVGColor = SVGColorFromString([defaultColor UTF8String]);
             } else {
                 return NULL;
             }
