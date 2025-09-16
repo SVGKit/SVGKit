@@ -303,6 +303,21 @@ static float cachedDevicePixelsPerInch;
         // iPhone 16 Plus, ppi 460/325
         @"iPhone17,4": @460,
         
+        // iPhone 16 e, ppi 460/325
+        @"iPhone17,5": @460,
+        
+        // iPhone 17 Pro
+        @"iPhone18,1": @460,
+
+        // iPhone 17 Pro Max
+        @"iPhone18,2": @460,
+        
+        // iPhone 17
+        @"iPhone18,3": @460,
+        
+        // iPhone Air
+        @"iPhone18,4": @460,
+        
         /// iPad
         // iPad 1
         @"iPad1,1": @132,
