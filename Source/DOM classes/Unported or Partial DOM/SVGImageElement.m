@@ -156,11 +156,14 @@ CGImageRef SVGImageCGImage(UIImage *img)
 	if( image != nil )
 	{
         CGRect frame = CGRectMake(_x, _y, _width, _height);
-        
-        if( imageData )
-            self.viewBox = SVGRectMake(0, 0, image.size.width, image.size.height);
-        else
-            self.viewBox = SVGRectMake(0, 0, _width, _height);
+
+        // only use image size if we don't have "width" or "height"
+        self.viewBox = SVGRectMake(
+            0,
+            0,
+            ((_width != 0) || !imageData) ? _width : image.size.width,
+            ((_height != 0) || !imageData) ? _height : image.size.height
+        );
         
         CGImageRef imageRef = SVGImageCGImage(image);
         BOOL imageRefHasBeenRetained = false; // only one codepath CREATES a new image, because of Apple's API; the rest use an existing reference
