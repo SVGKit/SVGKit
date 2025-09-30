@@ -225,8 +225,8 @@
 	
 	
 	CGSize scaleConvertImageToView;
-	CGSize tileSize;
-  CGSize translateSize;
+	CGSize tileSize = CGSizeZero;
+  CGSize translateSize = CGSizeZero;
 	if( cols == 1 && rows == 1 ) // if we are NOT tiling, then obey the UIViewContentMode as best we can!
 	{
 #ifdef USE_SUBLAYERS_INSTEAD_OF_BLIT
