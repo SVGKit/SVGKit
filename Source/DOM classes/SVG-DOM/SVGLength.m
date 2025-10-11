@@ -302,7 +302,25 @@ static float cachedDevicePixelsPerInch;
         
         // iPhone 16 Plus, ppi 460/325
         @"iPhone17,4": @460,
-        
+
+        // iPhone 16 e, ppi 460/325
+        @"iPhone17,5": @460,
+
+        // iPhone 17 Pro, ppi 460/325
+        @"iPhone18,1": @460,
+
+        // iPhone 17 Pro Max, ppi 460/325
+        @"iPhone18,2": @460,
+
+        // iPhone 17, ppi 460/325
+        @"iPhone18,3": @460,
+
+        // iPhone 17 Plus (or Air/Slim), ppi 460/325
+        @"iPhone18,4": @460,
+
+        // iPhone 17 Air/Slim (if separate model)
+        @"iPhone18,5": @460,
+
         /// iPad
         // iPad 1
         @"iPad1,1": @132,
@@ -462,7 +480,11 @@ static float cachedDevicePixelsPerInch;
         // iPad Air 13-inch (M2)
         @"iPad14,10": @264,
         @"iPad14,11": @264,
-        
+
+        // iPad 11th Gen, 2025
+        @"iPad15,8": @264,
+        @"iPad15,9": @264,
+
         // iPad mini 7
         @"iPad15,6": @326,
         @"iPad15,7": @326,
@@ -474,6 +496,14 @@ static float cachedDevicePixelsPerInch;
         // iPad Pro 13-inch (M4)
         @"iPad16,5": @264,
         @"iPad16,6": @264,
+
+        // iPad Air 11-inch (M3)
+        @"iPad17,5": @264,
+        @"iPad17,6": @264,
+
+        // iPad Air 13-inch (M3)
+        @"iPad17,7": @264,
+        @"iPad17,8": @264,
 
         /// iPod
         // iPod Touch 1st Gen
@@ -569,6 +599,15 @@ static float cachedDevicePixelsPerInch;
         
         // Apple Watch Ultra 2
         @"Watch7,5": @338,
+
+        // Apple Watch Series 10
+        @"Watch7,6": @326,
+        @"Watch7,7": @326,
+        @"Watch7,8": @326,
+        @"Watch7,9": @326,
+
+        // Apple Watch Ultra 3
+        @"Watch8,1": @326,
     };
     return modelsPPIManifest;
 }
@@ -607,10 +646,10 @@ static float cachedDevicePixelsPerInch;
         NSAssert(FALSE, @"Update your source code or disable assertions: you are using an iPad that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
         return 264.0f;
     }
-    
-    if( [platform hasPrefix:@"iWatch"]) // catch-all for higher-end devices not yet existing
+
+    if( [platform hasPrefix:@"Watch"]) // catch-all for higher-end devices not yet existing
     {
-        NSAssert(FALSE, @"Update your source code or disable assertions: you are using an iWatch that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
+        NSAssert(FALSE, @"Update your source code or disable assertions: you are using an Apple Watch that didn't exist when this code was written, we have no idea what the pixel count per inch is!");
         return 326.0f;
     }
     
