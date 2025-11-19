@@ -27,6 +27,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'CLANG_CXX_LANGUAGE_STANDARD' => 'gnu++11',
     'CLANG_CXX_LIBRARY' => 'libc++',
-    'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2'
+    'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2',
+    'DEFINES_MODULE' => 'YES'
   }
 end
