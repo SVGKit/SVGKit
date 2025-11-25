@@ -23,8 +23,12 @@
         if (@available(iOS 10.0, *)) {
             UIGraphicsImageRendererFormat * rendererFormat = [[UIGraphicsImageRendererFormat alloc] init];
             rendererFormat.opaque = NO;
+#if SVGKIT_VISION
+            rendererFormat.scale = 2.0;
+#else
             rendererFormat.scale = [UIScreen mainScreen].scale;
-            
+#endif
+
             UIGraphicsImageRenderer * render = [[UIGraphicsImageRenderer alloc] initWithSize:image.size format:rendererFormat];
             
             UIImage* result = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
@@ -35,15 +39,20 @@
             
             return result;
         } else {
-            UIGraphicsBeginImageContextWithOptions( image.size, FALSE, [UIScreen mainScreen].scale );
+#if SVGKIT_VISION
+            CGFloat scale = 2.0;
+#else
+            CGFloat scale = [UIScreen mainScreen].scale;
+#endif
+            UIGraphicsBeginImageContextWithOptions( image.size, FALSE, scale );
+
             CGContextRef context = UIGraphicsGetCurrentContext();
-            
+
             [image renderToContext:context antiAliased:shouldAntialias curveFlatnessFactor:multiplyFlatness interpolationQuality:interpolationQuality flipYaxis:FALSE];
-            
+
             UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
-            
-            
+
             return result;
         }
 	}

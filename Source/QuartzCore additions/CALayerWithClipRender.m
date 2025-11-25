@@ -64,6 +64,8 @@
         CGFloat scale = MAX(layer.contentsScale, layer.mask.contentsScale);
 #if SVGKIT_MAC
         scale = MAX(scale, [[NSScreen mainScreen] backingScaleFactor]);
+#elif SVGKIT_VISION
+        scale = 2.0;
 #else
         scale = MAX(scale, [[UIScreen mainScreen] scale]);
 #endif

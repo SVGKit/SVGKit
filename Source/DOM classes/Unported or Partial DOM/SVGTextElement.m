@@ -252,6 +252,8 @@
     
 #if SVGKIT_MAC
     label.contentsScale = [[NSScreen mainScreen] backingScaleFactor];
+#elif SVGKIT_VISION
+    label.contentsScale = 2.0;
 #else
     label.contentsScale = [[UIScreen mainScreen] scale];
 #endif
