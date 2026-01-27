@@ -183,6 +183,9 @@ SVGKParser* getCurrentlyParsingParser()
 	}
 	
 	self.currentParseRun = [SVGKParseResult new];
+	// Pass the identifier resolver block to the parse result so it's available
+	// to all SVGElement instances during their post-processing phase
+	self.currentParseRun.identifierResolver = self.identifierResolver;
 	_parentOfCurrentNode = nil;
 	[_stackOfParserExtensions removeAllObjects];
 	[[NSThread currentThread].threadDictionary setObject:self forKey:kThreadLocalCurrentlyActiveParser];
