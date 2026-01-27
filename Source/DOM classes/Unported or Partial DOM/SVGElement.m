@@ -208,9 +208,24 @@
 	// to be overriden by subclasses
 	// make sure super implementation is called
 	
-	if( [[self getAttribute:@"id"] length] > 0 )
+	/** Custom identifier resolution
+	 * 
+	 * If a custom identifierResolver block was provided to the parser, use it to determine
+	 * the identifier for this element. Otherwise, fall back to the default behavior of
+	 * using the 'id' attribute from the SVG node.
+	 * 
+	 * This allows applications to use custom business identifiers (e.g., from data-* attributes)
+	 * for quick CALayer lookup via SVGKImage.dictionaryOfLayers, even when SVG nodes don't
+	 * have 'id' attributes or have duplicate 'id' values.
+	 */
+	SVGKParserIdentifierResolver identifierResolver = parseResult.identifierResolver;
+	if (identifierResolver) {
+		self.identifier = identifierResolver(self);
+	} else if ( [[self getAttribute:@"id"] length] > 0 ) {
+		// Default behavior: use the 'id' attribute from the SVG node
 		self.identifier = [self getAttribute:@"id"];
-	
+	}
+    
 	/** CSS styles and classes */
 	if ( [self getAttributeNode:@"style"] )
 	{

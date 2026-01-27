@@ -67,6 +67,23 @@
 @property(nonatomic,strong) NSMutableArray* parserExtensions;
 @property(nonatomic,strong) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
 
+/*! Optional block to customize identifier generation for SVGElement instances
+ * 
+ * When set, this block will be called for each SVGElement during parsing to determine
+ * its identifier. If the block returns nil, the original 'id' attribute value will be used.
+ * 
+ * This is useful for scenarios where:
+ * - SVG nodes may not have 'id' attributes
+ * - SVG nodes may have duplicate 'id' values
+ * - You need business-specific identifiers for quick CALayer lookup via dictionaryOfLayers
+ * 
+ * The block is automatically passed to the parseResult during parsing, so it will be
+ * available to all SVGElement instances during their post-processing phase.
+ * 
+ * @see SVGKParserIdentifierResolver for block signature and usage examples
+ */
+@property(nonatomic,copy,nullable) SVGKParserIdentifierResolver identifierResolver;
+
 #pragma mark - NEW
 
 /**
