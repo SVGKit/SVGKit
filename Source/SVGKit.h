@@ -135,7 +135,9 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 
 #import "SVGKImage+CGContext.h"
 #import "SVGKExporterNSData.h"
+#if TARGET_OS_OSX
 #import "SVGKExporterNSImage.h"
+#endif
 #import "SVGKExporterUIImage.h"
 #import "SVGKSourceLocalFile.h"
 #import "SVGKSourceString.h"

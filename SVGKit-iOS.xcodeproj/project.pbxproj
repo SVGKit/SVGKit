@@ -969,6 +969,7 @@
 		9B2C38D62F59761100FE88B6 /* CocoaLumberjack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */; };
 		9B2C38D72F59761100FE88B6 /* CocoaLumberjack.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9B2C38D92F59762000FE88B6 /* CocoaLumberjack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */; };
+		9B75EA8C2F5A6C2F00545554 /* SVGKImageRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 321EAB5D2171FB8100640504 /* SVGKImageRep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 		BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2267,6 +2268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				825CDAF71BDA5057003C1C12 /* AppleSucksDOMImplementation.h in Headers */,
+				9B75EA8C2F5A6C2F00545554 /* SVGKImageRep.h in Headers */,
 				825CDAF81BDA5057003C1C12 /* Attr.h in Headers */,
 				825CDAF91BDA5057003C1C12 /* CDATASection.h in Headers */,
 				825CDAFA1BDA5057003C1C12 /* CharacterData.h in Headers */,
