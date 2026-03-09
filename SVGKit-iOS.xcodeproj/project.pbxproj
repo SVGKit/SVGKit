@@ -968,8 +968,8 @@
 		825CDCC61BDA531A003C1C12 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825CDAF31BDA4E1F003C1C12 /* libxml2.tbd */; };
 		9B2C38D62F59761100FE88B6 /* CocoaLumberjack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */; };
 		9B2C38D72F59761100FE88B6 /* CocoaLumberjack.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		9B2C38D92F59762000FE88B6 /* CocoaLumberjack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */; };
 		9B75EA8C2F5A6C2F00545554 /* SVGKImageRep.h in Headers */ = {isa = PBXBuildFile; fileRef = 321EAB5D2171FB8100640504 /* SVGKImageRep.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B75EAE52F5AD95300545554 /* CocoaLumberjack.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B75EAE42F5AD95300545554 /* CocoaLumberjack.xcframework */; };
 		9ED79A24179D87790048AA5B /* SVGGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ED79A22179D87790048AA5B /* SVGGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9ED79A25179D87790048AA5B /* SVGGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79A23179D87790048AA5B /* SVGGradientLayer.m */; };
 		BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = BD2F8C4E199D0792008AE06D /* SVGUnitTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1306,6 +1306,7 @@
 		8A10E6E024C5A233005BB692 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		8AF4AD7024C7A72400999866 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CocoaLumberjack.xcframework; path = Carthage/Build/CocoaLumberjack.xcframework; sourceTree = "<group>"; };
+		9B75EAE42F5AD95300545554 /* CocoaLumberjack.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CocoaLumberjack.xcframework; path = "/Users/dev12/Documents/workspace/ios-drjoy/Common/../Carthage/Build/CocoaLumberjack.xcframework"; sourceTree = "<absolute>"; };
 		9ED79A22179D87790048AA5B /* SVGGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGGradientLayer.h; sourceTree = "<group>"; };
 		9ED79A23179D87790048AA5B /* SVGGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGGradientLayer.m; sourceTree = "<group>"; };
 		BD1585721996B13F00461AA5 /* NSData+NSInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSInputStream.h"; sourceTree = "<group>"; };
@@ -1368,7 +1369,7 @@
 			files = (
 				825CDCC51BDA5314003C1C12 /* libxml2.tbd in Frameworks */,
 				825CDACB1BDA4D14003C1C12 /* CoreGraphics.framework in Frameworks */,
-				9B2C38D92F59762000FE88B6 /* CocoaLumberjack.xcframework in Frameworks */,
+				9B75EAE52F5AD95300545554 /* CocoaLumberjack.xcframework in Frameworks */,
 				825CDACA1BDA4D0F003C1C12 /* Foundation.framework in Frameworks */,
 				825CDAC91BDA4D09003C1C12 /* QuartzCore.framework in Frameworks */,
 			);
@@ -1554,6 +1555,7 @@
 		6639619016145D0400E58CCA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B75EAE42F5AD95300545554 /* CocoaLumberjack.xcframework */,
 				9B2C38D52F59761100FE88B6 /* CocoaLumberjack.xcframework */,
 				321EAA5A2171E73E00640504 /* QuartzCore.framework */,
 				321EAA582171E73800640504 /* Foundation.framework */,
