@@ -45,6 +45,8 @@
 
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*! RECOMMENDED: leave this set to 1 to get warnings about "legal, but poorly written" SVG */
 #define PARSER_WARN_FOR_ANONYMOUS_SVG_G_TAGS 1
 
@@ -62,7 +64,7 @@
 
 @property(nonatomic,strong,readonly) SVGKSource* source;
 @property(nonatomic,strong,readonly) NSMutableArray* externalStylesheets;
-@property(nonatomic,strong,readonly) SVGKParseResult* currentParseRun;
+@property(nonatomic,strong,readonly,nullable) SVGKParseResult* currentParseRun;
 
 @property(nonatomic,strong) NSMutableArray* parserExtensions;
 @property(nonatomic,strong) NSMutableDictionary* parserKnownNamespaces; /**< maps "uri" to "array of parser-extensions" */
@@ -110,7 +112,7 @@
  
  Returns the fully-parsed result, including any errors
  */
-+ (SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
++ (nullable SVGKParseResult*) parseSourceUsingDefaultSVGKParser:(SVGKSource*) source;
 
 /**
  This MIGHT now be safe to call multiple times on different threads
@@ -118,9 +120,9 @@
  that break libxml in horrible ways, see the source code to this class
  for more info)
  */
-- (SVGKParseResult*) parseSynchronously;
+- (nullable SVGKParseResult*) parseSynchronously;
 
-+(NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute;
++(nullable NSDictionary *) NSDictionaryFromCSSAttributes: (Attr*) styleAttribute;
 
 
 
@@ -137,3 +139,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END
