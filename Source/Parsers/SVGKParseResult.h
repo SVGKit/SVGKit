@@ -12,6 +12,8 @@
 
 @class SVGElement;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*! Block type for custom identifier resolution
  * 
  * This block allows you to customize how identifiers are generated for SVGElement instances
@@ -46,8 +48,8 @@ typedef NSString *_Nullable (^SVGKParserIdentifierResolver)(SVGElement* element)
 /** 0.0 = no parsing done yet, 0.x = partially parsed, 1.0 = parse complete (no fatal errors) */
 @property(nonatomic) double parseProgressFractionApproximate;
 
-@property(nonatomic,strong) SVGSVGElement* rootOfSVGTree; /**< both are needed, see spec */
-@property(nonatomic,strong) SVGDocument* parsedDocument; /**< both are needed, see spec */
+@property(nonatomic,strong,nullable) SVGSVGElement* rootOfSVGTree; /**< both are needed, see spec */
+@property(nonatomic,strong,nullable) SVGDocument* parsedDocument; /**< both are needed, see spec */
 
 @property(nonatomic,strong) NSMutableDictionary* namespacesEncountered; /**< maps "prefix" to "uri" */
 
@@ -74,3 +76,5 @@ typedef NSString *_Nullable (^SVGKParserIdentifierResolver)(SVGElement* element)
 #endif
 
 @end
+
+NS_ASSUME_NONNULL_END
