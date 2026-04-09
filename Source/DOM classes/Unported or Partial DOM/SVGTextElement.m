@@ -7,11 +7,37 @@
 #import "SVGUtils.h"
 #import "SVGTextLayer.h"
 #import "SVGKDefine_Private.h"
+#import "NodeList+Mutable.h"
 
 @implementation SVGTextElement
 
 @synthesize transform; // each SVGElement subclass that conforms to protocol "SVGTransformable" has to re-synthesize this to work around bugs in Apple's Objective-C 2.0 design that don't allow @properties to be extended by categories / protocols
 
+- (Node *)singleTspanChildForSimplePositioning
+{
+    Node *singleTspanChild = nil;
+    for (Node *childNode in self.childNodes.internalArray)
+    {
+        if (![childNode isKindOfClass:[Element class]])
+        {
+            continue;
+        }
+        
+        if (singleTspanChild != nil)
+        {
+            return nil;
+        }
+        
+        if (![childNode.localName isEqualToString:@"tspan"])
+        {
+            return nil;
+        }
+        
+        singleTspanChild = childNode;
+    }
+    
+    return singleTspanChild;
+}
 
 - (CALayer *) newLayer
 {
@@ -19,35 +45,64 @@
 	 BY DESIGN: we work out the positions of all text in ABSOLUTE space, and then construct the Apple CALayers and CATextLayers around
 	 them, as required.
 	 
-	 Because: Apple's classes REQUIRE us to provide a lot of this info up-front. Sigh
-	 And: SVGKit works by pre-baking everything into position (its faster, and avoids Apple's broken CALayer.transform property)
-	 */
-    if (self.x.valueAsString.length != 0 || self.y.valueAsString.length != 0)
+		 Because: Apple's classes REQUIRE us to provide a lot of this info up-front. Sigh
+		 And: SVGKit works by pre-baking everything into position (its faster, and avoids Apple's broken CALayer.transform property)
+		 */
+    SVGLength *resolvedX = self.x;
+    SVGLength *resolvedY = self.y;
+    NSString *resolvedTextContent = self.textContent;
+    NSString *resolvedXValue = self.x.valueAsString;
+    NSString *resolvedYValue = self.y.valueAsString;
+    Element *singleTspanChild = (Element *)[self singleTspanChildForSimplePositioning];
+    if (singleTspanChild != nil)
     {
-        // Simplify checks for x and y values being empty or not.
-        NSString *xValue = [self stringValueOrFormatted:self.x.valueAsString withValue:self.x.value];
-        NSString *yValue = [self stringValueOrFormatted:self.y.valueAsString withValue:self.y.value];
+        NSString *tspanXValue = [singleTspanChild getAttribute:@"x"];
+        NSString *tspanYValue = [singleTspanChild getAttribute:@"y"];
+        SVGLength *tspanX = [SVGLength svgLengthFromNSString:tspanXValue];
+        SVGLength *tspanY = [SVGLength svgLengthFromNSString:tspanYValue];
         
-        // Split the text based on the provided X and Y values.
-        NSArray<NSDictionary *> *splitItem = [self splitText:self.textContent basedOnX:xValue andY:yValue];
-        // If no split is needed, create a layer using the entire text content.
-        if (splitItem == nil) {
-            return [self newSubLayerWithX:self.x y:self.y textContent:self.textContent];
-        }
-        // If splitting is needed, create a parent layer and add sublayers for each text segment.
-        CALayer *layer = [CALayer new];
-        for (NSDictionary *item in splitItem)
+        if (tspanXValue.length != 0)
         {
+            resolvedX = tspanX;
+            resolvedXValue = tspanXValue;
+        }
+        if (tspanYValue.length != 0)
+        {
+            resolvedY = tspanY;
+            resolvedYValue = tspanYValue;
+        }
+        if (singleTspanChild.textContent.length > 0)
+        {
+            resolvedTextContent = singleTspanChild.textContent;
+        }
+    }
+    
+	    if (resolvedXValue.length != 0 || resolvedYValue.length != 0)
+	    {
+	        // Simplify checks for x and y values being empty or not.
+	        NSString *xValue = [self stringValueOrFormatted:resolvedXValue withValue:resolvedX.value];
+	        NSString *yValue = [self stringValueOrFormatted:resolvedYValue withValue:resolvedY.value];
+	        
+	        // Split the text based on the provided X and Y values.
+	        NSArray<NSDictionary *> *splitItem = [self splitText:resolvedTextContent basedOnX:xValue andY:yValue];
+	        // If no split is needed, create a layer using the entire text content.
+	        if (splitItem == nil) {
+	            return [self newSubLayerWithX:resolvedX y:resolvedY textContent:resolvedTextContent];
+	        }
+	        // If splitting is needed, create a parent layer and add sublayers for each text segment.
+	        CALayer *layer = [CALayer new];
+	        for (NSDictionary *item in splitItem)
+	        {
             CALayer *subLayer = [self newSubLayerWithX:[SVGLength svgLengthFromNSString:item[@"x"]]
                                                     y:[SVGLength svgLengthFromNSString:item[@"y"]]
                                           textContent:item[@"text"]];
             [layer addSublayer:subLayer];
         }
-        return layer;
-    }
-    
-    // If no position is specified, create a layer using the current X and Y values and the entire text content.
-    return [self newSubLayerWithX:self.x y:self.y textContent:self.textContent];
+	        return layer;
+	    }
+	    
+	    // If no position is specified, create a layer using the current X and Y values and the entire text content.
+	    return [self newSubLayerWithX:resolvedX y:resolvedY textContent:resolvedTextContent];
 }
 
 /// Helper method to return the string value or its formatted version if empty.
