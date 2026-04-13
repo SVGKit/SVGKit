@@ -27,6 +27,29 @@
 
 #import "SVGKDefine_Private.h"
 
+// Serialize all CALayerTree reads/writes across instances. Concurrent rasterization
+// (e.g. Texture building cells on a background queue) can crash inside SVGKit
+// (e.g. objc_release in -[SVGKImage CALayerTree]). Re-entrant from UIImage/export is OK.
+static const void *const kSVGKitSerialQueueKey = &kSVGKitSerialQueueKey;
+
+static dispatch_queue_t SVGKit_SerialQueue(void) {
+  static dispatch_queue_t q;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    q = dispatch_queue_create("org.svgkit.CALayerTree.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_set_specific(q, kSVGKitSerialQueueKey, (void *)1, NULL);
+  });
+  return q;
+}
+
+static void SVGKit_PerformSerial(void (^block)(void)) {
+  if (dispatch_get_specific(kSVGKitSerialQueueKey)) {
+    block();
+  } else {
+    dispatch_sync(SVGKit_SerialQueue(), block);
+  }
+}
+
 #if ENABLE_GLOBAL_IMAGE_CACHE_FOR_SVGKIMAGE_IMAGE_NAMED
 @interface SVGKImageCacheLine : NSObject
 @property(nonatomic) int numberOfInstances;
@@ -64,7 +87,8 @@
 #pragma mark - main class
 @implementation SVGKImage
 
-@synthesize DOMDocument, DOMTree, CALayerTree;
+@synthesize DOMDocument, DOMTree;
+@synthesize CALayerTree = _CALayerTree;
 
 @synthesize scale = _scale;
 @synthesize source;
@@ -968,23 +992,33 @@ static NSMutableDictionary *globalSVGKImageCache;
 }
 
 - (CALayer *)CALayerTree {
-  if (CALayerTree == nil) {
-    SVGKitLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one "
-                  @"(will cache it once generated)",
-                  [self class]);
+  __block CALayer *result = nil;
+  SVGKit_PerformSerial(^{
+    if (_CALayerTree == nil) {
+      SVGKitLogInfo(@"[%@] WARNING: no CALayer tree found, creating a new one "
+                    @"(will cache it once generated)",
+                    [self class]);
 
-    NSDate *startTime = [NSDate date];
-    self.CALayerTree = [self newCALayerTree];
+      NSDate *startTime = [NSDate date];
+      _CALayerTree = [self newCALayerTree];
 
-    SVGKitLogInfo(@"[%@] ...time taken to convert from DOM to fresh CALayers: "
-                  @"%2.3f seconds)",
-                  [self class], -1.0f * [startTime timeIntervalSinceNow]);
-  } else
-    SVGKitLogVerbose(
-        @"[%@] fetching CALayerTree: re-using cached CALayers (FREE))",
-        [self class]);
+      SVGKitLogInfo(@"[%@] ...time taken to convert from DOM to fresh CALayers: "
+                    @"%2.3f seconds)",
+                    [self class], -1.0f * [startTime timeIntervalSinceNow]);
+    } else
+      SVGKitLogVerbose(
+          @"[%@] fetching CALayerTree: re-using cached CALayers (FREE))",
+          [self class]);
 
-  return CALayerTree;
+    result = _CALayerTree;
+  });
+  return result;
+}
+
+- (void)setCALayerTree:(CALayer *)newLayerTree {
+  SVGKit_PerformSerial(^{
+    _CALayerTree = newLayerTree;
+  });
 }
 
 - (void)addSVGLayerTree:(CALayer *)layer
