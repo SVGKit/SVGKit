@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSMutableString *_storedChars;
 	//NSMutableArray *_elementStack;
 	NSMutableArray * _stackOfParserExtensions;
-	Node * _parentOfCurrentNode;
+	DomNode * _parentOfCurrentNode;
 }
 
 @property(nonatomic,strong,readonly) SVGKSource* source;
