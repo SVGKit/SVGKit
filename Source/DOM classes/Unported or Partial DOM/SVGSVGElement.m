@@ -16,6 +16,7 @@
 
 @implementation SVGSVGElement
 
+@synthesize transform; 
 @synthesize x;
 @synthesize y;
 @synthesize width;
