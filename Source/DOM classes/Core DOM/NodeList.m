@@ -15,7 +15,7 @@
 }
 
 
--(Node*) item:(NSUInteger) index
+-(DomNode*) item:(NSUInteger) index
 {
 	return [self.internalArray objectAtIndex:index];
 }

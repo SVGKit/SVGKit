@@ -1,6 +1,6 @@
 #import "SVGKParserDefsAndUse.h"
 
-#import "Node.h"
+#import "DomNode.h"
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 
@@ -33,7 +33,7 @@
 	instance.correspondingElement = original;
 	instance.correspondingUseElement = outermostUseElement;
 	
-	for( Node* subNode in original.childNodes )
+	for( DomNode* subNode in original.childNodes )
 	{
 		if( [subNode isKindOfClass:[SVGElement class]])
 		{
@@ -48,7 +48,7 @@
 	return instance;
 }
 
-- (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
+- (DomNode*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(DomNode*) parentNode
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
 	{	
@@ -109,7 +109,7 @@
 	return nil;
 }
 
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+-(void)handleEndElement:(DomNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	
 }

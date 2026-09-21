@@ -67,7 +67,7 @@ FOUNDATION_EXPORT const unsigned char SVGKitFramework_VersionString[];
 #import "NamedNodeMap.h"
 #import "NamedNodeMap_Iterable.h"
 #import "Node+Mutable.h"
-#import "Node.h"
+#import "DomNode.h"
 #import "NodeList+Mutable.h"
 #import "NodeList.h"
 #import "ProcessingInstruction.h"
