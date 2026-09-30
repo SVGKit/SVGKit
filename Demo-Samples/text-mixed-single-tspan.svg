@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="100" viewBox="0 0 240 100">
+  <rect width="240" height="100" fill="white"/>
+  <!-- All three letters must remain visible. -->
+  <text x="10" y="70" font-family="Helvetica" font-size="64" fill="black">A<tspan>B</tspan>C</text>
+</svg>
