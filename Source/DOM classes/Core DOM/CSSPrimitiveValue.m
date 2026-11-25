@@ -179,6 +179,15 @@
 			else
 				NSAssert( FALSE, @"Asked to convert a Percentage value to a different type (%i)", unitType );
 		}break;
+
+        case CSS_STRING:
+        {
+            if([self.internalString isEqualToString:@"auto"]) {
+                return 600.0; //As currenty the library doesn't support auto width/height, return some positive value to workaround the crash.
+            }
+            else
+                NSAssert( FALSE, @"Asked to convert a String value to a (%i) (couldn't find a valid conversion route). Float (4 d.p.) = %2.4f, String = %@", unitType, self.internalValue, self.internalString );
+        }break;
 		
 		default:
 		{
