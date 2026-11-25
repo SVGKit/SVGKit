@@ -20,6 +20,12 @@
     {
         if (![childNode isKindOfClass:[Element class]])
         {
+            // Only ignore formatting whitespace around the single tspan.
+            if ((childNode.nodeType == DOMNodeType_TEXT_NODE || childNode.nodeType == DOMNodeType_CDATA_SECTION_NODE) &&
+                [childNode.textContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
+            {
+                return nil;
+            }
             continue;
         }
         
